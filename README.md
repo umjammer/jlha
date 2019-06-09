@@ -1,4 +1,4 @@
-[![](https://jitpack.io/v/umjammer/jbinhex.svg)](https://jitpack.io/#umjammer/jbinhex)
+[![](https://jitpack.io/v/umjammer/jlha.svg)](https://jitpack.io/#umjammer/jlha)
 
 # LHA for Java
 
