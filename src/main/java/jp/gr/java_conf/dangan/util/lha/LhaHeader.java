@@ -1,9 +1,4 @@
-//start of LhaHeader.java
-//TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
-
 /**
- * LhaHeader.java
- *
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
@@ -31,33 +26,19 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
-//import classes and interfaces
-import java.io.File;
-import java.io.InputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.EOFException;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
-import java.util.Vector;
 import java.util.Hashtable;
 import java.util.Properties;
-import java.lang.Cloneable;
+import java.util.Vector;
+
 import jp.gr.java_conf.dangan.io.LittleEndian;
 import jp.gr.java_conf.dangan.util.MsdosDate;
-import jp.gr.java_conf.dangan.util.lha.CRC16;
-import jp.gr.java_conf.dangan.util.lha.LhaProperty;
-import jp.gr.java_conf.dangan.util.lha.LhaChecksum;
-import jp.gr.java_conf.dangan.util.lha.CompressMethod;
-
-//import exceptions
-import java.io.IOException;
-import java.io.EOFException;
-import java.io.UnsupportedEncodingException;
-import java.lang.NullPointerException;
-import java.lang.IllegalStateException;
-import java.lang.IllegalArgumentException;
-import java.lang.CloneNotSupportedException;
-import java.lang.ArrayIndexOutOfBoundsException;
-
-import java.lang.Error;
 
 
 /**
@@ -65,7 +46,7 @@ import java.lang.Error;
  * このクラスは java.util.zip パッケージでは ZipEntry と近いが、
  * ヘッダの入出力のためのユーティリティ関数を持つ点が違う。<br>
  * このクラスは set系メソッドで為された方が良いチェックを
- * getBytes() 時に行うように書かれている。その点は注意すること。<br>
+ * getBytes() 時に行うように書かれている。その点は注意すること。
  *
  * <pre>
  * -- revision history --
@@ -119,12 +100,6 @@ import java.lang.Error;
  */
 public class LhaHeader implements Cloneable {
 
-    //------------------------------------------------------------------
-    //  class field
-    //------------------------------------------------------------------
-    //  public static final int UNKNOWN
-    //  public static final int NO_CRC
-    //------------------------------------------------------------------
     /**
      * 不明を意味する値。
      * LhaHeader.getCRC(), LhaHeader.getCompressedSize(),
@@ -139,16 +114,6 @@ public class LhaHeader implements Cloneable {
      */
     public static final int NO_CRC = -2;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  file information
-    //------------------------------------------------------------------
-    //  private long OriginalSize
-    //  private Date LastModified
-    //  private String Path
-    //  private int CRC
-    //------------------------------------------------------------------
     /**
      * 圧縮前サイズ。
      * -1 は処理前のためサイズが不明であることを意味する。
@@ -174,16 +139,6 @@ public class LhaHeader implements Cloneable {
      */
     private int CRC;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  information of compressed data
-    //------------------------------------------------------------------
-    //  private String Method
-    //  private long CompressedSize
-    //  private int HeaderLevel
-    //  private byte OSID
-    //------------------------------------------------------------------
     /**
      * 圧縮法文字列。
      */
@@ -206,15 +161,6 @@ public class LhaHeader implements Cloneable {
      */
     private byte OSID;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  other
-    //------------------------------------------------------------------
-    //  private byte[] ExtraData
-    //  private byte Level0DosAttribute
-    //  private Vector ExtraExtHeaders
-    //------------------------------------------------------------------
     /**
      * レベル0ヘッダもしくは レベル1ヘッダの基本ヘッダ内の
      * 拡張情報があった場合、これを保存する。
@@ -231,15 +177,6 @@ public class LhaHeader implements Cloneable {
      */
     private Vector<byte[]> ExtraExtHeaders;
 
-    //------------------------------------------------------------------
-    //  constructor
-    //------------------------------------------------------------------
-    //  private LhaHeader()
-    //  public LhaHeader( String path )
-    //  public LhaHeader( String path, Date date )
-    //  public LhaHeader( byte[] HeaderData )
-    //  public LhaHeader( byte[] HeaderData, String encode )
-    //------------------------------------------------------------------
     /**
      * LhaHeaderの各値を初期化する。
      */
@@ -261,10 +198,9 @@ public class LhaHeader implements Cloneable {
      * path という名前を持つ LhaHeader のインスタンスを生成する。<br>
      * パスデリミタには File.separator を使用すること。<br>
      * path が パスデリミタでターミネートされている場合は
-     * ディレクトリであると解釈される。<br>
+     * ディレクトリであると解釈される。
      *
      * @param path パス名
-     *
      * @exception IllgelArgumentException
      *                path が null か 空文字列のいずれかである場合
      */
@@ -277,11 +213,10 @@ public class LhaHeader implements Cloneable {
      * LhaHeader のインスタンスを生成する。<br>
      * パスデリミタには File.separator を使用すること。<br>
      * path が パスデリミタでターミネートされている場合は
-     * ディレクトリであると解釈される。<br>
+     * ディレクトリであると解釈される。
      *
      * @param path パス名
      * @param date 最終更新日時
-     *
      * @exception IllgelArgumentException
      *                path が null か 空文字列のいずれかであるか、
      *                date が nullである場合。
@@ -307,10 +242,9 @@ public class LhaHeader implements Cloneable {
     /**
      * ヘッダデータから 新しい LhaHeader の
      * インスタンスを生成する。<br>
-     * エンコードは LhaUtil.DefaultEncode が使用される。<br>
+     * エンコードは LhaUtil.DefaultEncode が使用される。
      *
      * @param HeaderData ヘッダデータ
-     *
      * @exception IndexOutOfBoundsException
      *                ヘッダデータが壊れているため
      *                データがあると仮定した位置が
@@ -334,12 +268,11 @@ public class LhaHeader implements Cloneable {
 
     /**
      * ヘッダデータから 新しい LhaHeader の
-     * インスタンスを生成する。<br>
+     * インスタンスを生成する。
      *
      * @param HeaderData ヘッダデータ
      * @param encode 文字列情報を解釈する際に使用する
      *            エンコード
-     *
      * @exception IndexOutOfBoundsException
      *                ヘッダデータが壊れているため
      *                データがあると仮定した位置が
@@ -354,7 +287,7 @@ public class LhaHeader implements Cloneable {
     public LhaHeader(byte[] HeaderData, String encode) throws UnsupportedEncodingException {
         this();
         if (HeaderData != null && encode != null) {
-            this.importHeader(HeaderData, encode); //throw UnsupportedEncodingException
+            this.importHeader(HeaderData, encode); // throw UnsupportedEncodingException
         } else if (HeaderData == null) {
             throw new NullPointerException("HeaderData");
         } else {
@@ -362,44 +295,21 @@ public class LhaHeader implements Cloneable {
         }
     }
 
-    //------------------------------------------------------------------
-    //  method of java.lang.Cloneable
-    //------------------------------------------------------------------
-    //  public Object clone()
-    //------------------------------------------------------------------
     /**
-     * このオブジェクトのコピーを作成して返す。<br>
+     * このオブジェクトのコピーを作成して返す。
      *
      * @return このオブジェクトのコピー
      */
     public Object clone() {
         try {
             return super.clone();
-        } catch (CloneNotSupportedException exception) { //Ignore
+        } catch (CloneNotSupportedException exception) { // Ignore
             throw new Error("java.lang.Object is not support clone().");
         }
     }
 
-    //------------------------------------------------------------------
-    //  access method
-    //------------------------------------------------------------------
-    //  getter
-    //------------------------------------------------------------------
-    //  public String getCompressMethod()
-    //  public long getOriginalSize()
-    //  public long getCompressedSize()
-    //  public Date getLastModified()
-    //  public int getHeaderLevel()
-    //  public String getPath()
-    //  public int getCRC()
-    //  public byte getOSID()
-    //  protected byte[] getExtraData()
-    //  protected byte getLevel0DosAttribute()
-    //  private String getFileName()
-    //  private String getDirName()
-    //------------------------------------------------------------------
     /**
-     * データを圧縮した方法を識別する文字列を得る。<br>
+     * データを圧縮した方法を識別する文字列を得る。
      *
      * @return 圧縮法文字列
      */
@@ -408,14 +318,13 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * データの圧縮前のサイズを得る。<br>
+     * データの圧縮前のサイズを得る。
      *
      * @return 圧縮前のサイズ<br>
      *         LhaHeader( String path ) または
      *         LhaHeader( String path, Date date )で生成された
      *         インスタンスは初期状態ではサイズが不明のため
-     *         LhaHeader.UNKNOWN( -1 ) を返す。<br>
-     *
+     *         LhaHeader.UNKNOWN( -1 ) を返す。
      * @see LhaHeader#UNKNOWN
      */
     public long getOriginalSize() {
@@ -423,14 +332,13 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * データの圧縮後のサイズを得る。<br>
+     * データの圧縮後のサイズを得る。
      *
      * @return 圧縮後のサイズ<br>
      *         LhaHeader( String path ) または
      *         LhaHeader( String path, Date date )で生成された
      *         インスタンスは初期状態ではサイズが不明のため
-     *         LhaHeader.UNKNOWN( -1 ) を返す。<br>
-     *
+     *         LhaHeader.UNKNOWN( -1 ) を返す。
      * @see LhaHeader#UNKNOWN
      */
     public long getCompressedSize() {
@@ -438,7 +346,7 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * データの最終更新日時を得る。<br>
+     * データの最終更新日時を得る。
      *
      * @return データの最終更新日時
      */
@@ -447,7 +355,7 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * このヘッダのヘッダレベルを得る。<br>
+     * このヘッダのヘッダレベルを得る。
      *
      * @return ヘッダレベル
      */
@@ -463,7 +371,6 @@ public class LhaHeader implements Cloneable {
      * パスデリミタには File.separator を使用する。
      *
      * @return データの名前、もしくは パス名。
-     *
      * @see File#separator
      */
     public String getPath() {
@@ -471,7 +378,7 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * データのCRC16値を得る。<br>
+     * データのCRC16値を得る。
      *
      * @return データのCRC16値<br>
      *         LhaHeader( String path ) または
@@ -480,8 +387,7 @@ public class LhaHeader implements Cloneable {
      *         LhaHeader.UNKNOWN( -1 ) を返す。<br>
      *         レベル0ヘッダでCRC16値の
      *         フィールドが無い場合は
-     *         LhaHeader.NO_CRC( -2 )を返す<br>
-     *
+     *         LhaHeader.NO_CRC( -2 )を返す
      * @see LhaHeader#UNKNOWN
      * @see LhaHeader#NO_CRC
      */
@@ -542,7 +448,6 @@ public class LhaHeader implements Cloneable {
      * エンコードはデフォルトのものが使用される。
      *
      * @return バイト配列に格納したヘッダデータ
-     *
      * @exception IllegalStateException <br>
      *                <ol>
      *                <li>圧縮法文字列をencodeでバイト配列に
@@ -587,13 +492,11 @@ public class LhaHeader implements Cloneable {
 
     /**
      * このLhaHeaderのデータを使用して ヘッダデータを生成し、
-     * それをバイト配列の形で得る。<br>
+     * それをバイト配列の形で得る。
      *
      * @param encode 文字列情報を出力する際に使用する
      *            エンコード
-     *
      * @return バイト配列に格納したヘッダデータ
-     *
      * @exception IllegalStateException
      *                <ol>
      *                <li>圧縮法文字列をencodeでバイト配列に
@@ -632,32 +535,13 @@ public class LhaHeader implements Cloneable {
      *                サポートされない場合
      */
     public byte[] getBytes(String encode) throws UnsupportedEncodingException {
-        return this.exportHeader(encode); //throw UnsupportedEncodingException
+        return this.exportHeader(encode);
     }
 
-    //------------------------------------------------------------------
-    //  access method
-    //------------------------------------------------------------------
-    //  setter
-    //------------------------------------------------------------------
-    //  public void setCompressMethod( String method )
-    //  public void setOriginalSize( long size )
-    //  public void setCompressedSize( long size )
-    //  public void setLastModified( Date date )
-    //  public void setHeaderLevel( int level )
-    //  public void setPath( String path )
-    //  public void setCRC( int crc )
-    //  public void setOSID( byte id )
-    //  protected void setExtraData( byte[] data )
-    //  protected void setLevel0DosAttribute( byte attribute )
-    //  private void setFileName( String filename )
-    //  private void setDirName( String dirname )
-    //------------------------------------------------------------------
     /**
      * 圧縮法文字列を設定する。
      *
      * @param method 圧縮法文字列
-     *
      * @exception IllegalArgumentException
      *                圧縮法文字列が '-' で始まっていないか、
      *                '-' で終わっていない場合。
@@ -677,13 +561,11 @@ public class LhaHeader implements Cloneable {
      * LhaHeader.UNKNOWN( -1 ) は サイズ不明を示す
      * 特別な数字であるため設定できない。<br>
      * また レベル0,1,3 では処理できるのは 4バイト値のみであるため
-     * 4バイトで表現できない値を設定した場合 getByte() 時に例外を投げる。<br>
+     * 4バイトで表現できない値を設定した場合 getByte() 時に例外を投げる。
      *
      * @param size 圧縮前データサイズ
-     *
      * @exception IllegalArgumentException
      *                size に LhaHeader.UNKNOWN( -1 )を設定しようとした場合
-     *
      * @see LhaHeader#UNKNOWN
      */
     public void setOriginalSize(long size) {
@@ -699,13 +581,11 @@ public class LhaHeader implements Cloneable {
      * LhaHeader.UNKNOWN( -1 ) は サイズ不明を示す
      * 特別な数字であるため設定できない。<br>
      * また レベル0,1,3 では処理できるのは 4バイト値のみであるため
-     * 4バイトで表現できない値を設定した場合 getByte() 時に例外を投げる。<br>
+     * 4バイトで表現できない値を設定した場合 getByte() 時に例外を投げる。
      *
      * @param size 圧縮後データサイズ
-     *
      * @exception IllegalArgumentException
      *                size に LhaHeader.UNKNOWN を設定しようとした
-     *
      * @see LhaHeader#UNKNOWN
      */
     public void setCompressedSize(long size) {
@@ -723,10 +603,9 @@ public class LhaHeader implements Cloneable {
      * の日付で無ければならない。<br>
      * 範囲内でなくても このメソッドは例外を投げないことに注意す
      * ること。範囲内に無い場合は このメソッドは例外を投げないが、
-     * getBytes() 時に例外を投げる。<br>
+     * getBytes() 時に例外を投げる。
      *
      * @param date 最終更新日時
-     *
      * @exception IllegalArgumentException
      *                date に null を設定しようとした場合
      */
@@ -742,7 +621,7 @@ public class LhaHeader implements Cloneable {
      * ヘッダレベルを設定する。<br>
      * 現在設定できるのは 0,1,2,3 のみとなっている。<br>
      * ヘッダレベルの変更はパスの最大長や、LastModified の制限範囲
-     * などを変化させるため注意が必要である。<br>
+     * などを変化させるため注意が必要である。
      *
      * @param level ヘッダレベル
      */
@@ -757,13 +636,11 @@ public class LhaHeader implements Cloneable {
      * ヘッダレベルによって path にはバイト数の制限が存在するが、
      * このメソッドは制限を越えた場合でも 例外を投げないことに
      * 注意。制限を越えた場合は このメソッドは例外を投げないが、
-     * getBytes()時に例外を投げる<br>
+     * getBytes()時に例外を投げる
      *
      * @param path データの名前、もしくはファイル名
-     *
      * @exception IllegalArgumentException
      *                path が空文字列である場合
-     *
      * @see File#separator
      */
     public void setPath(String path) {
@@ -786,13 +663,11 @@ public class LhaHeader implements Cloneable {
      * 他のヘッダレベルの時に LhaHeader.NO_CRC( -2 )
      * を設定しても例外を投げないが getBytes() 時に
      * 例外を投げるので注意すること。<br>
-     * 有効なのは下位2バイトで、上位2バイトは無視される。<br>
+     * 有効なのは下位2バイトで、上位2バイトは無視される。
      *
      * @param crc データの圧縮前のCRC16値
-     *
      * @exception IllegalArgumentException
      *                crc に LhaHeader.UNKNOWN を設定しようとした
-     *
      * @see LhaHeader#UNKNOWN
      * @see LhaHeader#NO_CRC
      */
@@ -806,7 +681,7 @@ public class LhaHeader implements Cloneable {
 
     /**
      * このヘッダにOS固有の情報が含まれる場合、
-     * そのデータを解釈する手がかりとして OSの識別子を設定する。<br>
+     * そのデータを解釈する手がかりとして OSの識別子を設定する。
      *
      * @param id OS識別子
      */
@@ -819,7 +694,7 @@ public class LhaHeader implements Cloneable {
      * 拡張情報を設定する。<br>
      * 拡張情報のバイト数には制限が存在するが、このメソッドは
      * 制限を越えても例外を投げないことに注意。制限を越えた場合
-     * getBytes()時に例外を投げる。<br>
+     * getBytes()時に例外を投げる。
      *
      * @param data 拡張情報
      *            拡張情報を出力しない場合は nullを設定する。
@@ -856,17 +731,6 @@ public class LhaHeader implements Cloneable {
         this.Path = dirname + this.getFileName();
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  import base header
-    //------------------------------------------------------------------
-    //  private void importLevel0Header( byte[] HeaderData, String encode )
-    //  private void importLevel1Header( byte[] HeaderData, String encode )
-    //  private void importLevel2Header( byte[] HeaderData, String encode )
-    //  private void importLevel3Header( byte[] HeaderData, String encode )
-    //  private void importHeader( byte[] HeaderData, String encode )
-    //------------------------------------------------------------------
     /**
      * HeaderDataをレベル0ヘッダのデータとして解釈し、
      * このLhaHeaderに値を設定する。
@@ -874,15 +738,13 @@ public class LhaHeader implements Cloneable {
      * @param HeaderData ヘッダデータ
      * @param encode 文字列情報を解釈する際に使用する
      *            エンコード
-     *
      * @exception UnsupportedEncodingException
      *                encode で指定されたエンコードが
      *                サポートされない場合
      */
     private void importLevel0Header(byte[] HeaderData, String encode) throws UnsupportedEncodingException {
 
-        //------------------------------------------------------------------
-        //  ヘッダデータ位置の定義
+        // ヘッダデータ位置の定義
         final int HeaderSizeIndex = 0;
         final int HeaderSize = (HeaderData[HeaderSizeIndex] & 0xFF) + 2;
         final int CompressMethodIndex = 2;
@@ -898,22 +760,21 @@ public class LhaHeader implements Cloneable {
         final int ExtraDataIndex = 24 + PathLength;
         final int ExtraDataLength = HeaderSize - ExtraDataIndex;
 
-        //------------------------------------------------------------------
-        //  ヘッダデータ読み込み
-        this.Method = new String(HeaderData, CompressMethodIndex, 5, encode);//After Java 1.1 throw UnsupportedEncodingException
+        // ヘッダデータ読み込み
+        this.Method = new String(HeaderData, CompressMethodIndex, 5, encode);
         this.CompressedSize = (LittleEndian.readInt(HeaderData, CompressedSizeIndex)) & 0xFFFFFFFFL;
         this.OriginalSize = (LittleEndian.readInt(HeaderData, OriginalSizeIndex)) & 0xFFFFFFFFL;
         this.LastModified = new MsdosDate(LittleEndian.readInt(HeaderData, LastModifiedIndex));
         this.Level0DosAttribute = HeaderData[DosAttributeIndex];
         this.HeaderLevel = HeaderData[HeaderLevelIndex] & 0xFF;
-        this.Path = new String(HeaderData, PathIndex, PathLength, encode); //After Java 1.1 throw IndexOutOfBoundsException
+        this.Path = new String(HeaderData, PathIndex, PathLength, encode);
         this.Path = this.Path.replace('\\', File.separatorChar);
 
         if (CRCIndex + 2 <= HeaderSize) {
-            this.CRC = LittleEndian.readShort(HeaderData, CRCIndex); //throw ArrayIndexOutOfBoundsException
+            this.CRC = LittleEndian.readShort(HeaderData, CRCIndex);
             if (0 < ExtraDataLength) {
                 this.ExtraData = new byte[ExtraDataLength];
-                System.arraycopy(HeaderData, ExtraDataIndex, this.ExtraData, 0, ExtraDataLength); //throw IndexOutOfBoundsException
+                System.arraycopy(HeaderData, ExtraDataIndex, this.ExtraData, 0, ExtraDataLength);
             }
         } else {
             this.CRC = LhaHeader.NO_CRC;
@@ -927,15 +788,13 @@ public class LhaHeader implements Cloneable {
      * @param HeaderData ヘッダデータ
      * @param encode 文字列情報を解釈する際に使用する
      *            エンコード
-     *
      * @exception UnsupportedEncodingException
      *                encode で指定されたエンコードが
      *                サポートされない場合
      */
     private void importLevel1Header(byte[] HeaderData, String encode) throws UnsupportedEncodingException {
 
-        //------------------------------------------------------------------
-        //  基本ヘッダ内データ位置の定義
+        // 基本ヘッダ内データ位置の定義
         final int BaseHeaderSizeIndex = 0;
         final int BaseHeaderSize = (HeaderData[BaseHeaderSizeIndex] & 0xFF) + 2;
         final int CompressMethodIndex = 2;
@@ -951,38 +810,36 @@ public class LhaHeader implements Cloneable {
         final int ExtraDataIndex = 25 + FileNameLength;
         final int ExtraDataLength = BaseHeaderSize - ExtraDataIndex - 2;
 
-        //------------------------------------------------------------------
-        //  基本ヘッダデータ読み込み
-        this.Method = new String(HeaderData, CompressMethodIndex, 5, encode);//After Java 1.1 throws UnsupportedEncodingException
+        // 基本ヘッダデータ読み込み
+        this.Method = new String(HeaderData, CompressMethodIndex, 5, encode);
         this.CompressedSize = (LittleEndian.readInt(HeaderData, SkipSizeIndex)) & 0xFFFFFFFFL;
         this.OriginalSize = (LittleEndian.readInt(HeaderData, OriginalSizeIndex)) & 0xFFFFFFFFL;
         this.LastModified = new MsdosDate(LittleEndian.readInt(HeaderData, LastModifiedIndex));
         this.HeaderLevel = HeaderData[HeaderLevelIndex] & 0xFF;
-        this.Path = new String(HeaderData, FileNameIndex, FileNameLength, encode);//After Java 1.1 throw IndexOutOfBoundsException
-        this.CRC = LittleEndian.readShort(HeaderData, CRCIndex); //throw ArrayIndexOutOfBoundsException
-        this.OSID = HeaderData[OSIDIndex]; //throw ArrayIndexOutOfBoundsException
+        this.Path = new String(HeaderData, FileNameIndex, FileNameLength, encode);
+        this.CRC = LittleEndian.readShort(HeaderData, CRCIndex);
+        this.OSID = HeaderData[OSIDIndex];
         if (0 < ExtraDataLength) {
             this.ExtraData = new byte[ExtraDataLength];
-            System.arraycopy(HeaderData, ExtraDataIndex, this.ExtraData, 0, ExtraDataLength); //throw IndexOutOfBoundsException
+            System.arraycopy(HeaderData, ExtraDataIndex, this.ExtraData, 0, ExtraDataLength);
         }
 
-        //------------------------------------------------------------------
-        //  拡張ヘッダデータの読み込み
+        // 拡張ヘッダデータの読み込み
         boolean hasFileSize = false;
         int index = BaseHeaderSize;
-        int length = LittleEndian.readShort(HeaderData, index - 2); //throw ArrayIndexOutOfBoundsException
+        int length = LittleEndian.readShort(HeaderData, index - 2);
         while (length != 0) {
             if (!hasFileSize) {
                 this.CompressedSize -= length;
             }
 
-            this.importExtHeader(HeaderData, index, length - 2, encode); //throw IndexOutOfBoundsException
+            this.importExtHeader(HeaderData, index, length - 2, encode);
             if (HeaderData[index] == (byte) 0x42) {
                 hasFileSize = true;
             }
 
             index += length;
-            length = LittleEndian.readShort(HeaderData, index - 2); //throw ArrayIndexOutOfBoundsException
+            length = LittleEndian.readShort(HeaderData, index - 2);
         }
     }
 
@@ -993,15 +850,13 @@ public class LhaHeader implements Cloneable {
      * @param HeaderData ヘッダデータ
      * @param encode 文字列情報を解釈する際に使用する
      *            エンコード
-     *
      * @exception UnsupportedEncodingException
      *                encode で指定されたエンコードが
      *                サポートされない場合
      */
     private void importLevel2Header(byte[] HeaderData, String encode) throws UnsupportedEncodingException {
 
-        //------------------------------------------------------------------
-        //  基本ヘッダ内データ位置の定義
+        // 基本ヘッダ内データ位置の定義
         final int HeaderSizeIndex = 0;
         @SuppressWarnings("unused")
         final int HeaderSize = LittleEndian.readShort(HeaderData, HeaderSizeIndex);
@@ -1013,25 +868,23 @@ public class LhaHeader implements Cloneable {
         final int CRCIndex = 21;
         final int OSIDIndex = 23;
 
-        //------------------------------------------------------------------
-        //  基本ヘッダデータ読み込み
-        this.Method = new String(HeaderData, CompressMethodIndex, 5, encode);//After Java 1.1  throw UnsupportedEncodingException
+        // 基本ヘッダデータ読み込み
+        this.Method = new String(HeaderData, CompressMethodIndex, 5, encode);
         this.CompressedSize = (LittleEndian.readInt(HeaderData, CompressedSizeIndex)) & 0xFFFFFFFFL;
         this.OriginalSize = (LittleEndian.readInt(HeaderData, OriginalSizeIndex)) & 0xFFFFFFFFL;
         this.LastModified = new Date(LittleEndian.readInt(HeaderData, LastModifiedIndex) * 1000L);
         this.HeaderLevel = HeaderData[HeaderLevelIndex] & 0xFF;
-        this.CRC = LittleEndian.readShort(HeaderData, CRCIndex); //throw ArrayIndexOutOfBoundsException
-        this.OSID = HeaderData[OSIDIndex]; //throw ArrayIndexOutOfBoundsException
+        this.CRC = LittleEndian.readShort(HeaderData, CRCIndex);
+        this.OSID = HeaderData[OSIDIndex];
 
-        //------------------------------------------------------------------
-        //  拡張ヘッダデータの読み込み
+        // 拡張ヘッダデータの読み込み
         final int BaseHeaderSize = 26;
         int index = BaseHeaderSize;
-        int length = LittleEndian.readShort(HeaderData, index - 2); //throw ArrayIndexOutOfBoundsException
+        int length = LittleEndian.readShort(HeaderData, index - 2);
         while (length != 0) {
-            this.importExtHeader(HeaderData, index, length - 2, encode); //throw IndexOutOfBoundsException
+            this.importExtHeader(HeaderData, index, length - 2, encode);
             index += length;
-            length = LittleEndian.readShort(HeaderData, index - 2); //throw ArrayIndexOutOfBoundsException
+            length = LittleEndian.readShort(HeaderData, index - 2);
         }
     }
 
@@ -1042,15 +895,13 @@ public class LhaHeader implements Cloneable {
      * @param HeaderData ヘッダデータ
      * @param encode 文字列情報を解釈する際に使用する
      *            エンコード
-     *
      * @exception UnsupportedEncodingException
      *                encode で指定されたエンコードが
      *                サポートされない場合
      */
     private void importLevel3Header(byte[] HeaderData, String encode) throws UnsupportedEncodingException {
 
-        //------------------------------------------------------------------
-        //  基本ヘッダ内データ位置の定義
+        // 基本ヘッダ内データ位置の定義
         final int WordSizeIndex = 0;
         @SuppressWarnings("unused")
         final int WordSize = LittleEndian.readShort(HeaderData, WordSizeIndex);
@@ -1062,25 +913,23 @@ public class LhaHeader implements Cloneable {
         final int CRCIndex = 21;
         final int OSIDIndex = 23;
 
-        //------------------------------------------------------------------
-        //  基本ヘッダデータ読み込み
-        this.Method = new String(HeaderData, CompressMethodIndex, 5, encode);//After Java 1.1 throw UnsupportedEncodingException
+        // 基本ヘッダデータ読み込み
+        this.Method = new String(HeaderData, CompressMethodIndex, 5, encode);
         this.CompressedSize = (LittleEndian.readInt(HeaderData, CompressedSizeIndex)) & 0xFFFFFFFFL;
         this.OriginalSize = (LittleEndian.readInt(HeaderData, OriginalSizeIndex)) & 0xFFFFFFFFL;
         this.LastModified = new Date(LittleEndian.readInt(HeaderData, LastModifiedIndex) * 1000L);
         this.HeaderLevel = HeaderData[HeaderLevelIndex] & 0xFF;
-        this.CRC = LittleEndian.readShort(HeaderData, CRCIndex); //throw ArrayIndexOutOfBoundsException
-        this.OSID = HeaderData[OSIDIndex]; //throw ArrayIndexOutOfBoundsException
+        this.CRC = LittleEndian.readShort(HeaderData, CRCIndex);
+        this.OSID = HeaderData[OSIDIndex];
 
-        //------------------------------------------------------------------
-        //  拡張ヘッダデータの読み込み
+        // 拡張ヘッダデータの読み込み
         final int BaseHeaderSize = 32;
         int index = BaseHeaderSize;
-        int length = LittleEndian.readInt(HeaderData, index - 4); //throw ArrayIndexOutOfBoundsException
+        int length = LittleEndian.readInt(HeaderData, index - 4);
         while (length != 0) {
-            this.importExtHeader(HeaderData, index, length - 4, encode); //throw IndexOutOfBoundsException
+            this.importExtHeader(HeaderData, index, length - 4, encode);
             index += length;
-            length = LittleEndian.readInt(HeaderData, index - 4); //throw ArrayIndexOutOfBoundsException
+            length = LittleEndian.readInt(HeaderData, index - 4);
         }
     }
 
@@ -1091,7 +940,6 @@ public class LhaHeader implements Cloneable {
      * @param HeaderData ヘッダデータ
      * @param encode 文字列情報を解釈する際に使用する
      *            エンコード
-     *
      * @exception IndexOutOfBoundsException
      *                ヘッダデータが壊れているため
      *                データがあると仮定した位置が
@@ -1105,18 +953,18 @@ public class LhaHeader implements Cloneable {
     private void importHeader(byte[] HeaderData, String encode) throws UnsupportedEncodingException {
         final int HeaderLevelIndex = 20;
 
-        switch (HeaderData[HeaderLevelIndex]) { //throws ArrayIndexOutOfBoundsException
+        switch (HeaderData[HeaderLevelIndex]) {
         case 0:
-            this.importLevel0Header(HeaderData, encode); //After Java1.1 throws UnsupporetdEncodingException, InexOutOfBoundsException
+            this.importLevel0Header(HeaderData, encode);
             break;
         case 1:
-            this.importLevel1Header(HeaderData, encode); //After Java1.1 throws UnsupporetdEncodingException, InexOutOfBoundsException
+            this.importLevel1Header(HeaderData, encode);
             break;
         case 2:
-            this.importLevel2Header(HeaderData, encode); //After Java1.1 throws UnsupporetdEncodingException, InexOutOfBoundsException
+            this.importLevel2Header(HeaderData, encode);
             break;
         case 3:
-            this.importLevel3Header(HeaderData, encode); //After Java1.1 throws UnsupporetdEncodingException, InexOutOfBoundsException
+            this.importLevel3Header(HeaderData, encode);
             break;
 
         default:
@@ -1124,21 +972,6 @@ public class LhaHeader implements Cloneable {
         }
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  import extend header
-    //------------------------------------------------------------------
-    //  private void importCommonExtHeader( byte[] HeaderData, int index, int length )
-    //  private void importFileNameExtHeader( byte[] HeaderData, int index,
-    //                                        int length, String encode )
-    //  private void importDirNameExtHeader( byte[] HeaderData, int index,
-    //                                       int length, String encode )
-    //  protected void importExtendHeader( byte[] HeaderData, int index,
-    //                                     int length, String encode )
-    //  private void importExtHeader( byte[] HeaderData, int index,
-    //                                int length, String encode )
-    //------------------------------------------------------------------
     /**
      * HeaderData から 共通拡張ヘッダを読み込む。
      * このメソッドは共通拡張ヘッダに ヘッダ検査用のCRC16値以外
@@ -1150,16 +983,16 @@ public class LhaHeader implements Cloneable {
      * @param length 拡張ヘッダの長さ
      */
     private void importCommonExtHeader(byte[] HeaderData, int index, int length) {
-        //( 3 < length )の比較は 拡張ヘッダID(1byte)と
-        //ヘッダのCRC16値(2byte)以外にデータを含むかの判定。
-        //CRC16値以外の情報を持つなら その情報を保存するため
-        //ExtraExtHeadersに登録する。
+        // ( 3 < length )の比較は 拡張ヘッダID(1byte)と
+        // ヘッダのCRC16値(2byte)以外にデータを含むかの判定。
+        // CRC16値以外の情報を持つなら その情報を保存するため
+        // ExtraExtHeadersに登録する。
         if (3 < length) {
             if (this.ExtraExtHeaders == null) {
                 this.ExtraExtHeaders = new Vector<>();
             }
             byte[] ExtHeaderData = new byte[length];
-            System.arraycopy(HeaderData, index, ExtHeaderData, 0, length); //throws IndexOutOfBoundsException
+            System.arraycopy(HeaderData, index, ExtHeaderData, 0, length);
             this.ExtraExtHeaders.addElement(ExtHeaderData);
         }
     }
@@ -1172,7 +1005,6 @@ public class LhaHeader implements Cloneable {
      * @param length 拡張ヘッダの長さ
      * @param encode 文字列情報を解釈する際に使用する
      *            エンコード
-     *
      * @exception UnsupportedEncodingException
      *                この例外が投げられることは無い。
      */
@@ -1181,7 +1013,7 @@ public class LhaHeader implements Cloneable {
                                          int length,
                                          String encode) throws UnsupportedEncodingException {
 
-        this.setFileName(new String(HeaderData, index + 1, length - 1, encode));//throws IndexOutOfBoundsException
+        this.setFileName(new String(HeaderData, index + 1, length - 1, encode));
     }
 
     /**
@@ -1192,7 +1024,6 @@ public class LhaHeader implements Cloneable {
      * @param length 拡張ヘッダの長さ
      * @param encode 文字列情報を解釈する際に使用する
      *            エンコード
-     *
      * @exception UnsupportedEncodingException
      *                この例外が投げられることは無い。
      */
@@ -1253,7 +1084,6 @@ public class LhaHeader implements Cloneable {
      * @param length 拡張ヘッダの長さ
      * @param encode 文字列情報を解釈する際に使用する
      *            エンコード
-     *
      * @exception UnsupportedEncodingException
      *                encode で指定されたエンコードが
      *                サポートされない場合
@@ -1266,7 +1096,7 @@ public class LhaHeader implements Cloneable {
             this.ExtraExtHeaders = new Vector<>();
         }
         byte[] ExtHeaderData = new byte[length];
-        System.arraycopy(HeaderData, index, ExtHeaderData, 0, length); //throws IndexOutOfBoundsException
+        System.arraycopy(HeaderData, index, ExtHeaderData, 0, length);
         this.ExtraExtHeaders.addElement(ExtHeaderData);
     }
 
@@ -1279,7 +1109,6 @@ public class LhaHeader implements Cloneable {
      * @param length 拡張ヘッダの長さ
      * @param encode 文字列情報を解釈する際に使用する
      *            エンコード
-     *
      * @exception UnsupportedEncodingException
      *                encode で指定されたエンコードが
      *                サポートされない場合
@@ -1287,35 +1116,24 @@ public class LhaHeader implements Cloneable {
     private void importExtHeader(byte[] HeaderData, int index, int length, String encode) throws UnsupportedEncodingException {
         final int ExtendHeaderIDIndex = 0;
 
-        switch (HeaderData[index + ExtendHeaderIDIndex]) { //throws ArrayIndexOutOfBoundsException
+        switch (HeaderData[index + ExtendHeaderIDIndex]) {
         case 0x00:
-            this.importCommonExtHeader(HeaderData, index, length); //throws IndexOutOfBoundsException
+            this.importCommonExtHeader(HeaderData, index, length);
             break;
         case 0x01:
-            this.importFileNameExtHeader(HeaderData, index, length, encode); //throws IndexOutOfBoundsException
+            this.importFileNameExtHeader(HeaderData, index, length, encode);
             break;
         case 0x02:
-            this.importDirNameExtHeader(HeaderData, index, length, encode); //throws IndexOutOfBoundsException
+            this.importDirNameExtHeader(HeaderData, index, length, encode);
             break;
         case 0x42:
-            this.importFileSizeHeader(HeaderData, index, length); //throws IndexOutOfBoundsException
+            this.importFileSizeHeader(HeaderData, index, length);
             break;
         default:
-            this.importExtendHeader(HeaderData, index, length, encode); //throws UnsupportedEncodingException IndexOutOfBoundsException
+            this.importExtendHeader(HeaderData, index, length, encode);
         }
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  export base header
-    //------------------------------------------------------------------
-    //  private byte[] exportLevel0Header( String encode )
-    //  private byte[] exportLevel1Header( String encode )
-    //  private byte[] exportLevel2Header( String encode )
-    //  private byte[] exportLevel3Header( String encode )
-    //  private byte[] exportHeader( String encode )
-    //------------------------------------------------------------------
     /**
      * この LhaHeader の情報を使って
      * レベル0ヘッダのデータを生成する。<br>
@@ -1324,7 +1142,6 @@ public class LhaHeader implements Cloneable {
      *
      * @param encode 文字列情報を出力する際に使用する
      *            エンコード
-     *
      * @exception IllegalStateException <br>
      *                <ol>
      *                <li>圧縮法文字列をencodeでバイト配列に
@@ -1351,18 +1168,17 @@ public class LhaHeader implements Cloneable {
      */
     private byte[] exportLevel0Header(String encode) throws UnsupportedEncodingException {
 
-        //------------------------------------------------------------------
-        //  ヘッダ出力準備
+        // ヘッダ出力準備
         final int LHarcHeaderSize = 100;
         final int CRCLength = (this.CRC == LhaHeader.NO_CRC || this.CRC == LhaHeader.UNKNOWN ? 0 : 2);
-        byte[] CompressMethod = this.Method.getBytes(encode); //After Java 1.1 throw UnsupportedEncodingException
+        byte[] CompressMethod = this.Method.getBytes(encode);
         MsdosDate dosDate = null;
         try {
-            dosDate = this.LastModified instanceof MsdosDate ? (MsdosDate) this.LastModified : new MsdosDate(this.LastModified); //throw IllegalArgumentException
+            dosDate = this.LastModified instanceof MsdosDate ? (MsdosDate) this.LastModified : new MsdosDate(this.LastModified); // throw IllegalArgumentException
         } catch (IllegalArgumentException exception) {
             throw new IllegalStateException(exception.toString());
         }
-        byte[] PathData = this.Path.replace(File.separatorChar, '\\').getBytes(encode);//After Java 1.1
+        byte[] PathData = this.Path.replace(File.separatorChar, '\\').getBytes(encode);
         int HeaderLength = 22 + CRCLength + PathData.length;
         byte[] ExtraData;
         if (CRCLength != 0 && this.ExtraData != null && (HeaderLength + this.ExtraData.length <= LHarcHeaderSize)) {
@@ -1373,8 +1189,7 @@ public class LhaHeader implements Cloneable {
 
         HeaderLength += ExtraData.length;
 
-        //------------------------------------------------------------------
-        //  ヘッダ正当性チェック
+        // ヘッダ正当性チェック
         if (CompressMethod.length != 5) {
             throw new IllegalStateException("CompressMethod doesn't follow Format.");
         }
@@ -1407,14 +1222,13 @@ public class LhaHeader implements Cloneable {
             throw new IllegalStateException("OriginalSize must be 0 or more.");
         }
 
-        //------------------------------------------------------------------
-        //  ヘッダ出力
+        // ヘッダ出力
         byte[] HeaderData;
         try {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-            //出力するヘッダ長にはヘッダ先頭の ヘッダ長(1byte)、
-            //チェックサム(1byte)の2byteを含まないため -2 している。
+            // 出力するヘッダ長にはヘッダ先頭の ヘッダ長(1byte)、
+            // チェックサム(1byte)の2byteを含まないため -2 している。
             out.write(HeaderLength - 2);
             out.write(0);
             out.write(CompressMethod);
@@ -1452,7 +1266,6 @@ public class LhaHeader implements Cloneable {
      *
      * @param encode 文字列情報を出力する際に使用する
      *            エンコード
-     *
      * @exception IllegalStateException <br>
      *                <ol>
      *                <li>圧縮法文字列をencodeでバイト配列に
@@ -1483,18 +1296,17 @@ public class LhaHeader implements Cloneable {
      */
     private byte[] exportLevel1Header(String encode) throws UnsupportedEncodingException {
 
-        //------------------------------------------------------------------
-        //  ヘッダ出力準備
+        // ヘッダ出力準備
         final int LHarcHeaderSize = 100;
-        boolean hasFileName = false; //ファイル名情報を持つかを示す
-        boolean hasCRC = false; //ヘッダのCRC情報を持つかを示す
-        byte[] CompressMethod = this.Method.getBytes(encode); //After Java 1.1 throw UnsupportedEncodingException
+        boolean hasFileName = false; // ファイル名情報を持つかを示す
+        boolean hasCRC = false; // ヘッダのCRC情報を持つかを示す
+        byte[] CompressMethod = this.Method.getBytes(encode);
         MsdosDate dosDate;
         try {
             if (this.LastModified instanceof MsdosDate) {
                 dosDate = (MsdosDate) this.LastModified;
             } else {
-                dosDate = new MsdosDate(this.LastModified); //throw IllegalArgumentException
+                dosDate = new MsdosDate(this.LastModified);
             }
         } catch (IllegalArgumentException exception) {
             throw new IllegalStateException(exception.toString());
@@ -1509,7 +1321,7 @@ public class LhaHeader implements Cloneable {
         }
         HeaderLength += ExtraData.length;
 
-        byte[] FileName = this.getFileName().getBytes(encode); //After Java 1.1
+        byte[] FileName = this.getFileName().getBytes(encode);
         if (LHarcHeaderSize < HeaderLength + FileName.length) {
             FileName = new byte[0];
         } else {
@@ -1534,8 +1346,7 @@ public class LhaHeader implements Cloneable {
             }
         }
 
-        //------------------------------------------------------------------
-        //  ヘッダ正当性チェック
+        // ヘッダ正当性チェック
         if (CompressMethod.length != 5) {
             throw new IllegalStateException("CompressMethod doesn't follow Format.");
         }
@@ -1584,14 +1395,13 @@ public class LhaHeader implements Cloneable {
             throw new IllegalStateException("SkipSize must be 0xFFFFFFFF or less.");
         }
 
-        //------------------------------------------------------------------
-        //  ヘッダ出力
+        // ヘッダ出力
         byte[] HeaderData;
         try {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-            //出力するヘッダ長にはヘッダ先頭の ヘッダ長(1byte)、
-            //チェックサム(1byte)の2byteを含まないため -2 している。
+            // 出力するヘッダ長にはヘッダ先頭の ヘッダ長(1byte)、
+            // チェックサム(1byte)の2byteを含まないため -2 している。
             out.write(HeaderLength - 2);
             out.write(0);
             out.write(CompressMethod);
@@ -1643,7 +1453,6 @@ public class LhaHeader implements Cloneable {
      *
      * @param encode 文字列情報を出力する際に使用する
      *            エンコード
-     *
      * @exception IllegalStateException
      *                <ol>
      *                <li>圧縮法文字列をencodeでバイト配列に
@@ -1676,14 +1485,13 @@ public class LhaHeader implements Cloneable {
      */
     private byte[] exportLevel2Header(String encode) throws UnsupportedEncodingException {
 
-        //------------------------------------------------------------------
-        //  ヘッダ出力準備
+        // ヘッダ出力準備
         final int MaxHeaderLength = 65535;
-        boolean hasFileName = false; //ファイル名情報を持つかを示す
-        boolean hasCRC = false; //ヘッダのCRC情報を持つかを示す
-        boolean needExtraByte = false; //ヘッダの先頭を0x00にしないために余分な1バイトを付加するかを示す。
-        boolean hasFileSize = false; //ファイルサイズヘッダを持つか示す。
-        byte[] CompressMethod = this.Method.getBytes(encode); //After Java 1.1 throw UnsupportedEncodingException
+        boolean hasFileName = false; // ファイル名情報を持つかを示す
+        boolean hasCRC = false; // ヘッダのCRC情報を持つかを示す
+        boolean needExtraByte = false; // ヘッダの先頭を0x00にしないために余分な1バイトを付加するかを示す。
+        boolean hasFileSize = false; // ファイルサイズヘッダを持つか示す。
+        byte[] CompressMethod = this.Method.getBytes(encode); // After Java 1.1 throw UnsupportedEncodingException
         int HeaderLength = 26;
 
         boolean needFileSize = (0x0000000100000000L <= this.CompressedSize || 0x0000000100000000L <= this.OriginalSize);
@@ -1712,8 +1520,7 @@ public class LhaHeader implements Cloneable {
             needExtraByte = true;
         }
 
-        //------------------------------------------------------------------
-        //  ヘッダ正当性チェック
+        // ヘッダ正当性チェック
         if (CompressMethod.length != 5) {
             throw new IllegalStateException("CompressMethod doesn't follow Format.");
         }
@@ -1758,8 +1565,7 @@ public class LhaHeader implements Cloneable {
             throw new IllegalStateException("OriginalSize must be 0 or more.");
         }
 
-        //------------------------------------------------------------------
-        //  ヘッダ出力
+        // ヘッダ出力
         byte[] HeaderData;
         try {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -1800,13 +1606,11 @@ public class LhaHeader implements Cloneable {
 
     /**
      * この LhaHeader の情報を使って
-     * レベル3ヘッダのデータを生成する。<br>
+     * レベル3ヘッダのデータを生成する。
      *
      * @param encode 文字列情報を出力する際に使用する
      *            エンコード
-     *
      * @return バイト配列に格納したヘッダデータ
-     *
      * @exception IllegalStateException <br>
      *                <ol>
      *                <li>圧縮法文字列をencodeでバイト配列に
@@ -1835,9 +1639,9 @@ public class LhaHeader implements Cloneable {
      */
     private byte[] exportLevel3Header(String encode) throws UnsupportedEncodingException {
 
-        //ヘッダ出力準備
+        // ヘッダ出力準備
         final int WordSize = 4;
-        byte[] CompressMethod = this.Method.getBytes(encode); //After Java 1.1 throw UnsupportedEncodingException
+        byte[] CompressMethod = this.Method.getBytes(encode);
         int HeaderLength = 32;
 
         byte[][] ExtendHeaders = this.exportExtHeaders(encode);
@@ -1849,7 +1653,7 @@ public class LhaHeader implements Cloneable {
             }
         }
 
-        //ヘッダ正当性チェック
+        // ヘッダ正当性チェック
         if (CompressMethod.length != 5) {
             throw new IllegalStateException("CompressMethod doesn't follow Format.");
         }
@@ -1890,7 +1694,7 @@ public class LhaHeader implements Cloneable {
             throw new IllegalStateException("OriginalSize must be 0 or more.");
         }
 
-        //ヘッダ出力
+        // ヘッダ出力
         byte[] HeaderData;
         try {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -1929,11 +1733,10 @@ public class LhaHeader implements Cloneable {
 
     /**
      * このLhaHeaderのデータを使用して ヘッダデータを生成し、
-     * それをバイト配列の形で得る。<br>
+     * それをバイト配列の形で得る。
      *
      * @param encode 文字列情報を出力する際に使用する
      *            エンコード
-     *
      * @exception IllegalStateException
      *                <ol>
      *                <li>圧縮法文字列をencodeでバイト配列に
@@ -1974,30 +1777,18 @@ public class LhaHeader implements Cloneable {
     private byte[] exportHeader(String encode) throws UnsupportedEncodingException {
         switch (this.HeaderLevel) {
         case 0:
-            return this.exportLevel0Header(encode); //throw UnsupportedEncodingException IllegalStateException
+            return this.exportLevel0Header(encode);
         case 1:
-            return this.exportLevel1Header(encode); //throw UnsupportedEncodingException IllegalStateException
+            return this.exportLevel1Header(encode);
         case 2:
-            return this.exportLevel2Header(encode); //throw UnsupportedEncodingException IllegalStateException
+            return this.exportLevel2Header(encode);
         case 3:
-            return this.exportLevel3Header(encode); //throw UnsupportedEncodingException IllegalStateException
+            return this.exportLevel3Header(encode);
         default:
             throw new IllegalStateException("unknown header level \"" + this.HeaderLevel + "\".");
         }
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  export extend header
-    //------------------------------------------------------------------
-    //  private byte[] exportCommonExtHeader()
-    //  private byte[] exportFileNameExtHeader( String encode )
-    //  private byte[] exportDirNameExtHeader( String encode )
-    //  private byte[] exportFileSizeHeader()
-    //  protected byte[][] exportExtendHeaders( String encode )
-    //  private byte[][] exportExtHeader( String encode )
-    //------------------------------------------------------------------
     /**
      * 共通拡張ヘッダをバイト配列の形にして出力する。
      * このメソッドは ExtraExtHeaders に 共通拡張ヘッダの情報が
@@ -2026,14 +1817,13 @@ public class LhaHeader implements Cloneable {
      *
      * @param encode 文字列情報を出力する際に使用する
      *            エンコード
-     *
      * @return ファイル名拡張ヘッダをバイト配列に格納したもの
      */
     private byte[] exportFileNameExtHeader(String encode) throws UnsupportedEncodingException {
-        byte[] FileName = this.getFileName().getBytes(encode); //After Java 1.1
+        byte[] FileName = this.getFileName().getBytes(encode); // After Java 1.1
 
         byte[] ExtendHeaderData = new byte[FileName.length + 1];
-        ExtendHeaderData[0] = 0x01; //拡張ヘッダIDを設定
+        ExtendHeaderData[0] = 0x01; // 拡張ヘッダIDを設定
         System.arraycopy(FileName, 0, ExtendHeaderData, 1, FileName.length);
         return ExtendHeaderData;
     }
@@ -2046,7 +1836,6 @@ public class LhaHeader implements Cloneable {
      *
      * @param encode 文字列情報を出力する際に使用する
      *            エンコード
-     *
      * @return ディレクトリ名拡張ヘッダをバイト配列に格納したもの
      */
     private byte[] exportDirNameExtHeader(String encode) throws UnsupportedEncodingException {
@@ -2082,7 +1871,7 @@ public class LhaHeader implements Cloneable {
         }
 
         byte[] ExtendHeaderData = new byte[length + 1];
-        ExtendHeaderData[0] = 0x02; //拡張ヘッダIDを設定
+        ExtendHeaderData[0] = 0x02; // 拡張ヘッダIDを設定
         index = 1;
         for (int i = 0; i < vec.size(); i++) {
             byte[] array = vec.elementAt(i);
@@ -2125,10 +1914,8 @@ public class LhaHeader implements Cloneable {
      *
      * @param encode 文字列情報を出力する際に使用する
      *            エンコード
-     *
      * @return 1つの拡張ヘッダを1つのバイト配列に格納し、
      *         それを配列の形にしたもの
-     *
      * @exception UnsupportedEncodingException
      *                encode で指定されたエンコードが
      *                サポートされない場合
@@ -2152,10 +1939,8 @@ public class LhaHeader implements Cloneable {
      *
      * @param encode 文字列情報を出力する際に使用する
      *            エンコード
-     *
      * @return 1つの拡張ヘッダを1つのバイト配列に格納し、
      *         それを全ての拡張ヘッダの配列の形にしたもの
-     *
      * @exception UnsupportedEncodingException
      *                encode で指定されたエンコードが
      *                サポートされない場合
@@ -2194,16 +1979,10 @@ public class LhaHeader implements Cloneable {
         return ExtendHeaders;
     }
 
-    //------------------------------------------------------------------
-    //  shared method
-    //------------------------------------------------------------------
-    //  public static boolean checkHeaderData( byte[] HeaderData )
-    //------------------------------------------------------------------
     /**
      * ヘッダデータが正当であるかをチェックする。
      *
      * @param HeaderData ヘッダデータをバイト配列に格納したもの
-     *
      * @return ヘッダデータが正当であれば true
      *         違えば false
      */
@@ -2225,29 +2004,15 @@ public class LhaHeader implements Cloneable {
                 return LhaHeader.verifyHeaderCRC16(HeaderData);
 
             }
-        } catch (ArrayIndexOutOfBoundsException exception) { //Ignore
+        } catch (ArrayIndexOutOfBoundsException exception) { // Ignore
         }
         return false;
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  check header
-    //------------------------------------------------------------------
-    //  private static int getCRC16Position( byte[] HeaderData )
-    //  private static int calcHeaderChecksum( byte[] HeaderData )
-    //  private static int calcHeaderCRC16( byte[] HeaderData )
-    //  private static int readHeaderChecksum( byte[] HeaderData )
-    //  private static int readHeaderCRC16( byte[] HeaderData )
-    //  private static boolean verifyHeaderCRC16( byte[] HeaderData )
-    //  public static boolean checkHeaderData( byte[] HeaderData )
-    //------------------------------------------------------------------
     /**
      * ヘッダのCRC値を格納している位置を得る。
      *
      * @param HeaderData ヘッダデータをバイト配列に格納したもの
-     *
      * @return ヘッダのCRC値の位置<br>
      *         ヘッダがCRC値を持たない場合は -1
      */
@@ -2298,7 +2063,6 @@ public class LhaHeader implements Cloneable {
      * ヘッダデータからチェックサム値を計算する。
      *
      * @param HeaderData ヘッダデータをバイト配列に格納したもの
-     *
      * @return 計算されたヘッダのチェックサム値
      */
     private static int calcHeaderChecksum(byte[] HeaderData) {
@@ -2315,7 +2079,6 @@ public class LhaHeader implements Cloneable {
      * ヘッダデータからCRC16値を計算する。
      *
      * @param HeaderData ヘッダデータをバイト配列に格納したもの
-     *
      * @return 計算されたヘッダのCRC16値
      */
     private static int calcHeaderCRC16(byte[] HeaderData) {
@@ -2341,7 +2104,6 @@ public class LhaHeader implements Cloneable {
      * ヘッダデータからチェックサム値を読み込む。
      *
      * @param HeaderData ヘッダデータをバイト配列に格納したもの
-     *
      * @return ヘッダに記録されたチェックサム値
      */
     private static int readHeaderChecksum(byte[] HeaderData) {
@@ -2353,7 +2115,6 @@ public class LhaHeader implements Cloneable {
      * ヘッダデータからCRC16値を読み込む。
      *
      * @param HeaderData ヘッダデータをバイト配列に格納したもの
-     *
      * @return ヘッダに記録されたCRC16値
      */
     private static int readHeaderCRC16(byte[] HeaderData) {
@@ -2369,7 +2130,6 @@ public class LhaHeader implements Cloneable {
      * チェックサム値によってヘッダデータの正当性をチェックする。
      *
      * @param HeaderData ヘッダデータをバイト配列に格納したもの
-     *
      * @return チェックサム値によってヘッダデータの正当性が
      *         証明されれば true、
      *         証明されなければ false
@@ -2390,7 +2150,6 @@ public class LhaHeader implements Cloneable {
      * CRC16値によってヘッダデータの正当性をチェックする。
      *
      * @param HeaderData ヘッダデータをバイト配列に格納したもの
-     *
      * @return CRC16値によってヘッダデータの正当性が
      *         証明されれば true、
      *         証明されなければ false
@@ -2408,14 +2167,6 @@ public class LhaHeader implements Cloneable {
         }
     }
 
-    //------------------------------------------------------------------
-    //  shared method
-    //------------------------------------------------------------------
-    //  read header data from InputStream
-    //------------------------------------------------------------------
-    //  public static byte[] getFirstHeaderData( InputStream in )
-    //  public static byte[] getNextHeaderData( InputStream in )
-    //------------------------------------------------------------------
     /**
      * 入力ストリームから 最初のヘッダを読み込む。<br>
      * このメソッドはレベル1ヘッダ、もしくは レベル3ヘッダに
@@ -2426,14 +2177,12 @@ public class LhaHeader implements Cloneable {
      * また、InputStream のmark/reset の実装次第では
      * ストリーム終端付近で ヘッダに似たデータが存在すると
      * ヘッダを全て読み込もうとして EndOfStreamに達してしまい、
-     * reset()できずに その間のデータを読み落とす可能性がある。<br>
+     * reset()できずに その間のデータを読み落とす可能性がある。
      *
      * @param in ヘッダデータを読み込む入力ストリーム
      *            ストリームは mark/resetのサポートを必要とする。
-     *
      * @return 読み取られたヘッダデータ<br>
-     *         ヘッダが見つからずに EndOfStream に達した場合は null<br>
-     *
+     *         ヘッダが見つからずに EndOfStream に達した場合は null
      * @exception IOException 入出力エラーが発生した場合
      * @exception IllegalArgumentException
      *                in が mark/resetをサポートしない場合
@@ -2445,27 +2194,27 @@ public class LhaHeader implements Cloneable {
                 int stock2 = -1;
                 int read;
 
-                while (0 <= (read = in.read())) { //throw IOException
+                while (0 <= (read = in.read())) {
                     if (read == '-' && 0 < stock1) {
-                        in.mark(65536); //65536で保証できるのはlevel0,2のみ
-                        LhaHeader.ensureSkip(in, 3); //throw IOException
-                        if (in.read() == '-') { //throw IOException
-                            LhaHeader.ensureSkip(in, 13); //throw IOException
-                            int HeaderLevel = in.read(); //throw IOException
-                            in.reset(); //throw IOException
+                        in.mark(65536); // 65536 で保証できるのは level 0,2 のみ
+                        LhaHeader.ensureSkip(in, 3);
+                        if (in.read() == '-') {
+                            LhaHeader.ensureSkip(in, 13);
+                            int HeaderLevel = in.read();
+                            in.reset();
                             byte[] HeaderData;
                             switch (HeaderLevel) {
                             case 0:
-                                HeaderData = LhaHeader.readLevel0HeaderData(stock1, stock2, read, in); //throw IOException
+                                HeaderData = LhaHeader.readLevel0HeaderData(stock1, stock2, read, in);
                                 break;
                             case 1:
-                                HeaderData = LhaHeader.readLevel1HeaderData(stock1, stock2, read, in); //throw IOException
+                                HeaderData = LhaHeader.readLevel1HeaderData(stock1, stock2, read, in);
                                 break;
                             case 2:
-                                HeaderData = LhaHeader.readLevel2HeaderData(stock1, stock2, read, in); //throw IOException
+                                HeaderData = LhaHeader.readLevel2HeaderData(stock1, stock2, read, in);
                                 break;
                             case 3:
-                                HeaderData = LhaHeader.readLevel3HeaderData(stock1, stock2, read, in); //throw IOException
+                                HeaderData = LhaHeader.readLevel3HeaderData(stock1, stock2, read, in);
                                 break;
                             default:
                                 HeaderData = null;
@@ -2474,12 +2223,12 @@ public class LhaHeader implements Cloneable {
                             if (HeaderData != null && LhaHeader.checkHeaderData(HeaderData))
                                 return HeaderData;
                         }
-                        in.reset(); //throw IOException
+                        in.reset();
                     }
                     stock1 = stock2;
                     stock2 = read;
                 }
-            } catch (EOFException exception) { //Ignore
+            } catch (EOFException exception) { // Ignore
             }
             return null;
         } else {
@@ -2496,14 +2245,12 @@ public class LhaHeader implements Cloneable {
      * 可能性がある。<br>
      * また、ストリーム終端付近で ヘッダに似たデータが存在する
      * と ヘッダを全て読み込もうとして EndOfStreamに達してしまい、
-     * reset()できずに その間のデータを読み落とす可能性がある。<br>
+     * reset()できずに その間のデータを読み落とす可能性がある。
      *
      * @param in ヘッダデータを読み込む入力ストリーム
      *            ストリームは mark/resetのサポートを必要とする。
-     *
      * @return 読み取られたヘッダデータ<br>
-     *         ヘッダが見つからずに EndOfStream に達した場合は null<br>
-     *
+     *         ヘッダが見つからずに EndOfStream に達した場合は null
      * @exception IOException 入出力エラーが発生した場合
      * @exception IllegalArgumentException
      *                in が mark/resetをサポートしない場合
@@ -2511,30 +2258,30 @@ public class LhaHeader implements Cloneable {
     public static byte[] getNextHeaderData(InputStream in) throws IOException {
         if (in.markSupported()) {
             try {
-                int first = in.read(); //throw IOException
-                if (0 < first) { // 負の値は EndOfStreamに到達、 0の場合は書庫終端に到達
-                    int second = in.read(); //throw IOException
-                    int third = in.read(); //throw IOException
-                    in.mark(65536); //65536で保証できるのはlevel0,2のみ
-                    LhaHeader.ensureSkip(in, 3); //throw IOException
-                    int seventh = in.read(); //throw IOException
+                int first = in.read();
+                if (0 < first) { // 負の値は EndOfStream に到達、 0 の場合は書庫終端に到達
+                    int second = in.read();
+                    int third = in.read();
+                    in.mark(65536); // 65536 で保証できるのは level 0, 2 のみ
+                    LhaHeader.ensureSkip(in, 3);
+                    int seventh = in.read();
                     if (third == '-' && seventh == '-') {
-                        LhaHeader.ensureSkip(in, 13); //throw IOException
-                        int HeaderLevel = in.read(); //throw IOException
+                        LhaHeader.ensureSkip(in, 13);
+                        int HeaderLevel = in.read();
                         in.reset();
                         byte[] HeaderData;
                         switch (HeaderLevel) {
                         case 0:
-                            HeaderData = LhaHeader.readLevel0HeaderData(first, second, third, in);//throw IOException
+                            HeaderData = LhaHeader.readLevel0HeaderData(first, second, third, in);
                             break;
                         case 1:
-                            HeaderData = LhaHeader.readLevel1HeaderData(first, second, third, in);//throw IOException
+                            HeaderData = LhaHeader.readLevel1HeaderData(first, second, third, in);
                             break;
                         case 2:
-                            HeaderData = LhaHeader.readLevel2HeaderData(first, second, third, in);//throw IOException
+                            HeaderData = LhaHeader.readLevel2HeaderData(first, second, third, in);
                             break;
                         case 3:
-                            HeaderData = LhaHeader.readLevel3HeaderData(first, second, third, in);//throw IOException
+                            HeaderData = LhaHeader.readLevel3HeaderData(first, second, third, in);
                             break;
                         default:
                             HeaderData = null;
@@ -2545,7 +2292,7 @@ public class LhaHeader implements Cloneable {
                         }
                     }
                 }
-            } catch (EOFException exception) { //Ignore
+            } catch (EOFException exception) { // Ignore
             }
             return null;
         } else {
@@ -2553,20 +2300,6 @@ public class LhaHeader implements Cloneable {
         }
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  read header data
-    //------------------------------------------------------------------
-    //  private static byte[] readLevel0HeaderData( int HeaderLength,
-    //                 int HeaderChecksum, int CompressMethod1, InputStream in )
-    //  private static byte[] readLevel1HeaderData( int BaseHeaderLength,
-    //             int BaseHeaderChecksum, int CompressMethod1, InputStream in )
-    //  private static byte[] readLevel2HeaderData( int HeaderLengthLow,
-    //             int HeaderLengthHi, int CompressMethod1, InputStream in )
-    //  private static byte[] readLevel2HeaderData( int WordSizeLow,
-    //             int WordSizeHi, int CompressMethod1, InputStream in )
-    //------------------------------------------------------------------
     /**
      * 入力ストリームからレベル0ヘッダを読み込む
      *
@@ -2576,9 +2309,8 @@ public class LhaHeader implements Cloneable {
      * @param in ヘッダデータを読み込む入力ストリーム
      *
      * @return 読み取られたヘッダデータ
-     *
      * @exception IOException 入出力エラーが発生した場合
-     * @exception EOFException ヘッダの読み込み途中で EndOfStreamに達した場合
+     * @exception EOFException ヘッダの読み込み途中で EndOfStream に達した場合
      */
     private static byte[] readLevel0HeaderData(int HeaderLength,
                                                int HeaderChecksum,
@@ -2593,7 +2325,7 @@ public class LhaHeader implements Cloneable {
         HeaderLength += 2;
 
         while (readed < HeaderLength && 0 <= length) {
-            length = in.read(HeaderData, readed, HeaderLength - readed); //throws IOException
+            length = in.read(HeaderData, readed, HeaderLength - readed);
             readed += length;
         }
 
@@ -2614,9 +2346,8 @@ public class LhaHeader implements Cloneable {
      *
      * @return 読み取られたヘッダデータ。
      *         レベル1ヘッダでないことが判明した場合は nullを返す。
-     *
      * @exception IOException 入出力エラーが発生した場合
-     * @exception EOFException ヘッダの読み込み途中で EndOfStreamに達した場合
+     * @exception EOFException ヘッダの読み込み途中で EndOfStream に達した場合
      */
     private static byte[] readLevel1HeaderData(int BaseHeaderLength,
                                                int BaseHeaderChecksum,
@@ -2629,7 +2360,7 @@ public class LhaHeader implements Cloneable {
         HeaderData[1] = (byte) BaseHeaderChecksum;
         HeaderData[2] = (byte) CompressMethod1;
 
-        //ヘッダデータ取得
+        // ヘッダデータ取得
         int readed = 0;
         int length = 0;
         do {
@@ -2640,7 +2371,7 @@ public class LhaHeader implements Cloneable {
             }
 
             while (readed < HeaderLength && 0 <= length) {
-                length = in.read(HeaderData, readed, HeaderLength - readed); //throws IOException
+                length = in.read(HeaderData, readed, HeaderLength - readed);
                 readed += length;
             }
 
@@ -2659,7 +2390,7 @@ public class LhaHeader implements Cloneable {
             HeaderData = new byte[HeaderLength];
         } while (0 < HeaderLength && readed == length);
 
-        //取得したヘッダデータを一つのバイト配列に
+        // 取得したヘッダデータを一つのバイト配列に
         HeaderLength = 0;
         for (int i = 0; i < headers.size(); i++) {
             HeaderLength += headers.elementAt(i).length;
@@ -2685,7 +2416,6 @@ public class LhaHeader implements Cloneable {
      * @param in ヘッダデータを読み込む入力ストリーム
      *
      * @return 読み取られたヘッダデータ
-     *
      * @exception IOException 入出力エラーが発生した場合
      * @exception EOFException ヘッダの読み込み途中で EndOfStreamに達した場合
      */
@@ -2702,7 +2432,7 @@ public class LhaHeader implements Cloneable {
         int readed = 3;
         int length = 0;
         while (readed < HeaderLength && 0 <= length) {
-            length = in.read(HeaderData, readed, HeaderLength - readed); //throws IOException
+            length = in.read(HeaderData, readed, HeaderLength - readed);
             readed += length;
         }
 
@@ -2723,12 +2453,10 @@ public class LhaHeader implements Cloneable {
      * @param WordSizeHi ヘッダに使用されるワードサイズ 上位バイト
      * @param CompressMethod1 圧縮法文字列
      * @param in ヘッダデータを読み込む入力ストリーム
-     *
      * @return 読み取られたヘッダデータ。<br>
      *         レベル3ヘッダでないことが判明した場合は nullを返す。
-     *
      * @exception IOException 入出力エラーが発生した場合
-     * @exception EOFException ヘッダの読み込み途中で EndOfStreamに達した場合
+     * @exception EOFException ヘッダの読み込み途中で EndOfStream に達した場合
      */
     private static byte[] readLevel3HeaderData(int WordSizeLow,
                                                int WordSizeHi,
@@ -2747,7 +2475,7 @@ public class LhaHeader implements Cloneable {
             int readed = 3;
             int length = 0;
             while (readed < HeaderLength && 0 <= length) {
-                length = in.read(HeaderData, readed, HeaderLength - readed); //throws IOException
+                length = in.read(HeaderData, readed, HeaderLength - readed);
                 readed += length;
             }
 
@@ -2761,20 +2489,13 @@ public class LhaHeader implements Cloneable {
         }
     }
 
-    //------------------------------------------------------------------
-    //  shared method
-    //------------------------------------------------------------------
-    //  public static LhaHeader createInstance( byte[] HeaderData,
-    //                         String encoding, Properties property )
-    //------------------------------------------------------------------
     /**
      * property の キー"lha.header" に結び付けられた生成式を使用して
-     * HeaderData から LhaHeader のインスタンスを生成する。<br>
+     * HeaderData から LhaHeader のインスタンスを生成する。
      *
      * @param HeaderData ヘッダのデータを持つバイト配列
      * @param property LhaProperty.parse() で LhaHeader のインスタンスが生成できるような
      *            生成式を キー"lha.header" の値として持つプロパティ
-     *
      * @return LhaHeader のインスタンス
      */
     public static LhaHeader createInstance(byte[] HeaderData, Properties property) {
@@ -2801,19 +2522,11 @@ public class LhaHeader implements Cloneable {
         return (LhaHeader) LhaProperty.parse(generator, substitute, packages);
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  helper of InputStream
-    //------------------------------------------------------------------
-    //  private static void ensureSkip( InputStream in, long len )
-    //------------------------------------------------------------------
     /**
      * InputStream を len バイトスキップする。
      *
      * @param in 入力ストリーム
      * @param len スキップする長さ
-     *
      * @exception IOException 入出力エラーが発生した場合
      * @exception EOFException EndOfStream に達した場合。
      */
@@ -2831,6 +2544,4 @@ public class LhaHeader implements Cloneable {
             }
         }
     }
-
 }
-//end of LhaHeader.java

@@ -1,5 +1,5 @@
-//start of PostLh3Encoder.java
-//TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
+// start of PostLh3Encoder.java
+// TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
 
 /**
  * PostLh3Encoder.java
@@ -31,17 +31,12 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
-//import classes and interfaces
-import java.io.OutputStream;
-import java.lang.Math;
-import jp.gr.java_conf.dangan.io.BitOutputStream;
-import jp.gr.java_conf.dangan.util.lha.StaticHuffman;
-import jp.gr.java_conf.dangan.util.lha.PostLzssEncoder;
-
-//import exceptions
+// import exceptions
 import java.io.IOException;
-import java.lang.NullPointerException;
-import java.lang.IllegalArgumentException;
+// import classes and interfaces
+import java.io.OutputStream;
+
+import jp.gr.java_conf.dangan.io.BitOutputStream;
 
 
 /**
@@ -74,15 +69,15 @@ import java.lang.IllegalArgumentException;
  */
 public class PostLh3Encoder implements PostLzssEncoder {
 
-    //------------------------------------------------------------------
-    //  class fields
-    //------------------------------------------------------------------
-    //  LZSS parameter
-    //------------------------------------------------------------------
-    //  private static final int DictionarySize
-    //  private static final int MaxMatch
-    //  private static final int Threshold
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // class fields
+    // ------------------------------------------------------------------
+    // LZSS parameter
+    // ------------------------------------------------------------------
+    // private static final int DictionarySize
+    // private static final int MaxMatch
+    // private static final int Threshold
+    // ------------------------------------------------------------------
     /** 辞書サイズ */
     private static final int DictionarySize = 8192;
 
@@ -92,12 +87,12 @@ public class PostLh3Encoder implements PostLzssEncoder {
     /** 最小一致長 */
     private static final int Threshold = 3;
 
-    //------------------------------------------------------------------
-    //  class fields
-    //------------------------------------------------------------------
-    //  private static final int[] ConstOffHiLen
-    //  private static final int CodeSize
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // class fields
+    // ------------------------------------------------------------------
+    // private static final int[] ConstOffHiLen
+    // private static final int CodeSize
+    // ------------------------------------------------------------------
     /**
      * OffHi部分の固定ハフマン符号長
      */
@@ -109,29 +104,29 @@ public class PostLh3Encoder implements PostLzssEncoder {
      */
     private static final int CodeSize = 286;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  sink
-    //------------------------------------------------------------------
-    //  private BitOutputStream out
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // instance field
+    // ------------------------------------------------------------------
+    // sink
+    // ------------------------------------------------------------------
+    // private BitOutputStream out
+    // ------------------------------------------------------------------
     /**
      * -lh3- 形式の圧縮データの出力先の ビット出力ストリーム
      */
     private BitOutputStream out;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  buffer of LZSS codes
-    //------------------------------------------------------------------
-    //  private byte[] buffer
-    //  private int blockSize
-    //  private int position
-    //  private int flagBit
-    //  private int flagPos
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // instance field
+    // ------------------------------------------------------------------
+    // buffer of LZSS codes
+    // ------------------------------------------------------------------
+    // private byte[] buffer
+    // private int blockSize
+    // private int position
+    // private int flagBit
+    // private int flagPos
+    // ------------------------------------------------------------------
     /**
      * 静的ハフマン圧縮するためにデータを一時的に貯えるバッファ
      */
@@ -157,14 +152,14 @@ public class PostLh3Encoder implements PostLzssEncoder {
      */
     private int flagPos;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  frequancy counter for huffman
-    //------------------------------------------------------------------
-    //  private int[] codeFreq
-    //  private int[] offHiFreq
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // instance field
+    // ------------------------------------------------------------------
+    // frequancy counter for huffman
+    // ------------------------------------------------------------------
+    // private int[] codeFreq
+    // private int[] offHiFreq
+    // ------------------------------------------------------------------
     /**
      * code部の頻度表
      */
@@ -219,14 +214,14 @@ public class PostLh3Encoder implements PostLzssEncoder {
         }
     }
 
-    //------------------------------------------------------------------
-    //  method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
-    //------------------------------------------------------------------
-    //  write methods
-    //------------------------------------------------------------------
-    //  public void writeCode( int code )
-    //  public void writeOffset( int offset )
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
+    // ------------------------------------------------------------------
+    // write methods
+    // ------------------------------------------------------------------
+    // public void writeCode( int code )
+    // public void writeOffset( int offset )
+    // ------------------------------------------------------------------
     /**
      * 1byte の LZSS未圧縮のデータもしくは、
      * LZSS で圧縮された圧縮コードのうち一致長を書きこむ。<br>
@@ -243,25 +238,25 @@ public class PostLh3Encoder implements PostLzssEncoder {
 
         if (this.flagBit == 0) {
             if (this.buffer.length - this.position < Capacity || (65536 - 8) <= this.blockSize) {
-                this.writeOut(); //throws IOException
+                this.writeOut();
             }
             this.flagBit = 0x80;
             this.flagPos = this.position++;
             this.buffer[this.flagPos] = 0;
         }
 
-        //データ格納
+        // データ格納
         this.buffer[this.position++] = (byte) code;
 
-        //上位1ビットをフラグとして格納
+        // 上位1ビットをフラグとして格納
         if (0x100 <= code)
             this.buffer[this.flagPos] |= this.flagBit;
         this.flagBit >>= 1;
 
-        //頻度表更新
+        // 頻度表更新
         this.codeFreq[Math.min(code, CodeMax)]++;
 
-        //ブロックサイズ更新
+        // ブロックサイズ更新
         this.blockSize++;
     }
 
@@ -271,22 +266,22 @@ public class PostLh3Encoder implements PostLzssEncoder {
      * @param offset LZSS で圧縮された圧縮コードのうち一致位置
      */
     public void writeOffset(int offset) {
-        //データ格納
+        // データ格納
         this.buffer[this.position++] = (byte) (offset >> 8);
         this.buffer[this.position++] = (byte) offset;
 
-        //頻度表更新
+        // 頻度表更新
         this.offHiFreq[(offset >> 6)]++;
     }
 
-    //------------------------------------------------------------------
-    //  method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
-    //------------------------------------------------------------------
-    //  other
-    //------------------------------------------------------------------
-    //  public void flush()
-    //  public void close()
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
+    // ------------------------------------------------------------------
+    // other
+    // ------------------------------------------------------------------
+    // public void flush()
+    // public void close()
+    // ------------------------------------------------------------------
     /**
      * この PostLzssEncoder にバッファリングされている全ての
      * 8ビット単位のデータを出力先の OutputStream に出力し、
@@ -311,7 +306,7 @@ public class PostLh3Encoder implements PostLzssEncoder {
      */
     public void close() throws IOException {
         this.writeOut();
-        this.out.close(); //throws IOException
+        this.out.close();
 
         this.out = null;
         this.buffer = null;
@@ -319,15 +314,15 @@ public class PostLh3Encoder implements PostLzssEncoder {
         this.offHiFreq = null;
     }
 
-    //------------------------------------------------------------------
-    //  jp.gr.java_conf.dangan.util.lha.PostLzssEncoder methods
-    //------------------------------------------------------------------
-    //  get LZSS parameter
-    //------------------------------------------------------------------
-    //  public int getDictionarySize()
-    //  public int getMaxMatch()
-    //  public int getThreshold()
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // jp.gr.java_conf.dangan.util.lha.PostLzssEncoder methods
+    // ------------------------------------------------------------------
+    // get LZSS parameter
+    // ------------------------------------------------------------------
+    // public int getDictionarySize()
+    // public int getMaxMatch()
+    // public int getThreshold()
+    // ------------------------------------------------------------------
     /**
      * -lh3-形式の LZSS辞書のサイズを得る。
      *
@@ -355,13 +350,13 @@ public class PostLh3Encoder implements PostLzssEncoder {
         return PostLh3Encoder.Threshold;
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  write huffman code
-    //------------------------------------------------------------------
-    //  private void writeOut()
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // local method
+    // ------------------------------------------------------------------
+    // write huffman code
+    // ------------------------------------------------------------------
+    // private void writeOut()
+    // ------------------------------------------------------------------
     /**
      * バッファリングされた全てのデータを this.out に出力する。<br>
      *
@@ -371,43 +366,43 @@ public class PostLh3Encoder implements PostLzssEncoder {
         final int CodeMax = PostLh3Encoder.CodeSize - 1;
 
         if (0 < this.blockSize) {
-            //------------------------------------------------------------------
-            //  ブロックサイズ出力
-            this.out.writeBits(16, this.blockSize); //throws IOException
+            // ------------------------------------------------------------------
+            // ブロックサイズ出力
+            this.out.writeBits(16, this.blockSize);
 
-            //------------------------------------------------------------------
-            //  ハフマン符号表生成
+            // ------------------------------------------------------------------
+            // ハフマン符号表生成
             int[] codeLen = StaticHuffman.FreqListToLenList(this.codeFreq);
             int[] codeCode = StaticHuffman.LenListToCodeList(codeLen);
             int[] offHiLen = PostLh3Encoder.getBetterOffHiLen(this.offHiFreq, StaticHuffman.FreqListToLenList(this.offHiFreq));
             int[] offHiCode = StaticHuffman.LenListToCodeList(offHiLen);
 
-            //------------------------------------------------------------------
-            //  code部のハフマン符号表出力
+            // ------------------------------------------------------------------
+            // code部のハフマン符号表出力
             if (2 <= PostLh3Encoder.countNoZeroElement(this.codeFreq)) {
-                this.writeCodeLenList(codeLen); //throws IOException
+                this.writeCodeLenList(codeLen);
             } else {
-                this.out.writeBits(15, 0x4210); //throws IOException
-                this.out.writeBits(9, PostLh3Encoder.getNoZeroElementIndex(this.codeFreq)); //throws IOException
+                this.out.writeBits(15, 0x4210);
+                this.out.writeBits(9, PostLh3Encoder.getNoZeroElementIndex(this.codeFreq));
             }
 
-            //------------------------------------------------------------------
-            //  offHi部のハフマン符号表出力
+            // ------------------------------------------------------------------
+            // offHi部のハフマン符号表出力
             if (offHiLen != PostLh3Encoder.ConstOffHiLen) {
-                this.out.writeBit(1); //throws IOException
+                this.out.writeBit(1);
 
                 if (2 <= PostLh3Encoder.countNoZeroElement(this.offHiFreq)) {
-                    this.writeOffHiLenList(offHiLen); //throws IOException
+                    this.writeOffHiLenList(offHiLen);
                 } else {
-                    this.out.writeBits(12, 0x0111); //throws IOException
-                    this.out.writeBits(7, PostLh3Encoder.getNoZeroElementIndex(this.offHiFreq));//throws IOException
+                    this.out.writeBits(12, 0x0111);
+                    this.out.writeBits(7, PostLh3Encoder.getNoZeroElementIndex(this.offHiFreq));
                 }
             } else {
-                this.out.writeBit(0); //throws IOException
+                this.out.writeBit(0);
             }
 
-            //------------------------------------------------------------------
-            //  ハフマン符号出力
+            // ------------------------------------------------------------------
+            // ハフマン符号出力
             this.position = 0;
             this.flagBit = 0;
             for (int i = 0; i < blockSize; i++) {
@@ -418,25 +413,25 @@ public class PostLh3Encoder implements PostLzssEncoder {
 
                 if (0 == (this.buffer[this.flagPos] & this.flagBit)) {
                     int code = this.buffer[this.position++] & 0xFF;
-                    this.out.writeBits(codeLen[code], codeCode[code]); //throws IOException
+                    this.out.writeBits(codeLen[code], codeCode[code]);
                 } else {
                     int code = (this.buffer[this.position++] & 0xFF) | 0x100;
                     int offset = ((this.buffer[this.position++] & 0xFF) << 8) | (this.buffer[this.position++] & 0xFF);
                     int offHi = offset >> 6;
                     if (code < CodeMax) {
-                        this.out.writeBits(codeLen[code], codeCode[code]);//throws IOException
+                        this.out.writeBits(codeLen[code], codeCode[code]);
                     } else {
-                        this.out.writeBits(codeLen[CodeMax], codeCode[CodeMax]);//throws IOException
-                        this.out.writeBits(8, code - CodeMax); //throws IOException
+                        this.out.writeBits(codeLen[CodeMax], codeCode[CodeMax]);
+                        this.out.writeBits(8, code - CodeMax);
                     }
-                    this.out.writeBits(offHiLen[offHi], offHiCode[offHi]);//throws IOException
-                    this.out.writeBits(6, offset); //throws IOException
+                    this.out.writeBits(offHiLen[offHi], offHiCode[offHi]);
+                    this.out.writeBits(6, offset);
                 }
                 this.flagBit >>= 1;
             }
 
-            //------------------------------------------------------------------
-            //  次のブロックのための処理
+            // ------------------------------------------------------------------
+            // 次のブロックのための処理
             for (int i = 0; i < this.codeFreq.length; i++) {
                 this.codeFreq[i] = 0;
             }
@@ -452,14 +447,14 @@ public class PostLh3Encoder implements PostLzssEncoder {
         } // if( 0 < this.blockSize )
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  write huffman list
-    //------------------------------------------------------------------
-    //  private void writeCodeLenList( int[] codeLen )
-    //  private void writeOffHiLenList( int[] offHiLen )
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // local method
+    // ------------------------------------------------------------------
+    // write huffman list
+    // ------------------------------------------------------------------
+    // private void writeCodeLenList( int[] codeLen )
+    // private void writeOffHiLenList( int[] offHiLen )
+    // ------------------------------------------------------------------
     /**
      * code部のハフマン符号長のリストを符号化しながら書き出す。
      *
@@ -470,9 +465,9 @@ public class PostLh3Encoder implements PostLzssEncoder {
     private void writeCodeLenList(int[] codeLen) throws IOException {
         for (int i = 0; i < codeLen.length; i++) {
             if (0 < codeLen[i]) {
-                this.out.writeBits(5, 0x10 | (codeLen[i] - 1)); //throws IOException
+                this.out.writeBits(5, 0x10 | (codeLen[i] - 1));
             } else {
-                this.out.writeBit(0); //throws IOException
+                this.out.writeBit(0);
             }
         }
     }
@@ -486,18 +481,18 @@ public class PostLh3Encoder implements PostLzssEncoder {
      */
     private void writeOffHiLenList(int[] offHiLen) throws IOException {
         for (int i = 0; i < offHiLen.length; i++) {
-            this.out.writeBits(4, offHiLen[i]); //throws IOException
+            this.out.writeBits(4, offHiLen[i]);
         }
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  staff of huffman encoder
-    //------------------------------------------------------------------
-    //  private static int countNoZeroElement( int[] array )
-    //  private static int getNoZeroElementIndex( int[] array )
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // local method
+    // ------------------------------------------------------------------
+    // staff of huffman encoder
+    // ------------------------------------------------------------------
+    // private static int countNoZeroElement( int[] array )
+    // private static int getNoZeroElementIndex( int[] array )
+    // ------------------------------------------------------------------
     /**
      * 配列内の 0でない要素数を得る。
      *
@@ -532,15 +527,15 @@ public class PostLh3Encoder implements PostLzssEncoder {
         return 0;
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  calc the length of encoded data
-    //------------------------------------------------------------------
-    //  private static int[] createLenList()
-    //  private static int[] getBetterOffHiLenList( int[] OffHiFreq,
-    //                                              int[] OffHiLen )
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // local method
+    // ------------------------------------------------------------------
+    // calc the length of encoded data
+    // ------------------------------------------------------------------
+    // private static int[] createLenList()
+    // private static int[] getBetterOffHiLenList( int[] OffHiFreq,
+    //                                             int[] OffHiLen )
+    // ------------------------------------------------------------------
     /**
      * -lh3- の offHi部デコード用 ハフマン符号長リストを生成する。
      *
@@ -580,7 +575,7 @@ public class PostLh3Encoder implements PostLzssEncoder {
     private static int[] getBetterOffHiLen(int[] OffHiFreq, int[] OffHiLen) {
         boolean detect = false;
         for (int i = 0; i < OffHiLen.length; i++) {
-            if (15 < OffHiLen[i]) { //15 はwriteOffHiLenListで書きこめる最大のハフマン符号長を意味する。
+            if (15 < OffHiLen[i]) { // 15 はwriteOffHiLenListで書きこめる最大のハフマン符号長を意味する。
                 detect = true;
             }
         }
@@ -609,4 +604,4 @@ public class PostLh3Encoder implements PostLzssEncoder {
     }
 
 }
-//end of PostLh3Encoder.java
+// end of PostLh3Encoder.java

@@ -1,5 +1,5 @@
-//start of PostLzssEncoder.java
-//TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
+// start of PostLzssEncoder.java
+// TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
 
 /**
  * PostLzssEncoder.java
@@ -31,9 +31,9 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
-//import classes and interfaces
+// import classes and interfaces
 
-//import exceptions
+// import exceptions
 import java.io.IOException;
 
 
@@ -57,14 +57,14 @@ import java.io.IOException;
  */
 public interface PostLzssEncoder {
 
-    //------------------------------------------------------------------
-    //  original method ( on the model of java.io.OutputStream )
-    //------------------------------------------------------------------
-    //  other
-    //------------------------------------------------------------------
-    //  public abstract void flush()
-    //  public abstract void close()
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // original method ( on the model of java.io.OutputStream )
+    // ------------------------------------------------------------------
+    // other
+    // ------------------------------------------------------------------
+    // public abstract void flush()
+    // public abstract void close()
+    // ------------------------------------------------------------------
     /**
      * この PostLzssEncoder にバッファリングされている
      * 出力可能なデータを出力先の OutputStream に出力し、
@@ -75,7 +75,7 @@ public interface PostLzssEncoder {
      * つまりOutputStream の flush() では同じデータを出力する事を
      * 期待されるような以下の二つのコードは、
      * PostLzssEncoder においては 別のデータを出力をしても良い。
-     * 
+     *
      * <pre>
      * (1)
      *   PostLzssEncoder out = new ImplementedPostLzssEncoder();
@@ -106,14 +106,14 @@ public interface PostLzssEncoder {
      */
     public abstract void close() throws IOException;
 
-    //------------------------------------------------------------------
-    //  original method
-    //------------------------------------------------------------------
-    //  write
-    //------------------------------------------------------------------
-    //  public abstract void writeCode( int code )
-    //  public abstract void writeOffset( int offset )
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // original method
+    // ------------------------------------------------------------------
+    // write
+    // ------------------------------------------------------------------
+    // public abstract void writeCode( int code )
+    // public abstract void writeOffset( int offset )
+    // ------------------------------------------------------------------
     /**
      * 1byte の LZSS未圧縮のデータもしくは、
      * LZSS で圧縮された圧縮コードのうち一致長を書きこむ。<br>
@@ -136,15 +136,15 @@ public interface PostLzssEncoder {
      */
     public abstract void writeOffset(int offset) throws IOException;
 
-    //------------------------------------------------------------------
-    //  original method
-    //------------------------------------------------------------------
-    //  get LZSS parameter
-    //------------------------------------------------------------------
-    //  public abstract int getDictionarySize()
-    //  public abstract int getMaxMatch()
-    //  public abstract int getThreshold()
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // original method
+    // ------------------------------------------------------------------
+    // get LZSS parameter
+    // ------------------------------------------------------------------
+    // public abstract int getDictionarySize()
+    // public abstract int getMaxMatch()
+    // public abstract int getThreshold()
+    // ------------------------------------------------------------------
     /**
      * このPostLzssEncoderが処理するLZSS辞書のサイズを得る。
      *
@@ -167,4 +167,4 @@ public interface PostLzssEncoder {
     public abstract int getThreshold();
 
 }
-//end of PostLzssEncoder.java
+// end of PostLzssEncoder.java

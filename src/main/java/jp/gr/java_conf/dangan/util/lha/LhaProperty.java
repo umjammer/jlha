@@ -1,9 +1,4 @@
-//start of LhaProperty.java
-//TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
-
 /**
- * LhaProperty.java
- *
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
@@ -31,28 +26,16 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
-//import classes and interfaces
-import java.util.Stack;
-import java.util.Hashtable;
-import java.util.Properties;
-import java.util.Enumeration;
-import java.util.ResourceBundle;
-import java.util.StringTokenizer;
-import jp.gr.java_conf.dangan.lang.reflect.Factory;
-
-//import exceptions
-import java.lang.RuntimeException;
-import java.lang.SecurityException;
-import java.lang.NoSuchMethodException;
-import java.lang.ClassNotFoundException;
-import java.lang.InstantiationException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.MissingResourceException;
+import java.util.Properties;
+import java.util.ResourceBundle;
+import java.util.Stack;
+import java.util.StringTokenizer;
 
-import java.lang.Error;
-import java.lang.NoSuchMethodError;
-import java.lang.InstantiationError;
-import java.lang.NoClassDefFoundError;
+import jp.gr.java_conf.dangan.lang.reflect.Factory;
 
 
 /**
@@ -239,7 +222,7 @@ import java.lang.NoClassDefFoundError;
  * </tr>
  * </table>
  * <br>
- * 
+ *
  * <pre>
  * -- revision history --
  * $Log: LhaProperty.java,v $
@@ -262,12 +245,6 @@ import java.lang.NoClassDefFoundError;
  */
 public class LhaProperty {
 
-    //------------------------------------------------------------------
-    //  class field
-    //------------------------------------------------------------------
-    //  private static final Properties property
-    //  public static final String encoding
-    //------------------------------------------------------------------
     /**
      * LHA Library for Java の設定を保持するプロパティ
      */
@@ -279,29 +256,17 @@ public class LhaProperty {
      */
     public static final String encoding = LhaProperty.property.getProperty("lha.encoding");
 
-    //------------------------------------------------------------------
-    //  constructpr
-    //------------------------------------------------------------------
-    //  private LhaProperty()
-    //------------------------------------------------------------------
     /**
      * デフォルトコンストラクタ使用不可
      */
     private LhaProperty() {
     }
 
-    //------------------------------------------------------------------
-    //  access method
-    //------------------------------------------------------------------
-    //  public static String getProperty( String key )
-    //  public static Properties getProperties()
-    //------------------------------------------------------------------
     /**
      * LHA Library for Java のプロパティから
-     * key に対応するものを取得する。<br>
+     * key に対応するものを取得する。
      *
      * @param key プロパティのキー
-     *
      * @return ブロパティの文字列
      */
     public static String getProperty(String key) {
@@ -328,7 +293,7 @@ public class LhaProperty {
     }
 
     /**
-     * LHA Library for Java のプロパティのコピーを得る。<br>
+     * LHA Library for Java のプロパティのコピーを得る。
      *
      * @return プロパティのコピー
      */
@@ -363,19 +328,6 @@ public class LhaProperty {
         return property;
     }
 
-    //------------------------------------------------------------------
-    //  parse
-    //------------------------------------------------------------------
-    //  public static Object parse( String source,
-    //                         Hashtable substitute, String packages )
-    //  public static Object parse( String source,
-    //                         Hashtable substitute, String[] packages )
-    //  private static Object parseConstructor( String source,
-    //                         Hashtable substitute, String[] packages )
-    //  private static Object[] parseArray( String source,
-    //                         Hashtable substitute, String[] packages )
-    //  private static String applyPackages( String str, String[] packages )
-    //------------------------------------------------------------------
     /**
      * LHA Library for Java のプロパティ用の
      * 生成式 source を解析して 新しい Object を生成する。
@@ -383,7 +335,6 @@ public class LhaProperty {
      * @param souce 解析すべき生成式
      * @param substitute 置換対象文字列をkeyにもち、置換するObjectを値に持つ Hashtable
      * @param packages カンマで区切られたパッケージ名の列挙
-     *
      * @return 生成された Object
      */
     public static Object parse(String source, Hashtable<?, ?> substitute, String packages) {
@@ -405,7 +356,6 @@ public class LhaProperty {
      * @param souce 解析すべき文字列
      * @param substitute 置換対象文字列をkeyにもち、置換するObjectを値に持つ Hashtable
      * @param packages パッケージ名の配列
-     *
      * @return 生成された Object
      */
     public static Object parse(String source, Hashtable<?, ?> substitute, String[] packages) {
@@ -433,7 +383,6 @@ public class LhaProperty {
      * @param souce 解析すべきコンストラクタを示す文字列
      * @param substitute 置換対象文字列をkeyにもち、置換するObjectを値に持つ Hashtable
      * @param packages パッケージ名の配列
-     *
      * @return 生成されたインスタンス
      */
     private static Object parseConstructor(String source, Hashtable<?, ?> substitute, String[] packages) {
@@ -513,7 +462,6 @@ public class LhaProperty {
      * @param souce 解析すべきコンストラクタを示す文字列
      * @param substitute 置換対象文字列をkeyにもち、置換するObjectを値に持つ Hashtable
      * @param packages パッケージ名の配列
-     *
      * @return 生成された Object の配列
      */
     private static Object[] parseArray(String source, Hashtable<?, ?> substitute, String[] packages) {
@@ -567,7 +515,6 @@ public class LhaProperty {
      *
      * @param str クラス名かもしれない文字列
      * @param packages パッケージ名の列挙
-     *
      * @return 完全修飾名、もしくは str
      */
     private static String applyPackages(String str, String[] packages) {
@@ -588,14 +535,6 @@ public class LhaProperty {
         return str;
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  create property
-    //------------------------------------------------------------------
-    //  private static final Properties createLhaProperty()
-    //  private static final Properties createDefaultProperty()
-    //------------------------------------------------------------------
     /**
      * LHA Library for Java のプロパティを生成する。
      *
@@ -641,16 +580,13 @@ public class LhaProperty {
     private static final Properties createDefaultProperty() {
         Properties property = new Properties();
 
-        //------------------------------------------------------------------
-        //  encoding of String
+        // encoding of String
         property.put("lha.encoding", LhaProperty.getSystemEncoding());
 
-        //------------------------------------------------------------------
-        //  package names
+        // package names
         property.put("lha.packages", "jp.gr.java_conf.dangan.util.lha");
 
-        //------------------------------------------------------------------
-        //  encoders
+        // encoders
         property.put("lha.lzs.encoder", "LzssOutputStream( PostLzsEncoder( out ), HashAndChainedListSearch, [ HashShort ] )");
         property.put("lha.lz4.encoder", "out");
         property.put("lha.lz5.encoder", "LzssOutputStream( PostLz5Encoder( out ), HashAndChainedListSearch )");
@@ -664,8 +600,7 @@ public class LhaProperty {
         property.put("lha.lh6.encoder", "LzssOutputStream( PostLh5Encoder( out, -lh6- ), HashAndChainedListSearch )");
         property.put("lha.lh7.encoder", "LzssOutputStream( PostLh5Encoder( out, -lh7- ), HashAndChainedListSearch )");
 
-        //------------------------------------------------------------------
-        //  decoders
+        // decoders
         property.put("lha.lzs.decoder", "LzssInputStream( PreLzsDecoder( in ), length )");
         property.put("lha.lz4.decoder", "in");
         property.put("lha.lz5.decoder", "LzssInputStream( PreLz5Decoder( in ), length )");
@@ -679,22 +614,12 @@ public class LhaProperty {
         property.put("lha.lh6.decoder", "LzssInputStream( PreLh5Decoder( in, -lh6- ), length )");
         property.put("lha.lh7.decoder", "LzssInputStream( PreLh5Decoder( in, -lh7- ), length )");
 
-        //------------------------------------------------------------------
-        //  header
+        // header
         property.put("lha.header", "LhaHeader( data, encoding )");
 
         return property;
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  encoding
-    //------------------------------------------------------------------
-    //  private static final String getSystemEncoding()
-    //  private static final boolean isJapanese( String encoding )
-    //  private static final boolean isCategoryOfShiftJIS( String encoding )
-    //------------------------------------------------------------------
     /**
      * System.getProperty( "file.encoding" ) で得られる エンコーディングを返す。
      * 得られたエンコーディングが 日本語のエンコーディングで、
@@ -723,28 +648,27 @@ public class LhaProperty {
      * encoding が日本語のエンコーディングであるかを返す。
      *
      * @param encoding エンコーディング
-     *
      * @return encoding が日本語のエンコーディングなら true 違えば false
      */
     private static final boolean isJapanese(String encoding) {
 
         String[] Coverters = {
-            "Cp930", //Japanese EBCDIC
-            "Cp939", //Japanese EBCDIC
-            "Cp942", //SJIS OS/2 日本語, Cp932 のスーパーセット, 0x5C -> '＼' (半角バックスラッシュ)
-            "Cp942C", //SJIS OS/2 日本語, Cp932 のスーパーセット, 0x5C -> '¥' (半角円記号)
-            "Cp943", //SJIS OS/2 日本語, Cp942 のスーパーセット 新JIS対応, 0x5C -> '＼' (半角バックスラッシュ)
-            "Cp943C", //SJIS OS/2 日本語, Cp942 のスーパーセット 新JIS対応, 0x5C -> '¥' (半角円記号)
-            "Cp33722", //EUC IBM 日本語,
-            "MS932", //Windows 日本語
-            "SJIS", //Shift-JIS、日本語
-            "EUC_JP", //EUC, 日本語 JIS X 0201, 0208, 0212
-            "ISO2022JP", //JIS X 0201, ISO 2022 形式の 0208、日本語
-            "JIS0201", //JIS X 0201, 日本語
-            "JIS0208", //JIS X 0208, 日本語
-            "JIS0212", //JIS X 0212, 日本語
+            "Cp930", // Japanese EBCDIC
+            "Cp939", // Japanese EBCDIC
+            "Cp942", // SJIS OS/2 日本語, Cp932 のスーパーセット, 0x5C -> '＼' (半角バックスラッシュ)
+            "Cp942C", // SJIS OS/2 日本語, Cp932 のスーパーセット, 0x5C -> '¥' (半角円記号)
+            "Cp943", // SJIS OS/2 日本語, Cp942 のスーパーセット 新JIS対応, 0x5C -> '＼' (半角バックスラッシュ)
+            "Cp943C", // SJIS OS/2 日本語, Cp942 のスーパーセット 新JIS対応, 0x5C -> '¥' (半角円記号)
+            "Cp33722", // EUC IBM 日本語,
+            "MS932", // Windows 日本語
+            "SJIS", // Shift-JIS、日本語
+            "EUC_JP", // EUC, 日本語 JIS X 0201, 0208, 0212
+            "ISO2022JP", // JIS X 0201, ISO 2022 形式の 0208、日本語
+            "JIS0201", // JIS X 0201, 日本語
+            "JIS0208", // JIS X 0208, 日本語
+            "JIS0212", // JIS X 0212, 日本語
             "JISAutoDetect"
-        }; //Shift-JIS EUC-JP ISO 2022 JP の検出および変換。読み込み専用。
+        }; // Shift-JIS EUC-JP ISO 2022 JP の検出および変換。読み込み専用。
         for (int i = 0; i < Coverters.length; i++) {
             if (encoding.equals(Coverters[i])) {
                 return true;
@@ -752,26 +676,26 @@ public class LhaProperty {
         }
 
         String[] Aliases = {
-            "eucjis", "euc-jp", "eucjp", "x-euc-jp", "x-eucjp", //Aliases of "EUC_JP"
-            "csEUCPkdFmtJapanese", //Alias of "EUCJIS"(?)
-            "extended_unix_code_packed_format_for_japanese ", //Alias of "EUCJIS"(?)
-            "shift_jis", "ms_kanji", "csShiftJIS", //JDK1.1.1 - JDK1.1.7B Alias of "SJIS", JDK1.2 - JDK1.3 Alias of "MS932", JDK1.4 Alias of "SJIS"
-            "csWindows31J", "windows-31j", //Alias of "MS932"
-            "x-sjis", //JDK1.2 Alias of "MS932", JDK1.3 Alias of "SJIS", JDK1.4 Alias of "MS932"
-            "jis", //Alias of "ISO2022JP"
-            "iso-2022-jp", //JDK1.1.1-JDK1.1.5 Alias of "JIS", JDK1.1.6- Alias of "ISO2022JP"
-            "csISO2022JP", //JDK1.1.1-JDK1.1.5 Alias of "JIS", JDK1.1.6- Alias of "ISO2022JP"
-            "jis_encoding", //JDK1.1.1-JDK1.1.5 Alias of "JIS", JDK1.1.6- Alias of "ISO2022JP"
-            "csJISEncoding", //JDK1.1.1-JDK1.1.5 Alias of "JIS", JDK1.1.6- Alias of "ISO2022JP"
-            "jis auto detect", //Alias of "JISAutoDetect"
-            "cp930", "ibm-930", "ibm930", "930", //Aliases of "Cp930"
-            "cp939", "ibm-939", "ibm939", "939", //Aliases of "Cp939"
-            "cp942", "ibm-942", "ibm942", "942", //Aliases of "Cp942"
-            "cp942c", //Alias of "Cp942C"
-            "cp943", "ibm-943", "ibm943", "943", //Aliases of "Cp943"
-            "cp943c", //Alias of "Cp943C"
+            "eucjis", "euc-jp", "eucjp", "x-euc-jp", "x-eucjp", // Aliases of "EUC_JP"
+            "csEUCPkdFmtJapanese", // Alias of "EUCJIS"(?)
+            "extended_unix_code_packed_format_for_japanese ", // Alias of "EUCJIS"(?)
+            "shift_jis", "ms_kanji", "csShiftJIS", // JDK1.1.1 - JDK1.1.7B Alias of "SJIS", JDK1.2 - JDK1.3 Alias of "MS932", JDK1.4 Alias of "SJIS"
+            "csWindows31J", "windows-31j", // Alias of "MS932"
+            "x-sjis", // JDK1.2 Alias of "MS932", JDK1.3 Alias of "SJIS", JDK1.4 Alias of "MS932"
+            "jis", // Alias of "ISO2022JP"
+            "iso-2022-jp", // JDK1.1.1-JDK1.1.5 Alias of "JIS", JDK1.1.6- Alias of "ISO2022JP"
+            "csISO2022JP", // JDK1.1.1-JDK1.1.5 Alias of "JIS", JDK1.1.6- Alias of "ISO2022JP"
+            "jis_encoding", // JDK1.1.1-JDK1.1.5 Alias of "JIS", JDK1.1.6- Alias of "ISO2022JP"
+            "csJISEncoding", // JDK1.1.1-JDK1.1.5 Alias of "JIS", JDK1.1.6- Alias of "ISO2022JP"
+            "jis auto detect", // Alias of "JISAutoDetect"
+            "cp930", "ibm-930", "ibm930", "930", // Aliases of "Cp930"
+            "cp939", "ibm-939", "ibm939", "939", // Aliases of "Cp939"
+            "cp942", "ibm-942", "ibm942", "942", // Aliases of "Cp942"
+            "cp942c", // Alias of "Cp942C"
+            "cp943", "ibm-943", "ibm943", "943", // Aliases of "Cp943"
+            "cp943c", // Alias of "Cp943C"
             "cp33722", "ibm-33722", "ibm33722", "33722"
-        }; //Aliases of "Cp33722"
+        }; // Aliases of "Cp33722"
         for (int i = 0; i < Aliases.length; i++) {
             if (encoding.equalsIgnoreCase(Aliases[i])) {
                 return true;
@@ -785,19 +709,18 @@ public class LhaProperty {
      * encoding が ShiftJIS 系列のエンコーディングであるかを返す。
      *
      * @param encoding エンコーディング
-     *
      * @return encoding が日本語のエンコーディングなら true 違えば false
      */
     private static final boolean isCategoryOfShiftJIS(String encoding) {
 
         String[] Coverters = {
-            "Cp942", //SJIS OS/2 日本語, Cp932 のスーパーセット, 0x5C -> '＼' (半角バックスラッシュ)
-            "Cp942C", //SJIS OS/2 日本語, Cp932 のスーパーセット, 0x5C -> '¥' (半角円記号)
-            "Cp943", //SJIS OS/2 日本語, Cp942 のスーパーセット 新JIS対応, 0x5C -> '＼' (半角バックスラッシュ)
-            "Cp943C", //SJIS OS/2 日本語, Cp942 のスーパーセット 新JIS対応, 0x5C -> '¥' (半角円記号)
-            "MS932", //Windows 日本語
+            "Cp942", // SJIS OS/2 日本語, Cp932 のスーパーセット, 0x5C -> '＼' (半角バックスラッシュ)
+            "Cp942C", // SJIS OS/2 日本語, Cp932 のスーパーセット, 0x5C -> '¥' (半角円記号)
+            "Cp943", // SJIS OS/2 日本語, Cp942 のスーパーセット 新JIS対応, 0x5C -> '＼' (半角バックスラッシュ)
+            "Cp943C", // SJIS OS/2 日本語, Cp942 のスーパーセット 新JIS対応, 0x5C -> '¥' (半角円記号)
+            "MS932", // Windows 日本語
             "SJIS"
-        }; //Shift-JIS、日本語
+        }; // Shift-JIS、日本語
         for (int i = 0; i < Coverters.length; i++) {
             if (encoding.equals(Coverters[i])) {
                 return true;
@@ -805,14 +728,14 @@ public class LhaProperty {
         }
 
         String[] Aliases = {
-            "shift_jis", "ms_kanji", "csShiftJIS", //JDK1.1.1 - JDK1.1.7B Alias of "SJIS", JDK1.2 - JDK1.3 Alias of "MS932", JDK1.4 Alias of "SJIS"
-            "csWindows31J", "windows-31j", //Alias of "MS932"
-            "x-sjis", //JDK1.2 Alias of "MS932", JDK1.3 Alias of "SJIS", JDK1.4 Alias of "MS932"
-            "cp942", "ibm-942", "ibm942", "942", //Aliases of "Cp942"
-            "cp942c", //Alias of "Cp942C"
-            "cp943", "ibm-943", "ibm943", "943", //Aliases of "Cp943"
+            "shift_jis", "ms_kanji", "csShiftJIS", // JDK1.1.1 - JDK1.1.7B Alias of "SJIS", JDK1.2 - JDK1.3 Alias of "MS932", JDK1.4 Alias of "SJIS"
+            "csWindows31J", "windows-31j", // Alias of "MS932"
+            "x-sjis", // JDK1.2 Alias of "MS932", JDK1.3 Alias of "SJIS", JDK1.4 Alias of "MS932"
+            "cp942", "ibm-942", "ibm942", "942", // Aliases of "Cp942"
+            "cp942c", // Alias of "Cp942C"
+            "cp943", "ibm-943", "ibm943", "943", // Aliases of "Cp943"
             "cp943c"
-        }; //Alias of "Cp943C"
+        }; // Alias of "Cp943C"
         for (int i = 0; i < Aliases.length; i++) {
             if (encoding.equalsIgnoreCase(Aliases[i])) {
                 return true;
@@ -821,6 +744,4 @@ public class LhaProperty {
 
         return false;
     }
-
 }
-//end of LhaProperty.java

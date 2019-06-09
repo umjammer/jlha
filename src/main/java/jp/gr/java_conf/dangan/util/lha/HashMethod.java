@@ -1,9 +1,4 @@
-//start of HashMethod.java
-//TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
-
 /**
- * HashMethod.java
- *
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
@@ -31,31 +26,28 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
-//import classes and interfaces
-
-//import exceptions
 
 /**
  * ハッシュ関数を提供するインターフェイス。<br>
  * <br>
  * コンストラクタの形式は
- * 
+ *
  * <pre>
  * HashMethod( byte[] TextBuffer )
  *
  * <strong>パラメータ:</strong>
  *   TextBuffer     - LZSS圧縮を施すデータの入ったバッファ
  * </pre>
- * 
+ *
  * のような形式に則ること。<br>
  * また、追加の引数をとりたい場合は
- * 
+ *
  * <pre>
  * HashMethod( byte[] TextBuffer,
  *             Object ExtraData1,
  *             Object ExtraData2 )
  * </pre>
- * 
+ *
  * のような形式を用いる。<br>
  * なお、コンストラクタの引数チェックは追加の引数がある場合について行えばよい。
  *
@@ -79,23 +71,15 @@ package jp.gr.java_conf.dangan.util.lha;
  */
 public interface HashMethod {
 
-    //------------------------------------------------------------------
-    //  original method
-    //------------------------------------------------------------------
-    //  public abstract int hash( int position )
-    //  public abstract int hashRequires()
-    //  public abstract int tableSize()
-    //------------------------------------------------------------------
     /**
      * ハッシュ関数。
      * コンストラクタで渡された TextBuffer 内の
      * position からのデータパタンの hash値を生成する。
      *
      * @param position データパタンの開始位置
-     *
      * @return ハッシュ値
      */
-    public abstract int hash(int position);
+    int hash(int position);
 
     /**
      * ハッシュ関数が
@@ -104,7 +88,7 @@ public interface HashMethod {
      * @return ハッシュ関数がハッシュ値を
      *         生成するために使用するバイト数
      */
-    public abstract int hashRequires();
+    int hashRequires();
 
     /**
      * この HashMethod を使った場合の
@@ -112,7 +96,5 @@ public interface HashMethod {
      *
      * @return この HashMethod を使った場合の HashTable のサイズ
      */
-    public abstract int tableSize();
-
+    int tableSize();
 }
-//end of HashMethod.java

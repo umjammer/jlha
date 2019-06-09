@@ -26,8 +26,8 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
-import java.io.IOException;
 import java.io.EOFException;
+import java.io.IOException;
 
 
 /**
@@ -83,14 +83,14 @@ public interface PreLzssDecoder {
      */
     public abstract boolean markSupported();
 
-    //------------------------------------------------------------------
-    //  original method ( on the model of java.io.InputStream )
-    //------------------------------------------------------------------
-    //  other method
-    //------------------------------------------------------------------
-    //  public abstract int available()
-    //  public abstract void close()
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // original method ( on the model of java.io.InputStream )
+    // ------------------------------------------------------------------
+    // other method
+    // ------------------------------------------------------------------
+    // public abstract int available()
+    // public abstract void close()
+    // ------------------------------------------------------------------
     /**
      * 接続された入力ストリームからブロックしないで
      * 読み込むことのできる最低バイト数を得る。<br>

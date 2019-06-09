@@ -1,5 +1,5 @@
-//start of PreLzsDecoder.java
-//TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
+// start of PreLzsDecoder.java
+// TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
 
 /**
  * PreLzsDecoder.java
@@ -31,17 +31,15 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
-//import classes and interfaces
-import java.io.InputStream;
-import jp.gr.java_conf.dangan.io.Bits;
-import jp.gr.java_conf.dangan.io.BitInputStream;
-import jp.gr.java_conf.dangan.util.lha.PreLzssDecoder;
-
-//import exceptions
-import java.io.IOException;
 import java.io.EOFException;
-import java.lang.NullPointerException;
+// import exceptions
+import java.io.IOException;
+// import classes and interfaces
+import java.io.InputStream;
+
 import jp.gr.java_conf.dangan.io.BitDataBrokenException;
+import jp.gr.java_conf.dangan.io.BitInputStream;
+import jp.gr.java_conf.dangan.io.Bits;
 
 
 /**
@@ -70,15 +68,15 @@ import jp.gr.java_conf.dangan.io.BitDataBrokenException;
  */
 public class PreLzsDecoder implements PreLzssDecoder {
 
-    //------------------------------------------------------------------
-    //  class field
-    //------------------------------------------------------------------
-    //  LZSS parameter
-    //------------------------------------------------------------------
-    //  private static final int DictionarySize
-    //  private static final int MaxMatch
-    //  private static final int Threshold
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // class field
+    // ------------------------------------------------------------------
+    // LZSS parameter
+    // ------------------------------------------------------------------
+    // private static final int DictionarySize
+    // private static final int MaxMatch
+    // private static final int Threshold
+    // ------------------------------------------------------------------
     /** 辞書サイズ */
     private static final int DictionarySize = 2048;
 
@@ -88,41 +86,41 @@ public class PreLzsDecoder implements PreLzssDecoder {
     /** 最小一致長 */
     private static final int Threshold = 2;
 
-    //------------------------------------------------------------------
-    //  class field
-    //------------------------------------------------------------------
-    //  bit length
-    //------------------------------------------------------------------
-    //  private static final int OffsetBits
-    //  private static final int LengthBits
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // class field
+    // ------------------------------------------------------------------
+    // bit length
+    // ------------------------------------------------------------------
+    // private static final int OffsetBits
+    // private static final int LengthBits
+    // ------------------------------------------------------------------
     /** 一致位置のビット数 */
     private static final int OffsetBits = Bits.len(PreLzsDecoder.DictionarySize - 1);
 
     /** 一致長のビット数 */
     private static final int LengthBits = Bits.len(PreLzsDecoder.MaxMatch - PreLzsDecoder.Threshold);
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  source
-    //------------------------------------------------------------------
-    //  private BitInputStream in
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // instance field
+    // ------------------------------------------------------------------
+    // source
+    // ------------------------------------------------------------------
+    // private BitInputStream in
+    // ------------------------------------------------------------------
     /**
      * -lzs- 形式の圧縮データを供給する BitInputStream
      */
     private BitInputStream in;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  current position
-    //------------------------------------------------------------------
-    //  private int position
-    //  private int matchOffset
-    //  private int matchLength
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // instance field
+    // ------------------------------------------------------------------
+    // current position
+    // ------------------------------------------------------------------
+    // private int position
+    // private int matchOffset
+    // private int matchLength
+    // ------------------------------------------------------------------
     /**
      * 現在処理位置。
      * LzssInputStreamの内部状態を取得できないために存在する。
@@ -140,15 +138,15 @@ public class PreLzsDecoder implements PreLzssDecoder {
      */
     private int matchLength;
 
-    //------------------------------------------------------------------
-    //  member values
-    //------------------------------------------------------------------
-    //  backup for mark/reset
-    //------------------------------------------------------------------
-    //  private int markPosition
-    //  private int markMatchOffset
-    //  private int markMatchLength
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // member values
+    // ------------------------------------------------------------------
+    // backup for mark/reset
+    // ------------------------------------------------------------------
+    // private int markPosition
+    // private int markMatchOffset
+    // private int markMatchLength
+    // ------------------------------------------------------------------
     /** matchPositionのバックアップ用 */
     private int markPosition;
 
@@ -158,11 +156,11 @@ public class PreLzsDecoder implements PreLzssDecoder {
     /** matchLengthのバックアップ用 */
     private int markMatchLength;
 
-    //------------------------------------------------------------------
-    //  constructers
-    //------------------------------------------------------------------
-    //  public PreLzsDecoder( InputStream in )
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // constructers
+    // ------------------------------------------------------------------
+    // public PreLzsDecoder( InputStream in )
+    // ------------------------------------------------------------------
     /**
      * -lzs- 解凍用 PreLzssDecoder を構築する。
      *
@@ -183,14 +181,14 @@ public class PreLzsDecoder implements PreLzssDecoder {
         }
     }
 
-    //------------------------------------------------------------------
-    //  method of jp.gr.java_conf.dangan.util.lha.PreLzssDecoder
-    //------------------------------------------------------------------
-    //  read
-    //------------------------------------------------------------------
-    //  public int readCode()
-    //  public int readOffset()
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // method of jp.gr.java_conf.dangan.util.lha.PreLzssDecoder
+    // ------------------------------------------------------------------
+    // read
+    // ------------------------------------------------------------------
+    // public int readCode()
+    // public int readOffset()
+    // ------------------------------------------------------------------
     /**
      * -lzs- で圧縮された
      * 1byte の LZSS未圧縮のデータ、
@@ -234,15 +232,15 @@ public class PreLzsDecoder implements PreLzssDecoder {
         return offset;
     }
 
-    //------------------------------------------------------------------
-    //  method of jp.gr.java_conf.dangan.util.lha.PreLzssDecoder
-    //------------------------------------------------------------------
-    //  mark / reset
-    //------------------------------------------------------------------
-    //  public void mark( int readLimit )
-    //  public void reset()
-    //  public boolean markSupported()
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // method of jp.gr.java_conf.dangan.util.lha.PreLzssDecoder
+    // ------------------------------------------------------------------
+    // mark / reset
+    // ------------------------------------------------------------------
+    // public void mark( int readLimit )
+    // public void reset()
+    // public boolean markSupported()
+    // ------------------------------------------------------------------
     /**
      * 接続された入力ストリームの現在位置にマークを設定し、
      * reset() メソッドでマークした時点の 読み込み位置に
@@ -278,10 +276,10 @@ public class PreLzsDecoder implements PreLzssDecoder {
      *                &emsp;&emsp; の何れか。
      */
     public void reset() throws IOException {
-        //mark()しないで reset()しようとした場合、
-        //接続された InputStream が mark/resetをサポートしない場合は
-        //BitInputStream の reset()によって IOExceptionが投げられる。
-        this.in.reset(); //throws IOException
+        // mark()しないで reset()しようとした場合、
+        // 接続された InputStream が mark/resetをサポートしない場合は
+        // BitInputStream の reset()によって IOExceptionが投げられる。
+        this.in.reset();
 
         this.position = this.markPosition;
         this.matchOffset = this.markMatchOffset;
@@ -300,14 +298,14 @@ public class PreLzsDecoder implements PreLzssDecoder {
         return this.in.markSupported();
     }
 
-    //------------------------------------------------------------------
-    //  method of jp.gr.java_conf.dangan.util.lha.PreLzssDecoder
-    //------------------------------------------------------------------
-    //  other
-    //------------------------------------------------------------------
-    //  public int available()
-    //  public void close()
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // method of jp.gr.java_conf.dangan.util.lha.PreLzssDecoder
+    // ------------------------------------------------------------------
+    // other
+    // ------------------------------------------------------------------
+    // public int available()
+    // public void close()
+    // ------------------------------------------------------------------
     /**
      * ブロックせずに読み出すことの出来る最低バイト数を得る。<br>
      * InputStream の available() と違い、
@@ -336,15 +334,15 @@ public class PreLzsDecoder implements PreLzssDecoder {
         this.in = null;
     }
 
-    //------------------------------------------------------------------
-    //  method of jp.gr.java_conf.dangan.util.lha.PreLzssDecoder
-    //------------------------------------------------------------------
-    //  get LZSS parameter
-    //------------------------------------------------------------------
-    //  public int getDictionarySize()
-    //  public int getMaxMatch()
-    //  public int getThreshold()
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // method of jp.gr.java_conf.dangan.util.lha.PreLzssDecoder
+    // ------------------------------------------------------------------
+    // get LZSS parameter
+    // ------------------------------------------------------------------
+    // public int getDictionarySize()
+    // public int getMaxMatch()
+    // public int getThreshold()
+    // ------------------------------------------------------------------
     /**
      * -lzs-形式の LZSS辞書のサイズを得る。
      *
@@ -373,4 +371,4 @@ public class PreLzsDecoder implements PreLzssDecoder {
     }
 
 }
-//end of PreLzsDecoder.java
+// end of PreLzsDecoder.java

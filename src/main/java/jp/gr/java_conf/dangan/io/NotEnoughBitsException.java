@@ -84,7 +84,7 @@ public class NotEnoughBitsException extends IOException {
 
     /**
      * 使用可能なビット数を得る。<br>
-     * この例外を投げたメソッドにおいて、現在使用可能なビット数を返す。<br>
+     * この例外を投げたメソッドにおいて、現在使用可能なビット数を返す。
      *
      * @return 使用可能なビット数
      */

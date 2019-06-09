@@ -1,6 +1,4 @@
 /*
- * BitInputStream.java
- *
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
@@ -28,14 +26,9 @@
 
 package jp.gr.java_conf.dangan.io;
 
-import java.io.InputStream;
-
-import java.io.IOException;
 import java.io.EOFException;
-import java.lang.NullPointerException;
-import java.lang.IllegalArgumentException;
-import jp.gr.java_conf.dangan.io.BitDataBrokenException;
-import jp.gr.java_conf.dangan.io.NotEnoughBitsException;
+import java.io.IOException;
+import java.io.InputStream;
 
 
 /**
@@ -264,7 +257,7 @@ public class BitInputStream extends InputStream {
         final int requested = length;
         try {
             while (0 < length) {
-                buffer[index++] = (byte) this.readBits(8); //throws LocalEOFException BitDataBrokenException IOException
+                buffer[index++] = (byte) this.readBits(8);
                 length--;
             }
             return requested;
@@ -380,12 +373,12 @@ public class BitInputStream extends InputStream {
             this.bitCount = this.markBitCount;
         } else if (!this.in.markSupported()) {
             throw new IOException("not support mark()/reset().");
-        } else if (this.markCache == null) { //この条件式は未だにマークされていないことを示す。コンストラクタで markCache が null に設定されるのを利用する。
+        } else if (this.markCache == null) { // この条件式は未だにマークされていないことを示す。コンストラクタで markCache が null に設定されるのを利用する。
             throw new IOException("not marked.");
         } else {
-            //in が reset() できない場合は
-            //最初の行の this.in.reset() で
-            //IOException を投げることを期待している。
+            // in が reset() できない場合は
+            // 最初の行の this.in.reset() で
+            // IOException を投げることを期待している。
             this.in.reset();
             System.arraycopy(this.markCache, 0, this.cache, 0, this.markCacheLimit);
             this.cacheLimit = this.markCacheLimit;
@@ -629,7 +622,7 @@ public class BitInputStream extends InputStream {
             return this.bitBuffer >>> 31;
         } else {
             try {
-                this.fillBitBuffer(); //throws LocalEOFException IOException
+                this.fillBitBuffer();
                 return this.bitBuffer >>> 31;
             } catch (LocalEOFException exception) {
                 if (exception.thrownBy(this)) {
@@ -743,7 +736,7 @@ public class BitInputStream extends InputStream {
      *                入出力エラーが発生した場合
      */
     public int availableBits() throws IOException {
-        int avail = (this.cacheLimit - this.cachePosition) + this.in.available() / this.cache.length * this.cache.length;//throws IOException
+        int avail = (this.cacheLimit - this.cachePosition) + this.in.available() / this.cache.length * this.cache.length;
         avail += this.bitCount - 32;
 
         return Math.max(avail, 0);
@@ -794,7 +787,7 @@ public class BitInputStream extends InputStream {
                 this.bitBuffer |= (this.cache[this.cachePosition++] & 0xFF) << (24 - this.bitCount);
                 this.bitCount += 8;
             }
-            this.fillCache(); //throws IOException
+            this.fillCache();
             if (this.cachePosition < this.cacheLimit) {
                 count = Math.min((32 - this.bitCount) >> 3, this.cacheLimit - this.cachePosition);
                 while (0 < count--) {
@@ -817,7 +810,7 @@ public class BitInputStream extends InputStream {
         this.cacheLimit = 0;
         this.cachePosition = 0;
 
-        //cache にデータを読み込む
+        // cache にデータを読み込む
         int read = 0;
         while (0 <= read && this.cacheLimit < this.cache.length) {
             read = this.in.read(this.cache, this.cacheLimit, this.cache.length - this.cacheLimit);

@@ -1,9 +1,4 @@
-//start of LhaChecksum.java
-//TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
-
 /**
- * LhaChecksum.java
- *
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
@@ -31,11 +26,8 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
-//import classes and interfaces
 import java.util.zip.Checksum;
 
-
-//import exceptions
 
 /**
  * LHAで使用される 単純な 1バイトのチェックサム値を
@@ -58,21 +50,11 @@ import java.util.zip.Checksum;
  */
 public class LhaChecksum implements Checksum {
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  private int checksum
-    //------------------------------------------------------------------
     /**
      * チェックサム値
      */
     private int checksum;
 
-    //------------------------------------------------------------------
-    //  constructor
-    //------------------------------------------------------------------
-    //  public LhaChecksum()
-    //------------------------------------------------------------------
     /**
      * 新しい チェックサムクラスを作成する。
      */
@@ -81,15 +63,6 @@ public class LhaChecksum implements Checksum {
         this.reset();
     }
 
-    //------------------------------------------------------------------
-    //  method of java.util.zip.Checksum method
-    //------------------------------------------------------------------
-    //  update
-    //------------------------------------------------------------------
-    //  public void update( int byte8 )
-    //  public void update( byte[] buffer )
-    //  public void update( byte[] buffer, int index, int length )
-    //------------------------------------------------------------------
     /**
      * byte8 で指定した 1バイトのデータで チェックサム値を更新する。
      *
@@ -123,14 +96,6 @@ public class LhaChecksum implements Checksum {
             this.checksum += buffer[index++];
     }
 
-    //------------------------------------------------------------------
-    //  method of java.util.zip.Checksum
-    //------------------------------------------------------------------
-    //  other
-    //------------------------------------------------------------------
-    //  public void reset()
-    //  public long getValue()
-    //------------------------------------------------------------------
     /**
      * チェックサム値を初期値に設定しなおす。
      */
@@ -148,6 +113,4 @@ public class LhaChecksum implements Checksum {
     public long getValue() {
         return this.checksum & 0xFF;
     }
-
 }
-//end of LhaChecksum.java

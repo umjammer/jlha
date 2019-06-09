@@ -1,5 +1,5 @@
-//start of PostLh1Encoder.java
-//TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
+// start of PostLh1Encoder.java
+// TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
 
 /**
  * PostLh1Encoder.java
@@ -31,17 +31,12 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
-//import classes and interfaces
-import java.io.OutputStream;
-import jp.gr.java_conf.dangan.io.BitOutputStream;
-import jp.gr.java_conf.dangan.util.lha.StaticHuffman;
-import jp.gr.java_conf.dangan.util.lha.DynamicHuffman;
-import jp.gr.java_conf.dangan.util.lha.PostLzssEncoder;
-
-//import exceptions
+// import exceptions
 import java.io.IOException;
-import java.lang.NullPointerException;
-import jp.gr.java_conf.dangan.util.lha.BadHuffmanTableException;
+// import classes and interfaces
+import java.io.OutputStream;
+
+import jp.gr.java_conf.dangan.io.BitOutputStream;
 
 
 /**
@@ -68,15 +63,15 @@ import jp.gr.java_conf.dangan.util.lha.BadHuffmanTableException;
  */
 public class PostLh1Encoder implements PostLzssEncoder {
 
-    //------------------------------------------------------------------
-    //  class field
-    //------------------------------------------------------------------
-    //  LZSS parameter
-    //------------------------------------------------------------------
-    //  private static final int DictionarySize
-    //  private static final int MaxMatch
-    //  private static final int Threshold
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // class field
+    // ------------------------------------------------------------------
+    // LZSS parameter
+    // ------------------------------------------------------------------
+    // private static final int DictionarySize
+    // private static final int MaxMatch
+    // private static final int Threshold
+    // ------------------------------------------------------------------
     /** 辞書サイズ */
     private static final int DictionarySize = 4096;
 
@@ -86,38 +81,38 @@ public class PostLh1Encoder implements PostLzssEncoder {
     /** 最小一致長 */
     private static final int Threshold = 3;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  sink
-    //------------------------------------------------------------------
-    //  private BitOutputStream out
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // instance field
+    // ------------------------------------------------------------------
+    // sink
+    // ------------------------------------------------------------------
+    // private BitOutputStream out
+    // ------------------------------------------------------------------
     /**
      * -lh1- 形式の圧縮データの出力先の ビット出力ストリーム
      */
     private BitOutputStream out;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  dynamic huffman tree
-    //------------------------------------------------------------------
-    //  private DynamicHuffman huffman
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // instance field
+    // ------------------------------------------------------------------
+    // dynamic huffman tree
+    // ------------------------------------------------------------------
+    // private DynamicHuffman huffman
+    // ------------------------------------------------------------------
     /**
      * Code部圧縮用適応的ハフマン木
      */
     private DynamicHuffman huffman;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  static huffman list
-    //------------------------------------------------------------------
-    //  private int[] offHiCode
-    //  private int[] offHiLen
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // instance field
+    // ------------------------------------------------------------------
+    // static huffman list
+    // ------------------------------------------------------------------
+    // private int[] offHiCode
+    // private int[] offHiLen
+    // ------------------------------------------------------------------
     /**
      * offset部の上位6bit圧縮用ハフマン符号の表
      */
@@ -151,14 +146,14 @@ public class PostLh1Encoder implements PostLzssEncoder {
         }
     }
 
-    //------------------------------------------------------------------
-    //  method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
-    //------------------------------------------------------------------
-    //  write
-    //------------------------------------------------------------------
-    //  public void writeCode( int code )
-    //  public void writeOffset( int offset )
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
+    // ------------------------------------------------------------------
+    // write
+    // ------------------------------------------------------------------
+    // public void writeCode( int code )
+    // public void writeOffset( int offset )
+    // ------------------------------------------------------------------
     /**
      * 1byte の LZSS未圧縮のデータもしくは、
      * LZSS で圧縮された圧縮コードのうち一致長を書きこむ。<br>
@@ -181,7 +176,7 @@ public class PostLh1Encoder implements PostLzssEncoder {
             node = this.huffman.parentNode(node);
         } while (node != DynamicHuffman.ROOT);
 
-        this.out.writeBits(hlen, hcode >> (32 - hlen)); //throws IOException
+        this.out.writeBits(hlen, hcode >> (32 - hlen));
         this.huffman.update(code);
     }
 
@@ -192,18 +187,18 @@ public class PostLh1Encoder implements PostLzssEncoder {
      */
     public void writeOffset(int offset) throws IOException {
         int offHi = (offset >> 6);
-        this.out.writeBits(this.offHiLen[offHi], this.offHiCode[offHi]); //throws IOException
-        this.out.writeBits(6, offset); //throws IOException
+        this.out.writeBits(this.offHiLen[offHi], this.offHiCode[offHi]);
+        this.out.writeBits(6, offset);
     }
 
-    //------------------------------------------------------------------
-    //  method jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
-    //------------------------------------------------------------------
-    //  other
-    //------------------------------------------------------------------
-    //  public void flush()
-    //  public void close()
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // method jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
+    // ------------------------------------------------------------------
+    // other
+    // ------------------------------------------------------------------
+    // public void flush()
+    // public void close()
+    // ------------------------------------------------------------------
     /**
      * この PostLzssEncoder にバッファリングされている
      * 全ての 8ビット単位のデータを出力先の OutputStream に出力し、
@@ -216,7 +211,7 @@ public class PostLh1Encoder implements PostLzssEncoder {
      * @see BitOutputStream#flush()
      */
     public void flush() throws IOException {
-        this.out.flush(); //throws IOException
+        this.out.flush();
     }
 
     /**
@@ -226,7 +221,7 @@ public class PostLh1Encoder implements PostLzssEncoder {
      * @exception IOException 入出力エラーが発生した場合
      */
     public void close() throws IOException {
-        this.out.close(); //throws IOException
+        this.out.close();
 
         this.out = null;
         this.huffman = null;
@@ -234,15 +229,15 @@ public class PostLh1Encoder implements PostLzssEncoder {
         this.offHiCode = null;
     }
 
-    //------------------------------------------------------------------
-    //  method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
-    //------------------------------------------------------------------
-    //  get LZSS parameter
-    //------------------------------------------------------------------
-    //  public int getDictionarySize()
-    //  public int getMaxMatch()
-    //  public int getThreshold()
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
+    // ------------------------------------------------------------------
+    // get LZSS parameter
+    // ------------------------------------------------------------------
+    // public int getDictionarySize()
+    // public int getMaxMatch()
+    // public int getThreshold()
+    // ------------------------------------------------------------------
     /**
      * -lh1-形式の LZSS辞書のサイズを得る。
      *
@@ -270,11 +265,11 @@ public class PostLh1Encoder implements PostLzssEncoder {
         return PostLh1Encoder.Threshold;
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  private static int[] createLenList()
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // local method
+    // ------------------------------------------------------------------
+    // private static int[] createLenList()
+    // ------------------------------------------------------------------
     /**
      * -lh1- の offsetデコード用StaticHuffmanの
      * ハフマン符号長リストを生成する。
@@ -303,4 +298,4 @@ public class PostLh1Encoder implements PostLzssEncoder {
     }
 
 }
-//end of PostLh1Encoder.java
+// end of PostLh1Encoder.java

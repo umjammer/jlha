@@ -1,5 +1,5 @@
-//start of PostLh2Encoder.java
-//TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
+// start of PostLh2Encoder.java
+// TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
 
 /**
  * PostLh2Encoder.java
@@ -31,16 +31,12 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
-//import classes and interfaces
-import java.io.OutputStream;
-import java.lang.Math;
-import jp.gr.java_conf.dangan.io.BitOutputStream;
-import jp.gr.java_conf.dangan.util.lha.DynamicHuffman;
-import jp.gr.java_conf.dangan.util.lha.PostLzssEncoder;
-
-//import exceptions
+// import exceptions
 import java.io.IOException;
-import java.lang.NullPointerException;
+// import classes and interfaces
+import java.io.OutputStream;
+
+import jp.gr.java_conf.dangan.io.BitOutputStream;
 
 
 /**
@@ -67,15 +63,15 @@ import java.lang.NullPointerException;
  */
 public class PostLh2Encoder implements PostLzssEncoder {
 
-    //------------------------------------------------------------------
-    //  class field
-    //------------------------------------------------------------------
-    //  LZSS parameter
-    //------------------------------------------------------------------
-    //  private static final int DictionarySize
-    //  private static final int MaxMatch
-    //  private static final int Threshold
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // class field
+    // ------------------------------------------------------------------
+    // LZSS parameter
+    // ------------------------------------------------------------------
+    // private static final int DictionarySize
+    // private static final int MaxMatch
+    // private static final int Threshold
+    // ------------------------------------------------------------------
     /** 辞書サイズ */
     private static final int DictionarySize = 8192;
 
@@ -85,37 +81,37 @@ public class PostLh2Encoder implements PostLzssEncoder {
     /** 最小一致長 */
     private static final int Threshold = 3;
 
-    //------------------------------------------------------------------
-    //  class field
-    //------------------------------------------------------------------
-    //  private static final int CodeSize
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // class field
+    // ------------------------------------------------------------------
+    // private static final int CodeSize
+    // ------------------------------------------------------------------
     /**
      * code部のハフマン木のサイズ
      * code部がこれ以上の値を扱う場合は余計なビットを出力して補う。
      */
     private static final int CodeSize = 286;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  sink
-    //------------------------------------------------------------------
-    //  private BitOutputStream out
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // instance field
+    // ------------------------------------------------------------------
+    // sink
+    // ------------------------------------------------------------------
+    // private BitOutputStream out
+    // ------------------------------------------------------------------
     /**
      * -lh2- 形式の圧縮データの出力先の ビット出力ストリーム
      */
     private BitOutputStream out;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  dynamic huffman tree
-    //------------------------------------------------------------------
-    //  private DynamicHuffman codeHuffman
-    //  private DynamicHuffman offHiHuffman
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // instance field
+    // ------------------------------------------------------------------
+    // dynamic huffman tree
+    // ------------------------------------------------------------------
+    // private DynamicHuffman codeHuffman
+    // private DynamicHuffman offHiHuffman
+    // ------------------------------------------------------------------
     /**
      * code部圧縮用適応的ハフマン木
      */
@@ -126,15 +122,15 @@ public class PostLh2Encoder implements PostLzssEncoder {
      */
     private DynamicHuffman offHiHuffman;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  current position
-    //------------------------------------------------------------------
-    //  private int position
-    //  private int nextPosition
-    //  private int matchLength
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // instance field
+    // ------------------------------------------------------------------
+    // current position
+    // ------------------------------------------------------------------
+    // private int position
+    // private int nextPosition
+    // private int matchLength
+    // ------------------------------------------------------------------
     /**
      * 出力したオリジナルのサイズをカウントする
      */
@@ -171,14 +167,14 @@ public class PostLh2Encoder implements PostLzssEncoder {
         }
     }
 
-    //------------------------------------------------------------------
-    //  method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
-    //------------------------------------------------------------------
-    //  write
-    //------------------------------------------------------------------
-    //  public void writeCode( int code )
-    //  public void writeOffset( int offset )
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
+    // ------------------------------------------------------------------
+    // write
+    // ------------------------------------------------------------------
+    // public void writeCode( int code )
+    // public void writeOffset( int offset )
+    // ------------------------------------------------------------------
     /**
      * 1byte の LZSS未圧縮のデータもしくは、
      * LZSS で圧縮された圧縮コードのうち一致長を書きこむ。<br>
@@ -203,7 +199,7 @@ public class PostLh2Encoder implements PostLzssEncoder {
             node = this.codeHuffman.parentNode(node);
         } while (node != DynamicHuffman.ROOT);
 
-        this.out.writeBits(hlen, hcode >>> (32 - hlen)); //throws IOException
+        this.out.writeBits(hlen, hcode >>> (32 - hlen));
 
         if (code < 0x100) {
             this.position++;
@@ -211,8 +207,8 @@ public class PostLh2Encoder implements PostLzssEncoder {
             this.matchLength = (code & 0xFF) + PostLh2Encoder.Threshold;
 
             if (CodeMax <= code) {
-                this.out.writeBits(8, code - CodeMax); //throws IOException
-                code = CodeMax; //updateするコードをCodeMaxにする。
+                this.out.writeBits(8, code - CodeMax);
+                code = CodeMax; // updateするコードをCodeMaxにする。
             }
         }
         this.codeHuffman.update(code);
@@ -246,21 +242,21 @@ public class PostLh2Encoder implements PostLzssEncoder {
             node = this.offHiHuffman.parentNode(node);
         }
 
-        this.out.writeBits(hlen, hcode >> (32 - hlen)); //throws IOException
-        this.out.writeBits(6, offset); //throws IOException
+        this.out.writeBits(hlen, hcode >> (32 - hlen));
+        this.out.writeBits(6, offset);
         this.offHiHuffman.update(offset >> 6);
 
         this.position += this.matchLength;
     }
 
-    //------------------------------------------------------------------
-    //  method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
-    //------------------------------------------------------------------
-    //  other
-    //------------------------------------------------------------------
-    //  public void flush()
-    //  public void close()
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
+    // ------------------------------------------------------------------
+    // other
+    // ------------------------------------------------------------------
+    // public void flush()
+    // public void close()
+    // ------------------------------------------------------------------
     /**
      * この PostLzssEncoder にバッファリングされている
      * 全ての 8ビット単位のデータを出力先の OutputStream に出力し、
@@ -273,7 +269,7 @@ public class PostLh2Encoder implements PostLzssEncoder {
      * @see BitOutputStream#flush()
      */
     public void flush() throws IOException {
-        this.out.flush(); //throws IOException
+        this.out.flush();
     }
 
     /**
@@ -283,22 +279,22 @@ public class PostLh2Encoder implements PostLzssEncoder {
      * @exception IOException 入出力エラーが発生した場合
      */
     public void close() throws IOException {
-        this.out.close(); //throws IOException
+        this.out.close();
 
         this.out = null;
         this.codeHuffman = null;
         this.offHiHuffman = null;
     }
 
-    //------------------------------------------------------------------
-    //  method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
-    //------------------------------------------------------------------
-    //  get LZSS parameter
-    //------------------------------------------------------------------
-    //  public int getDictionarySize()
-    //  public int getMaxMatch()
-    //  public int getThreshold()
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
+    // ------------------------------------------------------------------
+    // get LZSS parameter
+    // ------------------------------------------------------------------
+    // public int getDictionarySize()
+    // public int getMaxMatch()
+    // public int getThreshold()
+    // ------------------------------------------------------------------
     /**
      * -lh2-形式の LZSS辞書のサイズを得る。
      *
@@ -327,4 +323,4 @@ public class PostLh2Encoder implements PostLzssEncoder {
     }
 
 }
-//end of PostLh2Encoder.java
+// end of PostLh2Encoder.java

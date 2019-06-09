@@ -1,9 +1,4 @@
-//start of GrowthByteBuffer.java
-//TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
-
 /**
- * GrowthByteBuffer.java
- *
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
@@ -30,12 +25,6 @@
  */
 
 package jp.gr.java_conf.dangan.io;
-
-//import classes and interfaces
-
-//import exceptions
-import java.lang.IllegalArgumentException;
-
 
 /**
  * 自動的に伸張するバッファ。<br>
@@ -69,27 +58,11 @@ import java.lang.IllegalArgumentException;
  */
 public class GrowthByteBuffer {
 
-    //------------------------------------------------------------------
-    //  class field
-    //------------------------------------------------------------------
-    //  default
-    //------------------------------------------------------------------
-    //  private static final int DefaultBufferSize
-    //------------------------------------------------------------------
     /**
      * デフォルトの一つのバッファのサイズ
      */
     private static final int DefaultBufferSize = 16384;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  byte buffer
-    //------------------------------------------------------------------
-    //  private byte[][] buffer
-    //  private int position
-    //  private int limit
-    //------------------------------------------------------------------
     /**
      * バッファ
      * 全て buffer[0].length と同じサイズのbyte配列の配列。
@@ -109,12 +82,6 @@ public class GrowthByteBuffer {
      */
     private int limit;
 
-    //------------------------------------------------------------------
-    //  constructer
-    //------------------------------------------------------------------
-    //  public GrowthByteBuffer()
-    //  public GrouthByteBuffer( int BufferSize )
-    //------------------------------------------------------------------
     /**
      * サイズを自動で伸張するバッファを構築する。<br>
      * バッファサイズにはデフォルト値が使用される。
@@ -124,7 +91,7 @@ public class GrowthByteBuffer {
     }
 
     /**
-     * サイズを自動で伸張するバッファを構築する。<br>
+     * サイズを自動で伸張するバッファを構築する。
      *
      * @param BufferSize バッファのサイズ
      */
@@ -139,15 +106,6 @@ public class GrowthByteBuffer {
         }
     }
 
-    //------------------------------------------------------------------
-    //  original method
-    //------------------------------------------------------------------
-    //  write
-    //------------------------------------------------------------------
-    //  public void write( int data )
-    //  public void write( byte[] buffer )
-    //  public void write( byte[] buffer, int index, int length )
-    //------------------------------------------------------------------
     /**
      * 現在位置に 1バイトのデータを書きこむ。
      *
@@ -196,15 +154,6 @@ public class GrowthByteBuffer {
         }
     }
 
-    //------------------------------------------------------------------
-    //  original method
-    //------------------------------------------------------------------
-    //  read
-    //------------------------------------------------------------------
-    //  public int read()
-    //  public int read( byte[] buffer )
-    //  public int read( byte[] buffer, int index, int length )
-    //------------------------------------------------------------------
     /**
      * 現在位置から 1byteのデータを読みこむ。
      *
@@ -223,7 +172,6 @@ public class GrowthByteBuffer {
      * 現在位置から bufferを満たすようにデータを読み込む。
      *
      * @param buffer データを読み込むバッファ
-     *
      * @return 実際に読みこまれたデータ量<br>
      *         読みこみ限界を超えて読もうとした場合は -1
      */
@@ -237,7 +185,6 @@ public class GrowthByteBuffer {
      * @param buffer データを読み込むバッファ
      * @param index buffer内データ読みこみ位置
      * @param length 読み込むデータの量
-     *
      * @return 実際に読みこまれたデータ量<br>
      *         読みこみ限界を超えて読もうとした場合は -1
      */
@@ -272,17 +219,6 @@ public class GrowthByteBuffer {
         }
     }
 
-    //------------------------------------------------------------------
-    //  original methods
-    //------------------------------------------------------------------
-    //  access methods
-    //------------------------------------------------------------------
-    //  public int length()
-    //  public void setLength( int length )
-    //  public int position()
-    //  public void setPosition( int position )
-    //  public void seek( int position )
-    //------------------------------------------------------------------
     /**
      * 現在の読みこみ限界を得る。
      *
@@ -343,11 +279,6 @@ public class GrowthByteBuffer {
         this.setPosition(position);
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  private void grow( int limit )
-    //------------------------------------------------------------------
     /**
      * 新しい読みこみ限界 limit を設定し、
      * limit まで バッファを増加させる。
@@ -378,6 +309,4 @@ public class GrowthByteBuffer {
             this.limit = limit - 1;
         }
     }
-
 }
-//end of GrowthByteBuffer.java

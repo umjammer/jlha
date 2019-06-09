@@ -26,10 +26,6 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
-import jp.gr.java_conf.dangan.util.lha.LzssSearchMethod;
-import jp.gr.java_conf.dangan.util.lha.LzssOutputStream;
-
-
 /**
  * 特別な検索機構を用いない
  * LzssSearchMethod の最もシンプルな実装。<br>

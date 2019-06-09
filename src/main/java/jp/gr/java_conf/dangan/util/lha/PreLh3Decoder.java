@@ -1,9 +1,4 @@
-//start of PreLh3Decoder.java
-//TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
-
 /**
- * PreLh3Decoder.java
- *
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
@@ -31,21 +26,13 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
-//import classes and interfaces
-import java.io.InputStream;
-import java.lang.Math;
-import jp.gr.java_conf.dangan.io.BitInputStream;
-import jp.gr.java_conf.dangan.util.lha.StaticHuffman;
-import jp.gr.java_conf.dangan.util.lha.PreLzssDecoder;
-
-//import exceptions
-import java.io.IOException;
 import java.io.EOFException;
-import java.lang.NullPointerException;
-import java.lang.IllegalArgumentException;
+import java.io.IOException;
+import java.io.InputStream;
+
 import jp.gr.java_conf.dangan.io.BitDataBrokenException;
+import jp.gr.java_conf.dangan.io.BitInputStream;
 import jp.gr.java_conf.dangan.io.NotEnoughBitsException;
-import jp.gr.java_conf.dangan.util.lha.BadHuffmanTableException;
 
 
 /**
@@ -74,15 +61,6 @@ import jp.gr.java_conf.dangan.util.lha.BadHuffmanTableException;
  */
 public class PreLh3Decoder implements PreLzssDecoder {
 
-    //------------------------------------------------------------------
-    //  class field
-    //------------------------------------------------------------------
-    //  LZSS parameter
-    //------------------------------------------------------------------
-    //  private static final int DictionarySize
-    //  private static final int MaxMatch
-    //  private static final int Threshold
-    //------------------------------------------------------------------
     /** 辞書サイズ */
     private static final int DictionarySize = 8192;
 
@@ -92,44 +70,17 @@ public class PreLh3Decoder implements PreLzssDecoder {
     /** 最小一致長 */
     private static final int Threshold = 3;
 
-    //------------------------------------------------------------------
-    //  class field
-    //------------------------------------------------------------------
-    //  private static final int CodeSize
-    //------------------------------------------------------------------
     /**
      * code部のハフマン木のサイズ
      * code部がこれ以上の値を扱う場合は余計なビットを出力して補う。
      */
     private static final int CodeSize = 286;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  source
-    //------------------------------------------------------------------
-    //  private BitInputStream in
-    //------------------------------------------------------------------
     /**
      * -lh3- の圧縮データを供給する BitInputStream
      */
     private BitInputStream in;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  huffman decoder
-    //------------------------------------------------------------------
-    //  private int blockSize
-    //  private int[] codeLen
-    //  private short[] codeTable
-    //  private int codeTableBits
-    //  private short[][] codeTree
-    //  private int[] offHiLen
-    //  private short[] offHiTable
-    //  private int offHiTableBits
-    //  private short[][] offHiTree
-    //------------------------------------------------------------------
     /**
      * 現在処理中のブロックの残りサイズを示す。
      */
@@ -183,19 +134,6 @@ public class PreLh3Decoder implements PreLzssDecoder {
      */
     private short[][] offHiTree;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  backup for mark/reset
-    //------------------------------------------------------------------
-    //  private int markBlockSize
-    //  private int[] markCodeLen
-    //  private short[] markCodeTable
-    //  private short[][] markCodeTree
-    //  private int[] markOffHiLen
-    //  private short[] markOffHiTable
-    //  private short[][] markOffHiTree
-    //------------------------------------------------------------------
     /** blockSizeのバックアップ用 */
     private int markBlockSize;
 
@@ -228,7 +166,7 @@ public class PreLh3Decoder implements PreLzssDecoder {
     }
 
     /**
-     * -lh3- 解凍用 PreLzssDecoder を構築する。<br>
+     * -lh3- 解凍用 PreLzssDecoder を構築する。
      *
      * @param in 圧縮データを供給する入力ストリーム
      * @param CodeTableBits code 部を復号するために使用する
@@ -237,7 +175,6 @@ public class PreLh3Decoder implements PreLzssDecoder {
      * @param OffHiTableBits offHi 部を復号するために使用する
      *            テーブルのサイズをビット長で指定する。
      *            8 を指定すれば 256 のルックアップテーブルを生成する。
-     *
      * @exception IllegalArgumentException
      *                CodeTableBits, OffHiTableBits が 0以下の場合
      */
@@ -260,22 +197,13 @@ public class PreLh3Decoder implements PreLzssDecoder {
         }
     }
 
-    //------------------------------------------------------------------
-    //  method of jp.gr.java_conf.dangan.util.lha.PreLzssDecoder
-    //------------------------------------------------------------------
-    //  read
-    //------------------------------------------------------------------
-    //  public int readCode()
-    //  public int readOffset()
-    //------------------------------------------------------------------
     /**
      * -lh3- で圧縮された
      * 1byte のLZSS未圧縮のデータ、
-     * もしくは圧縮コードのうち一致長を読み込む。<br>
+     * もしくは圧縮コードのうち一致長を読み込む。
      *
      * @return 1byte の 未圧縮のデータもしくは、
      *         圧縮された圧縮コードのうち一致長
-     *
      * @exception IOException 入出力エラーが発生した場合
      * @exception EOFException EndOfStreamに達した場合
      * @exception BadHuffmanTableException
@@ -330,10 +258,9 @@ public class PreLh3Decoder implements PreLzssDecoder {
 
     /**
      * -lh3- で圧縮された
-     * LZSS圧縮コードのうち一致位置を読み込む。<br>
+     * LZSS圧縮コードのうち一致位置を読み込む。
      *
      * @return -lh3- で圧縮された圧縮コードのうち一致位置
-     *
      * @exception IOException 入出力エラーが発生した場合
      */
     public int readOffset() throws IOException {
@@ -375,28 +302,18 @@ public class PreLh3Decoder implements PreLzssDecoder {
         return (offHi << 6) | this.in.readBits(6);
     }
 
-    //------------------------------------------------------------------
-    //  method of jp.gr.java_conf.dangan.util.lha.PreLzssDecoder
-    //------------------------------------------------------------------
-    //  mark / reset
-    //------------------------------------------------------------------
-    //  public void mark( int readLimit )
-    //  public void reset()
-    //  public boolean markSupported()
-    //------------------------------------------------------------------
     /**
      * 接続された入力ストリームの現在位置にマークを設定し、
      * reset() メソッドでマークした時点の 読み込み位置に
      * 戻れるようにする。<br>
      * InputStream の mark() と違い、readLimit で設定した
      * 限界バイト数より前にマーク位置が無効になる可能性が
-     * ある事に注意すること。<br>
+     * ある事に注意すること。
      *
      * @param readLimit マーク位置に戻れる限界のバイト数。
      *            このバイト数を超えてデータを読み
      *            込んだ場合 reset()できなくなる可
-     *            能性がある。<br>
-     *
+     *            能性がある。
      * @see PreLzssDecoder#mark(int)
      */
     public void mark(int readLimit) {
@@ -417,16 +334,16 @@ public class PreLh3Decoder implements PreLzssDecoder {
 
     /**
      * 接続された入力ストリームの読み込み位置を最後に
-     * mark() メソッドが呼び出されたときの位置に設定する。<br>
+     * mark() メソッドが呼び出されたときの位置に設定する。
      *
      * @exception IOException 入出力エラーが発生した場合
      */
     public void reset() throws IOException {
-        //mark()しないで reset() しようとした場合、
-        //readLimit を超えて reset() しようとした場合、
-        //接続された InputStream が markSupported() で false を返す場合は
-        //BitInputStream が IOException を投げる。
-        this.in.reset(); //throws IOException
+        // mark()しないで reset() しようとした場合、
+        // readLimit を超えて reset() しようとした場合、
+        // 接続された InputStream が markSupported() で false を返す場合は
+        // BitInputStream が IOException を投げる。
+        this.in.reset();
 
         this.blockSize = this.markBlockSize;
         this.codeLen = this.markCodeLen;
@@ -439,33 +356,23 @@ public class PreLh3Decoder implements PreLzssDecoder {
 
     /**
      * 接続された入力ストリームが mark() と reset() を
-     * サポートするかを得る。<br>
+     * サポートするかを得る。
      *
      * @return ストリームが mark() と reset() を
      *         サポートする場合は true。<br>
-     *         サポートしない場合は false。<br>
+     *         サポートしない場合は false。
      */
     public boolean markSupported() {
         return this.in.markSupported();
     }
 
-    //------------------------------------------------------------------
-    //  method of jp.gr.java_conf.dangan.util.lha.PreLzssDecoder
-    //------------------------------------------------------------------
-    //  other
-    //------------------------------------------------------------------
-    //  public int available()
-    //  public void close()
-    //------------------------------------------------------------------
     /**
      * ブロックせずに読み出すことの出来る最低バイト数を得る。<br>
      * InputStream の available() と違い、
-     * この最低バイト数は必ずしも保障されていない事に注意すること。<br>
+     * この最低バイト数は必ずしも保障されていない事に注意すること。
      *
-     * @return ブロックしないで読み出せる最低バイト数。<br>
-     *
+     * @return ブロックしないで読み出せる最低バイト数。
      * @exception IOException 入出力エラーが発生した場合
-     *
      * @see PreLzssDecoder#available()
      */
     public int available() throws IOException {
@@ -502,15 +409,6 @@ public class PreLh3Decoder implements PreLzssDecoder {
         this.markOffHiTree = null;
     }
 
-    //------------------------------------------------------------------
-    //  method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
-    //------------------------------------------------------------------
-    //  get LZSS parameter
-    //------------------------------------------------------------------
-    //  public int getDictionarySize()
-    //  public int getMaxMatch()
-    //  public int getThreshold()
-    //------------------------------------------------------------------
     /**
      * -lh3-形式の LZSS辞書のサイズを得る。
      *
@@ -538,15 +436,6 @@ public class PreLh3Decoder implements PreLzssDecoder {
         return PreLh3Decoder.Threshold;
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  read block head
-    //------------------------------------------------------------------
-    //  private void readBlockHead()
-    //  private int[] readCodeLen()
-    //  private int[] readOffHiLen()
-    //------------------------------------------------------------------
     /**
      * ハフマンブロックの先頭にある
      * ブロックサイズやハフマン符号長のリストを読み込む。
@@ -563,10 +452,10 @@ public class PreLh3Decoder implements PreLzssDecoder {
      *                のデータが得られなかった場合
      */
     private void readBlockHead() throws IOException {
-        //ブロックサイズ読み込み
-        //正常なデータの場合、この部分で EndOfStream に到達する。
+        // ブロックサイズ読み込み
+        // 正常なデータの場合、この部分で EndOfStream に到達する。
         try {
-            this.blockSize = this.in.readBits(16); //throws BitDataBrokenException, EOFException, IOException
+            this.blockSize = this.in.readBits(16);
         } catch (BitDataBrokenException exception) {
             if (exception.getCause() instanceof EOFException) {
                 throw (EOFException) exception.getCause();
@@ -575,7 +464,7 @@ public class PreLh3Decoder implements PreLzssDecoder {
             }
         }
 
-        //code 部の処理
+        // code 部の処理
         this.codeLen = this.readCodeLen();
         if (1 < this.codeLen.length) {
             short[][] tableAndTree = StaticHuffman.createTableAndTree(this.codeLen, this.codeTableBits);
@@ -595,7 +484,7 @@ public class PreLh3Decoder implements PreLzssDecoder {
             };
         }
 
-        //offHi 部の処理
+        // offHi 部の処理
         this.offHiLen = this.readOffHiLen();
         if (1 < this.offHiLen.length) {
             short[][] tableAndTree = StaticHuffman.createTableAndTree(this.offHiLen, this.offHiTableBits);
@@ -621,7 +510,6 @@ public class PreLh3Decoder implements PreLzssDecoder {
      *
      * @return ハフマン符号長のリスト。
      *         もしくは 長さ 1 の唯一のコード
-     *
      * @exception IOException 入出力エラーが発生した場合
      * @exception EOFException EndOfStreamに達した場合
      * @exception BitDataBrokenException
@@ -650,7 +538,6 @@ public class PreLh3Decoder implements PreLzssDecoder {
      *
      * @return ハフマン符号長のリスト。
      *         もしくは 長さ 1 の唯一のコード
-     *
      * @exception IOException 入出力エラーが発生した場合
      * @exception EOFException EndOfStreamに達した場合
      * @exception BitDataBrokenException
@@ -677,13 +564,6 @@ public class PreLh3Decoder implements PreLzssDecoder {
         }
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  constant huffman tree
-    //------------------------------------------------------------------
-    //  private static int[] createConstOffHiLen()
-    //------------------------------------------------------------------
     /**
      * -lh3- の offsetデコード用StaticHuffmanの
      * ハフマン符号長リストを生成する。
@@ -710,6 +590,4 @@ public class PreLh3Decoder implements PreLzssDecoder {
         }
         return LenList;
     }
-
 }
-//end of PreLh3Decoder.java

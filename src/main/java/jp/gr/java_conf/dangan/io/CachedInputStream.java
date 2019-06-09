@@ -1,6 +1,4 @@
 /**
- * CachedInputStream.java
- *
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
@@ -28,12 +26,8 @@
 
 package jp.gr.java_conf.dangan.io;
 
-//import classes and interfaces
-import java.io.InputStream;
-
-//import exceptions
 import java.io.IOException;
-import java.lang.IllegalArgumentException;
+import java.io.InputStream;
 
 
 /**
@@ -81,39 +75,39 @@ import java.lang.IllegalArgumentException;
  */
 public class CachedInputStream extends InputStream {
 
-    //------------------------------------------------------------------
-    //  class field
-    //------------------------------------------------------------------
-    //  default
-    //------------------------------------------------------------------
-    //  private static final int DefaultCacheSize
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // class field
+    // ------------------------------------------------------------------
+    // default
+    // ------------------------------------------------------------------
+    // private static final int DefaultCacheSize
+    // ------------------------------------------------------------------
     /**
      * デフォルトのキャッシュサイズ
      */
     private static final int DefaultCacheSize = 1024;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  source
-    //------------------------------------------------------------------
-    //  private InputStream in
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // instance field
+    // ------------------------------------------------------------------
+    // source
+    // ------------------------------------------------------------------
+    // private InputStream in
+    // ------------------------------------------------------------------
     /**
      * データを供給する入力ストリーム
      */
     private InputStream in;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  cache
-    //------------------------------------------------------------------
-    //  private byte[] cache
-    //  private int cachePosition
-    //  private int cacheLimit
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // instance field
+    // ------------------------------------------------------------------
+    // cache
+    // ------------------------------------------------------------------
+    // private byte[] cache
+    // private int cachePosition
+    // private int cacheLimit
+    // ------------------------------------------------------------------
     /**
      * データを蓄えるためのキャッシュ
      */
@@ -129,16 +123,16 @@ public class CachedInputStream extends InputStream {
      */
     private int cacheLimit;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  backup for mark/reset
-    //------------------------------------------------------------------
-    //  private boolean markPositionIsInCache
-    //  private byte[] markCache
-    //  private int markCachePosition
-    //  private int markCacheLimit
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // instance field
+    // ------------------------------------------------------------------
+    // backup for mark/reset
+    // ------------------------------------------------------------------
+    // private boolean markPositionIsInCache
+    // private byte[] markCache
+    // private int markCachePosition
+    // private int markCacheLimit
+    // ------------------------------------------------------------------
     /**
      * mark位置がキャッシュの範囲内にあるかを示す。
      * markされたとき true に設定され、
@@ -200,16 +194,16 @@ public class CachedInputStream extends InputStream {
         }
     }
 
-    //------------------------------------------------------------------
-    //  method of java.io.InputStream
-    //------------------------------------------------------------------
-    //  read
-    //------------------------------------------------------------------
-    //  public int read()
-    //  public int read( byte[] buffer )
-    //  public int read( byte[] buffer, int index, int length )
-    //  public long skip( long length )
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // method of java.io.InputStream
+    // ------------------------------------------------------------------
+    // read
+    // ------------------------------------------------------------------
+    // public int read()
+    // public int read( byte[] buffer )
+    // public int read( byte[] buffer, int index, int length )
+    // public long skip( long length )
+    // ------------------------------------------------------------------
     /**
      * 接続されたストリームから 1バイトのデータを
      * 0〜255 にマップして読み込む。
@@ -224,7 +218,7 @@ public class CachedInputStream extends InputStream {
         if (this.cachePosition < this.cacheLimit) {
             return this.cache[this.cachePosition++] & 0xFF;
         } else {
-            this.fillCache(); //throws IOException
+            this.fillCache();
 
             if (this.cachePosition < this.cacheLimit) {
                 return this.cache[this.cachePosition++] & 0xFF;
@@ -273,7 +267,7 @@ public class CachedInputStream extends InputStream {
 
         while (0 < length) {
             if (this.cacheLimit <= this.cachePosition) {
-                this.fillCache(); //throws IOException
+                this.fillCache();
                 if (this.cacheLimit <= this.cachePosition) {
                     if (requested == length) {
                         return -1;
@@ -311,7 +305,7 @@ public class CachedInputStream extends InputStream {
 
         while (0 < length) {
             if (this.cacheLimit <= this.cachePosition) {
-                this.fillCache(); //throws IOException
+                this.fillCache();
 
                 if (this.cacheLimit <= this.cachePosition) {
                     break;
@@ -372,13 +366,13 @@ public class CachedInputStream extends InputStream {
             this.cachePosition = this.markCachePosition;
         } else if (!this.in.markSupported()) {
             throw new IOException("not support mark()/reset().");
-        } else if (this.markCache == null) { //この条件式は未だにマークされていないことを示す。コンストラクタで markCache が null に設定されるのを利用する。
+        } else if (this.markCache == null) { // この条件式は未だにマークされていないことを示す。コンストラクタで markCache が null に設定されるのを利用する。
             throw new IOException("not marked.");
         } else {
-            //in が reset() できない場合は
-            //最初の行の this.in.reset() で
-            //IOException を投げることを期待している。
-            this.in.reset(); //throws IOException
+            // in が reset() できない場合は
+            // 最初の行の this.in.reset() で
+            // IOException を投げることを期待している。
+            this.in.reset();
             System.arraycopy(this.markCache, 0, this.cache, 0, this.markCacheLimit);
             this.cacheLimit = this.markCacheLimit;
             this.cachePosition = this.markCachePosition;
@@ -397,14 +391,14 @@ public class CachedInputStream extends InputStream {
         return this.in.markSupported();
     }
 
-    //------------------------------------------------------------------
-    //  method of java.io.InputStream
-    //------------------------------------------------------------------
-    //  other
-    //------------------------------------------------------------------
-    //  public int available()
-    //  public void close()
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // method of java.io.InputStream
+    // ------------------------------------------------------------------
+    // other
+    // ------------------------------------------------------------------
+    // public int available()
+    // public void close()
+    // ------------------------------------------------------------------
     /**
      * 接続された入力ストリームからブロックしないで
      * 読み込むことのできるバイト数を得る。<br>
@@ -415,7 +409,7 @@ public class CachedInputStream extends InputStream {
      *                入出力エラーが発生した場合
      */
     public int available() throws IOException {
-        return this.cacheLimit - this.cachePosition + (this.in.available() / this.cache.length) * this.cache.length;//throws IOException
+        return this.cacheLimit - this.cachePosition + (this.in.available() / this.cache.length) * this.cache.length;
     }
 
     /**
@@ -426,7 +420,7 @@ public class CachedInputStream extends InputStream {
      *                入出力エラーが発生した場合
      */
     public void close() throws IOException {
-        this.in.close(); //throws IOException
+        this.in.close();
         this.in = null;
 
         this.cache = null;
@@ -439,11 +433,11 @@ public class CachedInputStream extends InputStream {
         this.markPositionIsInCache = false;
     }
 
-    //------------------------------------------------------------------
-    //  local methods
-    //------------------------------------------------------------------
-    //  private void fillCache()
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // local methods
+    // ------------------------------------------------------------------
+    // private void fillCache()
+    // ------------------------------------------------------------------
     /**
      * 必要がある場合に、キャッシュ用バッファにデータを
      * 補填しキャッシュ用バッファに必ずデータが存在する
@@ -458,10 +452,10 @@ public class CachedInputStream extends InputStream {
         this.cacheLimit = 0;
         this.cachePosition = 0;
 
-        //キャッシュにデータを読み込み
+        // キャッシュにデータを読み込み
         int read = 0;
         while (0 <= read && this.cacheLimit < this.cache.length) {
-            read = this.in.read(this.cache, this.cacheLimit, this.cache.length - this.cacheLimit); //throws IOException
+            read = this.in.read(this.cache, this.cacheLimit, this.cache.length - this.cacheLimit);
 
             if (0 < read)
                 this.cacheLimit += read;
@@ -469,4 +463,4 @@ public class CachedInputStream extends InputStream {
     }
 
 }
-//end of CachedInputStream.java
+// end of CachedInputStream.java

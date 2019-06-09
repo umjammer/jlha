@@ -27,8 +27,6 @@
 package jp.gr.java_conf.dangan.util;
 
 import java.util.Date;
-import java.lang.Cloneable;
-import java.lang.IllegalArgumentException;
 
 
 /**
@@ -65,11 +63,6 @@ import java.lang.IllegalArgumentException;
  */
 public class WindowsDate extends Date implements Cloneable {
 
-    //------------------------------------------------------------------
-    //  class field
-    //------------------------------------------------------------------
-    //  public static final long TIME_DIFFERENCE
-    //------------------------------------------------------------------
     /**
      * FILETIME形式のデータと、java.util.Date.getTime() で
      * 得られる時間形式との時間差を 100ナノセカンド単位で示した数値。
@@ -77,24 +70,12 @@ public class WindowsDate extends Date implements Cloneable {
      */
     public static final long TIME_DIFFERENCE = 0x19DB1DED53E8000L;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  private int NanoSecounds
-    //------------------------------------------------------------------
     /**
      * java.util.Date では保持できない
      * ナノ秒単位の時間を保持するために用いる。
      */
     private int NanoSecounds;
 
-    //------------------------------------------------------------------
-    //  constructor
-    //------------------------------------------------------------------
-    //  public WindowsDate()
-    //  public WindowsDate( Date date )
-    //  public WindowsDate( long time )
-    //------------------------------------------------------------------
     /**
      * デフォルトコンストラクタ。
      * 現在の時間情報を持つ WindowsDateを構築する。
@@ -119,7 +100,6 @@ public class WindowsDate extends Date implements Cloneable {
      *
      * @param date 新しく構築される WindowsDate の元となる時間情報を持つ
      *            Date のオブジェクト
-     *
      * @exception IllegalArgumentException
      *                現在の時間が FILETIME 形式で表現できる
      *                範囲外だった場合。
@@ -136,7 +116,7 @@ public class WindowsDate extends Date implements Cloneable {
 
     /**
      * 符号無し64ビットのFILETIME形式の時間情報から
-     * 新しいWindowsDateを構築する。<br>
+     * 新しいWindowsDateを構築する。
      *
      * @param time FILETIME形式の時間情報
      */
@@ -147,11 +127,6 @@ public class WindowsDate extends Date implements Cloneable {
         this.NanoSecounds = (int) ((time >>> 1) % 5000L * 2 + (time & 1)) * 100;
     }
 
-    //------------------------------------------------------------------
-    //  method of java.lang.Cloneable
-    //------------------------------------------------------------------
-    //  public Object clone()
-    //------------------------------------------------------------------
     /**
      * このオブジェクトのコピーを返す。
      *
@@ -161,26 +136,12 @@ public class WindowsDate extends Date implements Cloneable {
         return new WindowsDate(this);
     }
 
-    //------------------------------------------------------------------
-    //  method of java.util.Date
-    //------------------------------------------------------------------
-    //  set method with range check
-    //------------------------------------------------------------------
-    //  public void setYear( int year )
-    //  public void setMonth( int month )
-    //  public void setDate( int day )
-    //  public void setHours( int hour )
-    //  public void setMinutes( int minute )
-    //  public void setSecounds( int secound )
-    //  public void setTime( long time )
-    //------------------------------------------------------------------
     /**
      * この WindowsDate の示す年を year で
      * 指定された値に1900を足したものに設定する。<br>
-     * このメソッドは範囲チェックを行うだけのために存在する。<br>
+     * このメソッドは範囲チェックを行うだけのために存在する。
      *
      * @param year 1900を足すことで西暦を表すような 年の値
-     *
      * @exception IllegalArgumentException
      *                year に変更したところ FILETIME形式で扱えない
      *                範囲の時間になった場合
@@ -200,10 +161,9 @@ public class WindowsDate extends Date implements Cloneable {
 
     /**
      * この WindowsDate の示す月を month で指定された値に設定する。<br>
-     * このメソッドは範囲チェックを行うだけのために存在する。<br>
+     * このメソッドは範囲チェックを行うだけのために存在する。
      *
      * @param month 0が1月、1が2月を示すような月の値
-     *
      * @exception IllegalArgumentException
      *                month に変更したところ FILETIME形式で扱えない
      *                範囲の時間になった場合
@@ -224,10 +184,9 @@ public class WindowsDate extends Date implements Cloneable {
     /**
      * この WindowsDate の示す 一ヶ月の
      * 中での何日目かを date で指定された値に設定する。<br>
-     * このメソッドは範囲チェックを行うだけのために存在する。<br>
+     * このメソッドは範囲チェックを行うだけのために存在する。
      *
      * @param date 1が1日、2が2日を示すような日の値
-     *
      * @exception IllegalArgumentException
      *                date に変更したところ FILETIME形式で扱えない
      *                範囲の時間になった場合
@@ -248,10 +207,9 @@ public class WindowsDate extends Date implements Cloneable {
     /**
      * この WindowsDate の示す一日の中での時間を
      * hours で指定された値に設定する。<br>
-     * このメソッドは範囲チェックを行うだけのために存在する。<br>
+     * このメソッドは範囲チェックを行うだけのために存在する。
      *
      * @param hours 時間の値
-     *
      * @exception IllegalArgumentException
      *                hours に変更したところ FILETIME形式で扱えない
      *                範囲の時間になった場合
@@ -272,10 +230,9 @@ public class WindowsDate extends Date implements Cloneable {
     /**
      * この WindowsDate の示す一時間の中での分を
      * minutes で指定された値に設定する。<br>
-     * このメソッドは範囲チェックを行うだけのために存在する。<br>
+     * このメソッドは範囲チェックを行うだけのために存在する。
      *
      * @param minutes 分の値
-     *
      * @exception IllegalArgumentException
      *                minutes に変更したところ FILETIME形式で扱えない
      *                範囲の時間になった場合
@@ -296,10 +253,9 @@ public class WindowsDate extends Date implements Cloneable {
     /**
      * この WindowsDate の示す一分の中での秒数を
      * secounds で指定された値に設定する。<br>
-     * このメソッドは範囲チェックを行うだけのために存在する。<br>
+     * このメソッドは範囲チェックを行うだけのために存在する。
      *
      * @param secounds 秒数
-     *
      * @exception IllegalArgumentException
      *                secounds に変更したところ FILETIME形式で扱えない
      *                範囲の時間になった場合
@@ -321,10 +277,9 @@ public class WindowsDate extends Date implements Cloneable {
      * この WindowsDate の示す時間を
      * 1970年1月1日 00:00:00 GMTから
      * time ミリ秒経過した時刻に設定する。<br>
-     * このメソッドは範囲チェックを行うだけのために存在する。<br>
+     * このメソッドは範囲チェックを行うだけのために存在する。
      *
      * @param time 1970年1月1日 00:00:00GMT からの経過ミリ秒
-     *
      * @exception IllegalArgumentException
      *                time がFILETIME形式で扱えない
      *                範囲の時間を示していた場合

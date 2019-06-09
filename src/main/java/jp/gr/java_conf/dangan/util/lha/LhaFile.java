@@ -1,9 +1,4 @@
-//start of LhaFile.java
-//TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
-
 /**
- * LhaFile.java
- *
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
@@ -31,27 +26,17 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
-//import classes and interfaces
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
-import java.lang.Math;
-import java.util.Vector;
-import java.util.Hashtable;
-import java.util.Properties;
-import java.util.Enumeration;
-import jp.gr.java_conf.dangan.util.lha.LhaHeader;
-import jp.gr.java_conf.dangan.util.lha.LhaProperty;
-import jp.gr.java_conf.dangan.util.lha.CompressMethod;
-
-//import exceptions
-import java.io.IOException;
-import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
-import java.lang.SecurityException;
+import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.NoSuchElementException;
-
-import java.lang.Error;
+import java.util.Properties;
+import java.util.Vector;
 
 
 /**
@@ -89,18 +74,6 @@ import java.lang.Error;
  */
 public class LhaFile {
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  archive file of LHA
-    //------------------------------------------------------------------
-    //  private RandomAccessFile archive
-    //  private Object LastAccessObject
-    //  private Vector headers
-    //  private Vector entryStart
-    //  private Hashtable hash
-    //  private Vector duplicate
-    //------------------------------------------------------------------
     /**
      * LHA書庫形式のデータを持つ
      * RandomAccessFileのインスタンス
@@ -140,13 +113,6 @@ public class LhaFile {
      */
     private Vector<Integer> duplicate;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  property
-    //------------------------------------------------------------------
-    //  private Properties property
-    //------------------------------------------------------------------
     /**
      * 各圧縮形式に対応した復号器の生成式等が含まれるプロパティ
      */
@@ -155,32 +121,29 @@ public class LhaFile {
     /**
      * filename で指定されたファイルから書庫データを読みこむLhaFileを構築する。<br>
      * 各圧縮形式に対応した復号器の生成式等を持つプロパティには
-     * LhaProperty.getProperties() で得られたプロパティが使用される。<br>
+     * LhaProperty.getProperties() で得られたプロパティが使用される。
      *
      * @param filename LHA書庫ファイルの名前
-     *
      * @exception IOException
      *                入出力エラーが発生した場合
      * @exception FileNotFoundException
      *                ファイルが見つからない場合
      * @exception SecurityException
      *                セキュリティマネージャがファイルの読み込みを許さない場合
-     *
      * @see LhaProperty#getProperties()
      */
     public LhaFile(String filename) throws IOException {
         Properties property = LhaProperty.getProperties();
-        RandomAccessFile file = new RandomAccessFile(filename, "r"); //throws FileNotFoundException SecurityException
+        RandomAccessFile file = new RandomAccessFile(filename, "r");
 
-        this.constructerHelper(file, property, false); //After Java 1.1 throws UnsupportedEncodingException
+        this.constructerHelper(file, property, false);
     }
 
     /**
-     * filename で指定されたファイルから書庫データを読みこむLhaFileを構築する。<br>
+     * filename で指定されたファイルから書庫データを読みこむLhaFileを構築する。
      *
      * @param filename LHA書庫ファイルの名前
      * @param property 各圧縮形式に対応した復号器の生成式等が含まれるプロパティ
-     *
      * @exception IOException
      *                入出力エラーが発生した場合
      * @exception FileNotFoundException
@@ -190,44 +153,40 @@ public class LhaFile {
      *                エンコーディング名がサポートされない場合
      * @exception SecurityException
      *                セキュリティマネージャがファイルの読み込みを許さない場合
-     *
      * @see LhaProperty
      */
     public LhaFile(String filename, Properties property) throws IOException {
-        RandomAccessFile file = new RandomAccessFile(filename, "r"); //throws FileNotFoundException SecurityException
+        RandomAccessFile file = new RandomAccessFile(filename, "r");
 
-        this.constructerHelper(file, property, false); //After Java 1.1 throws UnsupportedEncodingException
+        this.constructerHelper(file, property, false);
     }
 
     /**
      * filename で指定されたファイルから書庫データを読みこむLhaFileを構築する。<br>
      * 各圧縮形式に対応した復号器の生成式等を持つプロパティには
-     * LhaProperty.getProperties() で得られたプロパティが使用される。<br>
+     * LhaProperty.getProperties() で得られたプロパティが使用される。
      *
      * @param filename LHA書庫ファイル
-     *
      * @exception IOException
      *                入出力エラーが発生した場合
      * @exception FileNotFoundException
      *                ファイルが見つからない場合
      * @exception SecurityException
      *                セキュリティマネージャがファイルの読み込みを許さない場合
-     *
      * @see LhaProperty#getProperties()
      */
     public LhaFile(File filename) throws IOException {
         Properties property = LhaProperty.getProperties();
-        RandomAccessFile file = new RandomAccessFile(filename, "r"); //throws FileNotFoundException SecurityException
+        RandomAccessFile file = new RandomAccessFile(filename, "r");
 
-        this.constructerHelper(file, property, false); //After Java 1.1 throws UnsupportedEncodingException
+        this.constructerHelper(file, property, false);
     }
 
     /**
-     * filename で指定されたファイルから書庫データを読みこむ LhaFile を構築する。<br>
+     * filename で指定されたファイルから書庫データを読みこむ LhaFile を構築する。
      *
      * @param filename LHA書庫ファイル
      * @param property 各圧縮形式に対応した復号器の生成式等が含まれるプロパティ
-     *
      * @exception IOException
      *                入出力エラーが発生した場合
      * @exception FileNotFoundException
@@ -237,29 +196,26 @@ public class LhaFile {
      *                エンコーディング名がサポートされない場合
      * @exception SecurityException
      *                セキュリティマネージャがファイルの読み込みを許さない場合
-     *
      * @see LhaProperty
      */
     public LhaFile(File filename, Properties property) throws IOException {
-        RandomAccessFile file = new RandomAccessFile(filename, "r"); //throws FileNotFoundException SecurityException
+        RandomAccessFile file = new RandomAccessFile(filename, "r");
 
-        this.constructerHelper(file, property, false); //After Java 1.1 throws UnsupportedEncodingException
+        this.constructerHelper(file, property, false);
     }
 
     /**
      * file で指定されたファイルから書庫データを読みこむ LhaFile を構築する。<br>
      * 各圧縮形式に対応した復号器の生成式等を持つプロパティには
-     * LhaProperty.getProperties() で得られたプロパティが使用される。<br>
+     * LhaProperty.getProperties() で得られたプロパティが使用される。
      *
      * @param file LHA書庫ファイル
-     *
      * @exception IOException
      *                入出力エラーが発生した場合
      * @exception FileNotFoundException
      *                ファイルが見つからない場合
      * @exception SecurityException
      *                セキュリティマネージャがファイルの読み込みを許さない場合
-     *
      * @see LhaProperty#getProperties()
      */
     public LhaFile(RandomAccessFile file) throws IOException {
@@ -271,19 +227,17 @@ public class LhaFile {
     /**
      * file で指定されたファイルから書庫データを読みこむ LhaFile を構築する。<br>
      * 各圧縮形式に対応した復号器の生成式等を持つプロパティには
-     * LhaProperty.getProperties() で得られたプロパティが使用される。<br>
+     * LhaProperty.getProperties() で得られたプロパティが使用される。
      *
      * @param file LHA書庫ファイル
      * @param rescueMode true にすると壊れた書庫のデータを
      *            復旧するための復旧モードでエントリを検索する。
-     *
      * @exception IOException
      *                入出力エラーが発生した場合
      * @exception FileNotFoundException
      *                ファイルが見つからない場合
      * @exception SecurityException
      *                セキュリティマネージャがファイルの読み込みを許さない場合
-     *
      * @see LhaProperty#getProperties()
      */
     public LhaFile(RandomAccessFile file, boolean rescueMode) throws IOException {
@@ -293,18 +247,16 @@ public class LhaFile {
     }
 
     /**
-     * file で指定されたファイルから書庫データを読みこむ LhaFile を構築する。<br>
+     * file で指定されたファイルから書庫データを読みこむ LhaFile を構築する。
      *
      * @param file LHA書庫ファイル
      * @param property 各圧縮形式に対応した復号器の生成式等が含まれるプロパティ
-     *
      * @exception IOException
      *                入出力エラーが発生した場合
      * @exception FileNotFoundException
      *                ファイルが見つからない場合
      * @exception SecurityException
      *                セキュリティマネージャがファイルの読み込みを許さない場合
-     *
      * @see LhaProperty
      */
     public LhaFile(RandomAccessFile file, Properties property) throws IOException {
@@ -313,20 +265,18 @@ public class LhaFile {
     }
 
     /**
-     * file で指定されたファイルから書庫データを読みこむ LhaFile を構築する。<br>
+     * file で指定されたファイルから書庫データを読みこむ LhaFile を構築する。
      *
      * @param file LHA書庫ファイル
      * @param property 各圧縮形式に対応した復号器の生成式等が含まれるプロパティ
      * @param rescueMode true にすると壊れた書庫のデータを
      *            復旧するための復旧モードでエントリを検索する。
-     *
      * @exception IOException
      *                入出力エラーが発生した場合
      * @exception FileNotFoundException
      *                ファイルが見つからない場合
      * @exception SecurityException
      *                セキュリティマネージャがファイルの読み込みを許さない場合
-     *
      * @see LhaProperty
      */
     public LhaFile(RandomAccessFile file, Properties property, boolean rescueMode) throws IOException {
@@ -335,13 +285,12 @@ public class LhaFile {
     }
 
     /**
-     * file を走査してエントリ情報を構築する。<br>
+     * file を走査してエントリ情報を構築する。
      *
      * @param file LHA書庫ファイル
      * @param propety 各圧縮形式に対応した復号器の生成式等が含まれるプロパティ
      * @param rescueMode true にすると壊れた書庫のデータを
      *            復旧するための復旧モードでエントリを検索する。
-     *
      * @exception IOException
      *                入出力エラーが発生した場合
      * @exception UnsupportedEncodingException
@@ -386,22 +335,11 @@ public class LhaFile {
         this.property = (Properties) property.clone();
     }
 
-    //------------------------------------------------------------------
-    //  original method ( on the model of java.util.zip.ZipFile )
-    //------------------------------------------------------------------
-    //  get InputStream
-    //------------------------------------------------------------------
-    //  public InputStream getInputStream( LhaHeader header )
-    //  public InputStream getInputStream( String name )
-    //  public InputStream getInputStreamWithoutExtract( LhaHeader header )
-    //  public InputStream getInputStreamWithoutExtract( String name )
-    //------------------------------------------------------------------
     /**
      * header で指定されたエントリの
-     * 内容を解凍しながら読みこむ入力ストリームを得る。<br>
+     * 内容を解凍しながら読みこむ入力ストリームを得る。
      *
      * @param header ヘッダ
-     *
      * @return headerで指定されたヘッダを持つエントリの
      *         内容を読みこむ入力ストリーム。<br>
      *         エントリが見つからない場合は null。
@@ -421,10 +359,9 @@ public class LhaFile {
 
     /**
      * nameで指定された名前を持つエントリの
-     * 内容を解凍しながら読みこむ入力ストリームを得る。<br>
+     * 内容を解凍しながら読みこむ入力ストリームを得る。
      *
      * @param name エントリの名前
-     *
      * @return nameで指定された名前を持つエントリの
      *         内容を解凍しながら読みこむ入力ストリーム。<br>
      *         エントリが見つからない場合は null。
@@ -445,10 +382,9 @@ public class LhaFile {
 
     /**
      * headerで指定されたエントリの内容を
-     * 解凍せずに読みこむ入力ストリームを返す。<br>
+     * 解凍せずに読みこむ入力ストリームを返す。
      *
      * @param header ヘッダ
-     *
      * @return headerで指定されたエントリの内容を
      *         解凍せずに読みこむ入力ストリーム。<br>
      *         エントリが見つからない場合は null。
@@ -467,10 +403,9 @@ public class LhaFile {
 
     /**
      * nameで指定された名前を持つエントリの
-     * 内容を解凍せずに読みこむ入力ストリームを返す。<br>
+     * 内容を解凍せずに読みこむ入力ストリームを返す。
      *
      * @param name エントリの名前
-     *
      * @return nameで指定された名前を持つエントリの
      *         内容を解凍せずに読みこむ入力ストリーム。<br>
      *         エントリが見つからない場合は null。
@@ -488,16 +423,6 @@ public class LhaFile {
         }
     }
 
-    //------------------------------------------------------------------
-    //  original method ( on the model of java.util.zip.ZipFile  )
-    //------------------------------------------------------------------
-    //  other
-    //------------------------------------------------------------------
-    //  public int size()
-    //  public Enumeration entries()
-    //  public LhaHeader[] getEntries()
-    //  public void close()
-    //------------------------------------------------------------------
     /**
      * この LhaFile 内のエントリの数を得る。
      *
@@ -511,7 +436,6 @@ public class LhaFile {
      * この LhaFile 内のエントリの LhaHeader の列挙子を得る。
      *
      * @return LhaHeader の列挙子
-     *
      * @exception IllegalStateException
      *                LhaFile が close() で閉じられている場合。
      */
@@ -556,17 +480,10 @@ public class LhaFile {
         this.duplicate = null;
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  private int getIndex( LhaHeader target )
-    //  private static boolean equal( LhaHeader header1, LhaHeader header2 )
-    //------------------------------------------------------------------
     /**
      * headers における target の index を得る。
      *
      * @param target ヘッダ
-     *
      * @return headers 内での target の index。
      *         headers 内に target がない場合は -1
      */
@@ -600,7 +517,6 @@ public class LhaFile {
      *
      * @param header1 検査対象のヘッダ その1
      * @param header2 検査対象のヘッダ その2
-     *
      * @return header1 と header2 が同等であれば true 違えば false
      */
     private static boolean equal(LhaHeader header1, LhaHeader header2) {
@@ -611,26 +527,12 @@ public class LhaFile {
                && header1.getOSID() == header2.getOSID() && header1.getHeaderLevel() == header2.getHeaderLevel();
     }
 
-    //------------------------------------------------------------------
-    //  inner classes
-    //------------------------------------------------------------------
-    //  private class RandomAccessFileInputStream
-    //  private static class CachedRandomAccessFileInputStream
-    //  private class EntryEnumeration
-    //------------------------------------------------------------------
     /**
      * LhaFileのarchiveの ある区間内のデータを得る InputStream。
      * 複数エントリを同時に処理するための 同期処理を含む。
      */
     private class RandomAccessFileInputStream extends InputStream {
 
-        //------------------------------------------------------------------
-        //  member values
-        //------------------------------------------------------------------
-        //  private long position
-        //  private long end
-        //  private long markPosition
-        //------------------------------------------------------------------
         /**
          * archive内の現在処理位置
          */
@@ -646,11 +548,6 @@ public class LhaFile {
          */
         private long markPosition;
 
-        //------------------------------------------------------------------
-        //  constructor
-        //------------------------------------------------------------------
-        //  public RandomAccessFileInputStream( long start, long size )
-        //------------------------------------------------------------------
         /**
          * コンストラクタ。
          *
@@ -663,22 +560,11 @@ public class LhaFile {
             this.markPosition = -1;
         }
 
-        //------------------------------------------------------------------
-        //  method of java.io.InputStream
-        //------------------------------------------------------------------
-        //  read
-        //------------------------------------------------------------------
-        //  public int read()
-        //  public int read( byte[] buffer )
-        //  public int read( byte[] buffer, int index, int length )
-        //  public long skip( long length )
-        //------------------------------------------------------------------
         /**
          * archiveの現在処理位置から 1byteのデータを読み込む。
          *
          * @return 読みこまれた1byteのデータ<br>
          *         既に読みこみ限界に達した場合は -1
-         *
          * @exception IOException 入出力エラーが発生した場合
          */
         public int read() throws IOException {
@@ -701,10 +587,8 @@ public class LhaFile {
          * archiveの現在処理位置から bufferを満たすようにデータを読み込む。
          *
          * @param buffer 読みこまれたデータを格納するバッファ
-         *
          * @return 読みこまれたバイト数<br>
          *         既に読みこみ限界に達していた場合は-1
-         *
          * @exception IOException 入出力エラーが発生した場合
          */
         public int read(byte[] buffer) throws IOException {
@@ -718,10 +602,8 @@ public class LhaFile {
          * @param buffer 読みこまれたデータを格納するバッファ
          * @param index buffer内の読みこみ開始位置
          * @param length 読みこむバイト数。
-         *
          * @return 読みこまれたバイト数<br>
          *         既に読みこみ限界に達していた場合は-1
-         *
          * @exception IOException 入出力エラーが発生した場合
          */
         public int read(byte[] buffer, int index, int length) throws IOException {
@@ -747,7 +629,6 @@ public class LhaFile {
          * lengthバイトのデータを読み飛ばす。
          *
          * @param length 読み飛ばしたいバイト数
-         *
          * @return 実際に読み飛ばされたバイト数
          */
         public long skip(long length) {
@@ -762,15 +643,6 @@ public class LhaFile {
             }
         }
 
-        //------------------------------------------------------------------
-        //  method of java.io.InputStream
-        //------------------------------------------------------------------
-        //  mark/reset
-        //------------------------------------------------------------------
-        //  public boolean markSupported()
-        //  public void mark( int readLimit )
-        //  public void reset()
-        //------------------------------------------------------------------
         /**
          * このオブジェクトがmark/resetをサポートするかを返す。
          *
@@ -810,14 +682,6 @@ public class LhaFile {
             }
         }
 
-        //------------------------------------------------------------------
-        //  method of java.io.InputStream
-        //------------------------------------------------------------------
-        //  other
-        //------------------------------------------------------------------
-        //  public int available()
-        //  public void close()
-        //------------------------------------------------------------------
         /**
          * 接続された入力ストリームからブロックしないで
          * 読み込むことのできるバイト数を得る。<br>
@@ -825,7 +689,7 @@ public class LhaFile {
          * 読み込みは常に RandomAccessFile に対する
          * アクセスを伴うため、このメソッドは常に 0 を返す。
          *
-         * @return 常に 0<br>
+         * @return 常に 0
          */
         public int available() {
             return 0;
@@ -837,7 +701,6 @@ public class LhaFile {
          */
         public void close() {
         }
-
     }
 
     /**
@@ -846,27 +709,11 @@ public class LhaFile {
      */
     private static class CachedRandomAccessFileInputStream extends InputStream {
 
-        //------------------------------------------------------------------
-        //  instance field
-        //------------------------------------------------------------------
-        //  source
-        //------------------------------------------------------------------
-        //  private RandomAccessFile archive
-        //------------------------------------------------------------------
         /**
          * データを供給する RandomAccessFile
          */
         private RandomAccessFile archive;
 
-        //------------------------------------------------------------------
-        //  instance field
-        //------------------------------------------------------------------
-        //  cache
-        //------------------------------------------------------------------
-        //  private byte[] cache
-        //  private int cachePosition
-        //  private int cacheLimit
-        //------------------------------------------------------------------
         /**
          * データを蓄えるためのキャッシュ
          */
@@ -882,17 +729,6 @@ public class LhaFile {
          */
         private int cacheLimit;
 
-        //------------------------------------------------------------------
-        //  instance field
-        //------------------------------------------------------------------
-        //  backup for mark/reset
-        //------------------------------------------------------------------
-        //  private boolean markPositionIsInCache
-        //  private byte[] markCache
-        //  private int markCachePosition
-        //  private int markCacheLimit
-        //  private long markPosition
-        //------------------------------------------------------------------
         /**
          * mark位置がキャッシュの範囲内にあるかを示す。
          * markされたとき true に設定され、
@@ -913,11 +749,6 @@ public class LhaFile {
         /** position のバックアップ用 */
         private long markPosition;
 
-        //------------------------------------------------------------------
-        //  constructer
-        //------------------------------------------------------------------
-        //  public CachedRandomAccessFileInputStream()
-        //------------------------------------------------------------------
         /**
          * キャッシュを使用して 高速化した RandomAccessFileInputStream を構築する。
          *
@@ -931,29 +762,18 @@ public class LhaFile {
             this.cacheLimit = 0;
         }
 
-        //------------------------------------------------------------------
-        //  method of java.io.InputStream
-        //------------------------------------------------------------------
-        //  read
-        //------------------------------------------------------------------
-        //  public int read()
-        //  public int read( byte[] buffer )
-        //  public int read( byte[] buffer, int index, int length )
-        //  public long skip( long length )
-        //------------------------------------------------------------------
         /**
          * archiveの現在処理位置から 1byteのデータを読み込む。
          *
          * @return 読みこまれた1byteのデータ<br>
          *         既に読みこみ限界に達した場合は -1
-         *
          * @exception IOException 入出力エラーが発生した場合
          */
         public int read() throws IOException {
             if (this.cachePosition < this.cacheLimit) {
                 return this.cache[this.cachePosition++] & 0xFF;
             } else {
-                this.fillCache(); //throws IOException
+                this.fillCache();
 
                 if (this.cachePosition < this.cacheLimit) {
                     return this.cache[this.cachePosition++] & 0xFF;
@@ -967,10 +787,8 @@ public class LhaFile {
          * archiveの現在処理位置から bufferを満たすようにデータを読み込む。
          *
          * @param buffer 読みこまれたデータを格納するバッファ
-         *
          * @return 読みこまれたバイト数<br>
          *         既に読みこみ限界に達していた場合は-1
-         *
          * @exception IOException 入出力エラーが発生した場合
          */
         public int read(byte[] buffer) throws IOException {
@@ -984,10 +802,8 @@ public class LhaFile {
          * @param buffer 読みこまれたデータを格納するバッファ
          * @param index buffer内の読みこみ開始位置
          * @param length 読みこむバイト数。
-         *
          * @return 読みこまれたバイト数<br>
          *         既に読みこみ限界に達していた場合は-1
-         *
          * @exception IOException 入出力エラーが発生した場合
          */
         public int read(byte[] buffer, int index, int length) throws IOException {
@@ -995,7 +811,7 @@ public class LhaFile {
 
             while (0 < length) {
                 if (this.cacheLimit <= this.cachePosition) {
-                    this.fillCache(); //throws IOException
+                    this.fillCache();
                     if (this.cacheLimit <= this.cachePosition) {
                         if (requested == length) {
                             return -1;
@@ -1019,7 +835,6 @@ public class LhaFile {
          * lengthバイトのデータを読み飛ばす。
          *
          * @param length 読み飛ばしたいバイト数
-         *
          * @return 実際に読み飛ばされたバイト数
          */
         public long skip(long length) throws IOException {
@@ -1044,15 +859,6 @@ public class LhaFile {
             return requested - length;
         }
 
-        //------------------------------------------------------------------
-        //  method of java.io.InputStream
-        //------------------------------------------------------------------
-        //  mark/reset
-        //------------------------------------------------------------------
-        //  public boolean markSupported()
-        //  public void mark( int readLimit )
-        //  public void reset()
-        //------------------------------------------------------------------
         /**
          * このオブジェクトがmark/resetをサポートするかを返す。
          *
@@ -1096,13 +902,13 @@ public class LhaFile {
         public void reset() throws IOException {
             if (this.markPositionIsInCache) {
                 this.cachePosition = this.markCachePosition;
-            } else if (this.markCache == null) { //この条件式は未だにマークされていないことを示す。コンストラクタで markCache が null に設定されるのを利用する。
+            } else if (this.markCache == null) { // この条件式は未だにマークされていないことを示す。コンストラクタで markCache が null に設定されるのを利用する。
                 throw new IOException("not marked.");
             } else {
-                //in が reset() できない場合は
-                //最初の行の this.in.reset() で
-                //IOException を投げることを期待している。
-                this.archive.seek(this.markPosition); //throws IOException
+                // in が reset() できない場合は
+                // 最初の行の this.in.reset() で
+                // IOException を投げることを期待している。
+                this.archive.seek(this.markPosition);
 
                 System.arraycopy(this.markCache, 0, this.cache, 0, this.markCacheLimit);
                 this.cacheLimit = this.markCacheLimit;
@@ -1110,19 +916,11 @@ public class LhaFile {
             }
         }
 
-        //------------------------------------------------------------------
-        //  method of java.io.InputStream
-        //------------------------------------------------------------------
-        //  other
-        //------------------------------------------------------------------
-        //  public int available()
-        //  public void close()
-        //------------------------------------------------------------------
         /**
          * 接続された入力ストリームからブロックしないで
-         * 読み込むことのできるバイト数を得る。<br>
+         * 読み込むことのできるバイト数を得る。
          *
-         * @return ブロックしないで読み出せるバイト数。<br>
+         * @return ブロックしないで読み出せるバイト数。
          */
         public int available() {
             return this.cacheLimit - this.cachePosition;
@@ -1130,7 +928,7 @@ public class LhaFile {
 
         /**
          * この入力ストリームを閉じ、使用していた
-         * 全てのリソースを開放する。<br>
+         * 全てのリソースを開放する。
          */
         public void close() {
             this.archive = null;
@@ -1146,11 +944,6 @@ public class LhaFile {
             this.markPosition = 0;
         }
 
-        //------------------------------------------------------------------
-        //  original method
-        //------------------------------------------------------------------
-        //  public long position()
-        //------------------------------------------------------------------
         /**
          * ファイル先頭を始点とする現在の読み込み位置を得る。
          *
@@ -1164,11 +957,6 @@ public class LhaFile {
             return position;
         }
 
-        //------------------------------------------------------------------
-        //  local method
-        //------------------------------------------------------------------
-        //  private void fillCache()
-        //------------------------------------------------------------------
         /**
          * 必要がある場合に、キャッシュ用バッファにデータを
          * 補填しキャッシュ用バッファに必ずデータが存在する
@@ -1183,16 +971,15 @@ public class LhaFile {
             this.cacheLimit = 0;
             this.cachePosition = 0;
 
-            //キャッシュにデータを読み込み
+            // キャッシュにデータを読み込み
             int read = 0;
             while (0 <= read && this.cacheLimit < this.cache.length) {
-                read = this.archive.read(this.cache, this.cacheLimit, this.cache.length - this.cacheLimit);//throws IOException
+                read = this.archive.read(this.cache, this.cacheLimit, this.cache.length - this.cacheLimit);
 
                 if (0 < read)
                     this.cacheLimit += read;
             }
         }
-
     }
 
     /**
@@ -1200,21 +987,11 @@ public class LhaFile {
      */
     private class HeaderEnumeration implements Enumeration<Object> {
 
-        //------------------------------------------------------------------
-        //  instance field
-        //------------------------------------------------------------------
-        //  private int index
-        //------------------------------------------------------------------
         /**
          * 現在処理位置
          */
         private int index;
 
-        //------------------------------------------------------------------
-        //  constructor
-        //------------------------------------------------------------------
-        //  public EntryEnumeration()
-        //------------------------------------------------------------------
         /**
          * LhaFile にある全ての LhaHeader を返す列挙子を構築する。
          */
@@ -1222,18 +999,11 @@ public class LhaFile {
             this.index = 0;
         }
 
-        //------------------------------------------------------------------
-        //  method of java.util.Enumeration
-        //------------------------------------------------------------------
-        //  public boolean hasMoreElements()
-        //  public Object nextElement()
-        //------------------------------------------------------------------
         /**
          * 列挙子にまだ要素が残っているかを得る。
          *
          * @return 列挙子にまだ要素が残っているなら true
          *         残っていなければ false
-         *
          * @exception IllegalStateException
          *                親の LhaFile が閉じられた場合
          */
@@ -1249,12 +1019,10 @@ public class LhaFile {
          * 列挙子の次の要素を得る。
          *
          * @return 列挙子の次の要素
-         *
          * @exception IllegalStateException
          *                親の LhaFile が閉じられた場合。
          * @exception NoSuchElementException
          *                列挙子に要素が無い場合。
-         *
          */
         public Object nextElement() {
             if (LhaFile.this.archive != null) {
@@ -1268,6 +1036,4 @@ public class LhaFile {
             }
         }
     }
-
 }
-//end of LhaFile.java

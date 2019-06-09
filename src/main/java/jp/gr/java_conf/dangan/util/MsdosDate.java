@@ -27,16 +27,14 @@
 package jp.gr.java_conf.dangan.util;
 
 import java.util.Date;
-import java.lang.Cloneable;
-import java.lang.IllegalArgumentException;
 
 
 /**
  * MS-DOS形式の時間情報を扱うDateの派生クラス。<br>
  * データは 4byte値であり、MS-DOSが 主にIntel の x86系CPU上で
  * 動作したことから LittleEndianで格納される。<br>
- * フォーマットは以下のとおり。<br>
- * 
+ * フォーマットは以下のとおり。
+ *
  * <pre>
  * +---------------+---------------++---------------+---------------+
  * | 日付-上位byte | 日付-下位byte || 時刻-上位byte | 時刻-下位byte |
@@ -46,7 +44,7 @@ import java.lang.IllegalArgumentException;
  * |   年-7bit   |月-4bit| 日-5bit ||時間-5bit|  分-6bit  | 秒-5bit |
  * +-------------+-------+---------++---------+-----------+---------+
  * </pre>
- * 
+ *
  * ・年は 1980〜2107年 を 0〜127 で表す。WindowsのシステムAPIの
  * 一部は 2099年までしかサポートしないという情報がある。<br>
  * ・月は 1〜12月 を 1〜12で表す。0〜11でないことに注意。<br>
@@ -54,7 +52,7 @@ import java.lang.IllegalArgumentException;
  * ・時間は 0〜23時 を 0〜23で表す。<br>
  * ・分は 0〜59分 を 0〜59で表す。<br>
  * ・秒は 0〜58秒 を 0〜29で表す。秒の情報はビット数が足りない
- * ため 最小単位は 1秒でなく 2秒である。<br>
+ * ため 最小単位は 1秒でなく 2秒である。
  *
  * <pre>
  * -- revision history --
@@ -88,7 +86,6 @@ public class MsdosDate extends Date implements Cloneable {
      *
      * @param date 新しく構築される MsdosDate の基になる時間情報
      *            を持つ Dateオブジェクト
-     *
      * @exception IllegalArgumentException
      *                date が MS-DOS時間形式で扱えない範囲の時間を
      *                示していた場合
@@ -110,7 +107,7 @@ public class MsdosDate extends Date implements Cloneable {
               (time >> 16) & 0x1F,
               (time >> 11) & 0x1F,
               (time >> 5) & 0x3F,
-              (time << 1) & 0x3F); //deprecated
+              (time << 1) & 0x3F); // deprecated
 
         this.checkRange();
     }
@@ -127,11 +124,10 @@ public class MsdosDate extends Date implements Cloneable {
     /**
      * この MsdosDate の示す年を year で指定された値に1900を足し
      * たものに設定する。<br>
-     * このメソッドは範囲チェックを行うだけのために存在する。<br>
+     * このメソッドは範囲チェックを行うだけのために存在する。
      *
      * @deprecated
      * @param year 1900を足すことで西暦を表すような 年の値
-     *
      * @exception IllegalArgumentException
      *                year が MS-DOS時間形式で扱えない範囲の時間を
      *                示していた場合
@@ -140,7 +136,7 @@ public class MsdosDate extends Date implements Cloneable {
         if (year < 80 || 207 < year) {
             throw new IllegalArgumentException("out of MS-DOS time format range.");
         } else {
-            super.setYear(year); //deprecated
+            super.setYear(year); // deprecated
         }
     }
 
@@ -152,7 +148,6 @@ public class MsdosDate extends Date implements Cloneable {
      * MS-DOS 形式の時間情報 の最小単位である 2秒となる。
      *
      * @param time 1970年1月1日 00:00:00GMT からの経過ミリ秒
-     *
      * @exception IllegalArgumentException
      *                time が MS-DOS時間形式で扱えない範囲の時間を
      *                示していた場合
@@ -177,7 +172,7 @@ public class MsdosDate extends Date implements Cloneable {
                              (time >> 16) & 0x1F,
                              (time >> 11) & 0x1F,
                              (time >> 5) & 0x3F,
-                             (time << 1) & 0x3F); //deprecated
+                             (time << 1) & 0x3F);
 
         this.setTime(date.getTime());
     }
@@ -188,12 +183,12 @@ public class MsdosDate extends Date implements Cloneable {
      * @return MS-DOS時間形式の値
      */
     public int getMsdosTime() {
-        return ((super.getYear() - 80) << 25) //deprecated
-               | ((super.getMonth() + 1) << 21) //deprecated
-               | (super.getDate() << 16) //deprecated
-               | (super.getHours() << 11) //deprecated
-               | (super.getMinutes() << 5) //deprecated
-               | (super.getSeconds() >> 1); //deprecated
+        return ((super.getYear() - 80) << 25)
+               | ((super.getMonth() + 1) << 21)
+               | (super.getDate() << 16)
+               | (super.getHours() << 11)
+               | (super.getMinutes() << 5)
+               | (super.getSeconds() >> 1);
     }
 
     /**
@@ -209,5 +204,4 @@ public class MsdosDate extends Date implements Cloneable {
         if (year < 80 || 207 < year)
             throw new IllegalArgumentException("out of MS-DOS time format range.");
     }
-
 }

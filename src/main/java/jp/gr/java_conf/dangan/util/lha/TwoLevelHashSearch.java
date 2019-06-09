@@ -26,26 +26,15 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
+import java.lang.reflect.InvocationTargetException;
+
 import jp.gr.java_conf.dangan.io.Bits;
 import jp.gr.java_conf.dangan.lang.reflect.Factory;
-import jp.gr.java_conf.dangan.util.lha.HashShort;
-import jp.gr.java_conf.dangan.util.lha.HashMethod;
-import jp.gr.java_conf.dangan.util.lha.LzssOutputStream;
-import jp.gr.java_conf.dangan.util.lha.LzssSearchMethod;
-
-import java.lang.NoSuchMethodException;
-import java.lang.ClassNotFoundException;
-import java.lang.InstantiationException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.Error;
-import java.lang.NoSuchMethodError;
-import java.lang.InstantiationError;
-import java.lang.NoClassDefFoundError;
 
 
 /**
  * 二段階ハッシュと単方向連結リストを使って高速化された LzssSearchMethod。<br>
- * <a href="http://search.ieice.org/2000/pdf/e83-a_12_2689.pdf">定兼氏の論文</a>
+ * <a href="http:// search.ieice.org/2000/pdf/e83-a_12_2689.pdf">定兼氏の論文</a>
  * を参考にした。
  *
  * <pre>
@@ -266,7 +255,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
         int p = 0;
         int len = 0;
 
-        //  二段目のハッシュによって選ばれた連結リストを検索するループ
+        // 二段目のハッシュによって選ばれた連結リストを検索するループ
         while (scanlimit <= scanpos) {
             if (buf[scanpos + matchlen] == buf[position + matchlen]) {
                 s = scanpos;
@@ -289,8 +278,8 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
             scanpos = this.prev[scanpos & (this.DictionarySize - 1)];
         }
 
-        //  二段目のハッシュによって厳選された連結リストに一致が無い場合、
-        //  一段目のハッシュに登録されている全ての連結リストを検索する
+        // 二段目のハッシュによって厳選された連結リストに一致が無い場合、
+        // 一段目のハッシュに登録されている全ての連結リストを検索する
         int revbits = 1;
         int loopend = requires - Math.max(0, this.Threshold - this.primaryHash.hashRequires());
         int maxmatch = this.primaryHash.hashRequires() + requires - 1;
@@ -326,13 +315,13 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
             maxmatch = this.primaryHash.hashRequires() + requires - i - 1;
         }
 
-        //  二段階ハッシュと連結リストを使用した検索機構に
-        //  position から始まるデータパタンを登録する。
+        // 二段階ハッシュと連結リストを使用した検索機構に
+        // position から始まるデータパタンを登録する。
         this.primaryCount[phash]++;
         this.prev[position & (this.DictionarySize - 1)] = this.secondaryHashTable[base + shash];
         this.secondaryHashTable[base + shash] = position;
 
-        //  最長一致を呼び出し元に返す。
+        // 最長一致を呼び出し元に返す。
         if (this.Threshold <= matchlen) {
             return LzssOutputStream.createSearchReturn(matchlen, matchpos);
         } else {
@@ -359,8 +348,8 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
      */
     public int search(int position, int lastPutPos) {
 
-        //  ハッシュと連結リストによる検索機構に登録されていない
-        //  データパタンを単純な逐次検索で検索する。
+        // ハッシュと連結リストによる検索機構に登録されていない
+        // データパタンを単純な逐次検索で検索する。
         int matchlen = this.Threshold - 1;
         int matchpos = position;
         int scanpos = position - 1;
@@ -388,7 +377,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
             scanpos--;
         }
 
-        //  二段階ハッシュと連結リストを使用した検索機構から検索する。
+        // 二段階ハッシュと連結リストを使用した検索機構から検索する。
         int phashRequires = this.primaryHash.hashRequires();
         if (phashRequires < this.TextBuffer.length - position) {
 
@@ -410,7 +399,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
             int loopend = requires - Math.max(0, this.Threshold - this.primaryHash.hashRequires());
             int maxmatch = this.MaxMatch;
 
-            //  一段目のに登録されている連結リストを優先度の順に検索するループ
+            // 一段目のに登録されている連結リストを優先度の順に検索するループ
             for (int i = start, send = (1 << (i * 2)); i <= requires; i++, send <<= 2) {
                 max += position + maxmatch;
                 while (revbits < send) {
@@ -444,7 +433,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
             }
         }
 
-        //  最長一致を呼び出し元に返す。
+        // 最長一致を呼び出し元に返す。
         if (this.Threshold <= matchlen) {
             return LzssOutputStream.createSearchReturn(matchlen, matchpos);
         } else {
@@ -460,10 +449,10 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
      */
     public void slide() {
 
-        //  DictionaryLimit更新
+        // DictionaryLimit更新
         this.DictionaryLimit = Math.max(0, this.DictionaryLimit - this.DictionarySize);
 
-        //  primaryCount の値によって secondaryHashTable を再構成する
+        // primaryCount の値によって secondaryHashTable を再構成する
         int secondaryIndex = 0;
         int dummyIndex = 0;
         for (int i = 0; i < this.primaryHashTable.length; i++) {
@@ -498,7 +487,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
         this.secondaryHashTable = this.dummy;
         this.dummy = temp;
 
-        //  連結リストを更新
+        // 連結リストを更新
         for (int i = 0; i < this.prev.length; i++) {
             int pos = this.prev[i] - this.DictionarySize;
             this.prev[i] = (0 <= pos ? pos : -1);
@@ -550,7 +539,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
             -1, -1, -1, -1
         };
 
-        //  連結リストを分岐させていくループ
+        // 連結リストを分岐させていくループ
         while (limit < position) {
             int shash = this.TextBuffer[position + divoff] & 0x03;
             if (0 < current[shash]) {
@@ -562,7 +551,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
             position = this.prev[position & (this.DictionarySize - 1)];
         }
 
-        //  連結リストをターミネートする。
+        // 連結リストをターミネートする。
         for (int i = 0; i < current.length; i++) {
             if (0 < current[i]) {
                 this.prev[current[i] & (this.DictionarySize - 1)] = -1;
@@ -582,7 +571,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
         int limit = this.DictionarySize;
         int position = -1;
 
-        //  連結リストを束ねていくループ
+        // 連結リストを束ねていくループ
         while (true) {
             int shash = 0;
             int max = this.secondaryHashTable[sbase];
@@ -607,7 +596,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
             }
         }
 
-        //  連結リストをターミネートする。
+        // 連結リストをターミネートする。
         if (0 < position) {
             this.prev[position & (this.DictionarySize - 1)] = -1;
         } else {

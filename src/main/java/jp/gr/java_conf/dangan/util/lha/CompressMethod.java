@@ -31,9 +31,6 @@ import java.io.OutputStream;
 import java.util.Hashtable;
 import java.util.Properties;
 
-import java.lang.NullPointerException;
-import java.lang.IllegalArgumentException;
-
 
 /**
  * LHAの各種定数を定義する。
@@ -189,7 +186,6 @@ public class CompressMethod {
      * 圧縮法識別子から 辞書サイズを得る。
      *
      * @param method 圧縮法識別子
-     *
      * @return 辞書サイズ
      */
     public static int toDictionarySize(String method) {
@@ -228,7 +224,6 @@ public class CompressMethod {
      * 圧縮法識別子から 圧縮/非圧縮の閾値を得る。
      *
      * @param method 圧縮法識別子
-     *
      * @return 圧縮/非圧縮
      */
     public static int toThreshold(String method) {
@@ -267,7 +262,6 @@ public class CompressMethod {
      * 圧縮法識別子から 最大一致長を得る。
      *
      * @param method 圧縮法識別子
-     *
      * @return 最大一致長
      */
     public static int toMaxMatch(String method) {
@@ -309,7 +303,6 @@ public class CompressMethod {
      * @param out 圧縮データ出力先のストリーム
      * @param method 圧縮法識別子
      * @param property 各圧縮形式に対応した符号器の生成式等が含まれるプロパティ
-     *
      * @return method の圧縮法でデータを圧縮し、outに出力するストリーム
      */
     public static OutputStream connectEncoder(OutputStream out, String method, Properties property) {
@@ -340,7 +333,6 @@ public class CompressMethod {
      * @param in 圧縮データを供給するストリーム
      * @param method 圧縮法識別子
      * @param property 各圧縮形式に対応した復号器の生成式等が含まれるプロパティ
-     *
      * @return in から method の圧縮法で圧縮されたデータを解凍し
      *         供給する入力ストリームを構築する。
      */
@@ -371,7 +363,6 @@ public class CompressMethod {
      * の ??? に入る文字列を生成する。
      *
      * @param method 圧縮法識別子
-     *
      * @return キーの中心に使える文字列
      */
     private static String getCore(String method) {

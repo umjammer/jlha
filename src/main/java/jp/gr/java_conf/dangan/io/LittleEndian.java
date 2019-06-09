@@ -26,12 +26,10 @@
 
 package jp.gr.java_conf.dangan.io;
 
+import java.io.EOFException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import java.io.IOException;
-import java.io.EOFException;
-import java.lang.ArrayIndexOutOfBoundsException;
 
 
 /**

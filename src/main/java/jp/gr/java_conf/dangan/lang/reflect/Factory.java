@@ -27,10 +27,6 @@
 package jp.gr.java_conf.dangan.lang.reflect;
 
 import java.lang.reflect.Constructor;
-
-import java.lang.NoSuchMethodException;
-import java.lang.ClassNotFoundException;
-import java.lang.InstantiationException;
 import java.lang.reflect.InvocationTargetException;
 
 
@@ -127,19 +123,19 @@ public class Factory {
         }
     }
 
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
     //	shared method
-    //------------------------------------------------------------------
-    //  get constructor
-    //------------------------------------------------------------------
-    //  public static Constructor getConstructor( String   classname,
-    //                                            Object[] args )
-    //  public static Constructor getConstructor( Class type, Object[] args )
-    //  public static Constructor getConstructor( String   classname,
-    //                                            Object[] args, boolean all )
-    //  public static Constructor getConstructor( Class type,
-    //                                            Object[] args, boolean  all )
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // get constructor
+    // ------------------------------------------------------------------
+    // public static Constructor getConstructor( String   classname,
+    //                                           Object[] args )
+    // public static Constructor getConstructor( Class type, Object[] args )
+    // public static Constructor getConstructor( String   classname,
+    //                                           Object[] args, boolean all )
+    // public static Constructor getConstructor( Class type,
+    //                                           Object[] args, boolean  all )
+    // ------------------------------------------------------------------
     /**
      * classname で示されるクラスの public なコンストラクタのうち、
      * args を Type.parse した場合、引数として受け入れることが
@@ -240,20 +236,20 @@ public class Factory {
         return null;
     }
 
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
     //	shared method
-    //------------------------------------------------------------------
-    //  get match full constructor
-    //------------------------------------------------------------------
-    //  public static Constructor getMatchFullConstructor( String   classname,
-    //                                                     Object[] args )
-    //  public static Constructor getMatchFullConstructor( Class type,
-    //                                                     Object[] args )
-    //  public static Constructor getMatchFullConstructor( String   classname,
-    //                                            Object[] args, boolean all )
-    //  public static Constructor getMatchFullConstructor( Class type,
-    //                                            Object[] args, boolean all )
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // get match full constructor
+    // ------------------------------------------------------------------
+    // public static Constructor getMatchFullConstructor( String   classname,
+    //                                                    Object[] args )
+    // public static Constructor getMatchFullConstructor( Class type,
+    //                                                    Object[] args )
+    // public static Constructor getMatchFullConstructor( String   classname,
+    //                                           Object[] args, boolean all )
+    // public static Constructor getMatchFullConstructor( Class type,
+    //                                           Object[] args, boolean all )
+    // ------------------------------------------------------------------
     /**
      * classname で示されるクラスの public なコンストラクタのうち、
      * args を そのまま引数として受け入れることができるものを得る。

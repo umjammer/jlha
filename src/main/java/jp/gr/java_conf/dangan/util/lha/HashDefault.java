@@ -1,9 +1,4 @@
-//start of HashDefault.java
-//TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
-
 /**
- * HashDefault.java
- *
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
@@ -31,15 +26,10 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
-//import classes and interfaces
-import jp.gr.java_conf.dangan.util.lha.HashMethod;
-
-//import exceptions
-
 
 /**
  * 試作プログラム ar940528 や LHa for Unix で使用されているハッシュ関数。<br>
- * gzip で使用されているを参考にしたようだ。<br>
+ * gzip で使用されているを参考にしたようだ。
  *
  * <pre>
  * -- revision history --
@@ -61,21 +51,11 @@ import jp.gr.java_conf.dangan.util.lha.HashMethod;
  */
 public class HashDefault implements HashMethod {
 
-    //------------------------------------------------------------------
-    //  class field
-    //------------------------------------------------------------------
-    //  private static final int HashMask
-    //------------------------------------------------------------------
     /**
      * ハッシュ値を生成するためのマスク値
      */
     private static final int HashMask = 0x7FFF;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  private byte[] TextBuffer
-    //------------------------------------------------------------------
     /**
      * LZSS圧縮を施すためのバッファ。
      * 前半は辞書領域、
@@ -94,20 +74,12 @@ public class HashDefault implements HashMethod {
         this.TextBuffer = TextBuffer;
     }
 
-    //------------------------------------------------------------------
-    //  method of jp.gr.java_conf.dangan.util.lha.HashMethod
-    //------------------------------------------------------------------
-    //  public int hash( int position )
-    //  public int hashRequires()
-    //  public int tableSize()
-    //------------------------------------------------------------------
     /**
      * ハッシュ関数。<br>
      * コンストラクタで渡された TextBuffer の position からの
      * データパタンの hash値を生成する。
      *
      * @param position データパタンの開始位置
-     *
      * @return ハッシュ値
      */
     public int hash(int position) {
@@ -138,6 +110,4 @@ public class HashDefault implements HashMethod {
     public int tableSize() {
         return 0x8000;
     }
-
 }
-//end of HashDefault.java

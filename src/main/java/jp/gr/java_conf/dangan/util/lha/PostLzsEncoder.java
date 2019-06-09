@@ -1,5 +1,5 @@
-//start of PostLzsEncoder.java
-//TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
+// start of PostLzsEncoder.java
+// TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
 
 /**
  * PostLzsEncoder.java
@@ -31,15 +31,13 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
-//import classes and interfaces
-import java.io.OutputStream;
-import jp.gr.java_conf.dangan.io.Bits;
-import jp.gr.java_conf.dangan.io.BitOutputStream;
-import jp.gr.java_conf.dangan.util.lha.PostLzssEncoder;
-
-//import exceptions
+// import exceptions
 import java.io.IOException;
-import java.lang.NullPointerException;
+// import classes and interfaces
+import java.io.OutputStream;
+
+import jp.gr.java_conf.dangan.io.BitOutputStream;
+import jp.gr.java_conf.dangan.io.Bits;
 
 
 /**
@@ -68,15 +66,15 @@ import java.lang.NullPointerException;
  */
 public class PostLzsEncoder implements PostLzssEncoder {
 
-    //------------------------------------------------------------------
-    //  class field
-    //------------------------------------------------------------------
-    //  LZSS parameter
-    //------------------------------------------------------------------
-    //  private static final int DictionarySize
-    //  private static final int MaxMatch
-    //  private static final int Threshold
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // class field
+    // ------------------------------------------------------------------
+    // LZSS parameter
+    // ------------------------------------------------------------------
+    // private static final int DictionarySize
+    // private static final int MaxMatch
+    // private static final int Threshold
+    // ------------------------------------------------------------------
     /** 辞書サイズ */
     private static final int DictionarySize = 2048;
 
@@ -86,27 +84,27 @@ public class PostLzsEncoder implements PostLzssEncoder {
     /** 最小一致長 */
     private static final int Threshold = 2;
 
-    //------------------------------------------------------------------
-    //  class field
-    //------------------------------------------------------------------
-    //  length of LZSS code
-    //------------------------------------------------------------------
-    //  private static final int PositionBits
-    //  private static final int LengthBits
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // class field
+    // ------------------------------------------------------------------
+    // length of LZSS code
+    // ------------------------------------------------------------------
+    // private static final int PositionBits
+    // private static final int LengthBits
+    // ------------------------------------------------------------------
     /** 一致位置のビット数 */
     private static final int PositionBits = Bits.len(PostLzsEncoder.DictionarySize - 1);
 
     /** 一致長のビット数 */
     private static final int LengthBits = Bits.len(PostLzsEncoder.MaxMatch - PostLzsEncoder.Threshold);
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  private BitOutputStream out
-    //  private int position
-    //  private int matchLength
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // instance field
+    // ------------------------------------------------------------------
+    // private BitOutputStream out
+    // private int position
+    // private int matchLength
+    // ------------------------------------------------------------------
     /**
      * -lzs- 形式のデータを出力するビット出力ストリーム
      */
@@ -141,14 +139,14 @@ public class PostLzsEncoder implements PostLzssEncoder {
         }
     }
 
-    //------------------------------------------------------------------
-    //  method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
-    //------------------------------------------------------------------
-    //  write
-    //------------------------------------------------------------------
-    //  public void writeCode( int code )
-    //  public void writeOffset( int offset )
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
+    // ------------------------------------------------------------------
+    // write
+    // ------------------------------------------------------------------
+    // public void writeCode( int code )
+    // public void writeOffset( int offset )
+    // ------------------------------------------------------------------
     /**
      * 1byte の LZSS未圧縮のデータもしくは、
      * LZSS で圧縮された圧縮コードのうち一致長を書きこむ。<br>
@@ -160,13 +158,13 @@ public class PostLzsEncoder implements PostLzssEncoder {
      */
     public void writeCode(int code) throws IOException {
         if (code < 0x100) {
-            this.out.writeBit(1); //throws IOException
-            this.out.writeBits(8, code); //throws IOException
+            this.out.writeBit(1);
+            this.out.writeBits(8, code);
             this.position++;
         } else {
             // close() 後の writeCode() で
             // NullPointerException を投げることを期待している。
-            this.out.writeBit(0); //throws IOException
+            this.out.writeBit(0);
             this.matchLength = code - 0x100;
         }
     }
@@ -181,18 +179,18 @@ public class PostLzsEncoder implements PostLzssEncoder {
 
         this.position += this.matchLength + PostLzsEncoder.Threshold;
 
-        this.out.writeBits(PostLzsEncoder.PositionBits, pos); //throws IOException
-        this.out.writeBits(PostLzsEncoder.LengthBits, this.matchLength); //throws IOException
+        this.out.writeBits(PostLzsEncoder.PositionBits, pos);
+        this.out.writeBits(PostLzsEncoder.LengthBits, this.matchLength);
     }
 
-    //------------------------------------------------------------------
-    //  method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
-    //------------------------------------------------------------------
-    //  other
-    //------------------------------------------------------------------
-    //  public void flush()
-    //  public void close()
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
+    // ------------------------------------------------------------------
+    // other
+    // ------------------------------------------------------------------
+    // public void flush()
+    // public void close()
+    // ------------------------------------------------------------------
     /**
      * この PostLzssEncoder にバッファリングされている
      * 全ての 8ビット単位のデータを出力先の OutputStream に出力し、
@@ -205,7 +203,7 @@ public class PostLzsEncoder implements PostLzssEncoder {
      * @see BitOutputStream#flush()
      */
     public void flush() throws IOException {
-        this.out.flush(); //throws IOException
+        this.out.flush();
     }
 
     /**
@@ -215,20 +213,20 @@ public class PostLzsEncoder implements PostLzssEncoder {
      * @exception IOException 入出力エラーが発生した場合
      */
     public void close() throws IOException {
-        this.out.close(); //throws IOException
+        this.out.close();
 
         this.out = null;
     }
 
-    //------------------------------------------------------------------
-    //  method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
-    //------------------------------------------------------------------
-    //  get LZSS patameter
-    //------------------------------------------------------------------
-    //  public int getDictionarySize()
-    //  public int getMaxMatch()
-    //  public int getThreshold()
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
+    // ------------------------------------------------------------------
+    // get LZSS patameter
+    // ------------------------------------------------------------------
+    // public int getDictionarySize()
+    // public int getMaxMatch()
+    // public int getThreshold()
+    // ------------------------------------------------------------------
     /**
      * -lzs-形式の LZSS辞書のサイズを得る。
      *
@@ -257,4 +255,4 @@ public class PostLzsEncoder implements PostLzssEncoder {
     }
 
 }
-//end of PostLzsEncoder.java
+// end of PostLzsEncoder.java

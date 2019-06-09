@@ -1,9 +1,4 @@
-//start of PatriciaTrieSearch.java
-//TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
-
 /**
- * PatriciaTrieSearch.java
- *
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
@@ -31,14 +26,10 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
-//import classes and interfaces
 import java.math.BigInteger;
+
 import jp.gr.java_conf.dangan.io.Bits;
-import jp.gr.java_conf.dangan.util.lha.LzssOutputStream;
-import jp.gr.java_conf.dangan.util.lha.LzssSearchMethod;
 
-
-//import exceptions
 
 /**
  * PATRICIA Trie を使用した LzssSearchMethod の実装。
@@ -74,11 +65,6 @@ import jp.gr.java_conf.dangan.util.lha.LzssSearchMethod;
  */
 public class PatriciaTrieSearch implements LzssSearchMethod {
 
-    //------------------------------------------------------------------
-    //  class field
-    //------------------------------------------------------------------
-    //  private static final int UNUSED
-    //------------------------------------------------------------------
     /**
      * 使用されていない事を示す値。
      * parent[node] に UNUSED がある場合は node は未使用の node である。
@@ -87,15 +73,6 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
      */
     private static final int UNUSED = 0;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  LZSS parameter
-    //------------------------------------------------------------------
-    //  private int DictionarySize
-    //  private int MaxMatch
-    //  private int Threshold
-    //------------------------------------------------------------------
     /**
      * LZSS 辞書サイズ
      */
@@ -113,14 +90,6 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
      */
     private int Threshold;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  Text Buffer
-    //------------------------------------------------------------------
-    //  private byte[] TextBuffer
-    //  private int DictionaryLimit
-    //------------------------------------------------------------------
     /**
      * LZSS 圧縮を施すためのバッファ。
      * LzssSearchMethod の実装内では読み込みのみ許される。
@@ -135,21 +104,6 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
      */
     private int DictionaryLimit;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  PATRICIA TRIE
-    //------------------------------------------------------------------
-    //  private int[] parent
-    //  private int[] hashTable
-    //  private int[] prev
-    //  private int[] next
-    //  private int[] position
-    //  private int[] level
-    //  private int[] childnum
-    //  private int avail
-    //  private int shift
-    //------------------------------------------------------------------
     /**
      * 親のノード番号を示す。
      * parent[node] は node の親ノードの番号を示す。
@@ -214,14 +168,6 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
      */
     private int shift;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  other
-    //------------------------------------------------------------------
-    //  private int lastMatchPos
-    //  private int lastMatchLen
-    //------------------------------------------------------------------
     /**
      * 最後の searchAndPut() または put() で得られた
      * 得られた PatriciaTrie内の最長一致位置
@@ -278,48 +224,37 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
         this.lastMatchPos = 0;
     }
 
-    //------------------------------------------------------------------
-    //  method of jp.gr.java_conf.dangan.util.lha.LzssSearchMethod
-    //------------------------------------------------------------------
-    //  public void put( int position )
-    //  public int searchAndPut( int position )
-    //  public int search( int position, int lastPutPos )
-    //  public void slide( int slideWidth, int slideEnd )
-    //  public int putRequires()
-    //------------------------------------------------------------------
     /**
      * position から始まるデータパタンを
-     * PATRICIA Trie に登録する。<br>
+     * PATRICIA Trie に登録する。
      *
      * @param position TextBuffer内のデータパタンの開始位置
      */
     public void put(int position) {
 
-        //------------------------------------------------------------------
-        //  PATRICIA Trie から最も古いデータパタンを削除
+        // PATRICIA Trie から最も古いデータパタンを削除
         int posnode = (position & (this.DictionarySize - 1)) + this.DictionarySize;
         this.deleteNode(posnode);
 
-        //------------------------------------------------------------------
-        //  PATRICIA Trie から最長一致を検索
+        // PATRICIA Trie から最長一致を検索
         int matchnode = -1;
         int matchpos = position;
         int scannode;
         int matchlen;
         if (3 < this.lastMatchLen) {
 
-            //前回の一致長が閾値より大きければ、
-            //葉から lastMatchLen - 1 の一致を検索する。
+            // 前回の一致長が閾値より大きければ、
+            // 葉から lastMatchLen - 1 の一致を検索する。
             scannode = (this.lastMatchPos + 1) | this.DictionarySize;
 
-            //最長一致があったために scannode が
-            //PATRICIA Trie から取り除かれている場合の処理
+            // 最長一致があったために scannode が
+            // PATRICIA Trie から取り除かれている場合の処理
             while (this.parent[scannode] == PatriciaTrieSearch.UNUSED) {
                 scannode = this.next[scannode];
             }
 
-            //葉から 順番に親へと辿って
-            //lastMatchLen - 1 以下の level を持つノードを探す。
+            // 葉から 順番に親へと辿って
+            // lastMatchLen - 1 以下の level を持つノードを探す。
             int node = this.parent[scannode];
             this.lastMatchLen--;
             while (0 < node && this.lastMatchLen <= this.level[node]) {
@@ -327,7 +262,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
                 node = this.parent[node];
             }
 
-            //さらに親へと辿って position を更新していく。
+            // さらに親へと辿って position を更新していく。
             while (0 < node) {
                 this.position[node] = position;
                 node = this.parent[node];
@@ -336,12 +271,12 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
             matchlen = this.lastMatchLen;
         } else {
 
-            //PATRICIA Trie を 根から辿る。
+            // PATRICIA Trie を 根から辿る。
             scannode = this.child(this.TextBuffer[position] - 128, this.TextBuffer[position + 1] & 0xFF);
             matchlen = 2;
 
             if (scannode == PatriciaTrieSearch.UNUSED) {
-                //根に position を追加する。
+                // 根に position を追加する。
                 this.attachNode(this.TextBuffer[position] - 128, posnode, this.TextBuffer[position + 1] & 0xFF);
                 this.lastMatchLen = matchlen;
                 return;
@@ -375,18 +310,18 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
                     matchlen++;
                 }
             } else if (matchlen < max) {
-                //matchnode と position を分岐させる。
+                // matchnode と position を分岐させる。
                 this.splitNode(matchnode, matchpos, posnode, position, matchlen);
                 break;
             } else {
-                //完全一致を発見、ノードを置き換える。
+                // 完全一致を発見、ノードを置き換える。
                 this.replaceNode(matchnode, posnode);
                 this.next[matchnode] = position;
                 break;
             }
         }
 
-        //検索結果を保存
+        // 検索結果を保存
         this.lastMatchLen = matchlen;
         this.lastMatchPos = matchpos;
     }
@@ -396,46 +331,42 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
      * position から始まるデータパタンと
      * 最長の一致を持つものを検索し、
      * 同時に position から始まるデータパタンを
-     * PATRICIA Trie に登録する。<br>
+     * PATRICIA Trie に登録する。
      *
      * @param position TextBuffer内のデータパタンの開始位置。
-     *
      * @return 一致が見つかった場合は
      *         LzssOutputStream.createSearchReturn
      *         によって生成された一致位置と一致長の情報を持つ値、
      *         一致が見つからなかった場合は
      *         LzssOutputStream.NOMATCH。
-     *
      * @see LzssOutputStream#createSearchReturn(int,int)
      * @see LzssOutputStream#NOMATCH
      */
     public int searchAndPut(int position) {
 
-        //------------------------------------------------------------------
-        //  PATRICIA Trie から最も古いデータパタンを削除
+        // PATRICIA Trie から最も古いデータパタンを削除
         int posnode = (position & (this.DictionarySize - 1)) + this.DictionarySize;
         this.deleteNode(posnode);
 
-        //------------------------------------------------------------------
-        //  PATRICIA Trie から最長一致を検索
+        // PATRICIA Trie から最長一致を検索
         int matchnode = -1;
         int matchpos = position;
         int scannode = 0;
         int matchlen = 0;
         if (3 < this.lastMatchLen) {
 
-            //前回の一致長が閾値より大きければ、
-            //葉から lastMatchLen - 1 の一致を検索する。
+            // 前回の一致長が閾値より大きければ、
+            // 葉から lastMatchLen - 1 の一致を検索する。
             scannode = (this.lastMatchPos + 1) | this.DictionarySize;
 
-            //最長一致があったために scannode が
-            //PATRICIA Trie から取り除かれている場合の処理
+            // 最長一致があったために scannode が
+            // PATRICIA Trie から取り除かれている場合の処理
             while (this.parent[scannode] == PatriciaTrieSearch.UNUSED) {
                 scannode = this.next[scannode];
             }
 
-            //葉から 順番に親へと辿って
-            //lastMatchLen - 1 以下の level を持つノードを探す。
+            // 葉から 順番に親へと辿って
+            // lastMatchLen - 1 以下の level を持つノードを探す。
             int node = this.parent[scannode];
             this.lastMatchLen--;
             while (0 < node && this.lastMatchLen <= this.level[node]) {
@@ -443,7 +374,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
                 node = this.parent[node];
             }
 
-            //さらに親へと辿って position を更新していく。
+            // さらに親へと辿って position を更新していく。
             while (0 < node) {
                 this.position[node] = position;
                 node = this.parent[node];
@@ -451,7 +382,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
 
             matchlen = this.lastMatchLen;
         } else {
-            //PATRICIA Trie を 根から辿る。
+            // PATRICIA Trie を 根から辿る。
             scannode = this.child(this.TextBuffer[position] - 128, this.TextBuffer[position + 1] & 0xFF);
             matchlen = 2;
         }
@@ -479,35 +410,34 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
                     scannode = this.child(scannode, this.TextBuffer[position + matchlen] & 0xFF);
 
                     if (scannode == PatriciaTrieSearch.UNUSED) {
-                        //matchnode に position を追加する。
+                        // matchnode に position を追加する。
                         this.attachNode(matchnode, posnode, this.TextBuffer[position + matchlen] & 0xFF);
                         break;
                     } else {
                         matchlen++;
                     }
                 } else if (matchlen < max) {
-                    //matchnode と position を分岐させる。
+                    // matchnode と position を分岐させる。
                     this.splitNode(matchnode, matchpos, posnode, position, matchlen);
                     break;
                 } else {
-                    //完全一致を発見、ノードを置き換える。
+                    // 完全一致を発見、ノードを置き換える。
                     this.replaceNode(matchnode, posnode);
                     this.next[matchnode] = position;
                     break;
                 }
             }
-        } else { //if( scannode != PatriciaTrieSearch.UNUSED )
-                 //根に position を追加する。
+        } else { // if( scannode != PatriciaTrieSearch.UNUSED )
+                 // 根に position を追加する。
             this.attachNode(this.TextBuffer[position] - 128, posnode, this.TextBuffer[position + 1] & 0xFF);
             matchlen = 0;
         }
 
-        //検索結果を保存
+        // 検索結果を保存
         this.lastMatchLen = matchlen;
         this.lastMatchPos = matchpos;
 
-        //------------------------------------------------------------------
-        //  メソッド先頭で PATRICIA Trie から削除したデータパタンもチェックする。
+        // メソッド先頭で PATRICIA Trie から削除したデータパタンもチェックする。
         scannode = position - this.DictionarySize;
         if (this.DictionaryLimit <= scannode) {
             int len = 0;
@@ -521,8 +451,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
             }
         }
 
-        //------------------------------------------------------------------
-        //  最長一致を呼び出し元に返す。
+        // 最長一致を呼び出し元に返す。
         if (this.Threshold <= matchlen) {
             return LzssOutputStream.createSearchReturn(matchlen, matchpos);
         } else {
@@ -537,21 +466,18 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
      *
      * @param position TextBuffer内のデータパタンの開始位置。
      * @param lastPutPos 最後に登録したデータパタンの開始位置。
-     *
      * @return 一致が見つかった場合は
      *         LzssOutputStream.createSearchReturn
      *         によって生成された一致位置と一致長の情報を持つ値、
      *         一致が見つからなかった場合は
      *         LzssOutputStream.NOMATCH。
-     *
      * @see LzssOutputStream#createSearchReturn(int,int)
      * @see LzssOutputStream#NOMATCH
      */
     public int search(int position, int lastPutPos) {
 
-        //------------------------------------------------------------------
-        //  PATRICIA Trie に登録されていないデータパタンを
-        //  単純な逐次検索で検索する。
+        // PATRICIA Trie に登録されていないデータパタンを
+        // 単純な逐次検索で検索する。
         int scanlimit = Math.max(this.DictionaryLimit, lastPutPos);
         int scanpos = position - 1;
         int matchlen = 0;
@@ -582,8 +508,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
             scanpos--;
         }
 
-        //------------------------------------------------------------------
-        //  PATRICIA Trie を探索
+        // PATRICIA Trie を探索
         if (2 < this.TextBuffer.length - position) {
             int matchnode = this.child(this.TextBuffer[position] - 128, this.TextBuffer[position + 1] & 0xFF);
             scanlimit = Math.max(this.DictionaryLimit, position - this.DictionarySize);
@@ -627,17 +552,16 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
                         } else {
                             break;
                         }
-                    } else { //maxlen に満たない一致が見つかったか 完全一致が見つかった
+                    } else { // maxlen に満たない一致が見つかったか 完全一致が見つかった
                         break;
                     }
-                } else { //if( scanlimit <= scanpos ) 一致したパタンは検索限界を超えていた。
+                } else { // if( scanlimit <= scanpos ) 一致したパタンは検索限界を超えていた。
                     break;
                 }
-            } //while( matchnode != PatriciaTrieSearch.UNUSED )
-        } //if( 2 <= this.TextBuffer.length - position  )
+            }
+        }
 
-        //------------------------------------------------------------------
-        //  最長一致を呼び出し元に返す。
+        // 最長一致を呼び出し元に返す。
         if (this.Threshold <= matchlen) {
             return LzssOutputStream.createSearchReturn(matchlen, matchpos);
         } else {
@@ -676,17 +600,6 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
         return this.MaxMatch;
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  manipulate node
-    //------------------------------------------------------------------
-    //  private void splitNode( int oldnode, int oldpos, int position, int splitLen )
-    //  private void deleteNode( int node )
-    //  private void attatchNode( int parentnode, int childnode, int pos )
-    //  private void replaceNode( int oldnode, int newnode )
-    //  private void contractNode( int node )
-    //------------------------------------------------------------------
     /**
      * oldnode を splitLen で分岐させる。
      * oldnode のあった位置には新しいノードが新設され、
@@ -699,7 +612,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
      * @param splitLen データパタン内の分岐位置
      */
     private void splitNode(int oldnode, int oldpos, int posnode, int position, int splitLen) {
-        //スタックから 新しいノードを取得する。
+        // スタックから 新しいノードを取得する。
         int newnode = this.avail;
         this.avail = this.next[newnode];
 
@@ -735,7 +648,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
             }
             this.prev[next] = prev;
 
-            if (0 < parent) { //parent が PATRICIA Trie の根で無い場合 true となる条件式
+            if (0 < parent) { // parent が PATRICIA Trie の根で無い場合 true となる条件式
                 this.childnum[parent]--;
 
                 if (this.childnum[parent] <= 1) {
@@ -812,20 +725,11 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
         }
         this.replaceNode(parentnode, node);
 
-        //使用されなくなった parentnode をスタックに返還する。
+        // 使用されなくなった parentnode をスタックに返還する。
         this.next[parentnode] = this.avail;
         this.avail = parentnode;
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  other
-    //------------------------------------------------------------------
-    //  public void slideTree( int[] src, int[] dst, int width )
-    //  private int child( int parent, int ch )
-    //  private int hash( int node, int ch )
-    //------------------------------------------------------------------
     /**
      * slide 時に Trie の各要素を移動させる処理を行う。
      *
@@ -851,13 +755,12 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
      *
      * @param parent 親ノード
      * @param ch 分岐文字
-     *
      * @return 子ノード
      */
     private int child(int parent, int ch) {
         int node = this.hashTable[this.hash(parent, ch)];
 
-        //this.parent[ PatriciaTrieSearch.UNUSED ] = parent;
+        // this.parent[ PatriciaTrieSearch.UNUSED ] = parent;
         while (node != PatriciaTrieSearch.UNUSED && this.parent[node] != parent) {
             node = this.next[node];
         }
@@ -870,20 +773,12 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
      *
      * @param node ノード
      * @param ch 分岐文字
-     *
      * @return ハッシュ値
      */
     private int hash(int node, int ch) {
         return (node + (ch << this.shift) + 256) % this.hashTable.length;
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  generate prime
-    //------------------------------------------------------------------
-    //  private static int generateProbablePrime( int num )
-    //------------------------------------------------------------------
     /**
      * num 以上の最も小さい 素数(もしくは擬似素数)を生成する。
      * 戻り値が 素数でない確率は 1/256 以下である。
@@ -906,134 +801,119 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
 
 }
 
+// /**
+//  * Trie全体のチェックを行う。
+//  *
+//  * @param pos 現在処理位置。
+//  *
+//  * @exception RuntimeException Trie が崩れていた場合。
+//  */
+// private void checkTrie( int pos ){
+//     for( int i = -256 ; i < 0 ; i++ ){
+//         this.checkNode( i, pos );
+//     }
 //
+//     for( int i = 1 ; i < this.DictionarySize ; i++ ){
+//         if( this.parent[ i ] != PatriciaTrieSearch.UNUSED ){
+//             this.checkNode( i, pos );
+//         }
+//     }
+// }
 //
-//  //------------------------------------------------------------------
-//  //  local method
-//  //------------------------------------------------------------------
-//  //  check
-//  //------------------------------------------------------------------
-//  //  private void checkTrie( int pos )
-//  //  private void checkNode( int node, int pos )
-//  //  private void writeNode( int node )
-//  //------------------------------------------------------------------
-//  /**
-//   * Trie全体のチェックを行う。
-//   *
-//   * @param pos 現在処理位置。
-//   *
-//   * @exception RuntimeException Trie が崩れていた場合。
-//   */
-//  private void checkTrie( int pos ){
-//      for( int i = -256 ; i < 0 ; i++ ){
-//          this.checkNode( i, pos );
-//      }
+// /**
+//  * 葉でない Node のチェックを行う。
+//  *
+//  * チェック項目は
+//  * (1) 親子関係
+//  * (2) position に矛盾が無い事。
+//  * (3) level に矛盾が無い事。
+//  * (4) node が this.childnum[node] 個の子供を持っている事。
+//  * の4項目。
+//  *
+//  * @param node チェックするノード
+//  * @param pos  現在処理位置
+//  * @exception RuntimeException 上記のチェックの何れかが失敗した場合。
+//  */
+// private void checkNode(int node, int pos) {
 //
-//      for( int i = 1 ; i < this.DictionarySize ; i++ ){
-//          if( this.parent[ i ] != PatriciaTrieSearch.UNUSED ){
-//              this.checkNode( i, pos );
-//          }
-//      }
-//  }
+//     int nlevel;
+//     int npos;
+//     if (node < 0) {
+//         nlevel = 0;
+//         npos = this.TextBuffer.length;
+//     } else {
+//         nlevel = this.level[node];
+//         npos = this.position[node];
+//     }
 //
-//  /**
-//   * 葉でない Node のチェックを行う。
-//   *
-//   * チェック項目は
-//   * (1) 親子関係
-//   * (2) position に矛盾が無い事。
-//   * (3) level に矛盾が無い事。
-//   * (4) node が this.childnum[node] 個の子供を持っている事。
-//   * の4項目。
-//   *
-//   * @param node チェックするノード
-//   * @param pos  現在処理位置
-//   *
-//   * @exception RuntimeException 上記のチェックの何れかが失敗した場合。
-//   */
-//  private void checkNode( int node, int pos ){
+//     int childcount = 0;
+//     for (int i = 0 ; i < 256; i++) {
+//         int child = this.child(node, i);
 //
-//      int nlevel;
-//      int npos;
-//      if( node < 0 ){
-//          nlevel = 0;
-//          npos   = this.TextBuffer.length;
-//      }else{
-//          nlevel = this.level[ node ];
-//          npos   = this.position[ node ];
-//      }
+//         if (child != PatriciaTrieSearch.UNUSED) {
+//             childcount++;
 //
-//      int childcount = 0;
-//      for( int i = 0 ; i < 256 ; i++ ){
-//          int child = this.child( node, i );
+//             if (this.parent[ child ] != node) {
+//                 System.out.println("unlink::parent<->child");
+//                 this.writeNode( node );
+//                 this.writeNode( child );
+//                 throw new RuntimeException("Trie Broken");
+//             }
 //
-//          if( child != PatriciaTrieSearch.UNUSED ){
-//              childcount++;
+//             if (child < this.DictionarySize){
+//                 if (this.level[child] <= nlevel){
+//                     System.out.println("broken hierarchy::level");
+//                     this.writeNode( node );
+//                     this.writeNode( child );
+//                     throw new RuntimeException( "Trie Broken" );
+//                 }
 //
-//              if( this.parent[ child ] != node ){
-//                  System.out.println( "unlink::parent<->child" );
-//                  this.writeNode( node );
-//                  this.writeNode( child );
-//                  throw new RuntimeException( "Trie Broken" );
-//              }
+//                 if( npos < this.position[ child ] ){
+//                     System.out.println( "broken hierarchy::position" );
+//                     this.writeNode( node );
+//                     this.writeNode( child );
+//                     throw new RuntimeException( "Trie Broken" );
+//                 }
+//                 // this.checkTrie( child, pos );
+//             }else{
+//                 int childpos = ( pos <= child ? child - this.DictionarySize : child );
+//                 if( npos < childpos ){
+//                     System.out.println( "broken hierarchy::position" );
+//                     this.writeNode( node );
+//                     this.writeNode( child );
+//                     throw new RuntimeException( "Trie Broken" );
+//                 }
+//             }
+//         }
+//     }
 //
-//              if( child < this.DictionarySize ){
-//                  if( this.level[ child ] <= nlevel ){
-//                      System.out.println( "broken hierarchy::level" );
-//                      this.writeNode( node );
-//                      this.writeNode( child );
-//                      throw new RuntimeException( "Trie Broken" );
-//                  }
+//     if( 0 < node && node < this.DictionarySize ){
+//         if( this.childnum[ node ] != childcount ){
+//             System.out.println( "broken hierarchy::childnum" );
+//             this.writeNode( node );
+//             throw new RuntimeException( "Trie Broken" );
+//         }
+//     }
+// }
 //
-//                  if( npos < this.position[ child ] ){
-//                      System.out.println( "broken hierarchy::position" );
-//                      this.writeNode( node );
-//                      this.writeNode( child );
-//                      throw new RuntimeException( "Trie Broken" );
-//                  }
-//                  //this.checkTrie( child, pos );
-//              }else{
-//                  int childpos = ( pos <= child ? child - this.DictionarySize : child );
-//                  if( npos < childpos ){
-//                      System.out.println( "broken hierarchy::position" );
-//                      this.writeNode( node );
-//                      this.writeNode( child );
-//                      throw new RuntimeException( "Trie Broken" );
-//                  }
-//              }
-//          }
-//      }
-//
-//      if( 0 < node && node < this.DictionarySize ){
-//          if( this.childnum[ node ] != childcount ){
-//              System.out.println( "broken hierarchy::childnum" );
-//              this.writeNode( node );
-//              throw new RuntimeException( "Trie Broken" );
-//          }
-//      }
-//  }
-//
-//  /**
-//   * ノードの情報を出力する。
-//   *
-//   * @param node 情報を出力するノード
-//   */
-//  private void writeNode( int node ){
-//      if( 0 < node ){
-//        System.out.println( "this.parent[" + node + "]  ::" + this.parent[ node ] );
-//        System.out.println( "this.prev[" + node + "]    ::" + this.prev[ node ] );
-//        System.out.println( "this.next[" + node + "]    ::" + this.next[ node ] );
-//        if( node < this.DictionarySize ){
-//            System.out.println( "this.childnum[" + node + "]::" + this.childnum[ node ] );
-//            System.out.println( "this.position[" + node + "]::" + this.position[ node ] );
-//            System.out.println( "this.level[" + node + "]   ::" + this.level[ node ] );
-//        }
-//    }else if( node < 0 ){
-//        System.out.println( "ROOT_NODE                  ::" + node );
-//    }else{
-//        System.out.println( "UNUSED                     ::" + node );
-//    }
-//
-//  }
-
-//end of PatriciaTrieSearch.java
+// /**
+//  * ノードの情報を出力する。
+//  *
+//  * @param node 情報を出力するノード
+//  */
+// private void writeNode( int node ){
+//     if( 0 < node ){
+//       System.out.println( "this.parent[" + node + "]  ::" + this.parent[ node ] );
+//       System.out.println( "this.prev[" + node + "]    ::" + this.prev[ node ] );
+//       System.out.println( "this.next[" + node + "]    ::" + this.next[ node ] );
+//       if( node < this.DictionarySize ){
+//           System.out.println( "this.childnum[" + node + "]::" + this.childnum[ node ] );
+//           System.out.println( "this.position[" + node + "]::" + this.position[ node ] );
+//           System.out.println( "this.level[" + node + "]   ::" + this.level[ node ] );
+//       }
+//   } else if(node < 0) {
+//       System.out.println( "ROOT_NODE                  ::" + node );
+//   } else {
+//       System.out.println( "UNUSED                     ::" + node );
+//   }
+// }

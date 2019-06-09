@@ -26,9 +26,6 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
-import jp.gr.java_conf.dangan.util.lha.BadHuffmanTableException;
-
-
 /**
  * 静的ハフマン用ユーティリティ関数群を保持する。<br>
  * ハフマン符号は最大16ビットに制限される。<br>
@@ -155,7 +152,7 @@ public class StaticHuffman {
             // ハフマン木からハフマン符号長の頻度表を作成する。
             int[] LenFreq = StaticHuffman.HuffmanTreeToLenFreq(SmallNode, LargeNode, TreeCount - 1);
 
-            //ハフマン符号長の頻度長から符号長の表を作成する。
+            // ハフマン符号長の頻度長から符号長の表を作成する。
             int[] LenList = new int[FreqList.length];
             LeafIndex = 0;
             for (int len = StaticHuffman.LimitLen; 0 < len; len--)
@@ -226,9 +223,9 @@ public class StaticHuffman {
             for (int i = HeapLast / 2; 1 <= i; i--)
                 StaticHuffman.DownHeap(Heap, HeapLast, NodeWeight, i);
 
-            //葉か、ノードの最小のもの2つを新しいノードに
-            //結びつける事を繰り返し、ルートノードまで作成する。
-            //この処理によってハフマン木が完成する。
+            // 葉か、ノードの最小のもの2つを新しいノードに
+            // 結びつける事を繰り返し、ルートノードまで作成する。
+            // この処理によってハフマン木が完成する。
             do {
                 int small = Heap[1];
                 if (small < FreqList.length)
@@ -287,7 +284,7 @@ public class StaticHuffman {
 
         if (LenFreq[0] < LenList.length) {
 
-//            CodeStart[1] = 0; // Javaでは必要無いのでコメントアウトしている。
+//           CodeStart[1] = 0; // Javaでは必要無いのでコメントアウトしている。
             for (int i = 1; i <= StaticHuffman.LimitLen; i++)
                 CodeStart[i + 1] = CodeStart[i] + LenFreq[i] << 1;
 
@@ -511,7 +508,7 @@ public class StaticHuffman {
         // ハフマン木から頻度表作成
         StaticHuffman.internalHuffmanTreeToLenFreq(SmallNode, LargeNode, root, 0, LenFreq);
 
-//      System.out.println("到達::StaticHuffman.HuffmanTreeToLenFreq--ハフマン木からハフマン符号長のリスト取得--");
+//     System.out.println("到達::StaticHuffman.HuffmanTreeToLenFreq--ハフマン木からハフマン符号長のリスト取得--");
 
         // 最大16ビットの制限により、修正を受けている場合は
         // 符号長の表から、上位のノードを下位へと引きずりおろす
@@ -520,7 +517,7 @@ public class StaticHuffman {
         for (int i = StaticHuffman.LimitLen; 0 < i; i--)
             weight += LenFreq[i] << (StaticHuffman.LimitLen - i);
 
-//      System.out.println("weight::" + weight);
+//     System.out.println("weight::" + weight);
 
         while ((1 << StaticHuffman.LimitLen) < weight) {
             LenFreq[StaticHuffman.LimitLen]--;

@@ -1,6 +1,4 @@
 /*
- * Bits.java
- *
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
@@ -27,6 +25,7 @@
  */
 
 package jp.gr.java_conf.dangan.io;
+
 
 /**
  * ビット処理のためのユーティリティメソッド群。<br>

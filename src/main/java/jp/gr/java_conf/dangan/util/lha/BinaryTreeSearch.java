@@ -1,6 +1,4 @@
 /**
- * BinaryTreeSearch.java
- *
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
@@ -28,12 +26,9 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
-import jp.gr.java_conf.dangan.util.lha.LzssOutputStream;
-import jp.gr.java_conf.dangan.util.lha.LzssSearchMethod;
-
 
 /**
- * 二分木を使用した LzssSearchMethod の実装。<br>
+ * 二分木を使用した LzssSearchMethod の実装。
  *
  * <pre>
  * データ圧縮ハンドブック[改定第二版]
@@ -69,12 +64,6 @@ import jp.gr.java_conf.dangan.util.lha.LzssSearchMethod;
  */
 public class BinaryTreeSearch implements LzssSearchMethod {
 
-    //------------------------------------------------------------------
-    //  class field
-    //------------------------------------------------------------------
-    //  private static final int UNUSED
-    //  private static final int ROOT_NODE
-    //------------------------------------------------------------------
     /**
      * 使用されていない事を示す値。
      * parent[node] に UNUSED がある場合は node は未使用のnodeである。
@@ -89,15 +78,6 @@ public class BinaryTreeSearch implements LzssSearchMethod {
      */
     private static final int ROOT_NODE = -2;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  LZSS parameter
-    //------------------------------------------------------------------
-    //  private int DictionarySize
-    //  private int MaxMatch
-    //  private int Threshold
-    //------------------------------------------------------------------
     /**
      * LZSS辞書サイズ。
      */
@@ -115,14 +95,6 @@ public class BinaryTreeSearch implements LzssSearchMethod {
      */
     private int Threshold;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  text buffer
-    //------------------------------------------------------------------
-    //  private byte[] TextBuffer
-    //  private int DictionaryLimit
-    //------------------------------------------------------------------
     /**
      * LZSS圧縮を施すためのバッファ。
      * position を境に 前半は辞書領域、
@@ -139,17 +111,6 @@ public class BinaryTreeSearch implements LzssSearchMethod {
      */
     private int DictionaryLimit;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  binary tree
-    //------------------------------------------------------------------
-    //  private int root
-    //  private int[] parent
-    //  private int[] small
-    //  private int[] large
-    //  private int[] dummy
-    //------------------------------------------------------------------
     /**
      * 二分木の根のデータパタンの開始位置を示す。
      */
@@ -171,7 +132,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
     private int[] large;
 
     /**
-     * 二分木を使用した LzssSearchMethod を構築する。<br>
+     * 二分木を使用した LzssSearchMethod を構築する。
      *
      * @param DictionarySize 辞書サイズ
      * @param MaxMatch 最長一致長
@@ -196,28 +157,17 @@ public class BinaryTreeSearch implements LzssSearchMethod {
         }
     }
 
-    //------------------------------------------------------------------
-    //  methods of jp.gr.java_conf.dangan.util.lha.LzssSearchMethod
-    //------------------------------------------------------------------
-    //  public void put( int position )
-    //  public int searchAndPut( int position )
-    //  public int search( int position, int lastPutPos )
-    //  public void slide()
-    //  public int putRequires()
-    //------------------------------------------------------------------
     /**
-     * position から始まるデータパタンを二分木に登録する。<br>
+     * position から始まるデータパタンを二分木に登録する。
      *
      * @param position TextBuffer内のデータパタンの開始位置
      */
     public void put(int position) {
 
-        //------------------------------------------------------------------
-        //  二分木から最も古いデータパタンを削除
+        // 二分木から最も古いデータパタンを削除
         this.deleteNode(position - this.DictionarySize);
 
-        //------------------------------------------------------------------
-        //  二分木から position を挿入する位置を検索
+        // 二分木から position を挿入する位置を検索
         int parentpos = this.root;
         int scanpos = this.root;
 
@@ -225,7 +175,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
         int max = position + this.MaxMatch;
         int p = 0;
         int s = 0;
-//        int len        = 0;
+//       int len = 0;
         while (scanpos != BinaryTreeSearch.UNUSED) {
 
             s = scanpos;
@@ -234,7 +184,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
                 s++;
                 p++;
                 if (max <= p) {
-                    //完全一致を発見
+                    // 完全一致を発見
                     this.replaceNode(scanpos, position);
                     return;
                 }
@@ -245,8 +195,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
                                        : this.small[scanpos & (this.DictionarySize - 1)]);
         }
 
-        //------------------------------------------------------------------
-        //  position から始まるデータパタンを 二分木に登録
+        // position から始まるデータパタンを 二分木に登録
         if (this.root != BinaryTreeSearch.UNUSED) {
             this.addNode(parentpos, position, p - position);
         } else {
@@ -263,27 +212,23 @@ public class BinaryTreeSearch implements LzssSearchMethod {
      * position から始まるデータパタンと
      * 最長の一致を持つものを検索し、
      * 同時に position から始まるデータパタンを
-     * 二分木に登録する。<br>
+     * 二分木に登録する。
      *
      * @param position TextBuffer内のデータパタンの開始位置。
-     *
      * @return 一致が見つかった場合は
      *         LzssOutputStream.createSearchReturn
      *         によって生成された一致位置と一致長の情報を持つ値、
      *         一致が見つからなかった場合は
      *         LzssOutputStream.NOMATCH。
-     *
      * @see LzssOutputStream#createSearchReturn(int,int)
      * @see LzssOutputStream#NOMATCH
      */
     public int searchAndPut(int position) {
 
-        //------------------------------------------------------------------
-        //  二分木から最も古いデータパタンを削除
+        // 二分木から最も古いデータパタンを削除
         this.deleteNode(position - this.DictionarySize);
 
-        //------------------------------------------------------------------
-        //  二分木から最長一致を検索
+        // 二分木から最長一致を検索
         int matchlen = -1;
         int matchpos = this.root;
         int parentpos = this.root;
@@ -302,7 +247,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
                 s++;
                 p++;
                 if (max <= p) {
-                    //完全一致を発見
+                    // 完全一致を発見
                     this.replaceNode(scanpos, position);
                     return LzssOutputStream.createSearchReturn(this.MaxMatch, scanpos);
                 }
@@ -321,8 +266,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
                                        : this.small[scanpos & (this.DictionarySize - 1)]);
         }
 
-        //------------------------------------------------------------------
-        //  position から始まるデータパタンを 二分木に登録
+        // position から始まるデータパタンを 二分木に登録
         if (this.root != BinaryTreeSearch.UNUSED) {
             this.addNode(parentpos, position, len);
         } else {
@@ -333,9 +277,8 @@ public class BinaryTreeSearch implements LzssSearchMethod {
             this.large[node] = BinaryTreeSearch.UNUSED;
         }
 
-        //------------------------------------------------------------------
-        //  メソッドの先頭で削除された
-        //  最も遠いデータパタンと比較
+        // メソッドの先頭で削除された
+        // 最も遠いデータパタンと比較
         scanpos = position - this.DictionarySize;
         if (this.DictionaryLimit <= scanpos) {
             s = scanpos;
@@ -354,8 +297,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
             }
         }
 
-        //------------------------------------------------------------------
-        //  最長一致を呼び出し元に返す。
+        // 最長一致を呼び出し元に返す。
         if (this.Threshold <= matchlen) {
             return LzssOutputStream.createSearchReturn(matchlen, matchpos);
         } else {
@@ -370,25 +312,22 @@ public class BinaryTreeSearch implements LzssSearchMethod {
      * TextBuffer.length &lt position + MaxMatch
      * となるような position では、
      * 二分木を完全に走査できないため
-     * 最長一致を得られるとは限らない。<br>
+     * 最長一致を得られるとは限らない。
      *
      * @param position TextBuffer内のデータパタンの開始位置。
      * @param lastPutPos 最後に登録したデータパタンの開始位置。
-     *
      * @return 一致が見つかった場合は
      *         LzssOutputStream.createSearchReturn
      *         によって生成された一致位置と一致長の情報を持つ値、
      *         一致が見つからなかった場合は
      *         LzssOutputStream.NOMATCH。
-     *
      * @see LzssOutputStream#createSearchReturn(int,int)
      * @see LzssOutputStream#NOMATCH
      */
     public int search(int position, int lastPutPos) {
 
-        //------------------------------------------------------------------
-        //  二分木に登録されていないデータパタンを
-        //  単純な逐次検索で検索する。
+        // 二分木に登録されていないデータパタンを
+        // 単純な逐次検索で検索する。
         int matchlen = this.Threshold - 1;
         int matchpos = position;
         int scanpos = position - 1;
@@ -419,8 +358,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
             scanpos--;
         }
 
-        //------------------------------------------------------------------
-        //  二分木を探索
+        // 二分木を探索
         scanpos = this.root;
         scanlimit = Math.max(this.DictionaryLimit, position - this.DictionarySize);
         while (scanpos != BinaryTreeSearch.UNUSED) {
@@ -450,8 +388,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
             }
         }
 
-        //------------------------------------------------------------------
-        //  最長一致を呼び出し元に返す。
+        // 最長一致を呼び出し元に返す。
         if (this.Threshold <= matchlen) {
             return LzssOutputStream.createSearchReturn(matchlen, matchpos);
         } else {
@@ -489,16 +426,6 @@ public class BinaryTreeSearch implements LzssSearchMethod {
         return this.MaxMatch;
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  manipulate node
-    //------------------------------------------------------------------
-    //  private void addNode( int addpos, int position, int len )
-    //  private void deleteNode( int position )
-    //  private void contractNode( int oldpos, int newpos )
-    //  private void replaceNode( int oldpos, int newpos )
-    //------------------------------------------------------------------
     /**
      * parentpos のデータパタンの子として
      * position から始まるデータパタンを二分木に登録する。<br>
@@ -525,7 +452,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
     }
 
     /**
-     * position から始まるデータパタンを二分木から削除する。<br>
+     * position から始まるデータパタンを二分木から削除する。
      *
      * @param position 削除するデータパタンの開始位置
      */
@@ -625,7 +552,6 @@ public class BinaryTreeSearch implements LzssSearchMethod {
      * 置き換えるべきデータパタンの開始位置を探し出す。
      *
      * @param position 置き換えられるデータパタンの開始位置
-     *
      * @return position から始まるデータパタンと
      *         置き換えるべきデータパタンの開始位置
      */
@@ -652,5 +578,4 @@ public class BinaryTreeSearch implements LzssSearchMethod {
             array[i] = (0 <= array[i] ? array[i] - this.DictionarySize : array[i]);
         }
     }
-
 }

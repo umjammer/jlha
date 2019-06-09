@@ -1,9 +1,4 @@
-//start of LimitedInputStream.java
-//TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
-
 /**
- * LimitedInputStream.java
- *
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
@@ -31,13 +26,8 @@
 
 package jp.gr.java_conf.dangan.io;
 
-//import classes and interfaces
-import java.io.InputStream;
-import java.lang.Math;
-
-//import exceptions
 import java.io.IOException;
-import java.lang.IllegalArgumentException;
+import java.io.InputStream;
 
 
 /**
@@ -71,27 +61,11 @@ import java.lang.IllegalArgumentException;
  */
 public class LimitedInputStream extends InputStream {
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  source
-    //------------------------------------------------------------------
-    //  private InputStream in
-    //------------------------------------------------------------------
     /**
      * 接続された入力ストリーム
      */
     private InputStream in;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  current position
-    //------------------------------------------------------------------
-    //  private long position
-    //  private final long limit
-    //  private long markPosition
-    //------------------------------------------------------------------
     /**
      * 現在読み込み位置
      */
@@ -107,11 +81,6 @@ public class LimitedInputStream extends InputStream {
      */
     private long markPosition;
 
-    //------------------------------------------------------------------
-    //  constructor
-    //------------------------------------------------------------------
-    //  public LimitedInputStream( InputStream in, long limit )
-    //------------------------------------------------------------------
     /**
      * in からの読み込み可能なデータ量を制限した
      * 入力ストリームを構築する。<br>
@@ -135,28 +104,17 @@ public class LimitedInputStream extends InputStream {
         }
     }
 
-    //------------------------------------------------------------------
-    //  method of java.io.InputStream
-    //------------------------------------------------------------------
-    //  read
-    //------------------------------------------------------------------
-    //  public int read()
-    //  public int read( byte[] buffer )
-    //  public int read( byte[] buffer, int index, int length )
-    //  public long skip( long length )
-    //------------------------------------------------------------------
     /**
      * 接続された入力ストリームから 1バイトのデータを読み込む。
      *
      * @return 読み込まれた 1バイトのデータ<br>
      *         既にEndOfStream に達していたか、
-     *         制限に達した場合は -1 を返す。<br>
-     *
+     *         制限に達した場合は -1 を返す。
      * @exception IOException 入出力エラーが発生した場合
      */
     public int read() throws IOException {
         if (this.position < this.limit) {
-            int ret = this.in.read(); //throws IOException
+            int ret = this.in.read();
             if (0 <= ret) {
                 this.position++;
             }
@@ -169,23 +127,21 @@ public class LimitedInputStream extends InputStream {
     /**
      * 接続された入力ストリームから buffer を満たすように
      * データを読み込む。<br>
-     * データは必ずしも buffer を満たすとは限らないことに注意。<br>
+     * データは必ずしも buffer を満たすとは限らないことに注意。
      *
-     * @param buffer 読み込んだデータを格納するためのバイト配列<br>
-     *
+     * @param buffer 読み込んだデータを格納するためのバイト配列
      * @return buffer に読み込んだデータ量をバイト数で返す。<br>
      *         既にEndOfStream に達していたか、
-     *         制限に達した場合は -1 を返す。<br>
-     *
+     *         制限に達した場合は -1 を返す。
      * @exception IOException 入出力エラーが発生した場合
      */
     public int read(byte[] buffer) throws IOException {
         if (0 < buffer.length) {
             int ret;
             if (buffer.length < this.limit - this.position) {
-                ret = this.in.read(buffer); //throws IOException
+                ret = this.in.read(buffer);
             } else if (this.position < this.limit) {
-                ret = this.in.read(buffer, 0, (int) (this.limit - this.position));//throws IOException
+                ret = this.in.read(buffer, 0, (int) (this.limit - this.position));
             } else {
                 return -1;
             }
@@ -203,16 +159,14 @@ public class LimitedInputStream extends InputStream {
      * index で指定された位置から length バイトのデータを
      * 読み込む。<br>
      * データは必ずしも length バイト読み込まれるとは限ら
-     * ないことに注意。<br>
+     * ないことに注意。
      *
      * @param buffer 読み込まれたデータを格納するためのバイト配列
      * @param index buffer内のデータ読み込み開始位置
      * @param length bufferに読み込むデータ量
-     *
      * @return buffer に読み込んだデータ量をバイト数で返す。<br>
      *         既にEndOfStream に達していたか、
-     *         制限に達した場合は -1 を返す。<br>
-     *
+     *         制限に達した場合は -1 を返す。
      * @exception IOException 入出力エラーが発生した場合
      */
     public int read(byte[] buffer, int index, int length) throws IOException {
@@ -223,7 +177,7 @@ public class LimitedInputStream extends InputStream {
             } else if (this.limit - this.position < length) {
                 length = (int) (this.limit - this.position);
             }
-            int ret = this.in.read(buffer, index, length); //throws IOException
+            int ret = this.in.read(buffer, index, length);
             if (0 < ret) {
                 this.position += ret;
             }
@@ -234,12 +188,10 @@ public class LimitedInputStream extends InputStream {
     }
 
     /**
-     * 接続された入力ストリームのデータを length バイト読み飛ばす。<br>
+     * 接続された入力ストリームのデータを length バイト読み飛ばす。
      *
-     * @param length 読み飛ばすバイト数。<br>
-     *
-     * @return 実際に読み飛ばされたバイト数。<br>
-     *
+     * @param length 読み飛ばすバイト数。
+     * @return 実際に読み飛ばされたバイト数。
      * @exception IOException 入出力エラーが発生した場合
      */
     public long skip(long length) throws IOException {
@@ -250,7 +202,7 @@ public class LimitedInputStream extends InputStream {
             } else if (this.limit - this.position < length) {
                 length = this.limit - this.position;
             }
-            length = this.in.skip(length); //throws IOException
+            length = this.in.skip(length);
             if (0 < length) {
                 this.position += length;
             }
@@ -260,24 +212,15 @@ public class LimitedInputStream extends InputStream {
         }
     }
 
-    //------------------------------------------------------------------
-    //  method of java.io.InputStream
-    //------------------------------------------------------------------
-    //  mark/reset
-    //------------------------------------------------------------------
-    //  public void mark( int readLimit )
-    //  public void reset()
-    //  public boolean markSupprted()
-    //------------------------------------------------------------------
     /**
      * 接続された入力ストリームの現在位置にマークを設定し、
      * reset() メソッドでマークした時点の 読み込み位置に
-     * 戻れるようにする。<br>
+     * 戻れるようにする。
      *
      * @param readLimit マーク位置に戻れる限界のバイト数。
      *            このバイト数を超えてデータを読み
      *            込んだ場合 reset()できなくなる可
-     *            能性がある。<br>
+     *            能性がある。
      */
     public void mark(int readLimit) {
         this.in.mark(readLimit);
@@ -286,7 +229,7 @@ public class LimitedInputStream extends InputStream {
 
     /**
      * 接続された入力ストリームの読み込み位置を最後に
-     * mark() メソッドが呼び出されたときの位置に設定する。<br>
+     * mark() メソッドが呼び出されたときの位置に設定する。
      *
      * @exception IOException <br>
      *                <ol>
@@ -301,45 +244,35 @@ public class LimitedInputStream extends InputStream {
     public void reset() throws IOException {
         if (!this.in.markSupported()) {
             throw new IOException("not support mark()/reset().");
-        } else if (this.markPosition < 0) { //コンストラクタで MarkPosition が -1 に設定されるのを利用する。
+        } else if (this.markPosition < 0) { // コンストラクタで MarkPosition が -1 に設定されるのを利用する。
             throw new IOException("not marked.");
         } else {
-            this.in.reset(); //throws IOException
+            this.in.reset();
             this.position = this.markPosition;
         }
     }
 
     /**
      * 接続された入力ストリームが mark() と reset() を
-     * サポートするかを得る。<br>
+     * サポートするかを得る。
      *
      * @return ストリームが mark() と reset() を
      *         サポートする場合は true。<br>
-     *         サポートしない場合は false。<br>
+     *         サポートしない場合は false。
      */
     public boolean markSupported() {
         return this.in.markSupported();
     }
 
-    //------------------------------------------------------------------
-    //  method of java.io.InputStream
-    //------------------------------------------------------------------
-    //  other
-    //------------------------------------------------------------------
-    //  public int available()
-    //  public void close()
-    //------------------------------------------------------------------
     /**
      * 接続された入力ストリームからブロックしないで
-     * 読み込むことのできるバイト数を得る。<br>
+     * 読み込むことのできるバイト数を得る。
      *
-     * @return ブロックしないで読み出せるバイト数。<br>
-     *
+     * @return ブロックしないで読み出せるバイト数。
      * @exception IOException 入出力エラーが発生した場合
      */
     public int available() throws IOException {
-        return (int) Math.min(this.in.available(), //throws IOException
-                              this.limit - this.position);
+        return (int) Math.min(this.in.available(), this.limit - this.position);
     }
 
     /**
@@ -349,9 +282,8 @@ public class LimitedInputStream extends InputStream {
      * @exception IOException 入出力エラーが発生した場合
      */
     public void close() throws IOException {
-        this.in.close(); //throws IOException
+        this.in.close();
         this.in = null;
     }
 
 }
-//end of LimitedInputStream.java

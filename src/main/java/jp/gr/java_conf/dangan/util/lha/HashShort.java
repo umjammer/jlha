@@ -1,9 +1,4 @@
-//start of HashShort.java
-//TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
-
 /**
- * HashShort.java
- *
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
@@ -31,11 +26,6 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
-//import classes and interfaces
-import jp.gr.java_conf.dangan.util.lha.HashMethod;
-
-//import exceptions
-
 
 /**
  * データパタンの先頭2バイトから
@@ -60,11 +50,6 @@ import jp.gr.java_conf.dangan.util.lha.HashMethod;
  */
 public class HashShort implements HashMethod {
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  private byte[] TextBuffer
-    //------------------------------------------------------------------
     /**
      * LZSS圧縮を施すためのバッファ。
      * 前半は辞書領域、
@@ -84,20 +69,12 @@ public class HashShort implements HashMethod {
         this.TextBuffer = TextBuffer;
     }
 
-    //------------------------------------------------------------------
-    //  method of jp.gr.java_conf.dangan.util.lha.HashMethod
-    //------------------------------------------------------------------
-    //  public int hash( int position )
-    //  public int hashRequires()
-    //  public int tableSize()
-    //------------------------------------------------------------------
     /**
      * ハッシュ関数。
      * コンストラクタで渡された TextBuffer の position からの
      * データパタンの hash値を生成する。
      *
      * @param position データパタンの開始位置
-     *
      * @return ハッシュ値
      */
     public int hash(int position) {
@@ -126,6 +103,4 @@ public class HashShort implements HashMethod {
     public int tableSize() {
         return 0x1000;
     }
-
 }
-//end of HashShort.java

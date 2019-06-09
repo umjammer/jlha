@@ -1,9 +1,4 @@
-//start of CRC16.java
-//TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
-
 /**
- * CRC16.java
- *
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
@@ -31,23 +26,20 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
-//import classes and interfaces
 import java.util.zip.Checksum;
 
-
-//import exceptions
 
 /**
  * CRC16値を算出するためのクラス。
  *
  * クラス内の定数、処理、説明は
- * 
+ *
  * <pre>
  * Ｃ言語によるアルゴリズム辞典
  *   奥村晴彦著 技術評論社
  *   ISBN4-87408-414-1 C3055 2400円(購入当時)
  * </pre>
- * 
+ *
  * によった。
  *
  * <pre>
@@ -67,16 +59,6 @@ import java.util.zip.Checksum;
  */
 public class CRC16 implements Checksum {
 
-    //------------------------------------------------------------------
-    //  class field
-    //------------------------------------------------------------------
-    //  public static final int CRC_ANSY_POLY
-    //  public static final int CRC_ANSY_INIT
-    //  public static final int CCITT_POLY
-    //  public static final int CCITT_INIT
-    //  public static final int DefaultPOLY
-    //  public static final int DefaultINIT
-    //------------------------------------------------------------------
     /**
      * CRC-ANSY または CRC-16 として有名な
      * 多項式 x^16 + x^15 + x^2 + 1 をビット表現にしたもの。
@@ -114,13 +96,6 @@ public class CRC16 implements Checksum {
      */
     public static final int DefaultINIT = CRC16.CRC_ANSY_INIT;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  private int crc
-    //  private int init
-    //  private int[] crcTable
-    //------------------------------------------------------------------
     /**
      * CRC16値
      */
@@ -136,14 +111,6 @@ public class CRC16 implements Checksum {
      */
     private int[] crcTable;
 
-    //------------------------------------------------------------------
-    //  constructor
-    //------------------------------------------------------------------
-    //  public CRC16()
-    //  public CRC16( int poly )
-    //  public CRC16( int poly, int init )
-    //  public CRC16( int[] crcTable, int init )
-    //------------------------------------------------------------------
     /**
      * LHAで使用される 多項式と初期値を持つ CRC16を生成する。
      */
@@ -194,15 +161,6 @@ public class CRC16 implements Checksum {
         }
     }
 
-    //------------------------------------------------------------------
-    //  method of java.util.zip.Checksum
-    //------------------------------------------------------------------
-    //  update
-    //------------------------------------------------------------------
-    //  public void update( int byte8 )
-    //  public void update( byte[] buffer )
-    //  public void update( byte[] buffer, int index, int length )
-    //------------------------------------------------------------------
     /**
      * byte8 で指定される 1バイトのデータで crcの値を更新する。
      *
@@ -255,14 +213,6 @@ public class CRC16 implements Checksum {
         }
     }
 
-    //------------------------------------------------------------------
-    //  method of java.util.zip.Checksum
-    //------------------------------------------------------------------
-    //  other
-    //------------------------------------------------------------------
-    //  public void reset()
-    //  public long getValue()
-    //------------------------------------------------------------------
     /**
      * crc 値を初期値に設定しなおす。
      */
@@ -281,11 +231,6 @@ public class CRC16 implements Checksum {
         return this.crc & 0xFFFF;
     }
 
-    //------------------------------------------------------------------
-    //  shared method
-    //------------------------------------------------------------------
-    //  public static int[] makeCrcTable( int init )
-    //------------------------------------------------------------------
     /**
      * CRC値算出用の 表を作成する。
      *
@@ -312,4 +257,3 @@ public class CRC16 implements Checksum {
     }
 
 }
-//end of CRC16.java

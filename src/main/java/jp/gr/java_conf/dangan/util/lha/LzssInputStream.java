@@ -1,9 +1,4 @@
-//start of LzssInputStream.java
-//TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
-
 /**
- * LzssInputStream.java
- *
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
@@ -31,13 +26,9 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
-//import classes and interfaces
-import java.io.InputStream;
-import jp.gr.java_conf.dangan.util.lha.PreLzssDecoder;
-
-//import exceptions
-import java.io.IOException;
 import java.io.EOFException;
+import java.io.IOException;
+import java.io.InputStream;
 
 
 /**
@@ -68,27 +59,11 @@ import java.io.EOFException;
  */
 public class LzssInputStream extends InputStream {
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  source
-    //------------------------------------------------------------------
-    //  private PreLzssDecoder decoder
-    //------------------------------------------------------------------
     /**
      * LZSS圧縮コードを返す入力ストリーム
      */
     private PreLzssDecoder decoder;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  LZSS parameter
-    //------------------------------------------------------------------
-    //  private int Threshold
-    //  private int MaxMatch
-    //  private long Length
-    //------------------------------------------------------------------
     /**
      * LZSS圧縮に使用される閾値。
      * 一致長が この値以上であれば、圧縮コードを出力する。
@@ -106,15 +81,6 @@ public class LzssInputStream extends InputStream {
      */
     private long Length;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  text buffer
-    //------------------------------------------------------------------
-    //  private byte[] TextBuffer
-    //  private long TextPosition
-    //  private long TextDecoded
-    //------------------------------------------------------------------
     /**
      * LZSS圧縮を展開するためのバッファ。
      */
@@ -132,15 +98,6 @@ public class LzssInputStream extends InputStream {
      */
     private long TextDecoded;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  backup for mark/reset
-    //------------------------------------------------------------------
-    //  private byte[] MarkTextBuffer
-    //  private long MarkTextPosition
-    //  private long MarkTextDecoded
-    //------------------------------------------------------------------
     /** TextBuffer のバックアップ用 */
     private byte[] MarkTextBuffer;
 
@@ -169,7 +126,6 @@ public class LzssInputStream extends InputStream {
      * in から LZSS圧縮データ の入力を受けて、
      * 解凍されたデータを提供する入力ストリームを構築する。
      *
-     *
      * @param decoder LZSS圧縮データ供給ストリーム
      * @param length 解凍後のサイズ
      */
@@ -187,16 +143,6 @@ public class LzssInputStream extends InputStream {
             this.initLz5TextBuffer();
     }
 
-    //------------------------------------------------------------------
-    //  method of java.io.InputStream
-    //------------------------------------------------------------------
-    //  read
-    //------------------------------------------------------------------
-    //  public int read()
-    //  public int read( byte[] buffer )
-    //  public int read( byte[] buffer, int index, int length )
-    //  public long skip( long length )
-    //------------------------------------------------------------------
     /**
      * コンストラクタで指定された PreLzssDecoder の
      * 圧縮されたデータを解凍し、1バイトのデータを供給する。
@@ -208,7 +154,7 @@ public class LzssInputStream extends InputStream {
     public int read() throws IOException {
         if (this.TextDecoded <= this.TextPosition) {
             try {
-                this.decode(); //throws EOFException IOException
+                this.decode();
             } catch (EOFException exception) {
                 if (this.TextDecoded <= this.TextPosition)
                     return -1;
@@ -224,9 +170,7 @@ public class LzssInputStream extends InputStream {
      * 解凍されたデータを読み込む。
      *
      * @param buffer データを読み込むバッファ
-     *
      * @return 読みこんだデータ量
-     *
      * @exception IOException 入出力エラーが発生した場合
      */
     public int read(byte[] buffer) throws IOException {
@@ -241,9 +185,7 @@ public class LzssInputStream extends InputStream {
      * @param buffer データを読み込むバッファ
      * @param index buffer 内のデータ読みこみ開始位置
      * @param length 読み込むデータ量
-     *
      * @return 読みこんだデータ量
-     *
      * @exception IOException 入出力エラーが発生した場合
      */
     public int read(byte[] buffer, int index, int length) throws IOException {
@@ -252,7 +194,7 @@ public class LzssInputStream extends InputStream {
         try {
             while (position < end) {
                 if (this.TextDecoded <= this.TextPosition)
-                    this.decode(); //throws IOException
+                    this.decode();
 
                 position = this.copyTextBufferToBuffer(buffer, position, end);
             }
@@ -270,9 +212,7 @@ public class LzssInputStream extends InputStream {
      * 解凍されたデータを lengthバイト読み飛ばす。
      *
      * @param length 読み飛ばすデータ量(単位はバイト)
-     *
      * @return 実際に読み飛ばしたバイト数
-     *
      * @exception IOException 入出力エラーが発生した場合
      */
     public long skip(long length) throws IOException {
@@ -291,15 +231,6 @@ public class LzssInputStream extends InputStream {
         return length - (end - this.TextPosition);
     }
 
-    //------------------------------------------------------------------
-    //  method of java.io.InputStream
-    //------------------------------------------------------------------
-    //  mark/reset
-    //------------------------------------------------------------------
-    //  public void mark( int readLimit )
-    //  public void reset()
-    //  public boolean markSupported()
-    //------------------------------------------------------------------
     /**
      * 接続された入力ストリームの現在位置にマークを設定し、
      * reset() メソッドでマークした時点の 読み込み位置に
@@ -309,13 +240,12 @@ public class LzssInputStream extends InputStream {
      * ただし、readLimit を無視して無限に reset() 可能な
      * InputStream と接続している場合は readLimit に
      * どのような値を設定されても
-     * reset() で必ずマーク位置に復旧できる事を保証する。<br>
+     * reset() で必ずマーク位置に復旧できる事を保証する。
      *
      * @param readLimit マーク位置に戻れる限界のバイト数。
      *            このバイト数を超えてデータを読み
      *            込んだ場合 reset()できなくなる可
      *            能性がある。<br>
-     *
      * @see PreLzssDecoder#mark(int)
      */
     public void mark(int readLimit) {
@@ -335,7 +265,7 @@ public class LzssInputStream extends InputStream {
 
     /**
      * 接続された入力ストリームの読み込み位置を最後に
-     * mark() メソッドが呼び出されたときの位置に設定する。<br>
+     * mark() メソッドが呼び出されたときの位置に設定する。
      *
      * @exception IOException 入出力エラーが発生した場合
      */
@@ -345,8 +275,8 @@ public class LzssInputStream extends InputStream {
         } else if (this.TextDecoded - this.MarkTextPosition <= this.TextBuffer.length) {
             this.TextPosition = this.MarkTextPosition;
         } else if (this.decoder.markSupported()) {
-            //reset
-            this.decoder.reset(); //throws IOException
+            // reset
+            this.decoder.reset();
             System.arraycopy(this.MarkTextBuffer, 0, this.TextBuffer, 0, this.TextBuffer.length);
             this.TextPosition = this.MarkTextPosition;
             this.TextDecoded = this.MarkTextDecoded;
@@ -357,24 +287,16 @@ public class LzssInputStream extends InputStream {
 
     /**
      * 接続された入力ストリームが mark() と reset() を
-     * サポートするかを得る。<br>
+     * サポートするかを得る。
      *
      * @return ストリームが mark() と reset() を
      *         サポートする場合は true。<br>
-     *         サポートしない場合は false。<br>
+     *         サポートしない場合は false。
      */
     public boolean markSupported() {
         return this.decoder.markSupported();
     }
 
-    //------------------------------------------------------------------
-    //  method of java.io.InputStream
-    //------------------------------------------------------------------
-    //  other methods
-    //------------------------------------------------------------------
-    //  public int available()
-    //  public void close()
-    //------------------------------------------------------------------
     /**
      * 接続された入力ストリームからブロックしないで
      * 読み込むことのできるバイト数を得る。<br>
@@ -400,13 +322,6 @@ public class LzssInputStream extends InputStream {
         this.MarkTextBuffer = null;
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  private void decode()
-    //  private int copyTextBufferToBuffer( byte[] buffer, int position, int end )
-    //  private void initLz5TextBuffer()
-    //------------------------------------------------------------------
     /**
      * private変数 this.in から圧縮データを読み込み
      * 解凍しながら TextBuffer にデータを書きこむ。
@@ -424,13 +339,13 @@ public class LzssInputStream extends InputStream {
                             + TextStart;
             try {
                 while (TextPos < TextLimit) {
-                    int Code = this.decoder.readCode(); //throws EOFException IOException
+                    int Code = this.decoder.readCode();
 
                     if (Code < 0x100) {
                         this.TextBuffer[TextMask & TextPos++] = (byte) Code;
                     } else {
                         int MatchLength = (Code & 0xFF) + this.Threshold;
-                        int MatchPosition = TextPos - this.decoder.readOffset() - 1;//throws IOException
+                        int MatchPosition = TextPos - this.decoder.readOffset() - 1;
 
                         while (0 < MatchLength--)
                             this.TextBuffer[TextMask & TextPos++] = this.TextBuffer[TextMask & MatchPosition++];
@@ -450,7 +365,6 @@ public class LzssInputStream extends InputStream {
      * @param buffer TextBufferの内容をコピーするバッファ
      * @param position buffer内の書き込み現在位置
      * @param end buffer内の書き込み終了位置
-     *
      * @return bufferの次に書き込みが行われるべき位置
      */
     private int copyTextBufferToBuffer(byte[] buffer, int position, int end) {
@@ -497,6 +411,4 @@ public class LzssInputStream extends InputStream {
         while (position < this.TextBuffer.length)
             this.TextBuffer[position++] = (byte) ' ';
     }
-
 }
-//end of LzssInputStream.java

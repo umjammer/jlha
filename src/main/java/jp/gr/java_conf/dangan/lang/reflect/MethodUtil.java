@@ -26,14 +26,9 @@
 
 package jp.gr.java_conf.dangan.lang.reflect;
 
-//import classes and interfaces
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-
-//import exceptions
-import java.lang.ClassNotFoundException;
-import java.lang.NoSuchMethodException;
-import java.lang.reflect.InvocationTargetException;
 
 
 /**
@@ -53,11 +48,11 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class MethodUtil {
 
-    //------------------------------------------------------------------
-    //  constructor
-    //------------------------------------------------------------------
-    //  private MethodUtil()
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // constructor
+    // ------------------------------------------------------------------
+    // private MethodUtil()
+    // ------------------------------------------------------------------
     /**
      * デフォルトコンストラクタ。
      * 使用不可。
@@ -65,13 +60,13 @@ public class MethodUtil {
     private MethodUtil() {
     }
 
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
     //	shared method
-    //------------------------------------------------------------------
-    //  invoke static method
-    //------------------------------------------------------------------
-    //  public static Object invoke( Object obj, String name, Object[] args )
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // invoke static method
+    // ------------------------------------------------------------------
+    // public static Object invoke( Object obj, String name, Object[] args )
+    // ------------------------------------------------------------------
     /**
      * インスタンスobjの nameという名前の
      * メソッドをargsを引数として実行する。
@@ -112,14 +107,14 @@ public class MethodUtil {
         }
     }
 
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
     //	shared method
-    //------------------------------------------------------------------
-    //  invoke static method
-    //------------------------------------------------------------------
-    //  public static Object invokeStatic( String classname, String name, Object[] args )
-    //  public static Object invokeStatic( Class type, String name, Object[] args )
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // invoke static method
+    // ------------------------------------------------------------------
+    // public static Object invokeStatic( String classname, String name, Object[] args )
+    // public static Object invokeStatic( Class type, String name, Object[] args )
+    // ------------------------------------------------------------------
     /**
      * classname で示されるクラスの nameという名前の
      * static メソッドをargsを引数として実行する。
@@ -143,9 +138,9 @@ public class MethodUtil {
     public static Object invokeStatic(String classname, String name, Object[] args) throws ClassNotFoundException,
                                                                                     InvocationTargetException,
                                                                                     NoSuchMethodException {
-        return MethodUtil.invokeStatic(Class.forName(classname), //throw ClassNotFoundException
+        return MethodUtil.invokeStatic(Class.forName(classname), // throw ClassNotFoundException
                                        name,
-                                       args); //throw InvocationTargetException, NoSuchMethodException
+                                       args); // throw InvocationTargetException, NoSuchMethodException
     }
 
     /**
@@ -187,20 +182,20 @@ public class MethodUtil {
         }
     }
 
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
     //	shared method
-    //------------------------------------------------------------------
-    //  get instance method
-    //------------------------------------------------------------------
-    //  public static Method getInstanceMethod( String classname,
-    //                                          String name, Object[] args )
-    //  public static Method getInstanceMethod( Class  type,
-    //                                          String name, Object[] args )
-    //  public static Method getInstanceMethod( String classname, String  name,
-    //                                          Object[] args,    boolean all )
-    //  public static Method getInstanceMethod( Class  type,      String name,
-    //                                          Object[] args,    boolean all )
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // get instance method
+    // ------------------------------------------------------------------
+    // public static Method getInstanceMethod( String classname,
+    //                                         String name, Object[] args )
+    // public static Method getInstanceMethod( Class  type,
+    //                                         String name, Object[] args )
+    // public static Method getInstanceMethod( String classname, String  name,
+    //                                         Object[] args,    boolean all )
+    // public static Method getInstanceMethod( Class  type,      String name,
+    //                                         Object[] args,    boolean all )
+    // ------------------------------------------------------------------
     /**
      * classname で示されるクラスの public なインスタンスメソッドのうち、
      * name という名前で args を Type.parse した後
@@ -308,20 +303,20 @@ public class MethodUtil {
         return null;
     }
 
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
     //	shared method
-    //------------------------------------------------------------------
-    //  get match full instance method
-    //------------------------------------------------------------------
-    //  public static Method getMatchFullInstanceMethod( String classname,
-    //                                    String name, Object[] args )
-    //  public static Method getMatchFullInstanceMethod( Class  type,
-    //                                    String name, Object[] args )
-    //  public static Method getMatchFullInstanceMethod( String classname,
-    //                String  name,  Object[] args,    boolean all )
-    //  public static Method getMatchFullInstanceMethod( Class  type,
-    //                String name,   Object[] args,    boolean all )
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // get match full instance method
+    // ------------------------------------------------------------------
+    // public static Method getMatchFullInstanceMethod( String classname,
+    //                                   String name, Object[] args )
+    // public static Method getMatchFullInstanceMethod( Class  type,
+    //                                   String name, Object[] args )
+    // public static Method getMatchFullInstanceMethod( String classname,
+    //               String  name,  Object[] args,    boolean all )
+    // public static Method getMatchFullInstanceMethod( Class  type,
+    //               String name,   Object[] args,    boolean all )
+    // ------------------------------------------------------------------
     /**
      * classname で示されるクラスの public なインスタンスメソッドのうち、
      * name という名前で args を 直接受け入れることができるものを得る。
@@ -418,20 +413,20 @@ public class MethodUtil {
         return null;
     }
 
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
     //	shared method
-    //------------------------------------------------------------------
-    //  get static method
-    //------------------------------------------------------------------
-    //  public static Method getStaticMethod( String classname,
-    //                                        String name, Object[] args )
-    //  public static Method getStaticMethod( Class  type,
-    //                                        String name, Object[] args )
-    //  public static Method getStaticMethod( String classname, String  name,
-    //                                        Object[] args,    boolean all )
-    //  public static Method getStaticMethod( Class  type,      String name,
-    //                                        Object[] args,    boolean all )
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // get static method
+    // ------------------------------------------------------------------
+    // public static Method getStaticMethod( String classname,
+    //                                       String name, Object[] args )
+    // public static Method getStaticMethod( Class  type,
+    //                                       String name, Object[] args )
+    // public static Method getStaticMethod( String classname, String  name,
+    //                                       Object[] args,    boolean all )
+    // public static Method getStaticMethod( Class  type,      String name,
+    //                                       Object[] args,    boolean all )
+    // ------------------------------------------------------------------
     /**
      * classname で示されるクラスの public static メソッドのうち、
      * name という名前で args を Type.parse した後

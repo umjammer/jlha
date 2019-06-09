@@ -1,9 +1,4 @@
-//start of DynamicHuffman.java
-//TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
-
 /**
- * DynamicHuffman.java
- *
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
@@ -31,11 +26,6 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
-//import classes and interfaces
-import java.lang.Cloneable;
-
-
-//import exceptions
 
 /**
  * 動的ハフマンを扱うクラス。
@@ -63,12 +53,6 @@ import java.lang.Cloneable;
  */
 public class DynamicHuffman implements Cloneable {
 
-    //------------------------------------------------------------------
-    //  class field
-    //------------------------------------------------------------------
-    //  public static final int ROOT
-    //  private static final int MAX_WEIGHT
-    //------------------------------------------------------------------
     /**
      * ハフマン木のルートを示す。
      */
@@ -79,17 +63,6 @@ public class DynamicHuffman implements Cloneable {
      */
     private static final int MAX_WEIGHT = 0x8000;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  huffman tree
-    //------------------------------------------------------------------
-    //  private int[] weight
-    //  private int[] child
-    //  private int[] parent
-    //  private int[] leafs
-    //  private int size
-    //------------------------------------------------------------------
     /**
      * 添え字のノードの重さを示す。
      */
@@ -119,13 +92,6 @@ public class DynamicHuffman implements Cloneable {
      */
     private int size;
 
-    //------------------------------------------------------------------
-    //  constructor
-    //------------------------------------------------------------------
-    //  private DynamicHuffman()
-    //  public DynamicHuffman( int count )
-    //  public DynamicHuffman( int max, int first )
-    //------------------------------------------------------------------
     /**
      * デフォルトコンストラクタ。
      * 使用不可。
@@ -157,7 +123,7 @@ public class DynamicHuffman implements Cloneable {
             this.leafs = new int[max];
             this.size = Math.max(0, first * 2 - 1);
 
-            //葉を生成していく。
+            // 葉を生成していく。
             int node = this.size - 1;
             for (int code = 0; code < first; code++, node--) {
                 this.weight[node] = 1;
@@ -165,7 +131,7 @@ public class DynamicHuffman implements Cloneable {
                 this.leafs[code] = node;
             }
 
-            //枝を生成していく。
+            // 枝を生成していく。
             int child = this.size - 1;
             while (0 <= node && node != child) {
                 this.weight[node] = this.weight[child] + this.weight[child - 1];
@@ -183,11 +149,6 @@ public class DynamicHuffman implements Cloneable {
         }
     }
 
-    //------------------------------------------------------------------
-    //  method of java.lang.Object
-    //------------------------------------------------------------------
-    //  public Object clone()
-    //------------------------------------------------------------------
     /**
      * このオブジェクトの現在の状態を持つコピーを作成して返す。
      *
@@ -203,20 +164,10 @@ public class DynamicHuffman implements Cloneable {
         return clone;
     }
 
-    //------------------------------------------------------------------
-    //  original method
-    //------------------------------------------------------------------
-    //  access to huffman tree
-    //------------------------------------------------------------------
-    //  public int codeToNode( int code )
-    //  public int childNode( int node )
-    //  public int parentNode( int node )
-    //------------------------------------------------------------------
     /**
      * データからノード番号を得る。
      *
      * @param code データ
-     *
      * @return codeのノード番号
      */
     public int codeToNode(int code) {
@@ -232,7 +183,6 @@ public class DynamicHuffman implements Cloneable {
      * となる。
      *
      * @param node ノード
-     *
      * @return node の子ノードのノード番号
      */
     public int childNode(int node) {
@@ -243,21 +193,12 @@ public class DynamicHuffman implements Cloneable {
      * node の親ノードのノード番号を得る。
      *
      * @param node ノード
-     *
      * @return node の親ノードのノード番号。
      */
     public int parentNode(int node) {
         return this.parent[node];
     }
 
-    //------------------------------------------------------------------
-    //  original method
-    //------------------------------------------------------------------
-    //  update huffman tree
-    //------------------------------------------------------------------
-    //  public void update( int code )
-    //  public void addLeaf( int code )
-    //------------------------------------------------------------------
     /**
      * code の重みが増すようにハフマン木を更新する。
      *
@@ -288,7 +229,6 @@ public class DynamicHuffman implements Cloneable {
      * ハフマン木に code を示す葉を追加する。
      *
      * @param code 葉の示す符号
-     *
      * @exception IllegalStateException
      *                ハフマン木が十分に大きいため
      *                葉が追加できない場合
@@ -318,12 +258,6 @@ public class DynamicHuffman implements Cloneable {
         }
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  private void rebuildTree()
-    //  private void swap( int i, int j )
-    //------------------------------------------------------------------
     /**
      * ハフマン木を再構築する。
      * 重みが privateな定数 MAX_WEIGHT を超えた時に
@@ -394,6 +328,4 @@ public class DynamicHuffman implements Cloneable {
         this.weight[i] = this.weight[j];
         this.weight[j] = temp;
     }
-
 }
-//end of DynamicHuffman.java

@@ -28,9 +28,6 @@ package jp.gr.java_conf.dangan.lang.reflect;
 
 import java.math.BigInteger;
 
-import java.lang.IllegalArgumentException;
-import java.lang.NumberFormatException;
-
 
 /**
  * Reflection の機能を扱いやすくするように
@@ -114,15 +111,15 @@ public class Type {
         return match;
     }
 
-    //------------------------------------------------------------------
-    //  shared method
-    //------------------------------------------------------------------
-    //  type matching
-    //------------------------------------------------------------------
-    //  public static boolean matchFull( Class type, Object obj )
-    //  public static boolean matchRestrict( Class type, Object obj )
-    //  public static boolean match( Class type, Object obj )
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // shared method
+    // ------------------------------------------------------------------
+    // type matching
+    // ------------------------------------------------------------------
+    // public static boolean matchFull( Class type, Object obj )
+    // public static boolean matchRestrict( Class type, Object obj )
+    // public static boolean match( Class type, Object obj )
+    // ------------------------------------------------------------------
     /**
      * obj が変換無しで type と一致するかを得る。
      *
@@ -320,15 +317,15 @@ public class Type {
         throw new IllegalArgumentException();
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  chack that string match the pattern of type.
-    //------------------------------------------------------------------
-    //  private static boolean isUnicodeEscape( String str )
-    //  private static boolean isLongString( String str )
-    //  private static boolean isDoubleString( String str )
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // local method
+    // ------------------------------------------------------------------
+    // chack that string match the pattern of type.
+    // ------------------------------------------------------------------
+    // private static boolean isUnicodeEscape( String str )
+    // private static boolean isLongString( String str )
+    // private static boolean isDoubleString( String str )
+    // ------------------------------------------------------------------
     /**
      * str が ユニコードエスケープされた1文字であるかを得る。
      *

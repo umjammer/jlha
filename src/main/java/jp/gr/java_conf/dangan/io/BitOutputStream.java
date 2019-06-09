@@ -1,6 +1,4 @@
 /*
- * BitOutputStream.java
- *
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
@@ -28,10 +26,8 @@
 
 package jp.gr.java_conf.dangan.io;
 
-import java.io.OutputStream;
 import java.io.IOException;
-import java.lang.NullPointerException;
-import java.lang.IllegalArgumentException;
+import java.io.OutputStream;
 
 
 /**
@@ -61,38 +57,38 @@ import java.lang.IllegalArgumentException;
  */
 public class BitOutputStream extends OutputStream {
 
-    //------------------------------------------------------------------
-    //  class field
-    //------------------------------------------------------------------
-    //  default
-    //------------------------------------------------------------------
-    //  private static final int DefaultCacheSize
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // class field
+    // ------------------------------------------------------------------
+    // default
+    // ------------------------------------------------------------------
+    // private static final int DefaultCacheSize
+    // ------------------------------------------------------------------
     /**
      * デフォルトおキャッシュサイズ
      */
     private static final int DefaultCacheSize = 1024;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  sink
-    //------------------------------------------------------------------
-    //  private OutputStream out
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // instance field
+    // ------------------------------------------------------------------
+    // sink
+    // ------------------------------------------------------------------
+    // private OutputStream out
+    // ------------------------------------------------------------------
     /**
      * 接続された出力ストリーム
      */
     private OutputStream out;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  cache
-    //------------------------------------------------------------------
-    //  private byte[] cache
-    //  private int    cachePosition
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // instance field
+    // ------------------------------------------------------------------
+    // cache
+    // ------------------------------------------------------------------
+    // private byte[] cache
+    // private int    cachePosition
+    // ------------------------------------------------------------------
     /**
      * 速度低下抑止用バイト配列
      */
@@ -103,14 +99,14 @@ public class BitOutputStream extends OutputStream {
      */
     private int cachePosition;
 
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  bit buffer
-    //------------------------------------------------------------------
-    //  private int bitBuffer
-    //  private int bitCount
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // instance field
+    // ------------------------------------------------------------------
+    // bit buffer
+    // ------------------------------------------------------------------
+    // private int bitBuffer
+    // private int bitCount
+    // ------------------------------------------------------------------
     /**
      * ビットバッファ
      */
@@ -160,15 +156,15 @@ public class BitOutputStream extends OutputStream {
         }
     }
 
-    //------------------------------------------------------------------
-    //  method of java.io.OutputStream
-    //------------------------------------------------------------------
-    //  write
-    //------------------------------------------------------------------
-    //  public void write( int data )
-    //  public void write( byte[] buffer )
-    //  public void write( byte[] buffer, int index, int length )
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // method of java.io.OutputStream
+    // ------------------------------------------------------------------
+    // write
+    // ------------------------------------------------------------------
+    // public void write( int data )
+    // public void write( byte[] buffer )
+    // public void write( byte[] buffer, int index, int length )
+    // ------------------------------------------------------------------
     /**
      * 接続された出力ストリームに 8ビットのデータを出力する。<br>
      *
@@ -190,7 +186,7 @@ public class BitOutputStream extends OutputStream {
      * @exception IOException 入出力エラーが発生した場合
      */
     public void write(byte[] buffer) throws IOException {
-        this.write(buffer, 0, buffer.length); //throws IOException
+        this.write(buffer, 0, buffer.length);
     }
 
     /**
@@ -206,22 +202,22 @@ public class BitOutputStream extends OutputStream {
      */
     public void write(byte[] buffer, int index, int length) throws IOException {
         if (this.bitCount % 8 == 0) {
-            this.flush(); //throws IOException
-            this.out.write(buffer, index, length); //throws IOException
+            this.flush();
+            this.out.write(buffer, index, length);
         } else {
             while (0 < length--)
-                this.writeBits(8, buffer[index++]); //throws IOException
+                this.writeBits(8, buffer[index++]);
         }
     }
 
-    //------------------------------------------------------------------
-    //  method of java.io.OutputStream
-    //------------------------------------------------------------------
-    //  other
-    //------------------------------------------------------------------
-    //  public void flush()
-    //  public void close()
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // method of java.io.OutputStream
+    // ------------------------------------------------------------------
+    // other
+    // ------------------------------------------------------------------
+    // public void flush()
+    // public void close()
+    // ------------------------------------------------------------------
     /**
      * このビット出力ストリームにバッファリングされている
      * 8ビット単位のデータを全て出力先に出力する。
@@ -236,9 +232,9 @@ public class BitOutputStream extends OutputStream {
             this.bitCount -= 8;
         }
 
-        this.out.write(this.cache, 0, this.cachePosition); //throws IOException
+        this.out.write(this.cache, 0, this.cachePosition);
         this.cachePosition = 0;
-        this.out.flush(); //throws IOException
+        this.out.flush();
     }
 
     /**
@@ -254,10 +250,10 @@ public class BitOutputStream extends OutputStream {
             this.bitCount -= 8;
         }
 
-        this.out.write(this.cache, 0, this.cachePosition); //throws IOException
+        this.out.write(this.cache, 0, this.cachePosition);
         this.cachePosition = 0;
-        this.out.flush(); //throws IOException
-        this.out.close(); //throws IOException
+        this.out.flush();
+        this.out.close();
 
         this.out = null;
         this.cache = null;
@@ -266,15 +262,15 @@ public class BitOutputStream extends OutputStream {
         this.bitBuffer = 0;
     }
 
-    //------------------------------------------------------------------
-    //  original method
-    //------------------------------------------------------------------
-    //  bit write
-    //------------------------------------------------------------------
-    //  public void writeBit( int data )
-    //  public void writeBoolean( boolean bool )
-    //  public void writeBits( int count, int data )
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // original method
+    // ------------------------------------------------------------------
+    // bit write
+    // ------------------------------------------------------------------
+    // public void writeBit( int data )
+    // public void writeBoolean( boolean bool )
+    // public void writeBits( int count, int data )
+    // ------------------------------------------------------------------
     /**
      * 接続された出力ストリームに1ビットのデータを出力する。<br>
      *
@@ -288,7 +284,7 @@ public class BitOutputStream extends OutputStream {
         this.bitCount++;
 
         if (32 <= this.bitCount)
-            this.writeOutBitBuffer(); //throws IOException
+            this.writeOutBitBuffer();
     }
 
     /**
@@ -309,7 +305,7 @@ public class BitOutputStream extends OutputStream {
         this.bitCount++;
 
         if (32 <= this.bitCount)
-            this.writeOutBitBuffer(); //throws IOException
+            this.writeOutBitBuffer();
     }
 
     /**
@@ -335,11 +331,11 @@ public class BitOutputStream extends OutputStream {
         }
     }
 
-    //------------------------------------------------------------------
-    //  local method
-    //------------------------------------------------------------------
-    //  private void writeOutBitBuffer()
-    //------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    // local method
+    // ------------------------------------------------------------------
+    // private void writeOutBitBuffer()
+    // ------------------------------------------------------------------
     /**
      * ビットバッファに蓄えられたデータを全てキャッシュに
      * 出力し、キャッシュが満ちた場合はキャッシュのデータを
@@ -363,4 +359,4 @@ public class BitOutputStream extends OutputStream {
     }
 
 }
-//end of BitOutputStream.java
+// end of BitOutputStream.java

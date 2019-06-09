@@ -29,7 +29,6 @@
 package jp.gr.java_conf.dangan.io;
 
 import java.io.IOException;
-import java.lang.Throwable;
 
 
 /**
