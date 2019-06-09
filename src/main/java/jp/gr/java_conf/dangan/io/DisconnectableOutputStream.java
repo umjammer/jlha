@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  * 
- * �ȉ��̏����ɓ��ӂ���Ȃ�΃\�[�X�ƃo�C�i���`���̍Ĕz�z�Ǝg�p��
- * �ύX�̗L���ɂ�����炸������B
+ * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
+ * 変更の有無にかかわらず許可する。
  * 
- * �P�D�\�[�X�R�[�h�̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐�������ێ����Ȃ��Ă͂Ȃ�Ȃ��B
+ * １．ソースコードの再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を保持しなくてはならない。
  * 
- * �Q�D�o�C�i���`���̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐��������g�p�������������� ���̑��̔z�z������
- *     �܂ގ����ɋL�q���Ȃ���΂Ȃ�Ȃ��B
+ * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を使用説明書もしくは その他の配布物内に
+ *     含む資料に記述しなければならない。
  * 
- * ���̃\�t�g�E�F�A�͐Β˔���ڂɂ���Ė��ۏ؂Œ񋟂���A����̖�
- * �I��B���ł���Ƃ����ۏ؁A���i���l���L��Ƃ����ۏ؂ɂƂǂ܂炸�A
- * �����Ȃ閾���I����шÎ��I�ȕۏ؂����Ȃ��B
- * �Β˔���ڂ� ���̃\�t�g�E�F�A�̎g�p�ɂ�钼�ړI�A�ԐړI�A����
- * �I�A����ȁA�T�^�I�ȁA���邢�͕K�R�I�ȑ��Q(�g�p�ɂ��f�[�^��
- * �����A�Ɩ��̒��f�〈���܂�Ă������v�̈⎸�A��֐��i��������
- * �T�[�r�X�̓�������l�����邪�A�����Ă��ꂾ���Ɍ��肳��Ȃ�
- * ���Q)�ɑ΂��āA�����Ȃ鎖�Ԃ̌����ƂȂ����Ƃ��Ă��A�_���̐�
- * �C�△�ߎ��ӔC���܂� �����Ȃ�ӔC�����낤�Ƃ��A���Ƃ����ꂪ�s
- * ���s�ׂ̂��߂ł������Ƃ��Ă��A�܂��͂��̂悤�ȑ��Q�̉\������
- * ������Ă����Ƃ��Ă���؂̐ӔC�𕉂�Ȃ����̂Ƃ���B
+ * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
+ * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
+ * いかなる明示的および暗示的な保証もしない。
+ * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
+ * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
+ * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
+ * サービスの導入費等が考えられるが、決してそれだけに限定されない
+ * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
+ * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
+ * 正行為のためであったとしても、またはそのような損害の可能性が報
+ * 告されていたとしても一切の責任を負わないものとする。
  */
 
 package jp.gr.java_conf.dangan.io;
@@ -40,9 +40,9 @@ import java.io.IOException;
 import java.lang.NullPointerException;
 
 /**
- * �f�[�^���������ďo�͂���o�̓X�g���[����
- * �f�[�^���f�o�C�X�ɏo�͂���X�g���[���Ƃ�
- * �ڑ����������邽�߂̃��[�e�B���e�B�N���X�B<br>
+ * データを処理して出力する出力ストリームと
+ * データをデバイスに出力するストリームとの
+ * 接続を解除するためのユーティリティクラス。<br>
  * 
  * <pre>
  * -- revision history --
@@ -50,9 +50,9 @@ import java.lang.NullPointerException;
  * Revision 1.0  2002/07/24 00:00:00  dangan
  * add to version control
  * [maintenance]
- *     �^�u�p�~
- *     ���C�Z���X���̏C��
- *     �\�[�X����
+ *     タブ廃止
+ *     ライセンス文の修正
+ *     ソース整備
  * 
  * </pre>
  * 
@@ -70,27 +70,15 @@ public class DisconnectableOutputStream extends OutputStream
     //  private OutputStream out
     //------------------------------------------------------------------
     /**
-     * �ڑ����ꂽ�o�̓X�g���[��
+     * 接続された出力ストリーム
      */
     private OutputStream out;
 
 
-    //------------------------------------------------------------------
-    //  constructer
-    //------------------------------------------------------------------
-    //  private DisconnectableOutputStream()
-    //  public DisconnectableOutputStream( OutputStream out )
-    //------------------------------------------------------------------
     /**
-     * �f�t�H���g�R���X�g���N�^�B
-     * �g�p�s�B
-     */
-    private DisconnectableOutputStream(){   }
-
-    /**
-     * out �Ƃ̐ڑ��������\�ȏo�̓X�g���[�����\�z����B
+     * out との接続を解除可能な出力ストリームを構築する。
      * 
-     * @param out �o�̓X�g���[��
+     * @param out 出力ストリーム
      */
     public DisconnectableOutputStream( OutputStream out ){
         if( out != null ){
@@ -111,40 +99,40 @@ public class DisconnectableOutputStream extends OutputStream
     //  public void write( byte[] buffer, int index, int length )
     //------------------------------------------------------------------
     /**
-     * �ڑ����ꂽ�o�̓X�g���[���� 1�o�C�g�̃f�[�^���o�͂���B<br>
+     * 接続された出力ストリームに 1バイトのデータを出力する。<br>
      * 
-     * @param data �������܂��ׂ� 1�o�C�g�̃f�[�^�B<br>
-     *             ��ʓI�ɏ��3�o�C�g�͖��������B<br>
+     * @param data 書きこまれるべき 1バイトのデータ。<br>
+     *             一般的に上位3バイトは無視される。<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public void write( int data ) throws IOException {
         this.out.write( data );                                                 //throws IOException
     }
 
     /**
-     * �ڑ����ꂽ�o�̓X�g���[���� buffer���̃f�[�^��
-     * �S�ďo�͂���B<br>
+     * 接続された出力ストリームに buffer内のデータを
+     * 全て出力する。<br>
      * 
-     * @param buffer �������܂��ׂ��f�[�^���i�[����
-     *               �o�C�g�z��B<br>
+     * @param buffer 書きこまれるべきデータを格納した
+     *               バイト配列。<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public void write( byte[] buffer ) throws IOException {
         this.out.write( buffer, 0, buffer.length );                             //throws IOException
     }
 
     /**
-     * �ڑ����ꂽ�o�̓X�g���[���� buffer���̃f�[�^��
-     * index�Ŏw�肳�ꂽ�ʒu���� length�o�C�g�o�͂���B<br>
+     * 接続された出力ストリームに buffer内のデータを
+     * indexで指定された位置から lengthバイト出力する。<br>
      * 
-     * @param buffer �������܂��ׂ��f�[�^���i�[����
-     *               �o�C�g�z��B<br>
-     * @param index  buffer���̏������ނׂ��f�[�^�̊J�n�ʒu�B<br>
-     * @param length �������ނׂ��f�[�^�ʁB<br>
+     * @param buffer 書きこまれるべきデータを格納した
+     *               バイト配列。<br>
+     * @param index  buffer内の書きこむべきデータの開始位置。<br>
+     * @param length 書きこむべきデータ量。<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public void write( byte[] buffer, int index, int length )
                                                            throws IOException {
@@ -161,18 +149,18 @@ public class DisconnectableOutputStream extends OutputStream
     //  public void close()
     //------------------------------------------------------------------
     /**
-     * �ڑ����ꂽ�o�̓X�g���[���ɒ~����ꂽ�f�[�^��S�ďo�͂���
-     * �悤�Ɏw������B<br>
+     * 接続された出力ストリームに蓄えられたデータを全て出力する
+     * ように指示する。<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public void flush() throws IOException {
         this.out.flush();
     }
 
     /**
-     * �ڑ����ꂽ�o�̓X�g���[���Ƃ̐ڑ�����������B<br>
-     * ���̃��\�b�h�� disconnect() ���Ăяo�������ł���B<br>
+     * 接続された出力ストリームとの接続を解除する。<br>
+     * このメソッドは disconnect() を呼び出すだけである。<br>
      */
     public void close(){
         this.disconnect();
@@ -185,7 +173,7 @@ public class DisconnectableOutputStream extends OutputStream
     //  public void disconnect()
     //------------------------------------------------------------------
     /**
-     * �ڑ����ꂽ�o�̓X�g���[���Ƃ̐ڑ�����������B<br>
+     * 接続された出力ストリームとの接続を解除する。<br>
      */
     public void disconnect(){
         this.out = null;

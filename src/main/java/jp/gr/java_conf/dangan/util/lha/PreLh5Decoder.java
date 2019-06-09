@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  * 
- * €И‰є‚МЏрЊЏ‚Й“Ї€У‚·‚й‚И‚з‚Оѓ\Ѓ[ѓX‚ЖѓoѓCѓiѓЉЊ`Ћ®‚МЌД”z•z‚ЖЋg—p‚р
- * •ПЌX‚М—L–і‚Й‚©‚©‚н‚з‚ё‹–‰В‚·‚йЃB
+ * д»Ґдё‹гЃ®жќЎд»¶гЃ«еђЊж„ЏгЃ™г‚‹гЃЄг‚‰гЃ°г‚Ѕгѓјг‚№гЃЁгѓђг‚¤гѓЉгѓЄеЅўејЏгЃ®е†Ќй…ЌеёѓгЃЁдЅїз”Ёг‚’
+ * е¤‰ж›ґгЃ®жњ‰з„ЎгЃ«гЃ‹гЃ‹г‚Џг‚‰гЃљиЁ±еЏЇгЃ™г‚‹гЂ‚
  * 
- * ‚PЃDѓ\Ѓ[ѓXѓRЃ[ѓh‚МЌД”z•z‚Й‚Ё‚ў‚Д’ЌмЊ •\Ћ¦‚Ж ‚±‚МЏрЊЏ‚МѓЉѓXѓg
- *     ‚Ё‚ж‚С‰є‹L‚Мђє–ѕ•¶‚р•ЫЋќ‚µ‚И‚­‚Д‚Н‚И‚з‚И‚ўЃB
+ * пј‘пјЋг‚Ѕгѓјг‚№г‚ігѓјгѓ‰гЃ®е†Ќй…ЌеёѓгЃ«гЃЉгЃ„гЃ¦и‘—дЅњжЁ©иЎЁз¤єгЃЁ гЃ“гЃ®жќЎд»¶гЃ®гѓЄг‚№гѓ€
+ *     гЃЉг‚€гЃідё‹иЁгЃ®еЈ°жЋж–‡г‚’дїќжЊЃгЃ—гЃЄгЃЏгЃ¦гЃЇгЃЄг‚‰гЃЄгЃ„гЂ‚
  * 
- * ‚QЃDѓoѓCѓiѓЉЊ`Ћ®‚МЌД”z•z‚Й‚Ё‚ў‚Д’ЌмЊ •\Ћ¦‚Ж ‚±‚МЏрЊЏ‚МѓЉѓXѓg
- *     ‚Ё‚ж‚С‰є‹L‚Мђє–ѕ•¶‚рЋg—pђа–ѕЏ‘‚а‚µ‚­‚Н ‚»‚М‘ј‚М”z•z•Ё“а‚Й
- *     ЉЬ‚ЮЋ‘—ї‚Й‹LЏq‚µ‚И‚Ї‚к‚О‚И‚з‚И‚ўЃB
+ * пј’пјЋгѓђг‚¤гѓЉгѓЄеЅўејЏгЃ®е†Ќй…ЌеёѓгЃ«гЃЉгЃ„гЃ¦и‘—дЅњжЁ©иЎЁз¤єгЃЁ гЃ“гЃ®жќЎд»¶гЃ®гѓЄг‚№гѓ€
+ *     гЃЉг‚€гЃідё‹иЁгЃ®еЈ°жЋж–‡г‚’дЅїз”ЁиЄ¬жЋж›ёг‚‚гЃ—гЃЏгЃЇ гЃќгЃ®д»–гЃ®й…Ќеёѓз‰©е†…гЃ«
+ *     еђ«г‚Ђиі‡ж–™гЃ«иЁиї°гЃ—гЃЄгЃ‘г‚ЊгЃ°гЃЄг‚‰гЃЄгЃ„гЂ‚
  * 
- * ‚±‚Мѓ\ѓtѓgѓEѓFѓA‚НђО’Л”ьЋм—Ъ‚Й‚ж‚Б‚Д–і•ЫЏШ‚Е’с‹џ‚і‚кЃA“Б’и‚М–Ъ
- * “I‚р’Bђ¬‚Е‚«‚й‚Ж‚ў‚¤•ЫЏШЃAЏ¤•i‰ї’l‚Є—L‚й‚Ж‚ў‚¤•ЫЏШ‚Й‚Ж‚З‚Ь‚з‚ёЃA
- * ‚ў‚©‚И‚й–ѕЋ¦“I‚Ё‚ж‚С€ГЋ¦“I‚И•ЫЏШ‚а‚µ‚И‚ўЃB
- * ђО’Л”ьЋм—Ъ‚Н ‚±‚Мѓ\ѓtѓgѓEѓFѓA‚МЋg—p‚Й‚ж‚й’јђЪ“IЃAЉФђЪ“IЃA‹ф”­
- * “IЃA“БЋк‚ИЃA“TЊ^“I‚ИЃA‚ ‚й‚ў‚Н•K‘R“I‚И‘№ЉQ(Ћg—p‚Й‚ж‚йѓfЃ[ѓ^‚М
- * ‘№ЋёЃA‹Ж–±‚М’†’f‚вЊ©Ќћ‚Ь‚к‚Д‚ў‚Ѕ—‰v‚М€вЋёЃA‘г‘Цђ»•i‚а‚µ‚­‚Н
- * ѓTЃ[ѓrѓX‚М“±“ь”п“™‚ЄЌl‚¦‚з‚к‚й‚ЄЃAЊ€‚µ‚Д‚»‚к‚ѕ‚Ї‚ЙЊА’и‚і‚к‚И‚ў
- * ‘№ЉQ)‚Й‘О‚µ‚ДЃA‚ў‚©‚И‚йЋ–‘Ф‚МЊґ€ц‚Ж‚И‚Б‚Ѕ‚Ж‚µ‚Д‚аЃAЊ_–сЏг‚МђУ
- * ”C‚в–і‰ЯЋёђУ”C‚рЉЬ‚Ю ‚ў‚©‚И‚йђУ”C‚Є‚ ‚л‚¤‚Ж‚аЃA‚Ѕ‚Ж‚¦‚»‚к‚Є•s
- * ђіЌs€Ч‚М‚Ѕ‚Я‚Е‚ ‚Б‚Ѕ‚Ж‚µ‚Д‚аЃA‚Ь‚Ѕ‚Н‚»‚М‚ж‚¤‚И‘№ЉQ‚М‰В”\ђ«‚Є•с
- * Ќђ‚і‚к‚Д‚ў‚Ѕ‚Ж‚µ‚Д‚а€кђШ‚МђУ”C‚р•‰‚н‚И‚ў‚а‚М‚Ж‚·‚йЃB
+ * гЃ“гЃ®г‚Ѕгѓ•гѓ€г‚¦г‚§г‚ўгЃЇзџіеЎљзѕЋзЏ з‘ гЃ«г‚€гЃЈгЃ¦з„ЎдїќиЁјгЃ§жЏђдѕ›гЃ•г‚ЊгЂЃз‰№е®љгЃ®з›®
+ * зљ„г‚’йЃ”ж€ђгЃ§гЃЌг‚‹гЃЁгЃ„гЃ†дїќиЁјгЂЃе•†е“ЃдѕЎеЂ¤гЃЊжњ‰г‚‹гЃЁгЃ„гЃ†дїќиЁјгЃ«гЃЁгЃ©гЃѕг‚‰гЃљгЂЃ
+ * гЃ„гЃ‹гЃЄг‚‹жЋз¤єзљ„гЃЉг‚€гЃіжљ—з¤єзљ„гЃЄдїќиЁјг‚‚гЃ—гЃЄгЃ„гЂ‚
+ * зџіеЎљзѕЋзЏ з‘ гЃЇ гЃ“гЃ®г‚Ѕгѓ•гѓ€г‚¦г‚§г‚ўгЃ®дЅїз”ЁгЃ«г‚€г‚‹з›ґжЋҐзљ„гЂЃй–“жЋҐзљ„гЂЃеЃ¶з™є
+ * зљ„гЂЃз‰№ж®ЉгЃЄгЂЃе…ёећ‹зљ„гЃЄгЂЃгЃ‚г‚‹гЃ„гЃЇеї…з„¶зљ„гЃЄжђЌе®і(дЅїз”ЁгЃ«г‚€г‚‹гѓ‡гѓјг‚їгЃ®
+ * жђЌе¤±гЂЃжҐ­е‹™гЃ®дё­ж–­г‚„и¦‹иѕјгЃѕг‚ЊгЃ¦гЃ„гЃџе€©з›ЉгЃ®йЃєе¤±гЂЃд»Јж›їиЈЅе“Ѓг‚‚гЃ—гЃЏгЃЇ
+ * г‚µгѓјгѓ“г‚№гЃ®е°Ће…ҐиІ»з­‰гЃЊиЂѓгЃ€г‚‰г‚Њг‚‹гЃЊгЂЃж±єгЃ—гЃ¦гЃќг‚ЊгЃ гЃ‘гЃ«й™ђе®љгЃ•г‚ЊгЃЄгЃ„
+ * жђЌе®і)гЃ«еЇѕгЃ—гЃ¦гЂЃгЃ„гЃ‹гЃЄг‚‹дє‹ж…‹гЃ®еЋџе› гЃЁгЃЄгЃЈгЃџгЃЁгЃ—гЃ¦г‚‚гЂЃеҐ‘зґ„дёЉгЃ®иІ¬
+ * д»»г‚„з„ЎйЃЋе¤±иІ¬д»»г‚’еђ«г‚Ђ гЃ„гЃ‹гЃЄг‚‹иІ¬д»»гЃЊгЃ‚г‚ЌгЃ†гЃЁг‚‚гЂЃгЃџгЃЁгЃ€гЃќг‚ЊгЃЊдёЌ
+ * ж­ЈиЎЊз‚єгЃ®гЃџг‚ЃгЃ§гЃ‚гЃЈгЃџгЃЁгЃ—гЃ¦г‚‚гЂЃгЃѕгЃџгЃЇгЃќгЃ®г‚€гЃ†гЃЄжђЌе®ігЃ®еЏЇиѓЅжЂ§гЃЊе ±
+ * е‘ЉгЃ•г‚ЊгЃ¦гЃ„гЃџгЃЁгЃ—гЃ¦г‚‚дёЂе€‡гЃ®иІ¬д»»г‚’иІ г‚ЏгЃЄгЃ„г‚‚гЃ®гЃЁгЃ™г‚‹гЂ‚
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -50,31 +50,31 @@ import jp.gr.java_conf.dangan.util.lha.BadHuffmanTableException;
 
 
 /**
- * -lh4-, -lh5-, -lh6-, -lh7- ‰р“Ђ—p‚М PreLzssDecoderЃB<br>
+ * -lh4-, -lh5-, -lh6-, -lh7- и§Је‡Ќз”ЁгЃ® PreLzssDecoderгЂ‚<br>
  * 
  * <pre>
  * -- revision history --
  * $Log: PreLh5Decoder.java,v $
  * Revision 1.3  2002/12/08 00:00:00  dangan
  * [bug fix]
- *     readCode ‚Еѓnѓtѓ}ѓ“•„Ќ†“З‚ЭЌћ‚Э“r’†‚Е
- *     EndOfStream ‚Й’B‚µ‚ЅЏкЌ‡‚Й EOFException ‚р“Љ‚°‚Д‚ў‚И‚©‚Б‚ЅЃB
+ *     readCode гЃ§гѓЏгѓ•гѓћгѓіз¬¦еЏ·иЄ­гЃїиѕјгЃїйЂ”дё­гЃ§
+ *     EndOfStream гЃ«йЃ”гЃ—гЃџе ґеђ€гЃ« EOFException г‚’жЉ•гЃ’гЃ¦гЃ„гЃЄгЃ‹гЃЈгЃџгЂ‚
  *
  * Revision 1.2  2002/12/08 00:00:00  dangan
  * [change]
- *     ѓNѓ‰ѓX–ј ‚р PreLh5DecoderFast ‚©‚з PreLh5Decoder ‚Й•ПЌXЃB
+ *     г‚Їгѓ©г‚№еђЌ г‚’ PreLh5DecoderFast гЃ‹г‚‰ PreLh5Decoder гЃ«е¤‰ж›ґгЂ‚
  *
  * Revision 1.1  2002/12/06 00:00:00  dangan
  * [maintenance]
- *     ѓ\Ѓ[ѓXђ®”х
+ *     г‚Ѕгѓјг‚№ж•ґе‚™
  *
  * Revision 1.0  2002/08/05 00:00:00  dangan
  * add to version control
  * [maintenance]
- *     ЌЕђV‚М BitInputStream ‚Ж PreLh5Decoder ‚©‚зѓ\Ѓ[ѓX‚рЋж‚иЌћ‚ЮЃB
- *     ѓ\Ѓ[ѓXђ®”х
- *     ѓ^ѓu”pЋ~
- *     ѓ‰ѓCѓZѓ“ѓX•¶‚МЏCђі
+ *     жњЂж–°гЃ® BitInputStream гЃЁ PreLh5Decoder гЃ‹г‚‰г‚Ѕгѓјг‚№г‚’еЏ–г‚Љиѕјг‚ЂгЂ‚
+ *     г‚Ѕгѓјг‚№ж•ґе‚™
+ *     г‚їгѓ–е»ѓж­ў
+ *     гѓ©г‚¤г‚»гѓіг‚№ж–‡гЃ®дї®ж­Ј
  *
  * </pre>
  * 
@@ -92,7 +92,7 @@ public class PreLh5Decoder implements PreLzssDecoder{
     //  private InputStream in
     //------------------------------------------------------------------
     /**
-     * ђЪ‘±‚і‚к‚Ѕ“ь—НѓXѓgѓЉЃ[ѓЂ
+     * жЋҐз¶љгЃ•г‚ЊгЃџе…ҐеЉ›г‚№гѓ€гѓЄгѓјгѓ 
      */
     private InputStream in;
 
@@ -109,17 +109,17 @@ public class PreLh5Decoder implements PreLzssDecoder{
     //  private int    cachePosition
     //------------------------------------------------------------------
     /**
-     * ‘¬“x’б‰є—}Ћ~—pѓoѓCѓg”z—с
+     * йЂџеє¦дЅЋдё‹жЉ‘ж­ўз”Ёгѓђг‚¤гѓ€й…Ќе€—
      */
     private byte[] cache;
 
     /**
-     * cache “а‚М—LЊшѓoѓCѓgђ”
+     * cache е†…гЃ®жњ‰еЉ№гѓђг‚¤гѓ€ж•°
      */
     private int    cacheLimit;
 
     /**
-     * cache “а‚МЊ»ЌЭЏ€—ќ€К’u
+     * cache е†…гЃ®зЏѕењЁе‡¦зђ†дЅЌзЅ®
      */
     private int    cachePosition;
 
@@ -135,12 +135,12 @@ public class PreLh5Decoder implements PreLzssDecoder{
     //  private int    bitCount
     //------------------------------------------------------------------
     /**
-     * ѓrѓbѓgѓoѓbѓtѓ@
+     * гѓ“гѓѓгѓ€гѓђгѓѓгѓ•г‚Ў
      */
     private int    bitBuffer;
 
     /**
-     * bitBuffer ‚М —LЊшѓrѓbѓgђ”
+     * bitBuffer гЃ® жњ‰еЉ№гѓ“гѓѓгѓ€ж•°
      */
     private int    bitCount;
 
@@ -160,55 +160,55 @@ public class PreLh5Decoder implements PreLzssDecoder{
     //  private short[][] offLenTree
     //------------------------------------------------------------------
     /**
-     * Њ»ЌЭЏ€—ќ’†‚МѓuѓЌѓbѓN‚МЋc‚иѓTѓCѓY‚рЋ¦‚·ЃB
+     * зЏѕењЁе‡¦зђ†дё­гЃ®гѓ–гѓ­гѓѓг‚ЇгЃ®ж®‹г‚Љг‚µг‚¤г‚єг‚’з¤єгЃ™гЂ‚
      */
     private int blockSize;
 
     /**
-     * code •”‚Мѓnѓtѓ}ѓ“•„Ќ†’·‚М•\
+     * code йѓЁгЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®иЎЁ
      */
     private int[] codeLen;
 
     /**
-     * code •”•њЌ†—p‚МѓeЃ[ѓuѓ‹
-     * ђі‚МЏкЌ‡‚Н codeTree ‚Мindex‚рЋ¦‚·ЃB
-     * •‰‚МЏкЌ‡‚Н code ‚р‘Sѓrѓbѓg”Ѕ“]‚µ‚Ѕ‚а‚МЃB 
+     * code йѓЁеѕ©еЏ·з”ЁгЃ®гѓ†гѓјгѓ–гѓ«
+     * ж­ЈгЃ®е ґеђ€гЃЇ codeTree гЃ®indexг‚’з¤єгЃ™гЂ‚
+     * иІ гЃ®е ґеђ€гЃЇ code г‚’е…Ёгѓ“гѓѓгѓ€еЏЌи»ўгЃ—гЃџг‚‚гЃ®гЂ‚ 
      */
     private short[] codeTable;
 
     /**
-     * codeTable ‚р€ш‚­‚Ѕ‚Я‚Й•K—v‚Иbitђ”ЃB
+     * codeTable г‚’еј•гЃЏгЃџг‚ЃгЃ«еї…и¦ЃгЃЄbitж•°гЂ‚
      */
     private int codeTableBits;
 
     /**
-     * codeTable ‚ЙЋы‚Ь‚и‚«‚з‚И‚ўѓfЃ[ѓ^‚М•њЌ†—p‚М–Ш
-     * ђі‚МЏкЌ‡‚Н codeTree ‚Мindex‚рЋ¦‚·ЃB
-     * •‰‚МЏкЌ‡‚Н code ‚р‘Sѓrѓbѓg”Ѕ“]‚µ‚Ѕ‚а‚МЃB 
+     * codeTable гЃ«еЏЋгЃѕг‚ЉгЃЌг‚‰гЃЄгЃ„гѓ‡гѓјг‚їгЃ®еѕ©еЏ·з”ЁгЃ®жњЁ
+     * ж­ЈгЃ®е ґеђ€гЃЇ codeTree гЃ®indexг‚’з¤єгЃ™гЂ‚
+     * иІ гЃ®е ґеђ€гЃЇ code г‚’е…Ёгѓ“гѓѓгѓ€еЏЌи»ўгЃ—гЃџг‚‚гЃ®гЂ‚ 
      */
     private short[][] codeTree;
 
     /**
-     * offLen •”‚Мѓnѓtѓ}ѓ“•„Ќ†’·‚М•\
+     * offLen йѓЁгЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®иЎЁ
      */
     private int[] offLenLen;
 
     /**
-     * offLen •”•њЌ†—p‚МѓeЃ[ѓuѓ‹
-     * ђі‚МЏкЌ‡‚Н offLenTree ‚Мindex‚рЋ¦‚·ЃB
-     * •‰‚МЏкЌ‡‚Н offLen ‚р‘Sѓrѓbѓg”Ѕ“]‚µ‚Ѕ‚а‚МЃB 
+     * offLen йѓЁеѕ©еЏ·з”ЁгЃ®гѓ†гѓјгѓ–гѓ«
+     * ж­ЈгЃ®е ґеђ€гЃЇ offLenTree гЃ®indexг‚’з¤єгЃ™гЂ‚
+     * иІ гЃ®е ґеђ€гЃЇ offLen г‚’е…Ёгѓ“гѓѓгѓ€еЏЌи»ўгЃ—гЃџг‚‚гЃ®гЂ‚ 
      */
     private short[] offLenTable;
 
     /**
-     * offLenTable ‚р€ш‚­‚Ѕ‚Я‚Й•K—v‚Иbitђ”ЃB
+     * offLenTable г‚’еј•гЃЏгЃџг‚ЃгЃ«еї…и¦ЃгЃЄbitж•°гЂ‚
      */
     private int offLenTableBits;
 
     /**
-     * offLenTable ‚ЙЋы‚Ь‚и‚«‚з‚И‚ўѓfЃ[ѓ^‚М•њЌ†—p‚М–Ш
-     * ђі‚МЏкЌ‡‚Н offLenTree ‚Мindex‚рЋ¦‚·ЃB
-     * •‰‚МЏкЌ‡‚Н offLen ‚р‘Sѓrѓbѓg”Ѕ“]‚µ‚Ѕ‚а‚МЃB 
+     * offLenTable гЃ«еЏЋгЃѕг‚ЉгЃЌг‚‰гЃЄгЃ„гѓ‡гѓјг‚їгЃ®еѕ©еЏ·з”ЁгЃ®жњЁ
+     * ж­ЈгЃ®е ґеђ€гЃЇ offLenTree гЃ®indexг‚’з¤єгЃ™гЂ‚
+     * иІ гЃ®е ґеђ€гЃЇ offLen г‚’е…Ёгѓ“гѓѓгѓ€еЏЌи»ўгЃ—гЃџг‚‚гЃ®гЂ‚ 
      */
     private short[][] offLenTree;
 
@@ -223,17 +223,17 @@ public class PreLh5Decoder implements PreLzssDecoder{
     //  private int Threshold
     //------------------------------------------------------------------
     /**
-     * LZSS Ћ«Џ‘ѓTѓCѓY
+     * LZSS иѕћж›ёг‚µг‚¤г‚є
      */
     private int DictionarySize;
 
     /**
-     * LZSS ЌЕ’·€к’v’·
+     * LZSS жњЂй•·дёЂи‡ґй•·
      */
     private int MaxMatch;
 
     /**
-     * LZSS €іЏk/”с€іЏk‚Ми‡’l
+     * LZSS ењ§зё®/йќћењ§зё®гЃ®й–ѕеЂ¤
      */
     private int Threshold;
 
@@ -258,78 +258,63 @@ public class PreLh5Decoder implements PreLzssDecoder{
     //  private short[][] markOffLenTree
     //------------------------------------------------------------------
     /** 
-     * mark€К’u‚ЄѓLѓѓѓbѓVѓ…‚М”Н€Н“а‚Й‚ ‚й‚©‚рЋ¦‚·ЃB
-     * mark‚і‚к‚Ѕ‚Ж‚« true ‚ЙђЭ’и‚і‚кЃA
-     * Ћџ‚Й in ‚©‚з ѓLѓѓѓbѓVѓ…‚Ц‚М“З‚ЭЌћ‚Э‚Є
-     * Ќs‚н‚к‚Ѕ‚Ж‚«‚Й false ‚ЙђЭ’и‚і‚к‚йЃB
+     * markдЅЌзЅ®гЃЊг‚­гѓЈгѓѓг‚·гѓҐгЃ®зЇ„е›Іе†…гЃ«гЃ‚г‚‹гЃ‹г‚’з¤єгЃ™гЂ‚
+     * markгЃ•г‚ЊгЃџгЃЁгЃЌ true гЃ«иЁ­е®љгЃ•г‚ЊгЂЃ
+     * ж¬ЎгЃ« in гЃ‹г‚‰ г‚­гѓЈгѓѓг‚·гѓҐгЃёгЃ®иЄ­гЃїиѕјгЃїгЃЊ
+     * иЎЊг‚Џг‚ЊгЃџгЃЁгЃЌгЃ« false гЃ«иЁ­е®љгЃ•г‚Њг‚‹гЂ‚
      */
     private boolean markPositionIsInCache;
 
-    /** cache ‚М ѓoѓbѓNѓAѓbѓv—p */
+    /** cache гЃ® гѓђгѓѓг‚Їг‚ўгѓѓгѓ—з”Ё */
     private byte[]    markCache;
-    /** cacheAvailable ‚МѓoѓbѓNѓAѓbѓv—p */
+    /** cacheAvailable гЃ®гѓђгѓѓг‚Їг‚ўгѓѓгѓ—з”Ё */
     private int       markCacheLimit;
-    /** cachePosition ‚МѓoѓbѓNѓAѓbѓv—p */
+    /** cachePosition гЃ®гѓђгѓѓг‚Їг‚ўгѓѓгѓ—з”Ё */
     private int       markCachePosition;
-    /** bitBuffer ‚МѓoѓbѓNѓAѓbѓv—p */
+    /** bitBuffer гЃ®гѓђгѓѓг‚Їг‚ўгѓѓгѓ—з”Ё */
     private int       markBitBuffer;
-    /** bitCount ‚МѓoѓbѓNѓAѓbѓv—p */
+    /** bitCount гЃ®гѓђгѓѓг‚Їг‚ўгѓѓгѓ—з”Ё */
     private int       markBitCount;
-    /** blockSize‚МѓoѓbѓNѓAѓbѓv—p */
+    /** blockSizeгЃ®гѓђгѓѓг‚Їг‚ўгѓѓгѓ—з”Ё */
     private int       markBlockSize;
-    /** codeLen ‚МѓoѓbѓNѓAѓbѓv—p */
+    /** codeLen гЃ®гѓђгѓѓг‚Їг‚ўгѓѓгѓ—з”Ё */
     private int[]     markCodeLen;
-    /** codeTable ‚МѓoѓbѓNѓAѓbѓv—p */
+    /** codeTable гЃ®гѓђгѓѓг‚Їг‚ўгѓѓгѓ—з”Ё */
     private short[]   markCodeTable;
-    /** codeTree ‚МѓoѓbѓNѓAѓbѓv—p */
+    /** codeTree гЃ®гѓђгѓѓг‚Їг‚ўгѓѓгѓ—з”Ё */
     private short[][] markCodeTree;
-    /** offLenLen ‚МѓoѓbѓNѓAѓbѓv—p */
+    /** offLenLen гЃ®гѓђгѓѓг‚Їг‚ўгѓѓгѓ—з”Ё */
     private int[]     markOffLenLen;
-    /** offLenTable ‚МѓoѓbѓNѓAѓbѓv—p */
+    /** offLenTable гЃ®гѓђгѓѓг‚Їг‚ўгѓѓгѓ—з”Ё */
     private short[]   markOffLenTable;
-    /** offLenTree ‚МѓoѓbѓNѓAѓbѓv—p */
+    /** offLenTree гЃ®гѓђгѓѓг‚Їг‚ўгѓѓгѓ—з”Ё */
     private short[][] markOffLenTree;
 
 
-    //------------------------------------------------------------------
-    //  constructor
-    //------------------------------------------------------------------
-    //  private PreLh5Decoder()
-    //  public PreLh5Decoder( InputStream in )
-    //  public PreLh5Decoder( InputStream in, String CompressMethod )
-    //  public PreLh5Decoder( InputStream in, String CompressMethod, 
-    //                            int CodeTableBits, int OffLenTableBits )
-    //------------------------------------------------------------------
     /**
-     * ѓfѓtѓHѓ‹ѓgѓRѓ“ѓXѓgѓ‰ѓNѓ^ЃB
-     * Ћg—p•s‰ВЃB
-     */
-    private PreLh5Decoder(){    }
-
-    /**
-     * -lh5- ‰р“Ђ—p PreLzssDecoder ‚рЌ\’z‚·‚йЃB<br>
-     * ѓeЃ[ѓuѓ‹ѓTѓCѓY‚НѓfѓtѓHѓ‹ѓg’l‚рЋg—p‚·‚йЃB
+     * -lh5- и§Је‡Ќз”Ё PreLzssDecoder г‚’ж§‹зЇ‰гЃ™г‚‹гЂ‚<br>
+     * гѓ†гѓјгѓ–гѓ«г‚µг‚¤г‚єгЃЇгѓ‡гѓ•г‚©гѓ«гѓ€еЂ¤г‚’дЅїз”ЁгЃ™г‚‹гЂ‚
      * 
-     * @param in -lh5-Њ`Ћ®‚М€іЏkѓfЃ[ѓ^‚р‹џ‹‹‚·‚й“ь—НѓXѓgѓЉЃ[ѓЂ
+     * @param in -lh5-еЅўејЏгЃ®ењ§зё®гѓ‡гѓјг‚їг‚’дѕ›зµ¦гЃ™г‚‹е…ҐеЉ›г‚№гѓ€гѓЄгѓјгѓ 
      */
     public PreLh5Decoder( InputStream in ){
         this( in, CompressMethod.LH5, 12, 8 );
     }
 
     /**
-     * -lh4-,-lh5-,-lh6-,-lh7- ‰р“Ђ—p PreLzssDecoder ‚рЌ\’z‚·‚йЃB<br>
-     * ѓeЃ[ѓuѓ‹ѓTѓCѓY‚Й‚Н ѓfѓtѓHѓ‹ѓg’l‚рЋg—p‚·‚йЃB
+     * -lh4-,-lh5-,-lh6-,-lh7- и§Је‡Ќз”Ё PreLzssDecoder г‚’ж§‹зЇ‰гЃ™г‚‹гЂ‚<br>
+     * гѓ†гѓјгѓ–гѓ«г‚µг‚¤г‚єгЃ«гЃЇ гѓ‡гѓ•г‚©гѓ«гѓ€еЂ¤г‚’дЅїз”ЁгЃ™г‚‹гЂ‚
      * 
-     * @param in      €іЏkѓfЃ[ѓ^‚р‹џ‹‹‚·‚й“ь—НѓXѓgѓЉЃ[ѓЂ
-     * @param method  €іЏk–@ЋЇ•КЋq<br>
+     * @param in      ењ§зё®гѓ‡гѓјг‚їг‚’дѕ›зµ¦гЃ™г‚‹е…ҐеЉ›г‚№гѓ€гѓЄгѓјгѓ 
+     * @param method  ењ§зё®жі•и­е€Ґе­ђ<br>
      *  &emsp;&emsp; CompressMethod.LH4 <br>
      *  &emsp;&emsp; CompressMethod.LH5 <br>
      *  &emsp;&emsp; CompressMethod.LH6 <br>
      *  &emsp;&emsp; CompressMethod.LH7 <br>
-     *  &emsp;&emsp; ‚М‰Ѕ‚к‚©‚рЋw’и‚·‚йЃB
+     *  &emsp;&emsp; гЃ®дЅ•г‚ЊгЃ‹г‚’жЊ‡е®љгЃ™г‚‹гЂ‚
      * 
      * @exception IllegalArgumentException 
-     *               method ‚ЄЏг‹L€ИЉO‚МЏкЌ‡
+     *               method гЃЊдёЉиЁд»Ґе¤–гЃ®е ґеђ€
      */
     public PreLh5Decoder( InputStream in,
                               String      method ){
@@ -338,27 +323,27 @@ public class PreLh5Decoder implements PreLzssDecoder{
     }
 
     /**
-     * -lh4-,-lh5-,-lh6-,-lh7- ‰р“Ђ—p PreLzssDecoder ‚рЌ\’z‚·‚йЃB
+     * -lh4-,-lh5-,-lh6-,-lh7- и§Је‡Ќз”Ё PreLzssDecoder г‚’ж§‹зЇ‰гЃ™г‚‹гЂ‚
      * 
-     * @param in              €іЏkѓfЃ[ѓ^‚р‹џ‹‹‚·‚й“ь—НѓXѓgѓЉЃ[ѓЂ
-     * @param method          €іЏk–@ЋЇ•КЋq<br>
+     * @param in              ењ§зё®гѓ‡гѓјг‚їг‚’дѕ›зµ¦гЃ™г‚‹е…ҐеЉ›г‚№гѓ€гѓЄгѓјгѓ 
+     * @param method          ењ§зё®жі•и­е€Ґе­ђ<br>
      *           &emsp;&emsp; CompressMethod.LH4 <br>
      *           &emsp;&emsp; CompressMethod.LH5 <br>
      *           &emsp;&emsp; CompressMethod.LH6 <br>
      *           &emsp;&emsp; CompressMethod.LH7 <br>
-     *           &emsp;&emsp; ‚М‰Ѕ‚к‚©‚рЋw’и‚·‚йЃB
-     * @param CodeTableBits   code •”‚р•њЌ†‚·‚й‚Ѕ‚Я‚ЙЋg—p‚·‚й
-     *                        ѓeЃ[ѓuѓ‹‚МѓTѓCѓY‚рѓrѓbѓg’·‚ЕЋw’и‚·‚йЃB 
-     *                        12 ‚рЋw’и‚·‚к‚О 4096 ‚Мѓ‹ѓbѓNѓAѓbѓvѓeЃ[ѓuѓ‹‚рђ¶ђ¬‚·‚йЃB 
-     * @param OffLenTableBits offLen •”‚р•њЌ†‚·‚й‚Ѕ‚Я‚ЙЋg—p‚·‚й
-     *                        ѓeЃ[ѓuѓ‹‚МѓTѓCѓY‚рѓrѓbѓg’·‚ЕЋw’и‚·‚йЃB
-     *                        8 ‚рЋw’и‚·‚к‚О 256 ‚Мѓ‹ѓbѓNѓAѓbѓvѓeЃ[ѓuѓ‹‚рђ¶ђ¬‚·‚йЃB 
+     *           &emsp;&emsp; гЃ®дЅ•г‚ЊгЃ‹г‚’жЊ‡е®љгЃ™г‚‹гЂ‚
+     * @param CodeTableBits   code йѓЁг‚’еѕ©еЏ·гЃ™г‚‹гЃџг‚ЃгЃ«дЅїз”ЁгЃ™г‚‹
+     *                        гѓ†гѓјгѓ–гѓ«гЃ®г‚µг‚¤г‚єг‚’гѓ“гѓѓгѓ€й•·гЃ§жЊ‡е®љгЃ™г‚‹гЂ‚ 
+     *                        12 г‚’жЊ‡е®љгЃ™г‚ЊгЃ° 4096 гЃ®гѓ«гѓѓг‚Їг‚ўгѓѓгѓ—гѓ†гѓјгѓ–гѓ«г‚’з”џж€ђгЃ™г‚‹гЂ‚ 
+     * @param OffLenTableBits offLen йѓЁг‚’еѕ©еЏ·гЃ™г‚‹гЃџг‚ЃгЃ«дЅїз”ЁгЃ™г‚‹
+     *                        гѓ†гѓјгѓ–гѓ«гЃ®г‚µг‚¤г‚єг‚’гѓ“гѓѓгѓ€й•·гЃ§жЊ‡е®љгЃ™г‚‹гЂ‚
+     *                        8 г‚’жЊ‡е®љгЃ™г‚ЊгЃ° 256 гЃ®гѓ«гѓѓг‚Їг‚ўгѓѓгѓ—гѓ†гѓјгѓ–гѓ«г‚’з”џж€ђгЃ™г‚‹гЂ‚ 
      * 
      * @exception IllegalArgumentException <br>
-     *           &emsp;&emsp; (1) method ‚ЄЏг‹L€ИЉO‚МЏкЌ‡<br>
-     *           &emsp;&emsp; (2) CodeTableBits ‚а‚µ‚­‚Н 
-     *                            OffLenTableBits ‚Є 0€И‰є‚МЏкЌ‡<br>
-     *           &emsp;&emsp; ‚М‰Ѕ‚к‚©
+     *           &emsp;&emsp; (1) method гЃЊдёЉиЁд»Ґе¤–гЃ®е ґеђ€<br>
+     *           &emsp;&emsp; (2) CodeTableBits г‚‚гЃ—гЃЏгЃЇ 
+     *                            OffLenTableBits гЃЊ 0д»Ґдё‹гЃ®е ґеђ€<br>
+     *           &emsp;&emsp; гЃ®дЅ•г‚ЊгЃ‹
      */
     public PreLh5Decoder( InputStream in,
                               String      method,
@@ -417,18 +402,18 @@ public class PreLh5Decoder implements PreLzssDecoder{
     //  public int readOffset()
     //------------------------------------------------------------------
     /**
-     * -lh5- Њn‚М€іЏk–@‚Е€іЏk‚і‚к‚Ѕ 
-     * 1byte ‚МLZSS–ў€іЏk‚МѓfЃ[ѓ^ЃA
-     * ‚а‚µ‚­‚Н€іЏkѓRЃ[ѓh‚М‚¤‚ї€к’v’·‚р“З‚ЭЌћ‚ЮЃB<br>
+     * -lh5- зі»гЃ®ењ§зё®жі•гЃ§ењ§зё®гЃ•г‚ЊгЃџ 
+     * 1byte гЃ®LZSSжњЄењ§зё®гЃ®гѓ‡гѓјг‚їгЂЃ
+     * г‚‚гЃ—гЃЏгЃЇењ§зё®г‚ігѓјгѓ‰гЃ®гЃ†гЃЎдёЂи‡ґй•·г‚’иЄ­гЃїиѕјг‚ЂгЂ‚<br>
      * 
-     * @return 1byte ‚М –ў€іЏk‚МѓfЃ[ѓ^ЃA
-     *         ‚а‚µ‚­‚Н€іЏk‚і‚к‚Ѕ€іЏkѓRЃ[ѓh‚М‚¤‚ї€к’v’·
+     * @return 1byte гЃ® жњЄењ§зё®гЃ®гѓ‡гѓјг‚їгЂЃ
+     *         г‚‚гЃ—гЃЏгЃЇењ§зё®гЃ•г‚ЊгЃџењ§зё®г‚ігѓјгѓ‰гЃ®гЃ†гЃЎдёЂи‡ґй•·
      * 
-     * @exception IOException  “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
-     * @exception EOFException EndOfStream‚Й’B‚µ‚ЅЏкЌ‡
+     * @exception IOException  е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
+     * @exception EOFException EndOfStreamгЃ«йЃ”гЃ—гЃџе ґеђ€
      * @exception BadHuffmanTableException
-     *                         ѓnѓtѓ}ѓ“–Ш‚рЌ\ђ¬‚·‚й‚Ѕ‚Я‚М
-     *                         ѓnѓtѓ}ѓ“•„Ќ†’·‚М•\‚Є•sђі‚Е‚ ‚йЏкЌ‡
+     *                         гѓЏгѓ•гѓћгѓіжњЁг‚’ж§‹ж€ђгЃ™г‚‹гЃџг‚ЃгЃ®
+     *                         гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®иЎЁгЃЊдёЌж­ЈгЃ§гЃ‚г‚‹е ґеђ€
      */
     public int readCode() throws IOException {
         if( this.blockSize <= 0 ){
@@ -482,12 +467,12 @@ public class PreLh5Decoder implements PreLzssDecoder{
     }
 
     /**
-     * -lh5- Њn‚М€іЏk–@‚Е€іЏk‚і‚к‚Ѕ
-     * LZSS€іЏkѓRЃ[ѓh‚М‚¤‚ї€к’v€К’u‚р“З‚ЭЌћ‚ЮЃB<br>
+     * -lh5- зі»гЃ®ењ§зё®жі•гЃ§ењ§зё®гЃ•г‚ЊгЃџ
+     * LZSSењ§зё®г‚ігѓјгѓ‰гЃ®гЃ†гЃЎдёЂи‡ґдЅЌзЅ®г‚’иЄ­гЃїиѕјг‚ЂгЂ‚<br>
      * 
-     * @return -lh5- Њn‚Е€іЏk‚і‚к‚Ѕ€іЏkѓRЃ[ѓh‚М‚¤‚ї€к’v€К’u
+     * @return -lh5- зі»гЃ§ењ§зё®гЃ•г‚ЊгЃџењ§зё®г‚ігѓјгѓ‰гЃ®гЃ†гЃЎдёЂи‡ґдЅЌзЅ®
      * 
-     * @exception IOException “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
+     * @exception IOException е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
      */
     public int readOffset() throws IOException {
         if( this.bitCount < 16 ){
@@ -532,24 +517,24 @@ public class PreLh5Decoder implements PreLzssDecoder{
     //  public boolean markSupported()
     //------------------------------------------------------------------
     /**
-     * ђЪ‘±‚і‚к‚Ѕ“ь—НѓXѓgѓЉЃ[ѓЂ‚МЊ»ЌЭ€К’u‚Йѓ}Ѓ[ѓN‚рђЭ’и‚µЃA
-     * reset() ѓЃѓ\ѓbѓh‚Еѓ}Ѓ[ѓN‚µ‚ЅЋћ“_‚М “З‚ЭЌћ‚Э€К’u‚Й
-     * –Я‚к‚й‚ж‚¤‚Й‚·‚йЃB<br>
-     * InputStream ‚М mark() ‚Ж€б‚ўЃAreadLimit ‚ЕђЭ’и‚µ‚Ѕ
-     * ЊАЉEѓoѓCѓgђ”‚ж‚и‘O‚Йѓ}Ѓ[ѓN€К’u‚Є–іЊш‚Й‚И‚й‰В”\ђ«‚Є
-     * ‚ ‚йЋ–‚Й’Ќ€У‚·‚й‚±‚ЖЃB<br>
+     * жЋҐз¶љгЃ•г‚ЊгЃџе…ҐеЉ›г‚№гѓ€гѓЄгѓјгѓ гЃ®зЏѕењЁдЅЌзЅ®гЃ«гѓћгѓјг‚Їг‚’иЁ­е®љгЃ—гЂЃ
+     * reset() гѓЎг‚Ѕгѓѓгѓ‰гЃ§гѓћгѓјг‚ЇгЃ—гЃџж™‚з‚№гЃ® иЄ­гЃїиѕјгЃїдЅЌзЅ®гЃ«
+     * ж€»г‚Њг‚‹г‚€гЃ†гЃ«гЃ™г‚‹гЂ‚<br>
+     * InputStream гЃ® mark() гЃЁйЃ•гЃ„гЂЃreadLimit гЃ§иЁ­е®љгЃ—гЃџ
+     * й™ђз•Њгѓђг‚¤гѓ€ж•°г‚€г‚Ље‰ЌгЃ«гѓћгѓјг‚ЇдЅЌзЅ®гЃЊз„ЎеЉ№гЃ«гЃЄг‚‹еЏЇиѓЅжЂ§гЃЊ
+     * гЃ‚г‚‹дє‹гЃ«жіЁж„ЏгЃ™г‚‹гЃ“гЃЁгЂ‚<br>
      * 
-     * @param readLimit ѓ}Ѓ[ѓN€К’u‚Й–Я‚к‚йЊАЉE‚МѓoѓCѓgђ”ЃB
-     *                  ‚±‚МѓoѓCѓgђ”‚р’ґ‚¦‚ДѓfЃ[ѓ^‚р“З‚Э
-     *                  Ќћ‚с‚ѕЏкЌ‡ reset()‚Е‚«‚И‚­‚И‚й‰В
-     *                  ”\ђ«‚Є‚ ‚йЃB<br>
+     * @param readLimit гѓћгѓјг‚ЇдЅЌзЅ®гЃ«ж€»г‚Њг‚‹й™ђз•ЊгЃ®гѓђг‚¤гѓ€ж•°гЂ‚
+     *                  гЃ“гЃ®гѓђг‚¤гѓ€ж•°г‚’и¶…гЃ€гЃ¦гѓ‡гѓјг‚їг‚’иЄ­гЃї
+     *                  иѕјг‚“гЃ е ґеђ€ reset()гЃ§гЃЌгЃЄгЃЏгЃЄг‚‹еЏЇ
+     *                  иѓЅжЂ§гЃЊгЃ‚г‚‹гЂ‚<br>
      * 
      * @see PreLzssDecoder#mark(int)
      */
     public void mark( int readLimit ){
 
         //------------------------------------------------------------------
-        //  ѓnѓtѓ}ѓ“•„Ќ†‰»‚ЕЌЕ€«‚МЏкЌ‡‚рЌl—¶‚µ‚Д readLimit ‚рЊvЋZ‚·‚й
+        //  гѓЏгѓ•гѓћгѓіз¬¦еЏ·еЊ–гЃ§жњЂж‚ЄгЃ®е ґеђ€г‚’иЂѓж…®гЃ—гЃ¦ readLimit г‚’иЁ€з®—гЃ™г‚‹
         if( this.blockSize < readLimit ){
             readLimit = readLimit * StaticHuffman.LimitLen / 8;
             readLimit += 272; //block head
@@ -558,7 +543,7 @@ public class PreLh5Decoder implements PreLzssDecoder{
         }
 
         //------------------------------------------------------------------
-        //  BitInputStream —pѓLѓѓѓbѓVѓ…‚М readLimit ‚рЊvЋZ‚·‚йЃB
+        //  BitInputStream з”Ёг‚­гѓЈгѓѓг‚·гѓҐгЃ® readLimit г‚’иЁ€з®—гЃ™г‚‹гЂ‚
         readLimit -= this.cacheLimit - this.cachePosition;
         readLimit -= this.bitCount / 8;
         readLimit += 4;
@@ -566,11 +551,11 @@ public class PreLh5Decoder implements PreLzssDecoder{
                                                            * this.cache.length;
 
         //------------------------------------------------------------------
-        //  mark Џ€—ќ
+        //  mark е‡¦зђ†
         this.in.mark( readLimit );
 
         if( this.markCache == null ){
-            this.markCache = (byte[])this.cache.clone();
+            this.markCache = this.cache.clone();
         }else{
             System.arraycopy( this.cache, 0, 
                               this.markCache, 0, 
@@ -592,16 +577,16 @@ public class PreLh5Decoder implements PreLzssDecoder{
     }
 
     /**
-     * ђЪ‘±‚і‚к‚Ѕ“ь—НѓXѓgѓЉЃ[ѓЂ‚М“З‚ЭЌћ‚Э€К’u‚рЌЕЊг‚Й
-     * mark() ѓЃѓ\ѓbѓh‚ЄЊД‚СЏo‚і‚к‚Ѕ‚Ж‚«‚М€К’u‚ЙђЭ’и‚·‚йЃB<br>
+     * жЋҐз¶љгЃ•г‚ЊгЃџе…ҐеЉ›г‚№гѓ€гѓЄгѓјгѓ гЃ®иЄ­гЃїиѕјгЃїдЅЌзЅ®г‚’жњЂеѕЊгЃ«
+     * mark() гѓЎг‚Ѕгѓѓгѓ‰гЃЊе‘јгЃіе‡єгЃ•г‚ЊгЃџгЃЁгЃЌгЃ®дЅЌзЅ®гЃ«иЁ­е®љгЃ™г‚‹гЂ‚<br>
      * 
      * @exception IOException <br>
-     * &emsp;&emsp; (1) mark() ‚№‚ё‚Й reset() ‚µ‚ж‚¤‚Ж‚µ‚ЅЏкЌ‡ЃB<br>
-     * &emsp;&emsp; (2) ђЪ‘±‚і‚к‚Ѕ“ь—НѓXѓgѓЉЃ[ѓЂ‚Є markSupported()‚Е
-     *                  false ‚р•Ф‚·ЏкЌ‡ЃB<br>
-     * &emsp;&emsp; (3) ђЪ‘±‚і‚к‚Ѕ“ь—НѓXѓgѓЉЃ[ѓЂ‚Е
-     *                  “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡ЃB<br>
-     * &emsp;&emsp; ‚М‰Ѕ‚к‚©ЃB
+     * &emsp;&emsp; (1) mark() гЃ›гЃљгЃ« reset() гЃ—г‚€гЃ†гЃЁгЃ—гЃџе ґеђ€гЂ‚<br>
+     * &emsp;&emsp; (2) жЋҐз¶љгЃ•г‚ЊгЃџе…ҐеЉ›г‚№гѓ€гѓЄгѓјгѓ гЃЊ markSupported()гЃ§
+     *                  false г‚’иї”гЃ™е ґеђ€гЂ‚<br>
+     * &emsp;&emsp; (3) жЋҐз¶љгЃ•г‚ЊгЃџе…ҐеЉ›г‚№гѓ€гѓЄгѓјгѓ гЃ§
+     *                  е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€гЂ‚<br>
+     * &emsp;&emsp; гЃ®дЅ•г‚ЊгЃ‹гЂ‚
      */
     public void reset() throws IOException {
         if( this.markPositionIsInCache ){
@@ -618,12 +603,12 @@ public class PreLh5Decoder implements PreLzssDecoder{
             this.offLenTree    = this.markOffLenTree;
         }else if( !this.in.markSupported() ){
             throw new IOException( "not support mark()/reset()." );
-        }else if( this.markCache == null ){ //‚±‚МЏрЊЏЋ®‚Н–ў‚ѕ‚Йѓ}Ѓ[ѓN‚і‚к‚Д‚ў‚И‚ў‚±‚Ж‚рЋ¦‚·ЃBѓRѓ“ѓXѓgѓ‰ѓNѓ^‚Е markCache ‚Є null ‚ЙђЭ’и‚і‚к‚й‚М‚р——p‚·‚йЃB 
+        }else if( this.markCache == null ){ //гЃ“гЃ®жќЎд»¶ејЏгЃЇжњЄгЃ гЃ«гѓћгѓјг‚ЇгЃ•г‚ЊгЃ¦гЃ„гЃЄгЃ„гЃ“гЃЁг‚’з¤єгЃ™гЂ‚г‚ігѓіг‚№гѓ€гѓ©г‚Їг‚їгЃ§ markCache гЃЊ null гЃ«иЁ­е®љгЃ•г‚Њг‚‹гЃ®г‚’е€©з”ЁгЃ™г‚‹гЂ‚ 
             throw new IOException( "not marked." );
         }else{
-            //in ‚Є reset() ‚Е‚«‚И‚ўЏкЌ‡‚Н
-            //ЌЕЏ‰‚МЌs‚М this.in.reset() ‚Е
-            //IOException ‚р“Љ‚°‚й‚±‚Ж‚рЉъ‘Т‚µ‚Д‚ў‚йЃB
+            //in гЃЊ reset() гЃ§гЃЌгЃЄгЃ„е ґеђ€гЃЇ
+            //жњЂе€ќгЃ®иЎЊгЃ® this.in.reset() гЃ§
+            //IOException г‚’жЉ•гЃ’г‚‹гЃ“гЃЁг‚’жњџеѕ…гЃ—гЃ¦гЃ„г‚‹гЂ‚
             this.in.reset();                                                    //throws IOException
             System.arraycopy( this.markCache, 0, 
                               this.cache, 0, 
@@ -644,12 +629,12 @@ public class PreLh5Decoder implements PreLzssDecoder{
     }
 
     /**
-     * ђЪ‘±‚і‚к‚Ѕ“ь—НѓXѓgѓЉЃ[ѓЂ‚Є mark() ‚Ж reset() ‚р
-     * ѓTѓ|Ѓ[ѓg‚·‚й‚©‚р“ѕ‚йЃB<br>
+     * жЋҐз¶љгЃ•г‚ЊгЃџе…ҐеЉ›г‚№гѓ€гѓЄгѓјгѓ гЃЊ mark() гЃЁ reset() г‚’
+     * г‚µгѓќгѓјгѓ€гЃ™г‚‹гЃ‹г‚’еѕ—г‚‹гЂ‚<br>
      * 
-     * @return ѓXѓgѓЉЃ[ѓЂ‚Є mark() ‚Ж reset() ‚р
-     *         ѓTѓ|Ѓ[ѓg‚·‚йЏкЌ‡‚Н trueЃB<br>
-     *         ѓTѓ|Ѓ[ѓg‚µ‚И‚ўЏкЌ‡‚Н falseЃB<br>
+     * @return г‚№гѓ€гѓЄгѓјгѓ гЃЊ mark() гЃЁ reset() г‚’
+     *         г‚µгѓќгѓјгѓ€гЃ™г‚‹е ґеђ€гЃЇ trueгЂ‚<br>
+     *         г‚µгѓќгѓјгѓ€гЃ—гЃЄгЃ„е ґеђ€гЃЇ falseгЂ‚<br>
      */
     public boolean markSupported(){
         return this.in.markSupported();
@@ -665,13 +650,13 @@ public class PreLh5Decoder implements PreLzssDecoder{
     //  public void close()
     //------------------------------------------------------------------
     /**
-     * ѓuѓЌѓbѓN‚№‚ё‚Й“З‚ЭЏo‚·‚±‚Ж‚МЏo—€‚йЌЕ’бѓoѓCѓgђ”‚р“ѕ‚йЃB<br>
-     * InputStream ‚М available() ‚Ж€б‚ўЃA
-     * ‚±‚МЌЕ’бѓoѓCѓgђ”‚Н•K‚ё‚µ‚а•ЫЏб‚і‚к‚Д‚ў‚И‚ўЋ–‚Й’Ќ€У‚·‚й‚±‚ЖЃB<br>
+     * гѓ–гѓ­гѓѓг‚ЇгЃ›гЃљгЃ«иЄ­гЃїе‡єгЃ™гЃ“гЃЁгЃ®е‡єжќҐг‚‹жњЂдЅЋгѓђг‚¤гѓ€ж•°г‚’еѕ—г‚‹гЂ‚<br>
+     * InputStream гЃ® available() гЃЁйЃ•гЃ„гЂЃ
+     * гЃ“гЃ®жњЂдЅЋгѓђг‚¤гѓ€ж•°гЃЇеї…гЃљгЃ—г‚‚дїќйљњгЃ•г‚ЊгЃ¦гЃ„гЃЄгЃ„дє‹гЃ«жіЁж„ЏгЃ™г‚‹гЃ“гЃЁгЂ‚<br>
      * 
-     * @return ѓuѓЌѓbѓN‚µ‚И‚ў‚Е“З‚ЭЏo‚№‚йЌЕ’бѓoѓCѓgђ”ЃB<br>
+     * @return гѓ–гѓ­гѓѓг‚ЇгЃ—гЃЄгЃ„гЃ§иЄ­гЃїе‡єгЃ›г‚‹жњЂдЅЋгѓђг‚¤гѓ€ж•°гЂ‚<br>
      * 
-     * @exception IOException “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
+     * @exception IOException е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
      * 
      * @see PreLzssDecoder#available()
      */
@@ -687,9 +672,9 @@ public class PreLh5Decoder implements PreLzssDecoder{
     }
 
     /**
-     * ‚±‚МѓXѓgѓЉЃ[ѓЂ‚р•В‚¶ЃAЋg—p‚µ‚Д‚ў‚Ѕ‘S‚Д‚МЋ‘Њ№‚р‰р•ъ‚·‚йЃB
+     * гЃ“гЃ®г‚№гѓ€гѓЄгѓјгѓ г‚’й–‰гЃгЂЃдЅїз”ЁгЃ—гЃ¦гЃ„гЃџе…ЁгЃ¦гЃ®иі‡жєђг‚’и§Јж”ѕгЃ™г‚‹гЂ‚
      * 
-     * @exception IOException “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
+     * @exception IOException е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
      */
     public void close() throws IOException {
         this.in.close();                                                        //throws IOException
@@ -736,27 +721,27 @@ public class PreLh5Decoder implements PreLzssDecoder{
     //  public int getThreshold()
     //------------------------------------------------------------------
     /**
-     * ‚±‚М PreLh5Decoder ‚Є€µ‚¤LZSSЋ«Џ‘‚МѓTѓCѓY‚р“ѕ‚йЃB
+     * гЃ“гЃ® PreLh5Decoder гЃЊж‰±гЃ†LZSSиѕћж›ёгЃ®г‚µг‚¤г‚єг‚’еѕ—г‚‹гЂ‚
      * 
-     * @return ‚±‚М PreLh5Decoder ‚Є€µ‚¤LZSSЋ«Џ‘‚МѓTѓCѓY
+     * @return гЃ“гЃ® PreLh5Decoder гЃЊж‰±гЃ†LZSSиѕћж›ёгЃ®г‚µг‚¤г‚є
      */
     public int getDictionarySize(){
         return this.DictionarySize;
     }
 
     /**
-     * ‚±‚М PreLh5Decoder ‚Є€µ‚¤LZSS‚МЌЕ‘е€к’v’·‚р“ѕ‚йЃB
+     * гЃ“гЃ® PreLh5Decoder гЃЊж‰±гЃ†LZSSгЃ®жњЂе¤§дёЂи‡ґй•·г‚’еѕ—г‚‹гЂ‚
      * 
-     * @return ‚±‚М PreLh5Decoder ‚Є€µ‚¤LZSS‚МЌЕ‘е€к’v’·
+     * @return гЃ“гЃ® PreLh5Decoder гЃЊж‰±гЃ†LZSSгЃ®жњЂе¤§дёЂи‡ґй•·
      */
     public int getMaxMatch(){
         return this.MaxMatch;
     }
 
     /**
-     * ‚±‚М PreLh5Decoder ‚Є€µ‚¤€іЏkЃA”с€іЏk‚Ми‡’l‚р“ѕ‚йЃB
+     * гЃ“гЃ® PreLh5Decoder гЃЊж‰±гЃ†ењ§зё®гЂЃйќћењ§зё®гЃ®й–ѕеЂ¤г‚’еѕ—г‚‹гЂ‚
      * 
-     * @return ‚±‚М PreLh5Decoder ‚Є€µ‚¤€іЏkЃA”с€іЏk‚Ми‡’l
+     * @return гЃ“гЃ® PreLh5Decoder гЃЊж‰±гЃ†ењ§зё®гЂЃйќћењ§зё®гЃ®й–ѕеЂ¤
      */
     public int getThreshold(){
         return this.Threshold;
@@ -774,27 +759,27 @@ public class PreLh5Decoder implements PreLzssDecoder{
     //  private int[] readOffLenLenList()
     //------------------------------------------------------------------
     /**
-     * ѓnѓtѓ}ѓ“ѓuѓЌѓbѓN‚Мђж“Є‚Й‚ ‚й
-     * ѓuѓЌѓbѓNѓTѓCѓY‚вѓnѓtѓ}ѓ“•„Ќ†’·‚МѓЉѓXѓg‚р“З‚ЭЌћ‚ЮЃB
+     * гѓЏгѓ•гѓћгѓігѓ–гѓ­гѓѓг‚ЇгЃ®е…€й ­гЃ«гЃ‚г‚‹
+     * гѓ–гѓ­гѓѓг‚Їг‚µг‚¤г‚єг‚„гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€г‚’иЄ­гЃїиѕјг‚ЂгЂ‚
      * 
-     * @exception IOException  “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
-     * @exception EOFException EndOfStream‚Й’B‚µ‚ЅЏкЌ‡
+     * @exception IOException  е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
+     * @exception EOFException EndOfStreamгЃ«йЃ”гЃ—гЃџе ґеђ€
      * @exception BadHuffmanTableException
-     *                         ѓnѓtѓ}ѓ“–Ш‚рЌ\ђ¬‚·‚й‚Ѕ‚Я‚М
-     *                         ѓnѓtѓ}ѓ“•„Ќ†’·‚М•\‚Є•sђі‚И‚Ѕ‚ЯЃA
-     *                         ѓnѓtѓ}ѓ“•њЌ†Љн‚Єђ¶ђ¬‚Е‚«‚И‚ўЏкЌ‡
+     *                         гѓЏгѓ•гѓћгѓіжњЁг‚’ж§‹ж€ђгЃ™г‚‹гЃџг‚ЃгЃ®
+     *                         гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®иЎЁгЃЊдёЌж­ЈгЃЄгЃџг‚ЃгЂЃ
+     *                         гѓЏгѓ•гѓћгѓіеѕ©еЏ·е™ЁгЃЊз”џж€ђгЃ§гЃЌгЃЄгЃ„е ґеђ€
      * @exception BitDataBrokenException
-     *                         —\Љъ‚№‚КЊґ€ц‚ЕѓfЃ[ѓ^“З‚Э‚±‚Э‚Є
-     *                         ’†’f‚і‚к‚Ѕ‚Ѕ‚Я—v‹Ѓ‚і‚к‚Ѕѓrѓbѓgђ”
-     *                         ‚МѓfЃ[ѓ^‚Є“ѕ‚з‚к‚И‚©‚Б‚ЅЏкЌ‡
+     *                         дє€жњџгЃ›гЃ¬еЋџе› гЃ§гѓ‡гѓјг‚їиЄ­гЃїгЃ“гЃїгЃЊ
+     *                         дё­ж–­гЃ•г‚ЊгЃџгЃџг‚Ѓи¦Ѓж±‚гЃ•г‚ЊгЃџгѓ“гѓѓгѓ€ж•°
+     *                         гЃ®гѓ‡гѓјг‚їгЃЊеѕ—г‚‰г‚ЊгЃЄгЃ‹гЃЈгЃџе ґеђ€
      * @exception NotEnoughBitsException
-     *                         —\Љъ‚№‚КЊґ€ц‚ЕѓfЃ[ѓ^“З‚Э‚±‚Э‚Є
-     *                         ’†’f‚і‚к‚Ѕ‚Ѕ‚Я—v‹Ѓ‚і‚к‚Ѕѓrѓbѓgђ”
-     *                         ‚МѓfЃ[ѓ^‚Є“ѕ‚з‚к‚И‚©‚Б‚ЅЏкЌ‡
+     *                         дє€жњџгЃ›гЃ¬еЋџе› гЃ§гѓ‡гѓјг‚їиЄ­гЃїгЃ“гЃїгЃЊ
+     *                         дё­ж–­гЃ•г‚ЊгЃџгЃџг‚Ѓи¦Ѓж±‚гЃ•г‚ЊгЃџгѓ“гѓѓгѓ€ж•°
+     *                         гЃ®гѓ‡гѓјг‚їгЃЊеѕ—г‚‰г‚ЊгЃЄгЃ‹гЃЈгЃџе ґеђ€
      */
     private void readBlockHead() throws IOException {
-        //ѓuѓЌѓbѓNѓTѓCѓY“З‚ЭЌћ‚Э
-        //ђіЏн‚ИѓfЃ[ѓ^‚МЏкЌ‡ЃA‚±‚М•”•Є‚Е EndOfStream ‚Й“ћ’B‚·‚йЃB
+        //гѓ–гѓ­гѓѓг‚Їг‚µг‚¤г‚єиЄ­гЃїиѕјгЃї
+        //ж­ЈеёёгЃЄгѓ‡гѓјг‚їгЃ®е ґеђ€гЂЃгЃ“гЃ®йѓЁе€†гЃ§ EndOfStream гЃ«е€°йЃ”гЃ™г‚‹гЂ‚
         try{
             this.blockSize = this.readBits( 16 );                               //throws BitDataBrokenException, EOFException, IOException
         }catch( BitDataBrokenException exception ){
@@ -805,7 +790,7 @@ public class PreLh5Decoder implements PreLzssDecoder{
             }
         }
 
-        //codeLen •”‚МЏ€—ќ
+        //codeLen йѓЁгЃ®е‡¦зђ†
         int[] codeLenLen = this.readCodeLenLen();                               //throws BitDataBrokenException, EOFException, IOException
         short[] codeLenTable;
         if( null != codeLenLen ){
@@ -815,7 +800,7 @@ public class PreLh5Decoder implements PreLzssDecoder{
             codeLenLen   = new int[ codeLenTable[0] + 1 ];
         }
 
-        //code •”‚МЏ€—ќ
+        //code йѓЁгЃ®е‡¦зђ†
         this.codeLen = this.readCodeLen( codeLenTable, codeLenLen );            //throws BitDataBrokenException NotEnoughBitsException EOFException IOException
         if( null != this.codeLen ){
             short[][] tableAndTree = 
@@ -832,7 +817,7 @@ public class PreLh5Decoder implements PreLzssDecoder{
             this.codeTree = new short[][]{ new short[0], new short[0] };
         }
 
-        //offLen •”‚МЏ€—ќ
+        //offLen йѓЁгЃ®е‡¦зђ†
         this.offLenLen = this.readOffLenLen();                                  //throws BitDataBrokenException EOFException IOException
         if( null != this.offLenLen ){
             short[][] tableAndTree = 
@@ -851,19 +836,19 @@ public class PreLh5Decoder implements PreLzssDecoder{
     }
 
     /**
-     * Code‚Мѓnѓtѓ}ѓ“•„Ќ†’·‚МѓЉѓXѓg‚М
-     * ѓnѓtѓ}ѓ“•„Ќ†‚р•њЌ†‚·‚й‚Ѕ‚Я‚М
-     * ѓnѓtѓ}ѓ“•„Ќ†’·‚МѓЉѓXѓg‚р“З‚Э‚±‚ЮЃB
+     * CodeгЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€гЃ®
+     * гѓЏгѓ•гѓћгѓіз¬¦еЏ·г‚’еѕ©еЏ·гЃ™г‚‹гЃџг‚ЃгЃ®
+     * гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€г‚’иЄ­гЃїгЃ“г‚ЂгЂ‚
      * 
-     * @return ѓnѓtѓ}ѓ“•„Ќ†’·‚МѓЉѓXѓgЃB
-     *         •„Ќ†’·‚МѓЉѓXѓg‚Є–і‚ўЏкЌ‡‚Н null
+     * @return гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€гЂ‚
+     *         з¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€гЃЊз„ЎгЃ„е ґеђ€гЃЇ null
      * 
-     * @exception IOException  “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
-     * @exception EOFException EndOfStream‚Й’B‚µ‚ЅЏкЌ‡
+     * @exception IOException  е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
+     * @exception EOFException EndOfStreamгЃ«йЃ”гЃ—гЃџе ґеђ€
      * @exception BitDataBrokenException
-     *                         —\Љъ‚№‚КЊґ€ц‚ЕѓfЃ[ѓ^“З‚Э‚±‚Э‚Є
-     *                         ’†’f‚і‚к‚Ѕ‚Ѕ‚Я—v‹Ѓ‚і‚к‚Ѕѓrѓbѓgђ”
-     *                         ‚МѓfЃ[ѓ^‚Є“ѕ‚з‚к‚И‚©‚Б‚ЅЏкЌ‡
+     *                         дє€жњџгЃ›гЃ¬еЋџе› гЃ§гѓ‡гѓјг‚їиЄ­гЃїгЃ“гЃїгЃЊ
+     *                         дё­ж–­гЃ•г‚ЊгЃџгЃџг‚Ѓи¦Ѓж±‚гЃ•г‚ЊгЃџгѓ“гѓѓгѓ€ж•°
+     *                         гЃ®гѓ‡гѓјг‚їгЃЊеѕ—г‚‰г‚ЊгЃЄгЃ‹гЃЈгЃџе ґеђ€
      */
     private int[] readCodeLenLen() throws IOException {
         int listlen = this.readBits( 5 );                                       //throws BitDataBrokenException, EOFException, IOException
@@ -889,21 +874,21 @@ public class PreLh5Decoder implements PreLzssDecoder{
     }
 
     /**
-     * Code‚Мѓnѓtѓ}ѓ“•„Ќ†’·‚МѓЉѓXѓg‚р•њЌ†‚µ‚И‚Є‚з“З‚Э‚±‚Ю
+     * CodeгЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€г‚’еѕ©еЏ·гЃ—гЃЄгЃЊг‚‰иЄ­гЃїгЃ“г‚Ђ
      * 
-     * @return ѓnѓtѓ}ѓ“•„Ќ†’·‚МѓЉѓXѓgЃB
-     *         •„Ќ†’·‚МѓЉѓXѓg‚Є–і‚ўЏкЌ‡‚Н null
+     * @return гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€гЂ‚
+     *         з¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€гЃЊз„ЎгЃ„е ґеђ€гЃЇ null
      * 
-     * @exception IOException  “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
-     * @exception EOFException EndOfStream‚Й’B‚µ‚ЅЏкЌ‡
+     * @exception IOException  е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
+     * @exception EOFException EndOfStreamгЃ«йЃ”гЃ—гЃџе ґеђ€
      * @exception BitDataBrokenException
-     *                         —\Љъ‚№‚КЊґ€ц‚ЕѓfЃ[ѓ^“З‚Э‚±‚Э‚Є
-     *                         ’†’f‚і‚к‚Ѕ‚Ѕ‚Я—v‹Ѓ‚і‚к‚Ѕѓrѓbѓgђ”
-     *                         ‚МѓfЃ[ѓ^‚Є“ѕ‚з‚к‚И‚©‚Б‚ЅЏкЌ‡
+     *                         дє€жњџгЃ›гЃ¬еЋџе› гЃ§гѓ‡гѓјг‚їиЄ­гЃїгЃ“гЃїгЃЊ
+     *                         дё­ж–­гЃ•г‚ЊгЃџгЃџг‚Ѓи¦Ѓж±‚гЃ•г‚ЊгЃџгѓ“гѓѓгѓ€ж•°
+     *                         гЃ®гѓ‡гѓјг‚їгЃЊеѕ—г‚‰г‚ЊгЃЄгЃ‹гЃЈгЃџе ґеђ€
      * @exception NotEnouthBitsException
-     *                         —\Љъ‚№‚КЊґ€ц‚ЕѓfЃ[ѓ^“З‚Э‚±‚Э‚Є
-     *                         ’†’f‚і‚к‚Ѕ‚Ѕ‚Я—v‹Ѓ‚і‚к‚Ѕѓrѓbѓgђ”
-     *                         ‚МѓfЃ[ѓ^‚Є“ѕ‚з‚к‚И‚©‚Б‚ЅЏкЌ‡
+     *                         дє€жњџгЃ›гЃ¬еЋџе› гЃ§гѓ‡гѓјг‚їиЄ­гЃїгЃ“гЃїгЃЊ
+     *                         дё­ж–­гЃ•г‚ЊгЃџгЃџг‚Ѓи¦Ѓж±‚гЃ•г‚ЊгЃџгѓ“гѓѓгѓ€ж•°
+     *                         гЃ®гѓ‡гѓјг‚їгЃЊеѕ—г‚‰г‚ЊгЃЄгЃ‹гЃЈгЃџе ґеђ€
      */
     private int[] readCodeLen( short[] codeLenTable, int[] codeLenLen ) 
                                                             throws IOException {
@@ -937,17 +922,17 @@ public class PreLh5Decoder implements PreLzssDecoder{
     }
 
     /**
-     * offLen ‚Мѓnѓtѓ}ѓ“•„Ќ†’·‚МѓЉѓXѓg‚р“З‚Э‚±‚Ю
+     * offLen гЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€г‚’иЄ­гЃїгЃ“г‚Ђ
      * 
-     * @return ѓnѓtѓ}ѓ“•„Ќ†’·‚МѓЉѓXѓgЃB
-     *         •„Ќ†’·‚МѓЉѓXѓg‚Є–і‚ўЏкЌ‡‚Н null
+     * @return гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€гЂ‚
+     *         з¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€гЃЊз„ЎгЃ„е ґеђ€гЃЇ null
      * 
-     * @exception IOException  “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
-     * @exception EOFException EndOfStream‚Й’B‚µ‚ЅЏкЌ‡
+     * @exception IOException  е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
+     * @exception EOFException EndOfStreamгЃ«йЃ”гЃ—гЃџе ґеђ€
      * @exception BitDataBrokenException
-     *                         —\Љъ‚№‚КЊґ€ц‚ЕѓfЃ[ѓ^“З‚Э‚±‚Э‚Є
-     *                         ’†’f‚і‚к‚Ѕ‚Ѕ‚Я—v‹Ѓ‚і‚к‚Ѕѓrѓbѓgђ”
-     *                         ‚МѓfЃ[ѓ^‚Є“ѕ‚з‚к‚И‚©‚Б‚ЅЏкЌ‡
+     *                         дє€жњџгЃ›гЃ¬еЋџе› гЃ§гѓ‡гѓјг‚їиЄ­гЃїгЃ“гЃїгЃЊ
+     *                         дё­ж–­гЃ•г‚ЊгЃџгЃџг‚Ѓи¦Ѓж±‚гЃ•г‚ЊгЃџгѓ“гѓѓгѓ€ж•°
+     *                         гЃ®гѓ‡гѓјг‚їгЃЊеѕ—г‚‰г‚ЊгЃЄгЃ‹гЃЈгЃџе ґеђ€
      */
     private int[] readOffLenLen() throws IOException {
         int listlen = this.readBits( Bits.len( Bits.len( this.DictionarySize ) ) );//throws BitDataBrokenException, EOFException, IOException
@@ -979,15 +964,15 @@ public class PreLh5Decoder implements PreLzssDecoder{
     //  private int cachedBits()
     //------------------------------------------------------------------
     /**
-     * ђЪ‘±‚і‚к‚Ѕ“ь—НѓXѓgѓЉЃ[ѓЂ‚©‚з 1ѓrѓbѓg‚МѓfЃ[ѓ^‚р
-     * ђ^‹U’l‚Ж‚µ‚Д“З‚ЭЌћ‚ЮЃB<br>
+     * жЋҐз¶љгЃ•г‚ЊгЃџе…ҐеЉ›г‚№гѓ€гѓЄгѓјгѓ гЃ‹г‚‰ 1гѓ“гѓѓгѓ€гЃ®гѓ‡гѓјг‚їг‚’
+     * зњџеЃЅеЂ¤гЃЁгЃ—гЃ¦иЄ­гЃїиѕјг‚ЂгЂ‚<br>
      * 
-     * @return “З‚ЭЌћ‚Ь‚к‚Ѕ1ѓrѓbѓg‚МѓfЃ[ѓ^‚Є 
-     *         1‚Е‚ ‚к‚О trueЃA0‚Е‚ ‚к‚О false ‚р•Ф‚·ЃB<br>
+     * @return иЄ­гЃїиѕјгЃѕг‚ЊгЃџ1гѓ“гѓѓгѓ€гЃ®гѓ‡гѓјг‚їгЃЊ 
+     *         1гЃ§гЃ‚г‚ЊгЃ° trueгЂЃ0гЃ§гЃ‚г‚ЊгЃ° false г‚’иї”гЃ™гЂ‚<br>
      * 
-     * @exception EOFException Љщ‚ЙEndOfStream‚Й’B‚µ‚Д‚ў‚ЅЏкЌ‡
-     * @exception IOException  ђЪ‘±‚і‚к‚Ѕ“ь—НѓXѓgѓЉЃ[ѓЂ‚Е
-     *                         “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
+     * @exception EOFException ж—ўгЃ«EndOfStreamгЃ«йЃ”гЃ—гЃ¦гЃ„гЃџе ґеђ€
+     * @exception IOException  жЋҐз¶љгЃ•г‚ЊгЃџе…ҐеЉ›г‚№гѓ€гѓЄгѓјгѓ гЃ§
+     *                         е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
      */
     private boolean readBoolean() throws IOException {
         if( 0 < this.bitCount ){
@@ -1005,32 +990,32 @@ public class PreLh5Decoder implements PreLzssDecoder{
     }
 
     /**
-     * ђЪ‘±‚і‚к‚Ѕ“ь—НѓXѓgѓЉЃ[ѓЂ‚©‚з count ѓrѓbѓg‚МѓfЃ[ѓ^‚р
-     * “З‚ЭЌћ‚ЮЃB –Я‚и’l‚Є int’l‚Е‚ ‚йЋ–‚©‚з‚а”»‚й‚ж‚¤‚Й
-     * “З‚ЭЌћ‚Ю‚±‚Ж‚М‚Е‚«‚й ЌЕ‘е—LЊшѓrѓbѓgђ”‚Н 32ѓrѓbѓg‚Е
-     * ‚ ‚й‚ЄЃAcount ‚Н32€ИЏг‚М’l‚рђЭ’и‚µ‚Д‚аѓ`ѓFѓbѓN‚р
-     * Ћу‚Ї‚И‚ў‚Ѕ‚Я ‚»‚к€ИЏг‚М’l‚рђЭ’и‚µ‚ЅЏкЌ‡‚Н ѓrѓbѓg
-     * ѓfЃ[ѓ^‚Є“З‚ЭЋМ‚Д‚з‚к‚йЃB<br>
-     * ‚Ѕ‚Ж‚¦‚О readBits( 33 ) ‚Ж‚µ‚Ѕ‚Ж‚«‚Н ‚Ь‚ё1ѓrѓbѓg‚М
-     * ѓfЃ[ѓ^‚р“З‚ЭЋМ‚ДЃA‚»‚МЊг‚М 32ѓrѓbѓg‚МѓfЃ[ѓ^‚р•Ф‚·ЃB<br>
-     * ‚Ь‚Ѕ count ‚Й 0€И‰є‚Мђ”Ћљ‚рђЭ’и‚µ‚ДЊД‚СЏo‚µ‚ЅЏкЌ‡ЃA
-     * ѓfЃ[ѓ^‚р“З‚ЭЌћ‚Ю“®Ќм‚р”є‚н‚И‚ў‚Ѕ‚Я –Я‚и’l‚Н Џн‚Й0ЃA
-     * EndOfStream ‚Й’B‚µ‚Д‚ў‚Д‚а EOFException ‚р
-     * “Љ‚°‚И‚ў“_‚Й’Ќ€У‚·‚й‚±‚ЖЃB<br>
+     * жЋҐз¶љгЃ•г‚ЊгЃџе…ҐеЉ›г‚№гѓ€гѓЄгѓјгѓ гЃ‹г‚‰ count гѓ“гѓѓгѓ€гЃ®гѓ‡гѓјг‚їг‚’
+     * иЄ­гЃїиѕјг‚ЂгЂ‚ ж€»г‚ЉеЂ¤гЃЊ intеЂ¤гЃ§гЃ‚г‚‹дє‹гЃ‹г‚‰г‚‚е€¤г‚‹г‚€гЃ†гЃ«
+     * иЄ­гЃїиѕјг‚ЂгЃ“гЃЁгЃ®гЃ§гЃЌг‚‹ жњЂе¤§жњ‰еЉ№гѓ“гѓѓгѓ€ж•°гЃЇ 32гѓ“гѓѓгѓ€гЃ§
+     * гЃ‚г‚‹гЃЊгЂЃcount гЃЇ32д»ҐдёЉгЃ®еЂ¤г‚’иЁ­е®љгЃ—гЃ¦г‚‚гѓЃг‚§гѓѓг‚Їг‚’
+     * еЏ—гЃ‘гЃЄгЃ„гЃџг‚Ѓ гЃќг‚Њд»ҐдёЉгЃ®еЂ¤г‚’иЁ­е®љгЃ—гЃџе ґеђ€гЃЇ гѓ“гѓѓгѓ€
+     * гѓ‡гѓјг‚їгЃЊиЄ­гЃїжЌЁгЃ¦г‚‰г‚Њг‚‹гЂ‚<br>
+     * гЃџгЃЁгЃ€гЃ° readBits( 33 ) гЃЁгЃ—гЃџгЃЁгЃЌгЃЇ гЃѕгЃљ1гѓ“гѓѓгѓ€гЃ®
+     * гѓ‡гѓјг‚їг‚’иЄ­гЃїжЌЁгЃ¦гЂЃгЃќгЃ®еѕЊгЃ® 32гѓ“гѓѓгѓ€гЃ®гѓ‡гѓјг‚їг‚’иї”гЃ™гЂ‚<br>
+     * гЃѕгЃџ count гЃ« 0д»Ґдё‹гЃ®ж•°е­—г‚’иЁ­е®љгЃ—гЃ¦е‘јгЃіе‡єгЃ—гЃџе ґеђ€гЂЃ
+     * гѓ‡гѓјг‚їг‚’иЄ­гЃїиѕјг‚Ђе‹•дЅњг‚’дјґг‚ЏгЃЄгЃ„гЃџг‚Ѓ ж€»г‚ЉеЂ¤гЃЇ еёёгЃ«0гЂЃ
+     * EndOfStream гЃ«йЃ”гЃ—гЃ¦гЃ„гЃ¦г‚‚ EOFException г‚’
+     * жЉ•гЃ’гЃЄгЃ„з‚№гЃ«жіЁж„ЏгЃ™г‚‹гЃ“гЃЁгЂ‚<br>
      * 
-     * @param count  “З‚ЭЌћ‚ЮѓfЃ[ѓ^‚Мѓrѓbѓgђ”
+     * @param count  иЄ­гЃїиѕјг‚Ђгѓ‡гѓјг‚їгЃ®гѓ“гѓѓгѓ€ж•°
      * 
-     * @return “З‚ЭЌћ‚Ь‚к‚ЅѓrѓbѓgѓfЃ[ѓ^ЃB<br>
+     * @return иЄ­гЃїиѕјгЃѕг‚ЊгЃџгѓ“гѓѓгѓ€гѓ‡гѓјг‚їгЂ‚<br>
      * 
      * @exception IOException 
-     *               ђЪ‘±‚і‚к‚Ѕ“ь—НѓXѓgѓЉЃ[ѓЂ‚Е
-     *               “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
+     *               жЋҐз¶љгЃ•г‚ЊгЃџе…ҐеЉ›г‚№гѓ€гѓЄгѓјгѓ гЃ§
+     *               е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
      * @exception EOFException 
-     *               Љщ‚ЙEndOfStream‚Й’B‚µ‚Д‚ў‚ЅЏкЌ‡
+     *               ж—ўгЃ«EndOfStreamгЃ«йЃ”гЃ—гЃ¦гЃ„гЃџе ґеђ€
      * @exception BitDataBrokenException 
-     *               “З‚ЭЌћ‚Э“r’†‚Е EndOfStream‚Й’B‚µ‚Ѕ‚Ѕ‚Я
-     *               —v‹Ѓ‚і‚к‚Ѕѓrѓbѓgђ”‚МѓfЃ[ѓ^‚М“З‚ЭЌћ‚Э
-     *               ‚ЙЋё”s‚µ‚ЅЏкЌ‡ЃB<br>
+     *               иЄ­гЃїиѕјгЃїйЂ”дё­гЃ§ EndOfStreamгЃ«йЃ”гЃ—гЃџгЃџг‚Ѓ
+     *               и¦Ѓж±‚гЃ•г‚ЊгЃџгѓ“гѓѓгѓ€ж•°гЃ®гѓ‡гѓјг‚їгЃ®иЄ­гЃїиѕјгЃї
+     *               гЃ«е¤±ж•—гЃ—гЃџе ґеђ€гЂ‚<br>
      */
     private int readBits( int count ) throws IOException {
         if( 0 < count ){
@@ -1071,9 +1056,9 @@ public class PreLh5Decoder implements PreLzssDecoder{
     }
 
     /**
-     * ‚±‚М BitInputStream “а‚Й’~‚¦‚з‚к‚Д‚ў‚йѓrѓbѓgђ”‚р“ѕ‚йЃB<br>
+     * гЃ“гЃ® BitInputStream е†…гЃ«и“„гЃ€г‚‰г‚ЊгЃ¦гЃ„г‚‹гѓ“гѓѓгѓ€ж•°г‚’еѕ—г‚‹гЂ‚<br>
      * 
-     * @return ‚±‚М BitInputStream “а‚Й’~‚¦‚з‚к‚Д‚ў‚йѓrѓbѓgђ”ЃB<br>
+     * @return гЃ“гЃ® BitInputStream е†…гЃ«и“„гЃ€г‚‰г‚ЊгЃ¦гЃ„г‚‹гѓ“гѓѓгѓ€ж•°гЂ‚<br>
      */
     private int cachedBits(){
         return this.bitCount + ( ( this.cacheLimit - this.cachePosition ) << 3 );
@@ -1089,12 +1074,12 @@ public class PreLh5Decoder implements PreLzssDecoder{
     //  private void fillCache()
     //------------------------------------------------------------------
     /**
-     * bitBuffer ‚ЙѓfЃ[ѓ^‚р–ћ‚Ѕ‚·ЃB
-     * EndOfStream •t‹Я‚рЏњ‚ў‚Д bitBuffer ‚Й‚Н
-     * 25bit ‚МѓfЃ[ѓ^‚ЄЉm•Ы‚і‚к‚й‚±‚Ж‚р•ЫЏб‚·‚йЃB
+     * bitBuffer гЃ«гѓ‡гѓјг‚їг‚’жєЂгЃџгЃ™гЂ‚
+     * EndOfStream д»иї‘г‚’й™¤гЃ„гЃ¦ bitBuffer гЃ«гЃЇ
+     * 25bit гЃ®гѓ‡гѓјг‚їгЃЊзўєдїќгЃ•г‚Њг‚‹гЃ“гЃЁг‚’дїќйљњгЃ™г‚‹гЂ‚
      * 
-     * @exception IOException       “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
-     * @exception LocalEOFException bitBuffer ‚Є‹у‚МЏу‘Ф‚Е EndOfStream ‚Й’B‚µ‚ЅЏкЌ‡
+     * @exception IOException       е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
+     * @exception LocalEOFException bitBuffer гЃЊз©єгЃ®зЉ¶ж…‹гЃ§ EndOfStream гЃ«йЃ”гЃ—гЃџе ґеђ€
      */
     private void fillBitBuffer() throws IOException {
         if( 32 <= this.cachedBits() ){
@@ -1145,16 +1130,16 @@ public class PreLh5Decoder implements PreLzssDecoder{
     }
 
     /**
-     * cache ‚Є‹у‚Й‚И‚Б‚ЅЋћ‚Й cache ‚ЙѓfЃ[ѓ^‚р“З‚ЭЌћ‚ЮЃB
+     * cache гЃЊз©єгЃ«гЃЄгЃЈгЃџж™‚гЃ« cache гЃ«гѓ‡гѓјг‚їг‚’иЄ­гЃїиѕјг‚ЂгЂ‚
      * 
-     * @exception IOException “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
+     * @exception IOException е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
      */
     private void fillCache() throws IOException {
         this.markPositionIsInCache = false;
         this.cacheLimit            = 0;
         this.cachePosition         = 0;
 
-        //cache ‚ЙѓfЃ[ѓ^‚р“З‚ЭЌћ‚Ю
+        //cache гЃ«гѓ‡гѓјг‚їг‚’иЄ­гЃїиѕјг‚Ђ
         int read = 0;
         while( 0 <= read && this.cacheLimit < this.cache.length ){
             read = this.in.read( this.cache,
@@ -1172,9 +1157,9 @@ public class PreLh5Decoder implements PreLzssDecoder{
     //  private static class LocalEOFException
     //------------------------------------------------------------------
     /**
-     * BitInputStream “а‚Е EndOfStream ‚МЊџЏo‚Й
-     * EOFException ‚рЋg—p‚·‚й‚М‚НЏ­ЃX–в‘и‚Є‚ ‚й‚М‚Е
-     * ѓЌЃ[ѓJѓ‹‚И EOFException ‚р’и‹`‚·‚йЃB
+     * BitInputStream е†…гЃ§ EndOfStream гЃ®ж¤ње‡єгЃ«
+     * EOFException г‚’дЅїз”ЁгЃ™г‚‹гЃ®гЃЇе°‘гЂ…е•ЏйЎЊгЃЊгЃ‚г‚‹гЃ®гЃ§
+     * гѓ­гѓјг‚«гѓ«гЃЄ EOFException г‚’е®љзѕ©гЃ™г‚‹гЂ‚
      */
     private static class LocalEOFException extends EOFException {
 
@@ -1184,7 +1169,7 @@ public class PreLh5Decoder implements PreLzssDecoder{
         //  private Object owner
         //------------------------------------------------------------------
         /**
-         * ‚±‚М—бЉO‚р“Љ‚°‚ЅѓIѓuѓWѓFѓNѓg
+         * гЃ“гЃ®дѕ‹е¤–г‚’жЉ•гЃ’гЃџг‚Єгѓ–г‚ёг‚§г‚Їгѓ€
          */
         private Object owner;
 
@@ -1195,9 +1180,9 @@ public class PreLh5Decoder implements PreLzssDecoder{
         //  public LocalEOFException( String message )
         //------------------------------------------------------------------
         /**
-         * ѓRѓ“ѓXѓgѓ‰ѓNѓ^ЃB
+         * г‚ігѓіг‚№гѓ€гѓ©г‚Їг‚їгЂ‚
          * 
-         * @param object ‚±‚М—бЉO‚р“Љ‚°‚ЅѓIѓuѓWѓFѓNѓg
+         * @param object гЃ“гЃ®дѕ‹е¤–г‚’жЉ•гЃ’гЃџг‚Єгѓ–г‚ёг‚§г‚Їгѓ€
          */
         public LocalEOFException( Object object ){
             super();
@@ -1210,13 +1195,13 @@ public class PreLh5Decoder implements PreLzssDecoder{
         //  public boolean thrownBy( Object object )
         //------------------------------------------------------------------
         /**
-         * ‚±‚М—бЉO‚Є object ‚Й‚ж‚Б‚Д“Љ‚°‚з‚к‚Ѕ‚©‚З‚¤‚©‚р“ѕ‚йЃB<br>
+         * гЃ“гЃ®дѕ‹е¤–гЃЊ object гЃ«г‚€гЃЈгЃ¦жЉ•гЃ’г‚‰г‚ЊгЃџгЃ‹гЃ©гЃ†гЃ‹г‚’еѕ—г‚‹гЂ‚<br>
          * 
-         * @param object ѓIѓuѓWѓFѓNѓg
+         * @param object г‚Єгѓ–г‚ёг‚§г‚Їгѓ€
          * 
-         * @return ‚±‚М—бЉO‚Є object‚Й‚ж‚Б‚Д
-         *         “Љ‚°‚з‚к‚Ѕ—бЉO‚Е‚ ‚к‚О true<br>
-         *         €б‚¦‚О false<br>
+         * @return гЃ“гЃ®дѕ‹е¤–гЃЊ objectгЃ«г‚€гЃЈгЃ¦
+         *         жЉ•гЃ’г‚‰г‚ЊгЃџдѕ‹е¤–гЃ§гЃ‚г‚ЊгЃ° true<br>
+         *         йЃ•гЃ€гЃ° false<br>
          */
         public boolean thrownBy( Object object ){
             return this.owner == object;

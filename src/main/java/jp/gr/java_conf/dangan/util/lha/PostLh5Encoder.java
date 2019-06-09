@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  * 
- * €И‰є‚МЏрЊЏ‚Й“Ї€У‚·‚й‚И‚з‚Оѓ\Ѓ[ѓX‚ЖѓoѓCѓiѓЉЊ`Ћ®‚МЌД”z•z‚ЖЋg—p‚р
- * •ПЌX‚М—L–і‚Й‚©‚©‚н‚з‚ё‹–‰В‚·‚йЃB
+ * д»Ґдё‹гЃ®жќЎд»¶гЃ«еђЊж„ЏгЃ™г‚‹гЃЄг‚‰гЃ°г‚Ѕгѓјг‚№гЃЁгѓђг‚¤гѓЉгѓЄеЅўејЏгЃ®е†Ќй…ЌеёѓгЃЁдЅїз”Ёг‚’
+ * е¤‰ж›ґгЃ®жњ‰з„ЎгЃ«гЃ‹гЃ‹г‚Џг‚‰гЃљиЁ±еЏЇгЃ™г‚‹гЂ‚
  * 
- * ‚PЃDѓ\Ѓ[ѓXѓRЃ[ѓh‚МЌД”z•z‚Й‚Ё‚ў‚Д’ЌмЊ •\Ћ¦‚Ж ‚±‚МЏрЊЏ‚МѓЉѓXѓg
- *     ‚Ё‚ж‚С‰є‹L‚Мђє–ѕ•¶‚р•ЫЋќ‚µ‚И‚­‚Д‚Н‚И‚з‚И‚ўЃB
+ * пј‘пјЋг‚Ѕгѓјг‚№г‚ігѓјгѓ‰гЃ®е†Ќй…ЌеёѓгЃ«гЃЉгЃ„гЃ¦и‘—дЅњжЁ©иЎЁз¤єгЃЁ гЃ“гЃ®жќЎд»¶гЃ®гѓЄг‚№гѓ€
+ *     гЃЉг‚€гЃідё‹иЁгЃ®еЈ°жЋж–‡г‚’дїќжЊЃгЃ—гЃЄгЃЏгЃ¦гЃЇгЃЄг‚‰гЃЄгЃ„гЂ‚
  * 
- * ‚QЃDѓoѓCѓiѓЉЊ`Ћ®‚МЌД”z•z‚Й‚Ё‚ў‚Д’ЌмЊ •\Ћ¦‚Ж ‚±‚МЏрЊЏ‚МѓЉѓXѓg
- *     ‚Ё‚ж‚С‰є‹L‚Мђє–ѕ•¶‚рЋg—pђа–ѕЏ‘‚а‚µ‚­‚Н ‚»‚М‘ј‚М”z•z•Ё“а‚Й
- *     ЉЬ‚ЮЋ‘—ї‚Й‹LЏq‚µ‚И‚Ї‚к‚О‚И‚з‚И‚ўЃB
+ * пј’пјЋгѓђг‚¤гѓЉгѓЄеЅўејЏгЃ®е†Ќй…ЌеёѓгЃ«гЃЉгЃ„гЃ¦и‘—дЅњжЁ©иЎЁз¤єгЃЁ гЃ“гЃ®жќЎд»¶гЃ®гѓЄг‚№гѓ€
+ *     гЃЉг‚€гЃідё‹иЁгЃ®еЈ°жЋж–‡г‚’дЅїз”ЁиЄ¬жЋж›ёг‚‚гЃ—гЃЏгЃЇ гЃќгЃ®д»–гЃ®й…Ќеёѓз‰©е†…гЃ«
+ *     еђ«г‚Ђиі‡ж–™гЃ«иЁиї°гЃ—гЃЄгЃ‘г‚ЊгЃ°гЃЄг‚‰гЃЄгЃ„гЂ‚
  * 
- * ‚±‚Мѓ\ѓtѓgѓEѓFѓA‚НђО’Л”ьЋм—Ъ‚Й‚ж‚Б‚Д–і•ЫЏШ‚Е’с‹џ‚і‚кЃA“Б’и‚М–Ъ
- * “I‚р’Bђ¬‚Е‚«‚й‚Ж‚ў‚¤•ЫЏШЃAЏ¤•i‰ї’l‚Є—L‚й‚Ж‚ў‚¤•ЫЏШ‚Й‚Ж‚З‚Ь‚з‚ёЃA
- * ‚ў‚©‚И‚й–ѕЋ¦“I‚Ё‚ж‚С€ГЋ¦“I‚И•ЫЏШ‚а‚µ‚И‚ўЃB
- * ђО’Л”ьЋм—Ъ‚Н ‚±‚Мѓ\ѓtѓgѓEѓFѓA‚МЋg—p‚Й‚ж‚й’јђЪ“IЃAЉФђЪ“IЃA‹ф”­
- * “IЃA“БЋк‚ИЃA“TЊ^“I‚ИЃA‚ ‚й‚ў‚Н•K‘R“I‚И‘№ЉQ(Ћg—p‚Й‚ж‚йѓfЃ[ѓ^‚М
- * ‘№ЋёЃA‹Ж–±‚М’†’f‚вЊ©Ќћ‚Ь‚к‚Д‚ў‚Ѕ—‰v‚М€вЋёЃA‘г‘Цђ»•i‚а‚µ‚­‚Н
- * ѓTЃ[ѓrѓX‚М“±“ь”п“™‚ЄЌl‚¦‚з‚к‚й‚ЄЃAЊ€‚µ‚Д‚»‚к‚ѕ‚Ї‚ЙЊА’и‚і‚к‚И‚ў
- * ‘№ЉQ)‚Й‘О‚µ‚ДЃA‚ў‚©‚И‚йЋ–‘Ф‚МЊґ€ц‚Ж‚И‚Б‚Ѕ‚Ж‚µ‚Д‚аЃAЊ_–сЏг‚МђУ
- * ”C‚в–і‰ЯЋёђУ”C‚рЉЬ‚Ю ‚ў‚©‚И‚йђУ”C‚Є‚ ‚л‚¤‚Ж‚аЃA‚Ѕ‚Ж‚¦‚»‚к‚Є•s
- * ђіЌs€Ч‚М‚Ѕ‚Я‚Е‚ ‚Б‚Ѕ‚Ж‚µ‚Д‚аЃA‚Ь‚Ѕ‚Н‚»‚М‚ж‚¤‚И‘№ЉQ‚М‰В”\ђ«‚Є•с
- * Ќђ‚і‚к‚Д‚ў‚Ѕ‚Ж‚µ‚Д‚а€кђШ‚МђУ”C‚р•‰‚н‚И‚ў‚а‚М‚Ж‚·‚йЃB
+ * гЃ“гЃ®г‚Ѕгѓ•гѓ€г‚¦г‚§г‚ўгЃЇзџіеЎљзѕЋзЏ з‘ гЃ«г‚€гЃЈгЃ¦з„ЎдїќиЁјгЃ§жЏђдѕ›гЃ•г‚ЊгЂЃз‰№е®љгЃ®з›®
+ * зљ„г‚’йЃ”ж€ђгЃ§гЃЌг‚‹гЃЁгЃ„гЃ†дїќиЁјгЂЃе•†е“ЃдѕЎеЂ¤гЃЊжњ‰г‚‹гЃЁгЃ„гЃ†дїќиЁјгЃ«гЃЁгЃ©гЃѕг‚‰гЃљгЂЃ
+ * гЃ„гЃ‹гЃЄг‚‹жЋз¤єзљ„гЃЉг‚€гЃіжљ—з¤єзљ„гЃЄдїќиЁјг‚‚гЃ—гЃЄгЃ„гЂ‚
+ * зџіеЎљзѕЋзЏ з‘ гЃЇ гЃ“гЃ®г‚Ѕгѓ•гѓ€г‚¦г‚§г‚ўгЃ®дЅїз”ЁгЃ«г‚€г‚‹з›ґжЋҐзљ„гЂЃй–“жЋҐзљ„гЂЃеЃ¶з™є
+ * зљ„гЂЃз‰№ж®ЉгЃЄгЂЃе…ёећ‹зљ„гЃЄгЂЃгЃ‚г‚‹гЃ„гЃЇеї…з„¶зљ„гЃЄжђЌе®і(дЅїз”ЁгЃ«г‚€г‚‹гѓ‡гѓјг‚їгЃ®
+ * жђЌе¤±гЂЃжҐ­е‹™гЃ®дё­ж–­г‚„и¦‹иѕјгЃѕг‚ЊгЃ¦гЃ„гЃџе€©з›ЉгЃ®йЃєе¤±гЂЃд»Јж›їиЈЅе“Ѓг‚‚гЃ—гЃЏгЃЇ
+ * г‚µгѓјгѓ“г‚№гЃ®е°Ће…ҐиІ»з­‰гЃЊиЂѓгЃ€г‚‰г‚Њг‚‹гЃЊгЂЃж±єгЃ—гЃ¦гЃќг‚ЊгЃ гЃ‘гЃ«й™ђе®љгЃ•г‚ЊгЃЄгЃ„
+ * жђЌе®і)гЃ«еЇѕгЃ—гЃ¦гЂЃгЃ„гЃ‹гЃЄг‚‹дє‹ж…‹гЃ®еЋџе› гЃЁгЃЄгЃЈгЃџгЃЁгЃ—гЃ¦г‚‚гЂЃеҐ‘зґ„дёЉгЃ®иІ¬
+ * д»»г‚„з„ЎйЃЋе¤±иІ¬д»»г‚’еђ«г‚Ђ гЃ„гЃ‹гЃЄг‚‹иІ¬д»»гЃЊгЃ‚г‚ЌгЃ†гЃЁг‚‚гЂЃгЃџгЃЁгЃ€гЃќг‚ЊгЃЊдёЌ
+ * ж­ЈиЎЊз‚єгЃ®гЃџг‚ЃгЃ§гЃ‚гЃЈгЃџгЃЁгЃ—гЃ¦г‚‚гЂЃгЃѕгЃџгЃЇгЃќгЃ®г‚€гЃ†гЃЄжђЌе®ігЃ®еЏЇиѓЅжЂ§гЃЊе ±
+ * е‘ЉгЃ•г‚ЊгЃ¦гЃ„гЃџгЃЁгЃ—гЃ¦г‚‚дёЂе€‡гЃ®иІ¬д»»г‚’иІ г‚ЏгЃЄгЃ„г‚‚гЃ®гЃЁгЃ™г‚‹гЂ‚
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -50,41 +50,41 @@ import java.lang.Error;
 
 
 /**
- * -lh4-, -lh5-, -lh6-, -lh7- €іЏk—p PostLzssEncoderЃB<br>
+ * -lh4-, -lh5-, -lh6-, -lh7- ењ§зё®з”Ё PostLzssEncoderгЂ‚<br>
  * 
  * <pre>
  * -- revision history --
  * $Log: PostLh5Encoder.java,v $
  * Revision 1.4  2002/12/08 00:00:00  dangan
  * [change]
- *     ѓNѓ‰ѓX–ј ‚р PostLh5EncoderCombo ‚©‚з PostLh5Encoder ‚Й•ПЌXЃB
+ *     г‚Їгѓ©г‚№еђЌ г‚’ PostLh5EncoderCombo гЃ‹г‚‰ PostLh5Encoder гЃ«е¤‰ж›ґгЂ‚
  *
  * Revision 1.3  2002/12/06 00:00:00  dangan
  * [maintenance]
- *     ѓ\Ѓ[ѓXђ®”х
+ *     г‚Ѕгѓјг‚№ж•ґе‚™
  *
  * Revision 1.2  2002/12/01 00:00:00  dangan
  * [change]
- *     flush() ‚і‚к‚И‚ў‚©‚¬‚и 
- *     ђЪ‘±‚і‚к‚Ѕ OutputStream ‚рflush() ‚µ‚И‚ў‚ж‚¤‚Й•ПЌXЃB
+ *     flush() гЃ•г‚ЊгЃЄгЃ„гЃ‹гЃЋг‚Љ 
+ *     жЋҐз¶љгЃ•г‚ЊгЃџ OutputStream г‚’flush() гЃ—гЃЄгЃ„г‚€гЃ†гЃ«е¤‰ж›ґгЂ‚
  *
  * Revision 1.1  2002/12/01 00:00:00  dangan
  * [bug fix] 
- *     writeOutGroup ‚ЕѓЌЃ[ѓJѓ‹•Пђ” offLenFreq ‚рЋg—p‚µ‚И‚Ї‚к‚О
- *     ‚И‚з‚И‚ў•”•Є‚Е this.offLenFreq ‚рЋg—p‚µ‚Д‚ў‚ЅЃB
+ *     writeOutGroup гЃ§гѓ­гѓјг‚«гѓ«е¤‰ж•° offLenFreq г‚’дЅїз”ЁгЃ—гЃЄгЃ‘г‚ЊгЃ°
+ *     гЃЄг‚‰гЃЄгЃ„йѓЁе€†гЃ§ this.offLenFreq г‚’дЅїз”ЁгЃ—гЃ¦гЃ„гЃџгЂ‚
  * [maintenance]
- *     PostLh5Encoder ‚©‚зЋу‚ЇЊp‚ў‚ѕѓCѓ“ѓXѓ^ѓ“ѓXѓtѓBЃ[ѓ‹ѓh
- *     buffer, codeFreq, offLenFreq ”pЋ~
- *     ѓ\Ѓ[ѓXђ®”х
+ *     PostLh5Encoder гЃ‹г‚‰еЏ—гЃ‘з¶™гЃ„гЃ г‚¤гѓіг‚№г‚їгѓіг‚№гѓ•г‚Јгѓјгѓ«гѓ‰
+ *     buffer, codeFreq, offLenFreq е»ѓж­ў
+ *     г‚Ѕгѓјг‚№ж•ґе‚™
  *
  * Revision 1.0  2002/07/31 00:00:00  dangan
  * add to version control
  * [improvement]
- *     DivideNum ‚р“±“ь‚·‚йЋ–‚Й‚ж‚Б‚ДЏ€—ќ‚·‚йѓpѓ^Ѓ[ѓ“ђ”‚МЊёЏ­‚рђ}‚йЃB
+ *     DivideNum г‚’е°Ће…ҐгЃ™г‚‹дє‹гЃ«г‚€гЃЈгЃ¦е‡¦зђ†гЃ™г‚‹гѓ‘г‚їгѓјгѓіж•°гЃ®жё›е°‘г‚’е›іг‚‹гЂ‚
  * [maintenance]
- *     ѓ\Ѓ[ѓXђ®”х
- *     ѓ^ѓu”pЋ~
- *     ѓ‰ѓCѓZѓ“ѓX•¶‚МЏCђі
+ *     г‚Ѕгѓјг‚№ж•ґе‚™
+ *     г‚їгѓ–е»ѓж­ў
+ *     гѓ©г‚¤г‚»гѓіг‚№ж–‡гЃ®дї®ж­Ј
  *
  * </pre>
  * 
@@ -102,7 +102,7 @@ public class PostLh5Encoder implements PostLzssEncoder{
     //  private BitOutputStream out
     //------------------------------------------------------------------
     /**
-     * -lh4-, -lh5-, -lh6-, -lh7- Њ`Ћ®‚М€іЏkѓfЃ[ѓ^‚МЏo—Нђж‚М ѓrѓbѓgЏo—НѓXѓgѓЉЃ[ѓЂ
+     * -lh4-, -lh5-, -lh6-, -lh7- еЅўејЏгЃ®ењ§зё®гѓ‡гѓјг‚їгЃ®е‡єеЉ›е…€гЃ® гѓ“гѓѓгѓ€е‡єеЉ›г‚№гѓ€гѓЄгѓјгѓ 
      */
     private BitOutputStream out;
 
@@ -118,22 +118,22 @@ public class PostLh5Encoder implements PostLzssEncoder{
     //  private int DictionarySizeByteLen
     //------------------------------------------------------------------
     /**
-     * LZSS‚МЋ«Џ‘ѓTѓCѓY
+     * LZSSгЃ®иѕћж›ёг‚µг‚¤г‚є
      */
     private int DictionarySize;
 
     /**
-     * LZSS‚МЌЕ‘е€к’v’·
+     * LZSSгЃ®жњЂе¤§дёЂи‡ґй•·
      */
     private int MaxMatch;
 
     /**
-     * LZSS €іЏk/”с€іЏk ‚Ми‡’l
+     * LZSS ењ§зё®/йќћењ§зё® гЃ®й–ѕеЂ¤
      */
     private int Threshold;
 
     /**
-     * Ћ«Џ‘ѓTѓCѓY‚рЋ¦‚·‚М‚Й•K—v‚ИѓoѓCѓgђ”
+     * иѕћж›ёг‚µг‚¤г‚єг‚’з¤єгЃ™гЃ®гЃ«еї…и¦ЃгЃЄгѓђг‚¤гѓ€ж•°
      */
     private int DictionarySizeByteLen;
 
@@ -148,17 +148,17 @@ public class PostLh5Encoder implements PostLzssEncoder{
     //  private int flagPos
     //------------------------------------------------------------------
     /**
-     * this.block[ this.currentBlock ] “а‚МЊ»ЌЭЏ€—ќ€К’u
+     * this.block[ this.currentBlock ] е†…гЃ®зЏѕењЁе‡¦зђ†дЅЌзЅ®
      */
     private int position;
 
     /**
-     * flag ѓoѓCѓg“а‚М€іЏk/”с€іЏk‚рЋ¦‚·ѓtѓ‰ѓO
+     * flag гѓђг‚¤гѓ€е†…гЃ®ењ§зё®/йќћењ§зё®г‚’з¤єгЃ™гѓ•гѓ©г‚°
      */
     private int flagBit;
 
     /**
-     * this.block[ this.currentBlock ] “а‚М flagѓoѓCѓg‚М€К’u
+     * this.block[ this.currentBlock ] е†…гЃ® flagгѓђг‚¤гѓ€гЃ®дЅЌзЅ®
      */
     private int flagPos;
 
@@ -175,27 +175,27 @@ public class PostLh5Encoder implements PostLzssEncoder{
     //  private int[][] blockOffLenFreq
     //------------------------------------------------------------------
     /**
-     * Њ»ЌЭЏ€—ќ’†‚Мѓnѓtѓ}ѓ“ѓuѓЌѓbѓN‚рЋ¦‚·ЃB
+     * зЏѕењЁе‡¦зђ†дё­гЃ®гѓЏгѓ•гѓћгѓігѓ–гѓ­гѓѓг‚Їг‚’з¤єгЃ™гЂ‚
      */
     private int currentBlock;
 
     /**
-     * ѓnѓtѓ}ѓ“ѓRЃ[ѓhЉi”[—pѓoѓbѓtѓ@ЊQ
+     * гѓЏгѓ•гѓћгѓіг‚ігѓјгѓ‰ж јзґЌз”Ёгѓђгѓѓгѓ•г‚Ўзѕ¤
      */
     private byte[][] block;
 
     /**
-     * ЉeѓuѓЌѓbѓN‚М code ѓfЃ[ѓ^‚Мђ”
+     * еђ„гѓ–гѓ­гѓѓг‚ЇгЃ® code гѓ‡гѓјг‚їгЃ®ж•°
      */
     private int[] blockSize;
 
     /**
-     * ЉY“–‚·‚йѓuѓЌѓbѓN‚М code •”•Є‚М•p“x•\‚рЋќ‚В•p“x•\ЊQ
+     * и©ІеЅ“гЃ™г‚‹гѓ–гѓ­гѓѓг‚ЇгЃ® code йѓЁе€†гЃ®й »еє¦иЎЁг‚’жЊЃгЃ¤й »еє¦иЎЁзѕ¤
      */
     private int[][] blockCodeFreq;
 
     /**
-     * ЉY“–‚·‚йѓuѓЌѓbѓN‚М offLen •”•Є‚М•p“x•\‚рЋќ‚В•p“x•\ЊQ
+     * и©ІеЅ“гЃ™г‚‹гѓ–гѓ­гѓѓг‚ЇгЃ® offLen йѓЁе€†гЃ®й »еє¦иЎЁг‚’жЊЃгЃ¤й »еє¦иЎЁзѕ¤
      */
     private int[][] blockOffLenFreq;
 
@@ -209,59 +209,43 @@ public class PostLh5Encoder implements PostLzssEncoder{
     //  private int[][] group
     //------------------------------------------------------------------
     /**
-     * ‘SѓuѓЌѓbѓN‚рЉф‚В‚©‚МѓOѓ‹Ѓ[ѓv‚Й•ЄЉ„‚·‚йѓpѓ^Ѓ[ѓ“‚М”z—сЃB
+     * е…Ёгѓ–гѓ­гѓѓг‚Їг‚’е№ѕгЃ¤гЃ‹гЃ®г‚°гѓ«гѓјгѓ—гЃ«е€†е‰ІгЃ™г‚‹гѓ‘г‚їгѓјгѓігЃ®й…Ќе€—гЂ‚
      */
     private int[][] pattern;
 
     /**
-     * •Ўђ”ѓuѓЌѓbѓN‚р‘g‚ЭЌ‡‚н‚№‚ЅѓOѓ‹Ѓ[ѓv‚М”z—сЃB
-     * this.group[0] ‘SѓuѓЌѓbѓN‚рЋќ‚ВѓOѓ‹Ѓ[ѓv‚Є
-     * this.group[1] this.group[2] ‚Й‚Н ‘SѓuѓЌѓbѓN‚©‚зЉeЃXЌЕЊг‚ЖЌЕЏ‰‚МѓuѓЌѓbѓN‚рЊ‡‚ў‚ЅѓOѓ‹Ѓ[ѓv‚Є
-     * Ѓc‚Ж‚ў‚¤‚ж‚¤‚Йѓsѓ‰ѓ~ѓbѓhЏу‚ЙЌ\ђ¬‚і‚к‚йЃB
+     * и¤‡ж•°гѓ–гѓ­гѓѓг‚Їг‚’зµ„гЃїеђ€г‚ЏгЃ›гЃџг‚°гѓ«гѓјгѓ—гЃ®й…Ќе€—гЂ‚
+     * this.group[0] е…Ёгѓ–гѓ­гѓѓг‚Їг‚’жЊЃгЃ¤г‚°гѓ«гѓјгѓ—гЃЊ
+     * this.group[1] this.group[2] гЃ«гЃЇ е…Ёгѓ–гѓ­гѓѓг‚ЇгЃ‹г‚‰еђ„гЂ…жњЂеѕЊгЃЁжњЂе€ќгЃ®гѓ–гѓ­гѓѓг‚Їг‚’ж¬ гЃ„гЃџг‚°гѓ«гѓјгѓ—гЃЊ
+     * вЂ¦гЃЁгЃ„гЃ†г‚€гЃ†гЃ«гѓ”гѓ©гѓџгѓѓгѓ‰зЉ¶гЃ«ж§‹ж€ђгЃ•г‚Њг‚‹гЂ‚
      */
     private int[][] group;
 
 
-    //------------------------------------------------------------------
-    //  constructor
-    //------------------------------------------------------------------
-    //  private PostLh5Encoder()
-    //  public PostLh5Encoder( OutputStream out )
-    //  public PostLh5Encoder( OutputStream out, String method )
-    //  public PostLh5Encoder( OutputStream out, String method, 
-    //                              int BufferSize )
-    //  public PostLh5Encoder( OutputStream out, String method,
-    //                              int BlockNum, int BlockSize, int DivideNum )
-    //------------------------------------------------------------------
     /**
-     * Ћg—p•s‰ВЃB
-     */
-    private PostLh5Encoder(){  }
-
-    /**
-     * -lh5- €іЏk—p PostLzssEncoder ‚рЌ\’z‚·‚йЃB<br>
-     * ѓoѓbѓtѓ@ѓTѓCѓY‚Й‚НѓfѓtѓHѓ‹ѓg’l‚ЄЋg—p‚і‚к‚йЃB
+     * -lh5- ењ§зё®з”Ё PostLzssEncoder г‚’ж§‹зЇ‰гЃ™г‚‹гЂ‚<br>
+     * гѓђгѓѓгѓ•г‚Ўг‚µг‚¤г‚єгЃ«гЃЇгѓ‡гѓ•г‚©гѓ«гѓ€еЂ¤гЃЊдЅїз”ЁгЃ•г‚Њг‚‹гЂ‚
      * 
-     * @param out €іЏkѓfЃ[ѓ^‚рЋу‚ЇЋж‚й OutputStream
+     * @param out ењ§зё®гѓ‡гѓјг‚їг‚’еЏ—гЃ‘еЏ–г‚‹ OutputStream
      */
     public PostLh5Encoder( OutputStream out ){
         this( out, CompressMethod.LH5 );
     }
 
     /**
-     * -lh4-, -lh5-, -lh6-, -lh7- €іЏk—p PostLzssEncoder ‚рЌ\’z‚·‚йЃB<br>
-     * ѓoѓbѓtѓ@ѓTѓCѓY‚Й‚НѓfѓtѓHѓ‹ѓg’l‚ЄЋg—p‚і‚к‚йЃB
+     * -lh4-, -lh5-, -lh6-, -lh7- ењ§зё®з”Ё PostLzssEncoder г‚’ж§‹зЇ‰гЃ™г‚‹гЂ‚<br>
+     * гѓђгѓѓгѓ•г‚Ўг‚µг‚¤г‚єгЃ«гЃЇгѓ‡гѓ•г‚©гѓ«гѓ€еЂ¤гЃЊдЅїз”ЁгЃ•г‚Њг‚‹гЂ‚
      * 
-     * @param out    €іЏkѓfЃ[ѓ^‚рЋу‚ЇЋж‚й OutputStream
-     * @param method €іЏk–@‚рЋ¦‚·•¶Ћљ—с<br>
+     * @param out    ењ§зё®гѓ‡гѓјг‚їг‚’еЏ—гЃ‘еЏ–г‚‹ OutputStream
+     * @param method ењ§зё®жі•г‚’з¤єгЃ™ж–‡е­—е€—<br>
      *  &emsp;&emsp; CompressMethod.LH4 <br>
      *  &emsp;&emsp; CompressMethod.LH5 <br>
      *  &emsp;&emsp; CompressMethod.LH6 <br>
      *  &emsp;&emsp; CompressMethod.LH7 <br>
-     *  &emsp;&emsp; ‚М‰Ѕ‚к‚©‚рЋw’и‚·‚йЃB
+     *  &emsp;&emsp; гЃ®дЅ•г‚ЊгЃ‹г‚’жЊ‡е®љгЃ™г‚‹гЂ‚
      * 
      * @exception IllegalArgumentException 
-     *               method ‚ЄЏг‹L€ИЉO‚МЏкЌ‡
+     *               method гЃЊдёЉиЁд»Ґе¤–гЃ®е ґеђ€
      */
     public PostLh5Encoder( OutputStream out, 
                                 String       method ){
@@ -269,22 +253,22 @@ public class PostLh5Encoder implements PostLzssEncoder{
     }
 
     /**
-     * -lh4-, -lh5-, -lh6-, -lh7- €іЏk—p PostLzssEncoder ‚рЌ\’z‚·‚йЃB<br>
+     * -lh4-, -lh5-, -lh6-, -lh7- ењ§зё®з”Ё PostLzssEncoder г‚’ж§‹зЇ‰гЃ™г‚‹гЂ‚<br>
      * 
-     * @param out        €іЏkѓfЃ[ѓ^‚рЋу‚ЇЋж‚й OutputStream
-     * @param method     €іЏk–@‚рЋ¦‚·•¶Ћљ—с<br>
+     * @param out        ењ§зё®гѓ‡гѓјг‚їг‚’еЏ—гЃ‘еЏ–г‚‹ OutputStream
+     * @param method     ењ§зё®жі•г‚’з¤єгЃ™ж–‡е­—е€—<br>
      *      &emsp;&emsp; CompressMethod.LH4 <br>
      *      &emsp;&emsp; CompressMethod.LH5 <br>
      *      &emsp;&emsp; CompressMethod.LH6 <br>
      *      &emsp;&emsp; CompressMethod.LH7 <br>
-     *      &emsp;&emsp; ‚М‰Ѕ‚к‚©‚рЋw’и‚·‚йЃB
-     * @param BufferSize LZSS€іЏkѓfЃ[ѓ^‚р‘Ю”р‚µ‚Д‚Ё‚­
-     *                   ѓoѓbѓtѓ@‚МѓTѓCѓY
+     *      &emsp;&emsp; гЃ®дЅ•г‚ЊгЃ‹г‚’жЊ‡е®љгЃ™г‚‹гЂ‚
+     * @param BufferSize LZSSењ§зё®гѓ‡гѓјг‚їг‚’йЂЂйЃїгЃ—гЃ¦гЃЉгЃЏ
+     *                   гѓђгѓѓгѓ•г‚ЎгЃ®г‚µг‚¤г‚є
      * 
      * @exception IllegalArgumentException <br>
-     *      &emsp;&emsp; (1) method ‚ЄЏг‹L€ИЉO‚МЏкЌ‡<br>
-     *      &emsp;&emsp; (2) BufferSize ‚ЄЏ¬‚і‚·‚¬‚йЏкЌ‡<br>
-     *      &emsp;&emsp; ‚М‰Ѕ‚к‚©
+     *      &emsp;&emsp; (1) method гЃЊдёЉиЁд»Ґе¤–гЃ®е ґеђ€<br>
+     *      &emsp;&emsp; (2) BufferSize гЃЊе°ЏгЃ•гЃ™гЃЋг‚‹е ґеђ€<br>
+     *      &emsp;&emsp; гЃ®дЅ•г‚ЊгЃ‹
      */
     public PostLh5Encoder( OutputStream out,
                                 String       method,
@@ -293,29 +277,29 @@ public class PostLh5Encoder implements PostLzssEncoder{
     }
 
     /**
-     * -lh4-, -lh5-, -lh6-, -lh7- €іЏk—p PostLzssEncoder ‚рЌ\’z‚·‚йЃB<br>
-     * 1‚В‚Є BlockSizeѓoѓCѓg ‚М BlockNum ЊВ‚МѓuѓЌѓbѓN‚р‘g‚ЭЌ‡‚н‚№‚Д
-     * ЌЕ‚аЏo—Нѓrѓbѓgђ”‚МЏ­‚И‚ўЌ\ђ¬‚ЕЏo—Н‚·‚йЃB
-     * ‘g‚ЭЌ‡‚н‚№‚Н ‘SѓuѓЌѓbѓN‚р DivideNum + 1 ЊВ‚Й•ЄЉ„‚µ‚Д“ѕ‚з‚к‚й
-     * ‘Sѓpѓ^Ѓ[ѓ“‚ЄЋЋ‚і‚к‚йЃB
+     * -lh4-, -lh5-, -lh6-, -lh7- ењ§зё®з”Ё PostLzssEncoder г‚’ж§‹зЇ‰гЃ™г‚‹гЂ‚<br>
+     * 1гЃ¤гЃЊ BlockSizeгѓђг‚¤гѓ€ гЃ® BlockNum еЂ‹гЃ®гѓ–гѓ­гѓѓг‚Їг‚’зµ„гЃїеђ€г‚ЏгЃ›гЃ¦
+     * жњЂг‚‚е‡єеЉ›гѓ“гѓѓгѓ€ж•°гЃ®е°‘гЃЄгЃ„ж§‹ж€ђгЃ§е‡єеЉ›гЃ™г‚‹гЂ‚
+     * зµ„гЃїеђ€г‚ЏгЃ›гЃЇ е…Ёгѓ–гѓ­гѓѓг‚Їг‚’ DivideNum + 1 еЂ‹гЃ«е€†е‰ІгЃ—гЃ¦еѕ—г‚‰г‚Њг‚‹
+     * е…Ёгѓ‘г‚їгѓјгѓігЃЊи©¦гЃ•г‚Њг‚‹гЂ‚
      * 
-     * @param out       €іЏkѓfЃ[ѓ^‚рЋу‚ЇЋж‚й OutputStream
-     * @param method    €іЏk–@‚рЋ¦‚·•¶Ћљ—с<br>
+     * @param out       ењ§зё®гѓ‡гѓјг‚їг‚’еЏ—гЃ‘еЏ–г‚‹ OutputStream
+     * @param method    ењ§зё®жі•г‚’з¤єгЃ™ж–‡е­—е€—<br>
      *     &emsp;&emsp; CompressMethod.LH4 <br>
      *     &emsp;&emsp; CompressMethod.LH5 <br>
      *     &emsp;&emsp; CompressMethod.LH6 <br>
      *     &emsp;&emsp; CompressMethod.LH7 <br>
-     *     &emsp;&emsp; ‚М‰Ѕ‚к‚©‚рЋw’и‚·‚йЃB
-     * @param BlockNum  ѓuѓЌѓbѓNђ”
-     * @param BlockSize 1ѓuѓЌѓbѓN‚МѓoѓCѓgђ”
-     * @param DivideNum ЌЕ‘е•ЄЉ„ђ”
+     *     &emsp;&emsp; гЃ®дЅ•г‚ЊгЃ‹г‚’жЊ‡е®љгЃ™г‚‹гЂ‚
+     * @param BlockNum  гѓ–гѓ­гѓѓг‚Їж•°
+     * @param BlockSize 1гѓ–гѓ­гѓѓг‚ЇгЃ®гѓђг‚¤гѓ€ж•°
+     * @param DivideNum жњЂе¤§е€†е‰Іж•°
      * 
      * @exception IllegalArgumentException <br>
-     *     &emsp;&emsp; (1) CompressMethod ‚ЄЏг‹L€ИЉO‚МЏкЌ‡<br>
-     *     &emsp;&emsp; (2) BlockNum ‚Є 0€И‰є‚МЏкЌ‡<br>
-     *     &emsp;&emsp; (3) BlockSize ‚ЄЏ¬‚і‚·‚¬‚йЏкЌ‡<br>
-     *     &emsp;&emsp; (4) DivideNum ‚Є 0–ў–ћ‚Е‚ ‚й‚©ЃABlockNum€ИЏг‚МЏкЌ‡<br>
-     *     &emsp;&emsp; ‚М‚ў‚ё‚к‚©ЃB
+     *     &emsp;&emsp; (1) CompressMethod гЃЊдёЉиЁд»Ґе¤–гЃ®е ґеђ€<br>
+     *     &emsp;&emsp; (2) BlockNum гЃЊ 0д»Ґдё‹гЃ®е ґеђ€<br>
+     *     &emsp;&emsp; (3) BlockSize гЃЊе°ЏгЃ•гЃ™гЃЋг‚‹е ґеђ€<br>
+     *     &emsp;&emsp; (4) DivideNum гЃЊ 0жњЄжєЂгЃ§гЃ‚г‚‹гЃ‹гЂЃBlockNumд»ҐдёЉгЃ®е ґеђ€<br>
+     *     &emsp;&emsp; гЃ®гЃ„гЃљг‚ЊгЃ‹гЂ‚
      */
     public PostLh5Encoder( OutputStream out,
                                 String       method,
@@ -395,13 +379,13 @@ public class PostLh5Encoder implements PostLzssEncoder{
     //  public void writeOffset( int offset )
     //------------------------------------------------------------------
     /**
-     * 1byte ‚М LZSS–ў€іЏk‚МѓfЃ[ѓ^‚а‚µ‚­‚НЃA
-     * LZSS ‚Е€іЏk‚і‚к‚Ѕ€іЏkѓRЃ[ѓh‚М‚¤‚ї€к’v’·‚рЏ‘‚«‚±‚ЮЃB<br>
+     * 1byte гЃ® LZSSжњЄењ§зё®гЃ®гѓ‡гѓјг‚їг‚‚гЃ—гЃЏгЃЇгЂЃ
+     * LZSS гЃ§ењ§зё®гЃ•г‚ЊгЃџењ§зё®г‚ігѓјгѓ‰гЃ®гЃ†гЃЎдёЂи‡ґй•·г‚’ж›ёгЃЌгЃ“г‚ЂгЂ‚<br>
      * 
-     * @param code 1byte ‚М LZSS–ў€іЏk‚МѓfЃ[ѓ^‚а‚µ‚­‚НЃA
-     *             LZSS ‚Е€іЏk‚і‚к‚Ѕ€іЏkѓRЃ[ѓh‚М‚¤‚ї€к’v’·
+     * @param code 1byte гЃ® LZSSжњЄењ§зё®гЃ®гѓ‡гѓјг‚їг‚‚гЃ—гЃЏгЃЇгЂЃ
+     *             LZSS гЃ§ењ§зё®гЃ•г‚ЊгЃџењ§зё®г‚ігѓјгѓ‰гЃ®гЃ†гЃЎдёЂи‡ґй•·
      * 
-     * @exception IOException “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
+     * @exception IOException е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
      */
     public void writeCode( int code ) throws IOException {
         int need = ( ( 0x100 <= code ? this.DictionarySizeByteLen + 1 : 1 )
@@ -426,36 +410,36 @@ public class PostLh5Encoder implements PostLzssEncoder{
             this.block[ this.currentBlock ][ this.flagPos ] = 0;
         }
 
-        //ѓfЃ[ѓ^Љi”[
+        //гѓ‡гѓјг‚їж јзґЌ
         this.block[ this.currentBlock ][ this.position++ ] = (byte)code;
 
-        //Џг€К1ѓrѓbѓg‚рѓtѓ‰ѓO‚Ж‚µ‚ДЉi”[
+        //дёЉдЅЌ1гѓ“гѓѓгѓ€г‚’гѓ•гѓ©г‚°гЃЁгЃ—гЃ¦ж јзґЌ
         if( 0x100 <= code ){
             this.block[ this.currentBlock ][ this.flagPos ] |= this.flagBit;
         }
         this.flagBit >>= 1;
 
-        //•p“x•\ЌXђV
+        //й »еє¦иЎЁж›ґж–°
         this.blockCodeFreq[ this.currentBlock ][ code ]++;
 
-        //ѓuѓЌѓbѓNѓTѓCѓYЌXђV
+        //гѓ–гѓ­гѓѓг‚Їг‚µг‚¤г‚єж›ґж–°
         this.blockSize[ this.currentBlock ]++;
     }
 
     /**
-     * LZSS ‚Е€іЏk‚і‚к‚Ѕ€іЏkѓRЃ[ѓh‚М‚¤‚ї€к’v€К’u‚рЏ‘‚«‚±‚ЮЃB<br>
+     * LZSS гЃ§ењ§зё®гЃ•г‚ЊгЃџењ§зё®г‚ігѓјгѓ‰гЃ®гЃ†гЃЎдёЂи‡ґдЅЌзЅ®г‚’ж›ёгЃЌгЃ“г‚ЂгЂ‚<br>
      * 
-     * @param offset LZSS ‚Е€іЏk‚і‚к‚Ѕ€іЏkѓRЃ[ѓh‚М‚¤‚ї€к’v€К’u
+     * @param offset LZSS гЃ§ењ§зё®гЃ•г‚ЊгЃџењ§зё®г‚ігѓјгѓ‰гЃ®гЃ†гЃЎдёЂи‡ґдЅЌзЅ®
      */
     public void writeOffset( int offset ){
-        //ѓfЃ[ѓ^Љi”[
+        //гѓ‡гѓјг‚їж јзґЌ
         int shift = ( this.DictionarySizeByteLen - 1 ) << 3;
         while( 0 <= shift ){
             this.block[ this.currentBlock ][ this.position++ ] = (byte)( offset >> shift );
             shift -= 8;
         }
 
-        //•p“x•\ЌXђV
+        //й »еє¦иЎЁж›ґж–°
         this.blockOffLenFreq[ this.currentBlock ][ Bits.len( offset ) ]++;
     }
 
@@ -469,12 +453,12 @@ public class PostLh5Encoder implements PostLzssEncoder{
     //  public void close()
     //------------------------------------------------------------------
     /**
-     * ‚±‚М PostLzssEncoder ‚Йѓoѓbѓtѓ@ѓЉѓ“ѓO‚і‚к‚Д‚ў‚й‘S‚Д‚М
-     * 8ѓrѓbѓg’P€К‚МѓfЃ[ѓ^‚рЏo—Нђж‚М OutputStream ‚ЙЏo—Н‚µЃA
-     * Џo—Нђж‚М OutputStream ‚р flush() ‚·‚йЃB<br>
-     * ‚±‚МѓЃѓ\ѓbѓh‚Н€іЏk—¦‚р•П‰»‚і‚№‚йЃB
+     * гЃ“гЃ® PostLzssEncoder гЃ«гѓђгѓѓгѓ•г‚ЎгѓЄгѓіг‚°гЃ•г‚ЊгЃ¦гЃ„г‚‹е…ЁгЃ¦гЃ®
+     * 8гѓ“гѓѓгѓ€еЌдЅЌгЃ®гѓ‡гѓјг‚їг‚’е‡єеЉ›е…€гЃ® OutputStream гЃ«е‡єеЉ›гЃ—гЂЃ
+     * е‡єеЉ›е…€гЃ® OutputStream г‚’ flush() гЃ™г‚‹гЂ‚<br>
+     * гЃ“гЃ®гѓЎг‚Ѕгѓѓгѓ‰гЃЇењ§зё®зЋ‡г‚’е¤‰еЊ–гЃ•гЃ›г‚‹гЂ‚
      * 
-     * @exception IOException “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
+     * @exception IOException е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
      * 
      * @see PostLzssEncoder#flush()
      * @see BitOutputStream#flush()
@@ -485,10 +469,10 @@ public class PostLh5Encoder implements PostLzssEncoder{
     }
 
     /**
-     * ‚±‚МЏo—НѓXѓgѓЉЃ[ѓЂ‚ЖЃAђЪ‘±‚і‚к‚ЅЏo—НѓXѓgѓЉЃ[ѓЂ‚р•В‚¶ЃA
-     * Ћg—p‚µ‚Д‚ў‚ЅѓЉѓ\Ѓ[ѓX‚рЉJ•ъ‚·‚йЃB<br>
+     * гЃ“гЃ®е‡єеЉ›г‚№гѓ€гѓЄгѓјгѓ гЃЁгЂЃжЋҐз¶љгЃ•г‚ЊгЃџе‡єеЉ›г‚№гѓ€гѓЄгѓјгѓ г‚’й–‰гЃгЂЃ
+     * дЅїз”ЁгЃ—гЃ¦гЃ„гЃџгѓЄг‚Ѕгѓјг‚№г‚’й–‹ж”ѕгЃ™г‚‹гЂ‚<br>
      * 
-     * @exception IOException “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
+     * @exception IOException е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
      */
     public void close() throws IOException {
         this.writeOut();                                                        //throws IOException
@@ -513,27 +497,27 @@ public class PostLh5Encoder implements PostLzssEncoder{
     //  public int getThreshold()
     //------------------------------------------------------------------
     /**
-     * ‚±‚М PostLh5Encoder ‚Є€µ‚¤LZSSЋ«Џ‘‚МѓTѓCѓY‚р“ѕ‚йЃB
+     * гЃ“гЃ® PostLh5Encoder гЃЊж‰±гЃ†LZSSиѕћж›ёгЃ®г‚µг‚¤г‚єг‚’еѕ—г‚‹гЂ‚
      * 
-     * @return ‚±‚М PostLh5Encoder ‚Є€µ‚¤LZSSЋ«Џ‘‚МѓTѓCѓY
+     * @return гЃ“гЃ® PostLh5Encoder гЃЊж‰±гЃ†LZSSиѕћж›ёгЃ®г‚µг‚¤г‚є
      */
     public int getDictionarySize(){
         return this.DictionarySize;
     }
 
     /**
-     * ‚±‚М PostLh5Encoder ‚Є€µ‚¤LZSS‚МЌЕ’·€к’v’·‚р“ѕ‚йЃB
+     * гЃ“гЃ® PostLh5Encoder гЃЊж‰±гЃ†LZSSгЃ®жњЂй•·дёЂи‡ґй•·г‚’еѕ—г‚‹гЂ‚
      * 
-     * @return ‚±‚М PostLh5Encoder ‚Є€µ‚¤LZSS‚МЌЕ‘е€к’v’·
+     * @return гЃ“гЃ® PostLh5Encoder гЃЊж‰±гЃ†LZSSгЃ®жњЂе¤§дёЂи‡ґй•·
      */
     public int getMaxMatch(){
         return this.MaxMatch;
     }
 
     /**
-     * ‚±‚М PostLh5Encoder ‚Є€µ‚¤LZSS‚М€іЏkЃA”с€іЏk‚Ми‡’l‚р“ѕ‚йЃB
+     * гЃ“гЃ® PostLh5Encoder гЃЊж‰±гЃ†LZSSгЃ®ењ§зё®гЂЃйќћењ§зё®гЃ®й–ѕеЂ¤г‚’еѕ—г‚‹гЂ‚
      * 
-     * @return ‚±‚М PostLh5Encoder ‚Є€µ‚¤LZSS‚М€іЏkЃA”с€іЏk‚Ми‡’l
+     * @return гЃ“гЃ® PostLh5Encoder гЃЊж‰±гЃ†LZSSгЃ®ењ§зё®гЂЃйќћењ§зё®гЃ®й–ѕеЂ¤
      */
     public int getThreshold(){
         return this.Threshold;
@@ -550,9 +534,9 @@ public class PostLh5Encoder implements PostLzssEncoder{
     //  private void writeOutGroup( int[] group )
     //------------------------------------------------------------------
     /**
-     * ѓoѓbѓtѓ@ѓЉѓ“ѓO‚і‚к‚Ѕ‘S‚Д‚МѓfЃ[ѓ^‚р this.out ‚ЙЏo—Н‚·‚йЃB<br>
+     * гѓђгѓѓгѓ•г‚ЎгѓЄгѓіг‚°гЃ•г‚ЊгЃџе…ЁгЃ¦гЃ®гѓ‡гѓјг‚їг‚’ this.out гЃ«е‡єеЉ›гЃ™г‚‹гЂ‚<br>
      * 
-     * @exception IOException “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
+     * @exception IOException е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
      */
     private void writeOut() throws IOException {
         if( 1 < this.block.length ){
@@ -567,16 +551,16 @@ public class PostLh5Encoder implements PostLzssEncoder{
     }
 
     /**
-     * ѓoѓbѓtѓ@ѓЉѓ“ѓO‚і‚к‚Ѕ‘S‚Д‚МѓfЃ[ѓ^‚рЌЕ—З‚МЌ\ђ¬‚Е this.out ‚ЙЏo—Н‚·‚йЃB<br>
+     * гѓђгѓѓгѓ•г‚ЎгѓЄгѓіг‚°гЃ•г‚ЊгЃџе…ЁгЃ¦гЃ®гѓ‡гѓјг‚їг‚’жњЂи‰ЇгЃ®ж§‹ж€ђгЃ§ this.out гЃ«е‡єеЉ›гЃ™г‚‹гЂ‚<br>
      * 
-     * @exception IOException “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
+     * @exception IOException е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
      */
     private void writeOutBestPattern() throws IOException {
         int[] bestPattern  = null;
         int[] groupHuffLen = new int[ this.group.length  ];
 
         //------------------------------------------------------------------
-        //  group ‚рЏo—Н‚µ‚Ѕ‚Ж‚«‚М bit ђ”‚р‹Ѓ‚Я‚йЃB
+        //  group г‚’е‡єеЉ›гЃ—гЃџгЃЁгЃЌгЃ® bit ж•°г‚’ж±‚г‚Ѓг‚‹гЂ‚
         for( int i = 0 ; i < this.group.length ; i++ ){
             if( this.group != null ){
                 int blockSize = 0;
@@ -600,7 +584,7 @@ public class PostLh5Encoder implements PostLzssEncoder{
         }
 
         //------------------------------------------------------------------
-        //  Џo—Н bit ђ”‚ЄЌЕЏ¬‚Ж‚И‚й pattern ‚р‘Ќ“–‚и‚Е‹Ѓ‚Я‚йЃB
+        //  е‡єеЉ› bit ж•°гЃЊжњЂе°ЏгЃЁгЃЄг‚‹ pattern г‚’з·ЏеЅ“г‚ЉгЃ§ж±‚г‚Ѓг‚‹гЂ‚
         int smallest = Integer.MAX_VALUE;
         for( int i = 0 ; i < this.pattern.length ; i++ ){
             int length = 0;
@@ -620,9 +604,9 @@ public class PostLh5Encoder implements PostLzssEncoder{
         }
 
         //------------------------------------------------------------------
-        //  ЌЕ‚аЏo—Н bit ђ”‚МЏ­‚И‚ўѓpѓ^Ѓ[ѓ“‚ЕЏo—Н
-        //  ‚З‚М ѓpѓ^Ѓ[ѓ“ ‚аѓuѓЌѓbѓNѓTѓCѓY‚Є 65536 €ИЏг‚М
-        //  ѓOѓ‹Ѓ[ѓv‚рЋќ‚ВЏкЌ‡‚НѓuѓЌѓbѓN’P€К‚ЕЏo—НЃB
+        //  жњЂг‚‚е‡єеЉ› bit ж•°гЃ®е°‘гЃЄгЃ„гѓ‘г‚їгѓјгѓігЃ§е‡єеЉ›
+        //  гЃ©гЃ® гѓ‘г‚їгѓјгѓі г‚‚гѓ–гѓ­гѓѓг‚Їг‚µг‚¤г‚єгЃЊ 65536 д»ҐдёЉгЃ®
+        //  г‚°гѓ«гѓјгѓ—г‚’жЊЃгЃ¤е ґеђ€гЃЇгѓ–гѓ­гѓѓг‚ЇеЌдЅЌгЃ§е‡єеЉ›гЂ‚
         if( bestPattern != null ){
             for( int i = 0 ; i < bestPattern.length ; i++ ){
                 this.writeOutGroup( this.group[ bestPattern[i] ] );             //throws IOException
@@ -637,11 +621,11 @@ public class PostLh5Encoder implements PostLzssEncoder{
     }
 
     /**
-     * group ‚ЕЋw’и‚і‚к‚Ѕ ѓuѓЌѓbѓNЊQ‚рѓnѓtѓ}ѓ“•„Ќ†‰»‚µ‚Д this.out ‚ЙЏo—Н‚·‚йЃB<br>
+     * group гЃ§жЊ‡е®љгЃ•г‚ЊгЃџ гѓ–гѓ­гѓѓг‚Їзѕ¤г‚’гѓЏгѓ•гѓћгѓіз¬¦еЏ·еЊ–гЃ—гЃ¦ this.out гЃ«е‡єеЉ›гЃ™г‚‹гЂ‚<br>
      * 
-     * @param group Џo—Н‚·‚йѓuѓЌѓbѓN”ФЌ†‚рЋќ‚В”z—с
+     * @param group е‡єеЉ›гЃ™г‚‹гѓ–гѓ­гѓѓг‚Їз•ЄеЏ·г‚’жЊЃгЃ¤й…Ќе€—
      * 
-     * @exception IOException “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
+     * @exception IOException е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
      */
     private void writeOutGroup( int[] group ) throws IOException {
         int[] codeFreq   = PostLh5Encoder.margeArrays( group, this.blockCodeFreq );
@@ -654,11 +638,11 @@ public class PostLh5Encoder implements PostLzssEncoder{
 
         if( 0 < blockSize ){
             //------------------------------------------------------------------
-            //  ѓuѓЌѓbѓNѓTѓCѓYЏo—Н
+            //  гѓ–гѓ­гѓѓг‚Їг‚µг‚¤г‚єе‡єеЉ›
             this.out.writeBits( 16, blockSize );
 
             //------------------------------------------------------------------
-            //  ѓnѓtѓ}ѓ“•„Ќ†•\ђ¶ђ¬
+            //  гѓЏгѓ•гѓћгѓіз¬¦еЏ·иЎЁз”џж€ђ
             int[] codeLen    = StaticHuffman.FreqListToLenList( codeFreq );
             int[] codeCode   = StaticHuffman.LenListToCodeList( codeLen );
             int[] offLenLen  = StaticHuffman.FreqListToLenList( offLenFreq );
@@ -666,7 +650,7 @@ public class PostLh5Encoder implements PostLzssEncoder{
 
 
             //------------------------------------------------------------------
-            //  code •”‚Мѓnѓtѓ}ѓ“•„Ќ†•\Џo—Н
+            //  code йѓЁгЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·иЎЁе‡єеЉ›
             if( 2 <= PostLh5Encoder.countNoZeroElement( codeFreq ) ){
                 int[] codeLenFreq = PostLh5Encoder.createCodeLenFreq( codeLen );
                 int[] codeLenLen  = StaticHuffman.FreqListToLenList( codeLenFreq );
@@ -687,7 +671,7 @@ public class PostLh5Encoder implements PostLzssEncoder{
             }
 
             //------------------------------------------------------------------
-            //  offLen •”‚Мѓnѓtѓ}ѓ“•„Ќ†•\Џo—Н
+            //  offLen йѓЁгЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·иЎЁе‡єеЉ›
             if( 2 <= PostLh5Encoder.countNoZeroElement( offLenFreq ) ){
                 this.writeOffLenLen( offLenLen );                               //throws IOException
             }else{
@@ -699,7 +683,7 @@ public class PostLh5Encoder implements PostLzssEncoder{
 
 
             //------------------------------------------------------------------
-            //  ѓnѓtѓ}ѓ“•„Ќ†Џo—Н
+            //  гѓЏгѓ•гѓћгѓіз¬¦еЏ·е‡єеЉ›
             for( int i = 0 ; i < group.length ; i++ ){
                 this.position = 0;
                 this.flagBit  = 0;
@@ -729,7 +713,7 @@ public class PostLh5Encoder implements PostLzssEncoder{
             }
 
             //------------------------------------------------------------------
-            //  Ћџ‚МѓuѓЌѓbѓN‚М‚Ѕ‚Я‚МЏ€—ќ
+            //  ж¬ЎгЃ®гѓ–гѓ­гѓѓг‚ЇгЃ®гЃџг‚ЃгЃ®е‡¦зђ†
             for( int i = 0 ; i < group.length ; i++ ){
                 this.blockSize[ group[i] ] = 0;
 
@@ -758,11 +742,11 @@ public class PostLh5Encoder implements PostLzssEncoder{
     //  private void writeOffLenLen( int[] offLenLen )
     //------------------------------------------------------------------
     /**
-     * codeLen ‚М ѓnѓtѓ}ѓ“•„Ќ†’·‚МѓЉѓXѓg‚рЏ‘‚«Џo‚·ЃB
+     * codeLen гЃ® гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€г‚’ж›ёгЃЌе‡єгЃ™гЂ‚
      * 
-     * @param codeLenLen codeLenFreq ‚Мѓnѓtѓ}ѓ“•„Ќ†’·‚МѓЉѓXѓg
+     * @param codeLenLen codeLenFreq гЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€
      * 
-     * @exception IOException “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
+     * @exception IOException е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
      */
     private void writeCodeLenLen( int[] codeLenLen ) throws IOException {
         int end = codeLenLen.length;
@@ -787,14 +771,14 @@ public class PostLh5Encoder implements PostLzssEncoder{
     }
 
     /**
-     * code •”‚Мѓnѓtѓ}ѓ“•„Ќ†’·‚МѓЉѓXѓg‚р
-     * ѓnѓtѓ}ѓ“‚Жѓ‰ѓ“ѓЊѓ“ѓOѓX‚Е•„Ќ†‰»‚µ‚И‚Є‚зЏ‘‚«Џo‚·ЃB
+     * code йѓЁгЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€г‚’
+     * гѓЏгѓ•гѓћгѓігЃЁгѓ©гѓігѓ¬гѓіг‚°г‚№гЃ§з¬¦еЏ·еЊ–гЃ—гЃЄгЃЊг‚‰ж›ёгЃЌе‡єгЃ™гЂ‚
      * 
-     * @param codeLen     codeFreq ‚Мѓnѓtѓ}ѓ“•„Ќ†’·‚МѓЉѓXѓg
-     * @param codeLenLen  codeLenFreq ‚Мѓnѓtѓ}ѓ“•„Ќ†’·‚МѓЉѓXѓg
-     * @param codeLenCode codeLenFreq ‚Мѓnѓtѓ}ѓ“•„Ќ†‚МѓЉѓXѓg
+     * @param codeLen     codeFreq гЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€
+     * @param codeLenLen  codeLenFreq гЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€
+     * @param codeLenCode codeLenFreq гЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·гЃ®гѓЄг‚№гѓ€
      * 
-     * @exception IOException “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
+     * @exception IOException е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
      */
     private void writeCodeLen( int[] codeLen,
                                int[] codeLenLen,
@@ -837,18 +821,18 @@ public class PostLh5Encoder implements PostLzssEncoder{
     }
 
     /**
-     * offLen ‚Мѓnѓtѓ}ѓ“•„Ќ†’·‚МѓЉѓXѓg‚рЏ‘‚«Џo‚·
+     * offLen гЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€г‚’ж›ёгЃЌе‡єгЃ™
      * 
-     * @param offLenLen offLenFreq ‚Мѓnѓtѓ}ѓ“•„Ќ†’·‚МѓЉѓXѓg
+     * @param offLenLen offLenFreq гЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€
      * 
-     * @exception IOException “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
+     * @exception IOException е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
      */
     private void writeOffLenLen( int[] offLenLen ) throws IOException {
         int end = offLenLen.length;
         while( 0 < end && offLenLen[end - 1] == 0 ){
             end--;
         }
-        
+
         int len = Bits.len( Bits.len( this.DictionarySize ) );
         this.out.writeBits( len, end );                                         //throws IOException
         int index = 0;
@@ -871,11 +855,11 @@ public class PostLh5Encoder implements PostLzssEncoder{
     //  private static int[] createCodeLenFreq( int[] CodeLenList )
     //------------------------------------------------------------------
     /**
-     * ”z—с“а‚М 0‚Е‚И‚ў—v‘fђ”‚р“ѕ‚йЃB
+     * й…Ќе€—е†…гЃ® 0гЃ§гЃЄгЃ„и¦Ѓзґ ж•°г‚’еѕ—г‚‹гЂ‚
      * 
-     * @param array ”z—с
+     * @param array й…Ќе€—
      * 
-     * @return ”z—с“а‚М 0‚Е‚И‚ў—v‘fђ”
+     * @return й…Ќе€—е†…гЃ® 0гЃ§гЃЄгЃ„и¦Ѓзґ ж•°
      */
     private static int countNoZeroElement( int[] array ){
         int count = 0;
@@ -888,12 +872,12 @@ public class PostLh5Encoder implements PostLzssEncoder{
     }
 
     /**
-     * ”z—с“а‚М 0‚Е‚И‚ўЌЕЏ‰‚М—v‘f‚р“ѕ‚йЃB
+     * й…Ќе€—е†…гЃ® 0гЃ§гЃЄгЃ„жњЂе€ќгЃ®и¦Ѓзґ г‚’еѕ—г‚‹гЂ‚
      * 
-     * @param array ”z—с
+     * @param array й…Ќе€—
      * 
-     * @return ”z—с“а‚М 0‚Е‚И‚ўЌЕЏ‰‚М—v‘f
-     *         ‘S‚Д‚М—v‘f‚Є0‚МЏкЌ‡‚Н 0‚р•Ф‚·ЃB
+     * @return й…Ќе€—е†…гЃ® 0гЃ§гЃЄгЃ„жњЂе€ќгЃ®и¦Ѓзґ 
+     *         е…ЁгЃ¦гЃ®и¦Ѓзґ гЃЊ0гЃ®е ґеђ€гЃЇ 0г‚’иї”гЃ™гЂ‚
      */
     private static int getNoZeroElementIndex( int[] array ){
         for( int i = 0 ; i < array.length ; i++ ){
@@ -905,10 +889,10 @@ public class PostLh5Encoder implements PostLzssEncoder{
     }
 
     /**
-     * arrays ‚М’†‚©‚зЃAindexes ‚ЕЋw’и‚і‚к‚Ѕ”z—с‚рAЊ‹‚·‚йЃB
+     * arrays гЃ®дё­гЃ‹г‚‰гЂЃindexes гЃ§жЊ‡е®љгЃ•г‚ЊгЃџй…Ќе€—г‚’йЂЈзµђгЃ™г‚‹гЂ‚
      * 
-     * @param indexes arrays“а‚М‘–Ќё‘ОЏЫ‚М”z—с‚рЋ¦‚·“Y‚¦Ћљ‚М•\
-     * @param arrays  ‘–Ќё‘ОЏЫ‚М”z—с‚рЉЬ‚с‚ѕѓЉѓXѓg
+     * @param indexes arraysе†…гЃ®иµ°жџ»еЇѕи±ЎгЃ®й…Ќе€—г‚’з¤єгЃ™ж·»гЃ€е­—гЃ®иЎЁ
+     * @param arrays  иµ°жџ»еЇѕи±ЎгЃ®й…Ќе€—г‚’еђ«г‚“гЃ гѓЄг‚№гѓ€
      */
     private static int[] margeArrays( int[] indexes, int[][] arrays ){
         if( 1 < indexes.length ){
@@ -929,19 +913,19 @@ public class PostLh5Encoder implements PostLzssEncoder{
 
 
     /**
-     * codeLen ‚рѓ‰ѓ“ѓЊѓ“ѓOѓX‚Жѓnѓtѓ}ѓ“‚Е•„Ќ†‰»‚·‚й‚Ѕ‚Я‚М•p“x•\‚рЌмђ¬‚·‚йЃB
-     * Ќмђ¬‚·‚й•p“x•\‚Н 
-     * codeLenFreq[0]‚Й‚Н—v‘fђ”0‚М—v‘f‚Є1‚В‚ ‚Б‚Д“З‚Э”т‚О‚·Ћ–‚рЋwЋ¦‚·‚й
-     * codeLenFreq[1]‚Й‚Н—v‘fђ”0‚М—v‘f‚Є3Ѓ`18‚ ‚Б‚ДЃA‘±‚­5bit‚МѓfЃ[ѓ^‚р‚Э‚Д
-     * ‚»‚М’·‚і‚МѓfЃ[ѓ^‚р“З‚Э”т‚О‚·Ћ–‚рЋwЋ¦‚·‚й
-     * codeLenFreq[2]‚Й‚Н—v‘fђ”0‚М—v‘f‚Є20€ИЏг‚ ‚Б‚ДЃA‘±‚­9bit‚МѓfЃ[ѓ^‚р‚Э‚Д
-     * ‚»‚М’·‚і‚МѓfЃ[ѓ^‚р“З‚Э”т‚О‚·Ћ–‚рЋwЋ¦‚·‚й
-     * ‚Ж‚ў‚¤“БЋк‚И€У–Ў‚рЋќ‚В—v‘f‚аЉЬ‚Ь‚к‚йЃB
-     * Џ]—€‚М•p“x‚Н +2‚і‚к‚Ѕ€К’u‚Й‚»‚к‚ј‚к”z’u‚і‚к‚йЃB
+     * codeLen г‚’гѓ©гѓігѓ¬гѓіг‚°г‚№гЃЁгѓЏгѓ•гѓћгѓігЃ§з¬¦еЏ·еЊ–гЃ™г‚‹гЃџг‚ЃгЃ®й »еє¦иЎЁг‚’дЅњж€ђгЃ™г‚‹гЂ‚
+     * дЅњж€ђгЃ™г‚‹й »еє¦иЎЁгЃЇ 
+     * codeLenFreq[0]гЃ«гЃЇи¦Ѓзґ ж•°0гЃ®и¦Ѓзґ гЃЊ1гЃ¤гЃ‚гЃЈгЃ¦иЄ­гЃїйЈ›гЃ°гЃ™дє‹г‚’жЊ‡з¤єгЃ™г‚‹
+     * codeLenFreq[1]гЃ«гЃЇи¦Ѓзґ ж•°0гЃ®и¦Ѓзґ гЃЊ3гЂњ18гЃ‚гЃЈгЃ¦гЂЃз¶љгЃЏ5bitгЃ®гѓ‡гѓјг‚їг‚’гЃїгЃ¦
+     * гЃќгЃ®й•·гЃ•гЃ®гѓ‡гѓјг‚їг‚’иЄ­гЃїйЈ›гЃ°гЃ™дє‹г‚’жЊ‡з¤єгЃ™г‚‹
+     * codeLenFreq[2]гЃ«гЃЇи¦Ѓзґ ж•°0гЃ®и¦Ѓзґ гЃЊ20д»ҐдёЉгЃ‚гЃЈгЃ¦гЂЃз¶љгЃЏ9bitгЃ®гѓ‡гѓјг‚їг‚’гЃїгЃ¦
+     * гЃќгЃ®й•·гЃ•гЃ®гѓ‡гѓјг‚їг‚’иЄ­гЃїйЈ›гЃ°гЃ™дє‹г‚’жЊ‡з¤єгЃ™г‚‹
+     * гЃЁгЃ„гЃ†з‰№ж®ЉгЃЄж„Џе‘іг‚’жЊЃгЃ¤и¦Ѓзґ г‚‚еђ«гЃѕг‚Њг‚‹гЂ‚
+     * еѕ“жќҐгЃ®й »еє¦гЃЇ +2гЃ•г‚ЊгЃџдЅЌзЅ®гЃ«гЃќг‚ЊгЃћг‚Њй…ЌзЅ®гЃ•г‚Њг‚‹гЂ‚
      * 
-     * @param codeLen codeFreq ‚Мѓnѓtѓ}ѓ“•„Ќ†’·‚МѓЉѓXѓg
+     * @param codeLen codeFreq гЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€
      * 
-     * @return codeLen ‚М•p“x•\
+     * @return codeLen гЃ®й »еє¦иЎЁ
      */
     private static int[] createCodeLenFreq( int[] codeLen ){
         int[] codeLenFreq = new int[ StaticHuffman.LimitLen + 3 ];
@@ -992,33 +976,34 @@ public class PostLh5Encoder implements PostLzssEncoder{
     //  private static int calcOffLenLen( int DictionarySize, int[] offLenLen )
     //------------------------------------------------------------------
     /**
-     * Ћw’и‚і‚к‚Ѕ•p“xЏо•с‚Еѓnѓtѓ}ѓ“•„Ќ†‚р
-     * Џo—Н‚µ‚ЅЏкЌ‡‚Мѓrѓbѓgђ”‚р“ѕ‚йЃB
+     * жЊ‡е®љгЃ•г‚ЊгЃџй »еє¦жѓ…е ±гЃ§гѓЏгѓ•гѓћгѓіз¬¦еЏ·г‚’
+     * е‡єеЉ›гЃ—гЃџе ґеђ€гЃ®гѓ“гѓѓгѓ€ж•°г‚’еѕ—г‚‹гЂ‚
      * 
-     * @param DictionarySize LZSSЋ«Џ‘ѓTѓCѓY
-     * @param codeFreq       ѓRЃ[ѓh•”‚М•p“xЏо•с
-     * @param offLenFreq     ѓIѓtѓZѓbѓg•”‚М’·‚і‚М•p“xЏо•с
+     * @param DictionarySize LZSSиѕћж›ёг‚µг‚¤г‚є
+     * @param codeFreq       г‚ігѓјгѓ‰йѓЁгЃ®й »еє¦жѓ…е ±
+     * @param offLenFreq     г‚Єгѓ•г‚»гѓѓгѓ€йѓЁгЃ®й•·гЃ•гЃ®й »еє¦жѓ…е ±
      * 
-     * @return ‚±‚М•p“xЏо•с‚Еѓnѓtѓ}ѓ“•„Ќ†‚рЏo—Н‚µ‚ЅЏкЌ‡‚Мѓrѓbѓgђ”‚р“ѕ‚йЃB
+     * @return гЃ“гЃ®й »еє¦жѓ…е ±гЃ§гѓЏгѓ•гѓћгѓіз¬¦еЏ·г‚’е‡єеЉ›гЃ—гЃџе ґеђ€гЃ®гѓ“гѓѓгѓ€ж•°г‚’еѕ—г‚‹гЂ‚
      */
     private static int calcHuffmanCodeLength( int   DictionarySize,
                                               int[] codeFreq,
                                               int[] offLenFreq ){
 
         //------------------------------------------------------------------
-        //  Џ‰Љъ‰»
+        //  е€ќжњџеЊ–
         int length = 0;
+        @SuppressWarnings("unused")
         int[] codeLen, codeCode, offLenLen;
         try{
             codeLen   = StaticHuffman.FreqListToLenList( codeFreq );
             codeCode  = StaticHuffman.LenListToCodeList( codeLen );
             offLenLen = StaticHuffman.FreqListToLenList( offLenFreq );
-        }catch( BadHuffmanTableException exception ){ //”­ђ¶‚µ‚И‚ў
+        }catch( BadHuffmanTableException exception ){ //з™єз”џгЃ—гЃЄгЃ„
             throw new Error( "caught the BadHuffmanTableException which should be never thrown." );
         }
 
         //------------------------------------------------------------------
-        //  code •”‚Мѓnѓtѓ}ѓ“•p“x•\‚М’·‚і‚рЋZЏo‚·‚йЃB
+        //  code йѓЁгЃ®гѓЏгѓ•гѓћгѓій »еє¦иЎЁгЃ®й•·гЃ•г‚’з®—е‡єгЃ™г‚‹гЂ‚
         length += 16;
         if( 2 <= PostLh5Encoder.countNoZeroElement( codeFreq ) ){
             int[] codeLenFreq = PostLh5Encoder.createCodeLenFreq( codeLen );
@@ -1036,7 +1021,7 @@ public class PostLh5Encoder implements PostLzssEncoder{
         }
 
         //------------------------------------------------------------------
-        //  offLen •”‚Мѓnѓtѓ}ѓ“•p“x•\‚М’·‚і‚рЋZЏo‚·‚йЃB
+        //  offLen йѓЁгЃ®гѓЏгѓ•гѓћгѓій »еє¦иЎЁгЃ®й•·гЃ•г‚’з®—е‡єгЃ™г‚‹гЂ‚
         if( 2 <= PostLh5Encoder.countNoZeroElement( offLenFreq ) ){
             length += PostLh5Encoder.calcOffLenLen( DictionarySize, offLenLen );
         }else{
@@ -1046,7 +1031,7 @@ public class PostLh5Encoder implements PostLzssEncoder{
         }
 
         //------------------------------------------------------------------
-        //  LZSS€іЏkЊг‚МѓfЃ[ѓ^‚р‚і‚з‚Йѓnѓtѓ}ѓ“•„Ќ†‰»‚µ‚Ѕ’·‚і‚рЋZЏo‚·‚йЃB
+        //  LZSSењ§зё®еѕЊгЃ®гѓ‡гѓјг‚їг‚’гЃ•г‚‰гЃ«гѓЏгѓ•гѓћгѓіз¬¦еЏ·еЊ–гЃ—гЃџй•·гЃ•г‚’з®—е‡єгЃ™г‚‹гЂ‚
         for( int i = 0 ; i < codeFreq.length ; i++ ){
             length += codeFreq[i] * codeLen[i];
         }
@@ -1057,12 +1042,12 @@ public class PostLh5Encoder implements PostLzssEncoder{
     }
 
     /**
-     * Ћw’и‚µ‚Ѕѓnѓtѓ}ѓ“•„Ќ†’·‚М•\‚рЏo—Н‚µ‚ЅЏкЌ‡‚Мѓrѓbѓgђ”‚р“ѕ‚йЃB
+     * жЊ‡е®љгЃ—гЃџгѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®иЎЁг‚’е‡єеЉ›гЃ—гЃџе ґеђ€гЃ®гѓ“гѓѓгѓ€ж•°г‚’еѕ—г‚‹гЂ‚
      * 
-     * @param codeLenLen ѓRЃ[ѓh•”‚Мѓnѓtѓ}ѓ“•„Ќ†’·‚р
-     *                   ‚і‚з‚Йѓnѓtѓ}ѓ“•„Ќ†‰»‚µ‚Ѕ‚а‚М‚М•\
+     * @param codeLenLen г‚ігѓјгѓ‰йѓЁгЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·г‚’
+     *                   гЃ•г‚‰гЃ«гѓЏгѓ•гѓћгѓіз¬¦еЏ·еЊ–гЃ—гЃџг‚‚гЃ®гЃ®иЎЁ
      * 
-     * @return Ћw’и‚µ‚Ѕѓnѓtѓ}ѓ“•„Ќ†’·‚М•\‚рЏo—Н‚µ‚ЅЏкЌ‡‚Мѓrѓbѓgђ”
+     * @return жЊ‡е®љгЃ—гЃџгѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®иЎЁг‚’е‡єеЉ›гЃ—гЃџе ґеђ€гЃ®гѓ“гѓѓгѓ€ж•°
      */
     private static int calcCodeLenLen( int[] codeLenLen ){
         int length = 0;
@@ -1090,13 +1075,13 @@ public class PostLh5Encoder implements PostLzssEncoder{
     }
 
     /**
-     * Ћw’и‚µ‚Ѕѓnѓtѓ}ѓ“•„Ќ†’·‚М•\‚рЏo—Н‚µ‚ЅЏкЌ‡‚Мѓrѓbѓgђ”‚р“ѕ‚йЃB
+     * жЊ‡е®љгЃ—гЃџгѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®иЎЁг‚’е‡єеЉ›гЃ—гЃџе ґеђ€гЃ®гѓ“гѓѓгѓ€ж•°г‚’еѕ—г‚‹гЂ‚
      * 
-     * @param codeLen    ѓRЃ[ѓh•”‚Мѓnѓtѓ}ѓ“•„Ќ†’·‚М•\
-     * @param codeLenLen ѓRЃ[ѓh•”‚Мѓnѓtѓ}ѓ“•„Ќ†’·‚р
-     *                   ‚і‚з‚Йѓnѓtѓ}ѓ“•„Ќ†‰»‚µ‚Ѕ‚а‚М‚М•\
+     * @param codeLen    г‚ігѓјгѓ‰йѓЁгЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®иЎЁ
+     * @param codeLenLen г‚ігѓјгѓ‰йѓЁгЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·г‚’
+     *                   гЃ•г‚‰гЃ«гѓЏгѓ•гѓћгѓіз¬¦еЏ·еЊ–гЃ—гЃџг‚‚гЃ®гЃ®иЎЁ
      * 
-     * @return Ћw’и‚µ‚Ѕѓnѓtѓ}ѓ“•„Ќ†’·‚М•\‚рЏo—Н‚µ‚ЅЏкЌ‡‚Мѓrѓbѓgђ”
+     * @return жЊ‡е®љгЃ—гЃџгѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®иЎЁг‚’е‡єеЉ›гЃ—гЃџе ґеђ€гЃ®гѓ“гѓѓгѓ€ж•°
      */
     private static int calcCodeLen( int[] codeLen,
                                     int[] codeLenLen ){
@@ -1141,12 +1126,12 @@ public class PostLh5Encoder implements PostLzssEncoder{
     }
 
     /**
-     * Ћw’и‚µ‚Ѕѓnѓtѓ}ѓ“•„Ќ†’·‚М•\‚рЏo—Н‚µ‚ЅЏкЌ‡‚Мѓrѓbѓgђ”‚р“ѕ‚йЃB
+     * жЊ‡е®љгЃ—гЃџгѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®иЎЁг‚’е‡єеЉ›гЃ—гЃџе ґеђ€гЃ®гѓ“гѓѓгѓ€ж•°г‚’еѕ—г‚‹гЂ‚
      * 
-     * @param DictionarySize LZSSЋ«Џ‘ѓTѓCѓY
-     * @param offLenLen      ѓIѓtѓZѓbѓg•”‚М’·‚і‚Мѓnѓtѓ}ѓ“•„Ќ†’·‚М•\
+     * @param DictionarySize LZSSиѕћж›ёг‚µг‚¤г‚є
+     * @param offLenLen      г‚Єгѓ•г‚»гѓѓгѓ€йѓЁгЃ®й•·гЃ•гЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®иЎЁ
      * 
-     * @return Ћw’и‚µ‚Ѕѓnѓtѓ}ѓ“•„Ќ†’·‚М•\‚рЏo—Н‚µ‚ЅЏкЌ‡‚Мѓrѓbѓgђ”
+     * @return жЊ‡е®љгЃ—гЃџгѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®иЎЁг‚’е‡єеЉ›гЃ—гЃџе ґеђ€гЃ®гѓ“гѓѓгѓ€ж•°
      */
     private static int calcOffLenLen( int   DictionarySize,
                                       int[] offLenLen ){
@@ -1178,41 +1163,41 @@ public class PostLh5Encoder implements PostLzssEncoder{
     //  private static int calcPatternNum( int BlockNum, int DivideNum )
     //------------------------------------------------------------------
     /**
-     * BlockNum‚МѓuѓЌѓbѓN‚рA‘±‚µ‚ЅѓuѓЌѓbѓN‚Й
-     * ѓOѓ‹Ѓ[ѓv‰»‚µ‚Ѕ‚а‚М‚МѓЉѓXѓg‚р•Ф‚·ЃB
+     * BlockNumгЃ®гѓ–гѓ­гѓѓг‚Їг‚’йЂЈз¶љгЃ—гЃџгѓ–гѓ­гѓѓг‚ЇгЃ«
+     * г‚°гѓ«гѓјгѓ—еЊ–гЃ—гЃџг‚‚гЃ®гЃ®гѓЄг‚№гѓ€г‚’иї”гЃ™гЂ‚
      * <pre>
      * group = new int[]{ 0,1,2 }
      * </pre>
-     * ‚М‚ж‚¤‚ИЏкЌ‡ 
-     * block[0] ‚Ж block[1] ‚Ж block[2] 
-     * ‚©‚зђ¬‚йѓOѓ‹Ѓ[ѓv‚Е‚ ‚й‚±‚Ж‚рЋ¦‚·ЃB
-     * ‚Ь‚ЅѓOѓ‹Ѓ[ѓv‚Н 
-     * group[0] ‚Н‘SѓuѓЌѓbѓN‚©‚зђ¬‚йѓOѓ‹Ѓ[ѓvЃA
-     * group[1] ‚Ж group[2] ‚Н‚»‚к‚ј‚к‘SѓuѓЌѓbѓN‚©‚з
-     * ЌЕЊг‚МѓuѓЌѓbѓN‚ЖЌЕЏ‰‚МѓuѓЌѓbѓN‚рЊ‡‚ў‚Ѕ‚а‚МЃA
-     * ‚Ж‚ў‚¤‚ж‚¤‚Й ѓsѓ‰ѓ~ѓbѓhЏу‚Й‹K‘Ґ‚рЋќ‚Б‚Дђ¶ђ¬‚і‚кЃA
-     * createPattern ‚Н‚±‚М‹K‘Ґђ«‚р——p‚·‚й‚Ѕ‚Я 
-     * ‚±‚МѓЃѓ\ѓbѓh‚р‰ь•П‚·‚йЏкЌ‡‚Н’Ќ€У‚·‚й‚±‚ЖЃB
-     * ‚Ь‚ЅЃAЋg—p‚µ‚И‚ў group ‚Й‚Н null ‚Є“ь‚Б‚Д‚ў‚й‚М‚Е’Ќ€У‚·‚й‚±‚ЖЃB
+     * гЃ®г‚€гЃ†гЃЄе ґеђ€ 
+     * block[0] гЃЁ block[1] гЃЁ block[2] 
+     * гЃ‹г‚‰ж€ђг‚‹г‚°гѓ«гѓјгѓ—гЃ§гЃ‚г‚‹гЃ“гЃЁг‚’з¤єгЃ™гЂ‚
+     * гЃѕгЃџг‚°гѓ«гѓјгѓ—гЃЇ 
+     * group[0] гЃЇе…Ёгѓ–гѓ­гѓѓг‚ЇгЃ‹г‚‰ж€ђг‚‹г‚°гѓ«гѓјгѓ—гЂЃ
+     * group[1] гЃЁ group[2] гЃЇгЃќг‚ЊгЃћг‚Ње…Ёгѓ–гѓ­гѓѓг‚ЇгЃ‹г‚‰
+     * жњЂеѕЊгЃ®гѓ–гѓ­гѓѓг‚ЇгЃЁжњЂе€ќгЃ®гѓ–гѓ­гѓѓг‚Їг‚’ж¬ гЃ„гЃџг‚‚гЃ®гЂЃ
+     * гЃЁгЃ„гЃ†г‚€гЃ†гЃ« гѓ”гѓ©гѓџгѓѓгѓ‰зЉ¶гЃ«и¦Џе‰‡г‚’жЊЃгЃЈгЃ¦з”џж€ђгЃ•г‚ЊгЂЃ
+     * createPattern гЃЇгЃ“гЃ®и¦Џе‰‡жЂ§г‚’е€©з”ЁгЃ™г‚‹гЃџг‚Ѓ 
+     * гЃ“гЃ®гѓЎг‚Ѕгѓѓгѓ‰г‚’ж”№е¤‰гЃ™г‚‹е ґеђ€гЃЇжіЁж„ЏгЃ™г‚‹гЃ“гЃЁгЂ‚
+     * гЃѕгЃџгЂЃдЅїз”ЁгЃ—гЃЄгЃ„ group гЃ«гЃЇ null гЃЊе…ҐгЃЈгЃ¦гЃ„г‚‹гЃ®гЃ§жіЁж„ЏгЃ™г‚‹гЃ“гЃЁгЂ‚
      * 
-     * @param BlockNum  ѓuѓЌѓbѓN‚МЊВђ”
-     * @param DivideNum ЌЕ‘е•ЄЉ„ђ”
+     * @param BlockNum  гѓ–гѓ­гѓѓг‚ЇгЃ®еЂ‹ж•°
+     * @param DivideNum жњЂе¤§е€†е‰Іж•°
      * 
-     * @reutrn ђ¶ђ¬‚і‚к‚ЅѓOѓ‹Ѓ[ѓv‚МѓЉѓXѓg
+     * @reutrn з”џж€ђгЃ•г‚ЊгЃџг‚°гѓ«гѓјгѓ—гЃ®гѓЄг‚№гѓ€
      */
     private static int[][] createGroup( int BlockNum, int DivideNum ){
         int[][] group = new int[ ( BlockNum + 1 ) * BlockNum / 2 ][];
 
         if( DivideNum == 0 ){
             //------------------------------------------------------------------
-            //  ‘SѓuѓЌѓbѓN‚рЋќ‚ВѓOѓ‹Ѓ[ѓv‚М‚Эђ¶ђ¬
+            //  е…Ёгѓ–гѓ­гѓѓг‚Їг‚’жЊЃгЃ¤г‚°гѓ«гѓјгѓ—гЃ®гЃїз”џж€ђ
             group[0] = new int[ BlockNum ];
             for( int i = 0 ; i < BlockNum ; i++ ){
                 group[0][i] = i;
             }
         }else if( 2 < BlockNum && DivideNum == 1 ){
             //------------------------------------------------------------------
-            //  “ЇѓTѓCѓY‚МѓOѓ‹Ѓ[ѓv‚М‚¤‚їЌЕЏ‰‚М‚а‚М‚ЖЌЕЊг‚М‚а‚М‚ѕ‚Їђ¶ђ¬ЃB
+            //  еђЊг‚µг‚¤г‚єгЃ®г‚°гѓ«гѓјгѓ—гЃ®гЃ†гЃЎжњЂе€ќгЃ®г‚‚гЃ®гЃЁжњЂеѕЊгЃ®г‚‚гЃ®гЃ гЃ‘з”џж€ђгЂ‚
             int index = 0;
             for( int size = BlockNum ; 0 < size ; size-- ){
                 group[ index ] = new int[ size ];
@@ -1230,7 +1215,7 @@ public class PostLh5Encoder implements PostLzssEncoder{
             }
         }else{
             //------------------------------------------------------------------
-            //  ‘SѓOѓ‹Ѓ[ѓv‚рђ¶ђ¬ЃB
+            //  е…Ёг‚°гѓ«гѓјгѓ—г‚’з”џж€ђгЂ‚
             int index = 0;
             for( int size = BlockNum ; 0 < size ; size-- ){
                 for( int start = 0 ; size + start <= BlockNum ; start++ ){
@@ -1247,20 +1232,20 @@ public class PostLh5Encoder implements PostLzssEncoder{
     }
 
     /**
-     * BlockNum‚МѓuѓЌѓbѓN‚рЌЕ‘е DivideNum + 1ЊВ‚М—М€ж‚Й
-     * •ЄЉ„‚µ‚Ѕ‚Ж‚«‚М ѓpѓ^Ѓ[ѓ“‚М•\‚рђ¶ђ¬‚·‚йЃB
-     * 1‚В‚Мѓpѓ^Ѓ[ѓ“‚Н createGroup ‚Еђ¶ђ¬‚і‚к‚й
-     * ѓOѓ‹Ѓ[ѓv”z—с‚Ц‚М“YЋљ‚М—с‹“‚ЕЋ¦‚і‚к‚йЃB
+     * BlockNumгЃ®гѓ–гѓ­гѓѓг‚Їг‚’жњЂе¤§ DivideNum + 1еЂ‹гЃ®й еџџгЃ«
+     * е€†е‰ІгЃ—гЃџгЃЁгЃЌгЃ® гѓ‘г‚їгѓјгѓігЃ®иЎЁг‚’з”џж€ђгЃ™г‚‹гЂ‚
+     * 1гЃ¤гЃ®гѓ‘г‚їгѓјгѓігЃЇ createGroup гЃ§з”џж€ђгЃ•г‚Њг‚‹
+     * г‚°гѓ«гѓјгѓ—й…Ќе€—гЃёгЃ®ж·»е­—гЃ®е€—жЊ™гЃ§з¤єгЃ•г‚Њг‚‹гЂ‚
      * <pre>
      * pattern = new int[]{ 1,3 }; 
      * </pre>
-     * ‚М‚ж‚¤‚И ѓpѓ^Ѓ[ѓ“‚Н group[1] ‚Ж group[3] ‚МЉФ‚Е
-     * •ЄЉ„‚і‚к‚Ѕ‚±‚Ж‚рЋ¦‚·ЃB
+     * гЃ®г‚€гЃ†гЃЄ гѓ‘г‚їгѓјгѓігЃЇ group[1] гЃЁ group[3] гЃ®й–“гЃ§
+     * е€†е‰ІгЃ•г‚ЊгЃџгЃ“гЃЁг‚’з¤єгЃ™гЂ‚
      * 
-     * @param BlockNum  ѓuѓЌѓbѓN‚МЊВђ”
-     * @param DivideNum ЌЕ‘е•ЄЉ„ђ”
+     * @param BlockNum  гѓ–гѓ­гѓѓг‚ЇгЃ®еЂ‹ж•°
+     * @param DivideNum жњЂе¤§е€†е‰Іж•°
      * 
-     * @return ђ¶ђ¬‚і‚к‚Ѕѓpѓ^Ѓ[ѓ“‚МѓЉѓXѓg
+     * @return з”џж€ђгЃ•г‚ЊгЃџгѓ‘г‚їгѓјгѓігЃ®гѓЄг‚№гѓ€
      */
     private static int[][] createPattern( int BlockNum, int DivideNum ){
         int index = 0;
@@ -1268,15 +1253,15 @@ public class PostLh5Encoder implements PostLzssEncoder{
         int[][] pattern = new int[ patternNum ][];
 
         for( int div = 0 ; div < Math.min( BlockNum, DivideNum + 1 ) ; div++ ){
-            //•ЄЉ„€К’u‚р•ЫЋќ‚·‚й”z—сЃB 
-            //”z—с“а‚М’l‚НЃA—б‚¦‚О 0‚МЏкЌ‡‚Н Block[0] ‚Ж Block[1] ‚МЉФ‚Е•ЄЉ„‚·‚й‚±‚Ж‚р€У–Ў‚·‚йЃB
+            //е€†е‰ІдЅЌзЅ®г‚’дїќжЊЃгЃ™г‚‹й…Ќе€—гЂ‚ 
+            //й…Ќе€—е†…гЃ®еЂ¤гЃЇгЂЃдѕ‹гЃ€гЃ° 0гЃ®е ґеђ€гЃЇ Block[0] гЃЁ Block[1] гЃ®й–“гЃ§е€†е‰ІгЃ™г‚‹гЃ“гЃЁг‚’ж„Џе‘ігЃ™г‚‹гЂ‚
             int[] divPos = new int[ div ]; 
             for( int i = 0 ; i < divPos.length ; i++ ){
                 divPos[i] = i;
             }
 
-            //“Ї‚¶ •ЄЉ„ђ”‚Мѓpѓ^Ѓ[ѓ“‚рђ¶ђ¬‚·‚йѓ‹Ѓ[ѓv
-            //more ‚Н ‚±‚М•ЄЉ„ђ”‚ЕЃA‚Ь‚ѕѓpѓ^Ѓ[ѓ“‚Єђ¶ђ¬‚Е‚«‚йЋ–‚рЋ¦‚·ЃB
+            //еђЊгЃ е€†е‰Іж•°гЃ®гѓ‘г‚їгѓјгѓіг‚’з”џж€ђгЃ™г‚‹гѓ«гѓјгѓ—
+            //more гЃЇ гЃ“гЃ®е€†е‰Іж•°гЃ§гЂЃгЃѕгЃ гѓ‘г‚їгѓјгѓігЃЊз”џж€ђгЃ§гЃЌг‚‹дє‹г‚’з¤єгЃ™гЂ‚
             boolean more;
             do{
                 pattern[index] = new int[ div + 1 ];
@@ -1292,8 +1277,8 @@ public class PostLh5Encoder implements PostLzssEncoder{
                 pattern[index][divPos.length] = ( num + 1 ) * num / 2 + start;
                 index++;
 
-                //•ЄЉ„€К’u‚р€Ъ“®‚·‚йЃB•ЄЉ„€К’u‚р€Ъ“®‚Е‚«‚к‚ОЃA
-                //‚±‚М•ЄЉ„ђ”‚Е‚Ь‚ѕЏo—Н‚Е‚«‚йѓpѓ^Ѓ[ѓ“‚Є‚ ‚й‚Ж”»’f‚Е‚«‚йЃB
+                //е€†е‰ІдЅЌзЅ®г‚’з§»е‹•гЃ™г‚‹гЂ‚е€†е‰ІдЅЌзЅ®г‚’з§»е‹•гЃ§гЃЌг‚ЊгЃ°гЂЃ
+                //гЃ“гЃ®е€†е‰Іж•°гЃ§гЃѕгЃ е‡єеЉ›гЃ§гЃЌг‚‹гѓ‘г‚їгѓјгѓігЃЊгЃ‚г‚‹гЃЁе€¤ж–­гЃ§гЃЌг‚‹гЂ‚
                 more = false;
                 int move  = divPos.length - 1;
                 int range = BlockNum - 2;
@@ -1315,14 +1300,14 @@ public class PostLh5Encoder implements PostLzssEncoder{
     }
 
     /**
-     * BlockNum ЊВ‚МѓuѓЌѓbѓN‚р 
-     * ЌЕ‘е DivideNum + 1 ЊВ‚ЙA‘±‚µ‚Ѕ—М€ж‚Й•ЄЉ„‚µ‚ЅЏкЌ‡
-     * ‰Ѕѓpѓ^Ѓ[ѓ“‚Е‚«‚й‚©‚р“ѕ‚йЃB
+     * BlockNum еЂ‹гЃ®гѓ–гѓ­гѓѓг‚Їг‚’ 
+     * жњЂе¤§ DivideNum + 1 еЂ‹гЃ«йЂЈз¶љгЃ—гЃџй еџџгЃ«е€†е‰ІгЃ—гЃџе ґеђ€
+     * дЅ•гѓ‘г‚їгѓјгѓігЃ§гЃЌг‚‹гЃ‹г‚’еѕ—г‚‹гЂ‚
      * 
-     * @param BlockNum  ѓuѓЌѓbѓN‚МЊВђ”
-     * @param DivideNum •ЄЉ„ђ”
+     * @param BlockNum  гѓ–гѓ­гѓѓг‚ЇгЃ®еЂ‹ж•°
+     * @param DivideNum е€†е‰Іж•°
      * 
-     * @return ѓpѓ^Ѓ[ѓ“ђ”ЃB
+     * @return гѓ‘г‚їгѓјгѓіж•°гЂ‚
      */
     private static int calcPatternNum( int BlockNum, int DivideNum ){
         int patternNum = 0;
@@ -1338,7 +1323,7 @@ public class PostLh5Encoder implements PostLzssEncoder{
             for( int i = 1 ; i <= count ; i++ ){
                 denominator *= i;
             }
-            
+
             patternNum += numerator / denominator;
         }
         return patternNum;

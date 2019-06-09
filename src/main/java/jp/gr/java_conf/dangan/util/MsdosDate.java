@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  * 
- * �ȉ��̏����ɓ��ӂ���Ȃ�΃\�[�X�ƃo�C�i���`���̍Ĕz�z�Ǝg�p��
- * �ύX�̗L���ɂ�����炸������B
+ * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
+ * 変更の有無にかかわらず許可する。
  * 
- * �P�D�\�[�X�R�[�h�̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐�������ێ����Ȃ��Ă͂Ȃ�Ȃ��B
+ * １．ソースコードの再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を保持しなくてはならない。
  * 
- * �Q�D�o�C�i���`���̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐��������g�p�������������� ���̑��̔z�z������
- *     �܂ގ����ɋL�q���Ȃ���΂Ȃ�Ȃ��B
+ * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を使用説明書もしくは その他の配布物内に
+ *     含む資料に記述しなければならない。
  * 
- * ���̃\�t�g�E�F�A�͐Β˔���ڂɂ���Ė��ۏ؂Œ񋟂���A����̖�
- * �I��B���ł���Ƃ����ۏ؁A���i���l���L��Ƃ����ۏ؂ɂƂǂ܂炸�A
- * �����Ȃ閾���I����шÎ��I�ȕۏ؂����Ȃ��B
- * �Β˔���ڂ� ���̃\�t�g�E�F�A�̎g�p�ɂ�钼�ړI�A�ԐړI�A����
- * �I�A����ȁA�T�^�I�ȁA���邢�͕K�R�I�ȑ��Q(�g�p�ɂ��f�[�^��
- * �����A�Ɩ��̒��f�〈���܂�Ă������v�̈⎸�A��֐��i��������
- * �T�[�r�X�̓�������l�����邪�A�����Ă��ꂾ���Ɍ��肳��Ȃ�
- * ���Q)�ɑ΂��āA�����Ȃ鎖�Ԃ̌����ƂȂ����Ƃ��Ă��A�_���̐�
- * �C�△�ߎ��ӔC���܂� �����Ȃ�ӔC�����낤�Ƃ��A���Ƃ����ꂪ�s
- * ���s�ׂ̂��߂ł������Ƃ��Ă��A�܂��͂��̂悤�ȑ��Q�̉\������
- * ������Ă����Ƃ��Ă���؂̐ӔC�𕉂�Ȃ����̂Ƃ���B
+ * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
+ * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
+ * いかなる明示的および暗示的な保証もしない。
+ * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
+ * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
+ * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
+ * サービスの導入費等が考えられるが、決してそれだけに限定されない
+ * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
+ * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
+ * 正行為のためであったとしても、またはそのような損害の可能性が報
+ * 告されていたとしても一切の責任を負わないものとする。
  */
 
 package jp.gr.java_conf.dangan.util;
@@ -39,49 +39,50 @@ import java.lang.Cloneable;
 import java.lang.IllegalArgumentException;
 
 /**
- * MS-DOS�`���̎��ԏ�������Date�̔h���N���X�B<br>
- * �f�[�^�� 4byte�l�ł���AMS-DOS�� ���Intel �� x86�nCPU���
- * ���삵�����Ƃ��� LittleEndian�Ŋi�[�����B<br>
- * �t�H�[�}�b�g�͈ȉ��̂Ƃ���B<br>
+ * MS-DOS形式の時間情報を扱うDateの派生クラス。<br>
+ * データは 4byte値であり、MS-DOSが 主にIntel の x86系CPU上で
+ * 動作したことから LittleEndianで格納される。<br>
+ * フォーマットは以下のとおり。<br>
  * <pre>
  * +---------------+---------------++---------------+---------------+
- * | ���t-���byte | ���t-����byte || ����-���byte | ����-����byte |
+ * | 日付-上位byte | 日付-下位byte || 時刻-上位byte | 時刻-下位byte |
  * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  * |7|6|5|4|3|2|1|0|7|6|5|4|3|2|1|0||7|6|5|4|3|2|1|0|7|6|5|4|3|2|1|0|
  * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- * |   �N-7bit   |��-4bit| ��-5bit ||����-5bit|  ��-6bit  | �b-5bit |
+ * |   年-7bit   |月-4bit| 日-5bit ||時間-5bit|  分-6bit  | 秒-5bit |
  * +-------------+-------+---------++---------+-----------+---------+
  * </pre>
- * �E�N�� 1980�`2107�N �� 0�`127 �ŕ\���BWindows�̃V�X�e��API��
- *   �ꕔ�� 2099�N�܂ł����T�|�[�g���Ȃ��Ƃ�����񂪂���B<br>
- * �E���� 1�`12�� �� 1�`12�ŕ\���B0�`11�łȂ����Ƃɒ��ӁB<br>
- * �E���� 1�`31�� �� 1�`31�ŕ\���B0�`30�łȂ����Ƃɒ��ӁB<br>
- * �E���Ԃ� 0�`23�� �� 0�`23�ŕ\���B<br>
- * �E���� 0�`59�� �� 0�`59�ŕ\���B<br>
- * �E�b�� 0�`58�b �� 0�`29�ŕ\���B�b�̏��̓r�b�g��������Ȃ�
- *   ���� �ŏ��P�ʂ� 1�b�łȂ� 2�b�ł���B<br>
+ * ・年は 1980〜2107年 を 0〜127 で表す。WindowsのシステムAPIの
+ *   一部は 2099年までしかサポートしないという情報がある。<br>
+ * ・月は 1〜12月 を 1〜12で表す。0〜11でないことに注意。<br>
+ * ・日は 1〜31日 を 1〜31で表す。0〜30でないことに注意。<br>
+ * ・時間は 0〜23時 を 0〜23で表す。<br>
+ * ・分は 0〜59分 を 0〜59で表す。<br>
+ * ・秒は 0〜58秒 を 0〜29で表す。秒の情報はビット数が足りない
+ *   ため 最小単位は 1秒でなく 2秒である。<br>
  * 
  * <pre>
  * -- revision history --
  * $Log: MsdosDate.java,v $
  * Revision 1.1  2002/12/05 00:00:00  dangan
  * [maintenance]
- *     javadoc �R�����g�̃X�y���~�X���C���B
- *     �\�[�X����
+ *     javadoc コメントのスペルミスを修正。
+ *     ソース整備
  *
  * Revision 1.0  2002/07/24 00:00:00  dangan
  * add to version control
  * [bug fix]
- *     setTime() �� ftime�̌��E���x�ł���2�b�ȏ�̐��x�ŋL�^���Ă����B
+ *     setTime() で ftimeの限界精度である2秒以上の精度で記録していた。
  * [maintenance]
- *     �^�u�̔p�~
- *     ���C�Z���X���̏C��
+ *     タブの廃止
+ *     ライセンス文の修正
  *
  * </pre>
  * 
  * @author  $Author: dangan $
  * @version $Revision: 1.1 $
  */
+@SuppressWarnings("deprecation")
 public class MsdosDate extends Date
                        implements Cloneable {
 
@@ -93,17 +94,17 @@ public class MsdosDate extends Date
     //  public MsdosDate( int time )
     //------------------------------------------------------------------
     /**
-     * date �Ŏ�����鎞�Ԃ�\�� MsdosDate ���\�z����B <br>
-     * MS-DOS �`���̎��ԏ��ŕ\���Ȃ��ׂ������x�̏���
-     * ��������A�ŏ����ԒP�ʂ� java.util.Date �� 1�~���b�łȂ�
-     * MS-DOS �`���̎��ԏ�� �̍ŏ��P�ʂł��� 2�b�ƂȂ�B
+     * date で示される時間を表す MsdosDate を構築する。 <br>
+     * MS-DOS 形式の時間情報で表せない細かい精度の情報は
+     * 無視され、最小時間単位は java.util.Date の 1ミリ秒でなく
+     * MS-DOS 形式の時間情報 の最小単位である 2秒となる。
      * 
-     * @param date �V�����\�z����� MsdosDate �̊�ɂȂ鎞�ԏ��
-     *             ������ Date�I�u�W�F�N�g
+     * @param date 新しく構築される MsdosDate の基になる時間情報
+     *             を持つ Dateオブジェクト
      * 
      * @exception IllegalArgumentException
-     *             date �� MS-DOS���Ԍ`���ň����Ȃ��͈͂̎��Ԃ�
-     *             �����Ă����ꍇ
+     *             date が MS-DOS時間形式で扱えない範囲の時間を
+     *             示していた場合
      */
     public MsdosDate( Date date ){
         super( ( date.getTime() / 2000L ) * 2000L  );
@@ -111,10 +112,10 @@ public class MsdosDate extends Date
     }
 
     /**
-     * MS-DOS �`���̎��ԏ�񂩂� �V���� MsdosDate ���\�z
-     * ����B
+     * MS-DOS 形式の時間情報から 新しい MsdosDate を構築
+     * する。
      * 
-     * @param time MS-DOS �`���̎��ԏ��
+     * @param time MS-DOS 形式の時間情報
      */
     public MsdosDate( int time ){
         super( ( ( time >> 25 ) & 0x7F ) + 80,
@@ -134,9 +135,9 @@ public class MsdosDate extends Date
     //  public Object clone()
     //------------------------------------------------------------------
     /**
-     * ���̃I�u�W�F�N�g�̃R�s�[��Ԃ��B
+     * このオブジェクトのコピーを返す。
      * 
-     * @return ����MsdosDate�I�u�W�F�N�g�̕���
+     * @return このMsdosDateオブジェクトの複製
      */
     public Object clone(){
         return new MsdosDate( this );
@@ -154,16 +155,16 @@ public class MsdosDate extends Date
     //  public void setTime( long time )
     //------------------------------------------------------------------
     /**
-     * ���� MsdosDate �̎����N�� year �Ŏw�肳�ꂽ�l��1900�𑫂�
-     * �����̂ɐݒ肷��B<br>
-     * ���̃��\�b�h�͔͈̓`�F�b�N���s�������̂��߂ɑ��݂���B<br>
+     * この MsdosDate の示す年を year で指定された値に1900を足し
+     * たものに設定する。<br>
+     * このメソッドは範囲チェックを行うだけのために存在する。<br>
      *
      * @deprecated
-     * @param year 1900�𑫂����ƂŐ����\���悤�� �N�̒l
+     * @param year 1900を足すことで西暦を表すような 年の値
      * 
      * @exception IllegalArgumentException
-     *             year �� MS-DOS���Ԍ`���ň����Ȃ��͈͂̎��Ԃ�
-     *             �����Ă����ꍇ
+     *             year が MS-DOS時間形式で扱えない範囲の時間を
+     *             示していた場合
      */
     public void setYear( int year ){
         if( year < 80 || 207 < year ){
@@ -174,17 +175,17 @@ public class MsdosDate extends Date
     }
 
     /**
-     * ���� MsdosDate �̎������Ԃ� 1970�N1��1�� 00:00:00 GMT����
-     * time �~���b�o�߂��������ɐݒ肷��B<br>
-     * MS-DOS �`���̎��ԏ��ŕ\���Ȃ��ׂ������x�̏���
-     * ��������A�ŏ����ԒP�ʂ� java.util.Date �� 1�~���b�łȂ�
-     * MS-DOS �`���̎��ԏ�� �̍ŏ��P�ʂł��� 2�b�ƂȂ�B
+     * この MsdosDate の示す時間を 1970年1月1日 00:00:00 GMTから
+     * time ミリ秒経過した時刻に設定する。<br>
+     * MS-DOS 形式の時間情報で表せない細かい精度の情報は
+     * 無視され、最小時間単位は java.util.Date の 1ミリ秒でなく
+     * MS-DOS 形式の時間情報 の最小単位である 2秒となる。
      * 
-     * @param time 1970�N1��1�� 00:00:00GMT ����̌o�߃~���b
+     * @param time 1970年1月1日 00:00:00GMT からの経過ミリ秒
      * 
      * @exception IllegalArgumentException
-     *             time �� MS-DOS���Ԍ`���ň����Ȃ��͈͂̎��Ԃ�
-     *             �����Ă����ꍇ
+     *             time が MS-DOS時間形式で扱えない範囲の時間を
+     *             示していた場合
      */
     public void setTime( long time ){
         int year = ( new Date( time ) ).getYear();
@@ -205,9 +206,9 @@ public class MsdosDate extends Date
     //  public int getMsdosTime()
     //------------------------------------------------------------------
     /**
-     * ���� MsdosDate �� MS-DOS ���Ԍ`���̎��ԏ���ݒ肷��B
+     * この MsdosDate に MS-DOS 時間形式の時間情報を設定する。
      * 
-     * @param time MS-DOS ���Ԍ`���̎��ԏ��
+     * @param time MS-DOS 時間形式の時間情報
      */
     public void setMsdosTime( int time ){
         Date date = new Date( ( ( time >> 25 ) & 0x7F ) + 80,
@@ -221,9 +222,9 @@ public class MsdosDate extends Date
     }
 
     /**
-     * ���� MsdosDate���������ԏ��� MS-DOS ���Ԍ`���œ���B
+     * この MsdosDateが示す時間情報を MS-DOS 時間形式で得る。
      * 
-     * @return MS-DOS���Ԍ`���̒l
+     * @return MS-DOS時間形式の値
      */
     public int getMsdosTime(){
         return ( ( super.getYear() - 80 ) << 25 )                               //deprecated
@@ -241,12 +242,12 @@ public class MsdosDate extends Date
     //  private void checkRange()
     //------------------------------------------------------------------
     /**
-     * ���� MsdosDate �� MS-DOS���Ԍ`���ŕ\���鎞�Ԃ͈͓̔���
-     * ���邩�𔻒肷��B
+     * この MsdosDate が MS-DOS時間形式で表せる時間の範囲内で
+     * あるかを判定する。
      * 
      * @exception IllegalArgumentException
-     *             ���� MsdosDate �� MS-DOS���Ԍ`���ň����Ȃ�
-     *             �͈͂̎��Ԃ������Ă����ꍇ
+     *             この MsdosDate が MS-DOS時間形式で扱えない
+     *             範囲の時間を示していた場合
      */
     private void checkRange(){
         int year = this.getYear();

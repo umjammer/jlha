@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  * 
- * �ȉ��̏����ɓ��ӂ���Ȃ�΃\�[�X�ƃo�C�i���`���̍Ĕz�z�Ǝg�p��
- * �ύX�̗L���ɂ�����炸������B
+ * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
+ * 変更の有無にかかわらず許可する。
  * 
- * �P�D�\�[�X�R�[�h�̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐�������ێ����Ȃ��Ă͂Ȃ�Ȃ��B
+ * １．ソースコードの再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を保持しなくてはならない。
  * 
- * �Q�D�o�C�i���`���̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐��������g�p�������������� ���̑��̔z�z������
- *     �܂ގ����ɋL�q���Ȃ���΂Ȃ�Ȃ��B
+ * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を使用説明書もしくは その他の配布物内に
+ *     含む資料に記述しなければならない。
  * 
- * ���̃\�t�g�E�F�A�͐Β˔���ڂɂ���Ė��ۏ؂Œ񋟂���A����̖�
- * �I��B���ł���Ƃ����ۏ؁A���i���l���L��Ƃ����ۏ؂ɂƂǂ܂炸�A
- * �����Ȃ閾���I����шÎ��I�ȕۏ؂����Ȃ��B
- * �Β˔���ڂ� ���̃\�t�g�E�F�A�̎g�p�ɂ�钼�ړI�A�ԐړI�A����
- * �I�A����ȁA�T�^�I�ȁA���邢�͕K�R�I�ȑ��Q(�g�p�ɂ��f�[�^��
- * �����A�Ɩ��̒��f�〈���܂�Ă������v�̈⎸�A��֐��i��������
- * �T�[�r�X�̓�������l�����邪�A�����Ă��ꂾ���Ɍ��肳��Ȃ�
- * ���Q)�ɑ΂��āA�����Ȃ鎖�Ԃ̌����ƂȂ����Ƃ��Ă��A�_���̐�
- * �C�△�ߎ��ӔC���܂� �����Ȃ�ӔC�����낤�Ƃ��A���Ƃ����ꂪ�s
- * ���s�ׂ̂��߂ł������Ƃ��Ă��A�܂��͂��̂悤�ȑ��Q�̉\������
- * ������Ă����Ƃ��Ă���؂̐ӔC�𕉂�Ȃ����̂Ƃ���B
+ * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
+ * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
+ * いかなる明示的および暗示的な保証もしない。
+ * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
+ * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
+ * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
+ * サービスの導入費等が考えられるが、決してそれだけに限定されない
+ * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
+ * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
+ * 正行為のためであったとしても、またはそのような損害の可能性が報
+ * 告されていたとしても一切の責任を負わないものとする。
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -40,25 +40,25 @@ import java.io.IOException;
 import java.io.EOFException;
 
 /**
- * LZSS ���k���ꂽ�f�[�^���𓀂��Ȃ��狟��������̓X�g���[���B<br>
+ * LZSS 圧縮されたデータを解凍しながら供給する入力ストリーム。<br>
  * 
  * <pre>
  * -- revision history --
  * $Log: LzssInputStream.java,v $
  * Revision 1.1  2002/12/08 00:00:00  dangan
  * [bug fix]
- *     mark() ���Őڑ����ꂽ PreLzssDecoder �� 
- *     mark �ɗ^���� readLimit �̌v�Z���Â������̂��C���B
+ *     mark() 内で接続された PreLzssDecoder の 
+ *     mark に与える readLimit の計算が甘かったのを修正。
  *
  * Revision 1.0  2002/07/25 00:00:00  dangan
  * add to version control
  * [bug fix]
- *     available() �̃X�y���~�X���C���B
- *     skip() �ɂ����� decode() ���ĂԔ���������Ԉ���Ă����̂��C���B
+ *     available() のスペルミスを修正。
+ *     skip() において decode() を呼ぶ判定条件が間違っていたのを修正。
  * [maintenance]
- *     �\�[�X����
- *     �^�u�p�~
- *     ���C�Z���X���̏C��
+ *     ソース整備
+ *     タブ廃止
+ *     ライセンス文の修正
  *
  * </pre>
  * 
@@ -76,7 +76,7 @@ public class LzssInputStream extends InputStream{
     //  private PreLzssDecoder decoder
     //------------------------------------------------------------------
     /**
-     * LZSS���k�R�[�h��Ԃ����̓X�g���[��
+     * LZSS圧縮コードを返す入力ストリーム
      */
     private PreLzssDecoder decoder;
 
@@ -91,19 +91,19 @@ public class LzssInputStream extends InputStream{
     //  private long Length
     //------------------------------------------------------------------
     /**
-     * LZSS���k�Ɏg�p�����臒l�B
-     * ��v���� ���̒l�ȏ�ł���΁A���k�R�[�h���o�͂���B
+     * LZSS圧縮に使用される閾値。
+     * 一致長が この値以上であれば、圧縮コードを出力する。
      */
     private int Threshold;
 
     /**
-     * LZSS���k�Ɏg�p�����l�B
-     * �ő��v���������B
+     * LZSS圧縮に使用される値。
+     * 最大一致長を示す。
      */
     private int MaxMatch;
 
     /**
-     * �𓀌�̃f�[�^�T�C�Y
+     * 解凍後のデータサイズ
      */
     private long Length;
 
@@ -118,19 +118,19 @@ public class LzssInputStream extends InputStream{
     //  private long TextDecoded
     //------------------------------------------------------------------
     /**
-     * LZSS���k��W�J���邽�߂̃o�b�t�@�B
+     * LZSS圧縮を展開するためのバッファ。
      */
     private byte[] TextBuffer;
 
     /**
-     * ���ݓǂݍ��݈ʒu�B
-     * read() �ɂ���ĊO���ɓǂݏo���ꂽ�ʒu�������B
+     * 現在読み込み位置。
+     * read() によって外部に読み出された位置を示す。
      */
     private long TextPosition;
 
     /**
-     * ���ݓǂݍ��݈ʒu�B
-     * LZSS���k�R�[�h��W�J���ē���ꂽ�ʒu�������B
+     * 現在読み込み位置。
+     * LZSS圧縮コードを展開して得られた位置を示す。
      */
     private long TextDecoded;
 
@@ -144,51 +144,38 @@ public class LzssInputStream extends InputStream{
     //  private long MarkTextPosition
     //  private long MarkTextDecoded
     //------------------------------------------------------------------
-    /** TextBuffer �̃o�b�N�A�b�v�p */
+    /** TextBuffer のバックアップ用 */
     private byte[] MarkTextBuffer;
 
-    /** TextPosition �̃o�b�N�A�b�v�p */
+    /** TextPosition のバックアップ用 */
     private long MarkTextPosition;
 
-    /** TextDecoded �̃o�b�N�A�b�v�p */
+    /** TextDecoded のバックアップ用 */
     private long MarkTextDecoded;
 
 
-    //------------------------------------------------------------------
-    //  constructor
-    //------------------------------------------------------------------
-    //  private LzssInputStream()
-    //  public LzssInputStream( PreLzssDecoder decoder )
-    //  public LzssInputStream( PreLzssDecoder decoder, long length )
-    //------------------------------------------------------------------
     /**
-     * �f�t�H���g�R���X�g���N�^�B
-     * �g�p�s�B
-     */
-    private LzssInputStream(){ }
-
-    /**
-     * in ���� LZSS���k�f�[�^ �̓��͂��󂯂āA
-     * �𓀂��ꂽ�f�[�^��񋟂�����̓X�g���[�����\�z����B
-     * ���̃R���X�g���N�^���琶�����ꂽ LzssInputStream��
-     * -lh1-���̉𓀃f�[�^�̍Ō�̃f�[�^��ǂݍ��񂾌�A
-     * ���̃f�[�^�̓ǂݎ��ŕK��EndOfStream�ɒB����Ƃ�
-     * ����Ȃ��f�[�^�𐳏�ɕ����ł��Ȃ�(�I�[�ȍ~�ɃS�~
-     * �f�[�^�����\��������)�B
+     * in から LZSS圧縮データ の入力を受けて、
+     * 解凍されたデータを提供する入力ストリームを構築する。
+     * このコンストラクタから生成された LzssInputStreamは
+     * -lh1-等の解凍データの最後のデータを読み込んだ後、
+     * 次のデータの読み取りで必ずEndOfStreamに達するとは
+     * 限らないデータを正常に復元できない(終端以降にゴミ
+     * データがつく可能性がある)。
      * 
-     * @param decoder LZSS���k�f�[�^�����X�g���[��
+     * @param decoder LZSS圧縮データ供給ストリーム
      */
     public LzssInputStream( PreLzssDecoder decoder ){
         this( decoder, Long.MAX_VALUE );
     }
 
     /**
-     * in ���� LZSS���k�f�[�^ �̓��͂��󂯂āA
-     * �𓀂��ꂽ�f�[�^��񋟂�����̓X�g���[�����\�z����B
+     * in から LZSS圧縮データ の入力を受けて、
+     * 解凍されたデータを提供する入力ストリームを構築する。
      * 
      * 
-     * @param decoder LZSS���k�f�[�^�����X�g���[��
-     * @param length  �𓀌�̃T�C�Y
+     * @param decoder LZSS圧縮データ供給ストリーム
+     * @param length  解凍後のサイズ
      */
     public LzssInputStream( PreLzssDecoder decoder,
                             long           length ){
@@ -217,12 +204,12 @@ public class LzssInputStream extends InputStream{
     //  public long skip( long length )
     //------------------------------------------------------------------
     /**
-     * �R���X�g���N�^�Ŏw�肳�ꂽ PreLzssDecoder ��
-     * ���k���ꂽ�f�[�^���𓀂��A1�o�C�g�̃f�[�^����������B
+     * コンストラクタで指定された PreLzssDecoder の
+     * 圧縮されたデータを解凍し、1バイトのデータを供給する。
      * 
-     * @return �𓀂��ꂽ 1�o�C�g�̃f�[�^
+     * @return 解凍された 1バイトのデータ
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public int read() throws IOException {
         if( this.TextDecoded <= this.TextPosition ){
@@ -239,32 +226,32 @@ public class LzssInputStream extends InputStream{
     }
 
     /**
-     * �R���X�g���N�^�Ŏw�肳�ꂽ PreLzssDecoder ��
-     * ���k���ꂽ�f�[�^���𓀂��Abuffer�𖞂����悤��
-     * �𓀂��ꂽ�f�[�^��ǂݍ��ށB
+     * コンストラクタで指定された PreLzssDecoder の
+     * 圧縮されたデータを解凍し、bufferを満たすように
+     * 解凍されたデータを読み込む。
      * 
-     * @param buffer �f�[�^��ǂݍ��ރo�b�t�@
+     * @param buffer データを読み込むバッファ
      * 
-     * @return �ǂ݂��񂾃f�[�^��
+     * @return 読みこんだデータ量
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public int read( byte[] buffer ) throws IOException {
         return this.read( buffer, 0, buffer.length );
     }
 
     /**
-     * �R���X�g���N�^�Ŏw�肳�ꂽ PreLzssDecoder ��
-     * ���k���ꂽ�f�[�^���𓀂��Abuffer �� index ����
-     * length �o�C�g�̃f�[�^��ǂݍ��ށB
+     * コンストラクタで指定された PreLzssDecoder の
+     * 圧縮されたデータを解凍し、buffer の index から
+     * length バイトのデータを読み込む。
      * 
-     * @param buffer �f�[�^��ǂݍ��ރo�b�t�@
-     * @param index  buffer ���̃f�[�^�ǂ݂��݊J�n�ʒu
-     * @param length �ǂݍ��ރf�[�^��
+     * @param buffer データを読み込むバッファ
+     * @param index  buffer 内のデータ読みこみ開始位置
+     * @param length 読み込むデータ量
      * 
-     * @return �ǂ݂��񂾃f�[�^��
+     * @return 読みこんだデータ量
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public int read( byte[] buffer, int index, int length ) throws IOException {
         int position = index;
@@ -286,13 +273,13 @@ public class LzssInputStream extends InputStream{
     }
 
     /**
-     * �𓀂��ꂽ�f�[�^�� length�o�C�g�ǂݔ�΂��B
+     * 解凍されたデータを lengthバイト読み飛ばす。
      * 
-     * @param length �ǂݔ�΂��f�[�^��(�P�ʂ̓o�C�g)
+     * @param length 読み飛ばすデータ量(単位はバイト)
      * 
-     * @return ���ۂɓǂݔ�΂����o�C�g��
+     * @return 実際に読み飛ばしたバイト数
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public long skip( long length ) throws IOException {
         long end = this.TextPosition + length;
@@ -321,20 +308,20 @@ public class LzssInputStream extends InputStream{
     //  public boolean markSupported()
     //------------------------------------------------------------------
     /**
-     * �ڑ����ꂽ���̓X�g���[���̌��݈ʒu�Ƀ}�[�N��ݒ肵�A
-     * reset() ���\�b�h�Ń}�[�N�������_�� �ǂݍ��݈ʒu��
-     * �߂��悤�ɂ���B<br>
-     * InputStream �� mark() �ƈႢ�A readLimit �Őݒ肵��
-     * ���E�o�C�g�����O�Ƀ}�[�N�ʒu�������ɂȂ�\��������B
-     * �������AreadLimit �𖳎����Ė����� reset() �\�� 
-     * InputStream �Ɛڑ����Ă���ꍇ�� readLimit ��
-     * �ǂ̂悤�Ȓl��ݒ肳��Ă�
-     * reset() �ŕK���}�[�N�ʒu�ɕ����ł��鎖��ۏ؂���B<br>
+     * 接続された入力ストリームの現在位置にマークを設定し、
+     * reset() メソッドでマークした時点の 読み込み位置に
+     * 戻れるようにする。<br>
+     * InputStream の mark() と違い、 readLimit で設定した
+     * 限界バイト数より前にマーク位置が無効になる可能性がある。
+     * ただし、readLimit を無視して無限に reset() 可能な 
+     * InputStream と接続している場合は readLimit に
+     * どのような値を設定されても
+     * reset() で必ずマーク位置に復旧できる事を保証する。<br>
      * 
-     * @param readLimit �}�[�N�ʒu�ɖ߂����E�̃o�C�g���B
-     *                  ���̃o�C�g���𒴂��ăf�[�^��ǂ�
-     *                  ���񂾏ꍇ reset()�ł��Ȃ��Ȃ��
-     *                  �\��������B<br>
+     * @param readLimit マーク位置に戻れる限界のバイト数。
+     *                  このバイト数を超えてデータを読み
+     *                  込んだ場合 reset()できなくなる可
+     *                  能性がある。<br>
      * 
      * @see PreLzssDecoder#mark(int)
      */
@@ -345,7 +332,7 @@ public class LzssInputStream extends InputStream{
         this.decoder.mark( Math.max( readLimit, 0 ) );
 
         if( this.MarkTextBuffer == null ){
-            this.MarkTextBuffer = (byte[])this.TextBuffer.clone();
+            this.MarkTextBuffer = this.TextBuffer.clone();
         }else{
             System.arraycopy( this.TextBuffer, 0, 
                               this.MarkTextBuffer, 0, 
@@ -356,10 +343,10 @@ public class LzssInputStream extends InputStream{
     }
 
     /**
-     * �ڑ����ꂽ���̓X�g���[���̓ǂݍ��݈ʒu���Ō��
-     * mark() ���\�b�h���Ăяo���ꂽ�Ƃ��̈ʒu�ɐݒ肷��B<br>
+     * 接続された入力ストリームの読み込み位置を最後に
+     * mark() メソッドが呼び出されたときの位置に設定する。<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public void reset() throws IOException {
         if( this.MarkTextBuffer == null ){
@@ -381,12 +368,12 @@ public class LzssInputStream extends InputStream{
     }
 
     /**
-     * �ڑ����ꂽ���̓X�g���[���� mark() �� reset() ��
-     * �T�|�[�g���邩�𓾂�B<br>
+     * 接続された入力ストリームが mark() と reset() を
+     * サポートするかを得る。<br>
      * 
-     * @return �X�g���[���� mark() �� reset() ��
-     *         �T�|�[�g����ꍇ�� true�B<br>
-     *         �T�|�[�g���Ȃ��ꍇ�� false�B<br>
+     * @return ストリームが mark() と reset() を
+     *         サポートする場合は true。<br>
+     *         サポートしない場合は false。<br>
      */
     public boolean markSupported(){
         return  this.decoder.markSupported();
@@ -402,12 +389,12 @@ public class LzssInputStream extends InputStream{
     //  public void close()
     //------------------------------------------------------------------
     /**
-     * �ڑ����ꂽ���̓X�g���[������u���b�N���Ȃ���
-     * �ǂݍ��ނ��Ƃ̂ł���o�C�g���𓾂�B<br>
+     * 接続された入力ストリームからブロックしないで
+     * 読み込むことのできるバイト数を得る。<br>
      * 
-     * @return �u���b�N���Ȃ��œǂݏo����o�C�g���B<br>
+     * @return ブロックしないで読み出せるバイト数。<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public int available() throws IOException {
         return (int)( this.TextDecoded - this.TextPosition )
@@ -415,10 +402,10 @@ public class LzssInputStream extends InputStream{
     }
 
     /**
-     * ���̓��̓X�g���[������A�g�p���Ă���
-     * �S�Ẵ��\�[�X���J������B<br>
+     * この入力ストリームを閉じ、使用していた
+     * 全てのリソースを開放する。<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public void close() throws IOException {
         this.decoder.close();
@@ -436,11 +423,11 @@ public class LzssInputStream extends InputStream{
     //  private void initLz5TextBuffer()
     //------------------------------------------------------------------
     /**
-     * private�ϐ� this.in ���爳�k�f�[�^��ǂݍ���
-     * �𓀂��Ȃ��� TextBuffer �Ƀf�[�^���������ށB
+     * private変数 this.in から圧縮データを読み込み
+     * 解凍しながら TextBuffer にデータを書きこむ。
      * 
-     * @exception IOException  ���o�̓G���[�����������ꍇ
-     * @exception EOFException �X�g���[���I�[�ɒB�����ꍇ
+     * @exception IOException  入出力エラーが発生した場合
+     * @exception EOFException ストリーム終端に達した場合
      */
     private void decode() throws IOException {
         if( this.TextDecoded < this.Length ){
@@ -476,13 +463,13 @@ public class LzssInputStream extends InputStream{
     }
 
     /**
-     * private �ϐ� this.TextBuffer ���� buffer�Ƀf�[�^��]������B
+     * private 変数 this.TextBuffer から bufferにデータを転送する。
      * 
-     * @param buffer   TextBuffer�̓��e���R�s�[����o�b�t�@
-     * @param position buffer���̏������݌��݈ʒu
-     * @param end      buffer���̏������ݏI���ʒu
+     * @param buffer   TextBufferの内容をコピーするバッファ
+     * @param position buffer内の書き込み現在位置
+     * @param end      buffer内の書き込み終了位置
      * 
-     * @return buffer�̎��ɏ������݂��s����ׂ��ʒu
+     * @return bufferの次に書き込みが行われるべき位置
      */
     private int copyTextBufferToBuffer( byte[] buffer, int position, int end ){
         if( ( this.TextPosition & ~( this.TextBuffer.length - 1 ) )
@@ -519,7 +506,7 @@ public class LzssInputStream extends InputStream{
     }
 
     /**
-     * -lz5- �p�� TextBuffer ������������B
+     * -lz5- 用に TextBuffer を初期化する。
      */
     private void initLz5TextBuffer(){
         int position = 18;

@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  * 
- * ˆÈ‰º‚ÌğŒ‚É“¯ˆÓ‚·‚é‚È‚ç‚Îƒ\[ƒX‚ÆƒoƒCƒiƒŠŒ`®‚ÌÄ”z•z‚Æg—p‚ğ
- * •ÏX‚Ì—L–³‚É‚©‚©‚í‚ç‚¸‹–‰Â‚·‚éB
+ * ä»¥ä¸‹ã®æ¡ä»¶ã«åŒæ„ã™ã‚‹ãªã‚‰ã°ã‚½ãƒ¼ã‚¹ã¨ãƒã‚¤ãƒŠãƒªå½¢å¼ã®å†é…å¸ƒã¨ä½¿ç”¨ã‚’
+ * å¤‰æ›´ã®æœ‰ç„¡ã«ã‹ã‹ã‚ã‚‰ãšè¨±å¯ã™ã‚‹ã€‚
  * 
- * ‚PDƒ\[ƒXƒR[ƒh‚ÌÄ”z•z‚É‚¨‚¢‚Ä’˜ìŒ •\¦‚Æ ‚±‚ÌğŒ‚ÌƒŠƒXƒg
- *     ‚¨‚æ‚Ñ‰º‹L‚Ìº–¾•¶‚ğ•Û‚µ‚È‚­‚Ä‚Í‚È‚ç‚È‚¢B
+ * ï¼‘ï¼ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã®å†é…å¸ƒã«ãŠã„ã¦è‘—ä½œæ¨©è¡¨ç¤ºã¨ ã“ã®æ¡ä»¶ã®ãƒªã‚¹ãƒˆ
+ *     ãŠã‚ˆã³ä¸‹è¨˜ã®å£°æ˜æ–‡ã‚’ä¿æŒã—ãªãã¦ã¯ãªã‚‰ãªã„ã€‚
  * 
- * ‚QDƒoƒCƒiƒŠŒ`®‚ÌÄ”z•z‚É‚¨‚¢‚Ä’˜ìŒ •\¦‚Æ ‚±‚ÌğŒ‚ÌƒŠƒXƒg
- *     ‚¨‚æ‚Ñ‰º‹L‚Ìº–¾•¶‚ğg—pà–¾‘‚à‚µ‚­‚Í ‚»‚Ì‘¼‚Ì”z•z•¨“à‚É
- *     ŠÜ‚Ş‘—¿‚É‹Lq‚µ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢B
+ * ï¼’ï¼ãƒã‚¤ãƒŠãƒªå½¢å¼ã®å†é…å¸ƒã«ãŠã„ã¦è‘—ä½œæ¨©è¡¨ç¤ºã¨ ã“ã®æ¡ä»¶ã®ãƒªã‚¹ãƒˆ
+ *     ãŠã‚ˆã³ä¸‹è¨˜ã®å£°æ˜æ–‡ã‚’ä½¿ç”¨èª¬æ˜æ›¸ã‚‚ã—ãã¯ ãã®ä»–ã®é…å¸ƒç‰©å†…ã«
+ *     å«ã‚€è³‡æ–™ã«è¨˜è¿°ã—ãªã‘ã‚Œã°ãªã‚‰ãªã„ã€‚
  * 
- * ‚±‚Ìƒ\ƒtƒgƒEƒFƒA‚ÍÎ’Ë”üì—Ú‚É‚æ‚Á‚Ä–³•ÛØ‚Å’ñ‹Ÿ‚³‚êA“Á’è‚Ì–Ú
- * “I‚ğ’B¬‚Å‚«‚é‚Æ‚¢‚¤•ÛØA¤•i‰¿’l‚ª—L‚é‚Æ‚¢‚¤•ÛØ‚É‚Æ‚Ç‚Ü‚ç‚¸A
- * ‚¢‚©‚È‚é–¾¦“I‚¨‚æ‚ÑˆÃ¦“I‚È•ÛØ‚à‚µ‚È‚¢B
- * Î’Ë”üì—Ú‚Í ‚±‚Ìƒ\ƒtƒgƒEƒFƒA‚Ìg—p‚É‚æ‚é’¼Ú“IAŠÔÚ“IA‹ô”­
- * “IA“Áê‚ÈA“TŒ^“I‚ÈA‚ ‚é‚¢‚Í•K‘R“I‚È‘¹ŠQ(g—p‚É‚æ‚éƒf[ƒ^‚Ì
- * ‘¹¸A‹Æ–±‚Ì’†’f‚âŒ©‚Ü‚ê‚Ä‚¢‚½—˜‰v‚Ìˆâ¸A‘ã‘Ö»•i‚à‚µ‚­‚Í
- * ƒT[ƒrƒX‚Ì“±“ü”ï“™‚ªl‚¦‚ç‚ê‚é‚ªAŒˆ‚µ‚Ä‚»‚ê‚¾‚¯‚ÉŒÀ’è‚³‚ê‚È‚¢
- * ‘¹ŠQ)‚É‘Î‚µ‚ÄA‚¢‚©‚È‚é–‘Ô‚ÌŒ´ˆö‚Æ‚È‚Á‚½‚Æ‚µ‚Ä‚àAŒ_–ñã‚ÌÓ
- * ”C‚â–³‰ß¸Ó”C‚ğŠÜ‚Ş ‚¢‚©‚È‚éÓ”C‚ª‚ ‚ë‚¤‚Æ‚àA‚½‚Æ‚¦‚»‚ê‚ª•s
- * ³sˆ×‚Ì‚½‚ß‚Å‚ ‚Á‚½‚Æ‚µ‚Ä‚àA‚Ü‚½‚Í‚»‚Ì‚æ‚¤‚È‘¹ŠQ‚Ì‰Â”\«‚ª•ñ
- * ‚³‚ê‚Ä‚¢‚½‚Æ‚µ‚Ä‚àˆêØ‚ÌÓ”C‚ğ•‰‚í‚È‚¢‚à‚Ì‚Æ‚·‚éB
+ * ã“ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã¯çŸ³å¡šç¾ç ç‘ ã«ã‚ˆã£ã¦ç„¡ä¿è¨¼ã§æä¾›ã•ã‚Œã€ç‰¹å®šã®ç›®
+ * çš„ã‚’é”æˆã§ãã‚‹ã¨ã„ã†ä¿è¨¼ã€å•†å“ä¾¡å€¤ãŒæœ‰ã‚‹ã¨ã„ã†ä¿è¨¼ã«ã¨ã©ã¾ã‚‰ãšã€
+ * ã„ã‹ãªã‚‹æ˜ç¤ºçš„ãŠã‚ˆã³æš—ç¤ºçš„ãªä¿è¨¼ã‚‚ã—ãªã„ã€‚
+ * çŸ³å¡šç¾ç ç‘ ã¯ ã“ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã®ä½¿ç”¨ã«ã‚ˆã‚‹ç›´æ¥çš„ã€é–“æ¥çš„ã€å¶ç™º
+ * çš„ã€ç‰¹æ®Šãªã€å…¸å‹çš„ãªã€ã‚ã‚‹ã„ã¯å¿…ç„¶çš„ãªæå®³(ä½¿ç”¨ã«ã‚ˆã‚‹ãƒ‡ãƒ¼ã‚¿ã®
+ * æå¤±ã€æ¥­å‹™ã®ä¸­æ–­ã‚„è¦‹è¾¼ã¾ã‚Œã¦ã„ãŸåˆ©ç›Šã®éºå¤±ã€ä»£æ›¿è£½å“ã‚‚ã—ãã¯
+ * ã‚µãƒ¼ãƒ“ã‚¹ã®å°å…¥è²»ç­‰ãŒè€ƒãˆã‚‰ã‚Œã‚‹ãŒã€æ±ºã—ã¦ãã‚Œã ã‘ã«é™å®šã•ã‚Œãªã„
+ * æå®³)ã«å¯¾ã—ã¦ã€ã„ã‹ãªã‚‹äº‹æ…‹ã®åŸå› ã¨ãªã£ãŸã¨ã—ã¦ã‚‚ã€å¥‘ç´„ä¸Šã®è²¬
+ * ä»»ã‚„ç„¡éå¤±è²¬ä»»ã‚’å«ã‚€ ã„ã‹ãªã‚‹è²¬ä»»ãŒã‚ã‚ã†ã¨ã‚‚ã€ãŸã¨ãˆãã‚ŒãŒä¸
+ * æ­£è¡Œç‚ºã®ãŸã‚ã§ã‚ã£ãŸã¨ã—ã¦ã‚‚ã€ã¾ãŸã¯ãã®ã‚ˆã†ãªæå®³ã®å¯èƒ½æ€§ãŒå ±
+ * å‘Šã•ã‚Œã¦ã„ãŸã¨ã—ã¦ã‚‚ä¸€åˆ‡ã®è²¬ä»»ã‚’è² ã‚ãªã„ã‚‚ã®ã¨ã™ã‚‹ã€‚
  */
 
 package jp.gr.java_conf.dangan.lang.reflect;
@@ -39,8 +39,8 @@ import java.lang.IllegalArgumentException;
 import java.lang.NumberFormatException;
 
 /**
- * Reflection ‚Ì‹@”\‚ğˆµ‚¢‚â‚·‚­‚·‚é‚æ‚¤‚É
- * Œ^î•ñ‚ğˆµ‚¤ƒ†[ƒeƒBƒŠƒeƒBƒNƒ‰ƒXB
+ * Reflection ã®æ©Ÿèƒ½ã‚’æ‰±ã„ã‚„ã™ãã™ã‚‹ã‚ˆã†ã«
+ * å‹æƒ…å ±ã‚’æ‰±ã†ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£ã‚¯ãƒ©ã‚¹ã€‚
  * 
  * <pre>
  * -- revision history --
@@ -63,8 +63,8 @@ public class Type{
     //  private Type()
     //------------------------------------------------------------------
     /**
-     * ƒfƒtƒHƒ‹ƒgƒRƒ“ƒXƒgƒ‰ƒNƒ^B
-     * g—p•s‰ÂB
+     * ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã€‚
+     * ä½¿ç”¨ä¸å¯ã€‚
      */
     private Type(){  }
 
@@ -79,15 +79,15 @@ public class Type{
     //  public static boolean matchAll( Class[] types, Object[] args )
     //------------------------------------------------------------------
     /**
-     * args ‚ª•ÏŠ·–³‚µ‚Å types ‚Æˆê’v‚·‚é‚©‚ğ“¾‚éB
+     * args ãŒå¤‰æ›ç„¡ã—ã§ types ã¨ä¸€è‡´ã™ã‚‹ã‹ã‚’å¾—ã‚‹ã€‚
      * 
-     * @param types Œ^î•ñ”z—ñ
-     * @param args  ”»’è‘ÎÛ‚ÌƒIƒuƒWƒFƒNƒg”z—ñ
+     * @param types å‹æƒ…å ±é…åˆ—
+     * @param args  åˆ¤å®šå¯¾è±¡ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆé…åˆ—
      * 
-     * @return args ‚ª types ‚Éˆê’v‚·‚ê‚Î trueB<br>
-     *         ˆá‚¦‚Î flaseB
+     * @return args ãŒ types ã«ä¸€è‡´ã™ã‚Œã° trueã€‚<br>
+     *         é•ãˆã° flaseã€‚
      */
-    public static boolean matchFullAll( Class[] types, Object[] args ){
+    public static boolean matchFullAll( Class<?>[] types, Object[] args ){
         boolean match = ( types.length == args.length );
 
         for( int i = 0 ; i < types.length ; i++ )
@@ -97,17 +97,17 @@ public class Type{
     }
 
     /**
-     * args ‚ª Type.parse ‚É‚æ‚é•ÏŠ·‚ğ”º‚¦‚Î
-     * types ‚Æˆê’v‚·‚é‚©‚ğ“¾‚éB
-     * matchAll() ‚æ‚èŒµ–§‚É”»’è‚·‚éB
+     * args ãŒ Type.parse ã«ã‚ˆã‚‹å¤‰æ›ã‚’ä¼´ãˆã°
+     * types ã¨ä¸€è‡´ã™ã‚‹ã‹ã‚’å¾—ã‚‹ã€‚
+     * matchAll() ã‚ˆã‚Šå³å¯†ã«åˆ¤å®šã™ã‚‹ã€‚
      * 
-     * @param types Œ^î•ñ”z—ñ
-     * @param args  ”»’è‘ÎÛ‚ÌƒIƒuƒWƒFƒNƒg”z—ñ
+     * @param types å‹æƒ…å ±é…åˆ—
+     * @param args  åˆ¤å®šå¯¾è±¡ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆé…åˆ—
      * 
-     * @return args ‚ª types ‚Éˆê’v‚·‚ê‚Î trueB<br>
-     *         ˆá‚¦‚Î flaseB
+     * @return args ãŒ types ã«ä¸€è‡´ã™ã‚Œã° trueã€‚<br>
+     *         é•ãˆã° flaseã€‚
      */
-    public static boolean matchRestrictAll( Class[] types, Object[] args ){
+    public static boolean matchRestrictAll( Class<?>[] types, Object[] args ){
         boolean match = ( types.length == args.length );
 
         for( int i = 0 ; i < types.length ; i++ )
@@ -117,16 +117,16 @@ public class Type{
     }
 
     /**
-     * args ‚ª Type.parse ‚É‚æ‚é•ÏŠ·‚ğ”º‚¦‚Î
-     * types ‚Æˆê’v‚·‚é‚©‚ğ“¾‚éB
+     * args ãŒ Type.parse ã«ã‚ˆã‚‹å¤‰æ›ã‚’ä¼´ãˆã°
+     * types ã¨ä¸€è‡´ã™ã‚‹ã‹ã‚’å¾—ã‚‹ã€‚
      * 
-     * @param types Œ^î•ñ”z—ñ
-     * @param args  ”»’è‘ÎÛ‚ÌƒIƒuƒWƒFƒNƒg”z—ñ
+     * @param types å‹æƒ…å ±é…åˆ—
+     * @param args  åˆ¤å®šå¯¾è±¡ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆé…åˆ—
      * 
-     * @return args ‚ª types ‚Éˆê’v‚·‚ê‚Î trueB<br>
-     *         ˆá‚¦‚Î flaseB
+     * @return args ãŒ types ã«ä¸€è‡´ã™ã‚Œã° trueã€‚<br>
+     *         é•ãˆã° flaseã€‚
      */
-    public static boolean matchAll( Class[] types, Object[] args ){
+    public static boolean matchAll( Class<?>[] types, Object[] args ){
         boolean match = ( types.length == args.length );
 
         for( int i = 0 ; i < types.length ; i++ )
@@ -146,15 +146,15 @@ public class Type{
     //  public static boolean match( Class type, Object obj )
     //------------------------------------------------------------------
     /**
-     * obj ‚ª•ÏŠ·–³‚µ‚Å type ‚Æˆê’v‚·‚é‚©‚ğ“¾‚éB
+     * obj ãŒå¤‰æ›ç„¡ã—ã§ type ã¨ä¸€è‡´ã™ã‚‹ã‹ã‚’å¾—ã‚‹ã€‚
      * 
-     * @param type Œ^î•ñ
-     * @param obj  ”»’è‘ÎÛ‚ÌƒIƒuƒWƒFƒNƒg
+     * @param type å‹æƒ…å ±
+     * @param obj  åˆ¤å®šå¯¾è±¡ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
      * 
-     * @return obj ‚ª type ‚ÌÀ‘Ì‚Å‚ ‚ê‚Î trueB<br>
-     *         ˆá‚¦‚Î falseB
+     * @return obj ãŒ type ã®å®Ÿä½“ã§ã‚ã‚Œã° trueã€‚<br>
+     *         é•ãˆã° falseã€‚
      */
-    public static boolean matchFull( Class type, Object obj ){
+    public static boolean matchFull( Class<?> type, Object obj ){
         if( type.isInstance( obj ) ){
             return true;
         }else if( !type.isPrimitive() && obj == null ){
@@ -181,20 +181,20 @@ public class Type{
     }
 
     /**
-     * obj ‚ª type ‚ÌÀ‘Ì‚Å‚ ‚é‚©‚ğ“¾‚éB
-     * type ‚ª”’l‚ğ¦‚·ƒvƒŠƒ~ƒeƒBƒuŒ^
-     * ( byte, short, int, long, float, double ‚Ì‚¢‚¸‚ê‚© )‚ğ
-     * ‚Å‚ ‚èA‚©‚Â obj ‚ª‚»‚ê‚ç‚ÌƒvƒŠƒ~ƒeƒBƒu‚Ìƒ‰ƒbƒpŒ^A
-     * ( Byte, Short, Integer, Long, Float, Double ‚Ì‚¢‚¸‚ê‚© )
-     * ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Å‚ ‚éê‡ •ÏŠ·‰Â”\‚Æ”»’f‚µ‚Ä true ‚ğ•Ô‚·B
+     * obj ãŒ type ã®å®Ÿä½“ã§ã‚ã‚‹ã‹ã‚’å¾—ã‚‹ã€‚
+     * type ãŒæ•°å€¤ã‚’ç¤ºã™ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–å‹
+     * ( byte, short, int, long, float, double ã®ã„ãšã‚Œã‹ )ã‚’
+     * ã§ã‚ã‚Šã€ã‹ã¤ obj ãŒãã‚Œã‚‰ã®ãƒ—ãƒªãƒŸãƒ†ã‚£ãƒ–ã®ãƒ©ãƒƒãƒ‘å‹ã€
+     * ( Byte, Short, Integer, Long, Float, Double ã®ã„ãšã‚Œã‹ )
+     * ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã§ã‚ã‚‹å ´åˆ å¤‰æ›å¯èƒ½ã¨åˆ¤æ–­ã—ã¦ true ã‚’è¿”ã™ã€‚
      * 
-     * @param type Œ^î•ñ
-     * @param obj  ”»’è‘ÎÛ‚ÌƒIƒuƒWƒFƒNƒg
+     * @param type å‹æƒ…å ±
+     * @param obj  åˆ¤å®šå¯¾è±¡ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
      * 
-     * @return obj ‚ª type ‚ÌÀ‘Ì‚Å‚ ‚ê‚Î trueB<br>
-     *         ˆá‚¦‚Î falseB
+     * @return obj ãŒ type ã®å®Ÿä½“ã§ã‚ã‚Œã° trueã€‚<br>
+     *         é•ãˆã° falseã€‚
      */
-    public static boolean matchRestrict( Class type, Object obj ){
+    public static boolean matchRestrict( Class<?> type, Object obj ){
 
         if( Type.matchFull( type, obj ) ){
             return true;
@@ -211,17 +211,17 @@ public class Type{
     }
 
     /**
-     * obj ‚ª type ‚ÌÀ‘Ì‚Å‚ ‚é‚©‚ğ“¾‚éB
-     * obj ‚ª Type.parse( type, obj ) ‚Å•ÏŠ·‰Â”\‚Èê‡
-     * true‚ğ•Ô‚·B
+     * obj ãŒ type ã®å®Ÿä½“ã§ã‚ã‚‹ã‹ã‚’å¾—ã‚‹ã€‚
+     * obj ãŒ Type.parse( type, obj ) ã§å¤‰æ›å¯èƒ½ãªå ´åˆ
+     * trueã‚’è¿”ã™ã€‚
      * 
-     * @param type Œ^î•ñ
-     * @param obj  ”»’è‘ÎÛ‚ÌƒIƒuƒWƒFƒNƒg
+     * @param type å‹æƒ…å ±
+     * @param obj  åˆ¤å®šå¯¾è±¡ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
      * 
-     * @return obj ‚ª type ‚ÌÀ‘Ì‚Å‚ ‚ê‚Î trueB<br>
-     *         ˆá‚¦‚Î falseB
+     * @return obj ãŒ type ã®å®Ÿä½“ã§ã‚ã‚Œã° trueã€‚<br>
+     *         é•ãˆã° falseã€‚
      */
-    public static boolean match( Class type, Object obj ){
+    public static boolean match( Class<?> type, Object obj ){
         final String str = ( obj == null ? null : obj.toString() );
 
         if( Type.matchRestrict( type, obj ) ){
@@ -262,18 +262,18 @@ public class Type{
     //  public static Object parse( Class type, Object obj )
     //------------------------------------------------------------------
     /**
-     * Factory.matchAll( types, args ) ‚Åƒ}ƒbƒ`‚µ‚½ args ‚ğ
-     * ˆêŠ‡‚µ‚Ä types ‚Å¦‚³‚ê‚éŒ^‚É•ÏŠ·‚·‚éB
+     * Factory.matchAll( types, args ) ã§ãƒãƒƒãƒã—ãŸ args ã‚’
+     * ä¸€æ‹¬ã—ã¦ types ã§ç¤ºã•ã‚Œã‚‹å‹ã«å¤‰æ›ã™ã‚‹ã€‚
      * 
-     * @param types •ÏŠ·‚·‚éŒ^î•ñ”z—ñ
-     * @param args  •ÏŠ·‘ÎÛ‚ÌƒIƒuƒWƒFƒNƒg”z—ñ
+     * @param types å¤‰æ›ã™ã‚‹å‹æƒ…å ±é…åˆ—
+     * @param args  å¤‰æ›å¯¾è±¡ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆé…åˆ—
      * 
-     * @return •ÏŠ·Œã‚ÌƒIƒuƒWƒFƒNƒg”z—ñ
+     * @return å¤‰æ›å¾Œã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆé…åˆ—
      * 
      * @exception IllegalAccessError
-     *             args ‚ğ types ‚É•ÏŠ·•s‰Â”\‚Èê‡B
+     *             args ã‚’ types ã«å¤‰æ›ä¸å¯èƒ½ãªå ´åˆã€‚
      */
-    public static Object[] parseAll( Class[] types, Object[] args ){
+    public static Object[] parseAll( Class<?>[] types, Object[] args ){
         if( types.length == args.length ){
             Object[] objs = new Object[ args.length ];
 
@@ -287,19 +287,19 @@ public class Type{
     }
 
     /**
-     * Factory.match( type, obj ) ‚Åƒ}ƒbƒ`‚µ‚½ obj ‚ğ
-     * type ‚Å¦‚³‚ê‚éŒ^‚É•ÏŠ·‚·‚éB
+     * Factory.match( type, obj ) ã§ãƒãƒƒãƒã—ãŸ obj ã‚’
+     * type ã§ç¤ºã•ã‚Œã‚‹å‹ã«å¤‰æ›ã™ã‚‹ã€‚
      * 
-     * @param type •ÏŠ·‚·‚éŒ^î•ñ
-     * @param obj  •ÏŠ·‘ÎÛ‚ÌƒIƒuƒWƒFƒNƒg
+     * @param type å¤‰æ›ã™ã‚‹å‹æƒ…å ±
+     * @param obj  å¤‰æ›å¯¾è±¡ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
      * 
-     * @return •ÏŠ·Œã‚ÌƒIƒuƒWƒFƒNƒg
+     * @return å¤‰æ›å¾Œã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
      * 
      * @exception IllegalArgumentException
-     *             Factory.match( type, obj ) ‚Åƒ}ƒbƒ`‚µ‚Ä‚¢‚È‚¢ obj ‚ğ
-     *             •ÏŠ·‚µ‚æ‚¤‚Æ‚µ‚½ê‡B
+     *             Factory.match( type, obj ) ã§ãƒãƒƒãƒã—ã¦ã„ãªã„ obj ã‚’
+     *             å¤‰æ›ã—ã‚ˆã†ã¨ã—ãŸå ´åˆã€‚
      */
-    public static Object parse( Class type, Object obj ){
+    public static Object parse( Class<?> type, Object obj ){
         final String str = ( obj == null ? null : obj.toString() );
 
         if( type.isInstance( obj ) ){
@@ -332,7 +332,7 @@ public class Type{
                     num = Type.parseHexadecimal( str.substring( 2 ) );
                 }
             }
-            
+
             if( type.equals( Byte.class ) || type.equals( Byte.TYPE ) ){
                 return new Byte( num.byteValue() );
             }else if( type.equals( Short.class ) || type.equals( Short.TYPE ) ){
@@ -345,7 +345,7 @@ public class Type{
                 return new Float( num.floatValue() );
             }else{
                 return new Double( num.doubleValue() );
-            }    
+            }
         }else if( type.equals( Boolean.class )
                || type.equals( Boolean.TYPE ) ){
             if( "TRUE".equalsIgnoreCase( str ) ){
@@ -376,11 +376,11 @@ public class Type{
     //  private static boolean isDoubleString( String str )
     //------------------------------------------------------------------
     /**
-     * str ‚ª ƒ†ƒjƒR[ƒhƒGƒXƒP[ƒv‚³‚ê‚½1•¶š‚Å‚ ‚é‚©‚ğ“¾‚éB
+     * str ãŒ ãƒ¦ãƒ‹ã‚³ãƒ¼ãƒ‰ã‚¨ã‚¹ã‚±ãƒ¼ãƒ—ã•ã‚ŒãŸ1æ–‡å­—ã§ã‚ã‚‹ã‹ã‚’å¾—ã‚‹ã€‚
      * 
-     * @param str •¶š—ñ
+     * @param str æ–‡å­—åˆ—
      * 
-     * @return str ‚ªƒ†ƒjƒR[ƒhƒGƒXƒP[ƒv‚³‚ê‚½1•¶š‚Å‚ ‚éê‡
+     * @return str ãŒãƒ¦ãƒ‹ã‚³ãƒ¼ãƒ‰ã‚¨ã‚¹ã‚±ãƒ¼ãƒ—ã•ã‚ŒãŸ1æ–‡å­—ã§ã‚ã‚‹å ´åˆ
      */
     private static boolean isUnicodeEscape( String str ){
         if( str.length() == 6
@@ -393,12 +393,12 @@ public class Type{
     }
 
     /**
-     * str ‚ªŠmÀ‚É Integer ‚ğ¦‚·•¶š—ñ‚Å‚ ‚é‚©‚ğ“¾‚éB
+     * str ãŒç¢ºå®Ÿã« Integer ã‚’ç¤ºã™æ–‡å­—åˆ—ã§ã‚ã‚‹ã‹ã‚’å¾—ã‚‹ã€‚
      * 
-     * @param str •¶š—ñ
+     * @param str æ–‡å­—åˆ—
      * 
-     * @return str ‚ªŠmÀ‚É Integer ‚ğ¦‚·•¶š—ñ‚È‚ç trueB
-     *         ˆá‚¦‚Î falseB
+     * @return str ãŒç¢ºå®Ÿã« Integer ã‚’ç¤ºã™æ–‡å­—åˆ—ãªã‚‰ trueã€‚
+     *         é•ãˆã° falseã€‚
      */
     private static boolean isLongString( String str ){
         try{
@@ -422,12 +422,12 @@ public class Type{
     }
 
     /**
-     * str ‚ªŠmÀ‚É Double ‚ğ¦‚·•¶š—ñ‚Å‚ ‚é‚©‚ğ“¾‚éB
+     * str ãŒç¢ºå®Ÿã« Double ã‚’ç¤ºã™æ–‡å­—åˆ—ã§ã‚ã‚‹ã‹ã‚’å¾—ã‚‹ã€‚
      * 
-     * @param str •¶š—ñ
+     * @param str æ–‡å­—åˆ—
      * 
-     * @return str ‚ªŠmÀ‚É Integer ‚ğ¦‚·•¶š—ñ‚È‚ç trueB
-     *         ˆá‚¦‚Î falseB
+     * @return str ãŒç¢ºå®Ÿã« Integer ã‚’ç¤ºã™æ–‡å­—åˆ—ãªã‚‰ trueã€‚
+     *         é•ãˆã° falseã€‚
      */
     private static boolean isDoubleString( String str ){
         try{
@@ -454,12 +454,12 @@ public class Type{
     //  private static long perseHexadecimal( String str )
     //------------------------------------------------------------------
     /**
-     * •¶š—ñ‚ª 16i‚Ì•¶š—ñ‚©‚ğ”»’è‚·‚éB
+     * æ–‡å­—åˆ—ãŒ 16é€²ã®æ–‡å­—åˆ—ã‹ã‚’åˆ¤å®šã™ã‚‹ã€‚
      * 
-     * @param str ”»’è‘ÎÛ‚Ì•¶š—ñ
+     * @param str åˆ¤å®šå¯¾è±¡ã®æ–‡å­—åˆ—
      * 
-     * @return str ‚ª16i‚Ì•¶š—ñ‚Å‚ ‚ê‚Î trueB
-     *         ˆá‚¦‚Î falseB
+     * @return str ãŒ16é€²ã®æ–‡å­—åˆ—ã§ã‚ã‚Œã° trueã€‚
+     *         é•ãˆã° falseã€‚
      */
     private static boolean isHexadecimal( String str ){
         final String hexadecimal  = "0123456789ABCDEF";
@@ -477,12 +477,12 @@ public class Type{
     }
 
     /**
-     * •¶š—ñ‚ğ 16i‚Ì•¶š—ñ‚Æ‚µ‚Ä‰ğß‚µA’l‚ğ“¾‚éB
+     * æ–‡å­—åˆ—ã‚’ 16é€²ã®æ–‡å­—åˆ—ã¨ã—ã¦è§£é‡ˆã—ã€å€¤ã‚’å¾—ã‚‹ã€‚
      * 
-     * @param str •¶š—ñ
+     * @param str æ–‡å­—åˆ—
      * 
-     * @return str ‚ğ16i”‚Æ‚µ‚Ä‰ğß‚µ‚½’lB
-     *         str ‚ª16i”‚Å‚È‚¢ê‡‚ÌŒ‹‰Ê‚Í•s’èB
+     * @return str ã‚’16é€²æ•°ã¨ã—ã¦è§£é‡ˆã—ãŸå€¤ã€‚
+     *         str ãŒ16é€²æ•°ã§ãªã„å ´åˆã®çµæœã¯ä¸å®šã€‚
      */
     private static BigInteger parseHexadecimal( String str ){
         return new BigInteger( str, 16 );

@@ -7,27 +7,27 @@
  * 
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  * 
- * �ȉ��̏����ɓ��ӂ���Ȃ�΃\�[�X�ƃo�C�i���`���̍Ĕz�z�Ǝg�p��
- * �ύX�̗L���ɂ�����炸������B
+ * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
+ * 変更の有無にかかわらず許可する。
  * 
- * �P�D�\�[�X�R�[�h�̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐�������ێ����Ȃ��Ă͂Ȃ�Ȃ��B
+ * １．ソースコードの再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を保持しなくてはならない。
  * 
- * �Q�D�o�C�i���`���̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐��������g�p�������������� ���̑��̔z�z������
- *     �܂ގ����ɋL�q���Ȃ���΂Ȃ�Ȃ��B
+ * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を使用説明書もしくは その他の配布物内に
+ *     含む資料に記述しなければならない。
  * 
- * ���̃\�t�g�E�F�A�͐Β˔���ڂɂ���Ė��ۏ؂Œ񋟂���A����̖�
- * �I��B���ł���Ƃ����ۏ؁A���i���l���L��Ƃ����ۏ؂ɂƂǂ܂炸�A
- * �����Ȃ閾���I����шÎ��I�ȕۏ؂����Ȃ��B
- * �Β˔���ڂ� ���̃\�t�g�E�F�A�̎g�p�ɂ�钼�ړI�A�ԐړI�A����
- * �I�A����ȁA�T�^�I�ȁA���邢�͕K�R�I�ȑ��Q(�g�p�ɂ��f�[�^��
- * �����A�Ɩ��̒��f�〈���܂�Ă������v�̈⎸�A��֐��i��������
- * �T�[�r�X�̓�������l�����邪�A�����Ă��ꂾ���Ɍ��肳��Ȃ�
- * ���Q)�ɑ΂��āA�����Ȃ鎖�Ԃ̌����ƂȂ����Ƃ��Ă��A�_���̐�
- * �C�△�ߎ��ӔC���܂� �����Ȃ�ӔC�����낤�Ƃ��A���Ƃ����ꂪ�s
- * ���s�ׂ̂��߂ł������Ƃ��Ă��A�܂��͂��̂悤�ȑ��Q�̉\������
- * ������Ă����Ƃ��Ă���؂̐ӔC�𕉂�Ȃ����̂Ƃ���B
+ * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
+ * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
+ * いかなる明示的および暗示的な保証もしない。
+ * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
+ * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
+ * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
+ * サービスの導入費等が考えられるが、決してそれだけに限定されない
+ * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
+ * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
+ * 正行為のためであったとしても、またはそのような損害の可能性が報
+ * 告されていたとしても一切の責任を負わないものとする。
  */
 
 package jp.gr.java_conf.dangan.io;
@@ -41,28 +41,28 @@ import java.io.IOException;
 import java.lang.IllegalArgumentException;
 
 /**
- * �ǂݍ��݉\�ȃf�[�^�ʂ��������ꂽ���̓X�g���[���B<br>
+ * 読み込み可能なデータ量が制限された入力ストリーム。<br>
  * 
  * <pre>
  * -- revision history --
  * $Log: LimitedInputStream.java,v $
  * Revision 1.1.2.1  2003/07/20 17:03:37  dangan
  * [maintenance]
- *     �ŐV�� LimitedInputStream ����\�[�X����荞�ށB
+ *     最新の LimitedInputStream からソースを取り込む。
  *
  * Revision 1.1  2002/12/05 00:00:00  dangan
  * [maintenance]
- *     �\�[�X����
+ *     ソース整備
  *
  * Revision 1.0  2002/07/24 00:00:00  dangan
  * add to version control
  * [change]
- *     EndOfStream �ɒB������� read( new byte[0] ) �� 
- *     read( byte[] buf, int off, 0 ) �̖߂�l��
- *     InputStream �Ɠ����� 0 �ɂȂ�悤�ɂ���
+ *     EndOfStream に達した後の read( new byte[0] ) や 
+ *     read( byte[] buf, int off, 0 ) の戻り値を
+ *     InputStream と同じく 0 になるようにした
  * [maintenance]
- *     �^�u�p�~
- *     ���C�Z���X���̏C��
+ *     タブ廃止
+ *     ライセンス文の修正
  *
  * </pre>
  * 
@@ -80,7 +80,7 @@ public class LimitedInputStream extends InputStream{
     //  private InputStream in
     //------------------------------------------------------------------
     /**
-     * �ڑ����ꂽ���̓X�g���[��
+     * 接続された入力ストリーム
      */
     private InputStream in;
 
@@ -95,17 +95,17 @@ public class LimitedInputStream extends InputStream{
     //  private long markPosition
     //------------------------------------------------------------------
     /**
-     * ���ݓǂݍ��݈ʒu
+     * 現在読み込み位置
      */
     private long position;
 
     /**
-     * �ǂݍ��݌��E
+     * 読み込み限界
      */
     private final long limit;
 
     /**
-     * �}�[�N�ʒu
+     * マーク位置
      */
     private long markPosition;
 
@@ -116,14 +116,14 @@ public class LimitedInputStream extends InputStream{
     //  public LimitedInputStream( InputStream in, long limit )
     //------------------------------------------------------------------
     /**
-     * in ����̓ǂݍ��݉\�ȃf�[�^�ʂ𐧌�����
-     * ���̓X�g���[�����\�z����B<br>
+     * in からの読み込み可能なデータ量を制限した
+     * 入力ストリームを構築する。<br>
      * 
-     * @param in    ���̓X�g���[��
-     * @param limit �ǂݍ��݉\�o�C�g��
+     * @param in    入力ストリーム
+     * @param limit 読み込み可能バイト数
      *
      * @exception IllegalArgumentException
-     *              limit �������ł���ꍇ
+     *              limit が負数である場合
      */
     public LimitedInputStream( InputStream in, long limit ){
         if( in != null && 0 <= limit ){
@@ -150,13 +150,13 @@ public class LimitedInputStream extends InputStream{
     //  public long skip( long length )
     //------------------------------------------------------------------
     /**
-     * �ڑ����ꂽ���̓X�g���[������ 1�o�C�g�̃f�[�^��ǂݍ��ށB
+     * 接続された入力ストリームから 1バイトのデータを読み込む。
      * 
-     * @return �ǂݍ��܂ꂽ 1�o�C�g�̃f�[�^<br>
-     *         ����EndOfStream �ɒB���Ă������A
-     *         �����ɒB�����ꍇ�� -1 ��Ԃ��B<br>
+     * @return 読み込まれた 1バイトのデータ<br>
+     *         既にEndOfStream に達していたか、
+     *         制限に達した場合は -1 を返す。<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public int read() throws IOException {
         if( this.position < this.limit ){
@@ -171,17 +171,17 @@ public class LimitedInputStream extends InputStream{
     }
 
     /**
-     * �ڑ����ꂽ���̓X�g���[������ buffer �𖞂����悤��
-     * �f�[�^��ǂݍ��ށB<br>
-     * �f�[�^�͕K������ buffer �𖞂����Ƃ͌���Ȃ����Ƃɒ��ӁB<br>
+     * 接続された入力ストリームから buffer を満たすように
+     * データを読み込む。<br>
+     * データは必ずしも buffer を満たすとは限らないことに注意。<br>
      * 
-     * @param buffer �ǂݍ��񂾃f�[�^���i�[���邽�߂̃o�C�g�z��<br>
+     * @param buffer 読み込んだデータを格納するためのバイト配列<br>
      * 
-     * @return buffer �ɓǂݍ��񂾃f�[�^�ʂ��o�C�g���ŕԂ��B<br>
-     *         ����EndOfStream �ɒB���Ă������A
-     *         �����ɒB�����ꍇ�� -1 ��Ԃ��B<br>
+     * @return buffer に読み込んだデータ量をバイト数で返す。<br>
+     *         既にEndOfStream に達していたか、
+     *         制限に達した場合は -1 を返す。<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public int read( byte[] buffer ) throws IOException {
         if( 0 < buffer.length ){
@@ -203,21 +203,21 @@ public class LimitedInputStream extends InputStream{
     }
 
     /**
-     * �ڑ����ꂽ���̓X�g���[������ �o�C�g�z�� buffer ��
-     * index �Ŏw�肳�ꂽ�ʒu���� length �o�C�g�̃f�[�^��
-     * �ǂݍ��ށB<br>
-     * �f�[�^�͕K������ length �o�C�g�ǂݍ��܂��Ƃ͌���
-     * �Ȃ����Ƃɒ��ӁB<br>
+     * 接続された入力ストリームから バイト配列 buffer の
+     * index で指定された位置から length バイトのデータを
+     * 読み込む。<br>
+     * データは必ずしも length バイト読み込まれるとは限ら
+     * ないことに注意。<br>
      * 
-     * @param buffer �ǂݍ��܂ꂽ�f�[�^���i�[���邽�߂̃o�C�g�z��
-     * @param index  buffer���̃f�[�^�ǂݍ��݊J�n�ʒu
-     * @param length buffer�ɓǂݍ��ރf�[�^��
+     * @param buffer 読み込まれたデータを格納するためのバイト配列
+     * @param index  buffer内のデータ読み込み開始位置
+     * @param length bufferに読み込むデータ量
      * 
-     * @return buffer �ɓǂݍ��񂾃f�[�^�ʂ��o�C�g���ŕԂ��B<br>
-     *         ����EndOfStream �ɒB���Ă������A
-     *         �����ɒB�����ꍇ�� -1 ��Ԃ��B<br>
+     * @return buffer に読み込んだデータ量をバイト数で返す。<br>
+     *         既にEndOfStream に達していたか、
+     *         制限に達した場合は -1 を返す。<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public int read( byte[] buffer, int index, int length )
                                                            throws IOException {
@@ -239,13 +239,13 @@ public class LimitedInputStream extends InputStream{
     }
 
     /**
-     * �ڑ����ꂽ���̓X�g���[���̃f�[�^�� length �o�C�g�ǂݔ�΂��B<br>
+     * 接続された入力ストリームのデータを length バイト読み飛ばす。<br>
      * 
-     * @param length �ǂݔ�΂��o�C�g���B<br>
+     * @param length 読み飛ばすバイト数。<br>
      * 
-     * @return ���ۂɓǂݔ�΂��ꂽ�o�C�g���B<br>
+     * @return 実際に読み飛ばされたバイト数。<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public long skip( long length ) throws IOException {
 
@@ -276,14 +276,14 @@ public class LimitedInputStream extends InputStream{
     //  public boolean markSupprted()
     //------------------------------------------------------------------
     /**
-     * �ڑ����ꂽ���̓X�g���[���̌��݈ʒu�Ƀ}�[�N��ݒ肵�A
-     * reset() ���\�b�h�Ń}�[�N�������_�� �ǂݍ��݈ʒu��
-     * �߂��悤�ɂ���B<br>
+     * 接続された入力ストリームの現在位置にマークを設定し、
+     * reset() メソッドでマークした時点の 読み込み位置に
+     * 戻れるようにする。<br>
      * 
-     * @param readLimit �}�[�N�ʒu�ɖ߂����E�̃o�C�g���B
-     *                  ���̃o�C�g���𒴂��ăf�[�^��ǂ�
-     *                  ���񂾏ꍇ reset()�ł��Ȃ��Ȃ��
-     *                  �\��������B<br>
+     * @param readLimit マーク位置に戻れる限界のバイト数。
+     *                  このバイト数を超えてデータを読み
+     *                  込んだ場合 reset()できなくなる可
+     *                  能性がある。<br>
      */
     public void mark( int readLimit ){
         this.in.mark( readLimit );
@@ -291,23 +291,23 @@ public class LimitedInputStream extends InputStream{
     }
 
     /**
-     * �ڑ����ꂽ���̓X�g���[���̓ǂݍ��݈ʒu���Ō��
-     * mark() ���\�b�h���Ăяo���ꂽ�Ƃ��̈ʒu�ɐݒ肷��B<br>
+     * 接続された入力ストリームの読み込み位置を最後に
+     * mark() メソッドが呼び出されたときの位置に設定する。<br>
      * 
      * @exception IOException <br>
      *              <ol>
-     *                <li> LimitedInputStream �� mark ���Ȃ���Ă��Ȃ��ꍇ�B<br>
-     *                <li> �ڑ����ꂽ���̓X�g���[���� markSupported()��
-     *                     false ��Ԃ��ꍇ�B<br>
-     *                <li> �ڑ����ꂽ���̓X�g���[����
-     *                     ���o�̓G���[�����������ꍇ�B<br>
+     *                <li> LimitedInputStream に mark がなされていない場合。<br>
+     *                <li> 接続された入力ストリームが markSupported()で
+     *                     false を返す場合。<br>
+     *                <li> 接続された入力ストリームで
+     *                     入出力エラーが発生した場合。<br>
      *              </ol>
-     *              �̉��ꂩ�B
+     *              の何れか。
      */
     public void reset() throws IOException {
         if( !this.in.markSupported() ){
             throw new IOException( "not support mark()/reset()." );
-        }else if( this.markPosition < 0 ){ //�R���X�g���N�^�� MarkPosition �� -1 �ɐݒ肳���̂𗘗p����B
+        }else if( this.markPosition < 0 ){ //コンストラクタで MarkPosition が -1 に設定されるのを利用する。
             throw new IOException( "not marked." );
         }else{
             this.in.reset();                                                    //throws IOException
@@ -316,12 +316,12 @@ public class LimitedInputStream extends InputStream{
     }
 
     /**
-     * �ڑ����ꂽ���̓X�g���[���� mark() �� reset() ��
-     * �T�|�[�g���邩�𓾂�B<br>
+     * 接続された入力ストリームが mark() と reset() を
+     * サポートするかを得る。<br>
      * 
-     * @return �X�g���[���� mark() �� reset() ��
-     *         �T�|�[�g����ꍇ�� true�B<br>
-     *         �T�|�[�g���Ȃ��ꍇ�� false�B<br>
+     * @return ストリームが mark() と reset() を
+     *         サポートする場合は true。<br>
+     *         サポートしない場合は false。<br>
      */
     public boolean markSupported(){
         return this.in.markSupported();
@@ -337,23 +337,23 @@ public class LimitedInputStream extends InputStream{
     //  public void close()
     //------------------------------------------------------------------
     /**
-     * �ڑ����ꂽ���̓X�g���[������u���b�N���Ȃ���
-     * �ǂݍ��ނ��Ƃ̂ł���o�C�g���𓾂�B<br>
+     * 接続された入力ストリームからブロックしないで
+     * 読み込むことのできるバイト数を得る。<br>
      * 
-     * @return �u���b�N���Ȃ��œǂݏo����o�C�g���B<br>
+     * @return ブロックしないで読み出せるバイト数。<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public int available() throws IOException {
-        return (int)Math.min( (long)this.in.available(),                        //throws IOException
+        return (int)Math.min( this.in.available(),                        //throws IOException
                                this.limit - this.position );
     }
 
     /**
-     * ���̓��̓X�g���[������A�g�p���Ă���
-     * �S�Ẵ��\�[�X���J������B<br>
+     * この入力ストリームを閉じ、使用していた
+     * 全てのリソースを開放する。<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public void close() throws IOException {
         this.in.close();                                                        //throws IOException

@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  * 
- * �ȉ��̏����ɓ��ӂ���Ȃ�΃\�[�X�ƃo�C�i���`���̍Ĕz�z�Ǝg�p��
- * �ύX�̗L���ɂ�����炸������B
+ * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
+ * 変更の有無にかかわらず許可する。
  * 
- * �P�D�\�[�X�R�[�h�̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐�������ێ����Ȃ��Ă͂Ȃ�Ȃ��B
+ * １．ソースコードの再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を保持しなくてはならない。
  * 
- * �Q�D�o�C�i���`���̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐��������g�p�������������� ���̑��̔z�z������
- *     �܂ގ����ɋL�q���Ȃ���΂Ȃ�Ȃ��B
+ * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を使用説明書もしくは その他の配布物内に
+ *     含む資料に記述しなければならない。
  * 
- * ���̃\�t�g�E�F�A�͐Β˔���ڂɂ���Ė��ۏ؂Œ񋟂���A����̖�
- * �I��B���ł���Ƃ����ۏ؁A���i���l���L��Ƃ����ۏ؂ɂƂǂ܂炸�A
- * �����Ȃ閾���I����шÎ��I�ȕۏ؂����Ȃ��B
- * �Β˔���ڂ� ���̃\�t�g�E�F�A�̎g�p�ɂ�钼�ړI�A�ԐړI�A����
- * �I�A����ȁA�T�^�I�ȁA���邢�͕K�R�I�ȑ��Q(�g�p�ɂ��f�[�^��
- * �����A�Ɩ��̒��f�〈���܂�Ă������v�̈⎸�A��֐��i��������
- * �T�[�r�X�̓�������l�����邪�A�����Ă��ꂾ���Ɍ��肳��Ȃ�
- * ���Q)�ɑ΂��āA�����Ȃ鎖�Ԃ̌����ƂȂ����Ƃ��Ă��A�_���̐�
- * �C�△�ߎ��ӔC���܂� �����Ȃ�ӔC�����낤�Ƃ��A���Ƃ����ꂪ�s
- * ���s�ׂ̂��߂ł������Ƃ��Ă��A�܂��͂��̂悤�ȑ��Q�̉\������
- * ������Ă����Ƃ��Ă���؂̐ӔC�𕉂�Ȃ����̂Ƃ���B
+ * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
+ * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
+ * いかなる明示的および暗示的な保証もしない。
+ * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
+ * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
+ * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
+ * サービスの導入費等が考えられるが、決してそれだけに限定されない
+ * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
+ * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
+ * 正行為のためであったとしても、またはそのような損害の可能性が報
+ * 告されていたとしても一切の責任を負わないものとする。
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -37,8 +37,8 @@ import java.util.zip.Checksum;
 //import exceptions
 
 /**
- * LHA�Ŏg�p����� �P���� 1�o�C�g�̃`�F�b�N�T���l��
- * �Z�o���邽�߂̃N���X�B
+ * LHAで使用される 単純な 1バイトのチェックサム値を
+ * 算出するためのクラス。
  * 
  * <pre>
  * -- revision history --
@@ -46,9 +46,9 @@ import java.util.zip.Checksum;
  * Revision 1.0  2002/08/05 00:00:00  dangan
  * add to version control
  * [maintanance]
- *     �\�[�X����
- *     �^�u�p�~
- *     ���C�Z���X���̏C��
+ *     ソース整備
+ *     タブ廃止
+ *     ライセンス文の修正
  *
  * </pre>
  * 
@@ -64,7 +64,7 @@ public class LhaChecksum implements Checksum{
     //  private int checksum
     //------------------------------------------------------------------
     /** 
-     * �`�F�b�N�T���l
+     * チェックサム値
      */
     private int checksum;
 
@@ -75,7 +75,7 @@ public class LhaChecksum implements Checksum{
     //  public LhaChecksum()
     //------------------------------------------------------------------
     /**
-     * �V���� �`�F�b�N�T���N���X���쐬����B
+     * 新しい チェックサムクラスを作成する。
      */
     public LhaChecksum(){
         super();
@@ -93,32 +93,32 @@ public class LhaChecksum implements Checksum{
     //  public void update( byte[] buffer, int index, int length )
     //------------------------------------------------------------------
     /**
-     * byte8 �Ŏw�肵�� 1�o�C�g�̃f�[�^�� �`�F�b�N�T���l���X�V����B
+     * byte8 で指定した 1バイトのデータで チェックサム値を更新する。
      *
-     * @param byte8 �`�F�b�N�T�����X�V����1�o�C�g�̃f�[�^
+     * @param byte8 チェックサムを更新する1バイトのデータ
      */
     public void update( int byte8 ){
         this.checksum += byte8;
     }
 
     /**
-     * buffer �Ŏw�肵���o�C�g�z��� �`�F�b�N�T���l���X�V����B
-     * ���̃��\�b�h��
+     * buffer で指定したバイト配列で チェックサム値を更新する。
+     * このメソッドは
      *   update( buffer, 0, buffer.length ) 
-     * �Ɠ����B
+     * と同等。
      * 
-     * @param buffer �`�F�b�N�T�����X�V����f�[�^�����o�C�g�z��
+     * @param buffer チェックサムを更新するデータを持つバイト配列
      */
     public void update( byte[] buffer ){
         this.update( buffer, 0, buffer.length );
     }
 
     /**
-     * buffer �Ŏw�肵���o�C�g�z��� �`�F�b�N�T���l���X�V����B
+     * buffer で指定したバイト配列で チェックサム値を更新する。
      * 
-     * @param buffer �`�F�b�N�T�����X�V����f�[�^�����o�C�g�z��
-     * @param index  �f�[�^�̊J�n�ʒu
-     * @param length �`�F�b�N�T���̍X�V�Ɏg���o�C�g��
+     * @param buffer チェックサムを更新するデータを持つバイト配列
+     * @param index  データの開始位置
+     * @param length チェックサムの更新に使うバイト数
      */
     public void update( byte[] buffer, int index, int length ){
         while( 0 < length-- )
@@ -135,18 +135,18 @@ public class LhaChecksum implements Checksum{
     //  public long getValue()
     //------------------------------------------------------------------
     /**
-     * �`�F�b�N�T���l�������l�ɐݒ肵�Ȃ����B
+     * チェックサム値を初期値に設定しなおす。
      */
     public void reset(){
         this.checksum = 0;
     }
 
     /**
-     * �`�F�b�N�T���l�𓾂�B
-     * �`�F�b�N�T���l�� 1�o�C�g�̒l�ł���A 
-     * 0x00�`0xFF�Ƀ}�b�v�����B
+     * チェックサム値を得る。
+     * チェックサム値は 1バイトの値であり、 
+     * 0x00〜0xFFにマップされる。
      * 
-     * @return �`�F�b�N�T���l
+     * @return チェックサム値
      */
     public long getValue(){
         return this.checksum & 0xFF;

@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  * 
- * ˆÈ‰º‚ÌğŒ‚É“¯ˆÓ‚·‚é‚È‚ç‚Îƒ\[ƒX‚ÆƒoƒCƒiƒŠŒ`®‚ÌÄ”z•z‚Æg—p‚ğ
- * •ÏX‚Ì—L–³‚É‚©‚©‚í‚ç‚¸‹–‰Â‚·‚éB
+ * ä»¥ä¸‹ã®æ¡ä»¶ã«åŒæ„ã™ã‚‹ãªã‚‰ã°ã‚½ãƒ¼ã‚¹ã¨ãƒã‚¤ãƒŠãƒªå½¢å¼ã®å†é…å¸ƒã¨ä½¿ç”¨ã‚’
+ * å¤‰æ›´ã®æœ‰ç„¡ã«ã‹ã‹ã‚ã‚‰ãšè¨±å¯ã™ã‚‹ã€‚
  * 
- * ‚PDƒ\[ƒXƒR[ƒh‚ÌÄ”z•z‚É‚¨‚¢‚Ä’˜ìŒ •\¦‚Æ ‚±‚ÌğŒ‚ÌƒŠƒXƒg
- *     ‚¨‚æ‚Ñ‰º‹L‚Ìº–¾•¶‚ğ•Û‚µ‚È‚­‚Ä‚Í‚È‚ç‚È‚¢B
+ * ï¼‘ï¼ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã®å†é…å¸ƒã«ãŠã„ã¦è‘—ä½œæ¨©è¡¨ç¤ºã¨ ã“ã®æ¡ä»¶ã®ãƒªã‚¹ãƒˆ
+ *     ãŠã‚ˆã³ä¸‹è¨˜ã®å£°æ˜æ–‡ã‚’ä¿æŒã—ãªãã¦ã¯ãªã‚‰ãªã„ã€‚
  * 
- * ‚QDƒoƒCƒiƒŠŒ`®‚ÌÄ”z•z‚É‚¨‚¢‚Ä’˜ìŒ •\¦‚Æ ‚±‚ÌğŒ‚ÌƒŠƒXƒg
- *     ‚¨‚æ‚Ñ‰º‹L‚Ìº–¾•¶‚ğg—pà–¾‘‚à‚µ‚­‚Í ‚»‚Ì‘¼‚Ì”z•z•¨“à‚É
- *     ŠÜ‚Ş‘—¿‚É‹Lq‚µ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢B
+ * ï¼’ï¼ãƒã‚¤ãƒŠãƒªå½¢å¼ã®å†é…å¸ƒã«ãŠã„ã¦è‘—ä½œæ¨©è¡¨ç¤ºã¨ ã“ã®æ¡ä»¶ã®ãƒªã‚¹ãƒˆ
+ *     ãŠã‚ˆã³ä¸‹è¨˜ã®å£°æ˜æ–‡ã‚’ä½¿ç”¨èª¬æ˜æ›¸ã‚‚ã—ãã¯ ãã®ä»–ã®é…å¸ƒç‰©å†…ã«
+ *     å«ã‚€è³‡æ–™ã«è¨˜è¿°ã—ãªã‘ã‚Œã°ãªã‚‰ãªã„ã€‚
  * 
- * ‚±‚Ìƒ\ƒtƒgƒEƒFƒA‚ÍÎ’Ë”üì—Ú‚É‚æ‚Á‚Ä–³•ÛØ‚Å’ñ‹Ÿ‚³‚êA“Á’è‚Ì–Ú
- * “I‚ğ’B¬‚Å‚«‚é‚Æ‚¢‚¤•ÛØA¤•i‰¿’l‚ª—L‚é‚Æ‚¢‚¤•ÛØ‚É‚Æ‚Ç‚Ü‚ç‚¸A
- * ‚¢‚©‚È‚é–¾¦“I‚¨‚æ‚ÑˆÃ¦“I‚È•ÛØ‚à‚µ‚È‚¢B
- * Î’Ë”üì—Ú‚Í ‚±‚Ìƒ\ƒtƒgƒEƒFƒA‚Ìg—p‚É‚æ‚é’¼Ú“IAŠÔÚ“IA‹ô”­
- * “IA“Áê‚ÈA“TŒ^“I‚ÈA‚ ‚é‚¢‚Í•K‘R“I‚È‘¹ŠQ(g—p‚É‚æ‚éƒf[ƒ^‚Ì
- * ‘¹¸A‹Æ–±‚Ì’†’f‚âŒ©‚Ü‚ê‚Ä‚¢‚½—˜‰v‚Ìˆâ¸A‘ã‘Ö»•i‚à‚µ‚­‚Í
- * ƒT[ƒrƒX‚Ì“±“ü”ï“™‚ªl‚¦‚ç‚ê‚é‚ªAŒˆ‚µ‚Ä‚»‚ê‚¾‚¯‚ÉŒÀ’è‚³‚ê‚È‚¢
- * ‘¹ŠQ)‚É‘Î‚µ‚ÄA‚¢‚©‚È‚é–‘Ô‚ÌŒ´ˆö‚Æ‚È‚Á‚½‚Æ‚µ‚Ä‚àAŒ_–ñã‚ÌÓ
- * ”C‚â–³‰ß¸Ó”C‚ğŠÜ‚Ş ‚¢‚©‚È‚éÓ”C‚ª‚ ‚ë‚¤‚Æ‚àA‚½‚Æ‚¦‚»‚ê‚ª•s
- * ³sˆ×‚Ì‚½‚ß‚Å‚ ‚Á‚½‚Æ‚µ‚Ä‚àA‚Ü‚½‚Í‚»‚Ì‚æ‚¤‚È‘¹ŠQ‚Ì‰Â”\«‚ª•ñ
- * ‚³‚ê‚Ä‚¢‚½‚Æ‚µ‚Ä‚àˆêØ‚ÌÓ”C‚ğ•‰‚í‚È‚¢‚à‚Ì‚Æ‚·‚éB
+ * ã“ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã¯çŸ³å¡šç¾ç ç‘ ã«ã‚ˆã£ã¦ç„¡ä¿è¨¼ã§æä¾›ã•ã‚Œã€ç‰¹å®šã®ç›®
+ * çš„ã‚’é”æˆã§ãã‚‹ã¨ã„ã†ä¿è¨¼ã€å•†å“ä¾¡å€¤ãŒæœ‰ã‚‹ã¨ã„ã†ä¿è¨¼ã«ã¨ã©ã¾ã‚‰ãšã€
+ * ã„ã‹ãªã‚‹æ˜ç¤ºçš„ãŠã‚ˆã³æš—ç¤ºçš„ãªä¿è¨¼ã‚‚ã—ãªã„ã€‚
+ * çŸ³å¡šç¾ç ç‘ ã¯ ã“ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã®ä½¿ç”¨ã«ã‚ˆã‚‹ç›´æ¥çš„ã€é–“æ¥çš„ã€å¶ç™º
+ * çš„ã€ç‰¹æ®Šãªã€å…¸å‹çš„ãªã€ã‚ã‚‹ã„ã¯å¿…ç„¶çš„ãªæå®³(ä½¿ç”¨ã«ã‚ˆã‚‹ãƒ‡ãƒ¼ã‚¿ã®
+ * æå¤±ã€æ¥­å‹™ã®ä¸­æ–­ã‚„è¦‹è¾¼ã¾ã‚Œã¦ã„ãŸåˆ©ç›Šã®éºå¤±ã€ä»£æ›¿è£½å“ã‚‚ã—ãã¯
+ * ã‚µãƒ¼ãƒ“ã‚¹ã®å°å…¥è²»ç­‰ãŒè€ƒãˆã‚‰ã‚Œã‚‹ãŒã€æ±ºã—ã¦ãã‚Œã ã‘ã«é™å®šã•ã‚Œãªã„
+ * æå®³)ã«å¯¾ã—ã¦ã€ã„ã‹ãªã‚‹äº‹æ…‹ã®åŸå› ã¨ãªã£ãŸã¨ã—ã¦ã‚‚ã€å¥‘ç´„ä¸Šã®è²¬
+ * ä»»ã‚„ç„¡éå¤±è²¬ä»»ã‚’å«ã‚€ ã„ã‹ãªã‚‹è²¬ä»»ãŒã‚ã‚ã†ã¨ã‚‚ã€ãŸã¨ãˆãã‚ŒãŒä¸
+ * æ­£è¡Œç‚ºã®ãŸã‚ã§ã‚ã£ãŸã¨ã—ã¦ã‚‚ã€ã¾ãŸã¯ãã®ã‚ˆã†ãªæå®³ã®å¯èƒ½æ€§ãŒå ±
+ * å‘Šã•ã‚Œã¦ã„ãŸã¨ã—ã¦ã‚‚ä¸€åˆ‡ã®è²¬ä»»ã‚’è² ã‚ãªã„ã‚‚ã®ã¨ã™ã‚‹ã€‚
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -40,7 +40,6 @@ import jp.gr.java_conf.dangan.util.lha.LzssOutputStream;
 import jp.gr.java_conf.dangan.util.lha.LzssSearchMethod;
 
 //import exceptions
-import java.io.IOException;
 import java.lang.NoSuchMethodException;
 import java.lang.ClassNotFoundException;
 import java.lang.InstantiationException;
@@ -53,16 +52,16 @@ import java.lang.NoClassDefFoundError;
 
 
 /**
- * “ñ’iŠKƒnƒbƒVƒ…‚Æ’P•ûŒü˜AŒ‹ƒŠƒXƒg‚ğg‚Á‚Ä‚‘¬‰»‚³‚ê‚½ LzssSearchMethodB<br>
- * <a href="http://search.ieice.org/2000/pdf/e83-a_12_2689.pdf">’èŒ“‚Ì˜_•¶</a>
- * ‚ğQl‚É‚µ‚½B
+ * äºŒæ®µéšãƒãƒƒã‚·ãƒ¥ã¨å˜æ–¹å‘é€£çµãƒªã‚¹ãƒˆã‚’ä½¿ã£ã¦é«˜é€ŸåŒ–ã•ã‚ŒãŸ LzssSearchMethodã€‚<br>
+ * <a href="http://search.ieice.org/2000/pdf/e83-a_12_2689.pdf">å®šå…¼æ°ã®è«–æ–‡</a>
+ * ã‚’å‚è€ƒã«ã—ãŸã€‚
  * 
  * <pre>
  * -- revision history --
  * $Log: TwoLevelHashSearch.java,v $
  * Revision 1.1  2002/12/10 22:06:40  dangan
  * [bug fix]
- *     searchAndPut() ‚ÅÅ‹ß‚ÌÅ’·ˆê’v‚ğæ‚ê‚È‚©‚Á‚½ƒoƒO‚ğC³B
+ *     searchAndPut() ã§æœ€è¿‘ã®æœ€é•·ä¸€è‡´ã‚’å–ã‚Œãªã‹ã£ãŸãƒã‚°ã‚’ä¿®æ­£ã€‚
  *
  * Revision 1.0  2002/12/03 00:00:00  dangan
  * first edition
@@ -86,19 +85,19 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
     //  private int Threshold
     //------------------------------------------------------------------
     /**
-     * LZSS«‘ƒTƒCƒYB
+     * LZSSè¾æ›¸ã‚µã‚¤ã‚ºã€‚
      */
     private int DictionarySize;
 
     /**
-     * LZSSˆ³k‚Ég—p‚³‚ê‚é’lB
-     * Å‘åˆê’v’·‚ğ¦‚·B
+     * LZSSåœ§ç¸®ã«ä½¿ç”¨ã•ã‚Œã‚‹å€¤ã€‚
+     * æœ€å¤§ä¸€è‡´é•·ã‚’ç¤ºã™ã€‚
      */
     private int MaxMatch;
 
     /**
-     * LZSSˆ³k‚Ég—p‚³‚ê‚éè‡’lB
-     * ˆê’v’·‚ª ‚±‚Ì’lˆÈã‚Å‚ ‚ê‚ÎAˆ³kƒR[ƒh‚ğo—Í‚·‚éB
+     * LZSSåœ§ç¸®ã«ä½¿ç”¨ã•ã‚Œã‚‹é–¾å€¤ã€‚
+     * ä¸€è‡´é•·ãŒ ã“ã®å€¤ä»¥ä¸Šã§ã‚ã‚Œã°ã€åœ§ç¸®ã‚³ãƒ¼ãƒ‰ã‚’å‡ºåŠ›ã™ã‚‹ã€‚
      */
     private int Threshold;
 
@@ -112,18 +111,18 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
     //  private int DictionaryLimit
     //------------------------------------------------------------------
     /**
-     * LZSSˆ³k‚ğ{‚·‚½‚ß‚Ìƒoƒbƒtƒ@B
-     * ‘O”¼‚Í«‘—ÌˆæA
-     * Œã”¼‚Íˆ³k‚ğ{‚·‚½‚ß‚Ìƒf[ƒ^‚Ì“ü‚Á‚½ƒoƒbƒtƒ@B
-     * LzssSearchMethod‚ÌÀ‘•“à‚Å‚Í“Ç‚İ‚İ‚Ì‚İ‹–‚³‚ê‚éB
+     * LZSSåœ§ç¸®ã‚’æ–½ã™ãŸã‚ã®ãƒãƒƒãƒ•ã‚¡ã€‚
+     * å‰åŠã¯è¾æ›¸é ˜åŸŸã€
+     * å¾ŒåŠã¯åœ§ç¸®ã‚’æ–½ã™ãŸã‚ã®ãƒ‡ãƒ¼ã‚¿ã®å…¥ã£ãŸãƒãƒƒãƒ•ã‚¡ã€‚
+     * LzssSearchMethodã®å®Ÿè£…å†…ã§ã¯èª­ã¿è¾¼ã¿ã®ã¿è¨±ã•ã‚Œã‚‹ã€‚
      */
     private byte[] TextBuffer;
 
     /**
-     * «‘‚ÌŒÀŠEˆÊ’uB 
-     * TextBuffer‘O”¼‚Ì«‘—Ìˆæ‚Éƒf[ƒ^‚ª–³‚¢ê‡‚É
-     * «‘—Ìˆæ‚É‚ ‚é•s’è‚Ìƒf[ƒ^(Java‚Å‚Í0)‚ğg—p
-     * ‚µ‚Äˆ³k‚ªs‚í‚ê‚é‚Ì‚ğ—}~‚·‚éB
+     * è¾æ›¸ã®é™ç•Œä½ç½®ã€‚ 
+     * TextBufferå‰åŠã®è¾æ›¸é ˜åŸŸã«ãƒ‡ãƒ¼ã‚¿ãŒç„¡ã„å ´åˆã«
+     * è¾æ›¸é ˜åŸŸã«ã‚ã‚‹ä¸å®šã®ãƒ‡ãƒ¼ã‚¿(Javaã§ã¯0)ã‚’ä½¿ç”¨
+     * ã—ã¦åœ§ç¸®ãŒè¡Œã‚ã‚Œã‚‹ã®ã‚’æŠ‘æ­¢ã™ã‚‹ã€‚
      */
     private int DictionaryLimit;
 
@@ -138,19 +137,19 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
     //  private int[] primaryCount
     //------------------------------------------------------------------
     /**
-     * ˆê’i–Ú‚ÌƒnƒbƒVƒ…ŠÖ”
+     * ä¸€æ®µç›®ã®ãƒãƒƒã‚·ãƒ¥é–¢æ•°
      */
     private HashMethod primaryHash;
 
     /**
-     * ˆê’i–Ú‚ÌƒnƒbƒVƒ…ƒe[ƒuƒ‹
-     * “Yš‚Íˆê’i–Ú‚ÌƒnƒbƒVƒ…’lA“à—e‚Í “ñ’i–Ú‚ÌƒnƒbƒVƒ…ƒe[ƒuƒ‹‚Ì index
+     * ä¸€æ®µç›®ã®ãƒãƒƒã‚·ãƒ¥ãƒ†ãƒ¼ãƒ–ãƒ«
+     * æ·»å­—ã¯ä¸€æ®µç›®ã®ãƒãƒƒã‚·ãƒ¥å€¤ã€å†…å®¹ã¯ äºŒæ®µç›®ã®ãƒãƒƒã‚·ãƒ¥ãƒ†ãƒ¼ãƒ–ãƒ«ã® index
      */
     private int[] primaryHashTable;
 
     /**
-     * ˆê’i–Ú‚ÌƒnƒbƒVƒ…ƒe[ƒuƒ‹‚ÉŠô‚Â‚Ìƒf[ƒ^ƒpƒ^ƒ“‚ª
-     * “o˜^‚³‚ê‚Ä‚¢‚é‚©‚ğƒJƒEƒ“ƒg‚µ‚Ä‚¨‚­B
+     * ä¸€æ®µç›®ã®ãƒãƒƒã‚·ãƒ¥ãƒ†ãƒ¼ãƒ–ãƒ«ã«å¹¾ã¤ã®ãƒ‡ãƒ¼ã‚¿ãƒ‘ã‚¿ãƒ³ãŒ
+     * ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹ã‹ã‚’ã‚«ã‚¦ãƒ³ãƒˆã—ã¦ãŠãã€‚
      */
     private int[] primaryCount;
 
@@ -165,20 +164,20 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
     //  private int[] dummy
     //------------------------------------------------------------------
     /**
-     * “ñ’i–Ú‚ÌƒnƒbƒVƒ…’l‚ğZo‚·‚é‚½‚ß‚É•K—v‚ÈƒoƒCƒg”B
+     * äºŒæ®µç›®ã®ãƒãƒƒã‚·ãƒ¥å€¤ã‚’ç®—å‡ºã™ã‚‹ãŸã‚ã«å¿…è¦ãªãƒã‚¤ãƒˆæ•°ã€‚
      */
     private int[] secondaryHashRequires;
 
     /**
-     * “ñ’i–Ú‚ÌƒnƒbƒVƒ…ƒe[ƒuƒ‹
-     * “Yš‚Í ˆê’i–Ú‚ÌƒnƒbƒVƒ…ƒe[ƒuƒ‹‚Ì’l + “ñ’i–Ú‚ÌƒnƒbƒVƒ…’lA
-     * “à—e‚Í TextBuffer “à‚Ìƒf[ƒ^ƒpƒ^ƒ“‚ÌŠJnˆÊ’u
+     * äºŒæ®µç›®ã®ãƒãƒƒã‚·ãƒ¥ãƒ†ãƒ¼ãƒ–ãƒ«
+     * æ·»å­—ã¯ ä¸€æ®µç›®ã®ãƒãƒƒã‚·ãƒ¥ãƒ†ãƒ¼ãƒ–ãƒ«ã®å€¤ + äºŒæ®µç›®ã®ãƒãƒƒã‚·ãƒ¥å€¤ã€
+     * å†…å®¹ã¯ TextBuffer å†…ã®ãƒ‡ãƒ¼ã‚¿ãƒ‘ã‚¿ãƒ³ã®é–‹å§‹ä½ç½®
      */
     private int[] secondaryHashTable;
 
     /**
-     * slide() ‚Ì–ˆ‚É secondaryHashTable ‚Æ“ü‚ê‘Ö‚¦‚éƒ_ƒ~[”z—ñB
-     * g‚¢‚Ü‚í‚µ—pB
+     * slide() ã®æ¯ã« secondaryHashTable ã¨å…¥ã‚Œæ›¿ãˆã‚‹ãƒ€ãƒŸãƒ¼é…åˆ—ã€‚
+     * ä½¿ã„ã¾ã‚ã—ç”¨ã€‚
      */
     private int[] dummy;
 
@@ -191,36 +190,20 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
     //  private int[] prev
     //------------------------------------------------------------------
     /**
-     * “¯‚¶ƒnƒbƒVƒ…’l‚ğ‚Âƒf[ƒ^ƒpƒ^ƒ“ŠJnˆÊ’u‚ğ‚Â
-     * ’P•ûŒü˜AŒ‹ƒŠƒXƒgB
+     * åŒã˜ãƒãƒƒã‚·ãƒ¥å€¤ã‚’æŒã¤ãƒ‡ãƒ¼ã‚¿ãƒ‘ã‚¿ãƒ³é–‹å§‹ä½ç½®ã‚’æŒã¤
+     * å˜æ–¹å‘é€£çµãƒªã‚¹ãƒˆã€‚
      */
     private int[] prev;
 
 
-    //------------------------------------------------------------------
-    //  constructor
-    //------------------------------------------------------------------
-    //  private TwoLevelHashSearch()
-    //  public TwoLevelHashSearch( int DictionarySize, int MaxMatch, 
-    //                             int Threshold, byte[] TextBuffer )
-    //  public TwoLevelHashSearch( int DictionarySize, int MaxMatch, 
-    //                             int Threshold, byte[] TextBuffer,
-    //                             String HashMethodClassName )
-    //------------------------------------------------------------------
     /**
-     * ƒfƒtƒHƒ‹ƒgƒRƒ“ƒXƒgƒ‰ƒNƒ^B
-     * g—p•s‰ÂB
-     */
-    private TwoLevelHashSearch(){ }
-
-    /**
-     * “ñ’iŠKƒnƒbƒVƒ…‚ğg—p‚µ‚½ LzssSearchMethod ‚ğ\’z‚·‚éB<br>
-     * ˆê’i–Ú‚ÌƒnƒbƒVƒ…ŠÖ”‚É‚Í ƒfƒtƒHƒ‹ƒg‚Ì‚à‚Ì‚ªg—p‚³‚ê‚éB<br>
+     * äºŒæ®µéšãƒãƒƒã‚·ãƒ¥ã‚’ä½¿ç”¨ã—ãŸ LzssSearchMethod ã‚’æ§‹ç¯‰ã™ã‚‹ã€‚<br>
+     * ä¸€æ®µç›®ã®ãƒãƒƒã‚·ãƒ¥é–¢æ•°ã«ã¯ ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ã‚‚ã®ãŒä½¿ç”¨ã•ã‚Œã‚‹ã€‚<br>
      * 
-     * @param DictionarySize      «‘ƒTƒCƒY
-     * @param MaxMatch            Å‘åˆê’v’·
-     * @param Threshold           ˆ³kA”ñˆ³k‚Ìè‡’l
-     * @param TextBuffer          LZSSˆ³k‚ğ{‚·‚½‚ß‚Ìƒoƒbƒtƒ@
+     * @param DictionarySize      è¾æ›¸ã‚µã‚¤ã‚º
+     * @param MaxMatch            æœ€å¤§ä¸€è‡´é•·
+     * @param Threshold           åœ§ç¸®ã€éåœ§ç¸®ã®é–¾å€¤
+     * @param TextBuffer          LZSSåœ§ç¸®ã‚’æ–½ã™ãŸã‚ã®ãƒãƒƒãƒ•ã‚¡
      */
     public TwoLevelHashSearch( int    DictionarySize,
                                int    MaxMatch,
@@ -235,22 +218,22 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
 
 
     /**
-     * “ñ’iŠKƒnƒbƒVƒ…‚ğg—p‚µ‚½ LzssSearchMethod ‚ğ\’z‚·‚éB
+     * äºŒæ®µéšãƒãƒƒã‚·ãƒ¥ã‚’ä½¿ç”¨ã—ãŸ LzssSearchMethod ã‚’æ§‹ç¯‰ã™ã‚‹ã€‚
      * 
-     * @param DictionarySize      «‘ƒTƒCƒY
-     * @param MaxMatch            Å‘åˆê’v’·
-     * @param Threshold           ˆ³kA”ñˆ³k‚Ìè‡’l
-     * @param TextBuffer          LZSSˆ³k‚ğ{‚·‚½‚ß‚Ìƒoƒbƒtƒ@
-     * @param HashMethodClassName HashŠÖ”‚ğ’ñ‹Ÿ‚·‚éƒNƒ‰ƒX–¼
+     * @param DictionarySize      è¾æ›¸ã‚µã‚¤ã‚º
+     * @param MaxMatch            æœ€å¤§ä¸€è‡´é•·
+     * @param Threshold           åœ§ç¸®ã€éåœ§ç¸®ã®é–¾å€¤
+     * @param TextBuffer          LZSSåœ§ç¸®ã‚’æ–½ã™ãŸã‚ã®ãƒãƒƒãƒ•ã‚¡
+     * @param HashMethodClassName Hashé–¢æ•°ã‚’æä¾›ã™ã‚‹ã‚¯ãƒ©ã‚¹å
      * 
      * @exception NoClassDefFoundError
-     *              HashMethodClassName ‚Å—^‚¦‚ç‚ê‚½ƒNƒ‰ƒX‚ªŒ©‚Â‚©‚ç‚È‚¢ê‡B
+     *              HashMethodClassName ã§ä¸ãˆã‚‰ã‚ŒãŸã‚¯ãƒ©ã‚¹ãŒè¦‹ã¤ã‹ã‚‰ãªã„å ´åˆã€‚
      * @exception InstantiationError
-     *              HashMethodClassName ‚Å—^‚¦‚ç‚ê‚½ƒNƒ‰ƒX‚ª
-     *              abstract class ‚Å‚ ‚é‚½‚ßƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚Å‚«‚È‚¢ê‡B
+     *              HashMethodClassName ã§ä¸ãˆã‚‰ã‚ŒãŸã‚¯ãƒ©ã‚¹ãŒ
+     *              abstract class ã§ã‚ã‚‹ãŸã‚ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã§ããªã„å ´åˆã€‚
      * @exception NoSuchMethodError
-     *              HashMethodClassName ‚Å—^‚¦‚ç‚ê‚½ƒNƒ‰ƒX‚ª
-     *              ƒRƒ“ƒXƒgƒ‰ƒNƒ^ HashMethod( byte[] )‚ğ‚½‚È‚¢ê‡B
+     *              HashMethodClassName ã§ä¸ãˆã‚‰ã‚ŒãŸã‚¯ãƒ©ã‚¹ãŒ
+     *              ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ HashMethod( byte[] )ã‚’æŒãŸãªã„å ´åˆã€‚
      */
     public TwoLevelHashSearch( int    DictionarySize,
                                int    MaxMatch,
@@ -278,7 +261,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
             throw new InstantiationError( exception.getMessage() );
         }
 
-        // ƒnƒbƒVƒ…ƒe[ƒuƒ‹‰Šú‰»
+        // ãƒãƒƒã‚·ãƒ¥ãƒ†ãƒ¼ãƒ–ãƒ«åˆæœŸåŒ–
         this.primaryHashTable   = new int[ this.primaryHash.tableSize() ];
         this.secondaryHashTable = new int[ ( this.primaryHash.tableSize() 
                                            + this.DictionarySize / 4 ) ];
@@ -287,13 +270,13 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
             this.secondaryHashTable[i] = -1;
         }
 
-        // ‚»‚Ì‘¼‚Ì”z—ñ¶¬ 
-        // primaryCount ‚Æ secondaryHashRequires ‚Í”z—ñ¶¬‚Éƒ[ƒƒNƒŠƒA‚³‚ê‚Ä‚¢‚é–‚ğ—˜—p‚·‚éB
+        // ãã®ä»–ã®é…åˆ—ç”Ÿæˆ 
+        // primaryCount ã¨ secondaryHashRequires ã¯é…åˆ—ç”Ÿæˆæ™‚ã«ã‚¼ãƒ­ã‚¯ãƒªã‚¢ã•ã‚Œã¦ã„ã‚‹äº‹ã‚’åˆ©ç”¨ã™ã‚‹ã€‚
         this.primaryCount          = new int[ this.primaryHash.tableSize() ];
         this.secondaryHashRequires = new int[ this.primaryHash.tableSize() ];
         this.dummy                 = new int[ this.secondaryHashTable.length ];
 
-        // ˜AŒ‹ƒŠƒXƒg‰Šú‰»
+        // é€£çµãƒªã‚¹ãƒˆåˆæœŸåŒ–
         this.prev = new int[ this.DictionarySize ];
         for( int i = 0 ; i < this.prev.length ; i++ ){
             this.prev[i] = -1;
@@ -311,10 +294,10 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
     //  public int putRequires()
     //------------------------------------------------------------------
     /**
-     * position ‚©‚çn‚Ü‚éƒf[ƒ^ƒpƒ^ƒ“‚ğ
-     * “ñ’iŠKƒnƒbƒVƒ…‚Æ˜AŒ‹ƒŠƒXƒg‚©‚ç¬‚éŒŸõ‹@\‚É“o˜^‚·‚éB<br>
+     * position ã‹ã‚‰å§‹ã¾ã‚‹ãƒ‡ãƒ¼ã‚¿ãƒ‘ã‚¿ãƒ³ã‚’
+     * äºŒæ®µéšãƒãƒƒã‚·ãƒ¥ã¨é€£çµãƒªã‚¹ãƒˆã‹ã‚‰æˆã‚‹æ¤œç´¢æ©Ÿæ§‹ã«ç™»éŒ²ã™ã‚‹ã€‚<br>
      * 
-     * @param position TextBuffer“à‚Ìƒf[ƒ^ƒpƒ^ƒ“‚ÌŠJnˆÊ’u
+     * @param position TextBufferå†…ã®ãƒ‡ãƒ¼ã‚¿ãƒ‘ã‚¿ãƒ³ã®é–‹å§‹ä½ç½®
      */
     public void put( int position ){
         int phash = this.primaryHash.hash( position );
@@ -328,19 +311,19 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
     }
 
     /**
-     * “ñ’iŠKƒnƒbƒVƒ…‚Æ˜AŒ‹ƒŠƒXƒg‚©‚ç¬‚éŒŸõ‹@\‚É“o˜^‚³‚ê‚½
-     * ƒf[ƒ^ƒpƒ^ƒ“‚©‚ç position ‚©‚çn‚Ü‚éƒf[ƒ^ƒpƒ^ƒ“‚Æ
-     * Å’·‚Ìˆê’v‚ğ‚Â‚à‚Ì‚ğŒŸõ‚µA
-     * “¯‚É position ‚©‚çn‚Ü‚éƒf[ƒ^ƒpƒ^ƒ“‚ğ 
-     * “ñ’iŠKƒnƒbƒVƒ…‚Æ˜AŒ‹ƒŠƒXƒg‚©‚ç¬‚éŒŸõ‹@\‚É“o˜^‚·‚éB<br>
+     * äºŒæ®µéšãƒãƒƒã‚·ãƒ¥ã¨é€£çµãƒªã‚¹ãƒˆã‹ã‚‰æˆã‚‹æ¤œç´¢æ©Ÿæ§‹ã«ç™»éŒ²ã•ã‚ŒãŸ
+     * ãƒ‡ãƒ¼ã‚¿ãƒ‘ã‚¿ãƒ³ã‹ã‚‰ position ã‹ã‚‰å§‹ã¾ã‚‹ãƒ‡ãƒ¼ã‚¿ãƒ‘ã‚¿ãƒ³ã¨
+     * æœ€é•·ã®ä¸€è‡´ã‚’æŒã¤ã‚‚ã®ã‚’æ¤œç´¢ã—ã€
+     * åŒæ™‚ã« position ã‹ã‚‰å§‹ã¾ã‚‹ãƒ‡ãƒ¼ã‚¿ãƒ‘ã‚¿ãƒ³ã‚’ 
+     * äºŒæ®µéšãƒãƒƒã‚·ãƒ¥ã¨é€£çµãƒªã‚¹ãƒˆã‹ã‚‰æˆã‚‹æ¤œç´¢æ©Ÿæ§‹ã«ç™»éŒ²ã™ã‚‹ã€‚<br>
      * 
-     * @param position TextBuffer“à‚Ìƒf[ƒ^ƒpƒ^ƒ“‚ÌŠJnˆÊ’uB
+     * @param position TextBufferå†…ã®ãƒ‡ãƒ¼ã‚¿ãƒ‘ã‚¿ãƒ³ã®é–‹å§‹ä½ç½®ã€‚
      * 
-     * @return ˆê’v‚ªŒ©‚Â‚©‚Á‚½ê‡‚Í
+     * @return ä¸€è‡´ãŒè¦‹ã¤ã‹ã£ãŸå ´åˆã¯
      *         LzssOutputStream.createSearchReturn 
-     *         ‚É‚æ‚Á‚Ä¶¬‚³‚ê‚½ˆê’vˆÊ’u‚Æˆê’v’·‚Ìî•ñ‚ğ‚Â’lA
-     *         ˆê’v‚ªŒ©‚Â‚©‚ç‚È‚©‚Á‚½ê‡‚Í
-     *         LzssOutputStream.NOMATCHB
+     *         ã«ã‚ˆã£ã¦ç”Ÿæˆã•ã‚ŒãŸä¸€è‡´ä½ç½®ã¨ä¸€è‡´é•·ã®æƒ…å ±ã‚’æŒã¤å€¤ã€
+     *         ä¸€è‡´ãŒè¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸå ´åˆã¯
+     *         LzssOutputStream.NOMATCHã€‚
      * 
      * @see LzssOutputStream#createSearchReturn(int,int)
      * @see LzssOutputStream#NOMATCH
@@ -365,7 +348,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
         int len      = 0;
 
         //------------------------------------------------------------------
-        //  “ñ’i–Ú‚ÌƒnƒbƒVƒ…‚É‚æ‚Á‚Ä‘I‚Î‚ê‚½˜AŒ‹ƒŠƒXƒg‚ğŒŸõ‚·‚éƒ‹[ƒv
+        //  äºŒæ®µç›®ã®ãƒãƒƒã‚·ãƒ¥ã«ã‚ˆã£ã¦é¸ã°ã‚ŒãŸé€£çµãƒªã‚¹ãƒˆã‚’æ¤œç´¢ã™ã‚‹ãƒ«ãƒ¼ãƒ—
         while( scanlimit <= scanpos ){
             if( buf[ scanpos + matchlen ] == buf[ position + matchlen ] ){
                 s = scanpos;
@@ -387,8 +370,8 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
         }
 
         //------------------------------------------------------------------
-        //  “ñ’i–Ú‚ÌƒnƒbƒVƒ…‚É‚æ‚Á‚ÄŒµ‘I‚³‚ê‚½˜AŒ‹ƒŠƒXƒg‚Éˆê’v‚ª–³‚¢ê‡A
-        //  ˆê’i–Ú‚ÌƒnƒbƒVƒ…‚É“o˜^‚³‚ê‚Ä‚¢‚é‘S‚Ä‚Ì˜AŒ‹ƒŠƒXƒg‚ğŒŸõ‚·‚é
+        //  äºŒæ®µç›®ã®ãƒãƒƒã‚·ãƒ¥ã«ã‚ˆã£ã¦å³é¸ã•ã‚ŒãŸé€£çµãƒªã‚¹ãƒˆã«ä¸€è‡´ãŒç„¡ã„å ´åˆã€
+        //  ä¸€æ®µç›®ã®ãƒãƒƒã‚·ãƒ¥ã«ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹å…¨ã¦ã®é€£çµãƒªã‚¹ãƒˆã‚’æ¤œç´¢ã™ã‚‹
         int revbits  = 1;
         int loopend  = requires - Math.max( 0, this.Threshold - this.primaryHash.hashRequires() );
         int maxmatch = this.primaryHash.hashRequires() + requires - 1;
@@ -423,17 +406,17 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
             }
             maxmatch = this.primaryHash.hashRequires() + requires - i - 1;
         }
-        
+
         //------------------------------------------------------------------
-        //  “ñ’iŠKƒnƒbƒVƒ…‚Æ˜AŒ‹ƒŠƒXƒg‚ğg—p‚µ‚½ŒŸõ‹@\‚É
-        //  position ‚©‚çn‚Ü‚éƒf[ƒ^ƒpƒ^ƒ“‚ğ“o˜^‚·‚éB
+        //  äºŒæ®µéšãƒãƒƒã‚·ãƒ¥ã¨é€£çµãƒªã‚¹ãƒˆã‚’ä½¿ç”¨ã—ãŸæ¤œç´¢æ©Ÿæ§‹ã«
+        //  position ã‹ã‚‰å§‹ã¾ã‚‹ãƒ‡ãƒ¼ã‚¿ãƒ‘ã‚¿ãƒ³ã‚’ç™»éŒ²ã™ã‚‹ã€‚
         this.primaryCount[ phash ]++;
         this.prev[ position & ( this.DictionarySize - 1 ) ] = 
                                         this.secondaryHashTable[ base + shash ];
         this.secondaryHashTable[ base + shash ] = position;
 
         //------------------------------------------------------------------
-        //  Å’·ˆê’v‚ğŒÄ‚Ño‚µŒ³‚É•Ô‚·B
+        //  æœ€é•·ä¸€è‡´ã‚’å‘¼ã³å‡ºã—å…ƒã«è¿”ã™ã€‚
         if( this.Threshold <= matchlen ){
             return LzssOutputStream.createSearchReturn( matchlen, matchpos );
         }else{
@@ -442,18 +425,18 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
     }
 
     /**
-     * ƒnƒbƒVƒ…‚Æ˜AŒ‹ƒŠƒXƒg‚ğg—p‚µ‚½ŒŸõ‹@\‚É“o˜^‚³‚ê‚½
-     * ƒf[ƒ^ƒpƒ^ƒ“‚ğŒŸõ‚µ position ‚©‚çn‚Ü‚éƒf[ƒ^ƒpƒ^ƒ“‚Æ
-     * Å’·‚Ìˆê’v‚ğ‚Â‚à‚Ì‚ğ“¾‚éB<br>
+     * ãƒãƒƒã‚·ãƒ¥ã¨é€£çµãƒªã‚¹ãƒˆã‚’ä½¿ç”¨ã—ãŸæ¤œç´¢æ©Ÿæ§‹ã«ç™»éŒ²ã•ã‚ŒãŸ
+     * ãƒ‡ãƒ¼ã‚¿ãƒ‘ã‚¿ãƒ³ã‚’æ¤œç´¢ã— position ã‹ã‚‰å§‹ã¾ã‚‹ãƒ‡ãƒ¼ã‚¿ãƒ‘ã‚¿ãƒ³ã¨
+     * æœ€é•·ã®ä¸€è‡´ã‚’æŒã¤ã‚‚ã®ã‚’å¾—ã‚‹ã€‚<br>
      * 
-     * @param position   TextBuffer“à‚Ìƒf[ƒ^ƒpƒ^ƒ“‚ÌŠJnˆÊ’uB
-     * @param lastPutPos ÅŒã‚É“o˜^‚µ‚½ƒf[ƒ^ƒpƒ^ƒ“‚ÌŠJnˆÊ’uB
+     * @param position   TextBufferå†…ã®ãƒ‡ãƒ¼ã‚¿ãƒ‘ã‚¿ãƒ³ã®é–‹å§‹ä½ç½®ã€‚
+     * @param lastPutPos æœ€å¾Œã«ç™»éŒ²ã—ãŸãƒ‡ãƒ¼ã‚¿ãƒ‘ã‚¿ãƒ³ã®é–‹å§‹ä½ç½®ã€‚
      * 
-     * @return ˆê’v‚ªŒ©‚Â‚©‚Á‚½ê‡‚Í
+     * @return ä¸€è‡´ãŒè¦‹ã¤ã‹ã£ãŸå ´åˆã¯
      *         LzssOutputStream.createSearchReturn 
-     *         ‚É‚æ‚Á‚Ä¶¬‚³‚ê‚½ˆê’vˆÊ’u‚Æˆê’v’·‚Ìî•ñ‚ğ‚Â’lA
-     *         ˆê’v‚ªŒ©‚Â‚©‚ç‚È‚©‚Á‚½ê‡‚Í
-     *         LzssOutputStream.NOMATCHB
+     *         ã«ã‚ˆã£ã¦ç”Ÿæˆã•ã‚ŒãŸä¸€è‡´ä½ç½®ã¨ä¸€è‡´é•·ã®æƒ…å ±ã‚’æŒã¤å€¤ã€
+     *         ä¸€è‡´ãŒè¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸå ´åˆã¯
+     *         LzssOutputStream.NOMATCHã€‚
      * 
      * @see LzssOutputStream#createSearchReturn(int,int)
      * @see LzssOutputStream#NOMATCH
@@ -461,8 +444,8 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
     public int search( int position, int lastPutPos ){
 
         //------------------------------------------------------------------
-        //  ƒnƒbƒVƒ…‚Æ˜AŒ‹ƒŠƒXƒg‚É‚æ‚éŒŸõ‹@\‚É“o˜^‚³‚ê‚Ä‚¢‚È‚¢
-        //  ƒf[ƒ^ƒpƒ^ƒ“‚ğ’Pƒ‚È’€ŸŒŸõ‚ÅŒŸõ‚·‚éB
+        //  ãƒãƒƒã‚·ãƒ¥ã¨é€£çµãƒªã‚¹ãƒˆã«ã‚ˆã‚‹æ¤œç´¢æ©Ÿæ§‹ã«ç™»éŒ²ã•ã‚Œã¦ã„ãªã„
+        //  ãƒ‡ãƒ¼ã‚¿ãƒ‘ã‚¿ãƒ³ã‚’å˜ç´”ãªé€æ¬¡æ¤œç´¢ã§æ¤œç´¢ã™ã‚‹ã€‚
         int matchlen   = this.Threshold - 1;
         int matchpos   = position;
         int scanpos    = position - 1;
@@ -491,7 +474,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
         }
 
         //------------------------------------------------------------------
-        //  “ñ’iŠKƒnƒbƒVƒ…‚Æ˜AŒ‹ƒŠƒXƒg‚ğg—p‚µ‚½ŒŸõ‹@\‚©‚çŒŸõ‚·‚éB
+        //  äºŒæ®µéšãƒãƒƒã‚·ãƒ¥ã¨é€£çµãƒªã‚¹ãƒˆã‚’ä½¿ç”¨ã—ãŸæ¤œç´¢æ©Ÿæ§‹ã‹ã‚‰æ¤œç´¢ã™ã‚‹ã€‚
         int phashRequires = this.primaryHash.hashRequires();
         if( phashRequires < this.TextBuffer.length - position ){
 
@@ -509,11 +492,12 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
                 start   = requires - avail;
             }
             int revbits = 0;
+            @SuppressWarnings("unused")
             int loopend  = requires - Math.max( 0, this.Threshold - this.primaryHash.hashRequires() );
             int maxmatch = this.MaxMatch;
 
             //------------------------------------------------------------------
-            //  ˆê’i–Ú‚Ì‚É“o˜^‚³‚ê‚Ä‚¢‚é˜AŒ‹ƒŠƒXƒg‚ğ—Dæ“x‚Ì‡‚ÉŒŸõ‚·‚éƒ‹[ƒv
+            //  ä¸€æ®µç›®ã®ã«ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹é€£çµãƒªã‚¹ãƒˆã‚’å„ªå…ˆåº¦ã®é †ã«æ¤œç´¢ã™ã‚‹ãƒ«ãƒ¼ãƒ—
             for( int i = start, send = ( 1 << ( i * 2 ) ) ; i <= requires ; i++, send <<= 2 ){
                 max += position + maxmatch;
                 while( revbits < send ){
@@ -548,7 +532,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
         }// if( phashRequires < this.TextBuffer.length - position )
 
         //------------------------------------------------------------------
-        //  Å’·ˆê’v‚ğŒÄ‚Ño‚µŒ³‚É•Ô‚·B
+        //  æœ€é•·ä¸€è‡´ã‚’å‘¼ã³å‡ºã—å…ƒã«è¿”ã™ã€‚
         if( this.Threshold <= matchlen ){
             return LzssOutputStream.createSearchReturn( matchlen, matchpos );
         }else{
@@ -558,19 +542,19 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
     }
 
     /**
-     * TextBuffer“à‚Ìposition‚Ü‚Å‚Ìƒf[ƒ^‚ğ
-     * ‘O•û‚ÖˆÚ“®‚·‚éÛA‚»‚ê‚É‰‚¶‚Ä SearchMethod“à‚Ì
-     * ƒf[ƒ^‚à TextBuffer“à‚Ìƒf[ƒ^‚Æ–µ‚‚µ‚È‚¢‚æ‚¤‚É
-     * ‘O•û‚ÖˆÚ“®‚·‚éˆ—‚ğs‚¤B
+     * TextBufferå†…ã®positionã¾ã§ã®ãƒ‡ãƒ¼ã‚¿ã‚’
+     * å‰æ–¹ã¸ç§»å‹•ã™ã‚‹éš›ã€ãã‚Œã«å¿œã˜ã¦ SearchMethodå†…ã®
+     * ãƒ‡ãƒ¼ã‚¿ã‚‚ TextBufferå†…ã®ãƒ‡ãƒ¼ã‚¿ã¨çŸ›ç›¾ã—ãªã„ã‚ˆã†ã«
+     * å‰æ–¹ã¸ç§»å‹•ã™ã‚‹å‡¦ç†ã‚’è¡Œã†ã€‚
      */
     public void slide(){
 
         //------------------------------------------------------------------
-        //  DictionaryLimitXV
+        //  DictionaryLimitæ›´æ–°
         this.DictionaryLimit = Math.max( 0, this.DictionaryLimit - this.DictionarySize );
 
         //------------------------------------------------------------------
-        //  primaryCount ‚Ì’l‚É‚æ‚Á‚Ä secondaryHashTable ‚ğÄ\¬‚·‚é
+        //  primaryCount ã®å€¤ã«ã‚ˆã£ã¦ secondaryHashTable ã‚’å†æ§‹æˆã™ã‚‹
         int secondaryIndex = 0;
         int dummyIndex     = 0;
         for( int i = 0 ; i < this.primaryHashTable.length ; i++ ){
@@ -606,7 +590,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
         this.dummy = temp;
 
         //------------------------------------------------------------------
-        //  ˜AŒ‹ƒŠƒXƒg‚ğXV
+        //  é€£çµãƒªã‚¹ãƒˆã‚’æ›´æ–°
         for( int i = 0 ; i < this.prev.length ; i++  ){
             int pos =  this.prev[i] - this.DictionarySize;
             this.prev[i] = ( 0 <= pos ? pos : -1 );
@@ -614,13 +598,13 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
     }
 
     /**
-     * put() ‚Å LzssSearchMethod‚Éƒf[ƒ^‚ğ
-     * “o˜^‚·‚é‚Æ‚«‚Ég—p‚³‚ê‚éƒf[ƒ^—Ê‚ğ“¾‚éB
-     * TwoLevelHashSearch ‚Å‚ÍA“à•”‚Åg—p‚µ‚Ä‚¢‚é HashMethod ‚ÌÀ‘•‚ª 
-     * hash() ‚Ì‚½‚ß‚É•K—v‚Æ‚·‚éƒf[ƒ^—Ê( HashMethod.hashRequires() ‚Ì–ß‚è’l ) 
-     * ‚Æ “ñ’i–Ú‚ÌƒnƒbƒVƒ…‚É•K—v‚ÈÅ‘å‚ÌƒoƒCƒg”‚ğ‘«‚µ‚½‚à‚Ì‚ğ•Ô‚·B
+     * put() ã§ LzssSearchMethodã«ãƒ‡ãƒ¼ã‚¿ã‚’
+     * ç™»éŒ²ã™ã‚‹ã¨ãã«ä½¿ç”¨ã•ã‚Œã‚‹ãƒ‡ãƒ¼ã‚¿é‡ã‚’å¾—ã‚‹ã€‚
+     * TwoLevelHashSearch ã§ã¯ã€å†…éƒ¨ã§ä½¿ç”¨ã—ã¦ã„ã‚‹ HashMethod ã®å®Ÿè£…ãŒ 
+     * hash() ã®ãŸã‚ã«å¿…è¦ã¨ã™ã‚‹ãƒ‡ãƒ¼ã‚¿é‡( HashMethod.hashRequires() ã®æˆ»ã‚Šå€¤ ) 
+     * ã¨ äºŒæ®µç›®ã®ãƒãƒƒã‚·ãƒ¥ã«å¿…è¦ãªæœ€å¤§ã®ãƒã‚¤ãƒˆæ•°ã‚’è¶³ã—ãŸã‚‚ã®ã‚’è¿”ã™ã€‚
      * 
-     * @return ˆê’i–Ú‚Æ“ñ’i–Ú‚ÌƒnƒbƒVƒ…‚É•K—v‚ÈƒoƒCƒg”‚ğ‘«‚µ‚½‚à‚ÌB
+     * @return ä¸€æ®µç›®ã¨äºŒæ®µç›®ã®ãƒãƒƒã‚·ãƒ¥ã«å¿…è¦ãªãƒã‚¤ãƒˆæ•°ã‚’è¶³ã—ãŸã‚‚ã®ã€‚
      */
     public int putRequires(){
         return this.primaryHash.hashRequires() 
@@ -636,10 +620,10 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
     //  private int secondaryHash( int position, int hashRequires )
     //------------------------------------------------------------------
     /**
-     * “ñ’i–Ú‚ÌƒnƒbƒVƒ…ŠÖ”
+     * äºŒæ®µç›®ã®ãƒãƒƒã‚·ãƒ¥é–¢æ•°
      * 
-     * @param position     TextBuffer“à‚Ìƒf[ƒ^ƒpƒ^ƒ“‚ÌŠJnˆÊ’u
-     * @param hashRequires “ñ’i–Ú‚ÌƒnƒbƒVƒ…’l‚ğZo‚·‚é‚Ì‚É•K—v‚ÈƒoƒCƒg”
+     * @param position     TextBufferå†…ã®ãƒ‡ãƒ¼ã‚¿ãƒ‘ã‚¿ãƒ³ã®é–‹å§‹ä½ç½®
+     * @param hashRequires äºŒæ®µç›®ã®ãƒãƒƒã‚·ãƒ¥å€¤ã‚’ç®—å‡ºã™ã‚‹ã®ã«å¿…è¦ãªãƒã‚¤ãƒˆæ•°
      */
     private int secondaryHash( int position, int hashRequires ){
         int hash = 0;
@@ -663,19 +647,19 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
     //  private void merge( int dbase, int sbase )
     //------------------------------------------------------------------
     /**
-     * “ñ’i–Ú‚ÌƒnƒbƒVƒ…ƒe[ƒuƒ‹‚Æ˜AŒ‹ƒŠƒXƒg‚ğ•ªŠò‚³‚¹‚éB
+     * äºŒæ®µç›®ã®ãƒãƒƒã‚·ãƒ¥ãƒ†ãƒ¼ãƒ–ãƒ«ã¨é€£çµãƒªã‚¹ãƒˆã‚’åˆ†å²ã•ã›ã‚‹ã€‚
      * 
-     * @param dbase  •ªŠòæ this.dummy ‚Ì index
-     * @param sbase  •ªŠòŒ³ this.secondaryHashTable ‚Ì index
-     * @param divoff •ªŠòˆÊ’u 
+     * @param dbase  åˆ†å²å…ˆ this.dummy ã® index
+     * @param sbase  åˆ†å²å…ƒ this.secondaryHashTable ã® index
+     * @param divoff åˆ†å²ä½ç½® 
      */
     private void divide( int dbase, int sbase, int divoff ){
         int limit     = this.DictionarySize;
         int position  = this.secondaryHashTable[ sbase ];
         int[] current = { -1, -1, -1, -1 };
-        
+
         //------------------------------------------------------------------
-        //  ˜AŒ‹ƒŠƒXƒg‚ğ•ªŠò‚³‚¹‚Ä‚¢‚­ƒ‹[ƒv
+        //  é€£çµãƒªã‚¹ãƒˆã‚’åˆ†å²ã•ã›ã¦ã„ããƒ«ãƒ¼ãƒ—
         while( limit < position ){
             int shash = this.TextBuffer[ position + divoff ] & 0x03;
             if( 0 < current[ shash ] ){
@@ -688,7 +672,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
         }
 
         //------------------------------------------------------------------
-        //  ˜AŒ‹ƒŠƒXƒg‚ğƒ^[ƒ~ƒl[ƒg‚·‚éB
+        //  é€£çµãƒªã‚¹ãƒˆã‚’ã‚¿ãƒ¼ãƒŸãƒãƒ¼ãƒˆã™ã‚‹ã€‚
         for( int i = 0 ; i < current.length ; i++ ){
             if( 0 < current[ i ] ){
                 this.prev[ current[ i ] & ( this.DictionarySize - 1 ) ] = -1;
@@ -699,17 +683,17 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
     }
 
     /**
-     * “ñ’i–Ú‚ÌƒnƒbƒVƒ…ƒe[ƒuƒ‹‚Æ˜AŒ‹ƒŠƒXƒg‚ğ‘©‚Ë‚éB
+     * äºŒæ®µç›®ã®ãƒãƒƒã‚·ãƒ¥ãƒ†ãƒ¼ãƒ–ãƒ«ã¨é€£çµãƒªã‚¹ãƒˆã‚’æŸã­ã‚‹ã€‚
      * 
-     * @param dbase  •ªŠòæ this.dummy ‚Ì index
-     * @param sbase  •ªŠòŒ³ this.secondaryHashTable ‚Ì index
+     * @param dbase  åˆ†å²å…ˆ this.dummy ã® index
+     * @param sbase  åˆ†å²å…ƒ this.secondaryHashTable ã® index
      */
     private void merge( int dbase, int sbase ){
         int limit    = this.DictionarySize;
         int position = -1;
 
         //------------------------------------------------------------------
-        //  ˜AŒ‹ƒŠƒXƒg‚ğ‘©‚Ë‚Ä‚¢‚­ƒ‹[ƒv
+        //  é€£çµãƒªã‚¹ãƒˆã‚’æŸã­ã¦ã„ããƒ«ãƒ¼ãƒ—
         while( true ){
             int shash = 0;
             int max   = this.secondaryHashTable[ sbase ];
@@ -719,7 +703,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
                     max   = this.secondaryHashTable[ sbase + i ];
                 }
             }
-            
+
             if( limit < max ){
                 this.secondaryHashTable[ sbase + shash ] = 
                                  this.prev[ max & ( this.DictionarySize - 1 ) ];
@@ -736,7 +720,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod{
         }
 
         //------------------------------------------------------------------
-        //  ˜AŒ‹ƒŠƒXƒg‚ğƒ^[ƒ~ƒl[ƒg‚·‚éB
+        //  é€£çµãƒªã‚¹ãƒˆã‚’ã‚¿ãƒ¼ãƒŸãƒãƒ¼ãƒˆã™ã‚‹ã€‚
         if( 0 < position ){
             this.prev[ position & ( this.DictionarySize - 1 ) ] = -1;
         }else{

@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  * 
- * �ȉ��̏����ɓ��ӂ���Ȃ�΃\�[�X�ƃo�C�i���`���̍Ĕz�z�Ǝg�p��
- * �ύX�̗L���ɂ�����炸������B
+ * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
+ * 変更の有無にかかわらず許可する。
  * 
- * �P�D�\�[�X�R�[�h�̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐�������ێ����Ȃ��Ă͂Ȃ�Ȃ��B
+ * １．ソースコードの再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を保持しなくてはならない。
  * 
- * �Q�D�o�C�i���`���̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐��������g�p�������������� ���̑��̔z�z������
- *     �܂ގ����ɋL�q���Ȃ���΂Ȃ�Ȃ��B
+ * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を使用説明書もしくは その他の配布物内に
+ *     含む資料に記述しなければならない。
  * 
- * ���̃\�t�g�E�F�A�͐Β˔���ڂɂ���Ė��ۏ؂Œ񋟂���A����̖�
- * �I��B���ł���Ƃ����ۏ؁A���i���l���L��Ƃ����ۏ؂ɂƂǂ܂炸�A
- * �����Ȃ閾���I����шÎ��I�ȕۏ؂����Ȃ��B
- * �Β˔���ڂ� ���̃\�t�g�E�F�A�̎g�p�ɂ�钼�ړI�A�ԐړI�A����
- * �I�A����ȁA�T�^�I�ȁA���邢�͕K�R�I�ȑ��Q(�g�p�ɂ��f�[�^��
- * �����A�Ɩ��̒��f�〈���܂�Ă������v�̈⎸�A��֐��i��������
- * �T�[�r�X�̓�������l�����邪�A�����Ă��ꂾ���Ɍ��肳��Ȃ�
- * ���Q)�ɑ΂��āA�����Ȃ鎖�Ԃ̌����ƂȂ����Ƃ��Ă��A�_���̐�
- * �C�△�ߎ��ӔC���܂� �����Ȃ�ӔC�����낤�Ƃ��A���Ƃ����ꂪ�s
- * ���s�ׂ̂��߂ł������Ƃ��Ă��A�܂��͂��̂悤�ȑ��Q�̉\������
- * ������Ă����Ƃ��Ă���؂̐ӔC�𕉂�Ȃ����̂Ƃ���B
+ * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
+ * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
+ * いかなる明示的および暗示的な保証もしない。
+ * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
+ * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
+ * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
+ * サービスの導入費等が考えられるが、決してそれだけに限定されない
+ * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
+ * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
+ * 正行為のためであったとしても、またはそのような損害の可能性が報
+ * 告されていたとしても一切の責任を負わないものとする。
  */
 
 package jp.gr.java_conf.dangan.util;
@@ -39,31 +39,31 @@ import java.lang.Cloneable;
 import java.lang.IllegalArgumentException;
 
 /**
- * Windows��FILETIME�`���̏�������Date�̔h���N���X�B<br>
- * FILETIME �� 1601�N 1�� 1�� 0��0��0�b����̌o�ߎ��Ԃ�
- * 100�i�m�b�P�ʂŎ���64�r�b�g�l�B<br>
- * ���̃N���X�ł� FILETIME �� long(64�r�b�g�l)�Ƃ��Ĉ����Ƃ���
- * ��{�I�ɕ��������Ƃ݂Ȃ��B<br>
- * 1601�N 1�� 1�� 0��0��0�b�ȑO�̎��Ԃ����������ꍇ��
- * WindowsDate( Date date ) ���AWindowsDate.setTime( long time )���g�p����B<br>
+ * WindowsのFILETIME形式の情報を扱うDateの派生クラス。<br>
+ * FILETIME は 1601年 1月 1日 0時0分0秒からの経過時間を
+ * 100ナノ秒単位で持つ64ビット値。<br>
+ * このクラスでは FILETIME を long(64ビット値)として扱うときは
+ * 基本的に符号無しとみなす。<br>
+ * 1601年 1月 1日 0時0分0秒以前の時間を扱いたい場合は
+ * WindowsDate( Date date ) か、WindowsDate.setTime( long time )を使用する。<br>
  * 
  * <pre>
  * -- revision history --
  * $Log: WindowsDate.java,v $
  * Revision 1.1  2002/12/05 00:00:00  dangan
  * [maintenance]
- *     javadoc �R�����g�̃X�y���~�X���C���B
- *     �\�[�X����
+ *     javadoc コメントのスペルミスを修正。
+ *     ソース整備
  *
  * Revision 1.0  2002/08/05 00:00:00  dangan
  * add to version control
  * [bug fix] 
- *     set�n���\�b�h�� �͈͊O�̎��Ԃ��Z�b�g���悤�Ƃ���
- *     ��O�𓊂���P�[�X�Ŏ��Ԃ̏����߂����������s���Ă��Ȃ������B
- *     checkRange �̎��Ԃ͈̔͂��Ԉ���Ă����B
+ *     set系メソッドで 範囲外の時間をセットしようとして
+ *     例外を投げるケースで時間の書き戻しが正しく行われていなかった。
+ *     checkRange の時間の範囲が間違っていた。
  * [maintenance]
- *     �^�u�̔p�~
- *     ���C�Z���X���̏C��
+ *     タブの廃止
+ *     ライセンス文の修正
  *
  * </pre>
  * 
@@ -80,9 +80,9 @@ public class WindowsDate extends Date
     //  public static final long TIME_DIFFERENCE
     //------------------------------------------------------------------
     /**
-     * FILETIME�`���̃f�[�^�ƁAjava.util.Date.getTime() ��
-     * �����鎞�Ԍ`���Ƃ̎��ԍ��� 100�i�m�Z�J���h�P�ʂŎ��������l�B
-     * �Ȃ��A�[�b���͍l���ɓ���Ă��Ȃ��B
+     * FILETIME形式のデータと、java.util.Date.getTime() で
+     * 得られる時間形式との時間差を 100ナノセカンド単位で示した数値。
+     * なお、閏秒等は考慮に入れていない。
      */
     public static final long TIME_DIFFERENCE = 0x19DB1DED53E8000L;
 
@@ -93,8 +93,8 @@ public class WindowsDate extends Date
     //  private int NanoSecounds
     //------------------------------------------------------------------
     /**
-     * java.util.Date �ł͕ێ��ł��Ȃ� 
-     * �i�m�b�P�ʂ̎��Ԃ�ێ����邽�߂ɗp����B
+     * java.util.Date では保持できない 
+     * ナノ秒単位の時間を保持するために用いる。
      */
     private int NanoSecounds;
 
@@ -107,13 +107,13 @@ public class WindowsDate extends Date
     //  public WindowsDate( long time )
     //------------------------------------------------------------------
     /**
-     * �f�t�H���g�R���X�g���N�^�B
-     * ���݂̎��ԏ������� WindowsDate���\�z����B
-     * �i�m�b�P�ʂ̎��Ԃ͎擾�ł��Ȃ����߁A0�ɐݒ肳���B
+     * デフォルトコンストラクタ。
+     * 現在の時間情報を持つ WindowsDateを構築する。
+     * ナノ秒単位の時間は取得できないため、0に設定される。
      * 
      * @exception IllegalArgumentException
-     *                  ���݂̎��Ԃ� FILETIME �`���ŕ\���ł���
-     *                  �͈͊O�������ꍇ�B
+     *                  現在の時間が FILETIME 形式で表現できる
+     *                  範囲外だった場合。
      */
     public WindowsDate(){
         super();
@@ -123,17 +123,17 @@ public class WindowsDate extends Date
     }
 
     /**
-     * date�Ŏ�����鎞�Ԃ�\�� WindowsDate���\�z����B<br>
-     * date�� WindowsDate �̃C���X�^���X�Ȃ��
-     * �i�m�b�P�ʂ̏����R�s�[����邪�A����ȊO�̏ꍇ��
-     * �i�m�b�P�ʂ̏��ɂ� 0 ���ݒ肳���B
+     * dateで示される時間を表す WindowsDateを構築する。<br>
+     * dateが WindowsDate のインスタンスならば
+     * ナノ秒単位の情報もコピーされるが、それ以外の場合は
+     * ナノ秒単位の情報には 0 が設定される。
      * 
-     * @param date �V�����\�z����� WindowsDate �̌��ƂȂ鎞�ԏ������� 
-     *             Date �̃I�u�W�F�N�g
+     * @param date 新しく構築される WindowsDate の元となる時間情報を持つ 
+     *             Date のオブジェクト
      * 
      * @exception IllegalArgumentException
-     *                  ���݂̎��Ԃ� FILETIME �`���ŕ\���ł���
-     *                  �͈͊O�������ꍇ�B
+     *                  現在の時間が FILETIME 形式で表現できる
+     *                  範囲外だった場合。
      */
     public WindowsDate( Date date ){
         super( date.getTime() );
@@ -146,10 +146,10 @@ public class WindowsDate extends Date
     }
 
     /**
-     * ��������64�r�b�g��FILETIME�`���̎��ԏ�񂩂�
-     * �V����WindowsDate���\�z����B<br>
+     * 符号無し64ビットのFILETIME形式の時間情報から
+     * 新しいWindowsDateを構築する。<br>
      * 
-     * @param time FILETIME�`���̎��ԏ��
+     * @param time FILETIME形式の時間情報
      */
     public WindowsDate( long time ){
         super( 0 <= time 
@@ -167,9 +167,9 @@ public class WindowsDate extends Date
     //  public Object clone()
     //------------------------------------------------------------------
     /**
-     * ���̃I�u�W�F�N�g�̃R�s�[��Ԃ��B
+     * このオブジェクトのコピーを返す。
      * 
-     * @return ����WindowsDate�I�u�W�F�N�g�̕���
+     * @return このWindowsDateオブジェクトの複製
      */
     public Object clone(){
         return new WindowsDate( this );
@@ -190,15 +190,15 @@ public class WindowsDate extends Date
     //  public void setTime( long time )
     //------------------------------------------------------------------
     /**
-     * ���� WindowsDate �̎����N�� year ��
-     * �w�肳�ꂽ�l��1900�𑫂������̂ɐݒ肷��B<br>
-     * ���̃��\�b�h�͔͈̓`�F�b�N���s�������̂��߂ɑ��݂���B<br>
+     * この WindowsDate の示す年を year で
+     * 指定された値に1900を足したものに設定する。<br>
+     * このメソッドは範囲チェックを行うだけのために存在する。<br>
      *
-     * @param year 1900�𑫂����ƂŐ����\���悤�� �N�̒l
+     * @param year 1900を足すことで西暦を表すような 年の値
      * 
      * @exception IllegalArgumentException
-     *             year �ɕύX�����Ƃ��� FILETIME�`���ň����Ȃ�
-     *             �͈͂̎��ԂɂȂ����ꍇ
+     *             year に変更したところ FILETIME形式で扱えない
+     *             範囲の時間になった場合
      * @deprecated
      */
     public void setYear( int year ){
@@ -214,14 +214,14 @@ public class WindowsDate extends Date
     }
 
     /**
-     * ���� WindowsDate �̎������� month �Ŏw�肳�ꂽ�l�ɐݒ肷��B<br>
-     * ���̃��\�b�h�͔͈̓`�F�b�N���s�������̂��߂ɑ��݂���B<br>
+     * この WindowsDate の示す月を month で指定された値に設定する。<br>
+     * このメソッドは範囲チェックを行うだけのために存在する。<br>
      *
-     * @param month 0��1���A1��2���������悤�Ȍ��̒l
+     * @param month 0が1月、1が2月を示すような月の値
      * 
      * @exception IllegalArgumentException
-     *             month �ɕύX�����Ƃ��� FILETIME�`���ň����Ȃ�
-     *             �͈͂̎��ԂɂȂ����ꍇ
+     *             month に変更したところ FILETIME形式で扱えない
+     *             範囲の時間になった場合
      * @deprecated
      */
     public void setMonth( int month ){
@@ -237,15 +237,15 @@ public class WindowsDate extends Date
     }
 
     /**
-     * ���� WindowsDate �̎��� �ꃖ����
-     * ���ł̉����ڂ��� date �Ŏw�肳�ꂽ�l�ɐݒ肷��B<br>
-     * ���̃��\�b�h�͔͈̓`�F�b�N���s�������̂��߂ɑ��݂���B<br>
+     * この WindowsDate の示す 一ヶ月の
+     * 中での何日目かを date で指定された値に設定する。<br>
+     * このメソッドは範囲チェックを行うだけのために存在する。<br>
      *
-     * @param date 1��1���A2��2���������悤�ȓ��̒l
+     * @param date 1が1日、2が2日を示すような日の値
      * 
      * @exception IllegalArgumentException
-     *             date �ɕύX�����Ƃ��� FILETIME�`���ň����Ȃ�
-     *             �͈͂̎��ԂɂȂ����ꍇ
+     *             date に変更したところ FILETIME形式で扱えない
+     *             範囲の時間になった場合
      * @deprecated
      */
     public void setDate( int date ){
@@ -261,15 +261,15 @@ public class WindowsDate extends Date
     }
 
     /**
-     * ���� WindowsDate �̎�������̒��ł̎��Ԃ�
-     * hours �Ŏw�肳�ꂽ�l�ɐݒ肷��B<br>
-     * ���̃��\�b�h�͔͈̓`�F�b�N���s�������̂��߂ɑ��݂���B<br>
+     * この WindowsDate の示す一日の中での時間を
+     * hours で指定された値に設定する。<br>
+     * このメソッドは範囲チェックを行うだけのために存在する。<br>
      *
-     * @param hours ���Ԃ̒l
+     * @param hours 時間の値
      * 
      * @exception IllegalArgumentException
-     *             hours �ɕύX�����Ƃ��� FILETIME�`���ň����Ȃ�
-     *             �͈͂̎��ԂɂȂ����ꍇ
+     *             hours に変更したところ FILETIME形式で扱えない
+     *             範囲の時間になった場合
      * @deprecated
      */
     public void setHours( int hours ){
@@ -285,15 +285,15 @@ public class WindowsDate extends Date
     }
 
     /**
-     * ���� WindowsDate �̎����ꎞ�Ԃ̒��ł̕���
-     * minutes �Ŏw�肳�ꂽ�l�ɐݒ肷��B<br>
-     * ���̃��\�b�h�͔͈̓`�F�b�N���s�������̂��߂ɑ��݂���B<br>
+     * この WindowsDate の示す一時間の中での分を
+     * minutes で指定された値に設定する。<br>
+     * このメソッドは範囲チェックを行うだけのために存在する。<br>
      *
-     * @param minutes ���̒l
+     * @param minutes 分の値
      * 
      * @exception IllegalArgumentException
-     *             minutes �ɕύX�����Ƃ��� FILETIME�`���ň����Ȃ�
-     *             �͈͂̎��ԂɂȂ����ꍇ
+     *             minutes に変更したところ FILETIME形式で扱えない
+     *             範囲の時間になった場合
      * @deprecated
      */
     public void setMinutes( int minutes ){
@@ -309,15 +309,15 @@ public class WindowsDate extends Date
     }
 
     /**
-     * ���� WindowsDate �̎����ꕪ�̒��ł̕b����
-     * secounds �Ŏw�肳�ꂽ�l�ɐݒ肷��B<br>
-     * ���̃��\�b�h�͔͈̓`�F�b�N���s�������̂��߂ɑ��݂���B<br>
+     * この WindowsDate の示す一分の中での秒数を
+     * secounds で指定された値に設定する。<br>
+     * このメソッドは範囲チェックを行うだけのために存在する。<br>
      *
-     * @param secounds �b��
+     * @param secounds 秒数
      * 
      * @exception IllegalArgumentException
-     *             secounds �ɕύX�����Ƃ��� FILETIME�`���ň����Ȃ�
-     *             �͈͂̎��ԂɂȂ����ꍇ
+     *             secounds に変更したところ FILETIME形式で扱えない
+     *             範囲の時間になった場合
      * @deprecated
      */
     public void setSeconds( int seconds ){
@@ -333,16 +333,16 @@ public class WindowsDate extends Date
     }
 
     /**
-     * ���� WindowsDate �̎������Ԃ� 
-     * 1970�N1��1�� 00:00:00 GMT����
-     * time �~���b�o�߂��������ɐݒ肷��B<br>
-     * ���̃��\�b�h�͔͈̓`�F�b�N���s�������̂��߂ɑ��݂���B<br>
+     * この WindowsDate の示す時間を 
+     * 1970年1月1日 00:00:00 GMTから
+     * time ミリ秒経過した時刻に設定する。<br>
+     * このメソッドは範囲チェックを行うだけのために存在する。<br>
      * 
-     * @param time 1970�N1��1�� 00:00:00GMT ����̌o�߃~���b
+     * @param time 1970年1月1日 00:00:00GMT からの経過ミリ秒
      * 
      * @exception IllegalArgumentException
-     *             time ��FILETIME�`���ň����Ȃ�
-     *             �͈͂̎��Ԃ������Ă����ꍇ
+     *             time がFILETIME形式で扱えない
+     *             範囲の時間を示していた場合
      */
     public void setTime( long time ){
         long temp = this.getTime();
@@ -365,9 +365,9 @@ public class WindowsDate extends Date
     //  public long getWindowsTime()
     //------------------------------------------------------------------
     /**
-     * ���� WindowsDate �� FILETIME�`���̎��ԏ���ݒ肷��B
+     * この WindowsDate に FILETIME形式の時間情報を設定する。
      * 
-     * @param time FILETIME�`���̎��ԏ��
+     * @param time FILETIME形式の時間情報
      */
     public void setWindowsTime( long time ){
         super.setTime( 0 <= time 
@@ -379,13 +379,13 @@ public class WindowsDate extends Date
     }
 
     /**
-     * ���� WindowsDate���������ԏ��� FILETIME �`���œ���B
+     * この WindowsDateが示す時間情報を FILETIME 形式で得る。
      * 
-     * @return FILETIME�`���̒l
+     * @return FILETIME形式の値
      */
     public long getWindowsTime() {
         return ( super.getTime() * 10000L + WindowsDate.TIME_DIFFERENCE
-                 + (long)( this.NanoSecounds / 100 ) );
+                 + this.NanoSecounds / 100 );
     }
 
 
@@ -395,12 +395,12 @@ public class WindowsDate extends Date
     //  private void checkRange()
     //------------------------------------------------------------------
     /**
-     * ���� WindowsDate �� FILETIME�`���ŕ\���鎞�Ԃ�
-     * �͈͓��ł��邩�𔻒肷��B�܂��s���S
+     * この WindowsDate が FILETIME形式で表せる時間の
+     * 範囲内であるかを判定する。まだ不完全
      * 
      * @exception IllegalArgumentException
-     *             ���� WindowsDate �� FILETIME�`���ň����Ȃ�
-     *             �͈͂̎��Ԃ������Ă����ꍇ
+     *             この WindowsDate が FILETIME形式で扱えない
+     *             範囲の時間を示していた場合
      */
     private void checkRange(){
         long time = super.getTime();

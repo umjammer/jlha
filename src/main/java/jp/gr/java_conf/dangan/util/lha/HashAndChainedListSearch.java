@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  * 
- * €И‰є‚МЏрЊЏ‚Й“Ї€У‚·‚й‚И‚з‚Оѓ\Ѓ[ѓX‚ЖѓoѓCѓiѓЉЊ`Ћ®‚МЌД”z•z‚ЖЋg—p‚р
- * •ПЌX‚М—L–і‚Й‚©‚©‚н‚з‚ё‹–‰В‚·‚йЃB
+ * д»Ґдё‹гЃ®жќЎд»¶гЃ«еђЊж„ЏгЃ™г‚‹гЃЄг‚‰гЃ°г‚Ѕгѓјг‚№гЃЁгѓђг‚¤гѓЉгѓЄеЅўејЏгЃ®е†Ќй…ЌеёѓгЃЁдЅїз”Ёг‚’
+ * е¤‰ж›ґгЃ®жњ‰з„ЎгЃ«гЃ‹гЃ‹г‚Џг‚‰гЃљиЁ±еЏЇгЃ™г‚‹гЂ‚
  * 
- * ‚PЃDѓ\Ѓ[ѓXѓRЃ[ѓh‚МЌД”z•z‚Й‚Ё‚ў‚Д’ЌмЊ •\Ћ¦‚Ж ‚±‚МЏрЊЏ‚МѓЉѓXѓg
- *     ‚Ё‚ж‚С‰є‹L‚Мђє–ѕ•¶‚р•ЫЋќ‚µ‚И‚­‚Д‚Н‚И‚з‚И‚ўЃB
+ * пј‘пјЋг‚Ѕгѓјг‚№г‚ігѓјгѓ‰гЃ®е†Ќй…ЌеёѓгЃ«гЃЉгЃ„гЃ¦и‘—дЅњжЁ©иЎЁз¤єгЃЁ гЃ“гЃ®жќЎд»¶гЃ®гѓЄг‚№гѓ€
+ *     гЃЉг‚€гЃідё‹иЁгЃ®еЈ°жЋж–‡г‚’дїќжЊЃгЃ—гЃЄгЃЏгЃ¦гЃЇгЃЄг‚‰гЃЄгЃ„гЂ‚
  * 
- * ‚QЃDѓoѓCѓiѓЉЊ`Ћ®‚МЌД”z•z‚Й‚Ё‚ў‚Д’ЌмЊ •\Ћ¦‚Ж ‚±‚МЏрЊЏ‚МѓЉѓXѓg
- *     ‚Ё‚ж‚С‰є‹L‚Мђє–ѕ•¶‚рЋg—pђа–ѕЏ‘‚а‚µ‚­‚Н ‚»‚М‘ј‚М”z•z•Ё“а‚Й
- *     ЉЬ‚ЮЋ‘—ї‚Й‹LЏq‚µ‚И‚Ї‚к‚О‚И‚з‚И‚ўЃB
+ * пј’пјЋгѓђг‚¤гѓЉгѓЄеЅўејЏгЃ®е†Ќй…ЌеёѓгЃ«гЃЉгЃ„гЃ¦и‘—дЅњжЁ©иЎЁз¤єгЃЁ гЃ“гЃ®жќЎд»¶гЃ®гѓЄг‚№гѓ€
+ *     гЃЉг‚€гЃідё‹иЁгЃ®еЈ°жЋж–‡г‚’дЅїз”ЁиЄ¬жЋж›ёг‚‚гЃ—гЃЏгЃЇ гЃќгЃ®д»–гЃ®й…Ќеёѓз‰©е†…гЃ«
+ *     еђ«г‚Ђиі‡ж–™гЃ«иЁиї°гЃ—гЃЄгЃ‘г‚ЊгЃ°гЃЄг‚‰гЃЄгЃ„гЂ‚
  * 
- * ‚±‚Мѓ\ѓtѓgѓEѓFѓA‚НђО’Л”ьЋм—Ъ‚Й‚ж‚Б‚Д–і•ЫЏШ‚Е’с‹џ‚і‚кЃA“Б’и‚М–Ъ
- * “I‚р’Bђ¬‚Е‚«‚й‚Ж‚ў‚¤•ЫЏШЃAЏ¤•i‰ї’l‚Є—L‚й‚Ж‚ў‚¤•ЫЏШ‚Й‚Ж‚З‚Ь‚з‚ёЃA
- * ‚ў‚©‚И‚й–ѕЋ¦“I‚Ё‚ж‚С€ГЋ¦“I‚И•ЫЏШ‚а‚µ‚И‚ўЃB
- * ђО’Л”ьЋм—Ъ‚Н ‚±‚Мѓ\ѓtѓgѓEѓFѓA‚МЋg—p‚Й‚ж‚й’јђЪ“IЃAЉФђЪ“IЃA‹ф”­
- * “IЃA“БЋк‚ИЃA“TЊ^“I‚ИЃA‚ ‚й‚ў‚Н•K‘R“I‚И‘№ЉQ(Ћg—p‚Й‚ж‚йѓfЃ[ѓ^‚М
- * ‘№ЋёЃA‹Ж–±‚М’†’f‚вЊ©Ќћ‚Ь‚к‚Д‚ў‚Ѕ—‰v‚М€вЋёЃA‘г‘Цђ»•i‚а‚µ‚­‚Н
- * ѓTЃ[ѓrѓX‚М“±“ь”п“™‚ЄЌl‚¦‚з‚к‚й‚ЄЃAЊ€‚µ‚Д‚»‚к‚ѕ‚Ї‚ЙЊА’и‚і‚к‚И‚ў
- * ‘№ЉQ)‚Й‘О‚µ‚ДЃA‚ў‚©‚И‚йЋ–‘Ф‚МЊґ€ц‚Ж‚И‚Б‚Ѕ‚Ж‚µ‚Д‚аЃAЊ_–сЏг‚МђУ
- * ”C‚в–і‰ЯЋёђУ”C‚рЉЬ‚Ю ‚ў‚©‚И‚йђУ”C‚Є‚ ‚л‚¤‚Ж‚аЃA‚Ѕ‚Ж‚¦‚»‚к‚Є•s
- * ђіЌs€Ч‚М‚Ѕ‚Я‚Е‚ ‚Б‚Ѕ‚Ж‚µ‚Д‚аЃA‚Ь‚Ѕ‚Н‚»‚М‚ж‚¤‚И‘№ЉQ‚М‰В”\ђ«‚Є•с
- * Ќђ‚і‚к‚Д‚ў‚Ѕ‚Ж‚µ‚Д‚а€кђШ‚МђУ”C‚р•‰‚н‚И‚ў‚а‚М‚Ж‚·‚йЃB
+ * гЃ“гЃ®г‚Ѕгѓ•гѓ€г‚¦г‚§г‚ўгЃЇзџіеЎљзѕЋзЏ з‘ гЃ«г‚€гЃЈгЃ¦з„ЎдїќиЁјгЃ§жЏђдѕ›гЃ•г‚ЊгЂЃз‰№е®љгЃ®з›®
+ * зљ„г‚’йЃ”ж€ђгЃ§гЃЌг‚‹гЃЁгЃ„гЃ†дїќиЁјгЂЃе•†е“ЃдѕЎеЂ¤гЃЊжњ‰г‚‹гЃЁгЃ„гЃ†дїќиЁјгЃ«гЃЁгЃ©гЃѕг‚‰гЃљгЂЃ
+ * гЃ„гЃ‹гЃЄг‚‹жЋз¤єзљ„гЃЉг‚€гЃіжљ—з¤єзљ„гЃЄдїќиЁјг‚‚гЃ—гЃЄгЃ„гЂ‚
+ * зџіеЎљзѕЋзЏ з‘ гЃЇ гЃ“гЃ®г‚Ѕгѓ•гѓ€г‚¦г‚§г‚ўгЃ®дЅїз”ЁгЃ«г‚€г‚‹з›ґжЋҐзљ„гЂЃй–“жЋҐзљ„гЂЃеЃ¶з™є
+ * зљ„гЂЃз‰№ж®ЉгЃЄгЂЃе…ёећ‹зљ„гЃЄгЂЃгЃ‚г‚‹гЃ„гЃЇеї…з„¶зљ„гЃЄжђЌе®і(дЅїз”ЁгЃ«г‚€г‚‹гѓ‡гѓјг‚їгЃ®
+ * жђЌе¤±гЂЃжҐ­е‹™гЃ®дё­ж–­г‚„и¦‹иѕјгЃѕг‚ЊгЃ¦гЃ„гЃџе€©з›ЉгЃ®йЃєе¤±гЂЃд»Јж›їиЈЅе“Ѓг‚‚гЃ—гЃЏгЃЇ
+ * г‚µгѓјгѓ“г‚№гЃ®е°Ће…ҐиІ»з­‰гЃЊиЂѓгЃ€г‚‰г‚Њг‚‹гЃЊгЂЃж±єгЃ—гЃ¦гЃќг‚ЊгЃ гЃ‘гЃ«й™ђе®љгЃ•г‚ЊгЃЄгЃ„
+ * жђЌе®і)гЃ«еЇѕгЃ—гЃ¦гЂЃгЃ„гЃ‹гЃЄг‚‹дє‹ж…‹гЃ®еЋџе› гЃЁгЃЄгЃЈгЃџгЃЁгЃ—гЃ¦г‚‚гЂЃеҐ‘зґ„дёЉгЃ®иІ¬
+ * д»»г‚„з„ЎйЃЋе¤±иІ¬д»»г‚’еђ«г‚Ђ гЃ„гЃ‹гЃЄг‚‹иІ¬д»»гЃЊгЃ‚г‚ЌгЃ†гЃЁг‚‚гЂЃгЃџгЃЁгЃ€гЃќг‚ЊгЃЊдёЌ
+ * ж­ЈиЎЊз‚єгЃ®гЃџг‚ЃгЃ§гЃ‚гЃЈгЃџгЃЁгЃ—гЃ¦г‚‚гЂЃгЃѕгЃџгЃЇгЃќгЃ®г‚€гЃ†гЃЄжђЌе®ігЃ®еЏЇиѓЅжЂ§гЃЊе ±
+ * е‘ЉгЃ•г‚ЊгЃ¦гЃ„гЃџгЃЁгЃ—гЃ¦г‚‚дёЂе€‡гЃ®иІ¬д»»г‚’иІ г‚ЏгЃЄгЃ„г‚‚гЃ®гЃЁгЃ™г‚‹гЂ‚
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -39,7 +39,6 @@ import jp.gr.java_conf.dangan.util.lha.LzssOutputStream;
 import jp.gr.java_conf.dangan.util.lha.LzssSearchMethod;
 
 //import exceptions
-import java.io.IOException;
 import java.lang.NoSuchMethodException;
 import java.lang.ClassNotFoundException;
 import java.lang.InstantiationException;
@@ -53,9 +52,9 @@ import java.lang.NoClassDefFoundError;
 
 
 /**
- * ѓnѓbѓVѓ…‚Ж’P•ыЊьAЊ‹ѓЉѓXѓg‚рЋg‚Б‚ДЌ‚‘¬‰»‚і‚к‚Ѕ LzssSearchMethodЃB<br>
- * ЊџЌх‚р‘Е‚їђШ‚й‚±‚Ж‚Й‚ж‚йЌ‚‘¬‰»‚аЌs‚Б‚Д‚ў‚й‚Ѕ‚ЯЃA
- * •K‚ёЌЕ’·€к’v‚рЊ©‚В‚Ї‚й‚±‚Ж‚ЄЏo—€‚й‚Ж‚НЊА‚з‚И‚ўЃB<br>
+ * гѓЏгѓѓг‚·гѓҐгЃЁеЌж–№еђ‘йЂЈзµђгѓЄг‚№гѓ€г‚’дЅїгЃЈгЃ¦й«йЂџеЊ–гЃ•г‚ЊгЃџ LzssSearchMethodгЂ‚<br>
+ * ж¤њзґўг‚’ж‰“гЃЎе€‡г‚‹гЃ“гЃЁгЃ«г‚€г‚‹й«йЂџеЊ–г‚‚иЎЊгЃЈгЃ¦гЃ„г‚‹гЃџг‚ЃгЂЃ
+ * еї…гЃљжњЂй•·дёЂи‡ґг‚’и¦‹гЃ¤гЃ‘г‚‹гЃ“гЃЁгЃЊе‡єжќҐг‚‹гЃЁгЃЇй™ђг‚‰гЃЄгЃ„гЂ‚<br>
  * 
  * <pre>
  * -- revision history --
@@ -63,13 +62,13 @@ import java.lang.NoClassDefFoundError;
  * Revision 1.0  2002/08/05 00:00:00  dangan
  * add to version control
  * [change]
- *     LzssSearchMethod ‚МѓCѓ“ѓ^ѓtѓFѓCѓX•ПЌX‚Й‚ ‚н‚№‚ДѓCѓ“ѓ^ѓtѓFѓCѓX•ПЌX
+ *     LzssSearchMethod гЃ®г‚¤гѓіг‚їгѓ•г‚§г‚¤г‚№е¤‰ж›ґгЃ«гЃ‚г‚ЏгЃ›гЃ¦г‚¤гѓіг‚їгѓ•г‚§г‚¤г‚№е¤‰ж›ґ
  * [improvement]
- *     ar940528 ‚М TEST5‘Љ“– ‚МЋА‘•‚Й•ПЌXЃB
+ *     ar940528 гЃ® TEST5з›ёеЅ“ гЃ®е®џиЈ…гЃ«е¤‰ж›ґгЂ‚
  * [maintenance]
- *     ѓ\Ѓ[ѓXђ®”х
- *     ѓ^ѓu”pЋ~
- *     ѓ‰ѓCѓZѓ“ѓX•¶‚МЏCђі
+ *     г‚Ѕгѓјг‚№ж•ґе‚™
+ *     г‚їгѓ–е»ѓж­ў
+ *     гѓ©г‚¤г‚»гѓіг‚№ж–‡гЃ®дї®ж­Ј
  *
  * </pre>
  * 
@@ -89,19 +88,19 @@ public class HashAndChainedListSearch implements LzssSearchMethod{
     //  private int Threshold
     //------------------------------------------------------------------
     /**
-     * LZSSЋ«Џ‘ѓTѓCѓYЃB
+     * LZSSиѕћж›ёг‚µг‚¤г‚єгЂ‚
      */
     private int DictionarySize;
 
     /**
-     * LZSS€іЏk‚ЙЋg—p‚і‚к‚й’lЃB
-     * ЌЕ‘е€к’v’·‚рЋ¦‚·ЃB
+     * LZSSењ§зё®гЃ«дЅїз”ЁгЃ•г‚Њг‚‹еЂ¤гЂ‚
+     * жњЂе¤§дёЂи‡ґй•·г‚’з¤єгЃ™гЂ‚
      */
     private int MaxMatch;
 
     /**
-     * LZSS€іЏk‚ЙЋg—p‚і‚к‚йи‡’lЃB
-     * €к’v’·‚Є ‚±‚М’l€ИЏг‚Е‚ ‚к‚ОЃA€іЏkѓRЃ[ѓh‚рЏo—Н‚·‚йЃB
+     * LZSSењ§зё®гЃ«дЅїз”ЁгЃ•г‚Њг‚‹й–ѕеЂ¤гЂ‚
+     * дёЂи‡ґй•·гЃЊ гЃ“гЃ®еЂ¤д»ҐдёЉгЃ§гЃ‚г‚ЊгЃ°гЂЃењ§зё®г‚ігѓјгѓ‰г‚’е‡єеЉ›гЃ™г‚‹гЂ‚
      */
     private int Threshold;
 
@@ -115,18 +114,18 @@ public class HashAndChainedListSearch implements LzssSearchMethod{
     //  private int DictionaryLimit
     //------------------------------------------------------------------
     /**
-     * LZSS€іЏk‚рЋ{‚·‚Ѕ‚Я‚Мѓoѓbѓtѓ@ЃB
-     * ‘O”ј‚НЋ«Џ‘—М€жЃA
-     * Њг”ј‚Н€іЏk‚рЋ{‚·‚Ѕ‚Я‚МѓfЃ[ѓ^‚М“ь‚Б‚Ѕѓoѓbѓtѓ@ЃB
-     * LzssSearchMethod‚МЋА‘•“а‚Е‚Н“З‚ЭЌћ‚Э‚М‚Э‹–‚і‚к‚йЃB
+     * LZSSењ§зё®г‚’ж–ЅгЃ™гЃџг‚ЃгЃ®гѓђгѓѓгѓ•г‚ЎгЂ‚
+     * е‰ЌеЌЉгЃЇиѕћж›ёй еџџгЂЃ
+     * еѕЊеЌЉгЃЇењ§зё®г‚’ж–ЅгЃ™гЃџг‚ЃгЃ®гѓ‡гѓјг‚їгЃ®е…ҐгЃЈгЃџгѓђгѓѓгѓ•г‚ЎгЂ‚
+     * LzssSearchMethodгЃ®е®џиЈ…е†…гЃ§гЃЇиЄ­гЃїиѕјгЃїгЃ®гЃїиЁ±гЃ•г‚Њг‚‹гЂ‚
      */
     private byte[] TextBuffer;
 
     /**
-     * Ћ«Џ‘‚МЊАЉE€К’uЃB 
-     * TextBuffer‘O”ј‚МЋ«Џ‘—М€ж‚ЙѓfЃ[ѓ^‚Є–і‚ўЏкЌ‡‚Й
-     * Ћ«Џ‘—М€ж‚Й‚ ‚й•s’и‚МѓfЃ[ѓ^(Java‚Е‚Н0)‚рЋg—p
-     * ‚µ‚Д€іЏk‚ЄЌs‚н‚к‚й‚М‚р—}Ћ~‚·‚йЃB
+     * иѕћж›ёгЃ®й™ђз•ЊдЅЌзЅ®гЂ‚ 
+     * TextBufferе‰ЌеЌЉгЃ®иѕћж›ёй еџџгЃ«гѓ‡гѓјг‚їгЃЊз„ЎгЃ„е ґеђ€гЃ«
+     * иѕћж›ёй еџџгЃ«гЃ‚г‚‹дёЌе®љгЃ®гѓ‡гѓјг‚ї(JavaгЃ§гЃЇ0)г‚’дЅїз”Ё
+     * гЃ—гЃ¦ењ§зё®гЃЊиЎЊг‚Џг‚Њг‚‹гЃ®г‚’жЉ‘ж­ўгЃ™г‚‹гЂ‚
      */
     private int DictionaryLimit;
 
@@ -141,24 +140,24 @@ public class HashAndChainedListSearch implements LzssSearchMethod{
     //  private char[] tooBigFlag
     //------------------------------------------------------------------
     /**
-     * ѓnѓbѓVѓ…ЉЦђ”
+     * гѓЏгѓѓг‚·гѓҐй–ўж•°
      */
     private HashMethod hashMethod;
 
     /**
-     * ѓnѓbѓVѓ…ѓeЃ[ѓuѓ‹
-     * “YЋљ‚НѓnѓbѓVѓ…’lЃA“а—e‚НTextBuffer“а‚М€К’u
+     * гѓЏгѓѓг‚·гѓҐгѓ†гѓјгѓ–гѓ«
+     * ж·»е­—гЃЇгѓЏгѓѓг‚·гѓҐеЂ¤гЂЃе†…е®№гЃЇTextBufferе†…гЃ®дЅЌзЅ®
      */
     private int[] hashTable;
 
     /**
-     * “Ї‚¶ѓnѓbѓVѓ…’l‚рЋќ‚ВѓfЃ[ѓ^ѓpѓ^ѓ“‚МAЊ‹ѓЉѓXѓg‚М’·‚і‚Є
-     * €к’и€ИЏг‚Й‚И‚Б‚ЅЏкЌ‡‚ЙѓZѓbѓg‚·‚йѓtѓ‰ѓOЃB
+     * еђЊгЃгѓЏгѓѓг‚·гѓҐеЂ¤г‚’жЊЃгЃ¤гѓ‡гѓјг‚їгѓ‘г‚їгѓігЃ®йЂЈзµђгѓЄг‚№гѓ€гЃ®й•·гЃ•гЃЊ
+     * дёЂе®љд»ҐдёЉгЃ«гЃЄгЃЈгЃџе ґеђ€гЃ«г‚»гѓѓгѓ€гЃ™г‚‹гѓ•гѓ©г‚°гЂ‚
      * 
-     * boolean[] ‚Й‚·‚й‚Ж‰ЅЊМ‚©’x‚­‚И‚й‚М‚Е
-     * char[] ‚Ж‚µ‚Д 16ЊВ“Z‚Я‚Д€µ‚¤ЃB
-     * €µ‚¤ЏкЌ‡‚Н ѓ†Ѓ[ѓeѓBѓЉѓeѓBѓЃѓ\ѓbѓh
-     * isTooBig(), setTooBigFlag(), clearTooBigFlag() ‚р‰о‚µ‚Д€µ‚¤ЃB
+     * boolean[] гЃ«гЃ™г‚‹гЃЁдЅ•ж•…гЃ‹йЃ…гЃЏгЃЄг‚‹гЃ®гЃ§
+     * char[] гЃЁгЃ—гЃ¦ 16еЂ‹зєЏг‚ЃгЃ¦ж‰±гЃ†гЂ‚
+     * ж‰±гЃ†е ґеђ€гЃЇ гѓ¦гѓјгѓ†г‚ЈгѓЄгѓ†г‚ЈгѓЎг‚Ѕгѓѓгѓ‰
+     * isTooBig(), setTooBigFlag(), clearTooBigFlag() г‚’д»‹гЃ—гЃ¦ж‰±гЃ†гЂ‚
      */
     private char[] tooBigFlag;
 
@@ -172,49 +171,26 @@ public class HashAndChainedListSearch implements LzssSearchMethod{
     //  private int SearchLimitCount
     //------------------------------------------------------------------
     /**
-     * “Ї‚¶ѓnѓbѓVѓ…’l‚рЋќ‚ВѓfЃ[ѓ^ѓpѓ^ѓ“ЉJЋn€К’u‚рЋќ‚В
-     * ’P•ыЊьAЊ‹ѓЉѓXѓgЃB
+     * еђЊгЃгѓЏгѓѓг‚·гѓҐеЂ¤г‚’жЊЃгЃ¤гѓ‡гѓјг‚їгѓ‘г‚їгѓій–‹е§‹дЅЌзЅ®г‚’жЊЃгЃ¤
+     * еЌж–№еђ‘йЂЈзµђгѓЄг‚№гѓ€гЂ‚
      */
     private int[] prev;
 
     /**
-     * ’TЌхЋЋЌs‰сђ”‚МЏгЊА’l‚рЋќ‚ВЃB
-     * ‚±‚М‰сђ”€ИЏг‚М’TЌх‚НЌs‚н‚И‚ўЃB
+     * жЋўзґўи©¦иЎЊе›ћж•°гЃ®дёЉй™ђеЂ¤г‚’жЊЃгЃ¤гЂ‚
+     * гЃ“гЃ®е›ћж•°д»ҐдёЉгЃ®жЋўзґўгЃЇиЎЊг‚ЏгЃЄгЃ„гЂ‚
      */
     private int SearchLimitCount;
 
 
-    //------------------------------------------------------------------
-    //  constructor
-    //------------------------------------------------------------------
-    //  private HashAndChainedListSearch()
-    //  public HashAndChainedListSearch( int DictionarySize, int MaxMatch, 
-    //                                   int Threshold, byte[] TextBuffer )
-    //  public HashAndChainedListSearch( int DictionarySize, int MaxMatch, 
-    //                                   int Threshold, byte[] TextBuffer,
-    //                                   int SearchLimitCount )
-    //  public HashAndChainedListSearch( int DictionarySize, int MaxMatch, 
-    //                                   int Threshold, byte[] TextBuffer,
-    //                                   String HashMethodClassName )
-    //  public HashAndChainedListSearch( int DictionarySize, int MaxMatch, 
-    //                                   int Threshold, byte[] TextBuffer,
-    //                                   String HashMethodClassName,
-    //                                   int SearchLimitCount )
-    //------------------------------------------------------------------
     /**
-     * ѓfѓtѓHѓ‹ѓgѓRѓ“ѓXѓgѓ‰ѓNѓ^ЃB
-     * Ћg—p•s‰ВЃB
-     */
-    private HashAndChainedListSearch(){ }
-
-    /**
-     * ѓnѓbѓVѓ…‚ЖAЊ‹ѓЉѓXѓg‚рЋg—p‚µ‚Ѕ LzssSearchMethod ‚рЌ\’z‚·‚йЃB<br>
-     * ѓnѓbѓVѓ…ЉЦђ”‚Ж’TЌхЋЋЌs‰сђ”‚МЏгЊА’l‚Й‚НѓfѓtѓHѓ‹ѓg‚М‚а‚М‚ЄЋg—p‚і‚к‚йЃB<br>
+     * гѓЏгѓѓг‚·гѓҐгЃЁйЂЈзµђгѓЄг‚№гѓ€г‚’дЅїз”ЁгЃ—гЃџ LzssSearchMethod г‚’ж§‹зЇ‰гЃ™г‚‹гЂ‚<br>
+     * гѓЏгѓѓг‚·гѓҐй–ўж•°гЃЁжЋўзґўи©¦иЎЊе›ћж•°гЃ®дёЉй™ђеЂ¤гЃ«гЃЇгѓ‡гѓ•г‚©гѓ«гѓ€гЃ®г‚‚гЃ®гЃЊдЅїз”ЁгЃ•г‚Њг‚‹гЂ‚<br>
      * 
-     * @param DictionarySize      Ћ«Џ‘ѓTѓCѓY
-     * @param MaxMatch            ЌЕ’·€к’v’·
-     * @param Threshold           €іЏkЃA”с€іЏk‚Ми‡’l
-     * @param TextBuffer          LZSS€іЏk‚рЋ{‚·‚Ѕ‚Я‚Мѓoѓbѓtѓ@
+     * @param DictionarySize      иѕћж›ёг‚µг‚¤г‚є
+     * @param MaxMatch            жњЂй•·дёЂи‡ґй•·
+     * @param Threshold           ењ§зё®гЂЃйќћењ§зё®гЃ®й–ѕеЂ¤
+     * @param TextBuffer          LZSSењ§зё®г‚’ж–ЅгЃ™гЃџг‚ЃгЃ®гѓђгѓѓгѓ•г‚Ў
      */
     public HashAndChainedListSearch( int    DictionarySize,
                                      int    MaxMatch,
@@ -229,17 +205,17 @@ public class HashAndChainedListSearch implements LzssSearchMethod{
     }
 
     /**
-     * ѓnѓbѓVѓ…‚ЖAЊ‹ѓЉѓXѓg‚рЋg—p‚µ‚Ѕ LzssSearchMethod ‚рЌ\’z‚·‚йЃB<br>
-     * ѓnѓbѓVѓ…ЉЦђ”‚Й‚НѓfѓtѓHѓ‹ѓg‚М‚а‚М‚ЄЋg—p‚і‚к‚йЃB<br>
+     * гѓЏгѓѓг‚·гѓҐгЃЁйЂЈзµђгѓЄг‚№гѓ€г‚’дЅїз”ЁгЃ—гЃџ LzssSearchMethod г‚’ж§‹зЇ‰гЃ™г‚‹гЂ‚<br>
+     * гѓЏгѓѓг‚·гѓҐй–ўж•°гЃ«гЃЇгѓ‡гѓ•г‚©гѓ«гѓ€гЃ®г‚‚гЃ®гЃЊдЅїз”ЁгЃ•г‚Њг‚‹гЂ‚<br>
      * 
-     * @param DictionarySize      Ћ«Џ‘ѓTѓCѓY
-     * @param MaxMatch            ЌЕ’·€к’v’·
-     * @param Threshold           €іЏkЃA”с€іЏk‚Ми‡’l
-     * @param TextBuffer          LZSS€іЏk‚рЋ{‚·‚Ѕ‚Я‚Мѓoѓbѓtѓ@
-     * @param SearchLimitCount    ’TЌхЋЋЌs‰сђ”‚МЏгЊА
+     * @param DictionarySize      иѕћж›ёг‚µг‚¤г‚є
+     * @param MaxMatch            жњЂй•·дёЂи‡ґй•·
+     * @param Threshold           ењ§зё®гЂЃйќћењ§зё®гЃ®й–ѕеЂ¤
+     * @param TextBuffer          LZSSењ§зё®г‚’ж–ЅгЃ™гЃџг‚ЃгЃ®гѓђгѓѓгѓ•г‚Ў
+     * @param SearchLimitCount    жЋўзґўи©¦иЎЊе›ћж•°гЃ®дёЉй™ђ
      * 
      * @exception IllegalArgumentException
-     *              SearchLimitCount ‚Є0€И‰є‚МЏкЌ‡
+     *              SearchLimitCount гЃЊ0д»Ґдё‹гЃ®е ґеђ€
      */
     public HashAndChainedListSearch( int    DictionarySize,
                                      int    MaxMatch,
@@ -255,24 +231,24 @@ public class HashAndChainedListSearch implements LzssSearchMethod{
     }
 
     /**
-     * ѓnѓbѓVѓ…‚ЖAЊ‹ѓЉѓXѓg‚рЋg—p‚µ‚Ѕ LzssSearchMethod ‚рЌ\’z‚·‚йЃB<br>
-     * ’TЌхЋЋЌs‰сђ”‚МЏгЊА’l‚Й‚НѓfѓtѓHѓ‹ѓg‚М‚а‚М‚ЄЋg—p‚і‚к‚йЃB<br>
+     * гѓЏгѓѓг‚·гѓҐгЃЁйЂЈзµђгѓЄг‚№гѓ€г‚’дЅїз”ЁгЃ—гЃџ LzssSearchMethod г‚’ж§‹зЇ‰гЃ™г‚‹гЂ‚<br>
+     * жЋўзґўи©¦иЎЊе›ћж•°гЃ®дёЉй™ђеЂ¤гЃ«гЃЇгѓ‡гѓ•г‚©гѓ«гѓ€гЃ®г‚‚гЃ®гЃЊдЅїз”ЁгЃ•г‚Њг‚‹гЂ‚<br>
      * 
-     * @param DictionarySize      Ћ«Џ‘ѓTѓCѓY
-     * @param MaxMatch            ЌЕ’·€к’v’·
-     * @param Threshold           €іЏkЃA”с€іЏk‚Ми‡’l
-     * @param TextBuffer          LZSS€іЏk‚рЋ{‚·‚Ѕ‚Я‚Мѓoѓbѓtѓ@
-     * @param HashMethodClassName HashЉЦђ”‚р’с‹џ‚·‚йѓNѓ‰ѓX–ј
+     * @param DictionarySize      иѕћж›ёг‚µг‚¤г‚є
+     * @param MaxMatch            жњЂй•·дёЂи‡ґй•·
+     * @param Threshold           ењ§зё®гЂЃйќћењ§зё®гЃ®й–ѕеЂ¤
+     * @param TextBuffer          LZSSењ§зё®г‚’ж–ЅгЃ™гЃџг‚ЃгЃ®гѓђгѓѓгѓ•г‚Ў
+     * @param HashMethodClassName Hashй–ўж•°г‚’жЏђдѕ›гЃ™г‚‹г‚Їгѓ©г‚№еђЌ
      * 
      * @exception NoClassDefFoundError
-     *              HashMethodClassName ‚Е—^‚¦‚з‚к‚ЅѓNѓ‰ѓX‚Є
-     *              Њ©‚В‚©‚з‚И‚ўЏкЌ‡ЃB
+     *              HashMethodClassName гЃ§дёЋгЃ€г‚‰г‚ЊгЃџг‚Їгѓ©г‚№гЃЊ
+     *              и¦‹гЃ¤гЃ‹г‚‰гЃЄгЃ„е ґеђ€гЂ‚
      * @exception InstantiationError
-     *              HashMethodClassName ‚Е—^‚¦‚з‚к‚ЅѓNѓ‰ѓX‚Є
-     *              abstract class ‚Е‚ ‚й‚Ѕ‚ЯѓCѓ“ѓXѓ^ѓ“ѓX‚рђ¶ђ¬‚Е‚«‚И‚ўЏкЌ‡ЃB
+     *              HashMethodClassName гЃ§дёЋгЃ€г‚‰г‚ЊгЃџг‚Їгѓ©г‚№гЃЊ
+     *              abstract class гЃ§гЃ‚г‚‹гЃџг‚Ѓг‚¤гѓіг‚№г‚їгѓіг‚№г‚’з”џж€ђгЃ§гЃЌгЃЄгЃ„е ґеђ€гЂ‚
      * @exception NoSuchMethodError
-     *              HashMethodClassName ‚Е—^‚¦‚з‚к‚ЅѓNѓ‰ѓX‚Є
-     *              ѓRѓ“ѓXѓgѓ‰ѓNѓ^ HashMethod( byte[] )‚рЋќ‚Ѕ‚И‚ўЏкЌ‡
+     *              HashMethodClassName гЃ§дёЋгЃ€г‚‰г‚ЊгЃџг‚Їгѓ©г‚№гЃЊ
+     *              г‚ігѓіг‚№гѓ€гѓ©г‚Їг‚ї HashMethod( byte[] )г‚’жЊЃгЃџгЃЄгЃ„е ґеђ€
      */
     public HashAndChainedListSearch( int    DictionarySize,
                                      int    MaxMatch,
@@ -289,26 +265,26 @@ public class HashAndChainedListSearch implements LzssSearchMethod{
 
 
     /**
-     * ѓnѓbѓVѓ…‚ЖAЊ‹ѓЉѓXѓg‚рЋg—p‚µ‚Ѕ LzssSearchMethod ‚рЌ\’z‚·‚йЃB<br>
+     * гѓЏгѓѓг‚·гѓҐгЃЁйЂЈзµђгѓЄг‚№гѓ€г‚’дЅїз”ЁгЃ—гЃџ LzssSearchMethod г‚’ж§‹зЇ‰гЃ™г‚‹гЂ‚<br>
      * 
-     * @param DictionarySize      Ћ«Џ‘ѓTѓCѓY
-     * @param MaxMatch            ЌЕ’·€к’v’·
-     * @param Threshold           €іЏkЃA”с€іЏk‚Ми‡’l
-     * @param TextBuffer          LZSS€іЏk‚рЋ{‚·‚Ѕ‚Я‚Мѓoѓbѓtѓ@
-     * @param HashMethodClassName HashЉЦђ”‚р’с‹џ‚·‚йѓNѓ‰ѓX–ј
-     * @param SearchLimitCount    ’TЌхЋЋЌs‰сђ”‚МЏгЊА
+     * @param DictionarySize      иѕћж›ёг‚µг‚¤г‚є
+     * @param MaxMatch            жњЂй•·дёЂи‡ґй•·
+     * @param Threshold           ењ§зё®гЂЃйќћењ§зё®гЃ®й–ѕеЂ¤
+     * @param TextBuffer          LZSSењ§зё®г‚’ж–ЅгЃ™гЃџг‚ЃгЃ®гѓђгѓѓгѓ•г‚Ў
+     * @param HashMethodClassName Hashй–ўж•°г‚’жЏђдѕ›гЃ™г‚‹г‚Їгѓ©г‚№еђЌ
+     * @param SearchLimitCount    жЋўзґўи©¦иЎЊе›ћж•°гЃ®дёЉй™ђ
      * 
      * @exception IllegalArgumentException
-     *              SearchLimitCount ‚Є0€И‰є‚МЏкЌ‡
+     *              SearchLimitCount гЃЊ0д»Ґдё‹гЃ®е ґеђ€
      * @exception NoClassDefFoundError
-     *              HashMethodClassName ‚Е—^‚¦‚з‚к‚ЅѓNѓ‰ѓX‚Є
-     *              Њ©‚В‚©‚з‚И‚ўЏкЌ‡ЃB
+     *              HashMethodClassName гЃ§дёЋгЃ€г‚‰г‚ЊгЃџг‚Їгѓ©г‚№гЃЊ
+     *              и¦‹гЃ¤гЃ‹г‚‰гЃЄгЃ„е ґеђ€гЂ‚
      * @exception InstantiationError
-     *              HashMethodClassName ‚Е—^‚¦‚з‚к‚ЅѓNѓ‰ѓX‚Є
-     *              abstract class ‚Е‚ ‚й‚Ѕ‚ЯѓCѓ“ѓXѓ^ѓ“ѓX‚рђ¶ђ¬‚Е‚«‚И‚ўЏкЌ‡ЃB
+     *              HashMethodClassName гЃ§дёЋгЃ€г‚‰г‚ЊгЃџг‚Їгѓ©г‚№гЃЊ
+     *              abstract class гЃ§гЃ‚г‚‹гЃџг‚Ѓг‚¤гѓіг‚№г‚їгѓіг‚№г‚’з”џж€ђгЃ§гЃЌгЃЄгЃ„е ґеђ€гЂ‚
      * @exception NoSuchMethodError
-     *              HashMethodClassName ‚Е—^‚¦‚з‚к‚ЅѓNѓ‰ѓX‚Є
-     *              ѓRѓ“ѓXѓgѓ‰ѓNѓ^ HashMethod( byte[] )‚рЋќ‚Ѕ‚И‚ўЏкЌ‡
+     *              HashMethodClassName гЃ§дёЋгЃ€г‚‰г‚ЊгЃџг‚Їгѓ©г‚№гЃЊ
+     *              г‚ігѓіг‚№гѓ€гѓ©г‚Їг‚ї HashMethod( byte[] )г‚’жЊЃгЃџгЃЄгЃ„е ґеђ€
      */
     public HashAndChainedListSearch( int    DictionarySize,
                                      int    MaxMatch,
@@ -340,13 +316,13 @@ public class HashAndChainedListSearch implements LzssSearchMethod{
                 throw new InstantiationError( exception.getMessage() );
             }
 
-            // ѓnѓbѓVѓ…ѓeЃ[ѓuѓ‹Џ‰Љъ‰»
+            // гѓЏгѓѓг‚·гѓҐгѓ†гѓјгѓ–гѓ«е€ќжњџеЊ–
             this.hashTable = new int[ this.hashMethod.tableSize() ];
             for( int i = 0 ; i < this.hashTable.length ; i++ ){
                 this.hashTable[i] = -1;
             }
 
-            // AЊ‹ѓЉѓXѓgЏ‰Љъ‰»
+            // йЂЈзµђгѓЄг‚№гѓ€е€ќжњџеЊ–
             this.prev = new int[ this.DictionarySize ];
             for( int i = 0 ; i < this.prev.length ; i++ ){
                 this.prev[i] = -1;
@@ -370,10 +346,10 @@ public class HashAndChainedListSearch implements LzssSearchMethod{
     //  public int putRequires()
     //------------------------------------------------------------------
     /**
-     * position ‚©‚зЋn‚Ь‚йѓfЃ[ѓ^ѓpѓ^ѓ“‚р
-     * ѓnѓbѓVѓ…‚ЖAЊ‹ѓЉѓXѓg‚©‚зђ¬‚йЊџЌх‹@Ќ\‚Й“o^‚·‚йЃB<br>
+     * position гЃ‹г‚‰е§‹гЃѕг‚‹гѓ‡гѓјг‚їгѓ‘г‚їгѓіг‚’
+     * гѓЏгѓѓг‚·гѓҐгЃЁйЂЈзµђгѓЄг‚№гѓ€гЃ‹г‚‰ж€ђг‚‹ж¤њзґўж©џж§‹гЃ«з™»йЊІгЃ™г‚‹гЂ‚<br>
      * 
-     * @param position TextBuffer“а‚МѓfЃ[ѓ^ѓpѓ^ѓ“‚МЉJЋn€К’u
+     * @param position TextBufferе†…гЃ®гѓ‡гѓјг‚їгѓ‘г‚їгѓігЃ®й–‹е§‹дЅЌзЅ®
      */
     public void put( int position ){
         int hash   = this.hashMethod.hash( position );
@@ -382,19 +358,19 @@ public class HashAndChainedListSearch implements LzssSearchMethod{
     }
 
     /**
-     * ѓnѓbѓVѓ…‚ЖAЊ‹ѓЉѓXѓg‚©‚зђ¬‚йЊџЌх‹@Ќ\‚Й“o^‚і‚к‚Ѕ
-     * ѓfЃ[ѓ^ѓpѓ^ѓ“‚©‚з position ‚©‚зЋn‚Ь‚йѓfЃ[ѓ^ѓpѓ^ѓ“‚Ж
-     * ЌЕ’·‚М€к’v‚рЋќ‚В‚а‚М‚рЊџЌх‚µЃA
-     * “ЇЋћ‚Й position ‚©‚зЋn‚Ь‚йѓfЃ[ѓ^ѓpѓ^ѓ“‚р 
-     * ѓnѓbѓVѓ…‚ЖAЊ‹ѓЉѓXѓg‚©‚зђ¬‚йЊџЌх‹@Ќ\‚Й“o^‚·‚йЃB<br>
+     * гѓЏгѓѓг‚·гѓҐгЃЁйЂЈзµђгѓЄг‚№гѓ€гЃ‹г‚‰ж€ђг‚‹ж¤њзґўж©џж§‹гЃ«з™»йЊІгЃ•г‚ЊгЃџ
+     * гѓ‡гѓјг‚їгѓ‘г‚їгѓігЃ‹г‚‰ position гЃ‹г‚‰е§‹гЃѕг‚‹гѓ‡гѓјг‚їгѓ‘г‚їгѓігЃЁ
+     * жњЂй•·гЃ®дёЂи‡ґг‚’жЊЃгЃ¤г‚‚гЃ®г‚’ж¤њзґўгЃ—гЂЃ
+     * еђЊж™‚гЃ« position гЃ‹г‚‰е§‹гЃѕг‚‹гѓ‡гѓјг‚їгѓ‘г‚їгѓіг‚’ 
+     * гѓЏгѓѓг‚·гѓҐгЃЁйЂЈзµђгѓЄг‚№гѓ€гЃ‹г‚‰ж€ђг‚‹ж¤њзґўж©џж§‹гЃ«з™»йЊІгЃ™г‚‹гЂ‚<br>
      * 
-     * @param position TextBuffer“а‚МѓfЃ[ѓ^ѓpѓ^ѓ“‚МЉJЋn€К’uЃB
+     * @param position TextBufferе†…гЃ®гѓ‡гѓјг‚їгѓ‘г‚їгѓігЃ®й–‹е§‹дЅЌзЅ®гЂ‚
      * 
-     * @return €к’v‚ЄЊ©‚В‚©‚Б‚ЅЏкЌ‡‚Н
+     * @return дёЂи‡ґгЃЊи¦‹гЃ¤гЃ‹гЃЈгЃџе ґеђ€гЃЇ
      *         LzssOutputStream.createSearchReturn 
-     *         ‚Й‚ж‚Б‚Дђ¶ђ¬‚і‚к‚Ѕ€к’v€К’u‚Ж€к’v’·‚МЏо•с‚рЋќ‚В’lЃA
-     *         €к’v‚ЄЊ©‚В‚©‚з‚И‚©‚Б‚ЅЏкЌ‡‚Н
-     *         LzssOutputStream.NOMATCHЃB
+     *         гЃ«г‚€гЃЈгЃ¦з”џж€ђгЃ•г‚ЊгЃџдёЂи‡ґдЅЌзЅ®гЃЁдёЂи‡ґй•·гЃ®жѓ…е ±г‚’жЊЃгЃ¤еЂ¤гЂЃ
+     *         дёЂи‡ґгЃЊи¦‹гЃ¤гЃ‹г‚‰гЃЄгЃ‹гЃЈгЃџе ґеђ€гЃЇ
+     *         LzssOutputStream.NOMATCHгЂ‚
      * 
      * @see LzssOutputStream#createSearchReturn(int,int)
      * @see LzssOutputStream#NOMATCH
@@ -408,8 +384,8 @@ public class HashAndChainedListSearch implements LzssSearchMethod{
                                     position - this.DictionarySize );
 
         //------------------------------------------------------------------
-        //  AЊ‹ѓЉѓXѓg‚М’·‚і‚Є’·‚·‚¬‚йЏкЌ‡ offset ‚рЋg—p‚µ‚Д
-        //  AЊ‹ѓЉѓXѓg‚М’Z‚ўѓnѓbѓVѓ…’l‚рЋg‚¤ЃB
+        //  йЂЈзµђгѓЄг‚№гѓ€гЃ®й•·гЃ•гЃЊй•·гЃ™гЃЋг‚‹е ґеђ€ offset г‚’дЅїз”ЁгЃ—гЃ¦
+        //  йЂЈзµђгѓЄг‚№гѓ€гЃ®зџ­гЃ„гѓЏгѓѓг‚·гѓҐеЂ¤г‚’дЅїгЃ†гЂ‚
         int poshash = this.hashMethod.hash( position );
         int offhash = poshash;
         int offset  = 0;
@@ -420,8 +396,8 @@ public class HashAndChainedListSearch implements LzssSearchMethod{
         }
 
         //------------------------------------------------------------------
-        //  ѓЃѓCѓ“ѓ‹Ѓ[ѓv
-        //  ЌЕ‘е offhash ‚Ж poshash ‚©‚зЋn‚Ь‚й 2‚В‚МAЊ‹ѓЉѓXѓg‚р‘–Ќё‚·‚йЃB
+        //  гѓЎг‚¤гѓігѓ«гѓјгѓ—
+        //  жњЂе¤§ offhash гЃЁ poshash гЃ‹г‚‰е§‹гЃѕг‚‹ 2гЃ¤гЃ®йЂЈзµђгѓЄг‚№гѓ€г‚’иµ°жџ»гЃ™г‚‹гЂ‚
         byte[] buf     = this.TextBuffer;
         int max        = position + this.MaxMatch;
         int s          = 0;
@@ -470,13 +446,13 @@ public class HashAndChainedListSearch implements LzssSearchMethod{
         }
 
         //------------------------------------------------------------------
-        //  ѓnѓbѓVѓ…‚ЖAЊ‹ѓЉѓXѓg‚рЋg—p‚µ‚ЅЊџЌх‹@Ќ\‚Й
-        //  position ‚©‚зЋn‚Ь‚йѓfЃ[ѓ^ѓpѓ^ѓ“‚р“o^‚·‚йЃB
+        //  гѓЏгѓѓг‚·гѓҐгЃЁйЂЈзµђгѓЄг‚№гѓ€г‚’дЅїз”ЁгЃ—гЃџж¤њзґўж©џж§‹гЃ«
+        //  position гЃ‹г‚‰е§‹гЃѕг‚‹гѓ‡гѓјг‚їгѓ‘г‚їгѓіг‚’з™»йЊІгЃ™г‚‹гЂ‚
         this.prev[ position & ( this.DictionarySize - 1 ) ] = this.hashTable[ poshash ];
         this.hashTable[ poshash ] = position;
 
         //------------------------------------------------------------------
-        //  ЌЕ’·€к’v‚рЊД‚СЏo‚µЊі‚Й•Ф‚·ЃB
+        //  жњЂй•·дёЂи‡ґг‚’е‘јгЃіе‡єгЃ—е…ѓгЃ«иї”гЃ™гЂ‚
         if( this.Threshold <= matchlen ){
             return LzssOutputStream.createSearchReturn( matchlen, matchpos );
         }else{
@@ -485,18 +461,18 @@ public class HashAndChainedListSearch implements LzssSearchMethod{
     }
 
     /**
-     * ѓnѓbѓVѓ…‚ЖAЊ‹ѓЉѓXѓg‚рЋg—p‚µ‚ЅЊџЌх‹@Ќ\‚Й“o^‚і‚к‚Ѕ
-     * ѓfЃ[ѓ^ѓpѓ^ѓ“‚рЊџЌх‚µ position ‚©‚зЋn‚Ь‚йѓfЃ[ѓ^ѓpѓ^ѓ“‚Ж
-     * ЌЕ’·‚М€к’v‚рЋќ‚В‚а‚М‚р“ѕ‚йЃB<br>
+     * гѓЏгѓѓг‚·гѓҐгЃЁйЂЈзµђгѓЄг‚№гѓ€г‚’дЅїз”ЁгЃ—гЃџж¤њзґўж©џж§‹гЃ«з™»йЊІгЃ•г‚ЊгЃџ
+     * гѓ‡гѓјг‚їгѓ‘г‚їгѓіг‚’ж¤њзґўгЃ— position гЃ‹г‚‰е§‹гЃѕг‚‹гѓ‡гѓјг‚їгѓ‘г‚їгѓігЃЁ
+     * жњЂй•·гЃ®дёЂи‡ґг‚’жЊЃгЃ¤г‚‚гЃ®г‚’еѕ—г‚‹гЂ‚<br>
      * 
-     * @param position   TextBuffer“а‚МѓfЃ[ѓ^ѓpѓ^ѓ“‚МЉJЋn€К’uЃB
-     * @param lastPutPos ЌЕЊг‚Й“o^‚µ‚ЅѓfЃ[ѓ^ѓpѓ^ѓ“‚МЉJЋn€К’uЃB
+     * @param position   TextBufferе†…гЃ®гѓ‡гѓјг‚їгѓ‘г‚їгѓігЃ®й–‹е§‹дЅЌзЅ®гЂ‚
+     * @param lastPutPos жњЂеѕЊгЃ«з™»йЊІгЃ—гЃџгѓ‡гѓјг‚їгѓ‘г‚їгѓігЃ®й–‹е§‹дЅЌзЅ®гЂ‚
      * 
-     * @return €к’v‚ЄЊ©‚В‚©‚Б‚ЅЏкЌ‡‚Н
+     * @return дёЂи‡ґгЃЊи¦‹гЃ¤гЃ‹гЃЈгЃџе ґеђ€гЃЇ
      *         LzssOutputStream.createSearchReturn 
-     *         ‚Й‚ж‚Б‚Дђ¶ђ¬‚і‚к‚Ѕ€к’v€К’u‚Ж€к’v’·‚МЏо•с‚рЋќ‚В’lЃA
-     *         €к’v‚ЄЊ©‚В‚©‚з‚И‚©‚Б‚ЅЏкЌ‡‚Н
-     *         LzssOutputStream.NOMATCHЃB
+     *         гЃ«г‚€гЃЈгЃ¦з”џж€ђгЃ•г‚ЊгЃџдёЂи‡ґдЅЌзЅ®гЃЁдёЂи‡ґй•·гЃ®жѓ…е ±г‚’жЊЃгЃ¤еЂ¤гЂЃ
+     *         дёЂи‡ґгЃЊи¦‹гЃ¤гЃ‹г‚‰гЃЄгЃ‹гЃЈгЃџе ґеђ€гЃЇ
+     *         LzssOutputStream.NOMATCHгЂ‚
      * 
      * @see LzssOutputStream#createSearchReturn(int,int)
      * @see LzssOutputStream#NOMATCH
@@ -504,8 +480,8 @@ public class HashAndChainedListSearch implements LzssSearchMethod{
     public int search( int position, int lastPutPos ){
 
         //------------------------------------------------------------------
-        //  ѓnѓbѓVѓ…‚ЖAЊ‹ѓЉѓXѓg‚Й‚ж‚йЊџЌх‹@Ќ\‚Й“o^‚і‚к‚Д‚ў‚И‚ў
-        //  ѓfЃ[ѓ^ѓpѓ^ѓ“‚р’PЏѓ‚И’ЂЋџЊџЌх‚ЕЊџЌх‚·‚йЃB
+        //  гѓЏгѓѓг‚·гѓҐгЃЁйЂЈзµђгѓЄг‚№гѓ€гЃ«г‚€г‚‹ж¤њзґўж©џж§‹гЃ«з™»йЊІгЃ•г‚ЊгЃ¦гЃ„гЃЄгЃ„
+        //  гѓ‡гѓјг‚їгѓ‘г‚їгѓіг‚’еЌзґ”гЃЄйЂђж¬Ўж¤њзґўгЃ§ж¤њзґўгЃ™г‚‹гЂ‚
         int matchlen   = this.Threshold - 1;
         int matchpos   = position;
         int scanpos    = position - 1;
@@ -534,14 +510,14 @@ public class HashAndChainedListSearch implements LzssSearchMethod{
         }
 
         //------------------------------------------------------------------
-        //  ѓnѓbѓVѓ…‚ЖAЊ‹ѓЉѓXѓg‚рЋg—p‚µ‚ЅЊџЌх‹@Ќ\ ‚©‚зЊџЌх‚·‚йЃB
+        //  гѓЏгѓѓг‚·гѓҐгЃЁйЂЈзµђгѓЄг‚№гѓ€г‚’дЅїз”ЁгЃ—гЃџж¤њзґўж©џж§‹ гЃ‹г‚‰ж¤њзґўгЃ™г‚‹гЂ‚
         if( this.hashMethod.hashRequires() < this.TextBuffer.length - position ){
             int maxmatch    = this.MaxMatch;
             scanlimit   = Math.max( this.DictionaryLimit,
                                     position - this.DictionarySize );
 
-            //  AЊ‹ѓЉѓXѓg‚М’·‚і‚Є’·‚·‚¬‚йЏкЌ‡ offset ‚рЋg—p‚µ‚Д
-            //  AЊ‹ѓЉѓXѓg‚М’Z‚ўѓnѓbѓVѓ…’l‚рЋg‚¤ЃB
+            //  йЂЈзµђгѓЄг‚№гѓ€гЃ®й•·гЃ•гЃЊй•·гЃ™гЃЋг‚‹е ґеђ€ offset г‚’дЅїз”ЁгЃ—гЃ¦
+            //  йЂЈзµђгѓЄг‚№гѓ€гЃ®зџ­гЃ„гѓЏгѓѓг‚·гѓҐеЂ¤г‚’дЅїгЃ†гЂ‚
             int poshash = this.hashMethod.hash( position );
             int offhash = poshash;
             int offset  = 0;
@@ -551,8 +527,8 @@ public class HashAndChainedListSearch implements LzssSearchMethod{
                 offhash = this.hashMethod.hash( position + offset );
             }
 
-            //  ѓЃѓCѓ“ѓ‹Ѓ[ѓv
-            //  ЌЕ‘е offhash ‚Ж poshash ‚©‚зЋn‚Ь‚й 2‚В‚МAЊ‹ѓЉѓXѓg‚р‘–Ќё‚·‚йЃB
+            //  гѓЎг‚¤гѓігѓ«гѓјгѓ—
+            //  жњЂе¤§ offhash гЃЁ poshash гЃ‹г‚‰е§‹гЃѕг‚‹ 2гЃ¤гЃ®йЂЈзµђгѓЄг‚№гѓ€г‚’иµ°жџ»гЃ™г‚‹гЂ‚
             while(true){
                 int searchCount = this.SearchLimitCount;
                 scanpos = this.hashTable[ offhash ];
@@ -598,7 +574,7 @@ public class HashAndChainedListSearch implements LzssSearchMethod{
         }
 
         //------------------------------------------------------------------
-        //  ЌЕ’·€к’v‚рЊД‚СЏo‚µЊі‚Й•Ф‚·ЃB
+        //  жњЂй•·дёЂи‡ґг‚’е‘јгЃіе‡єгЃ—е…ѓгЃ«иї”гЃ™гЂ‚
         if( this.Threshold <= matchlen ){
             return LzssOutputStream.createSearchReturn( matchlen, matchpos );
         }else{
@@ -607,10 +583,10 @@ public class HashAndChainedListSearch implements LzssSearchMethod{
     }
 
     /**
-     * TextBuffer“а‚Мposition‚Ь‚Е‚МѓfЃ[ѓ^‚р
-     * ‘O•ы‚Ц€Ъ“®‚·‚йЌЫЃA‚»‚к‚Й‰ћ‚¶‚Д SearchMethod“а‚М
-     * ѓfЃ[ѓ^‚а TextBuffer“а‚МѓfЃ[ѓ^‚Ж–µЏ‚‚µ‚И‚ў‚ж‚¤‚Й
-     * ‘O•ы‚Ц€Ъ“®‚·‚йЏ€—ќ‚рЌs‚¤ЃB
+     * TextBufferе†…гЃ®positionгЃѕгЃ§гЃ®гѓ‡гѓјг‚їг‚’
+     * е‰Ќж–№гЃёз§»е‹•гЃ™г‚‹йљ›гЂЃгЃќг‚ЊгЃ«еїњгЃгЃ¦ SearchMethodе†…гЃ®
+     * гѓ‡гѓјг‚їг‚‚ TextBufferе†…гЃ®гѓ‡гѓјг‚їгЃЁзџ›з›ѕгЃ—гЃЄгЃ„г‚€гЃ†гЃ«
+     * е‰Ќж–№гЃёз§»е‹•гЃ™г‚‹е‡¦зђ†г‚’иЎЊгЃ†гЂ‚
      */
     public void slide(){
         this.DictionaryLimit = Math.max( 0, this.DictionaryLimit - this.DictionarySize );
@@ -627,15 +603,15 @@ public class HashAndChainedListSearch implements LzssSearchMethod{
     }
 
     /**
-     * put() ‚Е LzssSearchMethod‚ЙѓfЃ[ѓ^‚р
-     * “o^‚·‚й‚Ж‚«‚ЙЋg—p‚і‚к‚йѓfЃ[ѓ^—К‚р“ѕ‚йЃB
-     * HashAndChainedListSearch ‚Е‚НЃA
-     * “а•”‚ЕЋg—p‚µ‚Д‚ў‚й HashMethod ‚МЋА‘•‚Є 
-     * hash() ‚М‚Ѕ‚Я‚Й•K—v‚Ж‚·‚йѓfЃ[ѓ^—К
-     * ( HashMethod.hashRequires() ‚М–Я‚и’l ) ‚р•Ф‚·ЃB
+     * put() гЃ§ LzssSearchMethodгЃ«гѓ‡гѓјг‚їг‚’
+     * з™»йЊІгЃ™г‚‹гЃЁгЃЌгЃ«дЅїз”ЁгЃ•г‚Њг‚‹гѓ‡гѓјг‚їй‡Џг‚’еѕ—г‚‹гЂ‚
+     * HashAndChainedListSearch гЃ§гЃЇгЂЃ
+     * е†…йѓЁгЃ§дЅїз”ЁгЃ—гЃ¦гЃ„г‚‹ HashMethod гЃ®е®џиЈ…гЃЊ 
+     * hash() гЃ®гЃџг‚ЃгЃ«еї…и¦ЃгЃЁгЃ™г‚‹гѓ‡гѓјг‚їй‡Џ
+     * ( HashMethod.hashRequires() гЃ®ж€»г‚ЉеЂ¤ ) г‚’иї”гЃ™гЂ‚
      * 
-     * @return “а•”‚ЕЋg—p‚µ‚Д‚ў‚й HashMethod ‚МЋА‘•‚Є 
-     *         hash() ‚М‚Ѕ‚Я‚Й•K—v‚Ж‚·‚йѓfЃ[ѓ^—К
+     * @return е†…йѓЁгЃ§дЅїз”ЁгЃ—гЃ¦гЃ„г‚‹ HashMethod гЃ®е®џиЈ…гЃЊ 
+     *         hash() гЃ®гЃџг‚ЃгЃ«еї…и¦ЃгЃЁгЃ™г‚‹гѓ‡гѓјг‚їй‡Џ
      */
     public int putRequires(){
         return this.hashMethod.hashRequires();
@@ -647,21 +623,21 @@ public class HashAndChainedListSearch implements LzssSearchMethod{
     //  public int searchAndPut( int position, int[] matchposs )
     //------------------------------------------------------------------
     /**
-     * ‚ж‚и—З‚ў LZSS €іЏk‚М‚Ѕ‚Я‚М‘I‘рЋ€‚р’с‹џ‚·‚й searchAndPut()ЃB 
-     * —б‚¦‚О€к’v’· 3, €к’v€К’u 4 ‚Ж €к’v’· 4, €к’v€К’u 1024 ‚Е‚Н
-     * €к’v’· 3, €к’v€К’u 4 + ”с€іЏk1•¶Ћљ ‚М•ы‚ЄЏo—Нѓrѓbѓgђ”‚Є
-     * Џ­‚И‚­‚И‚йЋ–‚Є‚ ‚йЃB‚»‚М‚ж‚¤‚ИЏкЌ‡‚Й‘ОЏ€‚·‚й‚Ѕ‚Я€к’v’·–€‚Й
-     * position‚Й€к”Ф‹Я‚ў€к’v€К’u‚р—с‹“‚·‚йЃB
+     * г‚€г‚Љи‰ЇгЃ„ LZSS ењ§зё®гЃ®гЃџг‚ЃгЃ®йЃёжЉћи‚ўг‚’жЏђдѕ›гЃ™г‚‹ searchAndPut()гЂ‚ 
+     * дѕ‹гЃ€гЃ°дёЂи‡ґй•· 3, дёЂи‡ґдЅЌзЅ® 4 гЃЁ дёЂи‡ґй•· 4, дёЂи‡ґдЅЌзЅ® 1024 гЃ§гЃЇ
+     * дёЂи‡ґй•· 3, дёЂи‡ґдЅЌзЅ® 4 + йќћењ§зё®1ж–‡е­— гЃ®ж–№гЃЊе‡єеЉ›гѓ“гѓѓгѓ€ж•°гЃЊ
+     * е°‘гЃЄгЃЏгЃЄг‚‹дє‹гЃЊгЃ‚г‚‹гЂ‚гЃќгЃ®г‚€гЃ†гЃЄе ґеђ€гЃ«еЇѕе‡¦гЃ™г‚‹гЃџг‚ЃдёЂи‡ґй•·жЇЋгЃ«
+     * positionгЃ«дёЂз•Єиї‘гЃ„дёЂи‡ґдЅЌзЅ®г‚’е€—жЊ™гЃ™г‚‹гЂ‚
      * 
-     * @param position  ЊџЌх‘ОЏЫ‚МѓfЃ[ѓ^ѓpѓ^ѓ“‚МЉJЋn€К’u
-     * @param matchposs €к’v€К’u‚М—с‹“‚рЉi”[‚µ‚Д•Ф‚·‚Ѕ‚Я‚М”z—с<br>
-     *                  matchpos[0] ‚Й‚Н €к’v’·‚Є Threshold ‚М€к’v€К’u‚ЄЃA<br>
-     *                  matchpos[1] ‚Й‚Н €к’v’·‚Є Threshold + 1 ‚М€к’v€К’u‚ЄЉi”[‚і‚к‚йЃB<br>
-     *                  €к’v‚ЄЊ©‚В‚©‚з‚И‚©‚Б‚ЅЏкЌ‡‚Й‚Н LzssOutputStream.NOMATCH ‚ЄЉi”[‚і‚к‚йЃB
+     * @param position  ж¤њзґўеЇѕи±ЎгЃ®гѓ‡гѓјг‚їгѓ‘г‚їгѓігЃ®й–‹е§‹дЅЌзЅ®
+     * @param matchposs дёЂи‡ґдЅЌзЅ®гЃ®е€—жЊ™г‚’ж јзґЌгЃ—гЃ¦иї”гЃ™гЃџг‚ЃгЃ®й…Ќе€—<br>
+     *                  matchpos[0] гЃ«гЃЇ дёЂи‡ґй•·гЃЊ Threshold гЃ®дёЂи‡ґдЅЌзЅ®гЃЊгЂЃ<br>
+     *                  matchpos[1] гЃ«гЃЇ дёЂи‡ґй•·гЃЊ Threshold + 1 гЃ®дёЂи‡ґдЅЌзЅ®гЃЊж јзґЌгЃ•г‚Њг‚‹гЂ‚<br>
+     *                  дёЂи‡ґгЃЊи¦‹гЃ¤гЃ‹г‚‰гЃЄгЃ‹гЃЈгЃџе ґеђ€гЃ«гЃЇ LzssOutputStream.NOMATCH гЃЊж јзґЌгЃ•г‚Њг‚‹гЂ‚
      * 
-     * @return €к’v‚ЄЊ©‚В‚©‚Б‚ЅЏкЌ‡‚Н
-     *         LzssOutputStream.createSearchReturn ‚Еђ¶ђ¬‚і‚к‚Ѕ SearchReturn ‚Є•Ф‚і‚к‚йЃB<br>
-     *         €к’v‚ЄЊ©‚В‚©‚з‚И‚ўЏкЌ‡‚Н LzssOutputStream.NOMATCH ‚Є•Ф‚і‚к‚йЃB<br>
+     * @return дёЂи‡ґгЃЊи¦‹гЃ¤гЃ‹гЃЈгЃџе ґеђ€гЃЇ
+     *         LzssOutputStream.createSearchReturn гЃ§з”џж€ђгЃ•г‚ЊгЃџ SearchReturn гЃЊиї”гЃ•г‚Њг‚‹гЂ‚<br>
+     *         дёЂи‡ґгЃЊи¦‹гЃ¤гЃ‹г‚‰гЃЄгЃ„е ґеђ€гЃЇ LzssOutputStream.NOMATCH гЃЊиї”гЃ•г‚Њг‚‹гЂ‚<br>
      */
     public int searchAndPut( int position, int[] matchposs ){
         int matchlen    = this.Threshold - 1;
@@ -718,32 +694,32 @@ public class HashAndChainedListSearch implements LzssSearchMethod{
     //  private void clearTooBigFlag( int hash )
     //------------------------------------------------------------------
     /**
-     * hash ‚МAЊ‹ѓЉѓXѓg‚Єи‡’l‚р’ґ‚¦‚Д‚ў‚й‚©‚р“ѕ‚йЃB
+     * hash гЃ®йЂЈзµђгѓЄг‚№гѓ€гЃЊй–ѕеЂ¤г‚’и¶…гЃ€гЃ¦гЃ„г‚‹гЃ‹г‚’еѕ—г‚‹гЂ‚
      * 
-     * @param hash ѓnѓbѓVѓ…’l
+     * @param hash гѓЏгѓѓг‚·гѓҐеЂ¤
      * 
-     * @return AЊ‹ѓЉѓXѓg‚М’·‚і‚Єи‡’l‚р’ґ‚¦‚Д‚ў‚й‚И‚з true
-     *         ’ґ‚¦‚Д‚ў‚И‚Ї‚к‚О false
+     * @return йЂЈзµђгѓЄг‚№гѓ€гЃ®й•·гЃ•гЃЊй–ѕеЂ¤г‚’и¶…гЃ€гЃ¦гЃ„г‚‹гЃЄг‚‰ true
+     *         и¶…гЃ€гЃ¦гЃ„гЃЄгЃ‘г‚ЊгЃ° false
      */
     private boolean isTooBig( int hash ){
         return 0 != ( this.tooBigFlag[ hash >> 4 ] & ( 1 << ( hash & 0x0F ) ) );
     }
 
     /**
-     * hash ‚МAЊ‹ѓЉѓXѓg‚Єи‡’l‚р’ґ‚¦‚ЅЋ–‚рЋ¦‚·
-     * ѓtѓ‰ѓO‚рѓZѓbѓg‚·‚йЃB
+     * hash гЃ®йЂЈзµђгѓЄг‚№гѓ€гЃЊй–ѕеЂ¤г‚’и¶…гЃ€гЃџдє‹г‚’з¤єгЃ™
+     * гѓ•гѓ©г‚°г‚’г‚»гѓѓгѓ€гЃ™г‚‹гЂ‚
      * 
-     * @param hash too big ѓtѓ‰ѓO‚рѓZѓbѓg‚·‚йѓnѓbѓVѓ…’l
+     * @param hash too big гѓ•гѓ©г‚°г‚’г‚»гѓѓгѓ€гЃ™г‚‹гѓЏгѓѓг‚·гѓҐеЂ¤
      */
     private void setTooBigFlag( int hash ){
         this.tooBigFlag[ hash >> 4 ] |= 1 << ( hash & 0x0F );
     }
 
     /**
-     * hash ‚МAЊ‹ѓЉѓXѓg‚Єи‡’l‚р’ґ‚¦‚Д‚ў‚йЋ–‚рЋ¦‚·
-     * ѓtѓ‰ѓO‚рѓNѓЉѓA‚·‚йЃB
+     * hash гЃ®йЂЈзµђгѓЄг‚№гѓ€гЃЊй–ѕеЂ¤г‚’и¶…гЃ€гЃ¦гЃ„г‚‹дє‹г‚’з¤єгЃ™
+     * гѓ•гѓ©г‚°г‚’г‚ЇгѓЄг‚ўгЃ™г‚‹гЂ‚
      * 
-     * @param hash too big ѓtѓ‰ѓO‚рѓNѓЉѓA‚·‚йѓnѓbѓVѓ…’l
+     * @param hash too big гѓ•гѓ©г‚°г‚’г‚ЇгѓЄг‚ўгЃ™г‚‹гѓЏгѓѓг‚·гѓҐеЂ¤
      */
     private void clearTooBigFlag( int hash ){
         this.tooBigFlag[ hash >> 4 ] &= ~( 1 << ( hash & 0x0F ) );

@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  * 
- * �ȉ��̏����ɓ��ӂ���Ȃ�΃\�[�X�ƃo�C�i���`���̍Ĕz�z�Ǝg�p��
- * �ύX�̗L���ɂ�����炸������B
+ * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
+ * 変更の有無にかかわらず許可する。
  * 
- * �P�D�\�[�X�R�[�h�̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐�������ێ����Ȃ��Ă͂Ȃ�Ȃ��B
+ * １．ソースコードの再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を保持しなくてはならない。
  * 
- * �Q�D�o�C�i���`���̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐��������g�p�������������� ���̑��̔z�z������
- *     �܂ގ����ɋL�q���Ȃ���΂Ȃ�Ȃ��B
+ * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を使用説明書もしくは その他の配布物内に
+ *     含む資料に記述しなければならない。
  * 
- * ���̃\�t�g�E�F�A�͐Β˔���ڂɂ���Ė��ۏ؂Œ񋟂���A����̖�
- * �I��B���ł���Ƃ����ۏ؁A���i���l���L��Ƃ����ۏ؂ɂƂǂ܂炸�A
- * �����Ȃ閾���I����шÎ��I�ȕۏ؂����Ȃ��B
- * �Β˔���ڂ� ���̃\�t�g�E�F�A�̎g�p�ɂ�钼�ړI�A�ԐړI�A����
- * �I�A����ȁA�T�^�I�ȁA���邢�͕K�R�I�ȑ��Q(�g�p�ɂ��f�[�^��
- * �����A�Ɩ��̒��f�〈���܂�Ă������v�̈⎸�A��֐��i��������
- * �T�[�r�X�̓�������l�����邪�A�����Ă��ꂾ���Ɍ��肳��Ȃ�
- * ���Q)�ɑ΂��āA�����Ȃ鎖�Ԃ̌����ƂȂ����Ƃ��Ă��A�_���̐�
- * �C�△�ߎ��ӔC���܂� �����Ȃ�ӔC�����낤�Ƃ��A���Ƃ����ꂪ�s
- * ���s�ׂ̂��߂ł������Ƃ��Ă��A�܂��͂��̂悤�ȑ��Q�̉\������
- * ������Ă����Ƃ��Ă���؂̐ӔC�𕉂�Ȃ����̂Ƃ���B
+ * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
+ * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
+ * いかなる明示的および暗示的な保証もしない。
+ * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
+ * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
+ * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
+ * サービスの導入費等が考えられるが、決してそれだけに限定されない
+ * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
+ * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
+ * 正行為のためであったとしても、またはそのような損害の可能性が報
+ * 告されていたとしても一切の責任を負わないものとする。
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -38,11 +38,11 @@ import jp.gr.java_conf.dangan.util.lha.LzssOutputStream;
 //import exceptions
 
 /**
- * ���ʂȌ����@�\��p���Ȃ� 
- * LzssSearchMethod �̍ł��V���v���Ȏ����B<br>
- * �����@�\��p���Ȃ����߁A
- * ���̌����@�\��p��������Ɣ�ׂ�ƒx�����A
- * ����������ʂ����ɏ��Ȃ��B<br>
+ * 特別な検索機構を用いない 
+ * LzssSearchMethod の最もシンプルな実装。<br>
+ * 検索機構を用いないため、
+ * 他の検索機構を用いる実装と比べると遅いが、
+ * メモリ消費量も非常に少ない。<br>
  * 
  * <pre>
  * -- revision history --
@@ -50,11 +50,11 @@ import jp.gr.java_conf.dangan.util.lha.LzssOutputStream;
  * Revision 1.0  2002/08/05 00:00:00  dangan
  * add to version control
  * [change]
- *     LzssSearchMethod �̃C���^�t�F�C�X�ύX�ɂ��킹�ăC���^�t�F�C�X�ύX�B
+ *     LzssSearchMethod のインタフェイス変更にあわせてインタフェイス変更。
  * [maintenance]
- *     �\�[�X����
- *     �^�u�p�~
- *     ���C�Z���X���̏C��
+ *     ソース整備
+ *     タブ廃止
+ *     ライセンス文の修正
  *
  * </pre>
  * 
@@ -74,19 +74,19 @@ public class SimpleSearch implements LzssSearchMethod{
     //  private int Threshold
     //------------------------------------------------------------------
     /**
-     * LZSS�����T�C�Y�B
+     * LZSS辞書サイズ。
      */
     private int DictionarySize;
 
     /**
-     * LZSS���k�Ɏg�p�����l�B
-     * �ő��v���������B
+     * LZSS圧縮に使用される値。
+     * 最大一致長を示す。
      */
     private int MaxMatch;
 
     /**
-     * LZSS���k�Ɏg�p�����臒l�B
-     * ��v���� ���̒l�ȏ�ł���΁A���k�R�[�h���o�͂���B
+     * LZSS圧縮に使用される閾値。
+     * 一致長が この値以上であれば、圧縮コードを出力する。
      */
     private int Threshold;
 
@@ -100,43 +100,30 @@ public class SimpleSearch implements LzssSearchMethod{
     //  private int DictionaryLimit
     //------------------------------------------------------------------
     /**
-     * LZSS���k���{�����߂̃o�b�t�@�B
-     * position ������ �O���͎����̈�A
-     * �㔼�͈��k���{�����߂̃f�[�^�̓������o�b�t�@�B
-     * LzssSearchMethod�̎������ł͓ǂݍ��݂̂݋������B
+     * LZSS圧縮を施すためのバッファ。
+     * position を境に 前半は辞書領域、
+     * 後半は圧縮を施すためのデータの入ったバッファ。
+     * LzssSearchMethodの実装内では読み込みのみ許される。
      */
     private byte[] TextBuffer;
 
     /**
-     * �����̌��E�ʒu�B 
-     * TextBuffer�O���̎����̈�Ƀf�[�^�������ꍇ��
-     * �����̈�ɂ���s��̃f�[�^(Java�ł�0)���g�p
-     * ���Ĉ��k���s����̂�}�~����B
+     * 辞書の限界位置。 
+     * TextBuffer前半の辞書領域にデータが無い場合に
+     * 辞書領域にある不定のデータ(Javaでは0)を使用
+     * して圧縮が行われるのを抑止する。
      */
     private int DictionaryLimit;
 
 
-    //------------------------------------------------------------------
-    //  constructor
-    //------------------------------------------------------------------
-    //  private SimpleSearch()
-    //  public SimpleSearch( int DictionarySize, int MaxMatch, 
-    //                       int Threshold, byte[] TextBuffer )
-    //------------------------------------------------------------------
     /**
-     * �f�t�H���g�R���X�g���N�^�B
-     *�g�p�s��
-     */
-    private SimpleSearch(){ }
-
-    /**
-     * ���ʂȌ����@�\��p���Ȃ��V���v����
-     * LzssSearchMethod ���\�z����B<br>
+     * 特別な検索機構を用いないシンプルな
+     * LzssSearchMethod を構築する。<br>
      * 
-     * @param DictionarySize  �����T�C�Y
-     * @param MaxMatch        �ő��v��
-     * @param Threshold       ���k�A�񈳏k��臒l
-     * @param TextBuffer      LZSS���k���{�����߂̃o�b�t�@
+     * @param DictionarySize  辞書サイズ
+     * @param MaxMatch        最大一致長
+     * @param Threshold       圧縮、非圧縮の閾値
+     * @param TextBuffer      LZSS圧縮を施すためのバッファ
      */
     public SimpleSearch( int    DictionarySize,
                          int    MaxMatch,
@@ -161,25 +148,25 @@ public class SimpleSearch implements LzssSearchMethod{
     //  public int putRequires()
     //------------------------------------------------------------------
     /**
-     * SimpleSearch �͌����@�\���g�p���Ȃ�����
-     * ���̃��\�b�h�͉������Ȃ��B
+     * SimpleSearch は検索機構を使用しないため
+     * このメソッドは何もしない。
      * 
-     * @param position TextBuffer���̃f�[�^�p�^���̊J�n�ʒu
+     * @param position TextBuffer内のデータパタンの開始位置
      */
     public void put( int position ){    }
 
     /**
-     * TextBuffer ���̎����̈�ɂ���f�[�^�p�^������
-     * position ����n�܂�f�[�^�p�^����
-     * �Œ��̈�v�������̂���������B<br>
+     * TextBuffer 内の辞書領域にあるデータパタンから
+     * position から始まるデータパタンと
+     * 最長の一致を持つものを検索する。<br>
      * 
-     * @param position TextBuffer���̃f�[�^�p�^���̊J�n�ʒu�B
+     * @param position TextBuffer内のデータパタンの開始位置。
      * 
-     * @return ��v�����������ꍇ��
+     * @return 一致が見つかった場合は
      *         LzssOutputStream.createSearchReturn 
-     *         �ɂ���Đ������ꂽ��v�ʒu�ƈ�v���̏������l�A
-     *         ��v��������Ȃ������ꍇ��
-     *         LzssOutputStream.NOMATCH�B
+     *         によって生成された一致位置と一致長の情報を持つ値、
+     *         一致が見つからなかった場合は
+     *         LzssOutputStream.NOMATCH。
      * 
      * @see LzssOutputStream#createSearchReturn(int,int)
      * @see LzssOutputStream#NOMATCH
@@ -222,18 +209,18 @@ public class SimpleSearch implements LzssSearchMethod{
     }
 
     /**
-     * TextBuffer ���̎����̈�ɂ���f�[�^�p�^������
-     * position ����n�܂�f�[�^�p�^����
-     * �Œ��̈�v�������̂���������B<br>
+     * TextBuffer 内の辞書領域にあるデータパタンから
+     * position から始まるデータパタンと
+     * 最長の一致を持つものを検索する。<br>
      * 
-     * @param position   TextBuffer���̃f�[�^�p�^���̊J�n�ʒu�B
-     * @param lastPutPos �Ō�ɓo�^�����f�[�^�p�^���̊J�n�ʒu�B
+     * @param position   TextBuffer内のデータパタンの開始位置。
+     * @param lastPutPos 最後に登録したデータパタンの開始位置。
      * 
-     * @return ��v�����������ꍇ��
+     * @return 一致が見つかった場合は
      *         LzssOutputStream.createSearchReturn 
-     *         �ɂ���Đ������ꂽ��v�ʒu�ƈ�v���̏������l�A
-     *         ��v��������Ȃ������ꍇ��
-     *         LzssOutputStream.NOMATCH�B
+     *         によって生成された一致位置と一致長の情報を持つ値、
+     *         一致が見つからなかった場合は
+     *         LzssOutputStream.NOMATCH。
      * 
      * @see LzssOutputStream#createSearchReturn(int,int)
      * @see LzssOutputStream#NOMATCH
@@ -277,18 +264,18 @@ public class SimpleSearch implements LzssSearchMethod{
     }
 
     /**
-     * LzssOutputStream �� slide() ��TextBuffer���̃f�[�^��
-     * DictionarySize �����ړ�������ۂɌ����@�\���̃f�[�^��
-     * �����Ɩ��������ړ������鏈�����s���B
+     * LzssOutputStream が slide() でTextBuffer内のデータを
+     * DictionarySize だけ移動させる際に検索機構内のデータを
+     * それらと矛盾無く移動させる処理を行う。
      */
     public void slide(){
         this.DictionaryLimit = Math.max( 0, this.DictionaryLimit - this.DictionarySize );
     }
 
     /**
-     * SimpleSearch �͌����@�\���g�p���Ȃ����ߏ�� 0 ��Ԃ��B
+     * SimpleSearch は検索機構を使用しないため常に 0 を返す。
      * 
-     * @return ��� 0
+     * @return 常に 0
      */
     public int putRequires(){
         return 0;

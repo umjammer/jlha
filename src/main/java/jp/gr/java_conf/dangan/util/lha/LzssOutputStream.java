@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  * 
- * �ȉ��̏����ɓ��ӂ���Ȃ�΃\�[�X�ƃo�C�i���`���̍Ĕz�z�Ǝg�p��
- * �ύX�̗L���ɂ�����炸������B
+ * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
+ * 変更の有無にかかわらず許可する。
  * 
- * �P�D�\�[�X�R�[�h�̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐�������ێ����Ȃ��Ă͂Ȃ�Ȃ��B
+ * １．ソースコードの再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を保持しなくてはならない。
  * 
- * �Q�D�o�C�i���`���̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐��������g�p�������������� ���̑��̔z�z������
- *     �܂ގ����ɋL�q���Ȃ���΂Ȃ�Ȃ��B
+ * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を使用説明書もしくは その他の配布物内に
+ *     含む資料に記述しなければならない。
  * 
- * ���̃\�t�g�E�F�A�͐Β˔���ڂɂ���Ė��ۏ؂Œ񋟂���A����̖�
- * �I��B���ł���Ƃ����ۏ؁A���i���l���L��Ƃ����ۏ؂ɂƂǂ܂炸�A
- * �����Ȃ閾���I����шÎ��I�ȕۏ؂����Ȃ��B
- * �Β˔���ڂ� ���̃\�t�g�E�F�A�̎g�p�ɂ�钼�ړI�A�ԐړI�A����
- * �I�A����ȁA�T�^�I�ȁA���邢�͕K�R�I�ȑ��Q(�g�p�ɂ��f�[�^��
- * �����A�Ɩ��̒��f�〈���܂�Ă������v�̈⎸�A��֐��i��������
- * �T�[�r�X�̓�������l�����邪�A�����Ă��ꂾ���Ɍ��肳��Ȃ�
- * ���Q)�ɑ΂��āA�����Ȃ鎖�Ԃ̌����ƂȂ����Ƃ��Ă��A�_���̐�
- * �C�△�ߎ��ӔC���܂� �����Ȃ�ӔC�����낤�Ƃ��A���Ƃ����ꂪ�s
- * ���s�ׂ̂��߂ł������Ƃ��Ă��A�܂��͂��̂悤�ȑ��Q�̉\������
- * ������Ă����Ƃ��Ă���؂̐ӔC�𕉂�Ȃ����̂Ƃ���B
+ * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
+ * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
+ * いかなる明示的および暗示的な保証もしない。
+ * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
+ * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
+ * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
+ * サービスの導入費等が考えられるが、決してそれだけに限定されない
+ * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
+ * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
+ * 正行為のためであったとしても、またはそのような損害の可能性が報
+ * 告されていたとしても一切の責任を負わないものとする。
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -52,39 +52,39 @@ import java.lang.NoClassDefFoundError;
 
 
 /**
- * �f�[�^�� LZSS���k���Ȃ���
- * �w�肳�ꂽ PostLzssEncoder �ɏo�͂��鈳�k�p�o�̓X�g���[���B<br>
+ * データを LZSS圧縮しながら
+ * 指定された PostLzssEncoder に出力する圧縮用出力ストリーム。<br>
  * 
  * <pre>
  * -- revision history --
  * $Log: LzssOutputStream.java,v $
  * Revision 1.2  2002/12/06 00:00:00  dangan
  * [change]
- *     flush() �� write() ���ꂽ�S�Ẵf�[�^�� 
- *     �ڑ����ꂽ PostLzssEncoder �ɏo�͂���悤�ɏC���B
+ *     flush() で write() された全てのデータを 
+ *     接続された PostLzssEncoder に出力するように修正。
  * [maintenance]
- *     slide������� DictionarySize �o�C�g�ɂȂ�悤�ɏC���B
+ *     slide幅が常に DictionarySize バイトになるように修正。
  *
  * Revision 1.1  2002/10/20 00:00:00  dangan
  * [bug fix]
- *     ������Ԃ� flush() ������ �A���� flush() �����
- *     ( lastsearchret �� NEEDSEARCH �̎��� encode() ���Ă΂��� )
- *     ����� 1�o�C�g�������Ă����B
- *     flush() ���� putLength() ���l�����Ă��Ȃ���������
- *     �����@�\��j�󂷂�悤�� searchAndPut ���s���Ă����̂��C���B
- *     flush() ���� TextBuffer �Ō����MaxMatch�o�C�g�̃f�[�^���o�͂��Ă��Ȃ������B
+ *     初期状態で flush() したり 連続で flush() すると
+ *     ( lastsearchret が NEEDSEARCH の時に encode() が呼ばれると )
+ *     直後の 1バイトが化けていた。
+ *     flush() 時に putLength() を考慮していなかったため
+ *     検索機構を破壊するような searchAndPut を行っていたのを修正。
+ *     flush() 時に TextBuffer 最後尾のMaxMatchバイトのデータを出力していなかった。
  *
  * Revision 1.0  2002/07/25 00:00:00  dangan
  * add to version control
  * [bug fix]
- *     getMatchLen() �� searchret >> 22 �Ƃ��ׂ��Ƃ��낪 
- *     searchret >>> 22 �ƂȂ��Ă����̂��C���B
+ *     getMatchLen() で searchret >> 22 とすべきところが 
+ *     searchret >>> 22 となっていたのを修正。
  * [maintenance]
- *     LhaUtil.createInstance() �̎g�p�����
- *     ����� Factory.createInstance() ���g�p����B
- *     �\�[�X����
- *     �^�u�p�~
- *     ���C�Z���X���̏C��
+ *     LhaUtil.createInstance() の使用をやめ
+ *     代わりに Factory.createInstance() を使用する。
+ *     ソース整備
+ *     タブ廃止
+ *     ライセンス文の修正
  *
  * </pre>
  * 
@@ -103,14 +103,14 @@ public class LzssOutputStream extends OutputStream{
     //  private static final int NOMATCH
     //------------------------------------------------------------------
     /**
-     * lastsearchret �ɓo�^����l�B
-     * searchAndPut�̏������K�v�ł��鎖�������B
+     * lastsearchret に登録する値。
+     * searchAndPutの処理が必要である事を示す。
      */
     private static final int NEEDSEARCH = 0;
 
     /**
-     * searchret �����̒l�������ꍇ�A
-     * �����̌��ʁA臒l�ȏ�̈�v��������Ȃ��������������B
+     * searchret がこの値だった場合、
+     * 検索の結果、閾値以上の一致が見つからなかった事を示す。
      */
     public static final int NOMATCH = -1;
 
@@ -123,7 +123,7 @@ public class LzssOutputStream extends OutputStream{
     //  private PostLzssEncoder encoder
     //------------------------------------------------------------------
     /**
-     * LZSS���k�R�[�h��r�o�����̏o�̓X�g���[��
+     * LZSS圧縮コードを排出する先の出力ストリーム
      */
     private PostLzssEncoder encoder;
 
@@ -138,19 +138,19 @@ public class LzssOutputStream extends OutputStream{
     //  private int MaxMatch
     //------------------------------------------------------------------
     /**
-     * LZSS�����T�C�Y�B
+     * LZSS辞書サイズ。
      */
     private int DictionarySize;
 
     /**
-     * LZSS���k�Ɏg�p�����臒l�B
-     * ��v���� ���̒l�ȏ�ł���΁A���k�R�[�h���o�͂���B
+     * LZSS圧縮に使用される閾値。
+     * 一致長が この値以上であれば、圧縮コードを出力する。
      */
     private int Threshold;
 
     /**
-     * LZSS���k�Ɏg�p�����l�B
-     * �ő��v���������B
+     * LZSS圧縮に使用される値。
+     * 最大一致長を示す。
      */
     private int MaxMatch;
 
@@ -167,47 +167,47 @@ public class LzssOutputStream extends OutputStream{
     //  private int searchedPos
     //------------------------------------------------------------------
     /**
-     * LZSS���k���{�����߂̃o�b�t�@�B
-     * �O���͎����̈�A
-     * �㔼�͈��k���{�����߂̃f�[�^�̓������o�b�t�@�B
+     * LZSS圧縮を施すためのバッファ。
+     * 前半は辞書領域、
+     * 後半は圧縮を施すためのデータの入ったバッファ。
      */
     private byte[] TextBuffer;
 
     /**
-     * �����̌��E�ʒu�B 
-     * TextBuffer�O���̎����̈�Ƀf�[�^�������ꍇ��
-     * �����̈�ɂ���s��̃f�[�^(Java�ł�0)���g�p
-     * ���Ĉ��k���s����̂�}�~����B
+     * 辞書の限界位置。 
+     * TextBuffer前半の辞書領域にデータが無い場合に
+     * 辞書領域にある不定のデータ(Javaでは0)を使用
+     * して圧縮が行われるのを抑止する。
      */
     private int DictionaryLimit;
 
     /**
-     * TextBuffer���������݊����ʒu
-     * LzssOutputStream.write() �ɂ���ď������܂ꂽ�ʒu
+     * TextBuffer内書き込み完了位置
+     * LzssOutputStream.write() によって書き込まれた位置
      * 
-     * �ȉ���3�҂̊֌W�� putPos <= searchedPos <= writtenPos �ƂȂ�B
+     * 以下の3者の関係は putPos <= searchedPos <= writtenPos となる。
      */
     private int writtenPos;
 
     /**
-     * TextBuffer�� put() �����ʒu
-     * LzssSearchMethod �� put() �������� searchAndPut() ��
-     * �����@�\�ւ̓o�^�����������ʒu
+     * TextBuffer内 put() 完了位置
+     * LzssSearchMethod の put() もしくは searchAndPut() で
+     * 検索機構への登録が完了した位置
      */
     private int putPos;
 
     /**
-     * TextBuffer�� ���݌����ʒu
-     * ���� LzssSearchMethod �� search() �������� searchAndPut() ��
-     * ���������ׂ��ʒu
+     * TextBuffer内 現在検索位置
+     * 次に LzssSearchMethod の search() もしくは searchAndPut() で
+     * 検索をすべき位置
      */
     private int searchPos;
 
     /**
-     * �O���encode�̍Ō��searchret��ۑ����Ă���
-     * �R���X�g���N�^�ł� lastsearchret �ɖ�����
-     * �����ł��鎖������ LzssOutputStream.NEEDSEARCH��
-     * ���͂��Ă����B
+     * 前回のencodeの最後のsearchretを保存しておく
+     * コンストラクタでは lastsearchret に無効な
+     * 数字である事を示す LzssOutputStream.NEEDSEARCHを
+     * 入力しておく。
      */
     private int lastsearchret;
 
@@ -220,30 +220,17 @@ public class LzssOutputStream extends OutputStream{
     //  private LzssSearchMethod method
     //------------------------------------------------------------------
     /**
-     * �����������ǂ�N���X
+     * 検索をつかさどるクラス
      */
     private LzssSearchMethod method;
 
 
-    //------------------------------------------------------------------
-    //  constructor
-    //------------------------------------------------------------------
-    //  private LzssOutputStream()
-    //  public LzssOutputStream( PostLzssEncoder encoder )
-    //  public LzssOutputStream( PostLzssEncoder encoder, String SearchMethod )
-    //------------------------------------------------------------------
     /**
-     * �f�t�H���g�R���X�g���N�^�B
-     * �g�p�s�B
-     */
-    private LzssOutputStream(){ }
-
-    /**
-     * write() �ɂ���ď������܂ꂽ�f�[�^��
-     * LZSS�ň��k���A���k�����f�[�^�� encoder�ɏo�͂���
-     * �o�̓X�g���[�����\�z����B
+     * write() によって書きこまれたデータを
+     * LZSSで圧縮し、圧縮したデータを encoderに出力する
+     * 出力ストリームを構築する。
      * 
-     * @param encoder LZSS���k�f�[�^�o�̓X�g���[��
+     * @param encoder LZSS圧縮データ出力ストリーム
      */
     public LzssOutputStream( PostLzssEncoder encoder ){
         this( encoder, 
@@ -252,24 +239,24 @@ public class LzssOutputStream extends OutputStream{
     }
 
     /**
-     * write() �ɂ���ď������܂ꂽ�f�[�^��
-     * LZSS�ň��k���A���k�����f�[�^�� encoder�ɏo�͂���
-     * �o�̓X�g���[�����\�z����B
+     * write() によって書きこまれたデータを
+     * LZSSで圧縮し、圧縮したデータを encoderに出力する
+     * 出力ストリームを構築する。
      * 
-     * @param encoder LZSS���k�f�[�^�o�̓X�g���[��
+     * @param encoder LZSS圧縮データ出力ストリーム
      * @param LzssSearchMethodClassName 
-     *                LzssSearchMethod �̎����������p�b�P�[�W�����܂߂��N���X��
+     *                LzssSearchMethod の実装を示すパッケージ名も含めたクラス名
      * 
      * @exception NoClassDefFoundError
-     *              LzssSearchMethodClassName �ŗ^����ꂽ�N���X��
-     *              ������Ȃ��ꍇ�B
+     *              LzssSearchMethodClassName で与えられたクラスが
+     *              見つからない場合。
      * @exception InstantiationError
-     *              LzssSearchMethodClassName �ŗ^����ꂽ�N���X��
-     *              abstract class �ł��邽�߃C���X�^���X�𐶐��ł��Ȃ��ꍇ�B
+     *              LzssSearchMethodClassName で与えられたクラスが
+     *              abstract class であるためインスタンスを生成できない場合。
      * @exception NoSuchMethodError
-     *              LzssSearchMethodClassName �ŗ^����ꂽ�N���X��
-     *              �R���X�g���N�^ LzssSearchMethod( int, int, int, byte[], int )
-     *              �������Ȃ��ꍇ
+     *              LzssSearchMethodClassName で与えられたクラスが
+     *              コンストラクタ LzssSearchMethod( int, int, int, byte[], int )
+     *              を持たない場合
      */
     public LzssOutputStream( PostLzssEncoder encoder, 
                              String          LzssSearchMethodClassName ){
@@ -279,24 +266,24 @@ public class LzssOutputStream extends OutputStream{
     }
 
     /**
-     * write() �ɂ���ď������܂ꂽ�f�[�^��
-     * LZSS�ň��k���A���k�����f�[�^�� encoder�ɏo�͂���
-     * �o�̓X�g���[�����\�z����B
+     * write() によって書きこまれたデータを
+     * LZSSで圧縮し、圧縮したデータを encoderに出力する
+     * 出力ストリームを構築する。
      * 
-     * @param encoder LZSS���k�f�[�^�o�̓X�g���[��
+     * @param encoder LZSS圧縮データ出力ストリーム
      * @param LzssSearchMethodClassName 
-     *                LzssSearchMethod �̎����������p�b�P�[�W�����܂߂��N���X��
+     *                LzssSearchMethod の実装を示すパッケージ名も含めたクラス名
      * 
      * @exception NoClassDefFoundError
-     *              LzssSearchMethodClassName �ŗ^����ꂽ�N���X��
-     *              ������Ȃ��ꍇ�B
+     *              LzssSearchMethodClassName で与えられたクラスが
+     *              見つからない場合。
      * @exception InstantiationError
-     *              LzssSearchMethodClassName �ŗ^����ꂽ�N���X��
-     *              abstract class �ł��邽�߃C���X�^���X�𐶐��ł��Ȃ��ꍇ�B
+     *              LzssSearchMethodClassName で与えられたクラスが
+     *              abstract class であるためインスタンスを生成できない場合。
      * @exception NoSuchMethodError
-     *              LzssSearchMethodClassName �ŗ^����ꂽ�N���X��
-     *              �R���X�g���N�^ LzssSearchMethod( int, int, int, byte[] )
-     *              �������Ȃ��ꍇ
+     *              LzssSearchMethodClassName で与えられたクラスが
+     *              コンストラクタ LzssSearchMethod( int, int, int, byte[] )
+     *              を持たない場合
      */
     public LzssOutputStream( PostLzssEncoder encoder, 
                              String   LzssSearchMethodClassName,
@@ -350,49 +337,49 @@ public class LzssOutputStream extends OutputStream{
     //  public void write( byte[] buffer, int index, int length )
     //------------------------------------------------------------------
     /**
-     * ���k�@�\��1�o�C�g�̃f�[�^���o�͂���B<br>
-     * ���ۂ�PostLzssEncoder �Ƀf�[�^���n�����̂� 
-     * TextBuffer ���������ꂽ�Ƃ����A
-     * flush �Ŗ����I�ɏo�͂��w���������̂݁B<br>
+     * 圧縮機構に1バイトのデータを出力する。<br>
+     * 実際にPostLzssEncoder にデータが渡されるのは 
+     * TextBuffer が満たされたときか、
+     * flush で明示的に出力を指示した時のみ。<br>
      * 
-     * @param data 1�o�C�g�̃f�[�^
+     * @param data 1バイトのデータ
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public void write( int data ) throws IOException {
         this.TextBuffer[ this.writtenPos++ ] = (byte)data;
 
         if( this.TextBuffer.length <= this.writtenPos ){
             this.encode( false );                                               //throws IOException
-            this.slide();                                                       
+            this.slide();
         }
     }
 
     /**
-     * ���k�@�\�� buffer ���̃f�[�^��S�ďo�͂���B<br>
-     * ���ۂ�PostLzssEncoder �Ƀf�[�^���n�����̂� 
-     * TextBuffer ���������ꂽ�Ƃ����A
-     * flush �Ŗ����I�ɏo�͂��w���������̂݁B<br>
+     * 圧縮機構に buffer 内のデータを全て出力する。<br>
+     * 実際にPostLzssEncoder にデータが渡されるのは 
+     * TextBuffer が満たされたときか、
+     * flush で明示的に出力を指示した時のみ。<br>
      * 
-     * @param buffer �f�[�^�̊i�[���ꂽ�o�b�t�@
+     * @param buffer データの格納されたバッファ
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public void write( byte[] buffer ) throws IOException {
         this.write( buffer, 0, buffer.length );                                 //throws IOException
     }
 
     /**
-     * ���k�@�\�� buffer ���� index ���� length�o�C�g�̃f�[�^���o�͂���B<br>
-     * ���ۂ�PostLzssEncoder �Ƀf�[�^���n�����̂� 
-     * TextBuffer ���������ꂽ�Ƃ����A
-     * flush �Ŗ����I�ɏo�͂��w���������̂݁B<br>
+     * 圧縮機構に buffer 内の index から lengthバイトのデータを出力する。<br>
+     * 実際にPostLzssEncoder にデータが渡されるのは 
+     * TextBuffer が満たされたときか、
+     * flush で明示的に出力を指示した時のみ。<br>
      * 
-     * @param buffer �f�[�^�̊i�[���ꂽ�o�b�t�@
-     * @param index  buffer���f�[�^�J�n�ʒu
-     * @param length buffer���f�[�^�̒���
+     * @param buffer データの格納されたバッファ
+     * @param index  buffer内データ開始位置
+     * @param length buffer内データの長さ
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public void write( byte[] buffer, int index, int length ) throws IOException {
         int pos = index;
@@ -428,17 +415,17 @@ public class LzssOutputStream extends OutputStream{
     //  public void close()
     //------------------------------------------------------------------
     /**
-     * ���k�@�\�ɏ������܂ꂽ�S�Ẵf�[�^��
-     * �ڑ����ꂽ PostLzssEncoder �ɏo�͂��A
-     * �ڑ����ꂽ PostLzssEncoder �� flush() ����B<br>
-     * ���̂Ƃ��A�o�͂���f�[�^�̏I�[�t�߂ł�
-     * ������ search() ���g�p���邽�߈��k���x���ቺ����B
-     * �܂� flush() ���Ȃ��ꍇ�Ɣ�ׂĈ��k�����ω�����B
-     * ����� flush() �����ʒu�t�߂ł̓f�[�^�p�^���̌�����
-     * MaxMatch �ɖ����Ȃ��f�[�^�p�^�����g�p���邽�߁A
-     * �������ʂ��s���S�ɂȂ邽�߁B
-     * ���̈��k���̕ω��́A�����̏ꍇ���k�������X�ቺ���邾���ł��邪�A
-     * �Ⴆ�Ύ��̂悤�ȃR�[�h�� LZ ���k��S���s��Ȃ��B
+     * 圧縮機構に書き込まれた全てのデータを
+     * 接続された PostLzssEncoder に出力し、
+     * 接続された PostLzssEncoder を flush() する。<br>
+     * このとき、出力するデータの終端付近では
+     * 検索に search() を使用するため圧縮速度が低下する。
+     * また flush() しない場合と比べて圧縮率が変化する。
+     * これは flush() した位置付近ではデータパタンの検索に
+     * MaxMatch に満たないデータパタンを使用するため、
+     * 検索結果が不完全になるため。
+     * この圧縮率の変化は、多くの場合圧縮率が少々低下するだけであるが、
+     * 例えば次のようなコードは LZ 圧縮を全く行わない。
      * <pre>
      *  public void wrongCompress( InputStream in, LzssOutputSteam out ){
      *      int r;
@@ -448,10 +435,10 @@ public class LzssOutputStream extends OutputStream{
      *      }
      *  }
      * </pre>
-     * �܂��A���̃��\�b�h�� PostLzssEncoder.flush() ���Ăяo������
-     * flush() ���Ȃ��ꍇ�Ɣ�ׂāA�o�̓f�[�^���ω�����\��������B<br>
+     * また、このメソッドは PostLzssEncoder.flush() を呼び出すため
+     * flush() しない場合と比べて、出力データが変化する可能性がある。<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      * 
      * @see PostLzssEncoder#flush()
      */
@@ -467,12 +454,12 @@ public class LzssOutputStream extends OutputStream{
     }
 
     /**
-     * ���̃N���X�ɒ�����ꂽ�S�Ẵf�[�^��ڑ����ꂽ 
-     * PostLzssEncoder �ɏo�͂� ���̏o�̓X�g���[���ƁA
-     * �ڑ����ꂽ�X�g���[������A
-     * �g�p���Ă������\�[�X���J������B
+     * このクラスに貯えられた全てのデータを接続された 
+     * PostLzssEncoder に出力し この出力ストリームと、
+     * 接続されたストリームを閉じ、
+     * 使用していたリソースを開放する。
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public void close() throws IOException {
         while( this.DictionarySize <= this.writtenPos ){
@@ -499,12 +486,12 @@ public class LzssOutputStream extends OutputStream{
     //  private void slide( int position )
     //------------------------------------------------------------------
     /**
-     * TextBuffer �ɒ�����ꂽ�f�[�^�����k���Ȃ���
-     * private�ϐ� this.encoder �ɏo�͂���B
+     * TextBuffer に貯えられたデータを圧縮しながら
+     * private変数 this.encoder に出力する。
      * 
-     * @return TextBuffer ���̏o�͊��������f�[�^�̏I�[�ʒu + 1
+     * @return TextBuffer 内の出力完了したデータの終端位置 + 1
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     private void encode( boolean last ) throws IOException {
 
@@ -513,22 +500,22 @@ public class LzssOutputStream extends OutputStream{
         if( this.searchPos < end ){
 
             //------------------------------------------------------------------
-            //  �O����
+            //  前処理
             if( this.lastsearchret == LzssOutputStream.NEEDSEARCH ){
 
                 //------------------------------------------------------------------
-                //  �����@�\�ɖ��o�^�̃f�[�^�p�^����o�^
+                //  検索機構に未登録のデータパタンを登録
                 while( this.putPos < this.searchPos - 1 ){
                     this.method.put( ++this.putPos );
 
-                    //���O�� flush() �� put() �ł��Ȃ�����
-                    //�f�[�^�p�^���� put() ���������̏ꍇ�� return
+                    //直前の flush() で put() できなかった
+                    //データパタンを put() しただけの場合は return
                     if( this.DictionarySize * 2 <= this.putPos ){
                         return;
                     }
                 }
 
-                //  lastsearchret �� NEEDSEARCH �Ȃ̂� searchAndPut �Ō�������B
+                //  lastsearchret が NEEDSEARCH なので searchAndPut で検索する。
                 this.lastsearchret = this.method.searchAndPut( this.searchPos );
             }
 
@@ -540,7 +527,7 @@ public class LzssOutputStream extends OutputStream{
             }
 
             //------------------------------------------------------------------
-            //  ���C�����[�v
+            //  メインループ
             while( true ){
                 int lastmatchlen = matchlen;
                 int lastmatchoff = this.searchPos - matchpos - 1;
@@ -598,8 +585,8 @@ public class LzssOutputStream extends OutputStream{
         }// if( this.searchPos < end )
 
         //------------------------------------------------------------------
-        //  flush() ��p
-        //  putPos �͂��̂܂܂� searchPos �̂ݐi�߂�B
+        //  flush() 専用
+        //  putPos はそのままで searchPos のみ進める。
         end = Math.min( this.TextBuffer.length  - this.MaxMatch,
                         this.writtenPos );
         if( !last && this.searchPos < end ){
@@ -645,12 +632,12 @@ public class LzssOutputStream extends OutputStream{
 
 
     /**
-     * TextBuffer����position�܂ł̃f�[�^��
-     * �O���ֈړ�����
+     * TextBuffer内のpositionまでのデータを
+     * 前方へ移動する
      * 
-     * @param position ���� TextBuffer����
-     *                 DictionarySize �̈ʒu�ɗ���ׂ�
-     *                 �v�f�����݂���index
+     * @param position 次に TextBuffer内で
+     *                 DictionarySize の位置に来るべき
+     *                 要素が現在あるindex
      */
     private void slide(){
         this.DictionaryLimit = Math.max( 0, this.DictionaryLimit - this.DictionarySize );
@@ -680,42 +667,42 @@ public class LzssOutputStream extends OutputStream{
     //  private static final int getMatchPos( int searchret )
     //------------------------------------------------------------------
     /**
-     * search �̖߂�l�𐶐�����B
-     * search �͈�v�ʒu��Ԃ����A��v���������ɕԂ����ق���
-     * ���ɕ֗��ł��邽�߁A��v�ʒu����v�����K�v�ȃr�b�g����
-     * ���Ȃ����Ƃ𗘗p���� int�^�ł���肷��B
-     * ���̂��߂̓��ꂵ��������񑩂���֐��B
-     * ���̊֐��Ő������ꂽ�l���� ��v�ʒu���v�������o���ۂɂ�
-     * getMatchLen�A getMatchPos ���g�p����B
+     * search の戻り値を生成する。
+     * search は一致位置を返すが、一致長も同時に返したほうが
+     * 非常に便利であるため、一致位置も一致長も必要なビット数が
+     * 少ないことを利用して int型でやり取りする。
+     * そのための統一した処理を約束する関数。
+     * この関数で生成された値から 一致位置や一致長を取り出す際には
+     * getMatchLen、 getMatchPos を使用する。
      * 
-     * @param matchlen ��v��
-     * @param matchpos ��v�ʒu
+     * @param matchlen 一致長
+     * @param matchpos 一致位置
      * 
-     * @return ��v���ƈ�v�ʒu�̏����܂�search�̖߂�l
+     * @return 一致長と一致位置の情報を含むsearchの戻り値
      */
     public static final int createSearchReturn( int matchlen, int matchpos ){
         return matchlen << 22 | matchpos;
     }
 
     /**
-     * createSearchReturn �Ő������ꂽ search�̖߂�l����
-     * ��v�������o���B
+     * createSearchReturn で生成された searchの戻り値から
+     * 一致長を取り出す。
      * 
-     * @param searchret search �̖߂�l
+     * @param searchret search の戻り値
      * 
-     * @return ��v��
+     * @return 一致長
      */
     public static final int getMatchLen( int searchret ){
         return searchret >> 22;
     }
 
     /**
-     * createSearchReturn �Ő������ꂽ search�̖߂�l����
-     * ��v�ʒu�����o���B
+     * createSearchReturn で生成された searchの戻り値から
+     * 一致位置を取り出す。
      * 
-     * @param searchret search �̖߂�l
+     * @param searchret search の戻り値
      * 
-     * @return ��v�ʒu
+     * @return 一致位置
      */
     public static final int getMatchPos( int searchret ){
         if( 0 <= searchret ) return searchret & 0x3FFFFF;

@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  * 
- * €И‰є‚МЏрЊЏ‚Й“Ї€У‚·‚й‚И‚з‚Оѓ\Ѓ[ѓX‚ЖѓoѓCѓiѓЉЊ`Ћ®‚МЌД”z•z‚ЖЋg—p‚р
- * •ПЌX‚М—L–і‚Й‚©‚©‚н‚з‚ё‹–‰В‚·‚йЃB
+ * д»Ґдё‹гЃ®жќЎд»¶гЃ«еђЊж„ЏгЃ™г‚‹гЃЄг‚‰гЃ°г‚Ѕгѓјг‚№гЃЁгѓђг‚¤гѓЉгѓЄеЅўејЏгЃ®е†Ќй…ЌеёѓгЃЁдЅїз”Ёг‚’
+ * е¤‰ж›ґгЃ®жњ‰з„ЎгЃ«гЃ‹гЃ‹г‚Џг‚‰гЃљиЁ±еЏЇгЃ™г‚‹гЂ‚
  * 
- * ‚PЃDѓ\Ѓ[ѓXѓRЃ[ѓh‚МЌД”z•z‚Й‚Ё‚ў‚Д’ЌмЊ •\Ћ¦‚Ж ‚±‚МЏрЊЏ‚МѓЉѓXѓg
- *     ‚Ё‚ж‚С‰є‹L‚Мђє–ѕ•¶‚р•ЫЋќ‚µ‚И‚­‚Д‚Н‚И‚з‚И‚ўЃB
+ * пј‘пјЋг‚Ѕгѓјг‚№г‚ігѓјгѓ‰гЃ®е†Ќй…ЌеёѓгЃ«гЃЉгЃ„гЃ¦и‘—дЅњжЁ©иЎЁз¤єгЃЁ гЃ“гЃ®жќЎд»¶гЃ®гѓЄг‚№гѓ€
+ *     гЃЉг‚€гЃідё‹иЁгЃ®еЈ°жЋж–‡г‚’дїќжЊЃгЃ—гЃЄгЃЏгЃ¦гЃЇгЃЄг‚‰гЃЄгЃ„гЂ‚
  * 
- * ‚QЃDѓoѓCѓiѓЉЊ`Ћ®‚МЌД”z•z‚Й‚Ё‚ў‚Д’ЌмЊ •\Ћ¦‚Ж ‚±‚МЏрЊЏ‚МѓЉѓXѓg
- *     ‚Ё‚ж‚С‰є‹L‚Мђє–ѕ•¶‚рЋg—pђа–ѕЏ‘‚а‚µ‚­‚Н ‚»‚М‘ј‚М”z•z•Ё“а‚Й
- *     ЉЬ‚ЮЋ‘—ї‚Й‹LЏq‚µ‚И‚Ї‚к‚О‚И‚з‚И‚ўЃB
+ * пј’пјЋгѓђг‚¤гѓЉгѓЄеЅўејЏгЃ®е†Ќй…ЌеёѓгЃ«гЃЉгЃ„гЃ¦и‘—дЅњжЁ©иЎЁз¤єгЃЁ гЃ“гЃ®жќЎд»¶гЃ®гѓЄг‚№гѓ€
+ *     гЃЉг‚€гЃідё‹иЁгЃ®еЈ°жЋж–‡г‚’дЅїз”ЁиЄ¬жЋж›ёг‚‚гЃ—гЃЏгЃЇ гЃќгЃ®д»–гЃ®й…Ќеёѓз‰©е†…гЃ«
+ *     еђ«г‚Ђиі‡ж–™гЃ«иЁиї°гЃ—гЃЄгЃ‘г‚ЊгЃ°гЃЄг‚‰гЃЄгЃ„гЂ‚
  * 
- * ‚±‚Мѓ\ѓtѓgѓEѓFѓA‚НђО’Л”ьЋм—Ъ‚Й‚ж‚Б‚Д–і•ЫЏШ‚Е’с‹џ‚і‚кЃA“Б’и‚М–Ъ
- * “I‚р’Bђ¬‚Е‚«‚й‚Ж‚ў‚¤•ЫЏШЃAЏ¤•i‰ї’l‚Є—L‚й‚Ж‚ў‚¤•ЫЏШ‚Й‚Ж‚З‚Ь‚з‚ёЃA
- * ‚ў‚©‚И‚й–ѕЋ¦“I‚Ё‚ж‚С€ГЋ¦“I‚И•ЫЏШ‚а‚µ‚И‚ўЃB
- * ђО’Л”ьЋм—Ъ‚Н ‚±‚Мѓ\ѓtѓgѓEѓFѓA‚МЋg—p‚Й‚ж‚й’јђЪ“IЃAЉФђЪ“IЃA‹ф”­
- * “IЃA“БЋк‚ИЃA“TЊ^“I‚ИЃA‚ ‚й‚ў‚Н•K‘R“I‚И‘№ЉQ(Ћg—p‚Й‚ж‚йѓfЃ[ѓ^‚М
- * ‘№ЋёЃA‹Ж–±‚М’†’f‚вЊ©Ќћ‚Ь‚к‚Д‚ў‚Ѕ—‰v‚М€вЋёЃA‘г‘Цђ»•i‚а‚µ‚­‚Н
- * ѓTЃ[ѓrѓX‚М“±“ь”п“™‚ЄЌl‚¦‚з‚к‚й‚ЄЃAЊ€‚µ‚Д‚»‚к‚ѕ‚Ї‚ЙЊА’и‚і‚к‚И‚ў
- * ‘№ЉQ)‚Й‘О‚µ‚ДЃA‚ў‚©‚И‚йЋ–‘Ф‚МЊґ€ц‚Ж‚И‚Б‚Ѕ‚Ж‚µ‚Д‚аЃAЊ_–сЏг‚МђУ
- * ”C‚в–і‰ЯЋёђУ”C‚рЉЬ‚Ю ‚ў‚©‚И‚йђУ”C‚Є‚ ‚л‚¤‚Ж‚аЃA‚Ѕ‚Ж‚¦‚»‚к‚Є•s
- * ђіЌs€Ч‚М‚Ѕ‚Я‚Е‚ ‚Б‚Ѕ‚Ж‚µ‚Д‚аЃA‚Ь‚Ѕ‚Н‚»‚М‚ж‚¤‚И‘№ЉQ‚М‰В”\ђ«‚Є•с
- * Ќђ‚і‚к‚Д‚ў‚Ѕ‚Ж‚µ‚Д‚а€кђШ‚МђУ”C‚р•‰‚н‚И‚ў‚а‚М‚Ж‚·‚йЃB
+ * гЃ“гЃ®г‚Ѕгѓ•гѓ€г‚¦г‚§г‚ўгЃЇзџіеЎљзѕЋзЏ з‘ гЃ«г‚€гЃЈгЃ¦з„ЎдїќиЁјгЃ§жЏђдѕ›гЃ•г‚ЊгЂЃз‰№е®љгЃ®з›®
+ * зљ„г‚’йЃ”ж€ђгЃ§гЃЌг‚‹гЃЁгЃ„гЃ†дїќиЁјгЂЃе•†е“ЃдѕЎеЂ¤гЃЊжњ‰г‚‹гЃЁгЃ„гЃ†дїќиЁјгЃ«гЃЁгЃ©гЃѕг‚‰гЃљгЂЃ
+ * гЃ„гЃ‹гЃЄг‚‹жЋз¤єзљ„гЃЉг‚€гЃіжљ—з¤єзљ„гЃЄдїќиЁјг‚‚гЃ—гЃЄгЃ„гЂ‚
+ * зџіеЎљзѕЋзЏ з‘ гЃЇ гЃ“гЃ®г‚Ѕгѓ•гѓ€г‚¦г‚§г‚ўгЃ®дЅїз”ЁгЃ«г‚€г‚‹з›ґжЋҐзљ„гЂЃй–“жЋҐзљ„гЂЃеЃ¶з™є
+ * зљ„гЂЃз‰№ж®ЉгЃЄгЂЃе…ёећ‹зљ„гЃЄгЂЃгЃ‚г‚‹гЃ„гЃЇеї…з„¶зљ„гЃЄжђЌе®і(дЅїз”ЁгЃ«г‚€г‚‹гѓ‡гѓјг‚їгЃ®
+ * жђЌе¤±гЂЃжҐ­е‹™гЃ®дё­ж–­г‚„и¦‹иѕјгЃѕг‚ЊгЃ¦гЃ„гЃџе€©з›ЉгЃ®йЃєе¤±гЂЃд»Јж›їиЈЅе“Ѓг‚‚гЃ—гЃЏгЃЇ
+ * г‚µгѓјгѓ“г‚№гЃ®е°Ће…ҐиІ»з­‰гЃЊиЂѓгЃ€г‚‰г‚Њг‚‹гЃЊгЂЃж±єгЃ—гЃ¦гЃќг‚ЊгЃ гЃ‘гЃ«й™ђе®љгЃ•г‚ЊгЃЄгЃ„
+ * жђЌе®і)гЃ«еЇѕгЃ—гЃ¦гЂЃгЃ„гЃ‹гЃЄг‚‹дє‹ж…‹гЃ®еЋџе› гЃЁгЃЄгЃЈгЃџгЃЁгЃ—гЃ¦г‚‚гЂЃеҐ‘зґ„дёЉгЃ®иІ¬
+ * д»»г‚„з„ЎйЃЋе¤±иІ¬д»»г‚’еђ«г‚Ђ гЃ„гЃ‹гЃЄг‚‹иІ¬д»»гЃЊгЃ‚г‚ЌгЃ†гЃЁг‚‚гЂЃгЃџгЃЁгЃ€гЃќг‚ЊгЃЊдёЌ
+ * ж­ЈиЎЊз‚єгЃ®гЃџг‚ЃгЃ§гЃ‚гЃЈгЃџгЃЁгЃ—гЃ¦г‚‚гЂЃгЃѕгЃџгЃЇгЃќгЃ®г‚€гЃ†гЃЄжђЌе®ігЃ®еЏЇиѓЅжЂ§гЃЊе ±
+ * е‘ЉгЃ•г‚ЊгЃ¦гЃ„гЃџгЃЁгЃ—гЃ¦г‚‚дёЂе€‡гЃ®иІ¬д»»г‚’иІ г‚ЏгЃЄгЃ„г‚‚гЃ®гЃЁгЃ™г‚‹гЂ‚
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -40,7 +40,7 @@ import jp.gr.java_conf.dangan.util.lha.LzssSearchMethod;
 //import exceptions
 
 /**
- * PATRICIA Trie ‚рЋg—p‚µ‚Ѕ LzssSearchMethod ‚МЋА‘•ЃB
+ * PATRICIA Trie г‚’дЅїз”ЁгЃ—гЃџ LzssSearchMethod гЃ®е®џиЈ…гЂ‚
  * 
  * <pre>
  * -- revision history --
@@ -48,23 +48,23 @@ import jp.gr.java_conf.dangan.util.lha.LzssSearchMethod;
  * Revision 1.2  2002/12/10 22:28:55  dangan
  * [bug fix]
  *     put( DictionarySize * 2 )
- *     searchAndPut( DictionarySize * 2 ) ‚Й‘О‰ћ‚µ‚Д‚ў‚И‚©‚Б‚Ѕ‚М‚рЏCђіЃB
+ *     searchAndPut( DictionarySize * 2 ) гЃ«еЇѕеїњгЃ—гЃ¦гЃ„гЃЄгЃ‹гЃЈгЃџгЃ®г‚’дї®ж­ЈгЂ‚
  *
  * Revision 1.1  2002/12/04 00:00:00  dangan
  * [change]
- *     LzssSearchMethod ‚МѓCѓ“ѓ^ѓtѓFѓCѓX•ПЌX‚ЙЌ‡‚н‚№‚ДѓCѓ“ѓ^ѓtѓFѓCѓX•ПЌXЃB
+ *     LzssSearchMethod гЃ®г‚¤гѓіг‚їгѓ•г‚§г‚¤г‚№е¤‰ж›ґгЃ«еђ€г‚ЏгЃ›гЃ¦г‚¤гѓіг‚їгѓ•г‚§г‚¤г‚№е¤‰ж›ґгЂ‚
  * [maintenance]
- *     ѓ\Ѓ[ѓXђ®”х
+ *     г‚Ѕгѓјг‚№ж•ґе‚™
  *
  * Revision 1.0  2002/08/15 00:00:00  dangan
  * add to version control
  * [bug fix]
- *     contractNode ‚Е hashtable ‚©‚з‚МAЊ‹ѓЉѓXѓg‚ЙЊq‚®‚М‚р–Y‚к‚Д‚ў‚ЅЏCђіЃB
- *     ”z—с ‚Й PatriciaTrieSearch.ROOT_NODE(-1) ‚ЕѓAѓNѓZѓX‚µ‚Д‚ў‚Ѕ‚М‚рЏCђіЃB
+ *     contractNode гЃ§ hashtable гЃ‹г‚‰гЃ®йЂЈзµђгѓЄг‚№гѓ€гЃ«з№‹гЃђгЃ®г‚’еїг‚ЊгЃ¦гЃ„гЃџдї®ж­ЈгЂ‚
+ *     й…Ќе€— гЃ« PatriciaTrieSearch.ROOT_NODE(-1) гЃ§г‚ўг‚Їг‚»г‚№гЃ—гЃ¦гЃ„гЃџгЃ®г‚’дї®ж­ЈгЂ‚
  * [maintenance]
- *     ѓ\Ѓ[ѓXђ®”х
- *     ѓ^ѓu”pЋ~
- *     ѓ‰ѓCѓZѓ“ѓX•¶‚МЏCђі
+ *     г‚Ѕгѓјг‚№ж•ґе‚™
+ *     г‚їгѓ–е»ѓж­ў
+ *     гѓ©г‚¤г‚»гѓіг‚№ж–‡гЃ®дї®ж­Ј
  *
  * </pre>
  * 
@@ -80,10 +80,10 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
     //  private static final int UNUSED
     //------------------------------------------------------------------
     /**
-     * Ћg—p‚і‚к‚Д‚ў‚И‚ўЋ–‚рЋ¦‚·’lЃB
-     * parent[node] ‚Й UNUSED ‚Є‚ ‚йЏкЌ‡‚Н node ‚Н–ўЋg—p‚М node ‚Е‚ ‚йЃB
-     * prev[node], next[node] ‚Й UNUSED ‚Є‚ ‚йЏкЌ‡‚НЃA
-     * ‚»‚ї‚з‘¤‚ЙЊZ’нѓmЃ[ѓh‚Є–і‚ў‚±‚Ж‚рЋ¦‚·ЃB
+     * дЅїз”ЁгЃ•г‚ЊгЃ¦гЃ„гЃЄгЃ„дє‹г‚’з¤єгЃ™еЂ¤гЂ‚
+     * parent[node] гЃ« UNUSED гЃЊгЃ‚г‚‹е ґеђ€гЃЇ node гЃЇжњЄдЅїз”ЁгЃ® node гЃ§гЃ‚г‚‹гЂ‚
+     * prev[node], next[node] гЃ« UNUSED гЃЊгЃ‚г‚‹е ґеђ€гЃЇгЂЃ
+     * гЃќгЃЎг‚‰еЃґгЃ«е…„ејџгѓЋгѓјгѓ‰гЃЊз„ЎгЃ„гЃ“гЃЁг‚’з¤єгЃ™гЂ‚
      */
     private static final int UNUSED = 0;
 
@@ -98,19 +98,19 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
     //  private int Threshold
     //------------------------------------------------------------------
     /**
-     * LZSS Ћ«Џ‘ѓTѓCѓY
+     * LZSS иѕћж›ёг‚µг‚¤г‚є
      */
     private int DictionarySize;
 
     /**
-     * LZSS €іЏk‚ЙЋg—p‚і‚к‚й’lЃB
-     * ЌЕ‘е€к’v’·‚рЋ¦‚·ЃB
+     * LZSS ењ§зё®гЃ«дЅїз”ЁгЃ•г‚Њг‚‹еЂ¤гЂ‚
+     * жњЂе¤§дёЂи‡ґй•·г‚’з¤єгЃ™гЂ‚
      */
     private int MaxMatch;
 
     /**
-     * LZSS €іЏk/”с€іЏk‚Ми‡’lЃB
-     * €к’v’·‚Є ‚±‚М’l€ИЏг‚Е‚ ‚к‚ОЃA€іЏkѓRЃ[ѓh‚рЏo—Н‚·‚йЃB
+     * LZSS ењ§зё®/йќћењ§зё®гЃ®й–ѕеЂ¤гЂ‚
+     * дёЂи‡ґй•·гЃЊ гЃ“гЃ®еЂ¤д»ҐдёЉгЃ§гЃ‚г‚ЊгЃ°гЂЃењ§зё®г‚ігѓјгѓ‰г‚’е‡єеЉ›гЃ™г‚‹гЂ‚
      */
     private int Threshold;
 
@@ -124,16 +124,16 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
     //  private int DictionaryLimit
     //------------------------------------------------------------------
     /**
-     * LZSS €іЏk‚рЋ{‚·‚Ѕ‚Я‚Мѓoѓbѓtѓ@ЃB
-     * LzssSearchMethod ‚МЋА‘•“а‚Е‚Н“З‚ЭЌћ‚Э‚М‚Э‹–‚і‚к‚йЃB
+     * LZSS ењ§зё®г‚’ж–ЅгЃ™гЃџг‚ЃгЃ®гѓђгѓѓгѓ•г‚ЎгЂ‚
+     * LzssSearchMethod гЃ®е®џиЈ…е†…гЃ§гЃЇиЄ­гЃїиѕјгЃїгЃ®гЃїиЁ±гЃ•г‚Њг‚‹гЂ‚
      */
     private byte[] TextBuffer;
 
     /**
-     * Ћ«Џ‘‚МЊАЉE€К’uЃB
-     * TextBuffer‘O”ј‚МЋ«Џ‘—М€ж‚Й–ў‚ѕ‚ЙѓfЃ[ѓ^‚Є–і‚ўЏкЌ‡‚Й
-     * Ћ«Џ‘—М€ж‚Й‚ ‚й•s’и‚МѓfЃ[ѓ^(Java ‚Е‚Н0)‚рЋg—p‚µ‚Д
-     * €іЏk‚ЄЌs‚н‚к‚И‚ў‚ж‚¤‚Й‚·‚йЃB
+     * иѕћж›ёгЃ®й™ђз•ЊдЅЌзЅ®гЂ‚
+     * TextBufferе‰ЌеЌЉгЃ®иѕћж›ёй еџџгЃ«жњЄгЃ гЃ«гѓ‡гѓјг‚їгЃЊз„ЎгЃ„е ґеђ€гЃ«
+     * иѕћж›ёй еџџгЃ«гЃ‚г‚‹дёЌе®љгЃ®гѓ‡гѓјг‚ї(Java гЃ§гЃЇ0)г‚’дЅїз”ЁгЃ—гЃ¦
+     * ењ§зё®гЃЊиЎЊг‚Џг‚ЊгЃЄгЃ„г‚€гЃ†гЃ«гЃ™г‚‹гЂ‚
      */
     private int DictionaryLimit;
 
@@ -154,66 +154,66 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
     //  private int shift
     //------------------------------------------------------------------
     /**
-     * ђe‚МѓmЃ[ѓh”ФЌ†‚рЋ¦‚·ЃB
-     * parent[node] ‚Н node ‚МђeѓmЃ[ѓh‚М”ФЌ†‚рЋ¦‚·ЃB
+     * и¦ЄгЃ®гѓЋгѓјгѓ‰з•ЄеЏ·г‚’з¤єгЃ™гЂ‚
+     * parent[node] гЃЇ node гЃ®и¦ЄгѓЋгѓјгѓ‰гЃ®з•ЄеЏ·г‚’з¤єгЃ™гЂ‚
      */
     private int[] parent;
 
     /**
-     * Ћq‚МѓnѓbѓVѓ…’l‚рЋ¦‚·ЃB
-     * hashTable[ hash( node, ch ) ] ‚Е
-     * node ‚М•¶Ћљ ch ‚МЋqѓmЃ[ѓh‚МѓnѓbѓVѓ…’l‚рЋ¦‚·ЃB
+     * е­ђгЃ®гѓЏгѓѓг‚·гѓҐеЂ¤г‚’з¤єгЃ™гЂ‚
+     * hashTable[ hash( node, ch ) ] гЃ§
+     * node гЃ®ж–‡е­— ch гЃ®е­ђгѓЋгѓјгѓ‰гЃ®гѓЏгѓѓг‚·гѓҐеЂ¤г‚’з¤єгЃ™гЂ‚
      */
     private int[] hashTable;
 
     /**
-     * hashTable ‚©‚зA‚И‚й‘o•ыЊьAЊ‹ѓЉѓXѓg‚М€к•”ЃB
-     * “Ї‚¶ѓnѓbѓVѓ…’l‚рЋќ‚В €к‚В‘O‚МѓmЃ[ѓh‚МѓmЃ[ѓh”ФЌ†‚рЋ¦‚·ЃB
-     * prev[ node ] ‚Н node ‚Ж“Ї‚¶ѓnѓbѓVѓ…’l‚рЋќ‚їЃA
-     * AЊ‹ѓЉѓXѓg“а‚Е node ‚М€к‚В‘O‚Й€К’u‚·‚йѓmЃ[ѓh‚М node ”ФЌ†ЃB
-     * prev[ node ] ‚Є •‰’l‚МЏкЌ‡‚Н‘Sѓrѓbѓg”Ѕ“]‚µ‚ЅѓnѓbѓVѓ…’l‚рЋ¦‚·ЃB
+     * hashTable гЃ‹г‚‰йЂЈгЃЄг‚‹еЏЊж–№еђ‘йЂЈзµђгѓЄг‚№гѓ€гЃ®дёЂйѓЁгЂ‚
+     * еђЊгЃгѓЏгѓѓг‚·гѓҐеЂ¤г‚’жЊЃгЃ¤ дёЂгЃ¤е‰ЌгЃ®гѓЋгѓјгѓ‰гЃ®гѓЋгѓјгѓ‰з•ЄеЏ·г‚’з¤єгЃ™гЂ‚
+     * prev[ node ] гЃЇ node гЃЁеђЊгЃгѓЏгѓѓг‚·гѓҐеЂ¤г‚’жЊЃгЃЎгЂЃ
+     * йЂЈзµђгѓЄг‚№гѓ€е†…гЃ§ node гЃ®дёЂгЃ¤е‰ЌгЃ«дЅЌзЅ®гЃ™г‚‹гѓЋгѓјгѓ‰гЃ® node з•ЄеЏ·гЂ‚
+     * prev[ node ] гЃЊ иІ еЂ¤гЃ®е ґеђ€гЃЇе…Ёгѓ“гѓѓгѓ€еЏЌи»ўгЃ—гЃџгѓЏгѓѓг‚·гѓҐеЂ¤г‚’з¤єгЃ™гЂ‚
      */
     private int[] prev;
 
     /**
-     * hashTable ‚©‚зA‚И‚й‘o•ыЊьAЊ‹ѓЉѓXѓg‚М€к•”ЃB
-     * “Ї‚¶ѓnѓbѓVѓ…’l‚рЋќ‚В €к‚ВЊг‚МѓmЃ[ѓh‚МѓmЃ[ѓh”ФЌ†‚рЋ¦‚·ЃB
-     * next[ node ] ‚Н node ‚Ж“Ї‚¶ѓnѓbѓVѓ…’l‚рЋќ‚їЃA
-     * AЊ‹ѓЉѓXѓg“а‚Е node ‚М€к‚ВЊг‚л‚Й€К’u‚·‚йѓmЃ[ѓh‚М node ”ФЌ†ЃB
+     * hashTable гЃ‹г‚‰йЂЈгЃЄг‚‹еЏЊж–№еђ‘йЂЈзµђгѓЄг‚№гѓ€гЃ®дёЂйѓЁгЂ‚
+     * еђЊгЃгѓЏгѓѓг‚·гѓҐеЂ¤г‚’жЊЃгЃ¤ дёЂгЃ¤еѕЊгЃ®гѓЋгѓјгѓ‰гЃ®гѓЋгѓјгѓ‰з•ЄеЏ·г‚’з¤єгЃ™гЂ‚
+     * next[ node ] гЃЇ node гЃЁеђЊгЃгѓЏгѓѓг‚·гѓҐеЂ¤г‚’жЊЃгЃЎгЂЃ
+     * йЂЈзµђгѓЄг‚№гѓ€е†…гЃ§ node гЃ®дёЂгЃ¤еѕЊг‚ЌгЃ«дЅЌзЅ®гЃ™г‚‹гѓЋгѓјгѓ‰гЃ® node з•ЄеЏ·гЂ‚
      * 
-     * ‚Ь‚ЅЃA—t‚Е‚И‚ўѓmЃ[ѓh‚ЙЉЦ‚µ‚Д‚Н next ‚Ж avail ‚Е –ўЋg—p‚ИѓmЃ[ѓh‚М
-     * ѓXѓ^ѓbѓN(€к•ыЊьAЊ‹ѓЉѓXѓg)‚рЌ\ђ¬‚·‚йЃB
+     * гЃѕгЃџгЂЃи‘‰гЃ§гЃЄгЃ„гѓЋгѓјгѓ‰гЃ«й–ўгЃ—гЃ¦гЃЇ next гЃЁ avail гЃ§ жњЄдЅїз”ЁгЃЄгѓЋгѓјгѓ‰гЃ®
+     * г‚№г‚їгѓѓг‚Ї(дёЂж–№еђ‘йЂЈзµђгѓЄг‚№гѓ€)г‚’ж§‹ж€ђгЃ™г‚‹гЂ‚
      * 
-     * ‚і‚з‚ЙЃAЉ®‘S€к’v‚Є‚ ‚Б‚Ѕ‚Ѕ‚ЯЌнЏњ‚і‚к‚Ѕ—tѓmЃ[ѓh‚ЕЃA
-     * PATRICIA Trie “а‚Й‘¶ЌЭ‚µ‚Д‚ў‚й—tѓmЃ[ѓh‚Ц‚М€к•ыЊьAЊ‹ѓЉѓXѓg‚рЌ\ђ¬‚·‚йЃB
+     * гЃ•г‚‰гЃ«гЂЃе®Ње…ЁдёЂи‡ґгЃЊгЃ‚гЃЈгЃџгЃџг‚Ѓе‰Љй™¤гЃ•г‚ЊгЃџи‘‰гѓЋгѓјгѓ‰гЃ§гЂЃ
+     * PATRICIA Trie е†…гЃ«е­ењЁгЃ—гЃ¦гЃ„г‚‹и‘‰гѓЋгѓјгѓ‰гЃёгЃ®дёЂж–№еђ‘йЂЈзµђгѓЄг‚№гѓ€г‚’ж§‹ж€ђгЃ™г‚‹гЂ‚
      */
     private int[] next;
 
     /**
-     * ѓmЃ[ѓh‚М TextBuffer “а‚МѓfЃ[ѓ^ѓpѓ^ѓ“‚МЉJЋn€К’u‚рЋ¦‚·ЃB
-     * position[ node ] ‚Н node ‚МѓfЃ[ѓ^ѓpѓ^ѓ“‚МЉJЋn€К’u‚рЋ¦‚·ЃB
+     * гѓЋгѓјгѓ‰гЃ® TextBuffer е†…гЃ®гѓ‡гѓјг‚їгѓ‘г‚їгѓігЃ®й–‹е§‹дЅЌзЅ®г‚’з¤єгЃ™гЂ‚
+     * position[ node ] гЃЇ node гЃ®гѓ‡гѓјг‚їгѓ‘г‚їгѓігЃ®й–‹е§‹дЅЌзЅ®г‚’з¤єгЃ™гЂ‚
      */
     private int[] position;
 
     /**
-     * ѓmЃ[ѓh‚М •ЄЉт€К’u‚рЋ¦‚·ЃB
-     * level[ node ] ‚Н node ‚МЋqѓmЃ[ѓh‚Є•ЄЉт‚·‚й€К’u‚рЋ¦‚·ЃB
+     * гѓЋгѓјгѓ‰гЃ® е€†еІђдЅЌзЅ®г‚’з¤єгЃ™гЂ‚
+     * level[ node ] гЃЇ node гЃ®е­ђгѓЋгѓјгѓ‰гЃЊе€†еІђгЃ™г‚‹дЅЌзЅ®г‚’з¤єгЃ™гЂ‚
      */
     private int[] level;
 
     /**
-     * ѓmЃ[ѓh‚МЋqѓmЃ[ѓh‚Мђ”‚рЋ¦‚·ЃB
-     * childnum[ node ] ‚Н node ‚МЋqѓmЃ[ѓh‚Мђ”‚рЋ¦‚·ЃB
+     * гѓЋгѓјгѓ‰гЃ®е­ђгѓЋгѓјгѓ‰гЃ®ж•°г‚’з¤єгЃ™гЂ‚
+     * childnum[ node ] гЃЇ node гЃ®е­ђгѓЋгѓјгѓ‰гЃ®ж•°г‚’з¤єгЃ™гЂ‚
      */
     private int[] childnum;
 
     /**
-     * next ‚ЄЌ\ђ¬‚·‚й–ўЋg—pѓmЃ[ѓh‚МѓXѓ^ѓbѓN‚МѓXѓ^ѓbѓNѓ|ѓCѓ“ѓ^ЃB
+     * next гЃЊж§‹ж€ђгЃ™г‚‹жњЄдЅїз”ЁгѓЋгѓјгѓ‰гЃ®г‚№г‚їгѓѓг‚ЇгЃ®г‚№г‚їгѓѓг‚Їгѓќг‚¤гѓіг‚їгЂ‚
      */
     private int avail;
 
     /**
-     * ѓnѓbѓVѓ…Ћћ‚ЙЋg—p‚·‚йѓVѓtѓg’l
+     * гѓЏгѓѓг‚·гѓҐж™‚гЃ«дЅїз”ЁгЃ™г‚‹г‚·гѓ•гѓ€еЂ¤
      */
     private int shift;
 
@@ -227,39 +227,26 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
     //  private int lastMatchLen
     //------------------------------------------------------------------
     /**
-     * ЌЕЊг‚М searchAndPut() ‚Ь‚Ѕ‚Н put() ‚Е“ѕ‚з‚к‚Ѕ
-     * “ѕ‚з‚к‚Ѕ PatriciaTrie“а‚МЌЕ’·€к’v€К’u
+     * жњЂеѕЊгЃ® searchAndPut() гЃѕгЃџгЃЇ put() гЃ§еѕ—г‚‰г‚ЊгЃџ
+     * еѕ—г‚‰г‚ЊгЃџ PatriciaTrieе†…гЃ®жњЂй•·дёЂи‡ґдЅЌзЅ®
      */
     private int lastMatchPos;
 
     /**
-     * ЌЕЊг‚М searchAndPut() ‚Ь‚Ѕ‚Н put() ‚Е
-     * “ѕ‚з‚к‚Ѕ PatriciaTrie“а‚МЌЕ’·€к’v’·
+     * жњЂеѕЊгЃ® searchAndPut() гЃѕгЃџгЃЇ put() гЃ§
+     * еѕ—г‚‰г‚ЊгЃџ PatriciaTrieе†…гЃ®жњЂй•·дёЂи‡ґй•·
      */
     private int lastMatchLen;
 
 
-    //------------------------------------------------------------------
-    //  constructer
-    //------------------------------------------------------------------
-    //  private PatriciaTreeSearch()
-    //  public PatriciaTreeSearch( int DictionarySize, int MaxMatch,
-    //                             int Threshold, byte[] TextBuffer )
-    //------------------------------------------------------------------
     /**
-     * ѓfѓtѓHѓ‹ѓgѓRѓ“ѓXѓgѓ‰ѓNѓ^ЃB
-     * Ћg—p•s‰ВЃB
-     */
-    private PatriciaTrieSearch(){   }
-
-    /**
-     * ѓRѓ“ѓXѓgѓ‰ѓNѓ^ЃB
-     * PATRICIA Trie ‚рЋg—p‚µ‚ЅЊџЌх‹@Ќ\‚рЌ\’z‚·‚йЃB
+     * г‚ігѓіг‚№гѓ€гѓ©г‚Їг‚їгЂ‚
+     * PATRICIA Trie г‚’дЅїз”ЁгЃ—гЃџж¤њзґўж©џж§‹г‚’ж§‹зЇ‰гЃ™г‚‹гЂ‚
      * 
-     * @param DictionarySize Ћ«Џ‘ѓTѓCѓY
-     * @param MaxMatch       ЌЕ’·€к’v’·
-     * @param Threshold      €іЏkЃA”с€іЏk‚Ми‡’l
-     * @param TextBuffer     LZSS€іЏk‚рЋ{‚·‚Ѕ‚Я‚Мѓoѓbѓtѓ@
+     * @param DictionarySize иѕћж›ёг‚µг‚¤г‚є
+     * @param MaxMatch       жњЂй•·дёЂи‡ґй•·
+     * @param Threshold      ењ§зё®гЂЃйќћењ§зё®гЃ®й–ѕеЂ¤
+     * @param TextBuffer     LZSSењ§зё®г‚’ж–ЅгЃ™гЃџг‚ЃгЃ®гѓђгѓѓгѓ•г‚Ў
      */
     public PatriciaTrieSearch( int    DictionarySize,
                                int    MaxMatch,
@@ -312,38 +299,38 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
     //  public int putRequires()
     //------------------------------------------------------------------
     /**
-     * position ‚©‚зЋn‚Ь‚йѓfЃ[ѓ^ѓpѓ^ѓ“‚р
-     * PATRICIA Trie ‚Й“o^‚·‚йЃB<br>
+     * position гЃ‹г‚‰е§‹гЃѕг‚‹гѓ‡гѓјг‚їгѓ‘г‚їгѓіг‚’
+     * PATRICIA Trie гЃ«з™»йЊІгЃ™г‚‹гЂ‚<br>
      * 
-     * @param position TextBuffer“а‚МѓfЃ[ѓ^ѓpѓ^ѓ“‚МЉJЋn€К’u
+     * @param position TextBufferе†…гЃ®гѓ‡гѓјг‚їгѓ‘г‚їгѓігЃ®й–‹е§‹дЅЌзЅ®
      */
     public void put( int position ){
 
         //------------------------------------------------------------------
-        //  PATRICIA Trie ‚©‚зЌЕ‚аЊГ‚ўѓfЃ[ѓ^ѓpѓ^ѓ“‚рЌнЏњ
+        //  PATRICIA Trie гЃ‹г‚‰жњЂг‚‚еЏ¤гЃ„гѓ‡гѓјг‚їгѓ‘г‚їгѓіг‚’е‰Љй™¤
         int posnode = ( position & ( this.DictionarySize - 1 ) ) + this.DictionarySize;
         this.deleteNode( posnode );
 
         //------------------------------------------------------------------
-        //  PATRICIA Trie ‚©‚зЌЕ’·€к’v‚рЊџЌх
+        //  PATRICIA Trie гЃ‹г‚‰жњЂй•·дёЂи‡ґг‚’ж¤њзґў
         int matchnode = -1;
         int matchpos  = position;
         int scannode;
         int matchlen;
         if( 3 < this.lastMatchLen ){
 
-            //‘O‰с‚М€к’v’·‚Єи‡’l‚ж‚и‘е‚«‚Ї‚к‚ОЃA
-            //—t‚©‚з lastMatchLen - 1 ‚М€к’v‚рЊџЌх‚·‚йЃB
+            //е‰Ќе›ћгЃ®дёЂи‡ґй•·гЃЊй–ѕеЂ¤г‚€г‚Ље¤§гЃЌгЃ‘г‚ЊгЃ°гЂЃ
+            //и‘‰гЃ‹г‚‰ lastMatchLen - 1 гЃ®дёЂи‡ґг‚’ж¤њзґўгЃ™г‚‹гЂ‚
             scannode  = ( this.lastMatchPos + 1 ) | this.DictionarySize;
 
-            //ЌЕ’·€к’v‚Є‚ ‚Б‚Ѕ‚Ѕ‚Я‚Й scannode ‚Є 
-            //PATRICIA Trie ‚©‚зЋж‚иЏњ‚©‚к‚Д‚ў‚йЏкЌ‡‚МЏ€—ќ
+            //жњЂй•·дёЂи‡ґгЃЊгЃ‚гЃЈгЃџгЃџг‚ЃгЃ« scannode гЃЊ 
+            //PATRICIA Trie гЃ‹г‚‰еЏ–г‚Љй™¤гЃ‹г‚ЊгЃ¦гЃ„г‚‹е ґеђ€гЃ®е‡¦зђ†
             while( this.parent[ scannode ] == PatriciaTrieSearch.UNUSED ){
                 scannode = this.next[ scannode ];
             }
 
-            //—t‚©‚з Џ‡”Ф‚Йђe‚Ц‚Ж’H‚Б‚Д
-            //lastMatchLen - 1 €И‰є‚М level ‚рЋќ‚ВѓmЃ[ѓh‚р’T‚·ЃB
+            //и‘‰гЃ‹г‚‰ й †з•ЄгЃ«и¦ЄгЃёгЃЁиѕїгЃЈгЃ¦
+            //lastMatchLen - 1 д»Ґдё‹гЃ® level г‚’жЊЃгЃ¤гѓЋгѓјгѓ‰г‚’жЋўгЃ™гЂ‚
             int node  = this.parent[ scannode ];
             this.lastMatchLen--;
             while( 0 < node 
@@ -352,7 +339,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
                 node = this.parent[ node ];
             }
 
-            //‚і‚з‚Йђe‚Ц‚Ж’H‚Б‚Д position ‚рЌXђV‚µ‚Д‚ў‚­ЃB
+            //гЃ•г‚‰гЃ«и¦ЄгЃёгЃЁиѕїгЃЈгЃ¦ position г‚’ж›ґж–°гЃ—гЃ¦гЃ„гЃЏгЂ‚
             while( 0 < node  ){
                 this.position[ node ] = position;
                 node = this.parent[ node ];
@@ -361,13 +348,13 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
             matchlen  = this.lastMatchLen;
         }else{
 
-            //PATRICIA Trie ‚р ЌЄ‚©‚з’H‚йЃB
+            //PATRICIA Trie г‚’ ж №гЃ‹г‚‰иѕїг‚‹гЂ‚
             scannode  = this.child( this.TextBuffer[ position ] - 128, 
                                     this.TextBuffer[ position + 1 ] & 0xFF );
             matchlen  = 2;
 
             if( scannode == PatriciaTrieSearch.UNUSED ){
-                //ЌЄ‚Й position ‚р’З‰Б‚·‚йЃB
+                //ж №гЃ« position г‚’иїЅеЉ гЃ™г‚‹гЂ‚
                 this.attachNode( this.TextBuffer[ position ] - 128, posnode, 
                                  this.TextBuffer[ position + 1 ] & 0xFF );
                 this.lastMatchLen = matchlen;
@@ -408,36 +395,36 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
                     matchlen++;
                 }
             }else if( matchlen < max ){
-                //matchnode ‚Ж position ‚р•ЄЉт‚і‚№‚йЃB
+                //matchnode гЃЁ position г‚’е€†еІђгЃ•гЃ›г‚‹гЂ‚
                 this.splitNode( matchnode, matchpos, posnode, position, matchlen );
                 break;
             }else{
-                //Љ®‘S€к’v‚р”­Њ©ЃAѓmЃ[ѓh‚р’u‚«Љ·‚¦‚йЃB
+                //е®Ње…ЁдёЂи‡ґг‚’з™єи¦‹гЂЃгѓЋгѓјгѓ‰г‚’зЅ®гЃЌжЏ›гЃ€г‚‹гЂ‚
                 this.replaceNode( matchnode, posnode );
                 this.next[ matchnode ] = position;
                 break;
             }
         }
 
-        //ЊџЌхЊ‹‰К‚р•Ы‘¶
+        //ж¤њзґўзµђжћњг‚’дїќе­
         this.lastMatchLen = matchlen;
         this.lastMatchPos = matchpos;
     }
 
     /**
-     * PATRICIA Trie ‚Й“o^‚і‚к‚ЅѓfЃ[ѓ^ѓpѓ^ѓ“‚©‚з 
-     * position ‚©‚зЋn‚Ь‚йѓfЃ[ѓ^ѓpѓ^ѓ“‚Ж
-     * ЌЕ’·‚М€к’v‚рЋќ‚В‚а‚М‚рЊџЌх‚µЃA
-     * “ЇЋћ‚Й position ‚©‚зЋn‚Ь‚йѓfЃ[ѓ^ѓpѓ^ѓ“‚р 
-     * PATRICIA Trie ‚Й“o^‚·‚йЃB<br>
+     * PATRICIA Trie гЃ«з™»йЊІгЃ•г‚ЊгЃџгѓ‡гѓјг‚їгѓ‘г‚їгѓігЃ‹г‚‰ 
+     * position гЃ‹г‚‰е§‹гЃѕг‚‹гѓ‡гѓјг‚їгѓ‘г‚їгѓігЃЁ
+     * жњЂй•·гЃ®дёЂи‡ґг‚’жЊЃгЃ¤г‚‚гЃ®г‚’ж¤њзґўгЃ—гЂЃ
+     * еђЊж™‚гЃ« position гЃ‹г‚‰е§‹гЃѕг‚‹гѓ‡гѓјг‚їгѓ‘г‚їгѓіг‚’ 
+     * PATRICIA Trie гЃ«з™»йЊІгЃ™г‚‹гЂ‚<br>
      * 
-     * @param position TextBuffer“а‚МѓfЃ[ѓ^ѓpѓ^ѓ“‚МЉJЋn€К’uЃB
+     * @param position TextBufferе†…гЃ®гѓ‡гѓјг‚їгѓ‘г‚їгѓігЃ®й–‹е§‹дЅЌзЅ®гЂ‚
      * 
-     * @return €к’v‚ЄЊ©‚В‚©‚Б‚ЅЏкЌ‡‚Н
+     * @return дёЂи‡ґгЃЊи¦‹гЃ¤гЃ‹гЃЈгЃџе ґеђ€гЃЇ
      *         LzssOutputStream.createSearchReturn 
-     *         ‚Й‚ж‚Б‚Дђ¶ђ¬‚і‚к‚Ѕ€к’v€К’u‚Ж€к’v’·‚МЏо•с‚рЋќ‚В’lЃA
-     *         €к’v‚ЄЊ©‚В‚©‚з‚И‚©‚Б‚ЅЏкЌ‡‚Н
-     *         LzssOutputStream.NOMATCHЃB
+     *         гЃ«г‚€гЃЈгЃ¦з”џж€ђгЃ•г‚ЊгЃџдёЂи‡ґдЅЌзЅ®гЃЁдёЂи‡ґй•·гЃ®жѓ…е ±г‚’жЊЃгЃ¤еЂ¤гЂЃ
+     *         дёЂи‡ґгЃЊи¦‹гЃ¤гЃ‹г‚‰гЃЄгЃ‹гЃЈгЃџе ґеђ€гЃЇ
+     *         LzssOutputStream.NOMATCHгЂ‚
      * 
      * @see LzssOutputStream#createSearchReturn(int,int)
      * @see LzssOutputStream#NOMATCH
@@ -445,30 +432,30 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
     public int searchAndPut( int position ){
 
         //------------------------------------------------------------------
-        //  PATRICIA Trie ‚©‚зЌЕ‚аЊГ‚ўѓfЃ[ѓ^ѓpѓ^ѓ“‚рЌнЏњ
+        //  PATRICIA Trie гЃ‹г‚‰жњЂг‚‚еЏ¤гЃ„гѓ‡гѓјг‚їгѓ‘г‚їгѓіг‚’е‰Љй™¤
         int posnode = ( position & ( this.DictionarySize - 1 ) ) + this.DictionarySize;
         this.deleteNode( posnode );
 
         //------------------------------------------------------------------
-        //  PATRICIA Trie ‚©‚зЌЕ’·€к’v‚рЊџЌх
+        //  PATRICIA Trie гЃ‹г‚‰жњЂй•·дёЂи‡ґг‚’ж¤њзґў
         int matchnode = -1;
         int matchpos  = position;
         int scannode  = 0;
         int matchlen  = 0;
         if( 3 < this.lastMatchLen ){
 
-            //‘O‰с‚М€к’v’·‚Єи‡’l‚ж‚и‘е‚«‚Ї‚к‚ОЃA
-            //—t‚©‚з lastMatchLen - 1 ‚М€к’v‚рЊџЌх‚·‚йЃB
+            //е‰Ќе›ћгЃ®дёЂи‡ґй•·гЃЊй–ѕеЂ¤г‚€г‚Ље¤§гЃЌгЃ‘г‚ЊгЃ°гЂЃ
+            //и‘‰гЃ‹г‚‰ lastMatchLen - 1 гЃ®дёЂи‡ґг‚’ж¤њзґўгЃ™г‚‹гЂ‚
             scannode  = ( this.lastMatchPos + 1 ) | this.DictionarySize;
 
-            //ЌЕ’·€к’v‚Є‚ ‚Б‚Ѕ‚Ѕ‚Я‚Й scannode ‚Є 
-            //PATRICIA Trie ‚©‚зЋж‚иЏњ‚©‚к‚Д‚ў‚йЏкЌ‡‚МЏ€—ќ
+            //жњЂй•·дёЂи‡ґгЃЊгЃ‚гЃЈгЃџгЃџг‚ЃгЃ« scannode гЃЊ 
+            //PATRICIA Trie гЃ‹г‚‰еЏ–г‚Љй™¤гЃ‹г‚ЊгЃ¦гЃ„г‚‹е ґеђ€гЃ®е‡¦зђ†
             while( this.parent[ scannode ] == PatriciaTrieSearch.UNUSED ){
                 scannode = this.next[ scannode ];
             }
 
-            //—t‚©‚з Џ‡”Ф‚Йђe‚Ц‚Ж’H‚Б‚Д
-            //lastMatchLen - 1 €И‰є‚М level ‚рЋќ‚ВѓmЃ[ѓh‚р’T‚·ЃB
+            //и‘‰гЃ‹г‚‰ й †з•ЄгЃ«и¦ЄгЃёгЃЁиѕїгЃЈгЃ¦
+            //lastMatchLen - 1 д»Ґдё‹гЃ® level г‚’жЊЃгЃ¤гѓЋгѓјгѓ‰г‚’жЋўгЃ™гЂ‚
             int node  = this.parent[ scannode ];
             this.lastMatchLen--;
             while( 0 < node 
@@ -477,7 +464,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
                 node = this.parent[ node ];
             }
 
-            //‚і‚з‚Йђe‚Ц‚Ж’H‚Б‚Д position ‚рЌXђV‚µ‚Д‚ў‚­ЃB
+            //гЃ•г‚‰гЃ«и¦ЄгЃёгЃЁиѕїгЃЈгЃ¦ position г‚’ж›ґж–°гЃ—гЃ¦гЃ„гЃЏгЂ‚
             while( 0 < node  ){
                 this.position[ node ] = position;
                 node = this.parent[ node ];
@@ -485,13 +472,13 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
 
             matchlen  = this.lastMatchLen;
         }else{
-            //PATRICIA Trie ‚р ЌЄ‚©‚з’H‚йЃB
+            //PATRICIA Trie г‚’ ж №гЃ‹г‚‰иѕїг‚‹гЂ‚
             scannode  = this.child( this.TextBuffer[ position ] - 128, 
                                     this.TextBuffer[ position + 1 ] & 0xFF );
             matchlen  = 2;
         }
 
-        // scannode == UNUSED ‚Ж‚И‚й‚М‚Н lastMatchLen ‚Єи‡’l‚ж‚иЏ¬‚і‚ў‚Ж‚«‚М‚ЭЃB
+        // scannode == UNUSED гЃЁгЃЄг‚‹гЃ®гЃЇ lastMatchLen гЃЊй–ѕеЂ¤г‚€г‚Ље°ЏгЃ•гЃ„гЃЁгЃЌгЃ®гЃїгЂ‚
         if( scannode != PatriciaTrieSearch.UNUSED ){
             while( true ){
                 int max;
@@ -519,7 +506,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
                                            this.TextBuffer[ position + matchlen ] & 0xFF );
 
                     if( scannode == PatriciaTrieSearch.UNUSED ){
-                        //matchnode ‚Й position ‚р’З‰Б‚·‚йЃB
+                        //matchnode гЃ« position г‚’иїЅеЉ гЃ™г‚‹гЂ‚
                         this.attachNode( matchnode, posnode, 
                                          this.TextBuffer[ position + matchlen ] & 0xFF );
                         break;
@@ -527,30 +514,30 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
                         matchlen++;
                     }
                 }else if( matchlen < max ){
-                    //matchnode ‚Ж position ‚р•ЄЉт‚і‚№‚йЃB
+                    //matchnode гЃЁ position г‚’е€†еІђгЃ•гЃ›г‚‹гЂ‚
                     this.splitNode( matchnode, matchpos, posnode, position, matchlen );
                     break;
                 }else{
-                    //Љ®‘S€к’v‚р”­Њ©ЃAѓmЃ[ѓh‚р’u‚«Љ·‚¦‚йЃB
+                    //е®Ње…ЁдёЂи‡ґг‚’з™єи¦‹гЂЃгѓЋгѓјгѓ‰г‚’зЅ®гЃЌжЏ›гЃ€г‚‹гЂ‚
                     this.replaceNode( matchnode, posnode );
                     this.next[ matchnode ] = position;
                     break;
                 }
             }
         }else{ //if( scannode != PatriciaTrieSearch.UNUSED )
-            //ЌЄ‚Й position ‚р’З‰Б‚·‚йЃB
+            //ж №гЃ« position г‚’иїЅеЉ гЃ™г‚‹гЂ‚
             this.attachNode( this.TextBuffer[ position ] - 128, posnode, 
                              this.TextBuffer[ position + 1 ] & 0xFF );
             matchlen = 0;
         }
 
-        //ЊџЌхЊ‹‰К‚р•Ы‘¶
+        //ж¤њзґўзµђжћњг‚’дїќе­
         this.lastMatchLen = matchlen;
         this.lastMatchPos = matchpos;
 
 
         //------------------------------------------------------------------
-        //  ѓЃѓ\ѓbѓhђж“Є‚Е PATRICIA Trie ‚©‚зЌнЏњ‚µ‚ЅѓfЃ[ѓ^ѓpѓ^ѓ“‚аѓ`ѓFѓbѓN‚·‚йЃB
+        //  гѓЎг‚Ѕгѓѓгѓ‰е…€й ­гЃ§ PATRICIA Trie гЃ‹г‚‰е‰Љй™¤гЃ—гЃџгѓ‡гѓјг‚їгѓ‘г‚їгѓіг‚‚гѓЃг‚§гѓѓг‚ЇгЃ™г‚‹гЂ‚
         scannode = position - this.DictionarySize;
         if( this.DictionaryLimit <= scannode ){
             int len = 0;
@@ -565,7 +552,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
         }
 
         //------------------------------------------------------------------
-        //  ЌЕ’·€к’v‚рЊД‚СЏo‚µЊі‚Й•Ф‚·ЃB
+        //  жњЂй•·дёЂи‡ґг‚’е‘јгЃіе‡єгЃ—е…ѓгЃ«иї”гЃ™гЂ‚
         if( this.Threshold <= matchlen ){
             return LzssOutputStream.createSearchReturn( matchlen, matchpos );
         }else{
@@ -574,18 +561,18 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
     }
 
     /**
-     * PATRICIA Trie ‚Й“o^‚і‚к‚ЅѓfЃ[ѓ^ѓpѓ^ѓ“‚рЊџЌх‚µ
-     * position ‚©‚зЋn‚Ь‚йѓfЃ[ѓ^ѓpѓ^ѓ“‚Ж
-     * ЌЕ’·‚М€к’v‚рЋќ‚В‚а‚М‚р“ѕ‚йЃB<br>
+     * PATRICIA Trie гЃ«з™»йЊІгЃ•г‚ЊгЃџгѓ‡гѓјг‚їгѓ‘г‚їгѓіг‚’ж¤њзґўгЃ—
+     * position гЃ‹г‚‰е§‹гЃѕг‚‹гѓ‡гѓјг‚їгѓ‘г‚їгѓігЃЁ
+     * жњЂй•·гЃ®дёЂи‡ґг‚’жЊЃгЃ¤г‚‚гЃ®г‚’еѕ—г‚‹гЂ‚<br>
      * 
-     * @param position   TextBuffer“а‚МѓfЃ[ѓ^ѓpѓ^ѓ“‚МЉJЋn€К’uЃB
-     * @param lastPutPos ЌЕЊг‚Й“o^‚µ‚ЅѓfЃ[ѓ^ѓpѓ^ѓ“‚МЉJЋn€К’uЃB
+     * @param position   TextBufferе†…гЃ®гѓ‡гѓјг‚їгѓ‘г‚їгѓігЃ®й–‹е§‹дЅЌзЅ®гЂ‚
+     * @param lastPutPos жњЂеѕЊгЃ«з™»йЊІгЃ—гЃџгѓ‡гѓјг‚їгѓ‘г‚їгѓігЃ®й–‹е§‹дЅЌзЅ®гЂ‚
      * 
-     * @return €к’v‚ЄЊ©‚В‚©‚Б‚ЅЏкЌ‡‚Н
+     * @return дёЂи‡ґгЃЊи¦‹гЃ¤гЃ‹гЃЈгЃџе ґеђ€гЃЇ
      *         LzssOutputStream.createSearchReturn 
-     *         ‚Й‚ж‚Б‚Дђ¶ђ¬‚і‚к‚Ѕ€к’v€К’u‚Ж€к’v’·‚МЏо•с‚рЋќ‚В’lЃA
-     *         €к’v‚ЄЊ©‚В‚©‚з‚И‚©‚Б‚ЅЏкЌ‡‚Н
-     *         LzssOutputStream.NOMATCHЃB
+     *         гЃ«г‚€гЃЈгЃ¦з”џж€ђгЃ•г‚ЊгЃџдёЂи‡ґдЅЌзЅ®гЃЁдёЂи‡ґй•·гЃ®жѓ…е ±г‚’жЊЃгЃ¤еЂ¤гЂЃ
+     *         дёЂи‡ґгЃЊи¦‹гЃ¤гЃ‹г‚‰гЃЄгЃ‹гЃЈгЃџе ґеђ€гЃЇ
+     *         LzssOutputStream.NOMATCHгЂ‚
      * 
      * @see LzssOutputStream#createSearchReturn(int,int)
      * @see LzssOutputStream#NOMATCH
@@ -593,8 +580,8 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
     public int search( int position, int lastPutPos ){
 
         //------------------------------------------------------------------
-        //  PATRICIA Trie ‚Й“o^‚і‚к‚Д‚ў‚И‚ўѓfЃ[ѓ^ѓpѓ^ѓ“‚р
-        //  ’PЏѓ‚И’ЂЋџЊџЌх‚ЕЊџЌх‚·‚йЃB
+        //  PATRICIA Trie гЃ«з™»йЊІгЃ•г‚ЊгЃ¦гЃ„гЃЄгЃ„гѓ‡гѓјг‚їгѓ‘г‚їгѓіг‚’
+        //  еЌзґ”гЃЄйЂђж¬Ўж¤њзґўгЃ§ж¤њзґўгЃ™г‚‹гЂ‚
         int scanlimit = Math.max( this.DictionaryLimit, lastPutPos );
         int scanpos   = position - 1;
         int matchlen  = 0;
@@ -626,7 +613,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
 
 
         //------------------------------------------------------------------
-        //  PATRICIA Trie ‚р’TЌх
+        //  PATRICIA Trie г‚’жЋўзґў
         if( 2 < this.TextBuffer.length - position  ){
             int matchnode = this.child( this.TextBuffer[ position ] - 128, 
                                         this.TextBuffer[ position + 1 ] & 0xFF );
@@ -675,10 +662,10 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
                         }else{
                             break;
                         }
-                    }else{  //maxlen ‚Й–ћ‚Ѕ‚И‚ў€к’v‚ЄЊ©‚В‚©‚Б‚Ѕ‚© Љ®‘S€к’v‚ЄЊ©‚В‚©‚Б‚Ѕ
+                    }else{  //maxlen гЃ«жєЂгЃџгЃЄгЃ„дёЂи‡ґгЃЊи¦‹гЃ¤гЃ‹гЃЈгЃџгЃ‹ е®Ње…ЁдёЂи‡ґгЃЊи¦‹гЃ¤гЃ‹гЃЈгЃџ
                         break;
                     }
-                }else{ //if( scanlimit <= scanpos ) €к’v‚µ‚Ѕѓpѓ^ѓ“‚НЊџЌхЊАЉE‚р’ґ‚¦‚Д‚ў‚ЅЃB
+                }else{ //if( scanlimit <= scanpos ) дёЂи‡ґгЃ—гЃџгѓ‘г‚їгѓігЃЇж¤њзґўй™ђз•Њг‚’и¶…гЃ€гЃ¦гЃ„гЃџгЂ‚
                     break;
                 }
             }   //while( matchnode != PatriciaTrieSearch.UNUSED )
@@ -686,7 +673,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
 
 
         //------------------------------------------------------------------
-        //  ЌЕ’·€к’v‚рЊД‚СЏo‚µЊі‚Й•Ф‚·ЃB
+        //  жњЂй•·дёЂи‡ґг‚’е‘јгЃіе‡єгЃ—е…ѓгЃ«иї”гЃ™гЂ‚
         if( this.Threshold <= matchlen ){
             return LzssOutputStream.createSearchReturn( matchlen, matchpos );
         }else{
@@ -695,10 +682,10 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
     }
 
     /**
-     * TextBuffer“а‚Мposition‚Ь‚Е‚МѓfЃ[ѓ^‚р
-     * ‘O•ы‚Ц€Ъ“®‚·‚йЌЫЃA‚»‚к‚Й‰ћ‚¶‚Д LzssSearchMethod
-     * “а‚МѓfЃ[ѓ^‚а TextBuffer“а‚МѓfЃ[ѓ^‚Ж–µЏ‚‚µ‚И‚ў‚ж
-     * ‚¤‚Й‘O•ы‚Ц€Ъ“®‚·‚йЏ€—ќ‚рЌs‚¤ЃB 
+     * TextBufferе†…гЃ®positionгЃѕгЃ§гЃ®гѓ‡гѓјг‚їг‚’
+     * е‰Ќж–№гЃёз§»е‹•гЃ™г‚‹йљ›гЂЃгЃќг‚ЊгЃ«еїњгЃгЃ¦ LzssSearchMethod
+     * е†…гЃ®гѓ‡гѓјг‚їг‚‚ TextBufferе†…гЃ®гѓ‡гѓјг‚їгЃЁзџ›з›ѕгЃ—гЃЄгЃ„г‚€
+     * гЃ†гЃ«е‰Ќж–№гЃёз§»е‹•гЃ™г‚‹е‡¦зђ†г‚’иЎЊгЃ†гЂ‚ 
      */
     public void slide(){
         this.DictionaryLimit = Math.max( 0, this.DictionaryLimit - this.DictionarySize );
@@ -715,11 +702,11 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
     }
 
     /**
-     * put() ‚Е LzssSearchMethod‚ЙѓfЃ[ѓ^‚р
-     * “o^‚·‚й‚Ж‚«‚ЙЋg—p‚і‚к‚йѓfЃ[ѓ^—К‚р“ѕ‚йЃB
-     * PatriciaTrieSearch ‚Е‚НЃAЏн‚Й MaxMatch ‚р•Ф‚·ЃB
+     * put() гЃ§ LzssSearchMethodгЃ«гѓ‡гѓјг‚їг‚’
+     * з™»йЊІгЃ™г‚‹гЃЁгЃЌгЃ«дЅїз”ЁгЃ•г‚Њг‚‹гѓ‡гѓјг‚їй‡Џг‚’еѕ—г‚‹гЂ‚
+     * PatriciaTrieSearch гЃ§гЃЇгЂЃеёёгЃ« MaxMatch г‚’иї”гЃ™гЂ‚
      * 
-     * @return Џн‚Й MaxMatch
+     * @return еёёгЃ« MaxMatch
      */
     public int putRequires(){
         return this.MaxMatch;
@@ -737,18 +724,18 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
     //  private void contractNode( int node )
     //------------------------------------------------------------------
     /**
-     * oldnode ‚р splitLen ‚Е•ЄЉт‚і‚№‚йЃB
-     * oldnode ‚М‚ ‚Б‚Ѕ€К’u‚Й‚НђV‚µ‚ўѓmЃ[ѓh‚ЄђVђЭ‚і‚кЃA
-     * ђV‚µ‚ўѓmЃ[ѓh‚Н oldnode ‚Ж position ‚рЋq‚ЙЋќ‚ВЃB
+     * oldnode г‚’ splitLen гЃ§е€†еІђгЃ•гЃ›г‚‹гЂ‚
+     * oldnode гЃ®гЃ‚гЃЈгЃџдЅЌзЅ®гЃ«гЃЇж–°гЃ—гЃ„гѓЋгѓјгѓ‰гЃЊж–°иЁ­гЃ•г‚ЊгЂЃ
+     * ж–°гЃ—гЃ„гѓЋгѓјгѓ‰гЃЇ oldnode гЃЁ position г‚’е­ђгЃ«жЊЃгЃ¤гЂ‚
      * 
-     * @param oldnode  •ЄЉт‚і‚№‚йѓmЃ[ѓh 
-     * @param oldpos   oldnode ‚ЄЋw‚·ѓfЃ[ѓ^ѓpѓ^ѓ“‚МЉJЋn€К’u
-     * @param posnode  position —pѓmЃ[ѓh
-     * @param position TextBuffer “а‚МѓfЃ[ѓ^ѓpѓ^ѓ“‚МЉJЋn€К’u
-     * @param splitLen ѓfЃ[ѓ^ѓpѓ^ѓ““а‚М•ЄЉт€К’u
+     * @param oldnode  е€†еІђгЃ•гЃ›г‚‹гѓЋгѓјгѓ‰ 
+     * @param oldpos   oldnode гЃЊжЊ‡гЃ™гѓ‡гѓјг‚їгѓ‘г‚їгѓігЃ®й–‹е§‹дЅЌзЅ®
+     * @param posnode  position з”ЁгѓЋгѓјгѓ‰
+     * @param position TextBuffer е†…гЃ®гѓ‡гѓјг‚їгѓ‘г‚їгѓігЃ®й–‹е§‹дЅЌзЅ®
+     * @param splitLen гѓ‡гѓјг‚їгѓ‘г‚їгѓіе†…гЃ®е€†еІђдЅЌзЅ®
      */
     private void splitNode( int oldnode, int oldpos, int posnode, int position, int splitLen ){
-        //ѓXѓ^ѓbѓN‚©‚з ђV‚µ‚ўѓmЃ[ѓh‚рЋж“ѕ‚·‚йЃB
+        //г‚№г‚їгѓѓг‚ЇгЃ‹г‚‰ ж–°гЃ—гЃ„гѓЋгѓјгѓ‰г‚’еЏ–еѕ—гЃ™г‚‹гЂ‚
         int newnode = this.avail;
         this.avail  = this.next[ newnode ];
 
@@ -757,7 +744,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
         this.position[ newnode ]  = position;
         this.childnum[ newnode ]  = 0;
 
-        this.attachNode( newnode, oldnode,  
+        this.attachNode( newnode, oldnode,
                          this.TextBuffer[ oldpos   + splitLen ] & 0xFF );
         this.attachNode( newnode, posnode, 
                          this.TextBuffer[ position + splitLen ] & 0xFF );
@@ -765,10 +752,10 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
 
 
     /**
-     * PATRICIA Trie ‚©‚з—t‚Е‚ ‚й node ‚рЌнЏњ‚·‚йЃB
-     * •K—v‚Е‚ ‚к‚О node ‚МђeѓmЃ[ѓh‚МЊJЏг‚°Џ€—ќ‚аЌs‚¤ЃB
+     * PATRICIA Trie гЃ‹г‚‰и‘‰гЃ§гЃ‚г‚‹ node г‚’е‰Љй™¤гЃ™г‚‹гЂ‚
+     * еї…и¦ЃгЃ§гЃ‚г‚ЊгЃ° node гЃ®и¦ЄгѓЋгѓјгѓ‰гЃ®з№°дёЉгЃ’е‡¦зђ†г‚‚иЎЊгЃ†гЂ‚
      * 
-     * @param node ЌнЏњ‚·‚й—tѓmЃ[ѓh
+     * @param node е‰Љй™¤гЃ™г‚‹и‘‰гѓЋгѓјгѓ‰
      */
     private void deleteNode( int node ){
         if( this.parent[ node ] != PatriciaTrieSearch.UNUSED ){
@@ -787,7 +774,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
             }
             this.prev[ next ] = prev;
 
-            if( 0 < parent ){ //parent ‚Є PATRICIA Trie ‚МЌЄ‚Е–і‚ўЏкЌ‡ true ‚Ж‚И‚йЏрЊЏЋ®
+            if( 0 < parent ){ //parent гЃЊ PATRICIA Trie гЃ®ж №гЃ§з„ЎгЃ„е ґеђ€ true гЃЁгЃЄг‚‹жќЎд»¶ејЏ
                 this.childnum[ parent ]--;
 
                 if( this.childnum[ parent ] <= 1 ){
@@ -801,12 +788,12 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
     }
 
     /**
-     * parentnode ‚Й childnode ‚р’З‰Б‚·‚йЃB
+     * parentnode гЃ« childnode г‚’иїЅеЉ гЃ™г‚‹гЂ‚
      * 
-     * @param parentnode childnode ‚р’З‰Б‚·‚й‘ОЏЫ‚МђeѓmЃ[ѓh
-     * @param childnode  parentnode ‚Й’З‰Б‚·‚йѓmЃ[ѓh
-     * @param pos        TextBuffer“аЊ»ЌЭЏ€—ќ€К’uЃB
-     *                   —t‚М position ‚рЉm’и‚·‚й‚Ѕ‚Я‚ЙЋg—p‚і‚к‚йЃB
+     * @param parentnode childnode г‚’иїЅеЉ гЃ™г‚‹еЇѕи±ЎгЃ®и¦ЄгѓЋгѓјгѓ‰
+     * @param childnode  parentnode гЃ«иїЅеЉ гЃ™г‚‹гѓЋгѓјгѓ‰
+     * @param pos        TextBufferе†…зЏѕењЁе‡¦зђ†дЅЌзЅ®гЂ‚
+     *                   и‘‰гЃ® position г‚’зўєе®љгЃ™г‚‹гЃџг‚ЃгЃ«дЅїз”ЁгЃ•г‚Њг‚‹гЂ‚
      */
     private void attachNode( int parentnode, int childnode, int ch ){
         int hash                 = this.hash( parentnode, ch );
@@ -823,12 +810,12 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
     }
 
     /**
-     * oldnode ‚Ж newnode ‚р“ь‚к‘Ц‚¦‚йЃB
-     * newnode ‚НЋqѓmЃ[ѓh‚Ж‚МЉЦЊW‚р•ЫЋќ‚·‚йЃB
-     * oldnode ‚Н’u‚«Љ·‚¦‚з‚к‚Д PATRICIA Trie ‚©‚зЋж‚иЏњ‚©‚к‚йЃB
+     * oldnode гЃЁ newnode г‚’е…Ґг‚Њж›їгЃ€г‚‹гЂ‚
+     * newnode гЃЇе­ђгѓЋгѓјгѓ‰гЃЁгЃ®й–ўдї‚г‚’дїќжЊЃгЃ™г‚‹гЂ‚
+     * oldnode гЃЇзЅ®гЃЌжЏ›гЃ€г‚‰г‚ЊгЃ¦ PATRICIA Trie гЃ‹г‚‰еЏ–г‚Љй™¤гЃ‹г‚Њг‚‹гЂ‚
      * 
-     * @param oldnode “ь‚к‘Ц‚¦‚з‚к‚Д Trie ‚©‚зЌнЏњ‚і‚к‚йѓmЃ[ѓh
-     * @param newnode oldnode ‚М‚ ‚Б‚Ѕ€К’u‚ЦђЪ‘±‚і‚к‚йѓmЃ[ѓh
+     * @param oldnode е…Ґг‚Њж›їгЃ€г‚‰г‚ЊгЃ¦ Trie гЃ‹г‚‰е‰Љй™¤гЃ•г‚Њг‚‹гѓЋгѓјгѓ‰
+     * @param newnode oldnode гЃ®гЃ‚гЃЈгЃџдЅЌзЅ®гЃёжЋҐз¶љгЃ•г‚Њг‚‹гѓЋгѓјгѓ‰
      */
     private void replaceNode( int oldnode, int newnode ){
         this.parent[ newnode ]   = this.parent[ oldnode ];
@@ -849,12 +836,12 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
     }
 
     /**
-     * ЊZ’н‚М–і‚­‚И‚Б‚Ѕ node ‚р€ш‚«Џг‚°‚йЃB
-     * node ‚МђeѓmЃ[ѓh‚Н PATRICIA Trie ‚©‚зЌнЏњ‚і‚кЃA
-     * ‘г‚н‚и‚Й node ‚Є‚»‚М€К’u‚ЙђЪ‘±‚і‚к‚йЃB
-     * ЊZ’н‚Є–і‚ў‚©‚З‚¤‚©‚М ”»’и‚НЊД‚СЏo‚µ‘¤‚ЄЌs‚¤ЃB
+     * е…„ејџгЃ®з„ЎгЃЏгЃЄгЃЈгЃџ node г‚’еј•гЃЌдёЉгЃ’г‚‹гЂ‚
+     * node гЃ®и¦ЄгѓЋгѓјгѓ‰гЃЇ PATRICIA Trie гЃ‹г‚‰е‰Љй™¤гЃ•г‚ЊгЂЃ
+     * д»Јг‚Џг‚ЉгЃ« node гЃЊгЃќгЃ®дЅЌзЅ®гЃ«жЋҐз¶љгЃ•г‚Њг‚‹гЂ‚
+     * е…„ејџгЃЊз„ЎгЃ„гЃ‹гЃ©гЃ†гЃ‹гЃ® е€¤е®љгЃЇе‘јгЃіе‡єгЃ—еЃґгЃЊиЎЊгЃ†гЂ‚
      * 
-     * @param node €ш‚«Џг‚°‚йѓmЃ[ѓh
+     * @param node еј•гЃЌдёЉгЃ’г‚‹гѓЋгѓјгѓ‰
      */
     private void contractNode( int node ){
         int parentnode    = this.parent[ node ];
@@ -867,7 +854,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
         }
         this.replaceNode( parentnode, node );
 
-        //Ћg—p‚і‚к‚И‚­‚И‚Б‚Ѕ parentnode ‚рѓXѓ^ѓbѓN‚Й•ФЉТ‚·‚йЃB
+        //дЅїз”ЁгЃ•г‚ЊгЃЄгЃЏгЃЄгЃЈгЃџ parentnode г‚’г‚№г‚їгѓѓг‚ЇгЃ«иї”й‚„гЃ™г‚‹гЂ‚
         this.next[ parentnode ] = this.avail;
         this.avail              = parentnode;
     }
@@ -883,12 +870,13 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
     //  private int hash( int node, int ch )
     //------------------------------------------------------------------
     /**
-     * slide Ћћ‚Й Trie ‚МЉe—v‘f‚р€Ъ“®‚і‚№‚йЏ€—ќ‚рЌs‚¤ЃB
+     * slide ж™‚гЃ« Trie гЃ®еђ„и¦Ѓзґ г‚’з§»е‹•гЃ•гЃ›г‚‹е‡¦зђ†г‚’иЎЊгЃ†гЂ‚
      * 
-     * @param src   €Ъ“®Њі
-     * @param dst   €Ъ“®ђж
-     * @param width €Ъ“®•ќ
+     * @param src   з§»е‹•е…ѓ
+     * @param dst   з§»е‹•е…€
+     * @param width з§»е‹•е№…
      */
+    @SuppressWarnings("unused")
     private void slideTree( int[] src, int[] dst, int width ){
         for( int i = 0 ; i < this.DictionarySize ; i++ )
             dst[i] = ( src[ i ] < this.DictionarySize
@@ -906,13 +894,13 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
     }
 
     /**
-     * parent ‚©‚з ch ‚Е•ЄЉт‚µ‚ЅЋq‚р“ѕ‚йЃB
-     * ѓmЃ[ѓh‚Є–і‚ўЏкЌ‡‚Н UNUSED ‚р•Ф‚·ЃB
+     * parent гЃ‹г‚‰ ch гЃ§е€†еІђгЃ—гЃџе­ђг‚’еѕ—г‚‹гЂ‚
+     * гѓЋгѓјгѓ‰гЃЊз„ЎгЃ„е ґеђ€гЃЇ UNUSED г‚’иї”гЃ™гЂ‚
      * 
-     * @param parent ђeѓmЃ[ѓh
-     * @param ch     •ЄЉт•¶Ћљ
+     * @param parent и¦ЄгѓЋгѓјгѓ‰
+     * @param ch     е€†еІђж–‡е­—
      * 
-     * @return ЋqѓmЃ[ѓh
+     * @return е­ђгѓЋгѓјгѓ‰
      */
     private int child( int parent, int ch ){
         int node = this.hashTable[ this.hash( parent, ch ) ];
@@ -927,12 +915,12 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
     }
 
     /**
-     * node ‚Ж ch ‚©‚з ѓnѓbѓVѓ…’l‚р“ѕ‚й
+     * node гЃЁ ch гЃ‹г‚‰ гѓЏгѓѓг‚·гѓҐеЂ¤г‚’еѕ—г‚‹
      * 
-     * @param node ѓmЃ[ѓh
-     * @param ch   •ЄЉт•¶Ћљ
+     * @param node гѓЋгѓјгѓ‰
+     * @param ch   е€†еІђж–‡е­—
      * 
-     * @return ѓnѓbѓVѓ…’l
+     * @return гѓЏгѓѓг‚·гѓҐеЂ¤
      */
     private int hash( int node, int ch ){
         return ( node + ( ch << this.shift ) + 256 ) % this.hashTable.length;
@@ -946,12 +934,12 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
     //  private static int generateProbablePrime( int num )
     //------------------------------------------------------------------
     /**
-     * num €ИЏг‚МЌЕ‚аЏ¬‚і‚ў ‘fђ”(‚а‚µ‚­‚Н‹[Ћ—‘fђ”)‚рђ¶ђ¬‚·‚йЃB 
-     * –Я‚и’l‚Є ‘fђ”‚Е‚И‚ўЉm—¦‚Н 1/256 €И‰є‚Е‚ ‚йЃB
+     * num д»ҐдёЉгЃ®жњЂг‚‚е°ЏгЃ•гЃ„ зґ ж•°(г‚‚гЃ—гЃЏгЃЇж“¬дјјзґ ж•°)г‚’з”џж€ђгЃ™г‚‹гЂ‚ 
+     * ж€»г‚ЉеЂ¤гЃЊ зґ ж•°гЃ§гЃЄгЃ„зўєзЋ‡гЃЇ 1/256 д»Ґдё‹гЃ§гЃ‚г‚‹гЂ‚
      * 
-     * @param num ‚±‚М’l€ИЏг‚М‘fђ”‚рђ¶ђ¬‚·‚йЃB
+     * @param num гЃ“гЃ®еЂ¤д»ҐдёЉгЃ®зґ ж•°г‚’з”џж€ђгЃ™г‚‹гЂ‚
      *
-     * @return ђ¶ђ¬‚і‚к‚Ѕ‘fђ”(‚а‚µ‚­‚Н‹[Ћ—‘fђ”)
+     * @return з”џж€ђгЃ•г‚ЊгЃџзґ ж•°(г‚‚гЃ—гЃЏгЃЇж“¬дјјзґ ж•°)
      */
     private static int generateProbablePrime( int num ){
         num = num + ( ( num & 1 ) == 0 ? 1 : 0 );
@@ -968,7 +956,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
 }
 
 // 
-//  
+//
 //  //------------------------------------------------------------------
 //  //  local method
 //  //------------------------------------------------------------------
@@ -979,11 +967,11 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
 //  //  private void writeNode( int node )
 //  //------------------------------------------------------------------
 //  /**
-//   * Trie‘S‘М‚Мѓ`ѓFѓbѓN‚рЌs‚¤ЃB
+//   * Trieе…ЁдЅ“гЃ®гѓЃг‚§гѓѓг‚Їг‚’иЎЊгЃ†гЂ‚
 //   * 
-//   * @param pos Њ»ЌЭЏ€—ќ€К’uЃB
+//   * @param pos зЏѕењЁе‡¦зђ†дЅЌзЅ®гЂ‚
 //   * 
-//   * @exception RuntimeException Trie ‚Є•ц‚к‚Д‚ў‚ЅЏкЌ‡ЃB
+//   * @exception RuntimeException Trie гЃЊеґ©г‚ЊгЃ¦гЃ„гЃџе ґеђ€гЂ‚
 //   */
 //  private void checkTrie( int pos ){
 //      for( int i = -256 ; i < 0 ; i++ ){
@@ -998,19 +986,19 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
 //  }
 //
 //  /**
-//   * —t‚Е‚И‚ў Node ‚Мѓ`ѓFѓbѓN‚рЌs‚¤ЃB
+//   * и‘‰гЃ§гЃЄгЃ„ Node гЃ®гѓЃг‚§гѓѓг‚Їг‚’иЎЊгЃ†гЂ‚
 //   * 
-//   * ѓ`ѓFѓbѓNЌЂ–Ъ‚Н
-//   * (1) ђeЋqЉЦЊW
-//   * (2) position ‚Й–µЏ‚‚Є–і‚ўЋ–ЃB
-//   * (3) level ‚Й–µЏ‚‚Є–і‚ўЋ–ЃB
-//   * (4) node ‚Є this.childnum[node] ЊВ‚МЋq‹џ‚рЋќ‚Б‚Д‚ў‚йЋ–ЃB
-//   * ‚М4ЌЂ–ЪЃB
+//   * гѓЃг‚§гѓѓг‚Їй …з›®гЃЇ
+//   * (1) и¦Єе­ђй–ўдї‚
+//   * (2) position гЃ«зџ›з›ѕгЃЊз„ЎгЃ„дє‹гЂ‚
+//   * (3) level гЃ«зџ›з›ѕгЃЊз„ЎгЃ„дє‹гЂ‚
+//   * (4) node гЃЊ this.childnum[node] еЂ‹гЃ®е­ђдѕ›г‚’жЊЃгЃЈгЃ¦гЃ„г‚‹дє‹гЂ‚
+//   * гЃ®4й …з›®гЂ‚
 //   * 
-//   * @param node ѓ`ѓFѓbѓN‚·‚йѓmЃ[ѓh
-//   * @param pos  Њ»ЌЭЏ€—ќ€К’u
+//   * @param node гѓЃг‚§гѓѓг‚ЇгЃ™г‚‹гѓЋгѓјгѓ‰
+//   * @param pos  зЏѕењЁе‡¦зђ†дЅЌзЅ®
 //   * 
-//   * @exception RuntimeException Џг‹L‚Мѓ`ѓFѓbѓN‚М‰Ѕ‚к‚©‚ЄЋё”s‚µ‚ЅЏкЌ‡ЃB
+//   * @exception RuntimeException дёЉиЁгЃ®гѓЃг‚§гѓѓг‚ЇгЃ®дЅ•г‚ЊгЃ‹гЃЊе¤±ж•—гЃ—гЃџе ґеђ€гЂ‚
 //   */
 //  private void checkNode( int node, int pos ){
 //
@@ -1075,9 +1063,9 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
 //  }
 //
 //  /**
-//   * ѓmЃ[ѓh‚МЏо•с‚рЏo—Н‚·‚йЃB
+//   * гѓЋгѓјгѓ‰гЃ®жѓ…е ±г‚’е‡єеЉ›гЃ™г‚‹гЂ‚
 //   * 
-//   * @param node Џо•с‚рЏo—Н‚·‚йѓmЃ[ѓh
+//   * @param node жѓ…е ±г‚’е‡єеЉ›гЃ™г‚‹гѓЋгѓјгѓ‰
 //   */
 //  private void writeNode( int node ){
 //      if( 0 < node ){
@@ -1094,7 +1082,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod{
 //    }else{
 //        System.out.println( "UNUSED                     ::" + node );
 //    }
-//      
+//
 //  }
 
 //end of PatriciaTrieSearch.java

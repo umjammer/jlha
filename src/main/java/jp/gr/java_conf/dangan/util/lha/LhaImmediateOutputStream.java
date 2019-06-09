@@ -6,34 +6,33 @@
  * 
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  * 
- * ˆÈ‰º‚ÌğŒ‚É“¯ˆÓ‚·‚é‚È‚ç‚Îƒ\[ƒX‚ÆƒoƒCƒiƒŠŒ`®‚ÌÄ”z•z‚Æg—p‚ğ
- * •ÏX‚Ì—L–³‚É‚©‚©‚í‚ç‚¸‹–‰Â‚·‚éB
+ * ä»¥ä¸‹ã®æ¡ä»¶ã«åŒæ„ã™ã‚‹ãªã‚‰ã°ã‚½ãƒ¼ã‚¹ã¨ãƒã‚¤ãƒŠãƒªå½¢å¼ã®å†é…å¸ƒã¨ä½¿ç”¨ã‚’
+ * å¤‰æ›´ã®æœ‰ç„¡ã«ã‹ã‹ã‚ã‚‰ãšè¨±å¯ã™ã‚‹ã€‚
  * 
- * ‚PDƒ\[ƒXƒR[ƒh‚ÌÄ”z•z‚É‚¨‚¢‚Ä’˜ìŒ •\¦‚Æ ‚±‚ÌğŒ‚ÌƒŠƒXƒg
- *     ‚¨‚æ‚Ñ‰º‹L‚Ìº–¾•¶‚ğ•Û‚µ‚È‚­‚Ä‚Í‚È‚ç‚È‚¢B
+ * ï¼‘ï¼ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã®å†é…å¸ƒã«ãŠã„ã¦è‘—ä½œæ¨©è¡¨ç¤ºã¨ ã“ã®æ¡ä»¶ã®ãƒªã‚¹ãƒˆ
+ *     ãŠã‚ˆã³ä¸‹è¨˜ã®å£°æ˜æ–‡ã‚’ä¿æŒã—ãªãã¦ã¯ãªã‚‰ãªã„ã€‚
  * 
- * ‚QDƒoƒCƒiƒŠŒ`®‚ÌÄ”z•z‚É‚¨‚¢‚Ä’˜ìŒ •\¦‚Æ ‚±‚ÌğŒ‚ÌƒŠƒXƒg
- *     ‚¨‚æ‚Ñ‰º‹L‚Ìº–¾•¶‚ğg—pà–¾‘‚à‚µ‚­‚Í ‚»‚Ì‘¼‚Ì”z•z•¨“à‚É
- *     ŠÜ‚Ş‘—¿‚É‹Lq‚µ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢B
+ * ï¼’ï¼ãƒã‚¤ãƒŠãƒªå½¢å¼ã®å†é…å¸ƒã«ãŠã„ã¦è‘—ä½œæ¨©è¡¨ç¤ºã¨ ã“ã®æ¡ä»¶ã®ãƒªã‚¹ãƒˆ
+ *     ãŠã‚ˆã³ä¸‹è¨˜ã®å£°æ˜æ–‡ã‚’ä½¿ç”¨èª¬æ˜æ›¸ã‚‚ã—ãã¯ ãã®ä»–ã®é…å¸ƒç‰©å†…ã«
+ *     å«ã‚€è³‡æ–™ã«è¨˜è¿°ã—ãªã‘ã‚Œã°ãªã‚‰ãªã„ã€‚
  * 
- * ‚±‚Ìƒ\ƒtƒgƒEƒFƒA‚ÍÎ’Ë”üì—Ú‚É‚æ‚Á‚Ä–³•ÛØ‚Å’ñ‹Ÿ‚³‚êA“Á’è‚Ì–Ú
- * “I‚ğ’B¬‚Å‚«‚é‚Æ‚¢‚¤•ÛØA¤•i‰¿’l‚ª—L‚é‚Æ‚¢‚¤•ÛØ‚É‚Æ‚Ç‚Ü‚ç‚¸A
- * ‚¢‚©‚È‚é–¾¦“I‚¨‚æ‚ÑˆÃ¦“I‚È•ÛØ‚à‚µ‚È‚¢B
- * Î’Ë”üì—Ú‚Í ‚±‚Ìƒ\ƒtƒgƒEƒFƒA‚Ìg—p‚É‚æ‚é’¼Ú“IAŠÔÚ“IA‹ô”­
- * “IA“Áê‚ÈA“TŒ^“I‚ÈA‚ ‚é‚¢‚Í•K‘R“I‚È‘¹ŠQ(g—p‚É‚æ‚éƒf[ƒ^‚Ì
- * ‘¹¸A‹Æ–±‚Ì’†’f‚âŒ©‚Ü‚ê‚Ä‚¢‚½—˜‰v‚Ìˆâ¸A‘ã‘Ö»•i‚à‚µ‚­‚Í
- * ƒT[ƒrƒX‚Ì“±“ü”ï“™‚ªl‚¦‚ç‚ê‚é‚ªAŒˆ‚µ‚Ä‚»‚ê‚¾‚¯‚ÉŒÀ’è‚³‚ê‚È‚¢
- * ‘¹ŠQ)‚É‘Î‚µ‚ÄA‚¢‚©‚È‚é–‘Ô‚ÌŒ´ˆö‚Æ‚È‚Á‚½‚Æ‚µ‚Ä‚àAŒ_–ñã‚ÌÓ
- * ”C‚â–³‰ß¸Ó”C‚ğŠÜ‚Ş ‚¢‚©‚È‚éÓ”C‚ª‚ ‚ë‚¤‚Æ‚àA‚½‚Æ‚¦‚»‚ê‚ª•s
- * ³sˆ×‚Ì‚½‚ß‚Å‚ ‚Á‚½‚Æ‚µ‚Ä‚àA‚Ü‚½‚Í‚»‚Ì‚æ‚¤‚È‘¹ŠQ‚Ì‰Â”\«‚ª•ñ
- * ‚³‚ê‚Ä‚¢‚½‚Æ‚µ‚Ä‚àˆêØ‚ÌÓ”C‚ğ•‰‚í‚È‚¢‚à‚Ì‚Æ‚·‚éB
+ * ã“ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã¯çŸ³å¡šç¾ç ç‘ ã«ã‚ˆã£ã¦ç„¡ä¿è¨¼ã§æä¾›ã•ã‚Œã€ç‰¹å®šã®ç›®
+ * çš„ã‚’é”æˆã§ãã‚‹ã¨ã„ã†ä¿è¨¼ã€å•†å“ä¾¡å€¤ãŒæœ‰ã‚‹ã¨ã„ã†ä¿è¨¼ã«ã¨ã©ã¾ã‚‰ãšã€
+ * ã„ã‹ãªã‚‹æ˜ç¤ºçš„ãŠã‚ˆã³æš—ç¤ºçš„ãªä¿è¨¼ã‚‚ã—ãªã„ã€‚
+ * çŸ³å¡šç¾ç ç‘ ã¯ ã“ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã®ä½¿ç”¨ã«ã‚ˆã‚‹ç›´æ¥çš„ã€é–“æ¥çš„ã€å¶ç™º
+ * çš„ã€ç‰¹æ®Šãªã€å…¸å‹çš„ãªã€ã‚ã‚‹ã„ã¯å¿…ç„¶çš„ãªæå®³(ä½¿ç”¨ã«ã‚ˆã‚‹ãƒ‡ãƒ¼ã‚¿ã®
+ * æå¤±ã€æ¥­å‹™ã®ä¸­æ–­ã‚„è¦‹è¾¼ã¾ã‚Œã¦ã„ãŸåˆ©ç›Šã®éºå¤±ã€ä»£æ›¿è£½å“ã‚‚ã—ãã¯
+ * ã‚µãƒ¼ãƒ“ã‚¹ã®å°å…¥è²»ç­‰ãŒè€ƒãˆã‚‰ã‚Œã‚‹ãŒã€æ±ºã—ã¦ãã‚Œã ã‘ã«é™å®šã•ã‚Œãªã„
+ * æå®³)ã«å¯¾ã—ã¦ã€ã„ã‹ãªã‚‹äº‹æ…‹ã®åŸå› ã¨ãªã£ãŸã¨ã—ã¦ã‚‚ã€å¥‘ç´„ä¸Šã®è²¬
+ * ä»»ã‚„ç„¡éå¤±è²¬ä»»ã‚’å«ã‚€ ã„ã‹ãªã‚‹è²¬ä»»ãŒã‚ã‚ã†ã¨ã‚‚ã€ãŸã¨ãˆãã‚ŒãŒä¸
+ * æ­£è¡Œç‚ºã®ãŸã‚ã§ã‚ã£ãŸã¨ã—ã¦ã‚‚ã€ã¾ãŸã¯ãã®ã‚ˆã†ãªæå®³ã®å¯èƒ½æ€§ãŒå ±
+ * å‘Šã•ã‚Œã¦ã„ãŸã¨ã—ã¦ã‚‚ä¸€åˆ‡ã®è²¬ä»»ã‚’è² ã‚ãªã„ã‚‚ã®ã¨ã™ã‚‹ã€‚
  */
 
 package jp.gr.java_conf.dangan.util.lha;
 
 //import classes and interfaces
 import java.io.File;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.lang.Math;
@@ -45,9 +44,7 @@ import jp.gr.java_conf.dangan.util.lha.CompressMethod;
 
 //import exceptions
 import java.io.IOException;
-import java.io.EOFException;
 import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
 import java.lang.SecurityException;
 import java.lang.IllegalStateException;
 import java.lang.IllegalArgumentException;
@@ -56,11 +53,11 @@ import java.lang.NoSuchMethodError;
 
 
 /**
- * Ú‘±‚³‚ê‚½RandomAccessFile‚É ˆ³kƒf[ƒ^‚ğo—Í‚·‚é‚½‚ß‚Ìƒ†[ƒeƒBƒŠƒeƒBƒNƒ‰ƒXB<br>
- * java.util.zip.ZipOutputStream ‚Æ—‚½ƒCƒ“ƒ^[ƒtƒFƒCƒX‚ğ‚Â‚æ‚¤‚Éì‚Á‚½B<br>
- * ˆ³k¸”s( ˆ³kŒãƒTƒCƒY‚ªˆ³k‘OƒTƒCƒY‚ğã‰ñ‚Á‚½ê‡ )‚Ìˆ—‚ğ
- * è“®‚Ås‚í‚È‚¯‚ê‚Î‚È‚ç‚È‚¢B
- * ˆÈ‰º‚É ‚»‚Ì‚æ‚¤‚ÈƒR[ƒh‚ğ¦‚·B
+ * æ¥ç¶šã•ã‚ŒãŸRandomAccessFileã« åœ§ç¸®ãƒ‡ãƒ¼ã‚¿ã‚’å‡ºåŠ›ã™ã‚‹ãŸã‚ã®ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£ã‚¯ãƒ©ã‚¹ã€‚<br>
+ * java.util.zip.ZipOutputStream ã¨ä¼¼ãŸã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã‚’æŒã¤ã‚ˆã†ã«ä½œã£ãŸã€‚<br>
+ * åœ§ç¸®å¤±æ•—æ™‚( åœ§ç¸®å¾Œã‚µã‚¤ã‚ºãŒåœ§ç¸®å‰ã‚µã‚¤ã‚ºã‚’ä¸Šå›ã£ãŸå ´åˆ )ã®å‡¦ç†ã‚’
+ * æ‰‹å‹•ã§è¡Œã‚ãªã‘ã‚Œã°ãªã‚‰ãªã„ã€‚
+ * ä»¥ä¸‹ã« ãã®ã‚ˆã†ãªã‚³ãƒ¼ãƒ‰ã‚’ç¤ºã™ã€‚
  * <pre>
  * LhaCompressFiles( String arcfile, File[] files ){
  *   LhaImmediateOutputStream lio = new LhaImmediateOutputStream( arcfile );
@@ -90,33 +87,33 @@ import java.lang.NoSuchMethodError;
  *   lio.close();
  * }
  * </pre>
- * i’»•ñ‚ğÀ‘•‚·‚éê‡A‚±‚Ì‚æ‚¤‚Èˆ—‚ğƒNƒ‰ƒX“à‚É‰B•Á‚·‚é‚Æi’»•ñ‚Í‰½•bŠÔ‚©
- * ‚É‚æ‚Á‚Ä‚Í‰½\•ª‚à‰“š‚µ‚È‚­‚È‚éB(—á‚¦‚ÎƒMƒKƒoƒCƒg‹‰‚Ìƒf[ƒ^‚ğˆµ‚Á‚½ê‡)
- * LhaRetainedOutputStream ‚Å”­¶‚·‚éA‚±‚Ì‚æ‚¤‚È–‘Ô‚ğ”ğ‚¯‚é‚½‚ß‚ÉİŒv‚³‚ê‚Ä‚¢‚éB<br>
- * ‚Ü‚½AJDK 1.1 ˆÈ‘O‚Å‚Í RandomAccessFile ‚ª setLength ‚ğ‚½‚È‚¢‚½‚ßA
- * ‘ŒÉƒf[ƒ^‚ÌŒã‚ë‚É‘¼‚Ìƒf[ƒ^‚ª‚ ‚éê‡‚Å‚àƒtƒ@ƒCƒ‹ƒTƒCƒY‚ğØ‚è‹l‚ß‚é‚±‚Æ‚ªo—ˆ‚È‚¢B<br>
- * ‚±‚Ì–â‘è“_‚Íí‚ÉƒTƒCƒY0‚ÌV‚µ‚¢ƒtƒ@ƒCƒ‹‚ğŠJ‚­–‚É‚æ‚Á‚Ä‰ñ”ğ‚·‚é–‚ª‚Å‚«‚éB<br>
+ * é€²æ—å ±å‘Šã‚’å®Ÿè£…ã™ã‚‹å ´åˆã€ã“ã®ã‚ˆã†ãªå‡¦ç†ã‚’ã‚¯ãƒ©ã‚¹å†…ã«éš è”½ã™ã‚‹ã¨é€²æ—å ±å‘Šã¯ä½•ç§’é–“ã‹
+ * æ™‚ã«ã‚ˆã£ã¦ã¯ä½•ååˆ†ã‚‚å¿œç­”ã—ãªããªã‚‹ã€‚(ä¾‹ãˆã°ã‚®ã‚¬ãƒã‚¤ãƒˆç´šã®ãƒ‡ãƒ¼ã‚¿ã‚’æ‰±ã£ãŸå ´åˆ)
+ * LhaRetainedOutputStream ã§ç™ºç”Ÿã™ã‚‹ã€ã“ã®ã‚ˆã†ãªäº‹æ…‹ã‚’é¿ã‘ã‚‹ãŸã‚ã«è¨­è¨ˆã•ã‚Œã¦ã„ã‚‹ã€‚<br>
+ * ã¾ãŸã€JDK 1.1 ä»¥å‰ã§ã¯ RandomAccessFile ãŒ setLength ã‚’æŒãŸãªã„ãŸã‚ã€
+ * æ›¸åº«ãƒ‡ãƒ¼ã‚¿ã®å¾Œã‚ã«ä»–ã®ãƒ‡ãƒ¼ã‚¿ãŒã‚ã‚‹å ´åˆã§ã‚‚ãƒ•ã‚¡ã‚¤ãƒ«ã‚µã‚¤ã‚ºã‚’åˆ‡ã‚Šè©°ã‚ã‚‹ã“ã¨ãŒå‡ºæ¥ãªã„ã€‚<br>
+ * ã“ã®å•é¡Œç‚¹ã¯å¸¸ã«ã‚µã‚¤ã‚º0ã®æ–°ã—ã„ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ãäº‹ã«ã‚ˆã£ã¦å›é¿ã™ã‚‹äº‹ãŒã§ãã‚‹ã€‚<br>
  * 
  * <pre>
  * -- revision history --
  * $Log: LhaImmediateOutputStream.java,v $
  * Revision 1.2  2002/12/11 02:25:06  dangan
  * [bug fix]
- *     jdk1.2 ‚ÅƒRƒ“ƒpƒCƒ‹‚Å‚«‚È‚©‚Á‚½‰ÓŠ‚ğC³B
+ *     jdk1.2 ã§ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã§ããªã‹ã£ãŸç®‡æ‰€ã‚’ä¿®æ­£ã€‚
  *
  * Revision 1.1  2002/12/08 00:00:00  dangan
  * [maintenance]
- *     LhaConstants ‚©‚ç CompressMethod ‚Ö‚ÌƒNƒ‰ƒX–¼‚Ì•ÏX‚É‡‚í‚¹‚ÄC³B
+ *     LhaConstants ã‹ã‚‰ CompressMethod ã¸ã®ã‚¯ãƒ©ã‚¹åã®å¤‰æ›´ã«åˆã‚ã›ã¦ä¿®æ­£ã€‚
  *
  * Revision 1.0  2002/08/05 00:00:00  dangan
  * add to version control
  * [change]
- *     ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚©‚ç ˆø”‚É String encode ‚ğæ‚é‚à‚Ì‚ğ”p~A
- *     Properties ‚ğˆø”‚Éæ‚é‚à‚Ì‚ğ’Ç‰ÁB
+ *     ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã‹ã‚‰ å¼•æ•°ã« String encode ã‚’å–ã‚‹ã‚‚ã®ã‚’å»ƒæ­¢ã€
+ *     Properties ã‚’å¼•æ•°ã«å–ã‚‹ã‚‚ã®ã‚’è¿½åŠ ã€‚
  * [maintenance]
- *     ƒ\[ƒX®”õ
- *     ƒ^ƒu”p~
- *     ƒ‰ƒCƒZƒ“ƒX•¶‚ÌC³
+ *     ã‚½ãƒ¼ã‚¹æ•´å‚™
+ *     ã‚¿ãƒ–å»ƒæ­¢
+ *     ãƒ©ã‚¤ã‚»ãƒ³ã‚¹æ–‡ã®ä¿®æ­£
  *
  * </pre>
  * 
@@ -134,7 +131,7 @@ public class LhaImmediateOutputStream extends OutputStream{
     //  private RandomAccessFile archive
     //------------------------------------------------------------------
     /**
-     * ‘ŒÉƒtƒ@ƒCƒ‹
+     * æ›¸åº«ãƒ•ã‚¡ã‚¤ãƒ«
      */
     private RandomAccessFile archive;
 
@@ -151,27 +148,27 @@ public class LhaImmediateOutputStream extends OutputStream{
     //  private CRC16 crc
     //------------------------------------------------------------------
     /**
-     * ˆ³k—po—ÍƒXƒgƒŠ[ƒ€
+     * åœ§ç¸®ç”¨å‡ºåŠ›ã‚¹ãƒˆãƒªãƒ¼ãƒ 
      */
     private OutputStream out;
 
     /**
-     * Œ»İˆ³k’†‚Ìƒwƒbƒ_
+     * ç¾åœ¨åœ§ç¸®ä¸­ã®ãƒ˜ãƒƒãƒ€
      */
     private LhaHeader header;
 
     /**
-     * ƒwƒbƒ_‚Ìo—Í‚Ég—p‚µ‚½ƒGƒ“ƒR[ƒfƒBƒ“ƒO
+     * ãƒ˜ãƒƒãƒ€ã®å‡ºåŠ›ã«ä½¿ç”¨ã—ãŸã‚¨ãƒ³ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°
      */
     private String encoding;
 
     /**
-     * ƒwƒbƒ_ˆÊ’u
+     * ãƒ˜ãƒƒãƒ€ä½ç½®
      */
     private long headerpos;
 
     /**
-     * CRC’lZo—p
+     * CRCå€¤ç®—å‡ºç”¨
      */
     private CRC16 crc;
 
@@ -184,40 +181,22 @@ public class LhaImmediateOutputStream extends OutputStream{
     //  private Properties property
     //------------------------------------------------------------------
     /**
-     * Šeˆ³kŒ`®‚É‘Î‰‚µ‚½•„†Ší‚Ì¶¬®“™‚ªŠÜ‚Ü‚ê‚éƒvƒƒpƒeƒB
+     * å„åœ§ç¸®å½¢å¼ã«å¯¾å¿œã—ãŸç¬¦å·å™¨ã®ç”Ÿæˆå¼ç­‰ãŒå«ã¾ã‚Œã‚‹ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
      */
     private Properties property;
 
 
-    //------------------------------------------------------------------
-    //  constructor
-    //------------------------------------------------------------------
-    //  private LhaImmediateOutputStream()
-    //  public LhaImmediateOutputStream( String filename )
-    //  public LhaImmediateOutputStream( String filename, Properties property )
-    //  public LhaImmediateOutputStream( File file )
-    //  public LhaImmediateOutputStream( File file, Properties property )
-    //  public LhaImmediateOutputStream( RandomAccessFile archive )
-    //  public LhaImmediateOutputStream( RandomAccessFile archive, Properties property )
-    //  private void constructerHelper( RandomAccesFile archive, Properties property )
-    //------------------------------------------------------------------
     /**
-     * ƒfƒtƒHƒ‹ƒgƒRƒ“ƒXƒgƒ‰ƒNƒ^
-     * g—p•s‰Â
-     */
-    private LhaImmediateOutputStream(){ }
-
-    /**
-     * filename ‚Ìƒtƒ@ƒCƒ‹‚É ˆ³kƒf[ƒ^‚ğo—Í‚·‚éOutputStream‚ğ\’z‚·‚éB<br>
-     * Šeˆ³kŒ`®‚É‘Î‰‚µ‚½•„†Ší‚Ì¶¬®“™‚ğ‚ÂƒvƒƒpƒeƒB‚É‚Í
-     * LhaProperty.getProperties() ‚Å“¾‚ç‚ê‚½ƒvƒƒpƒeƒB‚ªg—p‚³‚ê‚éB<br>
+     * filename ã®ãƒ•ã‚¡ã‚¤ãƒ«ã« åœ§ç¸®ãƒ‡ãƒ¼ã‚¿ã‚’å‡ºåŠ›ã™ã‚‹OutputStreamã‚’æ§‹ç¯‰ã™ã‚‹ã€‚<br>
+     * å„åœ§ç¸®å½¢å¼ã«å¯¾å¿œã—ãŸç¬¦å·å™¨ã®ç”Ÿæˆå¼ç­‰ã‚’æŒã¤ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã«ã¯
+     * LhaProperty.getProperties() ã§å¾—ã‚‰ã‚ŒãŸãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ãŒä½¿ç”¨ã•ã‚Œã‚‹ã€‚<br>
      * 
-     * @param filename ˆ³kƒf[ƒ^‚ğ‘‚«‚±‚Şƒtƒ@ƒCƒ‹‚Ì–¼‘O
+     * @param filename åœ§ç¸®ãƒ‡ãƒ¼ã‚¿ã‚’æ›¸ãã“ã‚€ãƒ•ã‚¡ã‚¤ãƒ«ã®åå‰
      * 
      * @exception FileNotFoundException
-     *               filename ‚Å—^‚¦‚ç‚ê‚½ƒtƒ@ƒCƒ‹‚ªŒ©‚Â‚©‚ç‚È‚¢ê‡B
+     *               filename ã§ä¸ãˆã‚‰ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«ãŒè¦‹ã¤ã‹ã‚‰ãªã„å ´åˆã€‚
      * @exception SecurityException
-     *               ƒZƒLƒ…ƒŠƒeƒBƒ}ƒl[ƒWƒƒ‚ªƒtƒ@ƒCƒ‹‚Ö‚ÌƒAƒNƒZƒX‚ğ‹–‚³‚È‚¢ê‡B
+     *               ã‚»ã‚­ãƒ¥ãƒªãƒ†ã‚£ãƒãƒãƒ¼ã‚¸ãƒ£ãŒãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ã‚¢ã‚¯ã‚»ã‚¹ã‚’è¨±ã•ãªã„å ´åˆã€‚
      * 
      * @see LhaProperty#getProperties()
      */
@@ -227,7 +206,7 @@ public class LhaImmediateOutputStream extends OutputStream{
         if( filename != null ){
             RandomAccessFile file = new RandomAccessFile( filename, "rw" );     //throws FileNotFoundException, SecurityException
             Properties property   = LhaProperty.getProperties();
-        
+
             this.constructerHelper( file, property );
         }else{
             throw new NullPointerException( "filename" );
@@ -235,15 +214,15 @@ public class LhaImmediateOutputStream extends OutputStream{
     }
 
     /**
-     * filename ‚Ìƒtƒ@ƒCƒ‹‚É ˆ³kƒf[ƒ^‚ğo—Í‚·‚éOutputStream‚ğ\’z‚·‚éB<br>
+     * filename ã®ãƒ•ã‚¡ã‚¤ãƒ«ã« åœ§ç¸®ãƒ‡ãƒ¼ã‚¿ã‚’å‡ºåŠ›ã™ã‚‹OutputStreamã‚’æ§‹ç¯‰ã™ã‚‹ã€‚<br>
      * 
-     * @param filename ˆ³kƒf[ƒ^‚ğ‘‚«‚±‚Şƒtƒ@ƒCƒ‹‚Ì–¼‘O
-     * @param property Šeˆ³kŒ`®‚É‘Î‰‚µ‚½•„†Ší‚Ì¶¬®“™‚ªŠÜ‚Ü‚ê‚éƒvƒƒpƒeƒB
+     * @param filename åœ§ç¸®ãƒ‡ãƒ¼ã‚¿ã‚’æ›¸ãã“ã‚€ãƒ•ã‚¡ã‚¤ãƒ«ã®åå‰
+     * @param property å„åœ§ç¸®å½¢å¼ã«å¯¾å¿œã—ãŸç¬¦å·å™¨ã®ç”Ÿæˆå¼ç­‰ãŒå«ã¾ã‚Œã‚‹ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
      * 
      * @exception FileNotFoundException
-     *               filename ‚Å—^‚¦‚ç‚ê‚½ƒtƒ@ƒCƒ‹‚ªŒ©‚Â‚©‚ç‚È‚¢ê‡B
+     *               filename ã§ä¸ãˆã‚‰ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«ãŒè¦‹ã¤ã‹ã‚‰ãªã„å ´åˆã€‚
      * @exception SecurityException
-     *               ƒZƒLƒ…ƒŠƒeƒBƒ}ƒl[ƒWƒƒ‚ªƒtƒ@ƒCƒ‹‚Ö‚ÌƒAƒNƒZƒX‚ğ‹–‚³‚È‚¢ê‡B
+     *               ã‚»ã‚­ãƒ¥ãƒªãƒ†ã‚£ãƒãƒãƒ¼ã‚¸ãƒ£ãŒãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ã‚¢ã‚¯ã‚»ã‚¹ã‚’è¨±ã•ãªã„å ´åˆã€‚
      * 
      * @see LhaProperty
      */
@@ -259,18 +238,18 @@ public class LhaImmediateOutputStream extends OutputStream{
     }
 
     /**
-     * filename ‚Ìƒtƒ@ƒCƒ‹‚É ˆ³kƒf[ƒ^‚ğo—Í‚·‚éOutputStream‚ğ\’z‚·‚éB<br>
-     * Šeˆ³kŒ`®‚É‘Î‰‚µ‚½•„†Ší‚Ì¶¬®“™‚ğ‚ÂƒvƒƒpƒeƒB‚É‚Í
-     * LhaProperty.getProperties() ‚Å“¾‚ç‚ê‚½ƒvƒƒpƒeƒB‚ªg—p‚³‚ê‚éB<br>
+     * filename ã®ãƒ•ã‚¡ã‚¤ãƒ«ã« åœ§ç¸®ãƒ‡ãƒ¼ã‚¿ã‚’å‡ºåŠ›ã™ã‚‹OutputStreamã‚’æ§‹ç¯‰ã™ã‚‹ã€‚<br>
+     * å„åœ§ç¸®å½¢å¼ã«å¯¾å¿œã—ãŸç¬¦å·å™¨ã®ç”Ÿæˆå¼ç­‰ã‚’æŒã¤ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã«ã¯
+     * LhaProperty.getProperties() ã§å¾—ã‚‰ã‚ŒãŸãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ãŒä½¿ç”¨ã•ã‚Œã‚‹ã€‚<br>
      * 
-     * @param filename ˆ³kƒf[ƒ^‚ğ‘‚«‚±‚Şƒtƒ@ƒCƒ‹‚Ì–¼‘O
+     * @param filename åœ§ç¸®ãƒ‡ãƒ¼ã‚¿ã‚’æ›¸ãã“ã‚€ãƒ•ã‚¡ã‚¤ãƒ«ã®åå‰
      * 
      * @exception FileNotFoundException
-     *               filename ‚Å—^‚¦‚ç‚ê‚½ƒtƒ@ƒCƒ‹‚ªŒ©‚Â‚©‚ç‚È‚¢ê‡B
+     *               filename ã§ä¸ãˆã‚‰ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«ãŒè¦‹ã¤ã‹ã‚‰ãªã„å ´åˆã€‚
      * @exception SecurityException
-     *               ƒZƒLƒ…ƒŠƒeƒBƒ}ƒl[ƒWƒƒ‚ªƒtƒ@ƒCƒ‹‚Ö‚ÌƒAƒNƒZƒX‚ğ‹–‚³‚È‚¢ê‡B
+     *               ã‚»ã‚­ãƒ¥ãƒªãƒ†ã‚£ãƒãƒãƒ¼ã‚¸ãƒ£ãŒãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ã‚¢ã‚¯ã‚»ã‚¹ã‚’è¨±ã•ãªã„å ´åˆã€‚
      * @exception IOException
-     *               JDK1.2 ‚ÅƒRƒ“ƒpƒCƒ‹‚·‚é‚½‚ß‚¾‚¯‚É‘¶İ‚·‚éB
+     *               JDK1.2 ã§ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã™ã‚‹ãŸã‚ã ã‘ã«å­˜åœ¨ã™ã‚‹ã€‚
      * 
      * @see LhaProperty#getProperties()
      */
@@ -279,7 +258,7 @@ public class LhaImmediateOutputStream extends OutputStream{
         if( filename != null ){
             RandomAccessFile file = new RandomAccessFile( filename, "rw" );     //throws FileNotFoundException, SecurityException, IOException(jdk1.2)
             Properties property   = LhaProperty.getProperties();
-        
+
             this.constructerHelper( file, property );
         }else{
             throw new NullPointerException( "filename" );
@@ -287,17 +266,17 @@ public class LhaImmediateOutputStream extends OutputStream{
     }
 
     /**
-     * filename ‚Ìƒtƒ@ƒCƒ‹‚É ˆ³kƒf[ƒ^‚ğo—Í‚·‚éOutputStream‚ğ\’z‚·‚éB<br>
+     * filename ã®ãƒ•ã‚¡ã‚¤ãƒ«ã« åœ§ç¸®ãƒ‡ãƒ¼ã‚¿ã‚’å‡ºåŠ›ã™ã‚‹OutputStreamã‚’æ§‹ç¯‰ã™ã‚‹ã€‚<br>
      * 
-     * @param filename ˆ³kƒf[ƒ^‚ğ‘‚«‚±‚Şƒtƒ@ƒCƒ‹‚Ì–¼‘O
-     * @param property Šeˆ³kŒ`®‚É‘Î‰‚µ‚½•„†Ší‚Ì¶¬®“™‚ªŠÜ‚Ü‚ê‚éƒvƒƒpƒeƒB
+     * @param filename åœ§ç¸®ãƒ‡ãƒ¼ã‚¿ã‚’æ›¸ãã“ã‚€ãƒ•ã‚¡ã‚¤ãƒ«ã®åå‰
+     * @param property å„åœ§ç¸®å½¢å¼ã«å¯¾å¿œã—ãŸç¬¦å·å™¨ã®ç”Ÿæˆå¼ç­‰ãŒå«ã¾ã‚Œã‚‹ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
      * 
      * @exception FileNotFoundException
-     *               filename ‚Å—^‚¦‚ç‚ê‚½ƒtƒ@ƒCƒ‹‚ªŒ©‚Â‚©‚ç‚È‚¢ê‡B
+     *               filename ã§ä¸ãˆã‚‰ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«ãŒè¦‹ã¤ã‹ã‚‰ãªã„å ´åˆã€‚
      * @exception SecurityException
-     *               ƒZƒLƒ…ƒŠƒeƒBƒ}ƒl[ƒWƒƒ‚ªƒtƒ@ƒCƒ‹‚Ö‚ÌƒAƒNƒZƒX‚ğ‹–‚³‚È‚¢ê‡B
+     *               ã‚»ã‚­ãƒ¥ãƒªãƒ†ã‚£ãƒãƒãƒ¼ã‚¸ãƒ£ãŒãƒ•ã‚¡ã‚¤ãƒ«ã¸ã®ã‚¢ã‚¯ã‚»ã‚¹ã‚’è¨±ã•ãªã„å ´åˆã€‚
      * @exception IOException
-     *               JDK1.2 ‚ÅƒRƒ“ƒpƒCƒ‹‚·‚é‚½‚ß‚¾‚¯‚É‘¶İ‚·‚éB
+     *               JDK1.2 ã§ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã™ã‚‹ãŸã‚ã ã‘ã«å­˜åœ¨ã™ã‚‹ã€‚
      * 
      * @see LhaProperty
      */
@@ -313,17 +292,17 @@ public class LhaImmediateOutputStream extends OutputStream{
     }
 
     /**
-     * file‚É ˆ³kƒf[ƒ^‚ğo—Í‚·‚éOutputStream‚ğ\’z‚·‚éB<br>
-     * Šeˆ³kŒ`®‚É‘Î‰‚µ‚½•„†Ší‚Ì¶¬®“™‚ğ‚ÂƒvƒƒpƒeƒB‚É‚Í
-     * LhaProperty.getProperties() ‚Å“¾‚ç‚ê‚½ƒvƒƒpƒeƒB‚ªg—p‚³‚ê‚éB<br>
+     * fileã« åœ§ç¸®ãƒ‡ãƒ¼ã‚¿ã‚’å‡ºåŠ›ã™ã‚‹OutputStreamã‚’æ§‹ç¯‰ã™ã‚‹ã€‚<br>
+     * å„åœ§ç¸®å½¢å¼ã«å¯¾å¿œã—ãŸç¬¦å·å™¨ã®ç”Ÿæˆå¼ç­‰ã‚’æŒã¤ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã«ã¯
+     * LhaProperty.getProperties() ã§å¾—ã‚‰ã‚ŒãŸãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ãŒä½¿ç”¨ã•ã‚Œã‚‹ã€‚<br>
      * 
-     * @param file RandomAccessFile ‚ÌƒCƒ“ƒXƒ^ƒ“ƒXB<br>
+     * @param file RandomAccessFile ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã€‚<br>
      *             <ul>
-     *                <li>Šù‚É close() ‚³‚ê‚Ä‚¢‚È‚¢–B
-     *                <li>ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Ì mode ‚É‚Í "rw" ƒIƒvƒVƒ‡ƒ“‚ğg—p‚µ‚ÄA
-     *                    “Ç‚İ‚±‚İ‚Æ‘‚«‚±‚İ‚ªo—ˆ‚é‚æ‚¤‚É¶¬‚³‚ê‚½ƒCƒ“ƒXƒ^ƒ“ƒX‚Å‚ ‚é‚±‚ÆB
+     *                <li>æ—¢ã« close() ã•ã‚Œã¦ã„ãªã„äº‹ã€‚
+     *                <li>ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã® mode ã«ã¯ "rw" ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’ä½¿ç”¨ã—ã¦ã€
+     *                    èª­ã¿ã“ã¿ã¨æ›¸ãã“ã¿ãŒå‡ºæ¥ã‚‹ã‚ˆã†ã«ç”Ÿæˆã•ã‚ŒãŸã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã§ã‚ã‚‹ã“ã¨ã€‚
      *              </ul>
-     *              ‚ÌğŒ‚ğ–‚½‚·‚à‚ÌB
+     *              ã®æ¡ä»¶ã‚’æº€ãŸã™ã‚‚ã®ã€‚
      * 
      * @see LhaProperty#getProperties()
      */
@@ -338,18 +317,18 @@ public class LhaImmediateOutputStream extends OutputStream{
     }
 
     /**
-     * file‚É ˆ³kƒf[ƒ^‚ğo—Í‚·‚éOutputStream‚ğ\’z‚·‚éB<br>
-     * Šeˆ³kŒ`®‚É‘Î‰‚µ‚½•„†Ší‚Ì¶¬®“™‚ğ‚ÂƒvƒƒpƒeƒB‚É‚Í
-     * LhaProperty.getProperties() ‚Å“¾‚ç‚ê‚½ƒvƒƒpƒeƒB‚ªg—p‚³‚ê‚éB<br>
+     * fileã« åœ§ç¸®ãƒ‡ãƒ¼ã‚¿ã‚’å‡ºåŠ›ã™ã‚‹OutputStreamã‚’æ§‹ç¯‰ã™ã‚‹ã€‚<br>
+     * å„åœ§ç¸®å½¢å¼ã«å¯¾å¿œã—ãŸç¬¦å·å™¨ã®ç”Ÿæˆå¼ç­‰ã‚’æŒã¤ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã«ã¯
+     * LhaProperty.getProperties() ã§å¾—ã‚‰ã‚ŒãŸãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ãŒä½¿ç”¨ã•ã‚Œã‚‹ã€‚<br>
      * 
-     * @param file     RandomAccessFile ‚ÌƒCƒ“ƒXƒ^ƒ“ƒXB<br>
+     * @param file     RandomAccessFile ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã€‚<br>
      *                 <ul>
-     *                   <li>Šù‚É close() ‚³‚ê‚Ä‚¢‚È‚¢–B
-     *                   <li>ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Ì mode ‚É‚Í "rw" ƒIƒvƒVƒ‡ƒ“‚ğg—p‚µ‚ÄA
-     *                       “Ç‚İ‚±‚İ‚Æ‘‚«‚±‚İ‚ªo—ˆ‚é‚æ‚¤‚É¶¬‚³‚ê‚½ƒCƒ“ƒXƒ^ƒ“ƒX‚Å‚ ‚é‚±‚ÆB
+     *                   <li>æ—¢ã« close() ã•ã‚Œã¦ã„ãªã„äº‹ã€‚
+     *                   <li>ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã® mode ã«ã¯ "rw" ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’ä½¿ç”¨ã—ã¦ã€
+     *                       èª­ã¿ã“ã¿ã¨æ›¸ãã“ã¿ãŒå‡ºæ¥ã‚‹ã‚ˆã†ã«ç”Ÿæˆã•ã‚ŒãŸã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã§ã‚ã‚‹ã“ã¨ã€‚
      *                 </ul>
-     *                 ‚ÌğŒ‚ğ–‚½‚·‚à‚ÌB
-     * @param property Šeˆ³kŒ`®‚É‘Î‰‚µ‚½•„†Ší‚Ì¶¬®“™‚ªŠÜ‚Ü‚ê‚éƒvƒƒpƒeƒB
+     *                 ã®æ¡ä»¶ã‚’æº€ãŸã™ã‚‚ã®ã€‚
+     * @param property å„åœ§ç¸®å½¢å¼ã«å¯¾å¿œã—ãŸç¬¦å·å™¨ã®ç”Ÿæˆå¼ç­‰ãŒå«ã¾ã‚Œã‚‹ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
      * 
      * @see LhaProperty
      */
@@ -370,16 +349,16 @@ public class LhaImmediateOutputStream extends OutputStream{
     }
 
     /**
-     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Ì‰Šú‰»ˆ—‚ğ’S“–‚·‚éƒƒ\ƒbƒhB
+     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã®åˆæœŸåŒ–å‡¦ç†ã‚’æ‹…å½“ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰ã€‚
      * 
-     * @param file     RandomAccessFile ‚ÌƒCƒ“ƒXƒ^ƒ“ƒXB<br>
+     * @param file     RandomAccessFile ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã€‚<br>
      *                 <ul>
-     *                   <li>Šù‚É close() ‚³‚ê‚Ä‚¢‚È‚¢–B
-     *                   <li>ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Ì mode ‚É‚Í "rw" ƒIƒvƒVƒ‡ƒ“‚ğg—p‚µ‚ÄA
-     *                       “Ç‚İ‚±‚İ‚Æ‘‚«‚±‚İ‚ªo—ˆ‚é‚æ‚¤‚É¶¬‚³‚ê‚½ƒCƒ“ƒXƒ^ƒ“ƒX‚Å‚ ‚é‚±‚ÆB
+     *                   <li>æ—¢ã« close() ã•ã‚Œã¦ã„ãªã„äº‹ã€‚
+     *                   <li>ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã® mode ã«ã¯ "rw" ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’ä½¿ç”¨ã—ã¦ã€
+     *                       èª­ã¿ã“ã¿ã¨æ›¸ãã“ã¿ãŒå‡ºæ¥ã‚‹ã‚ˆã†ã«ç”Ÿæˆã•ã‚ŒãŸã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã§ã‚ã‚‹ã“ã¨ã€‚
      *                 </ul>
-     *                 ‚ÌğŒ‚ğ–‚½‚·‚à‚ÌB
-     * @param property Šeˆ³kŒ`®‚É‘Î‰‚µ‚½•„†Ší‚Ì¶¬®“™‚ªŠÜ‚Ü‚ê‚éƒvƒƒpƒeƒB
+     *                 ã®æ¡ä»¶ã‚’æº€ãŸã™ã‚‚ã®ã€‚
+     * @param property å„åœ§ç¸®å½¢å¼ã«å¯¾å¿œã—ãŸç¬¦å·å™¨ã®ç”Ÿæˆå¼ç­‰ãŒå«ã¾ã‚Œã‚‹ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
      */
     private void constructerHelper( RandomAccessFile file, 
                                     Properties       property ){
@@ -404,11 +383,11 @@ public class LhaImmediateOutputStream extends OutputStream{
     //  public void write( byte[] buffer, int index, int length )
     //------------------------------------------------------------------
     /**
-     * Œ»İ‚ÌƒGƒ“ƒgƒŠ‚É1ƒoƒCƒg‚Ìƒf[ƒ^‚ğ‘‚«‚±‚ŞB
+     * ç¾åœ¨ã®ã‚¨ãƒ³ãƒˆãƒªã«1ãƒã‚¤ãƒˆã®ãƒ‡ãƒ¼ã‚¿ã‚’æ›¸ãã“ã‚€ã€‚
      * 
-     * @param data ‘‚«‚±‚Şƒf[ƒ^
+     * @param data æ›¸ãã“ã‚€ãƒ‡ãƒ¼ã‚¿
      * 
-     * @exception IOException “üo—ÍƒGƒ‰[‚ª”­¶‚µ‚½ê‡B
+     * @exception IOException å…¥å‡ºåŠ›ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ãŸå ´åˆã€‚
      */
     public void write( int data ) throws IOException {
         if( this.out != null ){
@@ -423,25 +402,25 @@ public class LhaImmediateOutputStream extends OutputStream{
     }
 
     /**
-     * Œ»İ‚ÌƒGƒ“ƒgƒŠ‚É buffer‚Ì“à—e‚ğ‘S‚Ä‘‚«o‚·B
+     * ç¾åœ¨ã®ã‚¨ãƒ³ãƒˆãƒªã« bufferã®å†…å®¹ã‚’å…¨ã¦æ›¸ãå‡ºã™ã€‚
      * 
-     * @param buffer ‘‚«o‚·ƒf[ƒ^‚Ì“ü‚Á‚½ƒoƒCƒg”z—ñ
+     * @param buffer æ›¸ãå‡ºã™ãƒ‡ãƒ¼ã‚¿ã®å…¥ã£ãŸãƒã‚¤ãƒˆé…åˆ—
      * 
-     * @exception IOException “üo—ÍƒGƒ‰[‚ª”­¶‚µ‚½ê‡B
+     * @exception IOException å…¥å‡ºåŠ›ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ãŸå ´åˆã€‚
      */
     public void write( byte[] buffer ) throws IOException {
         this.write( buffer, 0, buffer.length );
     }
 
     /**
-     * Œ»İ‚ÌƒGƒ“ƒgƒŠ‚É buffer‚Ì index‚©‚ç
-     * lengthƒoƒCƒg‚Ìƒf[ƒ^‚ğ‘‚«o‚·B
+     * ç¾åœ¨ã®ã‚¨ãƒ³ãƒˆãƒªã« bufferã® indexã‹ã‚‰
+     * lengthãƒã‚¤ãƒˆã®ãƒ‡ãƒ¼ã‚¿ã‚’æ›¸ãå‡ºã™ã€‚
      * 
-     * @param buffer ‘‚«o‚·ƒf[ƒ^‚Ì“ü‚Á‚½ƒoƒCƒg”z—ñ
-     * @param index  buffer“à‚Ì‘‚«o‚·‚×‚«ƒf[ƒ^‚ÌŠJnˆÊ’u
-     * @param length ƒf[ƒ^‚ÌƒoƒCƒg”
+     * @param buffer æ›¸ãå‡ºã™ãƒ‡ãƒ¼ã‚¿ã®å…¥ã£ãŸãƒã‚¤ãƒˆé…åˆ—
+     * @param index  bufferå†…ã®æ›¸ãå‡ºã™ã¹ããƒ‡ãƒ¼ã‚¿ã®é–‹å§‹ä½ç½®
+     * @param length ãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒˆæ•°
      * 
-     * @exception IOException “üo—ÍƒGƒ‰[‚ª”­¶‚µ‚½ê‡B
+     * @exception IOException å…¥å‡ºåŠ›ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ãŸå ´åˆã€‚
      */
     public void write( byte[] buffer, int index, int length ) throws IOException {
         if( this.out != null ){
@@ -465,12 +444,12 @@ public class LhaImmediateOutputStream extends OutputStream{
     //  public void close()
     //------------------------------------------------------------------
     /**
-     * Œ»İ‘‚«‚İ’†‚ÌƒGƒ“ƒgƒŠ‚Ìƒf[ƒ^‚ğ‹­§“I‚Éo—Íæ‚É‘‚«o‚·B
-     * ‚±‚ê‚Í PostLzssEncoder, LzssOutputStream ‚Ì‹K–ñ‚Ç‚¨‚è
-     * flush() ‚µ‚È‚©‚Á‚½ê‡‚Æ‚Í•Ê‚Ìƒf[ƒ^‚ğo—Í‚·‚éB
-     * (‘å’ï‚Ìê‡‚Í ’P‚Éˆ³k—¦‚ª’á‰º‚·‚é‚¾‚¯‚Å‚ ‚éB)
+     * ç¾åœ¨æ›¸ãè¾¼ã¿ä¸­ã®ã‚¨ãƒ³ãƒˆãƒªã®ãƒ‡ãƒ¼ã‚¿ã‚’å¼·åˆ¶çš„ã«å‡ºåŠ›å…ˆã«æ›¸ãå‡ºã™ã€‚
+     * ã“ã‚Œã¯ PostLzssEncoder, LzssOutputStream ã®è¦ç´„ã©ãŠã‚Š
+     * flush() ã—ãªã‹ã£ãŸå ´åˆã¨ã¯åˆ¥ã®ãƒ‡ãƒ¼ã‚¿ã‚’å‡ºåŠ›ã™ã‚‹ã€‚
+     * (å¤§æŠµã®å ´åˆã¯ å˜ã«åœ§ç¸®ç‡ãŒä½ä¸‹ã™ã‚‹ã ã‘ã§ã‚ã‚‹ã€‚)
      * 
-     * @exception IOException “üo—ÍƒGƒ‰[‚ª”­¶‚µ‚½ê‡
+     * @exception IOException å…¥å‡ºåŠ›ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ãŸå ´åˆ
      * 
      * @see PostLzssEncoder#flush()
      * @see LzssOutputStream#flush()
@@ -484,17 +463,17 @@ public class LhaImmediateOutputStream extends OutputStream{
     }
 
     /**
-     * o—Íæ‚É‘S‚Ä‚Ìƒf[ƒ^‚ğo—Í‚µAƒXƒgƒŠ[ƒ€‚ğ•Â‚¶‚éB<br>
-     * ‚Ü‚½Ag—p‚µ‚Ä‚¢‚½‘S‚Ä‚ÌƒŠƒ\[ƒX‚ğ‰ğ•ú‚·‚éB
+     * å‡ºåŠ›å…ˆã«å…¨ã¦ã®ãƒ‡ãƒ¼ã‚¿ã‚’å‡ºåŠ›ã—ã€ã‚¹ãƒˆãƒªãƒ¼ãƒ ã‚’é–‰ã˜ã‚‹ã€‚<br>
+     * ã¾ãŸã€ä½¿ç”¨ã—ã¦ã„ãŸå…¨ã¦ã®ãƒªã‚½ãƒ¼ã‚¹ã‚’è§£æ”¾ã™ã‚‹ã€‚
      * 
-     * @exception IOException “üo—ÍƒGƒ‰[‚ª”­¶‚µ‚½ê‡
+     * @exception IOException å…¥å‡ºåŠ›ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ãŸå ´åˆ
      */
     public void close() throws IOException {
         if( this.out != null ){
             this.closeEntry();                                                  //throws IOException
         }
 
-        //ƒ^[ƒ~ƒl[ƒ^‚ğo—Í
+        //ã‚¿ãƒ¼ãƒŸãƒãƒ¼ã‚¿ã‚’å‡ºåŠ›
         this.archive.write( 0 );                                                //throws IOException
         try{
             this.archive.setLength( this.archive.getFilePointer() );            //After Java1.2 throws IOException
@@ -520,25 +499,25 @@ public class LhaImmediateOutputStream extends OutputStream{
     //  public void closeEntry()
     //------------------------------------------------------------------
     /**
-     * V‚µ‚¢ƒGƒ“ƒgƒŠ‚ğ‘‚«‚Ş‚æ‚¤‚ÉƒXƒgƒŠ[ƒ€‚ğİ’è‚·‚éB<br>
-     * ‚±‚Ìƒƒ\ƒbƒh‚Í Šù‚Éˆ³kÏ‚İ‚ÌƒGƒ“ƒgƒŠ‚Ìê‡‚Í
+     * æ–°ã—ã„ã‚¨ãƒ³ãƒˆãƒªã‚’æ›¸ãè¾¼ã‚€ã‚ˆã†ã«ã‚¹ãƒˆãƒªãƒ¼ãƒ ã‚’è¨­å®šã™ã‚‹ã€‚<br>
+     * ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã¯ æ—¢ã«åœ§ç¸®æ¸ˆã¿ã®ã‚¨ãƒ³ãƒˆãƒªã®å ´åˆã¯
      * putNextEntryAlreadyCompressed(),
-     * –¢‚¾‚Éˆ³k‚³‚ê‚Ä‚¢‚È‚¢ê‡‚Í
-     * putNextEntryNotYetCompressed() ‚ğŒÄ‚Ño‚·B<br>
-     * ˆ³k‚³‚ê‚Ä‚¢‚é‚©‚Ì”»’è‚ÍA
+     * æœªã ã«åœ§ç¸®ã•ã‚Œã¦ã„ãªã„å ´åˆã¯
+     * putNextEntryNotYetCompressed() ã‚’å‘¼ã³å‡ºã™ã€‚<br>
+     * åœ§ç¸®ã•ã‚Œã¦ã„ã‚‹ã‹ã®åˆ¤å®šã¯ã€
      * <ul>
      *   <li>header.getCompressedSize()<br>
      *   <li>header.getCRC()<br>
      * </ul>
-     * ‚Ì‚Ç‚ê‚©ˆê‚Â‚Å‚à LhaHeader.UNKNOWN ‚Å‚ ‚ê‚Î–¢‚¾‚Éˆ³k‚³‚ê‚Ä‚¢‚È‚¢‚Æ‚·‚éB<br>
-     * header ‚É‚Í³Šm‚È OriginalSize ‚ªw’è‚³‚ê‚Ä‚¢‚é•K—v‚ª‚ ‚éB<br>
+     * ã®ã©ã‚Œã‹ä¸€ã¤ã§ã‚‚ LhaHeader.UNKNOWN ã§ã‚ã‚Œã°æœªã ã«åœ§ç¸®ã•ã‚Œã¦ã„ãªã„ã¨ã™ã‚‹ã€‚<br>
+     * header ã«ã¯æ­£ç¢ºãª OriginalSize ãŒæŒ‡å®šã•ã‚Œã¦ã„ã‚‹å¿…è¦ãŒã‚ã‚‹ã€‚<br>
      * 
-     * @param header ‘‚«‚±‚ŞƒGƒ“ƒgƒŠ‚É‚Â‚¢‚Ä‚Ìî•ñ‚ğ‚Â
-     *               LhaHeader‚ÌƒCƒ“ƒXƒ^ƒ“ƒXB
+     * @param header æ›¸ãã“ã‚€ã‚¨ãƒ³ãƒˆãƒªã«ã¤ã„ã¦ã®æƒ…å ±ã‚’æŒã¤
+     *               LhaHeaderã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã€‚
      * 
-     * @exception IOException “üo—ÍƒGƒ‰[‚ª”­¶‚µ‚½ê‡
+     * @exception IOException å…¥å‡ºåŠ›ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ãŸå ´åˆ
      * @exception IllegalArgumentException
-     *                        header.getOriginalSize() ‚ª LhaHeader.UNKNOWN ‚ğ•Ô‚·ê‡
+     *                        header.getOriginalSize() ãŒ LhaHeader.UNKNOWN ã‚’è¿”ã™å ´åˆ
      */
     public void putNextEntry( LhaHeader header ) throws IOException {
         if( header.getCompressedSize() == LhaHeader.UNKNOWN
@@ -550,22 +529,22 @@ public class LhaImmediateOutputStream extends OutputStream{
     }
 
     /**
-     * Šù‚Éˆ³kÏ‚İ‚ÌƒGƒ“ƒgƒŠ‚ğ‘‚«‚±‚Ş‚æ‚¤‚ÉƒXƒgƒŠ[ƒ€‚ğİ’è‚·‚éB<br>
-     * ˆ³kÏ‚İƒf[ƒ^‚ª³‚µ‚¢–‚ÍAŒÄ‚Ño‚µ‘¤‚ª•ÛØ‚·‚é–B
+     * æ—¢ã«åœ§ç¸®æ¸ˆã¿ã®ã‚¨ãƒ³ãƒˆãƒªã‚’æ›¸ãã“ã‚€ã‚ˆã†ã«ã‚¹ãƒˆãƒªãƒ¼ãƒ ã‚’è¨­å®šã™ã‚‹ã€‚<br>
+     * åœ§ç¸®æ¸ˆã¿ãƒ‡ãƒ¼ã‚¿ãŒæ­£ã—ã„äº‹ã¯ã€å‘¼ã³å‡ºã—å´ãŒä¿è¨¼ã™ã‚‹äº‹ã€‚
      * 
-     * @param header ‘‚«‚±‚ŞƒGƒ“ƒgƒŠ‚É‚Â‚¢‚Ä‚Ìî•ñ‚ğ‚Â
-     *               LhaHeader‚ÌƒCƒ“ƒXƒ^ƒ“ƒXB
+     * @param header æ›¸ãã“ã‚€ã‚¨ãƒ³ãƒˆãƒªã«ã¤ã„ã¦ã®æƒ…å ±ã‚’æŒã¤
+     *               LhaHeaderã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã€‚
      * 
-     * @exception IOException “üo—ÍƒGƒ‰[‚ª”­¶‚µ‚½ê‡
+     * @exception IOException å…¥å‡ºåŠ›ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ãŸå ´åˆ
      * @exception IllegalArgumentException
      *               <ol>
-     *                  <li>header.getOriginalSize() ‚ª LhaHeader.UNKNOWN ‚ğ•Ô‚·ê‡
-     *                  <li>header.getComressedSize() ‚ª LhaHeader.UNKNOWN ‚ğ•Ô‚·ê‡
-     *                  <li>header.getCRC() ‚ª LhaHeader.UNKNOWN ‚ğ•Ô‚·ê‡
+     *                  <li>header.getOriginalSize() ãŒ LhaHeader.UNKNOWN ã‚’è¿”ã™å ´åˆ
+     *                  <li>header.getComressedSize() ãŒ LhaHeader.UNKNOWN ã‚’è¿”ã™å ´åˆ
+     *                  <li>header.getCRC() ãŒ LhaHeader.UNKNOWN ã‚’è¿”ã™å ´åˆ
      *               </ol>
-     *               ‚Ì‰½‚ê‚©B
+     *               ã®ä½•ã‚Œã‹ã€‚
      * @exception IllegalStateException
-     *               ˆÈ‘O‚ÌƒGƒ“ƒgƒŠ‚ª–¢‚¾‚É closeEntry() ‚³‚ê‚Ä‚¢‚È‚¢ê‡
+     *               ä»¥å‰ã®ã‚¨ãƒ³ãƒˆãƒªãŒæœªã ã« closeEntry() ã•ã‚Œã¦ã„ãªã„å ´åˆ
      */
     public void putNextEntryAlreadyCompressed( LhaHeader header )
                                                             throws IOException {
@@ -600,22 +579,22 @@ public class LhaImmediateOutputStream extends OutputStream{
     }
 
     /**
-     * –¢‚¾‚Éˆ³k‚³‚ê‚Ä‚¢‚È‚¢ƒGƒ“ƒgƒŠ‚ğ‘‚«‚±‚Ş‚æ‚¤‚ÉƒXƒgƒŠ[ƒ€‚ğ
-     * İ’è‚·‚éBheader ‚É CompressedSize,CRC‚ªw’è‚³‚ê‚Ä‚¢‚Ä‚à–³
-     * ‹‚³‚ê‚éB‚±‚Ìƒƒ\ƒbƒh‚É“n‚³‚ê‚é header ‚É‚Í
-     * LhaHeader.setOriginalSize() ‚ğ—p‚¢‚Ä ³Šm‚ÈƒIƒŠƒWƒiƒ‹ƒTƒCƒY
-     * ‚ªw’è‚³‚ê‚Ä‚¢‚é•K—v‚ª‚ ‚éB
+     * æœªã ã«åœ§ç¸®ã•ã‚Œã¦ã„ãªã„ã‚¨ãƒ³ãƒˆãƒªã‚’æ›¸ãã“ã‚€ã‚ˆã†ã«ã‚¹ãƒˆãƒªãƒ¼ãƒ ã‚’
+     * è¨­å®šã™ã‚‹ã€‚header ã« CompressedSize,CRCãŒæŒ‡å®šã•ã‚Œã¦ã„ã¦ã‚‚ç„¡
+     * è¦–ã•ã‚Œã‚‹ã€‚ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã«æ¸¡ã•ã‚Œã‚‹ header ã«ã¯
+     * LhaHeader.setOriginalSize() ã‚’ç”¨ã„ã¦ æ­£ç¢ºãªã‚ªãƒªã‚¸ãƒŠãƒ«ã‚µã‚¤ã‚º
+     * ãŒæŒ‡å®šã•ã‚Œã¦ã„ã‚‹å¿…è¦ãŒã‚ã‚‹ã€‚
      * 
-     * @param header ‘‚«‚±‚ŞƒGƒ“ƒgƒŠ‚É‚Â‚¢‚Ä‚Ìî•ñ‚ğ‚Â
-     *               LhaHeader‚ÌƒCƒ“ƒXƒ^ƒ“ƒXB
+     * @param header æ›¸ãã“ã‚€ã‚¨ãƒ³ãƒˆãƒªã«ã¤ã„ã¦ã®æƒ…å ±ã‚’æŒã¤
+     *               LhaHeaderã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã€‚
      * 
-     * @exception IOException “üo—ÍƒGƒ‰[‚ª”­¶‚µ‚½ê‡
+     * @exception IOException å…¥å‡ºåŠ›ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ãŸå ´åˆ
      * @exception IllegalArgumentException
-     *                        header.getOriginalSize() ‚ª
-     *                        LhaHeader.UNKNOWN ‚ğ•Ô‚µ‚½ê‡
+     *                        header.getOriginalSize() ãŒ
+     *                        LhaHeader.UNKNOWN ã‚’è¿”ã—ãŸå ´åˆ
      * @exception IllegalStateException
-     *                        ˆÈ‘O‚ÌƒGƒ“ƒgƒŠ‚ª–¢‚¾‚É
-     *                        closeEntry() ‚³‚ê‚Ä‚¢‚È‚¢ê‡
+     *                        ä»¥å‰ã®ã‚¨ãƒ³ãƒˆãƒªãŒæœªã ã«
+     *                        closeEntry() ã•ã‚Œã¦ã„ãªã„å ´åˆ
      */
     public void putNextEntryNotYetCompressed( LhaHeader header ) 
                                                         throws IOException {
@@ -651,21 +630,21 @@ public class LhaImmediateOutputStream extends OutputStream{
     }
 
     /**
-     * Œ»İo—Í’†‚ÌƒGƒ“ƒgƒŠ‚ğ•Â‚¶AŸ‚ÌƒGƒ“ƒgƒŠ‚ªo—Í‰Â”\‚Èó‘Ô‚É‚·‚éB<br>
-     * putNextEntryNotYetCompressed() ‚ÅŠJ‚¢‚½ƒGƒ“ƒgƒŠ‚ğ•Â‚¶‚éê‡
-     * ‚±‚Ìƒƒ\ƒbƒh‚Íˆ³k‚É¸”s‚µ‚½(ˆ³kŒãƒTƒCƒY‚ªˆ³k‘OƒTƒCƒY‚ğã‰ñ‚Á‚½)ê‡A
-     * ƒGƒ“ƒgƒŠ‘S‘Ì‚ğ‘‚«‚İæ ‚Ì RandomAccessFile ‚©‚çíœ‚·‚éB<br>
-     * ‚±‚Ìíœˆ—‚Í’P‚É ƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^‚ğ ƒGƒ“ƒgƒŠŠJnˆÊ’u‚Ü‚ÅŠª‚«–ß‚·‚¾‚¯‚È‚Ì‚Å
-     * RandomAccessFile ‚É setLength() ‚ª–³‚¢ jdk1.1 ˆÈ‘O‚Å‚Í 
-     * ƒGƒ“ƒgƒŠ‚ğ–³ˆ³k(‚à‚µ‚­‚Í‘¼‚Ìˆ³k–@)‚ÅÄo—Í‚µ‚È‚¢ê‡A
-     * ‘ŒÉƒf[ƒ^‚ÌI’[ˆÈ~‚Éˆ³k‚É¸”s‚µ‚½•sŠ®‘S‚Èƒf[ƒ^‚ªc‚Á‚½‚Ü‚Ü‚É‚È‚éB<br>
+     * ç¾åœ¨å‡ºåŠ›ä¸­ã®ã‚¨ãƒ³ãƒˆãƒªã‚’é–‰ã˜ã€æ¬¡ã®ã‚¨ãƒ³ãƒˆãƒªãŒå‡ºåŠ›å¯èƒ½ãªçŠ¶æ…‹ã«ã™ã‚‹ã€‚<br>
+     * putNextEntryNotYetCompressed() ã§é–‹ã„ãŸã‚¨ãƒ³ãƒˆãƒªã‚’é–‰ã˜ã‚‹å ´åˆ
+     * ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã¯åœ§ç¸®ã«å¤±æ•—ã—ãŸ(åœ§ç¸®å¾Œã‚µã‚¤ã‚ºãŒåœ§ç¸®å‰ã‚µã‚¤ã‚ºã‚’ä¸Šå›ã£ãŸ)å ´åˆã€
+     * ã‚¨ãƒ³ãƒˆãƒªå…¨ä½“ã‚’æ›¸ãè¾¼ã¿å…ˆ ã® RandomAccessFile ã‹ã‚‰å‰Šé™¤ã™ã‚‹ã€‚<br>
+     * ã“ã®å‰Šé™¤å‡¦ç†ã¯å˜ã« ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿ã‚’ ã‚¨ãƒ³ãƒˆãƒªé–‹å§‹ä½ç½®ã¾ã§å·»ãæˆ»ã™ã ã‘ãªã®ã§
+     * RandomAccessFile ã« setLength() ãŒç„¡ã„ jdk1.1 ä»¥å‰ã§ã¯ 
+     * ã‚¨ãƒ³ãƒˆãƒªã‚’ç„¡åœ§ç¸®(ã‚‚ã—ãã¯ä»–ã®åœ§ç¸®æ³•)ã§å†å‡ºåŠ›ã—ãªã„å ´åˆã€
+     * æ›¸åº«ãƒ‡ãƒ¼ã‚¿ã®çµ‚ç«¯ä»¥é™ã«åœ§ç¸®ã«å¤±æ•—ã—ãŸä¸å®Œå…¨ãªãƒ‡ãƒ¼ã‚¿ãŒæ®‹ã£ãŸã¾ã¾ã«ãªã‚‹ã€‚<br>
      * 
-     * @return ƒGƒ“ƒgƒŠ‚ªo—Í‚³‚ê‚½ê‡‚Í trueA
-     *         ˆ³k‘O‚æ‚è‚àˆ³kŒã‚Ì•û‚ªƒTƒCƒY‚ª‘å‚«‚­‚È‚Á‚½‚½‚ßA
-     *         ƒGƒ“ƒgƒŠ‚ªíœ‚³‚ê‚½ê‡‚Í falseB
-     *         ‚Ü‚½AŒ»İˆ—’†‚ÌƒGƒ“ƒgƒŠ‚ª–³‚©‚Á‚½ê‡‚à true ‚ğ•Ô‚·B
+     * @return ã‚¨ãƒ³ãƒˆãƒªãŒå‡ºåŠ›ã•ã‚ŒãŸå ´åˆã¯ trueã€
+     *         åœ§ç¸®å‰ã‚ˆã‚Šã‚‚åœ§ç¸®å¾Œã®æ–¹ãŒã‚µã‚¤ã‚ºãŒå¤§ãããªã£ãŸãŸã‚ã€
+     *         ã‚¨ãƒ³ãƒˆãƒªãŒå‰Šé™¤ã•ã‚ŒãŸå ´åˆã¯ falseã€‚
+     *         ã¾ãŸã€ç¾åœ¨å‡¦ç†ä¸­ã®ã‚¨ãƒ³ãƒˆãƒªãŒç„¡ã‹ã£ãŸå ´åˆã‚‚ true ã‚’è¿”ã™ã€‚
      * 
-     * @exception IOException “üo—ÍƒGƒ‰[‚ª”­¶‚µ‚½ê‡
+     * @exception IOException å…¥å‡ºåŠ›ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ãŸå ´åˆ
      */
     public boolean closeEntry() throws IOException {
         if( this.out != null ){
@@ -714,7 +693,7 @@ public class LhaImmediateOutputStream extends OutputStream{
     //  private static class RandomAccessFileOutputStream
     //------------------------------------------------------------------
     /**
-     * RandomAccessFile‚ğOutputStream‚ÌƒCƒ“ƒ^ƒtƒFƒCƒX‚É‡‚í‚¹‚é‚½‚ß‚Ìƒ‰ƒbƒpƒNƒ‰ƒX
+     * RandomAccessFileã‚’OutputStreamã®ã‚¤ãƒ³ã‚¿ãƒ•ã‚§ã‚¤ã‚¹ã«åˆã‚ã›ã‚‹ãŸã‚ã®ãƒ©ãƒƒãƒ‘ã‚¯ãƒ©ã‚¹
      */
     private static class RandomAccessFileOutputStream extends OutputStream {
 
@@ -726,7 +705,7 @@ public class LhaImmediateOutputStream extends OutputStream{
         //  private RandomAccessFile archive
         //------------------------------------------------------------------
         /**
-         * o—ÍæRandomAccessFile
+         * å‡ºåŠ›å…ˆRandomAccessFile
          */
         private RandomAccessFile archive;
 
@@ -739,12 +718,12 @@ public class LhaImmediateOutputStream extends OutputStream{
         //  private long limit
         //------------------------------------------------------------------
         /**
-         * Œ»İˆ—ˆÊ’u
+         * ç¾åœ¨å‡¦ç†ä½ç½®
          */
         private long pos;
 
         /**
-         * Ši”[ŒÀŠE
+         * æ ¼ç´é™ç•Œ
          */
         private long limit;
 
@@ -755,12 +734,12 @@ public class LhaImmediateOutputStream extends OutputStream{
         //                                       long length )
         //------------------------------------------------------------------
         /**
-         * RandomAccessFile ‚ğƒ‰ƒbƒv‚µ‚½ OutputStream ‚ğ\’z‚·‚éB
+         * RandomAccessFile ã‚’ãƒ©ãƒƒãƒ—ã—ãŸ OutputStream ã‚’æ§‹ç¯‰ã™ã‚‹ã€‚
          * 
-         * @param archive o—Íæ‚ÌRandomAccessFile
-         * @param length  o—ÍŒÀŠE’·
+         * @param archive å‡ºåŠ›å…ˆã®RandomAccessFile
+         * @param length  å‡ºåŠ›é™ç•Œé•·
          * 
-         * @exception IOException “üo—ÍƒGƒ‰[ƒGƒ‰[‚ª”­¶‚µ‚½ê‡
+         * @exception IOException å…¥å‡ºåŠ›ã‚¨ãƒ©ãƒ¼ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ãŸå ´åˆ
          */
         public RandomAccessFileOutputStream( RandomAccessFile archive,
                                              long length ) throws IOException {
@@ -779,13 +758,13 @@ public class LhaImmediateOutputStream extends OutputStream{
         //  public void write( byte[] buffer, int index, int length )
         //------------------------------------------------------------------
         /**
-         * Ú‘±‚³‚ê‚½RandomAccessFile‚É1ƒoƒCƒg‘‚«‚±‚ŞB<br>
-         * ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚É“n‚³‚ê‚½ŒÀŠE‚ğ’´‚¦‚Ä‘‚«‚à‚¤‚Æ‚µ‚½ê‡‚Í
-         * ‰½‚às‚í‚È‚¢B
+         * æ¥ç¶šã•ã‚ŒãŸRandomAccessFileã«1ãƒã‚¤ãƒˆæ›¸ãã“ã‚€ã€‚<br>
+         * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã«æ¸¡ã•ã‚ŒãŸé™ç•Œã‚’è¶…ãˆã¦æ›¸ãè¾¼ã‚‚ã†ã¨ã—ãŸå ´åˆã¯
+         * ä½•ã‚‚è¡Œã‚ãªã„ã€‚
          * 
-         * @param data ‘‚«‚±‚Ş1byte‚Ìƒf[ƒ^
+         * @param data æ›¸ãã“ã‚€1byteã®ãƒ‡ãƒ¼ã‚¿
          * 
-         * @exception IOException  “üo—ÍƒGƒ‰[‚ª”­¶‚µ‚½ê‡
+         * @exception IOException  å…¥å‡ºåŠ›ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ãŸå ´åˆ
          */
         public void write( int data ) throws IOException {
             if( this.pos < this.limit ){
@@ -795,28 +774,28 @@ public class LhaImmediateOutputStream extends OutputStream{
         }
 
         /**
-         * Ú‘±‚³‚ê‚½RandomAccessFile‚Ébuffer‚Ì“à—e‚ğ‘S‚Ä‘‚«‚±‚ŞB
-         * ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚É“n‚³‚ê‚½ŒÀŠE‚ğ’´‚¦‚Ä‘‚«‚à‚¤‚Æ‚µ‚½ê‡‚Í
-         * ‰½‚às‚í‚È‚¢B
+         * æ¥ç¶šã•ã‚ŒãŸRandomAccessFileã«bufferã®å†…å®¹ã‚’å…¨ã¦æ›¸ãã“ã‚€ã€‚
+         * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã«æ¸¡ã•ã‚ŒãŸé™ç•Œã‚’è¶…ãˆã¦æ›¸ãè¾¼ã‚‚ã†ã¨ã—ãŸå ´åˆã¯
+         * ä½•ã‚‚è¡Œã‚ãªã„ã€‚
          * 
-         * @param buffer ‘‚«‚±‚Şƒf[ƒ^‚Ì“ü‚Á‚½ƒoƒCƒg”z—ñ
+         * @param buffer æ›¸ãã“ã‚€ãƒ‡ãƒ¼ã‚¿ã®å…¥ã£ãŸãƒã‚¤ãƒˆé…åˆ—
          * 
-         * @exception IOException  “üo—ÍƒGƒ‰[‚ª”­¶‚µ‚½ê‡
+         * @exception IOException  å…¥å‡ºåŠ›ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ãŸå ´åˆ
          */
         public void write( byte[] buffer ) throws IOException {
             this.write( buffer, 0, buffer.length );                             //throws IOException
         }
 
         /**
-         * Ú‘±‚³‚ê‚½RandomAccessFile‚Ébuffer‚Ì“à—e‚ğindex‚©‚ç lengthƒoƒCƒg‘‚«‚±‚ŞB
-         * ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚É“n‚³‚ê‚½ŒÀŠE‚ğ’´‚¦‚Ä‘‚«‚à‚¤‚Æ‚µ‚½ê‡‚Í
-         * ‰½‚às‚í‚È‚¢B
+         * æ¥ç¶šã•ã‚ŒãŸRandomAccessFileã«bufferã®å†…å®¹ã‚’indexã‹ã‚‰ lengthãƒã‚¤ãƒˆæ›¸ãã“ã‚€ã€‚
+         * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã«æ¸¡ã•ã‚ŒãŸé™ç•Œã‚’è¶…ãˆã¦æ›¸ãè¾¼ã‚‚ã†ã¨ã—ãŸå ´åˆã¯
+         * ä½•ã‚‚è¡Œã‚ãªã„ã€‚
          * 
-         * @param buffer ‘‚«‚±‚Şƒf[ƒ^‚Ì“ü‚Á‚½ƒoƒCƒg”z—ñ
-         * @param index  buffer“à‚Ì‘‚«‚±‚Şƒf[ƒ^‚ÌŠJnˆÊ’u
-         * @param length ‘‚«‚±‚Şƒf[ƒ^—Ê
+         * @param buffer æ›¸ãã“ã‚€ãƒ‡ãƒ¼ã‚¿ã®å…¥ã£ãŸãƒã‚¤ãƒˆé…åˆ—
+         * @param index  bufferå†…ã®æ›¸ãã“ã‚€ãƒ‡ãƒ¼ã‚¿ã®é–‹å§‹ä½ç½®
+         * @param length æ›¸ãã“ã‚€ãƒ‡ãƒ¼ã‚¿é‡
          * 
-         * @exception IOException  “üo—ÍƒGƒ‰[‚ª”­¶‚µ‚½ê‡
+         * @exception IOException  å…¥å‡ºåŠ›ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ãŸå ´åˆ
          */
         public void write( byte[] buffer, int index, int length )
                                                         throws IOException {
@@ -834,7 +813,7 @@ public class LhaImmediateOutputStream extends OutputStream{
         //  public void close()
         //------------------------------------------------------------------
         /**
-         * ‚±‚ÌƒXƒgƒŠ[ƒ€‚ğ•Â‚¶‚Ä g—p‚µ‚Ä‚¢‚½ƒŠƒ\[ƒX‚ğŠJ•ú‚·‚éB<br>
+         * ã“ã®ã‚¹ãƒˆãƒªãƒ¼ãƒ ã‚’é–‰ã˜ã¦ ä½¿ç”¨ã—ã¦ã„ãŸãƒªã‚½ãƒ¼ã‚¹ã‚’é–‹æ”¾ã™ã‚‹ã€‚<br>
          */
         public void close(){
             this.archive = null;

@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  * 
- * �ȉ��̏����ɓ��ӂ���Ȃ�΃\�[�X�ƃo�C�i���`���̍Ĕz�z�Ǝg�p��
- * �ύX�̗L���ɂ�����炸������B
+ * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
+ * 変更の有無にかかわらず許可する。
  * 
- * �P�D�\�[�X�R�[�h�̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐�������ێ����Ȃ��Ă͂Ȃ�Ȃ��B
+ * １．ソースコードの再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を保持しなくてはならない。
  * 
- * �Q�D�o�C�i���`���̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐��������g�p�������������� ���̑��̔z�z������
- *     �܂ގ����ɋL�q���Ȃ���΂Ȃ�Ȃ��B
+ * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を使用説明書もしくは その他の配布物内に
+ *     含む資料に記述しなければならない。
  * 
- * ���̃\�t�g�E�F�A�͐Β˔���ڂɂ���Ė��ۏ؂Œ񋟂���A����̖�
- * �I��B���ł���Ƃ����ۏ؁A���i���l���L��Ƃ����ۏ؂ɂƂǂ܂炸�A
- * �����Ȃ閾���I����шÎ��I�ȕۏ؂����Ȃ��B
- * �Β˔���ڂ� ���̃\�t�g�E�F�A�̎g�p�ɂ�钼�ړI�A�ԐړI�A����
- * �I�A����ȁA�T�^�I�ȁA���邢�͕K�R�I�ȑ��Q(�g�p�ɂ��f�[�^��
- * �����A�Ɩ��̒��f�〈���܂�Ă������v�̈⎸�A��֐��i��������
- * �T�[�r�X�̓�������l�����邪�A�����Ă��ꂾ���Ɍ��肳��Ȃ�
- * ���Q)�ɑ΂��āA�����Ȃ鎖�Ԃ̌����ƂȂ����Ƃ��Ă��A�_���̐�
- * �C�△�ߎ��ӔC���܂� �����Ȃ�ӔC�����낤�Ƃ��A���Ƃ����ꂪ�s
- * ���s�ׂ̂��߂ł������Ƃ��Ă��A�܂��͂��̂悤�ȑ��Q�̉\������
- * ������Ă����Ƃ��Ă���؂̐ӔC�𕉂�Ȃ����̂Ƃ���B
+ * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
+ * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
+ * いかなる明示的および暗示的な保証もしない。
+ * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
+ * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
+ * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
+ * サービスの導入費等が考えられるが、決してそれだけに限定されない
+ * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
+ * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
+ * 正行為のためであったとしても、またはそのような損害の可能性が報
+ * 告されていたとしても一切の責任を負わないものとする。
  */
 
 package jp.gr.java_conf.dangan.io;
@@ -41,24 +41,24 @@ import java.lang.IllegalArgumentException;
 
 
 /**
- * �ڑ����ꂽ�o�̓X�g���[���Ƀr�b�g�f�[�^���o�͂��邽�߂�
- * �o�̓X�g���[���N���X�B<br>
+ * 接続された出力ストリームにビットデータを出力するための
+ * 出力ストリームクラス。<br>
  * 
  * <pre>
  * -- revision history --
  * $Log: BitOutputStream.java,v $
  * Revision 1.1  2002/12/05 00:00:00  dangan
  * [maintenance]
- *     �\�[�X����
+ *     ソース整備
  *
  * Revision 1.0  2002/09/11 00:00:00  dangan
  * add to version control
  * [change]
- *     close() ��� write�n���\�b�h�� flush() ��
- *     ��O�𓊂���悤�ɏC��
+ *     close() 後の write系メソッドと flush() で
+ *     例外を投げるように修正
  * [maintenance]
- *     �^�u�p�~
- *     ���C�Z���X���̏C��
+ *     タブ廃止
+ *     ライセンス文の修正
  *
  * </pre>
  * 
@@ -76,7 +76,7 @@ public class BitOutputStream extends OutputStream{
     //  private static final int DefaultCacheSize
     //------------------------------------------------------------------
     /**
-     * �f�t�H���g���L���b�V���T�C�Y
+     * デフォルトおキャッシュサイズ
      */
     private static final int DefaultCacheSize = 1024;
 
@@ -89,7 +89,7 @@ public class BitOutputStream extends OutputStream{
     //  private OutputStream out
     //------------------------------------------------------------------
     /**
-     * �ڑ����ꂽ�o�̓X�g���[��
+     * 接続された出力ストリーム
      */
     private OutputStream out;
 
@@ -103,12 +103,12 @@ public class BitOutputStream extends OutputStream{
     //  private int    cachePosition
     //------------------------------------------------------------------
     /**
-     * ���x�ቺ�}�~�p�o�C�g�z��
+     * 速度低下抑止用バイト配列
      */
     private byte[] cache;
 
     /**
-     * cacheBuffer ���̌��ݏ����ʒu
+     * cacheBuffer 内の現在処理位置
      */
     private int    cachePosition;
 
@@ -122,35 +122,22 @@ public class BitOutputStream extends OutputStream{
     //  private int bitCount
     //------------------------------------------------------------------
     /**
-     * �r�b�g�o�b�t�@
+     * ビットバッファ
      */
     private int bitBuffer;
 
     /**
-     * bitBuffer �� �L���r�b�g��
+     * bitBuffer の 有効ビット数
      */
     private int bitCount;
 
 
-    //------------------------------------------------------------------
-    //  constructer
-    //------------------------------------------------------------------
-    //  private BitOutputStream()
-    //  public BitOutputStream( OutputStream out )
-    //  public BitOutputStream( OutputStream out, int CacheSize )
-    //------------------------------------------------------------------
     /**
-     * �f�t�H���g�R���X�g���N�^�B
-     * �g�p�s�B
-     */
-    private BitOutputStream(){  }
-
-    /**
-     * �o�̓X�g���[�� out �� �f�[�^���r�b�g�P�ʂ�
-     * �������߂�悤�ȃX�g���[�����\�z����B<br>
-     * �L���b�V���T�C�Y�ɂ̓f�t�H���g�l���g�p�����B
+     * 出力ストリーム out へ データをビット単位で
+     * 書きこめるようなストリームを構築する。<br>
+     * キャッシュサイズにはデフォルト値が使用される。
      * 
-     * @param out �o�̓X�g���[��
+     * @param out 出力ストリーム
      */
     public BitOutputStream( OutputStream out ){
         this( out, BitOutputStream.DefaultCacheSize );
@@ -158,15 +145,15 @@ public class BitOutputStream extends OutputStream{
     }
 
     /**
-     * �o�̓X�g���[�� out �� �f�[�^���r�b�g�P�ʂ�
-     * �������߂�悤�ȃX�g���[�����\�z����B<br>
+     * 出力ストリーム out へ データをビット単位で
+     * 書きこめるようなストリームを構築する。<br>
      * 
-     * @param out       �o�̓X�g���[��
-     * @param CacheSize �L���b�V���T�C�Y
+     * @param out       出力ストリーム
+     * @param CacheSize キャッシュサイズ
      * 
      * @exception IllegalArgumentException
-     *                   CacheSize �� 4�����̏ꍇ�A�܂���
-     *                   CacheSize �� 4�̔{���Ŗ����ꍇ�B
+     *                   CacheSize が 4未満の場合、または
+     *                   CacheSize が 4の倍数で無い場合。
      */
     public BitOutputStream( OutputStream out, int CacheSize ){
         if( out != null && 4 <= CacheSize && 0 == ( CacheSize & 0x03 ) ){
@@ -195,39 +182,39 @@ public class BitOutputStream extends OutputStream{
     //  public void write( byte[] buffer, int index, int length )
     //------------------------------------------------------------------
     /**
-     * �ڑ����ꂽ�o�̓X�g���[���� 8�r�b�g�̃f�[�^���o�͂���B<br>
+     * 接続された出力ストリームに 8ビットのデータを出力する。<br>
      * 
-     * @param data 8�r�b�g�̃f�[�^�B<br>
-     *             ���24�r�b�g�͖��������B<br>
+     * @param data 8ビットのデータ。<br>
+     *             上位24ビットは無視される。<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public void write( int data ) throws IOException {
         this.writeBits( 8, data );
     }
 
     /**
-     * �ڑ����ꂽ�o�̓X�g���[����buffer�̓��e��A������
-     * 8�r�b�g�̃f�[�^�Ƃ��ďo�͂���B<br>
+     * 接続された出力ストリームにbufferの内容を連続した
+     * 8ビットのデータとして出力する。<br>
      * 
-     * @param buffer �o�͂��ׂ��f�[�^���i�[�����o�C�g�z��<br>
+     * @param buffer 出力すべきデータを格納したバイト配列<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public void write( byte[] buffer ) throws IOException {
         this.write( buffer, 0, buffer.length );                                 //throws IOException
     }
 
     /**
-     * �ڑ����ꂽ�o�̓X�g���[����buffer��index����
-     * length�o�C�g�̓��e��A������ 8�r�b�g�̃f�[�^
-     * �Ƃ��ďo�͂���B<br>
+     * 接続された出力ストリームにbufferのindexから
+     * lengthバイトの内容を連続した 8ビットのデータ
+     * として出力する。<br>
      * 
-     * @param buffer �o�͂��ׂ��f�[�^���i�[�����o�C�g�z��
-     * @param index  buffer���̃f�[�^�J�n�ʒu
-     * @param length �o�͂���f�[�^��(�o�C�g��)
+     * @param buffer 出力すべきデータを格納したバイト配列
+     * @param index  buffer内のデータ開始位置
+     * @param length 出力するデータ量(バイト数)
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public void write( byte[] buffer, int index, int length )
                                                            throws IOException {
@@ -250,11 +237,11 @@ public class BitOutputStream extends OutputStream{
     //  public void close()
     //------------------------------------------------------------------
     /**
-     * ���̃r�b�g�o�̓X�g���[���Ƀo�b�t�@�����O����Ă���
-     * 8�r�b�g�P�ʂ̃f�[�^��S�ďo�͐�ɏo�͂���B
-     * 8�r�b�g�ɖ����Ȃ��f�[�^�͏o�͂���Ȃ����Ƃɒ��ӁB<br>
+     * このビット出力ストリームにバッファリングされている
+     * 8ビット単位のデータを全て出力先に出力する。
+     * 8ビットに満たないデータは出力されないことに注意。<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public void flush() throws IOException {
         while( 8 <= this.bitCount ){
@@ -269,10 +256,10 @@ public class BitOutputStream extends OutputStream{
     }
 
     /**
-     * ���̏o�̓X�g���[���ƁA�ڑ����ꂽ�o�̓X�g���[������A
-     * �g�p���Ă������\�[�X���J������B<br>
+     * この出力ストリームと、接続された出力ストリームを閉じ、
+     * 使用していたリソースを開放する。<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public void close() throws IOException {
         while( 0 < this.bitCount ){
@@ -304,12 +291,12 @@ public class BitOutputStream extends OutputStream{
     //  public void writeBits( int count, int data )
     //------------------------------------------------------------------
     /**
-     * �ڑ����ꂽ�o�̓X�g���[����1�r�b�g�̃f�[�^���o�͂���B<br>
+     * 接続された出力ストリームに1ビットのデータを出力する。<br>
      * 
-     * @param data 1�r�b�g�̃f�[�^�B<br>
-     *             ���31�r�b�g�͖��������B<br>
+     * @param data 1ビットのデータ。<br>
+     *             上位31ビットは無視される。<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public void writeBit( int data ) throws IOException {
         this.bitBuffer |= ( data & 0x00000001 ) << 31 - this.bitCount;
@@ -319,15 +306,15 @@ public class BitOutputStream extends OutputStream{
     }
 
     /**
-     * �^�U�l��ڑ����ꂽ�o�̓X�g���[����1�r�b�g��
-     * �f�[�^�Ƃ��ďo�͂���B<br>
-     * true �� 1�Afalse �� 0�Ƃ��ďo�͂���B<br>
-     * java.io.DataOutput �� writeBoolean() �Ƃ�
-     * �݊����������̂Œ��ӂ��邱�ƁB<br>
+     * 真偽値を接続された出力ストリームに1ビットの
+     * データとして出力する。<br>
+     * true は 1、false は 0として出力する。<br>
+     * java.io.DataOutput の writeBoolean() とは
+     * 互換性が無いので注意すること。<br>
      * 
-     * @param bool �^�U�l
+     * @param bool 真偽値
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public void writeBoolean( boolean bool ) throws IOException {
         if( bool )  this.bitBuffer |= 1 << 31 - this.bitCount;
@@ -338,12 +325,12 @@ public class BitOutputStream extends OutputStream{
     }
 
     /**
-     * �ڑ����ꂽ�o�̓X�g���[���Ƀr�b�g�f�[�^���o�͂���B<br>
+     * 接続された出力ストリームにビットデータを出力する。<br>
      * 
-     * @param count data �̗L���r�b�g��
-     * @param data  �r�b�g�f�[�^
+     * @param count data の有効ビット数
+     * @param data  ビットデータ
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public void writeBits( int count, int data ) throws IOException {
         while( 0 < count ){
@@ -368,11 +355,11 @@ public class BitOutputStream extends OutputStream{
     //  private void writeOutBitBuffer()
     //------------------------------------------------------------------
     /**
-     * �r�b�g�o�b�t�@�ɒ~����ꂽ�f�[�^��S�ăL���b�V����
-     * �o�͂��A�L���b�V�����������ꍇ�̓L���b�V���̃f�[�^��
-     * �ڑ����ꂽ�o�̓X�g���[���ɏo�͂���B<br>
+     * ビットバッファに蓄えられたデータを全てキャッシュに
+     * 出力し、キャッシュが満ちた場合はキャッシュのデータを
+     * 接続された出力ストリームに出力する。<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     private void writeOutBitBuffer() throws IOException {
         this.cache[ this.cachePosition++ ] = (byte)( this.bitBuffer >> 24 );

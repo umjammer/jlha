@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  * 
- * �ȉ��̏����ɓ��ӂ���Ȃ�΃\�[�X�ƃo�C�i���`���̍Ĕz�z�Ǝg�p��
- * �ύX�̗L���ɂ�����炸������B
+ * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
+ * 変更の有無にかかわらず許可する。
  * 
- * �P�D�\�[�X�R�[�h�̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐�������ێ����Ȃ��Ă͂Ȃ�Ȃ��B
+ * １．ソースコードの再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を保持しなくてはならない。
  * 
- * �Q�D�o�C�i���`���̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐��������g�p�������������� ���̑��̔z�z������
- *     �܂ގ����ɋL�q���Ȃ���΂Ȃ�Ȃ��B
+ * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を使用説明書もしくは その他の配布物内に
+ *     含む資料に記述しなければならない。
  * 
- * ���̃\�t�g�E�F�A�͐Β˔���ڂɂ���Ė��ۏ؂Œ񋟂���A����̖�
- * �I��B���ł���Ƃ����ۏ؁A���i���l���L��Ƃ����ۏ؂ɂƂǂ܂炸�A
- * �����Ȃ閾���I����шÎ��I�ȕۏ؂����Ȃ��B
- * �Β˔���ڂ� ���̃\�t�g�E�F�A�̎g�p�ɂ�钼�ړI�A�ԐړI�A����
- * �I�A����ȁA�T�^�I�ȁA���邢�͕K�R�I�ȑ��Q(�g�p�ɂ��f�[�^��
- * �����A�Ɩ��̒��f�〈���܂�Ă������v�̈⎸�A��֐��i��������
- * �T�[�r�X�̓�������l�����邪�A�����Ă��ꂾ���Ɍ��肳��Ȃ�
- * ���Q)�ɑ΂��āA�����Ȃ鎖�Ԃ̌����ƂȂ����Ƃ��Ă��A�_���̐�
- * �C�△�ߎ��ӔC���܂� �����Ȃ�ӔC�����낤�Ƃ��A���Ƃ����ꂪ�s
- * ���s�ׂ̂��߂ł������Ƃ��Ă��A�܂��͂��̂悤�ȑ��Q�̉\������
- * ������Ă����Ƃ��Ă���؂̐ӔC�𕉂�Ȃ����̂Ƃ���B
+ * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
+ * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
+ * いかなる明示的および暗示的な保証もしない。
+ * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
+ * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
+ * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
+ * サービスの導入費等が考えられるが、決してそれだけに限定されない
+ * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
+ * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
+ * 正行為のためであったとしても、またはそのような損害の可能性が報
+ * 告されていたとしても一切の責任を負わないものとする。
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -38,8 +38,8 @@ import jp.gr.java_conf.dangan.util.lha.HashMethod;
 
 
 /**
- * �f�[�^�p�^���̐擪2�o�C�g����
- * 0 �` 4095 �̃n�b�V���l�𐶐�����n�b�V���֐��B
+ * データパタンの先頭2バイトから
+ * 0 〜 4095 のハッシュ値を生成するハッシュ関数。
  * 
  * <pre>
  * -- revision history --
@@ -47,11 +47,11 @@ import jp.gr.java_conf.dangan.util.lha.HashMethod;
  * Revision 1.0  2002/08/05 00:00:00  dangan
  * add to version control
  * [change]
- *     HashMethod �̃C���^�t�F�C�X�ύX�ɂ��킹�ăC���e�t�F�C�X�ύX�B
+ *     HashMethod のインタフェイス変更にあわせてインテフェイス変更。
  * [maintanance]
- *     �\�[�X����
- *     �^�u�p�~
- *     ���C�Z���X���̏C��
+ *     ソース整備
+ *     タブ廃止
+ *     ライセンス文の修正
  *
  * </pre>
  * 
@@ -67,32 +67,20 @@ public class HashShort implements HashMethod{
     //  private byte[] TextBuffer
     //------------------------------------------------------------------
     /**
-     * LZSS���k���{�����߂̃o�b�t�@�B
-     * �O���͎����̈�A
-     * �㔼�͈��k���{�����߂̃f�[�^�̓������o�b�t�@�B
-     * HashMethod�̎������ł� Hash�l�̐����̂��߂̓ǂݍ��݂ɂ̂ݎg�p����B
+     * LZSS圧縮を施すためのバッファ。
+     * 前半は辞書領域、
+     * 後半は圧縮を施すためのデータの入ったバッファ。
+     * HashMethodの実装内では Hash値の生成のための読み込みにのみ使用する。
      */
     private byte[] TextBuffer;
 
 
-    //------------------------------------------------------------------
-    //  constructor
-    //------------------------------------------------------------------
-    //  private HashShort()
-    //  public HashShort( byte[] TextBuffer )
-    //------------------------------------------------------------------
     /**
-     * �f�t�H���g�R���X�g���N�^�B
-     * �g�p�s��
-     */
-    private HashShort(){    }
-
-    /**
-     * �f�[�^�p�^���̐擪2�o�C�g���� 0x000 �` 0xFFF �܂ł̒l�𐶐�����
-     * �n�b�V���֐����\�z����B
+     * データパタンの先頭2バイトから 0x000 〜 0xFFF までの値を生成する
+     * ハッシュ関数を構築する。
      * 
-     * @param TextBuffer LZSS���k�p�̃o�b�t�@�B
-     *                   Hash�l�����̂��ߓǂݍ��ݗp�Ɏg�p����B
+     * @param TextBuffer LZSS圧縮用のバッファ。
+     *                   Hash値生成のため読み込み用に使用する。
      */
     public HashShort( byte[] TextBuffer ){
         this.TextBuffer = TextBuffer;
@@ -107,13 +95,13 @@ public class HashShort implements HashMethod{
     //  public int tableSize()
     //------------------------------------------------------------------
     /**
-     * �n�b�V���֐��B
-     * �R���X�g���N�^�œn���ꂽ TextBuffer �� position �����
-     * �f�[�^�p�^���� hash�l�𐶐�����B
+     * ハッシュ関数。
+     * コンストラクタで渡された TextBuffer の position からの
+     * データパタンの hash値を生成する。
      *
-     * @param position �f�[�^�p�^���̊J�n�ʒu
+     * @param position データパタンの開始位置
      * 
-     * @return �n�b�V���l
+     * @return ハッシュ値
      */
     public int hash( int position ){
         return ( ( ( ( this.TextBuffer[ position + 1 ] & 0x0F ) << 8 )
@@ -122,22 +110,22 @@ public class HashShort implements HashMethod{
     }
 
     /**
-     * �n�b�V���֐����n�b�V���l�𐶐����邽�߂Ɏg�p����o�C�g���𓾂�B<br>
-     * ���̃n�b�V���֐��̓f�[�^�p�^���̐擪 2 �o�C�g�̃f�[�^����
-     * �n�b�V���l�𐶐����邽�߁A���̃��\�b�h�͏�� 2 ��Ԃ��B
+     * ハッシュ関数がハッシュ値を生成するために使用するバイト数を得る。<br>
+     * このハッシュ関数はデータパタンの先頭 2 バイトのデータから
+     * ハッシュ値を生成するため、このメソッドは常に 2 を返す。
      * 
-     * @return ��� 2
+     * @return 常に 2
      */
     public int hashRequires(){
         return 2;
     }
 
     /**
-     * �n�b�V���e�[�u���̃T�C�Y�𓾂�B<br>
-     * ���̃n�b�V���֐��� 0x000 �` 0xFFF �܂ł̃n�b�V���l�𐶐����邽��
-     * ���̃��\�b�h�͏�� 0x1000(4096) ��Ԃ��B
+     * ハッシュテーブルのサイズを得る。<br>
+     * このハッシュ関数は 0x000 〜 0xFFF までのハッシュ値を生成するため
+     * このメソッドは常に 0x1000(4096) を返す。
      * 
-     * @return ��� 0x1000(4096) 
+     * @return 常に 0x1000(4096) 
      */
     public int tableSize(){
         return 0x1000;

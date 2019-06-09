@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  * 
- * �ȉ��̏����ɓ��ӂ���Ȃ�΃\�[�X�ƃo�C�i���`���̍Ĕz�z�Ǝg�p��
- * �ύX�̗L���ɂ�����炸������B
+ * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
+ * 変更の有無にかかわらず許可する。
  * 
- * �P�D�\�[�X�R�[�h�̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐�������ێ����Ȃ��Ă͂Ȃ�Ȃ��B
+ * １．ソースコードの再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を保持しなくてはならない。
  * 
- * �Q�D�o�C�i���`���̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐��������g�p�������������� ���̑��̔z�z������
- *     �܂ގ����ɋL�q���Ȃ���΂Ȃ�Ȃ��B
+ * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を使用説明書もしくは その他の配布物内に
+ *     含む資料に記述しなければならない。
  * 
- * ���̃\�t�g�E�F�A�͐Β˔���ڂɂ���Ė��ۏ؂Œ񋟂���A����̖�
- * �I��B���ł���Ƃ����ۏ؁A���i���l���L��Ƃ����ۏ؂ɂƂǂ܂炸�A
- * �����Ȃ閾���I����шÎ��I�ȕۏ؂����Ȃ��B
- * �Β˔���ڂ� ���̃\�t�g�E�F�A�̎g�p�ɂ�钼�ړI�A�ԐړI�A����
- * �I�A����ȁA�T�^�I�ȁA���邢�͕K�R�I�ȑ��Q(�g�p�ɂ��f�[�^��
- * �����A�Ɩ��̒��f�〈���܂�Ă������v�̈⎸�A��֐��i��������
- * �T�[�r�X�̓�������l�����邪�A�����Ă��ꂾ���Ɍ��肳��Ȃ�
- * ���Q)�ɑ΂��āA�����Ȃ鎖�Ԃ̌����ƂȂ����Ƃ��Ă��A�_���̐�
- * �C�△�ߎ��ӔC���܂� �����Ȃ�ӔC�����낤�Ƃ��A���Ƃ����ꂪ�s
- * ���s�ׂ̂��߂ł������Ƃ��Ă��A�܂��͂��̂悤�ȑ��Q�̉\������
- * ������Ă����Ƃ��Ă���؂̐ӔC�𕉂�Ȃ����̂Ƃ���B
+ * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
+ * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
+ * いかなる明示的および暗示的な保証もしない。
+ * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
+ * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
+ * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
+ * サービスの導入費等が考えられるが、決してそれだけに限定されない
+ * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
+ * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
+ * 正行為のためであったとしても、またはそのような損害の可能性が報
+ * 告されていたとしても一切の責任を負わないものとする。
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -37,15 +37,15 @@ import java.util.zip.Checksum;
 //import exceptions
 
 /**
- * CRC16�l���Z�o���邽�߂̃N���X�B
+ * CRC16値を算出するためのクラス。
  * 
- * �N���X���̒萔�A�����A������
+ * クラス内の定数、処理、説明は
  * <pre>
- * �b����ɂ��A���S���Y�����T
- *   �������F�� �Z�p�]�_�� 
- *   ISBN4-87408-414-1 C3055 2400�~(�w������)
+ * Ｃ言語によるアルゴリズム辞典
+ *   奥村晴彦著 技術評論社 
+ *   ISBN4-87408-414-1 C3055 2400円(購入当時)
  * </pre>
- * �ɂ�����B
+ * によった。
  * 
  * <pre>
  * -- revision history --
@@ -53,9 +53,9 @@ import java.util.zip.Checksum;
  * Revision 1.0  2002/07/24 00:00:00  dangan
  * add to version control
  * [maintanance]
- *     �\�[�X����
- *     �^�u�p�~
- *     ���C�Z���X���̕ύX
+ *     ソース整備
+ *     タブ廃止
+ *     ライセンス文の変更
  *
  * </pre>
  * 
@@ -76,39 +76,39 @@ public class CRC16 implements Checksum{
     //  public static final int DefaultINIT
     //------------------------------------------------------------------
     /**
-     * CRC-ANSY �܂��� CRC-16 �Ƃ��ėL����
-     * ������ x^16 + x^15 + x^2 + 1 ���r�b�g�\���ɂ������́B
+     * CRC-ANSY または CRC-16 として有名な
+     * 多項式 x^16 + x^15 + x^2 + 1 をビット表現にしたもの。
      */
     public static final int CRC_ANSY_POLY = 0xA001;
 
     /**
-     * LHA�Ŏg�p����� crc �̏����l�B
-     * ��҂�����ɐݒ肵���l�ł���A
-     * CRC-ANSY �ł��̒l�������l�Ƃ���
-     * ��߂��Ă��邩�͒m��Ȃ��B
+     * LHAで使用される crc の初期値。
+     * 作者が勝手に設定した値であり、
+     * CRC-ANSY でこの値が初期値として
+     * 定められているかは知らない。
      */
     public static final int CRC_ANSY_INIT = 0x0000;
 
     /**
-     * CCITT �� X.25�Ƃ����K�i��
-     * ������ x^16 + x^12 + x^5 + 1 ���r�b�g�\���ɂ������́B
+     * CCITT の X.25という規格の
+     * 多項式 x^16 + x^12 + x^5 + 1 をビット表現にしたもの。
      */
     public static final int CCITT_POLY = 0x8408;
 
     /**
-     * CCITT �� X.25�Ƃ����K�i�� crc �̏����l�B
+     * CCITT の X.25という規格の crc の初期値。
      */
     public static final int CCITT_INIT = 0xFFFF;
 
     /**
-     * LHA�Œʏ�g�p�����A�Ƃ����Ӗ��Ńf�t�H���g��CRC�������B
-     * CRC16.CRC_ANSY_POLY �Ɠ����ł���B
+     * LHAで通常使用される、という意味でデフォルトのCRC多項式。
+     * CRC16.CRC_ANSY_POLY と同等である。
      */
     public static final int DefaultPOLY = CRC16.CRC_ANSY_POLY;
 
     /**
-     * LHA�Œʏ�g�p�����A�Ƃ����Ӗ��Ńf�t�H���g��crc�̏����l�B
-     * CRC16.CRC_ANSY_INIT �Ɠ����ł���B
+     * LHAで通常使用される、という意味でデフォルトのcrcの初期値。
+     * CRC16.CRC_ANSY_INIT と同等である。
      */
     public static final int DefaultINIT = CRC16.CRC_ANSY_INIT;
 
@@ -121,17 +121,17 @@ public class CRC16 implements Checksum{
     //  private int[] crcTable
     //------------------------------------------------------------------
     /** 
-     * CRC16�l 
+     * CRC16値 
      */
     private int crc;
 
     /** 
-     * crc �̏����l 
+     * crc の初期値 
      */
     private int init;
 
     /** 
-     * CRC16�l�̍X�V�p�e�[�u�� 
+     * CRC16値の更新用テーブル 
      */
     private int[] crcTable;
 
@@ -145,19 +145,19 @@ public class CRC16 implements Checksum{
     //  public CRC16( int[] crcTable, int init )
     //------------------------------------------------------------------
     /**
-     * LHA�Ŏg�p����� �������Ə����l������ CRC16�𐶐�����B
+     * LHAで使用される 多項式と初期値を持つ CRC16を生成する。
      */
     public CRC16(){
         this( DefaultPOLY, DefaultINIT );
     }
 
     /**
-     * poly �Ŏw�肳��� ������������ CRC16�𐶐�����B
-     * �����l�� poly �� CRC16.CCITT_POLY �ł����
-     * CRC16.CCITT_INIT �� �����łȂ���� 
-     * CRC16.DefaultINIT ���g�p����B
+     * poly で指定される 多項式を持つ CRC16を生成する。
+     * 初期値は poly が CRC16.CCITT_POLY であれば
+     * CRC16.CCITT_INIT を そうでなければ 
+     * CRC16.DefaultINIT を使用する。
      * 
-     * @param poly CRC16�Z�o�Ɏg�p���鑽�����̃r�b�g�\��
+     * @param poly CRC16算出に使用する多項式のビット表現
      */
     public CRC16( int poly ){
         this( poly, 
@@ -167,22 +167,22 @@ public class CRC16 implements Checksum{
     }
 
     /**
-     * poly �Ŏw�肳��� �������� init�Ŏw�肳��鏉���l������
-     * CRC16�𐶐�����B
+     * poly で指定される 多項式と initで指定される初期値を持つ
+     * CRC16を生成する。
      * 
-     * @param poly CRC16�Z�o�Ɏg�p���鑽�����̃r�b�g�\��
-     * @param init crc �̏����l
+     * @param poly CRC16算出に使用する多項式のビット表現
+     * @param init crc の初期値
      */
     public  CRC16( int poly, int init ){
         this( CRC16.makeCrcTable( poly ), init );
     }
 
     /**
-     * crcTable �Ŏw�肳��� CRC�Z�o�p�\�� 
-     * init�Ŏw�肳��鏉���l������ CRC16���쐬����B
+     * crcTable で指定される CRC算出用表と 
+     * initで指定される初期値を持つ CRC16を作成する。
      *
-     * @param crcTable CRC16�Z�o�Ɏg�p����\
-     * @param init     crc �̏����l
+     * @param crcTable CRC16算出に使用する表
+     * @param init     crc の初期値
      */
     public  CRC16( int[] crcTable, int init ){
         final int BYTE_PATTERNS= 256;
@@ -208,9 +208,9 @@ public class CRC16 implements Checksum{
     //  public void update( byte[] buffer, int index, int length )
     //------------------------------------------------------------------
     /**
-     * byte8 �Ŏw�肳��� 1�o�C�g�̃f�[�^�� crc�̒l���X�V����B
+     * byte8 で指定される 1バイトのデータで crcの値を更新する。
      * 
-     * @param byte8 crc���X�V���� 1�o�C�g�̃f�[�^
+     * @param byte8 crcを更新する 1バイトのデータ
      */
     public void update( int byte8 ){
         final int BYTE_BITS = 8;
@@ -219,20 +219,20 @@ public class CRC16 implements Checksum{
     }
 
     /**
-     * buffer �Ŏw�肵���o�C�g�z��� crc �̒l���X�V����B
+     * buffer で指定したバイト配列で crc の値を更新する。
      * 
-     * @param buffer crc���X�V���� �f�[�^�����o�C�g�z��
+     * @param buffer crcを更新する データを持つバイト配列
      */
     public void update( byte[] buffer ){
         this.update( buffer, 0, buffer.length );
     }
 
     /**
-     * buffer �Ŏw�肵���o�C�g�z��� crc �̒l���X�V����B
+     * buffer で指定したバイト配列で crc の値を更新する。
      * 
-     * @param buffer crc���X�V���� �f�[�^�����o�C�g�z��
-     * @param index  �f�[�^�̊J�n�ʒu
-     * @param length �`�F�b�N�T���̍X�V�Ɏg���o�C�g��
+     * @param buffer crcを更新する データを持つバイト配列
+     * @param index  データの開始位置
+     * @param length チェックサムの更新に使うバイト数
      */
     public void update( byte[] buffer, int index, int length ){
         final int BYTE_BITS = 8;
@@ -278,18 +278,18 @@ public class CRC16 implements Checksum{
     //  public long getValue()
     //------------------------------------------------------------------
     /**
-     * crc �l�������l�ɐݒ肵�Ȃ����B
+     * crc 値を初期値に設定しなおす。
      */
     public void reset(){
         this.crc = this.init;
     }
 
     /**
-     * crc �l�𓾂�B
-     * crc �l�� 2�o�C�g�̒l�ł���A 
-     * 0x0000�`0xFFFF�Ƀ}�b�v�����B
+     * crc 値を得る。
+     * crc 値は 2バイトの値であり、 
+     * 0x0000〜0xFFFFにマップされる。
      * 
-     * @return crc �l
+     * @return crc 値
      */
     public long getValue(){
         return this.crc & 0xFFFF;
@@ -302,9 +302,9 @@ public class CRC16 implements Checksum{
     //  public static int[] makeCrcTable( int init )
     //------------------------------------------------------------------
     /**
-     * CRC�l�Z�o�p�� �\���쐬����B
+     * CRC値算出用の 表を作成する。
      * 
-     * @param poly CRC�Z�o�p�̑�����
+     * @param poly CRC算出用の多項式
      */
     public static int[] makeCrcTable( int poly ){
         final int BYTE_PATTERNS = 256;

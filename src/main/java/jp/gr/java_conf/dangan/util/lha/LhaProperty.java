@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  * 
- * ˆÈ‰º‚ÌğŒ‚É“¯ˆÓ‚·‚é‚È‚ç‚Îƒ\[ƒX‚ÆƒoƒCƒiƒŠŒ`®‚ÌÄ”z•z‚Æg—p‚ğ
- * •ÏX‚Ì—L–³‚É‚©‚©‚í‚ç‚¸‹–‰Â‚·‚éB
+ * ä»¥ä¸‹ã®æ¡ä»¶ã«åŒæ„ã™ã‚‹ãªã‚‰ã°ã‚½ãƒ¼ã‚¹ã¨ãƒã‚¤ãƒŠãƒªå½¢å¼ã®å†é…å¸ƒã¨ä½¿ç”¨ã‚’
+ * å¤‰æ›´ã®æœ‰ç„¡ã«ã‹ã‹ã‚ã‚‰ãšè¨±å¯ã™ã‚‹ã€‚
  * 
- * ‚PDƒ\[ƒXƒR[ƒh‚ÌÄ”z•z‚É‚¨‚¢‚Ä’˜ìŒ •\¦‚Æ ‚±‚ÌğŒ‚ÌƒŠƒXƒg
- *     ‚¨‚æ‚Ñ‰º‹L‚Ìº–¾•¶‚ğ•Û‚µ‚È‚­‚Ä‚Í‚È‚ç‚È‚¢B
+ * ï¼‘ï¼ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã®å†é…å¸ƒã«ãŠã„ã¦è‘—ä½œæ¨©è¡¨ç¤ºã¨ ã“ã®æ¡ä»¶ã®ãƒªã‚¹ãƒˆ
+ *     ãŠã‚ˆã³ä¸‹è¨˜ã®å£°æ˜æ–‡ã‚’ä¿æŒã—ãªãã¦ã¯ãªã‚‰ãªã„ã€‚
  * 
- * ‚QDƒoƒCƒiƒŠŒ`®‚ÌÄ”z•z‚É‚¨‚¢‚Ä’˜ìŒ •\¦‚Æ ‚±‚ÌğŒ‚ÌƒŠƒXƒg
- *     ‚¨‚æ‚Ñ‰º‹L‚Ìº–¾•¶‚ğg—pà–¾‘‚à‚µ‚­‚Í ‚»‚Ì‘¼‚Ì”z•z•¨“à‚É
- *     ŠÜ‚Ş‘—¿‚É‹Lq‚µ‚È‚¯‚ê‚Î‚È‚ç‚È‚¢B
+ * ï¼’ï¼ãƒã‚¤ãƒŠãƒªå½¢å¼ã®å†é…å¸ƒã«ãŠã„ã¦è‘—ä½œæ¨©è¡¨ç¤ºã¨ ã“ã®æ¡ä»¶ã®ãƒªã‚¹ãƒˆ
+ *     ãŠã‚ˆã³ä¸‹è¨˜ã®å£°æ˜æ–‡ã‚’ä½¿ç”¨èª¬æ˜æ›¸ã‚‚ã—ãã¯ ãã®ä»–ã®é…å¸ƒç‰©å†…ã«
+ *     å«ã‚€è³‡æ–™ã«è¨˜è¿°ã—ãªã‘ã‚Œã°ãªã‚‰ãªã„ã€‚
  * 
- * ‚±‚Ìƒ\ƒtƒgƒEƒFƒA‚ÍÎ’Ë”üì—Ú‚É‚æ‚Á‚Ä–³•ÛØ‚Å’ñ‹Ÿ‚³‚êA“Á’è‚Ì–Ú
- * “I‚ğ’B¬‚Å‚«‚é‚Æ‚¢‚¤•ÛØA¤•i‰¿’l‚ª—L‚é‚Æ‚¢‚¤•ÛØ‚É‚Æ‚Ç‚Ü‚ç‚¸A
- * ‚¢‚©‚È‚é–¾¦“I‚¨‚æ‚ÑˆÃ¦“I‚È•ÛØ‚à‚µ‚È‚¢B
- * Î’Ë”üì—Ú‚Í ‚±‚Ìƒ\ƒtƒgƒEƒFƒA‚Ìg—p‚É‚æ‚é’¼Ú“IAŠÔÚ“IA‹ô”­
- * “IA“Áê‚ÈA“TŒ^“I‚ÈA‚ ‚é‚¢‚Í•K‘R“I‚È‘¹ŠQ(g—p‚É‚æ‚éƒf[ƒ^‚Ì
- * ‘¹¸A‹Æ–±‚Ì’†’f‚âŒ©‚Ü‚ê‚Ä‚¢‚½—˜‰v‚Ìˆâ¸A‘ã‘Ö»•i‚à‚µ‚­‚Í
- * ƒT[ƒrƒX‚Ì“±“ü”ï“™‚ªl‚¦‚ç‚ê‚é‚ªAŒˆ‚µ‚Ä‚»‚ê‚¾‚¯‚ÉŒÀ’è‚³‚ê‚È‚¢
- * ‘¹ŠQ)‚É‘Î‚µ‚ÄA‚¢‚©‚È‚é–‘Ô‚ÌŒ´ˆö‚Æ‚È‚Á‚½‚Æ‚µ‚Ä‚àAŒ_–ñã‚ÌÓ
- * ”C‚â–³‰ß¸Ó”C‚ğŠÜ‚Ş ‚¢‚©‚È‚éÓ”C‚ª‚ ‚ë‚¤‚Æ‚àA‚½‚Æ‚¦‚»‚ê‚ª•s
- * ³sˆ×‚Ì‚½‚ß‚Å‚ ‚Á‚½‚Æ‚µ‚Ä‚àA‚Ü‚½‚Í‚»‚Ì‚æ‚¤‚È‘¹ŠQ‚Ì‰Â”\«‚ª•ñ
- * ‚³‚ê‚Ä‚¢‚½‚Æ‚µ‚Ä‚àˆêØ‚ÌÓ”C‚ğ•‰‚í‚È‚¢‚à‚Ì‚Æ‚·‚éB
+ * ã“ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã¯çŸ³å¡šç¾ç ç‘ ã«ã‚ˆã£ã¦ç„¡ä¿è¨¼ã§æä¾›ã•ã‚Œã€ç‰¹å®šã®ç›®
+ * çš„ã‚’é”æˆã§ãã‚‹ã¨ã„ã†ä¿è¨¼ã€å•†å“ä¾¡å€¤ãŒæœ‰ã‚‹ã¨ã„ã†ä¿è¨¼ã«ã¨ã©ã¾ã‚‰ãšã€
+ * ã„ã‹ãªã‚‹æ˜ç¤ºçš„ãŠã‚ˆã³æš—ç¤ºçš„ãªä¿è¨¼ã‚‚ã—ãªã„ã€‚
+ * çŸ³å¡šç¾ç ç‘ ã¯ ã“ã®ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã®ä½¿ç”¨ã«ã‚ˆã‚‹ç›´æ¥çš„ã€é–“æ¥çš„ã€å¶ç™º
+ * çš„ã€ç‰¹æ®Šãªã€å…¸å‹çš„ãªã€ã‚ã‚‹ã„ã¯å¿…ç„¶çš„ãªæå®³(ä½¿ç”¨ã«ã‚ˆã‚‹ãƒ‡ãƒ¼ã‚¿ã®
+ * æå¤±ã€æ¥­å‹™ã®ä¸­æ–­ã‚„è¦‹è¾¼ã¾ã‚Œã¦ã„ãŸåˆ©ç›Šã®éºå¤±ã€ä»£æ›¿è£½å“ã‚‚ã—ãã¯
+ * ã‚µãƒ¼ãƒ“ã‚¹ã®å°å…¥è²»ç­‰ãŒè€ƒãˆã‚‰ã‚Œã‚‹ãŒã€æ±ºã—ã¦ãã‚Œã ã‘ã«é™å®šã•ã‚Œãªã„
+ * æå®³)ã«å¯¾ã—ã¦ã€ã„ã‹ãªã‚‹äº‹æ…‹ã®åŸå› ã¨ãªã£ãŸã¨ã—ã¦ã‚‚ã€å¥‘ç´„ä¸Šã®è²¬
+ * ä»»ã‚„ç„¡éå¤±è²¬ä»»ã‚’å«ã‚€ ã„ã‹ãªã‚‹è²¬ä»»ãŒã‚ã‚ã†ã¨ã‚‚ã€ãŸã¨ãˆãã‚ŒãŒä¸
+ * æ­£è¡Œç‚ºã®ãŸã‚ã§ã‚ã£ãŸã¨ã—ã¦ã‚‚ã€ã¾ãŸã¯ãã®ã‚ˆã†ãªæå®³ã®å¯èƒ½æ€§ãŒå ±
+ * å‘Šã•ã‚Œã¦ã„ãŸã¨ã—ã¦ã‚‚ä¸€åˆ‡ã®è²¬ä»»ã‚’è² ã‚ãªã„ã‚‚ã®ã¨ã™ã‚‹ã€‚
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -56,185 +56,185 @@ import java.lang.NoClassDefFoundError;
 
 
 /**
- * LHA Library for Java ‚ÌŠeíİ’è‚ğˆµ‚¤B<br>
- * LhaProperty.getProperty() ‚â LhaProperty.getProperties() ‚Å“¾‚ç‚ê‚é’l‚Í
- * ƒVƒXƒeƒ€ƒvƒƒpƒeƒBAİ’èƒtƒ@ƒCƒ‹AƒfƒtƒHƒ‹ƒg’l‚Ì‰½‚ê‚©‚ª—p‚¢‚ç‚êA
- * ‚»‚Ì—Dæ‡ˆÊ‚ÍˆÈ‰º‚Ì‚æ‚¤‚É‚È‚éB
+ * LHA Library for Java ã®å„ç¨®è¨­å®šã‚’æ‰±ã†ã€‚<br>
+ * LhaProperty.getProperty() ã‚„ LhaProperty.getProperties() ã§å¾—ã‚‰ã‚Œã‚‹å€¤ã¯
+ * ã‚·ã‚¹ãƒ†ãƒ ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã€è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã€ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ã®ä½•ã‚Œã‹ãŒç”¨ã„ã‚‰ã‚Œã€
+ * ãã®å„ªå…ˆé †ä½ã¯ä»¥ä¸‹ã®ã‚ˆã†ã«ãªã‚‹ã€‚
  *  <ol>
- *    <li>ƒVƒXƒeƒ€ƒvƒƒpƒeƒB ‚Éİ’è‚³‚ê‚Ä‚¢‚é’lB
+ *    <li>ã‚·ã‚¹ãƒ†ãƒ ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ ã«è¨­å®šã•ã‚Œã¦ã„ã‚‹å€¤ã€‚
  *    <li>jp/gr/java_conf/dangan/util/lha/resources/lha.properties 
- *        ‚Éİ’è‚³‚ê‚½’lB
- *    <li>ƒfƒtƒHƒ‹ƒg’lB
+ *        ã«è¨­å®šã•ã‚ŒãŸå€¤ã€‚
+ *    <li>ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ã€‚
  *  </ol>
  * <br>
  * <br>
- * ƒL[‚Ìˆê——‚ÍˆÈ‰º‚Ì‚Æ‚¨‚èB
+ * ã‚­ãƒ¼ã®ä¸€è¦§ã¯ä»¥ä¸‹ã®ã¨ãŠã‚Šã€‚
  * <br>
  *  <table border="0" cellspacing="4">
  *    <tr>
- *      <td nowrap>ƒL[</td>
- *      <td nowrap>‘Î‰‚·‚é’l‚Ìà–¾</td>
+ *      <td nowrap>ã‚­ãƒ¼</td>
+ *      <td nowrap>å¯¾å¿œã™ã‚‹å€¤ã®èª¬æ˜</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>lha.encoding</td>
- *      <td nowrap>String ‚Æƒwƒbƒ_“à‚Ì•¶š—ñ‚Æ‚Ì‘ŠŒİ•ÏŠ·‚É—p‚¢‚éƒGƒ“ƒR[ƒfƒBƒ“ƒO</td>
+ *      <td nowrap>String ã¨ãƒ˜ãƒƒãƒ€å†…ã®æ–‡å­—åˆ—ã¨ã®ç›¸äº’å¤‰æ›ã«ç”¨ã„ã‚‹ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>lha.packages</td>
- *      <td nowrap>¶¬®“à‚Åg‚í‚ê‚éƒNƒ‰ƒX‚ÌƒpƒbƒP[ƒW–¼‚Ì—ñ‹“(ƒJƒ“ƒ}‹æØ‚è)</td>
+ *      <td nowrap>ç”Ÿæˆå¼å†…ã§ä½¿ã‚ã‚Œã‚‹ã‚¯ãƒ©ã‚¹ã®ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸åã®åˆ—æŒ™(ã‚«ãƒ³ãƒåŒºåˆ‡ã‚Š)</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>lha.lzs.encoder</td>
- *      <td nowrap>-lzs- Œ`®‚Ö‚Ì•„†‰»‚ğs‚¤ƒIƒuƒWƒFƒNƒg‚Ì¶¬®</td>
+ *      <td nowrap>-lzs- å½¢å¼ã¸ã®ç¬¦å·åŒ–ã‚’è¡Œã†ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆå¼</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>lha.lz4.encoder</td>
- *      <td nowrap>-lz4- Œ`®‚Ö‚Ì•„†‰»‚ğs‚¤ƒIƒuƒWƒFƒNƒg‚Ì¶¬®</td>
+ *      <td nowrap>-lz4- å½¢å¼ã¸ã®ç¬¦å·åŒ–ã‚’è¡Œã†ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆå¼</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>lha.lz5.encoder</td>
- *      <td nowrap>-lz5- Œ`®‚Ö‚Ì•„†‰»‚ğs‚¤ƒIƒuƒWƒFƒNƒg‚Ì¶¬®</td>
+ *      <td nowrap>-lz5- å½¢å¼ã¸ã®ç¬¦å·åŒ–ã‚’è¡Œã†ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆå¼</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>lha.lh0.encoder</td>
- *      <td nowrap>-lh0- Œ`®‚Ö‚Ì•„†‰»‚ğs‚¤ƒIƒuƒWƒFƒNƒg‚Ì¶¬®</td>
+ *      <td nowrap>-lh0- å½¢å¼ã¸ã®ç¬¦å·åŒ–ã‚’è¡Œã†ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆå¼</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>lha.lh1.encoder</td>
- *      <td nowrap>-lh1- Œ`®‚Ö‚Ì•„†‰»‚ğs‚¤ƒIƒuƒWƒFƒNƒg‚Ì¶¬®</td>
+ *      <td nowrap>-lh1- å½¢å¼ã¸ã®ç¬¦å·åŒ–ã‚’è¡Œã†ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆå¼</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>lha.lh2.encoder</td>
- *      <td nowrap>-lh2- Œ`®‚Ö‚Ì•„†‰»‚ğs‚¤ƒIƒuƒWƒFƒNƒg‚Ì¶¬®</td>
+ *      <td nowrap>-lh2- å½¢å¼ã¸ã®ç¬¦å·åŒ–ã‚’è¡Œã†ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆå¼</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>lha.lh3.encoder</td>
- *      <td nowrap>-lh3- Œ`®‚Ö‚Ì•„†‰»‚ğs‚¤ƒIƒuƒWƒFƒNƒg‚Ì¶¬®</td>
+ *      <td nowrap>-lh3- å½¢å¼ã¸ã®ç¬¦å·åŒ–ã‚’è¡Œã†ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆå¼</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>lha.lh4.encoder</td>
- *      <td nowrap>-lh4- Œ`®‚Ö‚Ì•„†‰»‚ğs‚¤ƒIƒuƒWƒFƒNƒg‚Ì¶¬®</td>
+ *      <td nowrap>-lh4- å½¢å¼ã¸ã®ç¬¦å·åŒ–ã‚’è¡Œã†ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆå¼</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>lha.lh5.encoder</td>
- *      <td nowrap>-lh5- Œ`®‚Ö‚Ì•„†‰»‚ğs‚¤ƒIƒuƒWƒFƒNƒg‚Ì¶¬®</td>
+ *      <td nowrap>-lh5- å½¢å¼ã¸ã®ç¬¦å·åŒ–ã‚’è¡Œã†ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆå¼</td>
  *   </tr>
  *    <tr>
  *      <td nowrap>lha.lh6.encoder</td>
- *      <td nowrap>-lh6- Œ`®‚Ö‚Ì•„†‰»‚ğs‚¤ƒIƒuƒWƒFƒNƒg‚Ì¶¬®</td>
+ *      <td nowrap>-lh6- å½¢å¼ã¸ã®ç¬¦å·åŒ–ã‚’è¡Œã†ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆå¼</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>lha.lh7.encoder</td>
- *      <td nowrap>-lh7- Œ`®‚Ö‚Ì•„†‰»‚ğs‚¤ƒIƒuƒWƒFƒNƒg‚Ì¶¬®</td>
+ *      <td nowrap>-lh7- å½¢å¼ã¸ã®ç¬¦å·åŒ–ã‚’è¡Œã†ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆå¼</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>lha.lhd.encoder</td>
- *      <td nowrap>-lhd- Œ`®‚Ö‚Ì•„†‰»‚ğs‚¤ƒIƒuƒWƒFƒNƒg‚Ì¶¬®</td>
+ *      <td nowrap>-lhd- å½¢å¼ã¸ã®ç¬¦å·åŒ–ã‚’è¡Œã†ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆå¼</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>lha.lzs.decoder</td>
- *      <td nowrap>-lzs- Œ`®‚Ìƒf[ƒ^‚ğ•œ†‰»‚·‚éƒIƒuƒWƒFƒNƒg‚Ì¶¬®</td>
+ *      <td nowrap>-lzs- å½¢å¼ã®ãƒ‡ãƒ¼ã‚¿ã‚’å¾©å·åŒ–ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆå¼</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>lha.lz4.decoder</td>
- *      <td nowrap>-lz4- Œ`®‚Ìƒf[ƒ^‚ğ•œ†‰»‚·‚éƒIƒuƒWƒFƒNƒg‚Ì¶¬®</td>
+ *      <td nowrap>-lz4- å½¢å¼ã®ãƒ‡ãƒ¼ã‚¿ã‚’å¾©å·åŒ–ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆå¼</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>lha.lz5.decoder</td>
- *      <td nowrap>-lz5- Œ`®‚Ìƒf[ƒ^‚ğ•œ†‰»‚·‚éƒIƒuƒWƒFƒNƒg‚Ì¶¬®</td>
+ *      <td nowrap>-lz5- å½¢å¼ã®ãƒ‡ãƒ¼ã‚¿ã‚’å¾©å·åŒ–ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆå¼</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>lha.lh0.decoder</td>
- *      <td nowrap>-lh0- Œ`®‚Ìƒf[ƒ^‚ğ•œ†‰»‚·‚éƒIƒuƒWƒFƒNƒg‚Ì¶¬®</td>
+ *      <td nowrap>-lh0- å½¢å¼ã®ãƒ‡ãƒ¼ã‚¿ã‚’å¾©å·åŒ–ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆå¼</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>lha.lh1.decoder</td>
- *      <td nowrap>-lh1- Œ`®‚Ìƒf[ƒ^‚ğ•œ†‰»‚·‚éƒIƒuƒWƒFƒNƒg‚Ì¶¬®</td>
+ *      <td nowrap>-lh1- å½¢å¼ã®ãƒ‡ãƒ¼ã‚¿ã‚’å¾©å·åŒ–ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆå¼</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>lha.lh2.decoder</td>
- *      <td nowrap>-lh2- Œ`®‚Ìƒf[ƒ^‚ğ•œ†‰»‚·‚éƒIƒuƒWƒFƒNƒg‚Ì¶¬®</td>
+ *      <td nowrap>-lh2- å½¢å¼ã®ãƒ‡ãƒ¼ã‚¿ã‚’å¾©å·åŒ–ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆå¼</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>lha.lh3.decoder</td>
- *      <td nowrap>-lh3- Œ`®‚Ìƒf[ƒ^‚ğ•œ†‰»‚·‚éƒIƒuƒWƒFƒNƒg‚Ì¶¬®</td>
+ *      <td nowrap>-lh3- å½¢å¼ã®ãƒ‡ãƒ¼ã‚¿ã‚’å¾©å·åŒ–ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆå¼</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>lha.lh4.decoder</td>
- *      <td nowrap>-lh4- Œ`®‚Ìƒf[ƒ^‚ğ•œ†‰»‚·‚éƒIƒuƒWƒFƒNƒg‚Ì¶¬®</td>
+ *      <td nowrap>-lh4- å½¢å¼ã®ãƒ‡ãƒ¼ã‚¿ã‚’å¾©å·åŒ–ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆå¼</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>lha.lh5.decoder</td>
- *      <td nowrap>-lh5- Œ`®‚Ìƒf[ƒ^‚ğ•œ†‰»‚·‚éƒIƒuƒWƒFƒNƒg‚Ì¶¬®</td>
+ *      <td nowrap>-lh5- å½¢å¼ã®ãƒ‡ãƒ¼ã‚¿ã‚’å¾©å·åŒ–ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆå¼</td>
  *   </tr>
  *    <tr>
  *      <td nowrap>lha.lh6.decoder</td>
- *      <td nowrap>-lh6- Œ`®‚Ìƒf[ƒ^‚ğ•œ†‰»‚·‚éƒIƒuƒWƒFƒNƒg‚Ì¶¬®</td>
+ *      <td nowrap>-lh6- å½¢å¼ã®ãƒ‡ãƒ¼ã‚¿ã‚’å¾©å·åŒ–ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆå¼</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>lha.lh7.decoder</td>
- *      <td nowrap>-lh7- Œ`®‚Ìƒf[ƒ^‚ğ•œ†‰»‚·‚éƒIƒuƒWƒFƒNƒg‚Ì¶¬®</td>
+ *      <td nowrap>-lh7- å½¢å¼ã®ãƒ‡ãƒ¼ã‚¿ã‚’å¾©å·åŒ–ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆå¼</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>lha.lhd.decoder</td>
- *      <td nowrap>-lhd- Œ`®‚Ìƒf[ƒ^‚ğ•œ†‰»‚·‚éƒIƒuƒWƒFƒNƒg‚Ì¶¬®</td>
+ *      <td nowrap>-lhd- å½¢å¼ã®ãƒ‡ãƒ¼ã‚¿ã‚’å¾©å·åŒ–ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆå¼</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>lha.header</td>
- *      <td nowrap>LhaHeader ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Ì¶¬®</td>
+ *      <td nowrap>LhaHeader ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ç”Ÿæˆå¼</td>
  *    </tr>
  *  </table>
  * <br>
- * ¶¬®‚ÍˆÈ‰º‚Ì‚æ‚¤‚É’è‹`‚³‚ê‚éB<br>
+ * ç”Ÿæˆå¼ã¯ä»¥ä¸‹ã®ã‚ˆã†ã«å®šç¾©ã•ã‚Œã‚‹ã€‚<br>
  *  <table border="0" cellspacing="4">
  *    <tr>
- *      <td nowrap>&lt;¶¬®&gt;</td>
- *      <td nowrap>::= &lt;ƒRƒ“ƒXƒgƒ‰ƒNƒ^&gt; | &lt;”z—ñ&gt; | &lt;’uŠ·•¶š—ñ&gt; | &lt;ƒNƒ‰ƒX–¼&gt; | &lt;•¶š—ñ&gt;</td>
+ *      <td nowrap>&lt;ç”Ÿæˆå¼&gt;</td>
+ *      <td nowrap>::= &lt;ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿&gt; | &lt;é…åˆ—&gt; | &lt;ç½®æ›æ–‡å­—åˆ—&gt; | &lt;ã‚¯ãƒ©ã‚¹å&gt; | &lt;æ–‡å­—åˆ—&gt;</td>
  *    </tr>
  *    <tr>
- *      <td nowrap>&lt;ƒRƒ“ƒXƒgƒ‰ƒNƒ^&gt;</td>
- *      <td nowrap>::= &lt;ƒNƒ‰ƒX–¼&gt; '(' ˆø” ')'</td>
+ *      <td nowrap>&lt;ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿&gt;</td>
+ *      <td nowrap>::= &lt;ã‚¯ãƒ©ã‚¹å&gt; '(' å¼•æ•° ')'</td>
  *    </tr>
  *    <tr>
- *      <td nowrap>&lt;ˆø”&gt;</td>
- *      <td nowrap>::= [ &lt;¶¬®&gt; [ ',' &lt;ˆø”&gt; ] ]</td>
+ *      <td nowrap>&lt;å¼•æ•°&gt;</td>
+ *      <td nowrap>::= [ &lt;ç”Ÿæˆå¼&gt; [ ',' &lt;å¼•æ•°&gt; ] ]</td>
  *    </tr>
  *    <tr>
- *      <td nowrap>&lt;”z—ñ&gt;</td>
- *      <td nowrap>::= '[' &lt;—v‘f&gt; ']'</td>
+ *      <td nowrap>&lt;é…åˆ—&gt;</td>
+ *      <td nowrap>::= '[' &lt;è¦ç´ &gt; ']'</td>
  *    </tr>
  *    <tr>
- *      <td nowrap>&lt;—v‘f&gt;</td>
- *      <td nowrap>::= [ &lt;¶¬®&gt; [ ',' &lt;—v‘f&gt; ] ]</td>
+ *      <td nowrap>&lt;è¦ç´ &gt;</td>
+ *      <td nowrap>::= [ &lt;ç”Ÿæˆå¼&gt; [ ',' &lt;è¦ç´ &gt; ] ]</td>
  *    </tr>
  *  </table>
  * <br>
- * ƒNƒ‰ƒX–¼‚Í "lha.packages" ‚É‘Î‰‚·‚é’l‚ğg—p‚µ‚ÄŠ®‘SCü–¼‚Ö‚Æ•ÏŠ·‚³‚ê‚éB<br>
- * ’uŠ·•¶š—ñ ‚Íƒ‰ƒCƒuƒ‰ƒŠ“à•”‚ÅƒIƒuƒWƒFƒNƒg‚É’uŠ·‚³‚ê‚é•¶š—ñ‚Å
- * Œ»İˆÈ‰º‚Ì4í—Ş‚ª’è‹`‚³‚ê‚Ä‚¢‚éB<br>
+ * ã‚¯ãƒ©ã‚¹åã¯ "lha.packages" ã«å¯¾å¿œã™ã‚‹å€¤ã‚’ä½¿ç”¨ã—ã¦å®Œå…¨ä¿®é£¾åã¸ã¨å¤‰æ›ã•ã‚Œã‚‹ã€‚<br>
+ * ç½®æ›æ–‡å­—åˆ— ã¯ãƒ©ã‚¤ãƒ–ãƒ©ãƒªå†…éƒ¨ã§ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ç½®æ›ã•ã‚Œã‚‹æ–‡å­—åˆ—ã§
+ * ç¾åœ¨ä»¥ä¸‹ã®4ç¨®é¡ãŒå®šç¾©ã•ã‚Œã¦ã„ã‚‹ã€‚<br>
  *  <table border="0" cellspacing="4">
  *    <tr>
  *      <td nowrap>lha.???.encoder</td>
  *      <td nowrap>out</td>
- *      <td nowrap>ˆ³kŒã‚Ìƒf[ƒ^‚ğó‚¯æ‚é java.io.OutputStream</td>
+ *      <td nowrap>åœ§ç¸®å¾Œã®ãƒ‡ãƒ¼ã‚¿ã‚’å—ã‘å–ã‚‹ java.io.OutputStream</td>
  *    </tr>
  *    <tr>
  *      <td nowrap rowspan="2">lha.???.decoder</td>
  *      <td nowrap>in</td>
- *      <td nowrap>ˆ³kƒf[ƒ^‚ğ‹Ÿ‹‹‚·‚é java.io.InputStream</td>
+ *      <td nowrap>åœ§ç¸®ãƒ‡ãƒ¼ã‚¿ã‚’ä¾›çµ¦ã™ã‚‹ java.io.InputStream</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>length</td>
- *      <td nowrap>•œ†‰»‚³‚ê‚½ƒf[ƒ^‚ÌƒoƒCƒg”</td>
+ *      <td nowrap>å¾©å·åŒ–ã•ã‚ŒãŸãƒ‡ãƒ¼ã‚¿ã®ãƒã‚¤ãƒˆæ•°</td>
  *    </tr>
  *    <tr>
  *      <td nowrap rowspan="2">lha.header</td>
  *      <td nowrap>data</td>
- *      <td nowrap>ƒwƒbƒ_ƒf[ƒ^‚ğŠi”[‚µ‚½ byte”z—ñ</td>
+ *      <td nowrap>ãƒ˜ãƒƒãƒ€ãƒ‡ãƒ¼ã‚¿ã‚’æ ¼ç´ã—ãŸ byteé…åˆ—</td>
  *    </tr>
  *    <tr>
  *      <td nowrap>encoding</td>
- *      <td nowrap>ƒwƒbƒ_“à‚Ì•¶šƒf[ƒ^‚ğ String ‚É•ÏŠ·‚·‚éÛ‚Ég—p‚·‚éƒGƒ“ƒR[ƒfƒBƒ“ƒO</td>
+ *      <td nowrap>ãƒ˜ãƒƒãƒ€å†…ã®æ–‡å­—ãƒ‡ãƒ¼ã‚¿ã‚’ String ã«å¤‰æ›ã™ã‚‹éš›ã«ä½¿ç”¨ã™ã‚‹ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°</td>
  *    </tr>
  *  </table>
  * <br>
@@ -243,11 +243,11 @@ import java.lang.NoClassDefFoundError;
  * $Log: LhaProperty.java,v $
  * Revision 1.0.2.2  2005/04/29 02:15:53  dangan
  * [bug fix]
- *     createDefaultProperty() ‚Åˆ³k–@¯•Êq -lhd- —p‚ÌƒGƒ“ƒR[ƒ_‚ÇƒfƒR[ƒ_‚ªİ’è‚³‚ê‚Ä‚¢‚È‚©‚Á‚½B
+ *     createDefaultProperty() ã§åœ§ç¸®æ³•è­˜åˆ¥å­ -lhd- ç”¨ã®ã‚¨ãƒ³ã‚³ãƒ¼ãƒ€ã©ãƒ‡ã‚³ãƒ¼ãƒ€ãŒè¨­å®šã•ã‚Œã¦ã„ãªã‹ã£ãŸã€‚
  *
  * Revision 1.0.2.1  2004/06/27 12:09:49  dangan
  * [bugfix]
- *     ¶¬®‚ÅƒJƒ“ƒ}‚ğg‚¤‚×‚«•”•ª‚ÅƒsƒŠƒIƒh‚ğg‚Á‚Ä‚¢‚½‚Ì‚ğC³B
+ *     ç”Ÿæˆå¼ã§ã‚«ãƒ³ãƒã‚’ä½¿ã†ã¹ãéƒ¨åˆ†ã§ãƒ”ãƒªã‚ªãƒ‰ã‚’ä½¿ã£ã¦ã„ãŸã®ã‚’ä¿®æ­£ã€‚
  *
  * Revision 1.0  2002/12/05 00:00:00  dangan
  * first edition
@@ -268,13 +268,13 @@ public class LhaProperty {
     //  public static final String encoding
     //------------------------------------------------------------------
     /**
-     * LHA Library for Java ‚Ìİ’è‚ğ•Û‚·‚éƒvƒƒpƒeƒB
+     * LHA Library for Java ã®è¨­å®šã‚’ä¿æŒã™ã‚‹ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
      */
     private static final Properties property = LhaProperty.createLhaProperty();
 
     /**
-     * LHA Library for Java “à ‚Å
-     * ƒfƒtƒHƒ‹ƒg‚Åg—p‚³‚ê‚éƒGƒ“ƒR[ƒfƒBƒ“ƒO
+     * LHA Library for Java å†… ã§
+     * ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§ä½¿ç”¨ã•ã‚Œã‚‹ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°
      */
     public static final String encoding = LhaProperty.property.getProperty( "lha.encoding" );
 
@@ -285,7 +285,7 @@ public class LhaProperty {
     //  private LhaProperty()
     //------------------------------------------------------------------
     /**
-     * ƒfƒtƒHƒ‹ƒgƒRƒ“ƒXƒgƒ‰ƒNƒ^g—p•s‰Â
+     * ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ä½¿ç”¨ä¸å¯
      */
     private LhaProperty(){ }
 
@@ -297,12 +297,12 @@ public class LhaProperty {
     //  public static Properties getProperties()
     //------------------------------------------------------------------
     /**
-     * LHA Library for Java ‚ÌƒvƒƒpƒeƒB‚©‚ç 
-     * key ‚É‘Î‰‚·‚é‚à‚Ì‚ğæ“¾‚·‚éB<br>
+     * LHA Library for Java ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‹ã‚‰ 
+     * key ã«å¯¾å¿œã™ã‚‹ã‚‚ã®ã‚’å–å¾—ã™ã‚‹ã€‚<br>
      * 
-     * @param key ƒvƒƒpƒeƒB‚ÌƒL[
+     * @param key ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®ã‚­ãƒ¼
      * 
-     * @return ƒuƒƒpƒeƒB‚Ì•¶š—ñ
+     * @return ãƒ–ãƒ­ãƒ‘ãƒ†ã‚£ã®æ–‡å­—åˆ—
      */
     public static String getProperty( String key ){
         String def = LhaProperty.property.getProperty( key );
@@ -329,13 +329,13 @@ public class LhaProperty {
     }
 
     /**
-     * LHA Library for Java ‚ÌƒvƒƒpƒeƒB‚ÌƒRƒs[‚ğ“¾‚éB<br>
+     * LHA Library for Java ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®ã‚³ãƒ”ãƒ¼ã‚’å¾—ã‚‹ã€‚<br>
      * 
-     * @return ƒvƒƒpƒeƒB‚ÌƒRƒs[
+     * @return ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®ã‚³ãƒ”ãƒ¼
      */
     public static Properties getProperties(){
         Properties property = (Properties)LhaProperty.property.clone();
-        Enumeration enumkey = property.propertyNames();
+        Enumeration<?> enumkey = property.propertyNames();
 
         while( enumkey.hasMoreElements() ){
             String key = (String)enumkey.nextElement();
@@ -379,17 +379,17 @@ public class LhaProperty {
     //  private static String applyPackages( String str, String[] packages )
     //------------------------------------------------------------------
     /**
-     * LHA Library for Java ‚ÌƒvƒƒpƒeƒB—p‚Ì
-     * ¶¬® source ‚ğ‰ğÍ‚µ‚Ä V‚µ‚¢ Object ‚ğ¶¬‚·‚éB
+     * LHA Library for Java ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ç”¨ã®
+     * ç”Ÿæˆå¼ source ã‚’è§£æã—ã¦ æ–°ã—ã„ Object ã‚’ç”Ÿæˆã™ã‚‹ã€‚
      * 
-     * @param souce      ‰ğÍ‚·‚×‚«¶¬®
-     * @param substitute ’uŠ·‘ÎÛ•¶š—ñ‚ğkey‚É‚à‚¿A’uŠ·‚·‚éObject‚ğ’l‚É‚Â Hashtable
-     * @param packages   ƒJƒ“ƒ}‚Å‹æØ‚ç‚ê‚½ƒpƒbƒP[ƒW–¼‚Ì—ñ‹“
+     * @param souce      è§£æã™ã¹ãç”Ÿæˆå¼
+     * @param substitute ç½®æ›å¯¾è±¡æ–‡å­—åˆ—ã‚’keyã«ã‚‚ã¡ã€ç½®æ›ã™ã‚‹Objectã‚’å€¤ã«æŒã¤ Hashtable
+     * @param packages   ã‚«ãƒ³ãƒã§åŒºåˆ‡ã‚‰ã‚ŒãŸãƒ‘ãƒƒã‚±ãƒ¼ã‚¸åã®åˆ—æŒ™
      * 
-     * @return ¶¬‚³‚ê‚½ Object
+     * @return ç”Ÿæˆã•ã‚ŒãŸ Object
      */
     public static Object parse( String    source, 
-                                Hashtable substitute,
+                                Hashtable<?, ?> substitute,
                                 String    packages ){
 
         StringTokenizer tokenizer = new StringTokenizer( packages, "," );
@@ -403,17 +403,17 @@ public class LhaProperty {
     }
 
     /**
-     * LHA Library for Java ‚ÌƒvƒƒpƒeƒB—p‚Ì
-     * ¶¬® source ‚ğ‰ğÍ‚µ‚Ä V‚µ‚¢ Object ‚ğ¶¬‚·‚éB
+     * LHA Library for Java ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ç”¨ã®
+     * ç”Ÿæˆå¼ source ã‚’è§£æã—ã¦ æ–°ã—ã„ Object ã‚’ç”Ÿæˆã™ã‚‹ã€‚
      * 
-     * @param souce      ‰ğÍ‚·‚×‚«•¶š—ñ
-     * @param substitute ’uŠ·‘ÎÛ•¶š—ñ‚ğkey‚É‚à‚¿A’uŠ·‚·‚éObject‚ğ’l‚É‚Â Hashtable
-     * @param packages   ƒpƒbƒP[ƒW–¼‚Ì”z—ñ
+     * @param souce      è§£æã™ã¹ãæ–‡å­—åˆ—
+     * @param substitute ç½®æ›å¯¾è±¡æ–‡å­—åˆ—ã‚’keyã«ã‚‚ã¡ã€ç½®æ›ã™ã‚‹Objectã‚’å€¤ã«æŒã¤ Hashtable
+     * @param packages   ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸åã®é…åˆ—
      * 
-     * @return ¶¬‚³‚ê‚½ Object
+     * @return ç”Ÿæˆã•ã‚ŒãŸ Object
      */
     public static Object parse( String    source, 
-                                Hashtable substitute,
+                                Hashtable<?, ?> substitute,
                                 String[]  packages ){
 
         source = source.trim();
@@ -432,18 +432,18 @@ public class LhaProperty {
     }
 
     /**
-     * LHA Library for Java ‚ÌƒvƒƒpƒeƒB—p‚Ì
-     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚ğ¦‚·•¶š—ñ source ‚ğ‰ğÍ‚µ‚ÄA
-     * V‚µ‚¢ ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚·‚éB
+     * LHA Library for Java ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ç”¨ã®
+     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã‚’ç¤ºã™æ–‡å­—åˆ— source ã‚’è§£æã—ã¦ã€
+     * æ–°ã—ã„ ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã™ã‚‹ã€‚
      * 
-     * @param souce      ‰ğÍ‚·‚×‚«ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚ğ¦‚·•¶š—ñ
-     * @param substitute ’uŠ·‘ÎÛ•¶š—ñ‚ğkey‚É‚à‚¿A’uŠ·‚·‚éObject‚ğ’l‚É‚Â Hashtable
-     * @param packages   ƒpƒbƒP[ƒW–¼‚Ì”z—ñ
+     * @param souce      è§£æã™ã¹ãã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã‚’ç¤ºã™æ–‡å­—åˆ—
+     * @param substitute ç½®æ›å¯¾è±¡æ–‡å­—åˆ—ã‚’keyã«ã‚‚ã¡ã€ç½®æ›ã™ã‚‹Objectã‚’å€¤ã«æŒã¤ Hashtable
+     * @param packages   ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸åã®é…åˆ—
      * 
-     * @return ¶¬‚³‚ê‚½ƒCƒ“ƒXƒ^ƒ“ƒX
+     * @return ç”Ÿæˆã•ã‚ŒãŸã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
      */
     private static Object parseConstructor( String    source, 
-                                            Hashtable substitute,
+                                            Hashtable<?, ?> substitute,
                                             String[]  packages ){
 
         String classname = source.substring( 0, source.indexOf( '(' ) ).trim();
@@ -454,7 +454,7 @@ public class LhaProperty {
         Object[] args;
         if( !arguments.equals( "" ) ){
             StringTokenizer tokenizer = new StringTokenizer( arguments, ",()[]", true );
-            Stack stack = new Stack();
+            Stack<Comparable<?>> stack = new Stack<>();
             int pos = 0;
             while( tokenizer.hasMoreTokens() ){
                 String token = tokenizer.nextToken();
@@ -494,7 +494,7 @@ public class LhaProperty {
             }
 
         }else{
-            args = new Object[0];            
+            args = new Object[0];
         }
 
         try{
@@ -517,18 +517,18 @@ public class LhaProperty {
     }
 
     /**
-     * LHA Library for Java ‚ÌƒvƒƒpƒeƒB—p‚Ì
-     * ”z—ñ‚ğ¦‚·•¶š—ñ source ‚ğ‰ğÍ‚µ‚ÄA
-     * V‚µ‚¢ Object ‚Ì”z—ñ‚ğ¶¬‚·‚éB
+     * LHA Library for Java ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ç”¨ã®
+     * é…åˆ—ã‚’ç¤ºã™æ–‡å­—åˆ— source ã‚’è§£æã—ã¦ã€
+     * æ–°ã—ã„ Object ã®é…åˆ—ã‚’ç”Ÿæˆã™ã‚‹ã€‚
      * 
-     * @param souce      ‰ğÍ‚·‚×‚«ƒRƒ“ƒXƒgƒ‰ƒNƒ^‚ğ¦‚·•¶š—ñ
-     * @param substitute ’uŠ·‘ÎÛ•¶š—ñ‚ğkey‚É‚à‚¿A’uŠ·‚·‚éObject‚ğ’l‚É‚Â Hashtable
-     * @param packages   ƒpƒbƒP[ƒW–¼‚Ì”z—ñ
+     * @param souce      è§£æã™ã¹ãã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã‚’ç¤ºã™æ–‡å­—åˆ—
+     * @param substitute ç½®æ›å¯¾è±¡æ–‡å­—åˆ—ã‚’keyã«ã‚‚ã¡ã€ç½®æ›ã™ã‚‹Objectã‚’å€¤ã«æŒã¤ Hashtable
+     * @param packages   ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸åã®é…åˆ—
      * 
-     * @return ¶¬‚³‚ê‚½ Object ‚Ì”z—ñ
+     * @return ç”Ÿæˆã•ã‚ŒãŸ Object ã®é…åˆ—
      */
     private static Object[] parseArray( String    source, 
-                                        Hashtable substitute,
+                                        Hashtable<?, ?> substitute,
                                         String[]  packages ){
 
         String arguments = source.substring( source.indexOf( '[' ) + 1, 
@@ -536,7 +536,7 @@ public class LhaProperty {
 
         if( !arguments.equals( "" ) ){
             StringTokenizer tokenizer = new StringTokenizer( arguments, ",()[]", true );
-            Stack stack = new Stack();
+            Stack<Comparable<?>> stack = new Stack<>();
             int pos = 0;
             while( tokenizer.hasMoreTokens() ){
                 String token = tokenizer.nextToken();
@@ -579,13 +579,13 @@ public class LhaProperty {
 
 
     /**
-     * str ‚ğƒNƒ‰ƒX–¼‚¾‚Æ‰¼’è‚µ‚Ä packages ‚ÉŠÜ‚Ü‚ê‚éƒpƒbƒP[ƒW–¼‚Æ
-     * ˜AŒ‹‚µ‚ÄŠ®‘SCü–¼‚ğì¬‚·‚é–‚ğ‚İ‚éB
+     * str ã‚’ã‚¯ãƒ©ã‚¹åã ã¨ä»®å®šã—ã¦ packages ã«å«ã¾ã‚Œã‚‹ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸åã¨
+     * é€£çµã—ã¦å®Œå…¨ä¿®é£¾åã‚’ä½œæˆã™ã‚‹äº‹ã‚’è©¦ã¿ã‚‹ã€‚
      * 
-     * @param str      ƒNƒ‰ƒX–¼‚©‚à‚µ‚ê‚È‚¢•¶š—ñ
-     * @param packages ƒpƒbƒP[ƒW–¼‚Ì—ñ‹“
+     * @param str      ã‚¯ãƒ©ã‚¹åã‹ã‚‚ã—ã‚Œãªã„æ–‡å­—åˆ—
+     * @param packages ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸åã®åˆ—æŒ™
      * 
-     * @return Š®‘SCü–¼A‚à‚µ‚­‚Í str
+     * @return å®Œå…¨ä¿®é£¾åã€ã‚‚ã—ãã¯ str
      */
     private static String applyPackages( String str, String[] packages ){
         for( int i = 0 ; i < packages.length ; i++ ){
@@ -615,17 +615,17 @@ public class LhaProperty {
     //  private static final Properties createDefaultProperty()
     //------------------------------------------------------------------
     /**
-     * LHA Library for Java ‚ÌƒvƒƒpƒeƒB‚ğ¶¬‚·‚éB
+     * LHA Library for Java ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’ç”Ÿæˆã™ã‚‹ã€‚
      * 
-     * @return ¶¬‚³‚ê‚½ƒvƒƒpƒeƒB
+     * @return ç”Ÿæˆã•ã‚ŒãŸãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
      */
     private static final Properties createLhaProperty(){
-        String path         = "jp.gr.java_conf.dangan.util.lha.resources.lha";        
+        String path         = "jp.gr.java_conf.dangan.util.lha.resources.lha";
         Properties property = LhaProperty.createDefaultProperty();
 
         try{
             ResourceBundle bundle  = ResourceBundle.getBundle( path );
-            Enumeration    enumkey = bundle.getKeys();
+            Enumeration<?>    enumkey = bundle.getKeys();
             while( enumkey.hasMoreElements() ){
                 String key = (String)enumkey.nextElement();
                 property.put( key, bundle.getString( key ) );
@@ -650,11 +650,11 @@ public class LhaProperty {
     }
 
     /**
-     * LHA Library for Java ‚ÌƒfƒtƒHƒ‹ƒg‚ÌƒvƒƒpƒeƒB‚ğ¶¬‚·‚éB
-     * jp/gr/java_conf/dangan/util/lha/resources/ ˆÈ‰º‚É
-     * İ’èƒtƒ@ƒCƒ‹‚ª–³‚©‚Á‚½ê‡—pB
+     * LHA Library for Java ã®ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’ç”Ÿæˆã™ã‚‹ã€‚
+     * jp/gr/java_conf/dangan/util/lha/resources/ ä»¥ä¸‹ã«
+     * è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ãŒç„¡ã‹ã£ãŸå ´åˆç”¨ã€‚
      * 
-     * @return ƒfƒtƒHƒ‹ƒg‚ÌƒvƒƒpƒeƒB
+     * @return ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
      */
     private static final Properties createDefaultProperty(){
         Properties property = new Properties();
@@ -715,16 +715,16 @@ public class LhaProperty {
     //  private static final boolean isCategoryOfShiftJIS( String encoding )
     //------------------------------------------------------------------
     /**
-     * System.getProperty( "file.encoding" ) ‚Å“¾‚ç‚ê‚é ƒGƒ“ƒR[ƒfƒBƒ“ƒO‚ğ•Ô‚·B
-     * “¾‚ç‚ê‚½ƒGƒ“ƒR[ƒfƒBƒ“ƒO‚ª “ú–{Œê‚ÌƒGƒ“ƒR[ƒfƒBƒ“ƒO‚ÅA
-     * ‚È‚¨‚©‚ÂShiftJISŒn—ñ‚Å–³‚¢ê‡‚Í‹­§“I‚É "SJIS" ‚ğg—p‚·‚éB
-     * ƒZƒLƒ…ƒŠƒeƒBƒ}ƒl[ƒWƒƒ‚ª ƒVƒXƒeƒ€ƒvƒƒpƒeƒB‚Ö‚ÌƒAƒNƒZƒX‚ğ‹–‚³‚È‚¢ê‡‚Í 
-     * "ISO8859_1" ‚ğg—p‚·‚éB
+     * System.getProperty( "file.encoding" ) ã§å¾—ã‚‰ã‚Œã‚‹ ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ã‚’è¿”ã™ã€‚
+     * å¾—ã‚‰ã‚ŒãŸã‚¨ãƒ³ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ãŒ æ—¥æœ¬èªã®ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ã§ã€
+     * ãªãŠã‹ã¤ShiftJISç³»åˆ—ã§ç„¡ã„å ´åˆã¯å¼·åˆ¶çš„ã« "SJIS" ã‚’ä½¿ç”¨ã™ã‚‹ã€‚
+     * ã‚»ã‚­ãƒ¥ãƒªãƒ†ã‚£ãƒãƒãƒ¼ã‚¸ãƒ£ãŒ ã‚·ã‚¹ãƒ†ãƒ ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã¸ã®ã‚¢ã‚¯ã‚»ã‚¹ã‚’è¨±ã•ãªã„å ´åˆã¯ 
+     * "ISO8859_1" ã‚’ä½¿ç”¨ã™ã‚‹ã€‚
      * 
-     * @return System.getProperty( "file.encoding" ) ‚Å“¾‚ç‚ê‚é ƒGƒ“ƒR[ƒfƒBƒ“ƒO
+     * @return System.getProperty( "file.encoding" ) ã§å¾—ã‚‰ã‚Œã‚‹ ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°
      */
     private static final String getSystemEncoding(){
-        String encoding;        
+        String encoding;
         try{
             encoding = System.getProperty( "file.encoding" );
             if( LhaProperty.isJapanese( encoding )
@@ -740,29 +740,29 @@ public class LhaProperty {
     }
 
     /**
-     * encoding ‚ª“ú–{Œê‚ÌƒGƒ“ƒR[ƒfƒBƒ“ƒO‚Å‚ ‚é‚©‚ğ•Ô‚·B
+     * encoding ãŒæ—¥æœ¬èªã®ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ã§ã‚ã‚‹ã‹ã‚’è¿”ã™ã€‚
      * 
-     * @param encoding ƒGƒ“ƒR[ƒfƒBƒ“ƒO
+     * @param encoding ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°
      * 
-     * @return encoding ‚ª“ú–{Œê‚ÌƒGƒ“ƒR[ƒfƒBƒ“ƒO‚È‚ç true ˆá‚¦‚Î false
+     * @return encoding ãŒæ—¥æœ¬èªã®ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ãªã‚‰ true é•ãˆã° false
      */
     private static final boolean isJapanese( String encoding ){
 
         String[] Coverters = { "Cp930",     //Japanese EBCDIC
                                "Cp939",     //Japanese EBCDIC
-                               "Cp942",     //SJIS OS/2 “ú–{Œê, Cp932 ‚ÌƒX[ƒp[ƒZƒbƒg, 0x5C -> '_' (”¼ŠpƒoƒbƒNƒXƒ‰ƒbƒVƒ…)
-                               "Cp942C",    //SJIS OS/2 “ú–{Œê, Cp932 ‚ÌƒX[ƒp[ƒZƒbƒg, 0x5C -> '' (”¼Šp‰~‹L†) 
-                               "Cp943",     //SJIS OS/2 “ú–{Œê, Cp942 ‚ÌƒX[ƒp[ƒZƒbƒg VJIS‘Î‰, 0x5C -> '_' (”¼ŠpƒoƒbƒNƒXƒ‰ƒbƒVƒ…)
-                               "Cp943C",    //SJIS OS/2 “ú–{Œê, Cp942 ‚ÌƒX[ƒp[ƒZƒbƒg VJIS‘Î‰, 0x5C -> '' (”¼Šp‰~‹L†)
-                               "Cp33722",   //EUC IBM “ú–{Œê,
-                               "MS932",     //Windows “ú–{Œê
-                               "SJIS",      //Shift-JISA“ú–{Œê 
-                               "EUC_JP",    //EUC, “ú–{Œê JIS X 0201, 0208, 0212 
-                               "ISO2022JP", //JIS X 0201, ISO 2022 Œ`®‚Ì 0208A“ú–{Œê 
-                               "JIS0201",   //JIS X 0201, “ú–{Œê
-                               "JIS0208",   //JIS X 0208, “ú–{Œê
-                               "JIS0212",   //JIS X 0212, “ú–{Œê
-                               "JISAutoDetect" }; //Shift-JIS EUC-JP ISO 2022 JP ‚ÌŒŸo‚¨‚æ‚Ñ•ÏŠ·B“Ç‚İ‚İê—pB
+                               "Cp942",     //SJIS OS/2 æ—¥æœ¬èª, Cp932 ã®ã‚¹ãƒ¼ãƒ‘ãƒ¼ã‚»ãƒƒãƒˆ, 0x5C -> 'ï¼¼' (åŠè§’ãƒãƒƒã‚¯ã‚¹ãƒ©ãƒƒã‚·ãƒ¥)
+                               "Cp942C",    //SJIS OS/2 æ—¥æœ¬èª, Cp932 ã®ã‚¹ãƒ¼ãƒ‘ãƒ¼ã‚»ãƒƒãƒˆ, 0x5C -> 'Â¥' (åŠè§’å††è¨˜å·) 
+                               "Cp943",     //SJIS OS/2 æ—¥æœ¬èª, Cp942 ã®ã‚¹ãƒ¼ãƒ‘ãƒ¼ã‚»ãƒƒãƒˆ æ–°JISå¯¾å¿œ, 0x5C -> 'ï¼¼' (åŠè§’ãƒãƒƒã‚¯ã‚¹ãƒ©ãƒƒã‚·ãƒ¥)
+                               "Cp943C",    //SJIS OS/2 æ—¥æœ¬èª, Cp942 ã®ã‚¹ãƒ¼ãƒ‘ãƒ¼ã‚»ãƒƒãƒˆ æ–°JISå¯¾å¿œ, 0x5C -> 'Â¥' (åŠè§’å††è¨˜å·)
+                               "Cp33722",   //EUC IBM æ—¥æœ¬èª,
+                               "MS932",     //Windows æ—¥æœ¬èª
+                               "SJIS",      //Shift-JISã€æ—¥æœ¬èª 
+                               "EUC_JP",    //EUC, æ—¥æœ¬èª JIS X 0201, 0208, 0212 
+                               "ISO2022JP", //JIS X 0201, ISO 2022 å½¢å¼ã® 0208ã€æ—¥æœ¬èª 
+                               "JIS0201",   //JIS X 0201, æ—¥æœ¬èª
+                               "JIS0208",   //JIS X 0208, æ—¥æœ¬èª
+                               "JIS0212",   //JIS X 0212, æ—¥æœ¬èª
+                               "JISAutoDetect" }; //Shift-JIS EUC-JP ISO 2022 JP ã®æ¤œå‡ºãŠã‚ˆã³å¤‰æ›ã€‚èª­ã¿è¾¼ã¿å°‚ç”¨ã€‚
         for( int i = 0 ; i < Coverters.length ; i++ ){
             if( encoding.equals( Coverters[i] ) ){
                 return true;
@@ -799,20 +799,20 @@ public class LhaProperty {
 
 
     /**
-     * encoding ‚ª ShiftJIS Œn—ñ‚ÌƒGƒ“ƒR[ƒfƒBƒ“ƒO‚Å‚ ‚é‚©‚ğ•Ô‚·B
+     * encoding ãŒ ShiftJIS ç³»åˆ—ã®ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ã§ã‚ã‚‹ã‹ã‚’è¿”ã™ã€‚
      * 
-     * @param encoding ƒGƒ“ƒR[ƒfƒBƒ“ƒO
+     * @param encoding ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°
      * 
-     * @return encoding ‚ª“ú–{Œê‚ÌƒGƒ“ƒR[ƒfƒBƒ“ƒO‚È‚ç true ˆá‚¦‚Î false
+     * @return encoding ãŒæ—¥æœ¬èªã®ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ãªã‚‰ true é•ãˆã° false
      */
     private static final boolean isCategoryOfShiftJIS( String encoding ){
 
-        String[] Coverters = { "Cp942",     //SJIS OS/2 “ú–{Œê, Cp932 ‚ÌƒX[ƒp[ƒZƒbƒg, 0x5C -> '_' (”¼ŠpƒoƒbƒNƒXƒ‰ƒbƒVƒ…)
-                               "Cp942C",    //SJIS OS/2 “ú–{Œê, Cp932 ‚ÌƒX[ƒp[ƒZƒbƒg, 0x5C -> '' (”¼Šp‰~‹L†) 
-                               "Cp943",     //SJIS OS/2 “ú–{Œê, Cp942 ‚ÌƒX[ƒp[ƒZƒbƒg VJIS‘Î‰, 0x5C -> '_' (”¼ŠpƒoƒbƒNƒXƒ‰ƒbƒVƒ…)
-                               "Cp943C",    //SJIS OS/2 “ú–{Œê, Cp942 ‚ÌƒX[ƒp[ƒZƒbƒg VJIS‘Î‰, 0x5C -> '' (”¼Šp‰~‹L†)
-                               "MS932",     //Windows “ú–{Œê
-                               "SJIS"  };   //Shift-JISA“ú–{Œê
+        String[] Coverters = { "Cp942",     //SJIS OS/2 æ—¥æœ¬èª, Cp932 ã®ã‚¹ãƒ¼ãƒ‘ãƒ¼ã‚»ãƒƒãƒˆ, 0x5C -> 'ï¼¼' (åŠè§’ãƒãƒƒã‚¯ã‚¹ãƒ©ãƒƒã‚·ãƒ¥)
+                               "Cp942C",    //SJIS OS/2 æ—¥æœ¬èª, Cp932 ã®ã‚¹ãƒ¼ãƒ‘ãƒ¼ã‚»ãƒƒãƒˆ, 0x5C -> 'Â¥' (åŠè§’å††è¨˜å·) 
+                               "Cp943",     //SJIS OS/2 æ—¥æœ¬èª, Cp942 ã®ã‚¹ãƒ¼ãƒ‘ãƒ¼ã‚»ãƒƒãƒˆ æ–°JISå¯¾å¿œ, 0x5C -> 'ï¼¼' (åŠè§’ãƒãƒƒã‚¯ã‚¹ãƒ©ãƒƒã‚·ãƒ¥)
+                               "Cp943C",    //SJIS OS/2 æ—¥æœ¬èª, Cp942 ã®ã‚¹ãƒ¼ãƒ‘ãƒ¼ã‚»ãƒƒãƒˆ æ–°JISå¯¾å¿œ, 0x5C -> 'Â¥' (åŠè§’å††è¨˜å·)
+                               "MS932",     //Windows æ—¥æœ¬èª
+                               "SJIS"  };   //Shift-JISã€æ—¥æœ¬èª
         for( int i = 0 ; i < Coverters.length ; i++ ){
             if( encoding.equals( Coverters[i] ) ){
                 return true;

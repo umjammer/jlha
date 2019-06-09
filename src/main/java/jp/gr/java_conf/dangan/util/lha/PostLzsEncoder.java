@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  * 
- * €И‰є‚МЏрЊЏ‚Й“Ї€У‚·‚й‚И‚з‚Оѓ\Ѓ[ѓX‚ЖѓoѓCѓiѓЉЊ`Ћ®‚МЌД”z•z‚ЖЋg—p‚р
- * •ПЌX‚М—L–і‚Й‚©‚©‚н‚з‚ё‹–‰В‚·‚йЃB
+ * д»Ґдё‹гЃ®жќЎд»¶гЃ«еђЊж„ЏгЃ™г‚‹гЃЄг‚‰гЃ°г‚Ѕгѓјг‚№гЃЁгѓђг‚¤гѓЉгѓЄеЅўејЏгЃ®е†Ќй…ЌеёѓгЃЁдЅїз”Ёг‚’
+ * е¤‰ж›ґгЃ®жњ‰з„ЎгЃ«гЃ‹гЃ‹г‚Џг‚‰гЃљиЁ±еЏЇгЃ™г‚‹гЂ‚
  * 
- * ‚PЃDѓ\Ѓ[ѓXѓRЃ[ѓh‚МЌД”z•z‚Й‚Ё‚ў‚Д’ЌмЊ •\Ћ¦‚Ж ‚±‚МЏрЊЏ‚МѓЉѓXѓg
- *     ‚Ё‚ж‚С‰є‹L‚Мђє–ѕ•¶‚р•ЫЋќ‚µ‚И‚­‚Д‚Н‚И‚з‚И‚ўЃB
+ * пј‘пјЋг‚Ѕгѓјг‚№г‚ігѓјгѓ‰гЃ®е†Ќй…ЌеёѓгЃ«гЃЉгЃ„гЃ¦и‘—дЅњжЁ©иЎЁз¤єгЃЁ гЃ“гЃ®жќЎд»¶гЃ®гѓЄг‚№гѓ€
+ *     гЃЉг‚€гЃідё‹иЁгЃ®еЈ°жЋж–‡г‚’дїќжЊЃгЃ—гЃЄгЃЏгЃ¦гЃЇгЃЄг‚‰гЃЄгЃ„гЂ‚
  * 
- * ‚QЃDѓoѓCѓiѓЉЊ`Ћ®‚МЌД”z•z‚Й‚Ё‚ў‚Д’ЌмЊ •\Ћ¦‚Ж ‚±‚МЏрЊЏ‚МѓЉѓXѓg
- *     ‚Ё‚ж‚С‰є‹L‚Мђє–ѕ•¶‚рЋg—pђа–ѕЏ‘‚а‚µ‚­‚Н ‚»‚М‘ј‚М”z•z•Ё“а‚Й
- *     ЉЬ‚ЮЋ‘—ї‚Й‹LЏq‚µ‚И‚Ї‚к‚О‚И‚з‚И‚ўЃB
+ * пј’пјЋгѓђг‚¤гѓЉгѓЄеЅўејЏгЃ®е†Ќй…ЌеёѓгЃ«гЃЉгЃ„гЃ¦и‘—дЅњжЁ©иЎЁз¤єгЃЁ гЃ“гЃ®жќЎд»¶гЃ®гѓЄг‚№гѓ€
+ *     гЃЉг‚€гЃідё‹иЁгЃ®еЈ°жЋж–‡г‚’дЅїз”ЁиЄ¬жЋж›ёг‚‚гЃ—гЃЏгЃЇ гЃќгЃ®д»–гЃ®й…Ќеёѓз‰©е†…гЃ«
+ *     еђ«г‚Ђиі‡ж–™гЃ«иЁиї°гЃ—гЃЄгЃ‘г‚ЊгЃ°гЃЄг‚‰гЃЄгЃ„гЂ‚
  * 
- * ‚±‚Мѓ\ѓtѓgѓEѓFѓA‚НђО’Л”ьЋм—Ъ‚Й‚ж‚Б‚Д–і•ЫЏШ‚Е’с‹џ‚і‚кЃA“Б’и‚М–Ъ
- * “I‚р’Bђ¬‚Е‚«‚й‚Ж‚ў‚¤•ЫЏШЃAЏ¤•i‰ї’l‚Є—L‚й‚Ж‚ў‚¤•ЫЏШ‚Й‚Ж‚З‚Ь‚з‚ёЃA
- * ‚ў‚©‚И‚й–ѕЋ¦“I‚Ё‚ж‚С€ГЋ¦“I‚И•ЫЏШ‚а‚µ‚И‚ўЃB
- * ђО’Л”ьЋм—Ъ‚Н ‚±‚Мѓ\ѓtѓgѓEѓFѓA‚МЋg—p‚Й‚ж‚й’јђЪ“IЃAЉФђЪ“IЃA‹ф”­
- * “IЃA“БЋк‚ИЃA“TЊ^“I‚ИЃA‚ ‚й‚ў‚Н•K‘R“I‚И‘№ЉQ(Ћg—p‚Й‚ж‚йѓfЃ[ѓ^‚М
- * ‘№ЋёЃA‹Ж–±‚М’†’f‚вЊ©Ќћ‚Ь‚к‚Д‚ў‚Ѕ—‰v‚М€вЋёЃA‘г‘Цђ»•i‚а‚µ‚­‚Н
- * ѓTЃ[ѓrѓX‚М“±“ь”п“™‚ЄЌl‚¦‚з‚к‚й‚ЄЃAЊ€‚µ‚Д‚»‚к‚ѕ‚Ї‚ЙЊА’и‚і‚к‚И‚ў
- * ‘№ЉQ)‚Й‘О‚µ‚ДЃA‚ў‚©‚И‚йЋ–‘Ф‚МЊґ€ц‚Ж‚И‚Б‚Ѕ‚Ж‚µ‚Д‚аЃAЊ_–сЏг‚МђУ
- * ”C‚в–і‰ЯЋёђУ”C‚рЉЬ‚Ю ‚ў‚©‚И‚йђУ”C‚Є‚ ‚л‚¤‚Ж‚аЃA‚Ѕ‚Ж‚¦‚»‚к‚Є•s
- * ђіЌs€Ч‚М‚Ѕ‚Я‚Е‚ ‚Б‚Ѕ‚Ж‚µ‚Д‚аЃA‚Ь‚Ѕ‚Н‚»‚М‚ж‚¤‚И‘№ЉQ‚М‰В”\ђ«‚Є•с
- * Ќђ‚і‚к‚Д‚ў‚Ѕ‚Ж‚µ‚Д‚а€кђШ‚МђУ”C‚р•‰‚н‚И‚ў‚а‚М‚Ж‚·‚йЃB
+ * гЃ“гЃ®г‚Ѕгѓ•гѓ€г‚¦г‚§г‚ўгЃЇзџіеЎљзѕЋзЏ з‘ гЃ«г‚€гЃЈгЃ¦з„ЎдїќиЁјгЃ§жЏђдѕ›гЃ•г‚ЊгЂЃз‰№е®љгЃ®з›®
+ * зљ„г‚’йЃ”ж€ђгЃ§гЃЌг‚‹гЃЁгЃ„гЃ†дїќиЁјгЂЃе•†е“ЃдѕЎеЂ¤гЃЊжњ‰г‚‹гЃЁгЃ„гЃ†дїќиЁјгЃ«гЃЁгЃ©гЃѕг‚‰гЃљгЂЃ
+ * гЃ„гЃ‹гЃЄг‚‹жЋз¤єзљ„гЃЉг‚€гЃіжљ—з¤єзљ„гЃЄдїќиЁјг‚‚гЃ—гЃЄгЃ„гЂ‚
+ * зџіеЎљзѕЋзЏ з‘ гЃЇ гЃ“гЃ®г‚Ѕгѓ•гѓ€г‚¦г‚§г‚ўгЃ®дЅїз”ЁгЃ«г‚€г‚‹з›ґжЋҐзљ„гЂЃй–“жЋҐзљ„гЂЃеЃ¶з™є
+ * зљ„гЂЃз‰№ж®ЉгЃЄгЂЃе…ёећ‹зљ„гЃЄгЂЃгЃ‚г‚‹гЃ„гЃЇеї…з„¶зљ„гЃЄжђЌе®і(дЅїз”ЁгЃ«г‚€г‚‹гѓ‡гѓјг‚їгЃ®
+ * жђЌе¤±гЂЃжҐ­е‹™гЃ®дё­ж–­г‚„и¦‹иѕјгЃѕг‚ЊгЃ¦гЃ„гЃџе€©з›ЉгЃ®йЃєе¤±гЂЃд»Јж›їиЈЅе“Ѓг‚‚гЃ—гЃЏгЃЇ
+ * г‚µгѓјгѓ“г‚№гЃ®е°Ће…ҐиІ»з­‰гЃЊиЂѓгЃ€г‚‰г‚Њг‚‹гЃЊгЂЃж±єгЃ—гЃ¦гЃќг‚ЊгЃ гЃ‘гЃ«й™ђе®љгЃ•г‚ЊгЃЄгЃ„
+ * жђЌе®і)гЃ«еЇѕгЃ—гЃ¦гЂЃгЃ„гЃ‹гЃЄг‚‹дє‹ж…‹гЃ®еЋџе› гЃЁгЃЄгЃЈгЃџгЃЁгЃ—гЃ¦г‚‚гЂЃеҐ‘зґ„дёЉгЃ®иІ¬
+ * д»»г‚„з„ЎйЃЋе¤±иІ¬д»»г‚’еђ«г‚Ђ гЃ„гЃ‹гЃЄг‚‹иІ¬д»»гЃЊгЃ‚г‚ЌгЃ†гЃЁг‚‚гЂЃгЃџгЃЁгЃ€гЃќг‚ЊгЃЊдёЌ
+ * ж­ЈиЎЊз‚єгЃ®гЃџг‚ЃгЃ§гЃ‚гЃЈгЃџгЃЁгЃ—гЃ¦г‚‚гЂЃгЃѕгЃџгЃЇгЃќгЃ®г‚€гЃ†гЃЄжђЌе®ігЃ®еЏЇиѓЅжЂ§гЃЊе ±
+ * е‘ЉгЃ•г‚ЊгЃ¦гЃ„гЃџгЃЁгЃ—гЃ¦г‚‚дёЂе€‡гЃ®иІ¬д»»г‚’иІ г‚ЏгЃЄгЃ„г‚‚гЃ®гЃЁгЃ™г‚‹гЂ‚
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -43,23 +43,23 @@ import java.lang.NullPointerException;
 
 
 /**
- * -lzs- €іЏk—p PostLzssEncoderЃB
+ * -lzs- ењ§зё®з”Ё PostLzssEncoderгЂ‚
  * 
  * <pre>
  * -- revision history --
  * $Log: PostLzsEncoder.java,v $
  * Revision 1.1  2002/12/01 00:00:00  dangan
  * [maintenance]
- *     ѓ\Ѓ[ѓXђ®”х
+ *     г‚Ѕгѓјг‚№ж•ґе‚™
  *
  * Revision 1.0  2002/07/31 00:00:00  dangan
  * add to version control
  * [bug fix]
- *     -lzs- ‚М MaxMatch ‚Н 16 ‚Е‚И‚­ 17 ‚ѕ‚Б‚Ѕ‚М‚рЏCђіЃB
+ *     -lzs- гЃ® MaxMatch гЃЇ 16 гЃ§гЃЄгЃЏ 17 гЃ гЃЈгЃџгЃ®г‚’дї®ж­ЈгЂ‚
  * [maintenance]
- *     ѓ\Ѓ[ѓXђ®”х
- *     ѓ^ѓu‚М”pЋ~
- *     ѓ‰ѓCѓZѓ“ѓX•¶‚МЏCђі
+ *     г‚Ѕгѓјг‚№ж•ґе‚™
+ *     г‚їгѓ–гЃ®е»ѓж­ў
+ *     гѓ©г‚¤г‚»гѓіг‚№ж–‡гЃ®дї®ж­Ј
  *
  * </pre>
  * 
@@ -78,13 +78,13 @@ public class PostLzsEncoder implements PostLzssEncoder {
     //  private static final int MaxMatch
     //  private static final int Threshold
     //------------------------------------------------------------------
-    /** Ћ«Џ‘ѓTѓCѓY */
+    /** иѕћж›ёг‚µг‚¤г‚є */
     private static final int DictionarySize = 2048;
 
-    /** ЌЕ‘е€к’v’· */
+    /** жњЂе¤§дёЂи‡ґй•· */
     private static final int MaxMatch       = 17;
 
-    /** ЌЕЏ¬€к’v’· */
+    /** жњЂе°ЏдёЂи‡ґй•· */
     private static final int Threshold      = 2;
 
 
@@ -96,10 +96,10 @@ public class PostLzsEncoder implements PostLzssEncoder {
     //  private static final int PositionBits
     //  private static final int LengthBits
     //------------------------------------------------------------------
-    /** €к’v€К’u‚Мѓrѓbѓgђ” */
+    /** дёЂи‡ґдЅЌзЅ®гЃ®гѓ“гѓѓгѓ€ж•° */
     private static final int PositionBits = Bits.len( PostLzsEncoder.DictionarySize - 1 );
 
-    /** €к’v’·‚Мѓrѓbѓgђ” */
+    /** дёЂи‡ґй•·гЃ®гѓ“гѓѓгѓ€ж•° */
     private static final int LengthBits = Bits.len( PostLzsEncoder.MaxMatch - PostLzsEncoder.Threshold );
 
 
@@ -111,37 +111,25 @@ public class PostLzsEncoder implements PostLzssEncoder {
     //  private int matchLength
     //------------------------------------------------------------------
     /**
-     * -lzs- Њ`Ћ®‚МѓfЃ[ѓ^‚рЏo—Н‚·‚йѓrѓbѓgЏo—НѓXѓgѓЉЃ[ѓЂ
+     * -lzs- еЅўејЏгЃ®гѓ‡гѓјг‚їг‚’е‡єеЉ›гЃ™г‚‹гѓ“гѓѓгѓ€е‡єеЉ›г‚№гѓ€гѓЄгѓјгѓ 
      */
     private BitOutputStream out;
 
     /**
-     * ѓXѓgѓЉЃ[ѓЂ“аЊ»ЌЭЏ€—ќ€К’u
+     * г‚№гѓ€гѓЄгѓјгѓ е†…зЏѕењЁе‡¦зђ†дЅЌзЅ®
      */
     private int position;
 
     /**
-     * Њ»ЌЭЏ€—ќ’†‚МLZSS€іЏkѓRЃ[ѓh
+     * зЏѕењЁе‡¦зђ†дё­гЃ®LZSSењ§зё®г‚ігѓјгѓ‰
      */
     private int matchLength;
 
 
-    //------------------------------------------------------------------
-    //  constructor
-    //------------------------------------------------------------------
-    //  private PostLzsEncoder()
-    //  public PostLzsEncoder( OutputStream out )
-    //------------------------------------------------------------------
     /**
-     * ѓfѓtѓHѓ‹ѓgѓRѓ“ѓXѓgѓ‰ѓNѓ^ЃB
-     * Ћg—p•s‰ВЃB
-     */
-    private PostLzsEncoder(){   }
-
-    /**
-     * -lzs- €іЏk—p PostLzssEncoder ‚рЌ\’z‚·‚йЃB
+     * -lzs- ењ§зё®з”Ё PostLzssEncoder г‚’ж§‹зЇ‰гЃ™г‚‹гЂ‚
      * 
-     * @param out -lzs- Њ`Ћ®‚М€іЏkѓfЃ[ѓ^‚рЏo—Н‚·‚йѓXѓgѓЉЃ[ѓЂ
+     * @param out -lzs- еЅўејЏгЃ®ењ§зё®гѓ‡гѓјг‚їг‚’е‡єеЉ›гЃ™г‚‹г‚№гѓ€гѓЄгѓјгѓ 
      */
     public PostLzsEncoder( OutputStream out ){
         if( out != null ){
@@ -167,13 +155,13 @@ public class PostLzsEncoder implements PostLzssEncoder {
     //  public void writeOffset( int offset )
     //------------------------------------------------------------------
     /**
-     * 1byte ‚М LZSS–ў€іЏk‚МѓfЃ[ѓ^‚а‚µ‚­‚НЃA
-     * LZSS ‚Е€іЏk‚і‚к‚Ѕ€іЏkѓRЃ[ѓh‚М‚¤‚ї€к’v’·‚рЏ‘‚«‚±‚ЮЃB<br>
+     * 1byte гЃ® LZSSжњЄењ§зё®гЃ®гѓ‡гѓјг‚їг‚‚гЃ—гЃЏгЃЇгЂЃ
+     * LZSS гЃ§ењ§зё®гЃ•г‚ЊгЃџењ§зё®г‚ігѓјгѓ‰гЃ®гЃ†гЃЎдёЂи‡ґй•·г‚’ж›ёгЃЌгЃ“г‚ЂгЂ‚<br>
      * 
-     * @param code 1byte ‚М LZSS–ў€іЏk‚МѓfЃ[ѓ^‚а‚µ‚­‚НЃA
-     *             LZSS ‚Е€іЏk‚і‚к‚Ѕ€іЏkѓRЃ[ѓh‚М‚¤‚ї€к’v’·
+     * @param code 1byte гЃ® LZSSжњЄењ§зё®гЃ®гѓ‡гѓјг‚їг‚‚гЃ—гЃЏгЃЇгЂЃ
+     *             LZSS гЃ§ењ§зё®гЃ•г‚ЊгЃџењ§зё®г‚ігѓјгѓ‰гЃ®гЃ†гЃЎдёЂи‡ґй•·
      * 
-     * @exception IOException “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
+     * @exception IOException е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
      */
     public void writeCode( int code ) throws IOException {
         if( code < 0x100 ){
@@ -181,17 +169,17 @@ public class PostLzsEncoder implements PostLzssEncoder {
             this.out.writeBits( 8, code );                                      //throws IOException
             this.position++;
         }else{
-            // close() Њг‚М writeCode() ‚Е
-            // NullPointerException ‚р“Љ‚°‚й‚±‚Ж‚рЉъ‘Т‚µ‚Д‚ў‚йЃB
+            // close() еѕЊгЃ® writeCode() гЃ§
+            // NullPointerException г‚’жЉ•гЃ’г‚‹гЃ“гЃЁг‚’жњџеѕ…гЃ—гЃ¦гЃ„г‚‹гЂ‚
             this.out.writeBit( 0 );                                             //throws IOException
             this.matchLength = code - 0x100;
         }
     }
 
     /**
-     * LZSS ‚Е€іЏk‚і‚к‚Ѕ€іЏkѓRЃ[ѓh‚М‚¤‚ї€к’v€К’u‚рЏ‘‚«‚±‚ЮЃB<br>
+     * LZSS гЃ§ењ§зё®гЃ•г‚ЊгЃџењ§зё®г‚ігѓјгѓ‰гЃ®гЃ†гЃЎдёЂи‡ґдЅЌзЅ®г‚’ж›ёгЃЌгЃ“г‚ЂгЂ‚<br>
      * 
-     * @param offset LZSS ‚Е€іЏk‚і‚к‚Ѕ€іЏkѓRЃ[ѓh‚М‚¤‚ї€к’v€К’u
+     * @param offset LZSS гЃ§ењ§зё®гЃ•г‚ЊгЃџењ§зё®г‚ігѓјгѓ‰гЃ®гЃ†гЃЎдёЂи‡ґдЅЌзЅ®
      */
     public void writeOffset( int offset ) throws IOException {
         int pos = ( this.position - offset - 1
@@ -200,8 +188,8 @@ public class PostLzsEncoder implements PostLzssEncoder {
 
         this.position += this.matchLength + PostLzsEncoder.Threshold;
 
-        this.out.writeBits( this.PositionBits, pos );                           //throws IOException
-        this.out.writeBits( this.LengthBits,   this.matchLength );              //throws IOException
+        this.out.writeBits( PostLzsEncoder.PositionBits, pos );                           //throws IOException
+        this.out.writeBits( PostLzsEncoder.LengthBits,   this.matchLength );              //throws IOException
     }
 
 
@@ -214,12 +202,12 @@ public class PostLzsEncoder implements PostLzssEncoder {
     //  public void close()
     //------------------------------------------------------------------
     /**
-     * ‚±‚М PostLzssEncoder ‚Йѓoѓbѓtѓ@ѓЉѓ“ѓO‚і‚к‚Д‚ў‚й
-     * ‘S‚Д‚М 8ѓrѓbѓg’P€К‚МѓfЃ[ѓ^‚рЏo—Нђж‚М OutputStream ‚ЙЏo—Н‚µЃA 
-     * Џo—Нђж‚М OutputStream ‚р flush() ‚·‚йЃB<br>
-     * ‚±‚МѓЃѓ\ѓbѓh‚Н€іЏk—¦‚р•П‰»‚і‚№‚И‚ўЃB 
+     * гЃ“гЃ® PostLzssEncoder гЃ«гѓђгѓѓгѓ•г‚ЎгѓЄгѓіг‚°гЃ•г‚ЊгЃ¦гЃ„г‚‹
+     * е…ЁгЃ¦гЃ® 8гѓ“гѓѓгѓ€еЌдЅЌгЃ®гѓ‡гѓјг‚їг‚’е‡єеЉ›е…€гЃ® OutputStream гЃ«е‡єеЉ›гЃ—гЂЃ 
+     * е‡єеЉ›е…€гЃ® OutputStream г‚’ flush() гЃ™г‚‹гЂ‚<br>
+     * гЃ“гЃ®гѓЎг‚Ѕгѓѓгѓ‰гЃЇењ§зё®зЋ‡г‚’е¤‰еЊ–гЃ•гЃ›гЃЄгЃ„гЂ‚ 
      * 
-     * @exception IOException “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
+     * @exception IOException е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
      *
      * @see PostLzssEncoder#flush()
      * @see BitOutputStream#flush()
@@ -229,10 +217,10 @@ public class PostLzsEncoder implements PostLzssEncoder {
     }
 
     /**
-     * ‚±‚МЏo—НѓXѓgѓЉЃ[ѓЂ‚ЖЃAђЪ‘±‚і‚к‚ЅЏo—НѓXѓgѓЉЃ[ѓЂ‚р•В‚¶ЃA
-     * Ћg—p‚µ‚Д‚ў‚ЅѓЉѓ\Ѓ[ѓX‚р‰р•ъ‚·‚йЃB<br>
+     * гЃ“гЃ®е‡єеЉ›г‚№гѓ€гѓЄгѓјгѓ гЃЁгЂЃжЋҐз¶љгЃ•г‚ЊгЃџе‡єеЉ›г‚№гѓ€гѓЄгѓјгѓ г‚’й–‰гЃгЂЃ
+     * дЅїз”ЁгЃ—гЃ¦гЃ„гЃџгѓЄг‚Ѕгѓјг‚№г‚’и§Јж”ѕгЃ™г‚‹гЂ‚<br>
      * 
-     * @exception IOException “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
+     * @exception IOException е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
      */
     public void close() throws IOException {
         this.out.close();                                                       //throws IOException
@@ -251,27 +239,27 @@ public class PostLzsEncoder implements PostLzssEncoder {
     //  public int getThreshold()
     //------------------------------------------------------------------
     /**
-     * -lzs-Њ`Ћ®‚М LZSSЋ«Џ‘‚МѓTѓCѓY‚р“ѕ‚йЃB
+     * -lzs-еЅўејЏгЃ® LZSSиѕћж›ёгЃ®г‚µг‚¤г‚єг‚’еѕ—г‚‹гЂ‚
      * 
-     * @return -lzs-Њ`Ћ®‚М LZSSЋ«Џ‘‚МѓTѓCѓY
+     * @return -lzs-еЅўејЏгЃ® LZSSиѕћж›ёгЃ®г‚µг‚¤г‚є
      */
     public int getDictionarySize(){
         return PostLzsEncoder.DictionarySize;
     }
 
     /**
-     * -lzs-Њ`Ћ®‚М LZSS‚МЌЕ‘е€к’v’·‚р“ѕ‚йЃB
+     * -lzs-еЅўејЏгЃ® LZSSгЃ®жњЂе¤§дёЂи‡ґй•·г‚’еѕ—г‚‹гЂ‚
      * 
-     * @return -lzs-Њ`Ћ®‚М LZSS‚МЌЕ‘е€к’v’·
+     * @return -lzs-еЅўејЏгЃ® LZSSгЃ®жњЂе¤§дёЂи‡ґй•·
      */
     public int getMaxMatch(){
         return PostLzsEncoder.MaxMatch;
     }
 
     /**
-     * -lzs-Њ`Ћ®‚М LZSS‚М€іЏkЃA”с€іЏk‚Ми‡’l‚р“ѕ‚йЃB
+     * -lzs-еЅўејЏгЃ® LZSSгЃ®ењ§зё®гЂЃйќћењ§зё®гЃ®й–ѕеЂ¤г‚’еѕ—г‚‹гЂ‚
      * 
-     * @return -lzs-Њ`Ћ®‚М LZSS‚М€іЏkЃA”с€іЏk‚Ми‡’l
+     * @return -lzs-еЅўејЏгЃ® LZSSгЃ®ењ§зё®гЂЃйќћењ§зё®гЃ®й–ѕеЂ¤
      */
     public int getThreshold(){
         return PostLzsEncoder.Threshold;

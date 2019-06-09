@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  * 
- * �ȉ��̏����ɓ��ӂ���Ȃ�΃\�[�X�ƃo�C�i���`���̍Ĕz�z�Ǝg�p��
- * �ύX�̗L���ɂ�����炸������B
+ * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
+ * 変更の有無にかかわらず許可する。
  * 
- * �P�D�\�[�X�R�[�h�̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐�������ێ����Ȃ��Ă͂Ȃ�Ȃ��B
+ * １．ソースコードの再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を保持しなくてはならない。
  * 
- * �Q�D�o�C�i���`���̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐��������g�p�������������� ���̑��̔z�z������
- *     �܂ގ����ɋL�q���Ȃ���΂Ȃ�Ȃ��B
+ * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を使用説明書もしくは その他の配布物内に
+ *     含む資料に記述しなければならない。
  * 
- * ���̃\�t�g�E�F�A�͐Β˔���ڂɂ���Ė��ۏ؂Œ񋟂���A����̖�
- * �I��B���ł���Ƃ����ۏ؁A���i���l���L��Ƃ����ۏ؂ɂƂǂ܂炸�A
- * �����Ȃ閾���I����шÎ��I�ȕۏ؂����Ȃ��B
- * �Β˔���ڂ� ���̃\�t�g�E�F�A�̎g�p�ɂ�钼�ړI�A�ԐړI�A����
- * �I�A����ȁA�T�^�I�ȁA���邢�͕K�R�I�ȑ��Q(�g�p�ɂ��f�[�^��
- * �����A�Ɩ��̒��f�〈���܂�Ă������v�̈⎸�A��֐��i��������
- * �T�[�r�X�̓�������l�����邪�A�����Ă��ꂾ���Ɍ��肳��Ȃ�
- * ���Q)�ɑ΂��āA�����Ȃ鎖�Ԃ̌����ƂȂ����Ƃ��Ă��A�_���̐�
- * �C�△�ߎ��ӔC���܂� �����Ȃ�ӔC�����낤�Ƃ��A���Ƃ����ꂪ�s
- * ���s�ׂ̂��߂ł������Ƃ��Ă��A�܂��͂��̂悤�ȑ��Q�̉\������
- * ������Ă����Ƃ��Ă���؂̐ӔC�𕉂�Ȃ����̂Ƃ���B
+ * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
+ * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
+ * いかなる明示的および暗示的な保証もしない。
+ * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
+ * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
+ * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
+ * サービスの導入費等が考えられるが、決してそれだけに限定されない
+ * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
+ * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
+ * 正行為のためであったとしても、またはそのような損害の可能性が報
+ * 告されていたとしても一切の責任を負わないものとする。
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -35,10 +35,9 @@ package jp.gr.java_conf.dangan.util.lha;
 import java.lang.Cloneable;
 
 //import exceptions
-import java.io.IOException;
 
 /**
- * ���I�n�t�}���������N���X�B
+ * 動的ハフマンを扱うクラス。
  * 
  * <pre>
  * -- revision history --
@@ -46,15 +45,15 @@ import java.io.IOException;
  * Revision 1.0  2002/07/24 00:00:00  dangan
  * add to version control
  * [bug fix]
- *     addLeaf() �ŗt�̐��� 1 ���� 2�ւƑ�������Ƃ���
- *     �ŏ����炠�����t�̏d���� 1 ���ƌ��ߕt���Ă����B
+ *     addLeaf() で葉の数が 1 から 2へと増加するときに
+ *     最初からあった葉の重さが 1 だと決め付けていた。
  * [change]
- *     �R���X�g���N�^ DynamicHuffman( int, int ) ��
- *     �J�n���̃n�t�}���؂̃T�C�Y�łȂ� �J�n���̗t�̐���n���悤�ɕύX�B
+ *     コンストラクタ DynamicHuffman( int, int ) で
+ *     開始時のハフマン木のサイズでなく 開始時の葉の数を渡すように変更。
  * [maintenance]
- *     �\�[�X����
- *     �^�u�p�~
- *     ���C�Z���X���̕ύX
+ *     ソース整備
+ *     タブ廃止
+ *     ライセンス文の変更
  *
  * </pre>
  * 
@@ -71,12 +70,12 @@ public class DynamicHuffman implements Cloneable{
     //  private static final int MAX_WEIGHT
     //------------------------------------------------------------------
     /**
-     * �n�t�}���؂̃��[�g�������B
+     * ハフマン木のルートを示す。
      */
     public static final int ROOT = 0;
 
     /**
-     * �n�t�}���؂��č\�z����d��
+     * ハフマン木を再構築する重さ
      */
     private static final int MAX_WEIGHT = 0x8000;
 
@@ -93,31 +92,31 @@ public class DynamicHuffman implements Cloneable{
     //  private int size
     //------------------------------------------------------------------
     /**
-     * �Y�����̃m�[�h�̏d���������B
+     * 添え字のノードの重さを示す。
      */
     private int[] weight;
 
     /**
-     * �Y�����̃m�[�h�̎q�m�[�h�̃m�[�h�ԍ���ێ�����
-     * �Z������𗘗p���邽�߁A
-     * child     �� �������m�[�h�̃m�[�h�ԍ�
-     * child - 1 �� �傫���m�[�h�̃m�[�h�ԍ��ƂȂ�B
-     * �t�̏ꍇ�̓f�[�^��bit���]�������̂������Ă���B
+     * 添え字のノードの子ノードのノード番号を保持する
+     * 兄弟特性を利用するため、
+     * child     が 小さいノードのノード番号
+     * child - 1 が 大きいノードのノード番号となる。
+     * 葉の場合はデータをbit反転したものが入っている。
      */
     private int[] child;
 
     /**
-     * �Y�����̃m�[�h�̐e�m�[�h�̃m�[�h�ԍ���ێ�����
+     * 添え字のノードの親ノードのノード番号を保持する
      */
     private int[] parent;
 
     /**
-     * �t�̃m�[�h�ԍ���ێ�����B
+     * 葉のノード番号を保持する。
      */
     private int[] leafs;
 
     /**
-     * ���݂̃n�t�}���؂̑傫��
+     * 現在のハフマン木の大きさ
      */
     private int size;
 
@@ -130,25 +129,25 @@ public class DynamicHuffman implements Cloneable{
     //  public DynamicHuffman( int max, int first )
     //------------------------------------------------------------------
     /**
-     * �f�t�H���g�R���X�g���N�^�B
-     * �g�p�s�B
+     * デフォルトコンストラクタ。
+     * 使用不可。
      */
     private DynamicHuffman(){   }
 
     /**
-     * �R���X�g���N�^
+     * コンストラクタ
      * 
-     * @param count �t�̐�
+     * @param count 葉の数
      */
     public DynamicHuffman( int count ){
         this( count, count );
     }
 
     /**
-     * �R���X�g���N�^
+     * コンストラクタ
      * 
-     * @param max   �t�̍ő吔
-     * @param start �J�n���̗t�̐� 
+     * @param max   葉の最大数
+     * @param start 開始時の葉の数 
      */
     public DynamicHuffman( int max, int first ){
         if( 1 <= first && first <= max ){
@@ -159,7 +158,7 @@ public class DynamicHuffman implements Cloneable{
             this.leafs  = new int[ max ];
             this.size   = Math.max( 0, first * 2 - 1 );
 
-            //�t�𐶐����Ă����B
+            //葉を生成していく。
             int node = this.size - 1;
             for( int code = 0 ; code < first ; code++, node-- ){
                 this.weight[ node ] = 1;
@@ -167,7 +166,7 @@ public class DynamicHuffman implements Cloneable{
                 this.leafs[ code ]  = node;
             }
 
-            //�}�𐶐����Ă����B
+            //枝を生成していく。
             int child = this.size - 1;
             while( 0 <= node && node != child ){
                 this.weight[node]  = this.weight[child] + this.weight[child-1];
@@ -192,16 +191,16 @@ public class DynamicHuffman implements Cloneable{
     //  public Object clone()
     //------------------------------------------------------------------
     /**
-     * ���̃I�u�W�F�N�g�̌��݂̏�Ԃ����R�s�[���쐬���ĕԂ��B
+     * このオブジェクトの現在の状態を持つコピーを作成して返す。
      * 
-     * @return ���̃I�u�W�F�N�g�̌��݂̏�Ԃ����R�s�[
+     * @return このオブジェクトの現在の状態を持つコピー
      */
     public Object clone(){
         DynamicHuffman clone = new DynamicHuffman();
-        clone.weight = (int[])this.weight.clone();
-        clone.child  = (int[])this.child.clone();
-        clone.parent = (int[])this.parent.clone();
-        clone.leafs  = (int[])this.leafs.clone();
+        clone.weight = this.weight.clone();
+        clone.child  = this.child.clone();
+        clone.parent = this.parent.clone();
+        clone.leafs  = this.leafs.clone();
         clone.size   = this.size;
         return clone;
     }
@@ -217,38 +216,38 @@ public class DynamicHuffman implements Cloneable{
     //  public int parentNode( int node )
     //------------------------------------------------------------------
     /**
-     * �f�[�^����m�[�h�ԍ��𓾂�B
+     * データからノード番号を得る。
      * 
-     * @param code �f�[�^
+     * @param code データ
      * 
-     * @return code�̃m�[�h�ԍ�
+     * @return codeのノード番号
      */
     public int codeToNode( int code ){
         return this.leafs[code];
     }
 
     /**
-     * �m�[�h���t�łȂ��m�[�h�Ȃ�q�m�[�h�̃m�[�h�ԍ��A
-     * �m�[�h���t�Ȃ�m�[�h�̎��f�[�^��S�r�b�g���]�������̂𓾂�B
-     * �q�m�[�h�̃m�[�h�ԍ��͌Z������Ɨ��p���邽�߁A<br>
-     * node �� 0 �̎q�m�[�h�̏ꍇ childNode( node )<br>
-     * node �� 1 �̎q�m�[�h�̏ꍇ childNode( node ) - 1<br>
-     * �ƂȂ�B
+     * ノードが葉でないノードなら子ノードのノード番号、
+     * ノードが葉ならノードの持つデータを全ビット反転したものを得る。
+     * 子ノードのノード番号は兄弟特性と利用するため、<br>
+     * node の 0 の子ノードの場合 childNode( node )<br>
+     * node の 1 の子ノードの場合 childNode( node ) - 1<br>
+     * となる。
      * 
-     * @param node �m�[�h
+     * @param node ノード
      * 
-     * @return node �̎q�m�[�h�̃m�[�h�ԍ�
+     * @return node の子ノードのノード番号
      */
     public int childNode( int node ){
         return this.child[node];
     }
 
     /**
-     * node �̐e�m�[�h�̃m�[�h�ԍ��𓾂�B
+     * node の親ノードのノード番号を得る。
      * 
-     * @param node �m�[�h
+     * @param node ノード
      * 
-     * @return node �̐e�m�[�h�̃m�[�h�ԍ��B
+     * @return node の親ノードのノード番号。
      */
     public int parentNode( int node ){
         return this.parent[node];
@@ -264,9 +263,9 @@ public class DynamicHuffman implements Cloneable{
     //  public void addLeaf( int code )
     //------------------------------------------------------------------
     /**
-     * code �̏d�݂������悤�Ƀn�t�}���؂��X�V����B
+     * code の重みが増すようにハフマン木を更新する。
      * 
-     * @param code �d�݂𑝂₷�t
+     * @param code 重みを増やす葉
      */
     public void update( int code ){
         if( this.weight[ DynamicHuffman.ROOT ] == DynamicHuffman.MAX_WEIGHT ){
@@ -290,13 +289,13 @@ public class DynamicHuffman implements Cloneable{
     }
 
     /**
-     * �n�t�}���؂� code �������t��ǉ�����B
+     * ハフマン木に code を示す葉を追加する。
      * 
-     * @param code �t�̎�������
+     * @param code 葉の示す符号
      * 
      * @exception IllegalStateException
-     *              �n�t�}���؂��\���ɑ傫������
-     *              �t���ǉ��ł��Ȃ��ꍇ
+     *              ハフマン木が十分に大きいため
+     *              葉が追加できない場合
      */
     public void addLeaf( int code ){
         if( this.size < this.weight.length - 1 ){
@@ -330,10 +329,10 @@ public class DynamicHuffman implements Cloneable{
     //  private void swap( int i, int j )
     //------------------------------------------------------------------
     /**
-     * �n�t�}���؂��č\�z����B
-     * �d�݂� private�Ȓ萔 MAX_WEIGHT �𒴂�������
-     * update(int)����Ăяo�����B
-     * �S�Ẵm�[�h�̏d�݂� ���悻�����ɂ���B
+     * ハフマン木を再構築する。
+     * 重みが privateな定数 MAX_WEIGHT を超えた時に
+     * update(int)から呼び出される。
+     * 全てのノードの重みを およそ半分にする。
      */
     private void rebuildTree(){
         int leafCount = 0;
@@ -375,11 +374,11 @@ public class DynamicHuffman implements Cloneable{
     }
 
     /**
-     * �m�[�h�ԍ�i�̃m�[�h��
-     * �m�[�h�ԍ�j�̃m�[�h����ꊷ���鏈�����s���B
+     * ノード番号iのノードと
+     * ノード番号jのノードを入れ換える処理を行う。
      * 
-     * @param i ���ꊷ���Ώۂ̃m�[�h
-     * @param j ���ꊷ���Ώۂ̃m�[�h
+     * @param i 入れ換え対象のノード
+     * @param j 入れ換え対象のノード
      */
     private void swap( int i, int j ){
         if( this.child[i] < 0 ){

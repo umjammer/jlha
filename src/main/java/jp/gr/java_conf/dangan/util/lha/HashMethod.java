@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  * 
- * �ȉ��̏����ɓ��ӂ���Ȃ�΃\�[�X�ƃo�C�i���`���̍Ĕz�z�Ǝg�p��
- * �ύX�̗L���ɂ�����炸������B
+ * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
+ * 変更の有無にかかわらず許可する。
  * 
- * �P�D�\�[�X�R�[�h�̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐�������ێ����Ȃ��Ă͂Ȃ�Ȃ��B
+ * １．ソースコードの再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を保持しなくてはならない。
  * 
- * �Q�D�o�C�i���`���̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐��������g�p�������������� ���̑��̔z�z������
- *     �܂ގ����ɋL�q���Ȃ���΂Ȃ�Ȃ��B
+ * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を使用説明書もしくは その他の配布物内に
+ *     含む資料に記述しなければならない。
  * 
- * ���̃\�t�g�E�F�A�͐Β˔���ڂɂ���Ė��ۏ؂Œ񋟂���A����̖�
- * �I��B���ł���Ƃ����ۏ؁A���i���l���L��Ƃ����ۏ؂ɂƂǂ܂炸�A
- * �����Ȃ閾���I����шÎ��I�ȕۏ؂����Ȃ��B
- * �Β˔���ڂ� ���̃\�t�g�E�F�A�̎g�p�ɂ�钼�ړI�A�ԐړI�A����
- * �I�A����ȁA�T�^�I�ȁA���邢�͕K�R�I�ȑ��Q(�g�p�ɂ��f�[�^��
- * �����A�Ɩ��̒��f�〈���܂�Ă������v�̈⎸�A��֐��i��������
- * �T�[�r�X�̓�������l�����邪�A�����Ă��ꂾ���Ɍ��肳��Ȃ�
- * ���Q)�ɑ΂��āA�����Ȃ鎖�Ԃ̌����ƂȂ����Ƃ��Ă��A�_���̐�
- * �C�△�ߎ��ӔC���܂� �����Ȃ�ӔC�����낤�Ƃ��A���Ƃ����ꂪ�s
- * ���s�ׂ̂��߂ł������Ƃ��Ă��A�܂��͂��̂悤�ȑ��Q�̉\������
- * ������Ă����Ƃ��Ă���؂̐ӔC�𕉂�Ȃ����̂Ƃ���B
+ * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
+ * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
+ * いかなる明示的および暗示的な保証もしない。
+ * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
+ * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
+ * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
+ * サービスの導入費等が考えられるが、決してそれだけに限定されない
+ * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
+ * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
+ * 正行為のためであったとしても、またはそのような損害の可能性が報
+ * 告されていたとしても一切の責任を負わないものとする。
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -37,24 +37,24 @@ package jp.gr.java_conf.dangan.util.lha;
 
 
 /**
- * �n�b�V���֐���񋟂���C���^�[�t�F�C�X�B<br>
+ * ハッシュ関数を提供するインターフェイス。<br>
  * <br>
- * �R���X�g���N�^�̌`����
+ * コンストラクタの形式は
  * <pre>
  * HashMethod( byte[] TextBuffer )
  * 
- * <strong>�p�����[�^:</strong>
- *   TextBuffer     - LZSS���k���{���f�[�^�̓������o�b�t�@
+ * <strong>パラメータ:</strong>
+ *   TextBuffer     - LZSS圧縮を施すデータの入ったバッファ
  * </pre>
- * �̂悤�Ȍ`���ɑ��邱�ƁB<br>
- * �܂��A�ǉ��̈������Ƃ肽���ꍇ��
+ * のような形式に則ること。<br>
+ * また、追加の引数をとりたい場合は
  * <pre>
  * HashMethod( byte[] TextBuffer,
  *             Object ExtraData1,
  *             Object ExtraData2 )
  * </pre>
- * �̂悤�Ȍ`����p����B<br>
- * �Ȃ��A�R���X�g���N�^�̈����`�F�b�N�͒ǉ��̈���������ꍇ�ɂ��čs���΂悢�B
+ * のような形式を用いる。<br>
+ * なお、コンストラクタの引数チェックは追加の引数がある場合について行えばよい。
  * 
  * <pre>
  * -- revision history --
@@ -62,12 +62,12 @@ package jp.gr.java_conf.dangan.util.lha;
  * Revision 1.0  2002/08/05 00:00:00  dangan
  * add to version cotrol
  * [change]
- *     requiredSize() �� hashRequires() �ɖ��O�ύX�B
- *     size() �� tableSize() ���O�ύX�B
+ *     requiredSize() を hashRequires() に名前変更。
+ *     size() を tableSize() 名前変更。
  * [maintanance]
- *     �\�[�X����
- *     �^�u�p�~
- *     ���C�Z���X���̏C��
+ *     ソース整備
+ *     タブ廃止
+ *     ライセンス文の修正
  *
  * </pre>
  * 
@@ -85,30 +85,30 @@ public interface HashMethod{
     //  public abstract int tableSize()
     //------------------------------------------------------------------
     /**
-     * �n�b�V���֐��B
-     * �R���X�g���N�^�œn���ꂽ TextBuffer ����
-     * position ����̃f�[�^�p�^���� hash�l�𐶐�����B
+     * ハッシュ関数。
+     * コンストラクタで渡された TextBuffer 内の
+     * position からのデータパタンの hash値を生成する。
      *
-     * @param position �f�[�^�p�^���̊J�n�ʒu
+     * @param position データパタンの開始位置
      * 
-     * @return �n�b�V���l
+     * @return ハッシュ値
      */
     public abstract int hash( int position );
 
     /**
-     * �n�b�V���֐���
-     * �n�b�V���l�𐶐����邽�߂Ɏg�p����o�C�g���𓾂�B
+     * ハッシュ関数が
+     * ハッシュ値を生成するために使用するバイト数を得る。
      * 
-     * @return �n�b�V���֐����n�b�V���l��
-     *         �������邽�߂Ɏg�p����o�C�g��
+     * @return ハッシュ関数がハッシュ値を
+     *         生成するために使用するバイト数
      */
     public abstract int hashRequires();
 
     /**
-     * ���� HashMethod ���g�����ꍇ�� 
-     * HashTable �̃T�C�Y�𓾂�B
+     * この HashMethod を使った場合の 
+     * HashTable のサイズを得る。
      * 
-     * @return ���� HashMethod ���g�����ꍇ�� HashTable �̃T�C�Y
+     * @return この HashMethod を使った場合の HashTable のサイズ
      */
     public abstract int tableSize();
 

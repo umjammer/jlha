@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  * 
- * �ȉ��̏����ɓ��ӂ���Ȃ�΃\�[�X�ƃo�C�i���`���̍Ĕz�z�Ǝg�p��
- * �ύX�̗L���ɂ�����炸������B
+ * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
+ * 変更の有無にかかわらず許可する。
  * 
- * �P�D�\�[�X�R�[�h�̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐�������ێ����Ȃ��Ă͂Ȃ�Ȃ��B
+ * １．ソースコードの再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を保持しなくてはならない。
  * 
- * �Q�D�o�C�i���`���̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐��������g�p�������������� ���̑��̔z�z������
- *     �܂ގ����ɋL�q���Ȃ���΂Ȃ�Ȃ��B
+ * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を使用説明書もしくは その他の配布物内に
+ *     含む資料に記述しなければならない。
  * 
- * ���̃\�t�g�E�F�A�͐Β˔���ڂɂ���Ė��ۏ؂Œ񋟂���A����̖�
- * �I��B���ł���Ƃ����ۏ؁A���i���l���L��Ƃ����ۏ؂ɂƂǂ܂炸�A
- * �����Ȃ閾���I����шÎ��I�ȕۏ؂����Ȃ��B
- * �Β˔���ڂ� ���̃\�t�g�E�F�A�̎g�p�ɂ�钼�ړI�A�ԐړI�A����
- * �I�A����ȁA�T�^�I�ȁA���邢�͕K�R�I�ȑ��Q(�g�p�ɂ��f�[�^��
- * �����A�Ɩ��̒��f�〈���܂�Ă������v�̈⎸�A��֐��i��������
- * �T�[�r�X�̓�������l�����邪�A�����Ă��ꂾ���Ɍ��肳��Ȃ�
- * ���Q)�ɑ΂��āA�����Ȃ鎖�Ԃ̌����ƂȂ����Ƃ��Ă��A�_���̐�
- * �C�△�ߎ��ӔC���܂� �����Ȃ�ӔC�����낤�Ƃ��A���Ƃ����ꂪ�s
- * ���s�ׂ̂��߂ł������Ƃ��Ă��A�܂��͂��̂悤�ȑ��Q�̉\������
- * ������Ă����Ƃ��Ă���؂̐ӔC�𕉂�Ȃ����̂Ƃ���B
+ * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
+ * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
+ * いかなる明示的および暗示的な保証もしない。
+ * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
+ * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
+ * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
+ * サービスの導入費等が考えられるが、決してそれだけに限定されない
+ * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
+ * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
+ * 正行為のためであったとしても、またはそのような損害の可能性が報
+ * 告されていたとしても一切の責任を負わないものとする。
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -38,8 +38,8 @@ import jp.gr.java_conf.dangan.util.lha.BadHuffmanTableException;
 
 
 /**
- * �ÓI�n�t�}���p���[�e�B���e�B�֐��Q��ێ�����B<br>
- * �n�t�}�������͍ő�16�r�b�g�ɐ��������B<br>
+ * 静的ハフマン用ユーティリティ関数群を保持する。<br>
+ * ハフマン符号は最大16ビットに制限される。<br>
  * 
  * <pre>
  * -- revision history --
@@ -47,9 +47,9 @@ import jp.gr.java_conf.dangan.util.lha.BadHuffmanTableException;
  * Revision 1.0  2002/07/24 00:00:00  dangan
  * add to version control
  * [maintenance]
- *     �\�[�X����
- *     �^�u�p�~
- *     ���C�Z���X���̏C��
+ *     ソース整備
+ *     タブ廃止
+ *     ライセンス文の修正
  *
  * </pre>
  * 
@@ -65,8 +65,8 @@ public class StaticHuffman{
     //  public static final int LimitLen
     //------------------------------------------------------------------
     /**
-     * LHA��DOS��16bit���[�h���g�p���č��ꂽ���Ƃɂ��
-     * �n�t�}���������̐����B
+     * LHAがDOSの16bitモードを使用して作られたことによる
+     * ハフマン符号長の制限。
      */
     public static final int LimitLen = 16;
 
@@ -77,8 +77,8 @@ public class StaticHuffman{
     //  private StaticHuffman()
     //------------------------------------------------------------------
     /**
-     * �f�t�H���g�R���X�g���N�^�B
-     * �g�p�s�B
+     * デフォルトコンストラクタ。
+     * 使用不可。
      */
     private StaticHuffman(){  }
 
@@ -93,22 +93,22 @@ public class StaticHuffman{
     //  public static int[] LenListToCodeList( int[] LenList )
     //------------------------------------------------------------------
     /**
-     * �p�x�\���� �n�t�}�������̃r�b�g���̕\���쐬����B
+     * 頻度表から ハフマン符号のビット長の表を作成する。
      * 
-     * @param FreqList �p�x�\
+     * @param FreqList 頻度表
      * 
-     * @return �n�t�}�������̃r�b�g���̕\
+     * @return ハフマン符号のビット長の表
      */
     public static int[] FreqListToLenList( int[] FreqList ){
         /**
-         * �n�t�}���؂��\������z��Q
-         * �n�t�}���؂� 0�`FreqList.length �܂ł͑S�Ă��t�ł���A
-         * ���̃m�[�h�ԍ��͕����ł���B�؂��������񊮐��������
-         * TreeCount-1�����[�g�m�[�h�ƂȂ�B
-         * NodeWeight:: ���̃m�[�h�̏d�݂�����
-         * SmallNode::  �����Ȏq�m�[�h�̃m�[�h�ԍ�������
-         * LargeNode::  �傫�Ȏq�m�[�h�̃m�[�h�ԍ�������
-         * TreeCount::  �L���ȃm�[�h�̌�������
+         * ハフマン木を構成する配列群
+         * ハフマン木は 0〜FreqList.length までは全てが葉であり、
+         * そのノード番号は符号である。木がいったん完成した後は
+         * TreeCount-1がルートノードとなる。
+         * NodeWeight:: そのノードの重みを持つ
+         * SmallNode::  小さな子ノードのノード番号を持つ
+         * LargeNode::  大きな子ノードのノード番号を持つ
+         * TreeCount::  有効なノードの個数を持つ
          */
         int[] NodeWeight = new int[ FreqList.length * 2 - 1 ];
         int[] SmallNode  = new int[ FreqList.length * 2 - 1 ];
@@ -116,24 +116,24 @@ public class StaticHuffman{
         int TreeCount    = FreqList.length;
 
         /**
-         * �n�t�}���؂̗t�̃m�[�h�ԍ��������ȏ��Ɋi�[�������X�g�B
-         * Leafs::     ���X�g�{��
-         * LeafCount:: �t�̌�
+         * ハフマン木の葉のノード番号を小さな順に格納したリスト。
+         * Leafs::     リスト本体
+         * LeafCount:: 葉の個数
          */
         int[] Leafs     = new int[ FreqList.length ];
         int LeafCount   = 0;
 
         /**
-         * �n�t�}���؂̗t�łȂ��m�[�h�̃m�[�h�ԍ���
-         * �����ȏ��Ɋi�[�������X�g���i�[����B
-         * Nodes::     ���X�g�{��
-         * NodeCount:: �t�łȂ��m�[�h�̌�
+         * ハフマン木の葉でないノードのノード番号を
+         * 小さな順に格納したリストを格納する。
+         * Nodes::     リスト本体
+         * NodeCount:: 葉でないノードの個数
          */
         int[] Nodes     = new int[ FreqList.length - 1 ];
         int NodeCount   = 0;
 
-        //�؂ɗt���Z�b�g���A
-        //Leafs�ɕp�x1�ȏ�̗t�̂݃Z�b�g����B
+        //木に葉をセットし、
+        //Leafsに頻度1以上の葉のみセットする。
         for( int i = 0 ; i < FreqList.length ; i++ ){
             NodeWeight[i] = FreqList[i];
 
@@ -143,16 +143,16 @@ public class StaticHuffman{
 
         if( 2 <= LeafCount ){
             //=================================
-            //�n�t�}���؂��쐬����
+            //ハフマン木を作成する
             //=================================
 
-            //�n�t�}���؂̗t�ƂȂ�ׂ��v�f�𐮗񂳂���B
+            //ハフマン木の葉となるべき要素を整列させる。
             StaticHuffman.MergeSort( Leafs, 0, LeafCount - 1, 
                                  FreqList, new int[ ( LeafCount / 2 ) + 1 ] );
 
-            //�t���A�m�[�h�̍ŏ��̂���2��V�����m�[�h��
-            //���т��鎖���J��Ԃ��A���[�g�m�[�h�܂ō쐬����B
-            //���̏����ɂ���ăn�t�}���؂���������B
+            //葉か、ノードの最小のもの2つを新しいノードに
+            //結びつける事を繰り返し、ルートノードまで作成する。
+            //この処理によってハフマン木が完成する。
             int LeafIndex = 0;
             int NodeIndex = 0;
             do{
@@ -184,13 +184,13 @@ public class StaticHuffman{
             }while( NodeIndex + LeafIndex < NodeCount + LeafCount - 1 );
 
             //============================================
-            //�n�t�}���؂���n�t�}���������̕\���쐬����B
+            //ハフマン木からハフマン符号長の表を作成する。
             //============================================
-            //�n�t�}���؂���n�t�}���������̕p�x�\���쐬����B
+            //ハフマン木からハフマン符号長の頻度表を作成する。
             int[] LenFreq = StaticHuffman.HuffmanTreeToLenFreq( SmallNode, 
                                                LargeNode, TreeCount - 1 );
 
-            //�n�t�}���������̕p�x�����畄�����̕\���쐬����B
+            //ハフマン符号長の頻度長から符号長の表を作成する。
             int[] LenList = new int[ FreqList.length ];
             LeafIndex = 0;
             for( int len = StaticHuffman.LimitLen ; 0 < len ; len-- )
@@ -204,23 +204,23 @@ public class StaticHuffman{
     }
 
     /**
-     * �p�x�\���� �n�t�}�������̃r�b�g���̕\���쐬����B
-     * �I���W�i����LHA�Ɠ����R�[�h���o�͂���B
+     * 頻度表から ハフマン符号のビット長の表を作成する。
+     * オリジナルのLHAと同じコードを出力する。
      * 
-     * @param FreqList �p�x�\
+     * @param FreqList 頻度表
      * 
-     * @return �n�t�}�������̃r�b�g���̕\
+     * @return ハフマン符号のビット長の表
      */
     public static int[] FreqListToLenListOriginal( int[] FreqList ){
         /**
-         * �n�t�}���؂��\������z��Q
-         * �n�t�}���؂� 0�`FreqList.length �܂ł͑S�Ă��t�ł���A
-         * ���̃m�[�h�ԍ��͕����ł���B�؂��������񊮐��������
-         * TreeCount-1�����[�g�m�[�h�ƂȂ�B
-         * NodeWeight:: ���̃m�[�h�̏d�݂�����
-         * SmallNode::  �����Ȏq�m�[�h�̃m�[�h�ԍ�������
-         * LargeNode::  �傫�Ȏq�m�[�h�̃m�[�h�ԍ�������
-         * TreeCount::  �L���ȃm�[�h�̌�������
+         * ハフマン木を構成する配列群
+         * ハフマン木は 0〜FreqList.length までは全てが葉であり、
+         * そのノード番号は符号である。木がいったん完成した後は
+         * TreeCount-1がルートノードとなる。
+         * NodeWeight:: そのノードの重みを持つ
+         * SmallNode::  小さな子ノードのノード番号を持つ
+         * LargeNode::  大きな子ノードのノード番号を持つ
+         * TreeCount::  有効なノードの個数を持つ
          */
         int[] NodeWeight = new int[ FreqList.length * 2 - 1 ];
         int[] SmallNode  = new int[ FreqList.length * 2 - 1 ];
@@ -228,25 +228,25 @@ public class StaticHuffman{
         int TreeCount    = FreqList.length;
 
         /**
-         * �n�t�}���؂̗t�̃m�[�h�ԍ��������ȏ��Ɋi�[�������X�g�B
-         * Leafs::     ���X�g�{��
-         * LeafCount:: �t�̌�
+         * ハフマン木の葉のノード番号を小さな順に格納したリスト。
+         * Leafs::     リスト本体
+         * LeafCount:: 葉の個数
          */
         int[] Leafs     = new int[ FreqList.length ];
         int LeafCount   = 0;
 
         /**
-         * �n�t�}���؂̑S�Ẵm�[�h�̃m�[�h�ԍ���
-         * �����ȏ��Ɋi�[�������X�g���i�[����B
-         * �q�[�v�\�[�g���g�p���邽�߁AHeap[0]�͎g�p���Ȃ�
-         * Heap::     ���X�g�{��
-         * HeapLast:: Heap�̍Ō�̗v�f
+         * ハフマン木の全てのノードのノード番号を
+         * 小さな順に格納したリストを格納する。
+         * ヒープソートを使用するため、Heap[0]は使用しない
+         * Heap::     リスト本体
+         * HeapLast:: Heapの最後の要素
          */
         int[] Heap     = new int[ FreqList.length * 2 ];
         int HeapLast   = 0;
 
-        //�؂ɗt���Z�b�g���A
-        //Heap�ɕp�x1�ȏ�̗t�̂݃Z�b�g����B
+        //木に葉をセットし、
+        //Heapに頻度1以上の葉のみセットする。
         for( int i = 0 ; i < FreqList.length ; i++ ){
             NodeWeight[i] = FreqList[i];
 
@@ -256,16 +256,16 @@ public class StaticHuffman{
 
         if( 2 <= HeapLast ){
             //=================================
-            //�n�t�}���؂��쐬����
+            //ハフマン木を作成する
             //=================================
 
-            //�n�t�}���؂̗t�ƂȂ�ׂ��v�f�𐮗񂳂���B
+            //ハフマン木の葉となるべき要素を整列させる。
             for( int i = HeapLast / 2 ; 1 <= i ; i-- )
                 StaticHuffman.DownHeap( Heap, HeapLast, NodeWeight, i );
 
-            //�t���A�m�[�h�̍ŏ��̂���2��V�����m�[�h��
-            //���т��鎖���J��Ԃ��A���[�g�m�[�h�܂ō쐬����B
-            //���̏����ɂ���ăn�t�}���؂���������B
+            //葉か、ノードの最小のもの2つを新しいノードに
+            //結びつける事を繰り返し、ルートノードまで作成する。
+            //この処理によってハフマン木が完成する。
             do{
                 int small = Heap[1];
                 if( small < FreqList.length ) Leafs[LeafCount++] = small;
@@ -285,13 +285,13 @@ public class StaticHuffman{
             }while( 1 < HeapLast );
 
             //============================================
-            //�n�t�}���؂���n�t�}���������̕\���쐬����B
+            //ハフマン木からハフマン符号長の表を作成する。
             //============================================
 
-            //�n�t�}���؂���n�t�}���������̕p�x�\���쐬����B
+            //ハフマン木からハフマン符号長の頻度表を作成する。
             int[] LenFreq = StaticHuffman.HuffmanTreeToLenFreq( SmallNode, 
                                                LargeNode, TreeCount - 1 );
-            //�n�t�}���������̕p�x�����畄�����̕\���쐬����B
+            //ハフマン符号長の頻度長から符号長の表を作成する。
             int[] LenList = new int[ FreqList.length ];
             int LeafIndex = 0;
             for( int len = StaticHuffman.LimitLen ; 0 < len ; len-- )
@@ -305,30 +305,30 @@ public class StaticHuffman{
     }
 
     /**
-     * �n�t�}���������̃��X�g���� �n�t�}�������\���쐬����B
+     * ハフマン符号長のリストから ハフマン符号表を作成する。
      * 
-     * @param LenList �n�t�}���������̃��X�g
+     * @param LenList ハフマン符号長のリスト
      * 
-     * @return �n�t�}�������\
+     * @return ハフマン符号表
      *
      * @exception BadHuffmanTableException
-     *                LenList���s���Ȃ��߁A
-     *                �n�t�}�������\�������o���Ȃ��ꍇ
+     *                LenListが不正なため、
+     *                ハフマン符号表が生成出来ない場合
      */
     public static int[] LenListToCodeList( int[] LenList )
                                         throws BadHuffmanTableException {
-        //�n�t�}���������̕p�x�\
+        //ハフマン符号長の頻度表
         int[] LenFreq   = new int[ StaticHuffman.LimitLen + 1 ];
-        //�n�t�}���������ɑΉ���������
+        //ハフマン符号長に対応した符号
         int[] CodeStart = new int[ StaticHuffman.LimitLen + 2 ];
 
-        //�n�t�}���������̕p�x�\�쐬
+        //ハフマン符号長の頻度表作成
         for( int i = 0 ; i < LenList.length ; i++ )
             LenFreq[LenList[i]]++;
 
         if( LenFreq[0] < LenList.length ){
 
-            //CodeStart[1] = 0; //Java�ł͕K�v�����̂ŃR�����g�A�E�g���Ă���B
+            //CodeStart[1] = 0; //Javaでは必要無いのでコメントアウトしている。
             for( int i = 1 ; i <= StaticHuffman.LimitLen ; i++ )
                 CodeStart[i + 1] = CodeStart[i] + LenFreq[i] << 1;
 
@@ -356,15 +356,15 @@ public class StaticHuffman{
     //  public static short[][] createTableAndTree( int[] LenList, int TableBits )
     //------------------------------------------------------------------
     /**
-     * LenList ����A�n�t�}�������p�̃e�[�u���𐶐�����B<br>
+     * LenList から、ハフマン復号用のテーブルを生成する。<br>
      * 
-     * @param LenList �n�t�}���������̕\
+     * @param LenList ハフマン符号長の表
      * 
-     * @return �n�t�}�������p�e�[�u���B
+     * @return ハフマン復号用テーブル。
      * 
      * @exception BadHuffmanTableException
-     *                  LenList���s���Ȃ��߁A
-     *                  �n�t�}�������\�������o���Ȃ��ꍇ
+     *                  LenListが不正なため、
+     *                  ハフマン符号表が生成出来ない場合
      */
     public static short[] createTable( int[] LenList ) 
                                             throws BadHuffmanTableException {
@@ -396,34 +396,34 @@ public class StaticHuffman{
 
 
     /**
-     * LenList ����A�n�t�}�������p�̃e�[�u���Ɩ؂𐶐�����B
-     * �e�[�u���� TableBits �̑傫���������A����ȏ�̕����͖؂Ɋi�[�����B<br>
-     * �߂�l�� new short[][]{ Table, Tree[0], Tree[1] } �ƂȂ�B<br>
-     * �e�[�u�������������ʂ������͖؂𑖍������ہA���̒l�𓾂��ꍇ�A
-     * ����͕��������ꂽ�R�[�h��S�r�b�g���]�������̂ł���B
-     * ���̒l�ł���΂���� �؂𑖍����邽�߂� index �ł���A
-     * Tree[bit][index] �̂悤�Ɏg�p����B 
+     * LenList から、ハフマン復号用のテーブルと木を生成する。
+     * テーブルは TableBits の大きさを持ち、それ以上の部分は木に格納される。<br>
+     * 戻り値は new short[][]{ Table, Tree[0], Tree[1] } となる。<br>
+     * テーブルを引いた結果もしくは木を走査した際、負の値を得た場合、
+     * それは復号化されたコードを全ビット反転したものである。
+     * 正の値であればそれは 木を走査するための index であり、
+     * Tree[bit][index] のように使用する。 
      * 
-     * @param LenList   �n�t�}���������̕\
-     * @param TableBits �n�t�}�������p�e�[�u���̑傫���B
+     * @param LenList   ハフマン符号長の表
+     * @param TableBits ハフマン復号用テーブルの大きさ。
      * 
-     * @return �n�t�}�������p�e�[�u���Ɩ؁B
+     * @return ハフマン復号用テーブルと木。
      * 
      * @exception BadHuffmanTableException
-     *                  LenList���s���Ȃ��߁A
-     *                  �n�t�}�������\�������o���Ȃ��ꍇ
+     *                  LenListが不正なため、
+     *                  ハフマン符号表が生成出来ない場合
      */
     public static short[][] createTableAndTree( int[] LenList, int TableBits ) 
                                                throws BadHuffmanTableException {
 
         //------------------------------------------------------------------
-        //�n�t�}�����������X�g���� �n�t�}�������̃��X�g�𓾂�B
+        //ハフマン符号長リストから ハフマン符号のリストを得る。
         int[] CodeList = StaticHuffman.LenListToCodeList( LenList );            //throws BadHuffmanTableException
 
         //------------------------------------------------------------------
-        //�n�t�}���������̃��X�g�𑖍����A
-        //LastCode �𓾂�B
-        //�܂� �؂��\������̂ɕK�v�Ȕz��T�C�Y�𓾂邽�߂̏������s���B
+        //ハフマン符号長のリストを走査し、
+        //LastCode を得る。
+        //また 木を構成するのに必要な配列サイズを得るための準備を行う。
         short[] Table  = new short[ 1 << TableBits ];
         int LastCode   = 0;
         for( int i = 0 ; i < LenList.length ; i++ ){
@@ -435,7 +435,7 @@ public class StaticHuffman{
         }
 
         //------------------------------------------------------------------
-        //�؂��\������̂ɕK�v�Ȕz��T�C�Y�𓾁A�e�[�u��������������B
+        //木を構成するのに必要な配列サイズを得、テーブルを初期化する。
         final short INIT = -1;
         int count = 0;
         for( int i = 0 ; i < Table.length ; i++ ){
@@ -447,7 +447,7 @@ public class StaticHuffman{
 
 
         //------------------------------------------------------------------
-        //�e�[�u���Ɩ؂��\������B
+        //テーブルと木を構成する。
         int avail = 0;
         for( int i = 0 ; i < LenList.length ; i++ ){
             if( 0 < LenList[i] ){
@@ -499,16 +499,16 @@ public class StaticHuffman{
     //               int[] LargeNode, int node, int len, int[] LenFreq )
     //------------------------------------------------------------------
     /**
-     * �}�[�W�\�[�g�A�ċA�֐�<br>
-     * array�� weight�̓Y���Aarray��first����last�̋�ԓ���
-     * weight�����������ɕ��Ԃ悤�Ƀ\�[�g����B
-     * work�͂��̂��߂̍�Ɨ̈�B
+     * マージソート、再帰関数<br>
+     * arrayは weightの添字、arrayのfirstからlastの区間内で
+     * weightが小さい順に並ぶようにソートする。
+     * workはそのための作業領域。
      * 
-     * @param array  �\�[�g�Ώۂ̔z��
-     * @param first  �\�[�g��Ԃ̍ŏ�
-     * @param last   �\�[�g��Ԃ̍Ō�
-     * @param weight �\�[�g�̍ۂɎQ�Ƃ����d�݂̃��X�g
-     * @param work   �}�[�W�\�[�g�p��Ɨ̈�
+     * @param array  ソート対象の配列
+     * @param first  ソート区間の最初
+     * @param last   ソート区間の最後
+     * @param weight ソートの際に参照される重みのリスト
+     * @param work   マージソート用作業領域
      */
     private static void MergeSort( int[] array, 
                                    int   first, 
@@ -517,16 +517,16 @@ public class StaticHuffman{
                                    int[] work ){
         if( first < last ){
             int middle = ( first + last ) / 2 + ( first + last ) % 2;
-            //�O�����\�[�g
+            //前半をソート
             StaticHuffman.MergeSort( array, first, middle - 1, weight, work );
-            //�㔼���\�[�g
+            //後半をソート
             StaticHuffman.MergeSort( array, middle,      last, weight, work );
 
-            //�O���� work��
+            //前半を workへ
             System.arraycopy( array, first, work, 0, middle - first );
 
-            //�\�[�g���ꂽ�O���� �\�[�g���ꂽ�㔼��
-            //���񂵂}�[�W����B
+            //ソートされた前半と ソートされた後半を
+            //整列しつつマージする。
             int srcIndex  = middle;
             int workIndex = 0;
             int dstIndex  = first;
@@ -535,7 +535,7 @@ public class StaticHuffman{
                   ( weight[work[workIndex]] < weight[array[srcIndex]] 
                       ? work[ workIndex++ ] : array[ srcIndex++ ] );
 
-            //work�Ɏc�����v�f�� array�ɖ߂�
+            //workに残った要素を arrayに戻す
             if( workIndex < middle - first )
                 System.arraycopy( work, workIndex, array, dstIndex,
                                   middle - first - workIndex );
@@ -543,15 +543,15 @@ public class StaticHuffman{
     }
 
     /**
-     * heap��weight�̓Y����
-     * num*2, num*2+1�̒n�_�Ńq�[�v���o���Ă��邱�Ƃ�
-     * �O��Ƃ��� heap �� num�𒸓_�Ƃ���q�[�v�����B<br>
-     * �q�[�v�\�[�g�̈ꕔ���B
+     * heapはweightの添え字
+     * num*2, num*2+1の地点でヒープが出来ていることを
+     * 前提として heap に numを頂点とするヒープを作る。<br>
+     * ヒープソートの一部分。
      * 
-     * @param heap   �q�[�v�𐶐�����z��
-     * @param size   �q�[�v�̃T�C�Y
-     * @param weight ����̊�ƂȂ�d�݂̃��X�g
-     * @param num    ����쐬����q�[�v�̒��_
+     * @param heap   ヒープを生成する配列
+     * @param size   ヒープのサイズ
+     * @param weight 整列の基準となる重みのリスト
+     * @param num    今回作成するヒープの頂点
      */
     private static void DownHeap( int[] heap, int size, int[] weight, int num ){
 
@@ -568,31 +568,31 @@ public class StaticHuffman{
     }
 
     /**
-     * �n�t�}���؂��� �n�t�}���������̕p�x�\���쐬����B<br>
-     * �n�t�}���؂�H���� �n�t�}���������̕p�x�\���쐬����B
-     * �܂��A�������� 16�r�b�g�ɐ������邽�߂̏����������ōs���B
+     * ハフマン木から ハフマン符号長の頻度表を作成する。<br>
+     * ハフマン木を辿って ハフマン符号長の頻度表を作成する。
+     * また、符号長を 16ビットに制限するための処理もここで行う。
      * 
-     * @param SmallNode �������q�m�[�h�̃m�[�h�ԍ��̕\
-     * @param LargeNode �傫���q�m�[�h�̃m�[�h�ԍ��̕\
-     * @param root      �n�t�}���؂̃��[�g�m�[�h
+     * @param SmallNode 小さい子ノードのノード番号の表
+     * @param LargeNode 大きい子ノードのノード番号の表
+     * @param root      ハフマン木のルートノード
      * 
-     * @return �n�t�}�����������ő�16�r�b�g�ɐ�������
-     *         �n�t�}���������\
+     * @return ハフマン符号長を最大16ビットに制限した
+     *         ハフマン符号長表
      */
     private static int[] HuffmanTreeToLenFreq( int[] SmallNode, 
                                                int[] LargeNode,
                                                int   root ){
         int[] LenFreq = new int[ StaticHuffman.LimitLen + 1 ];
 
-        //�n�t�}���؂���p�x�\�쐬
+        //ハフマン木から頻度表作成
         StaticHuffman.internalHuffmanTreeToLenFreq( SmallNode, LargeNode, 
                                                    root, 0, LenFreq );
 
-//      System.out.println( "���B::StaticHuffman.HuffmanTreeToLenFreq--�n�t�}���؂���n�t�}���������̃��X�g�擾--" );
+//      System.out.println( "到達::StaticHuffman.HuffmanTreeToLenFreq--ハフマン木からハフマン符号長のリスト取得--" );
 
-        //�ő�16�r�b�g�̐����ɂ��A�C�����󂯂Ă���ꍇ��
-        //�������̕\����A��ʂ̃m�[�h�����ʂւƈ������肨�낷
-        //���Ƃɂ���ĕ������̕\���C������B
+        //最大16ビットの制限により、修正を受けている場合は
+        //符号長の表から、上位のノードを下位へと引きずりおろす
+        //ことによって符号長の表を修正する。
         int weight = 0;
         for( int i = StaticHuffman.LimitLen ; 0 < i ; i-- )
             weight += LenFreq[i] << ( StaticHuffman.LimitLen - i );
@@ -615,17 +615,17 @@ public class StaticHuffman{
     }
 
     /**
-     * �n�t�}���ؒT�����\�b�h�A�ċA�֐��B<br>
-     * �n�t�}���؂�T�����Ă����Anode���t�ł����
-     * �n���ꂽ�������̕p�x�\���X�V���A
-     * �m�[�h�ł���΁A���������Ƒ傫�����̗�����
-     * �q�m�[�h���ċA�I�ɒT������B<br>
+     * ハフマン木探索メソッド、再帰関数。<br>
+     * ハフマン木を探索していき、nodeが葉であれば
+     * 渡された符号長の頻度表を更新し、
+     * ノードであれば、小さい方と大きい方の両方の
+     * 子ノードを再帰的に探索する。<br>
      * 
-     * @param SmallNode �������q�m�[�h�̃m�[�h�ԍ��̕\
-     * @param LargeNode �傫���q�m�[�h�̃m�[�h�ԍ��̕\
-     * @param node      ��������m�[�h�ԍ�
-     * @param len       �n�t�}���؂�root����̒���
-     * @param LenFreq   �������̕p�x�\
+     * @param SmallNode 小さい子ノードのノード番号の表
+     * @param LargeNode 大きい子ノードのノード番号の表
+     * @param node      処理するノード番号
+     * @param len       ハフマン木のrootからの長さ
+     * @param LenFreq   符号長の頻度表
      */
     private static void internalHuffmanTreeToLenFreq( int[] SmallNode,
                                                       int[] LargeNode,
@@ -633,11 +633,11 @@ public class StaticHuffman{
                                                       int   len,
                                                       int[] LenFreq ){
         if( node < ( SmallNode.length + 1 ) / 2 ){
-            //node���t�Ȃ�p�x�\�X�V
+            //nodeが葉なら頻度表更新
             LenFreq[ ( len < StaticHuffman.LimitLen
                      ? len : StaticHuffman.LimitLen ) ]++;
         }else{
-            //node���m�[�h�Ȃ痼���̃m�[�h���ċA�I�ɒT��
+            //nodeがノードなら両方のノードを再帰的に探索
             StaticHuffman.internalHuffmanTreeToLenFreq( SmallNode, LargeNode, 
                                                SmallNode[node], len + 1, LenFreq );
             StaticHuffman.internalHuffmanTreeToLenFreq( SmallNode, LargeNode, 

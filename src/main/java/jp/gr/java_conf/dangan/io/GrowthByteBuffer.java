@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  * 
- * �ȉ��̏����ɓ��ӂ���Ȃ�΃\�[�X�ƃo�C�i���`���̍Ĕz�z�Ǝg�p��
- * �ύX�̗L���ɂ�����炸������B
+ * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
+ * 変更の有無にかかわらず許可する。
  * 
- * �P�D�\�[�X�R�[�h�̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐�������ێ����Ȃ��Ă͂Ȃ�Ȃ��B
+ * １．ソースコードの再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を保持しなくてはならない。
  * 
- * �Q�D�o�C�i���`���̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐��������g�p�������������� ���̑��̔z�z������
- *     �܂ގ����ɋL�q���Ȃ���΂Ȃ�Ȃ��B
+ * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を使用説明書もしくは その他の配布物内に
+ *     含む資料に記述しなければならない。
  * 
- * ���̃\�t�g�E�F�A�͐Β˔���ڂɂ���Ė��ۏ؂Œ񋟂���A����̖�
- * �I��B���ł���Ƃ����ۏ؁A���i���l���L��Ƃ����ۏ؂ɂƂǂ܂炸�A
- * �����Ȃ閾���I����шÎ��I�ȕۏ؂����Ȃ��B
- * �Β˔���ڂ� ���̃\�t�g�E�F�A�̎g�p�ɂ�钼�ړI�A�ԐړI�A����
- * �I�A����ȁA�T�^�I�ȁA���邢�͕K�R�I�ȑ��Q(�g�p�ɂ��f�[�^��
- * �����A�Ɩ��̒��f�〈���܂�Ă������v�̈⎸�A��֐��i��������
- * �T�[�r�X�̓�������l�����邪�A�����Ă��ꂾ���Ɍ��肳��Ȃ�
- * ���Q)�ɑ΂��āA�����Ȃ鎖�Ԃ̌����ƂȂ����Ƃ��Ă��A�_���̐�
- * �C�△�ߎ��ӔC���܂� �����Ȃ�ӔC�����낤�Ƃ��A���Ƃ����ꂪ�s
- * ���s�ׂ̂��߂ł������Ƃ��Ă��A�܂��͂��̂悤�ȑ��Q�̉\������
- * ������Ă����Ƃ��Ă���؂̐ӔC�𕉂�Ȃ����̂Ƃ���B
+ * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
+ * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
+ * いかなる明示的および暗示的な保証もしない。
+ * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
+ * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
+ * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
+ * サービスの導入費等が考えられるが、決してそれだけに限定されない
+ * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
+ * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
+ * 正行為のためであったとしても、またはそのような損害の可能性が報
+ * 告されていたとしても一切の責任を負わないものとする。
  */
 
 package jp.gr.java_conf.dangan.io;
@@ -38,29 +38,29 @@ import java.lang.IllegalArgumentException;
 
 
 /**
- * �����I�ɐL������o�b�t�@�B<br>
- * RandomAccessFile �� �������łƂ��Ďg�p����B
- * �������A���܂苐��ȃf�[�^����舵���̂ɂ͌����Ȃ��B
- * �X���b�h�Z�[�t�ł͂Ȃ��B
- * jdk1.4 �ȍ~�� ByteBuffer�Ƃ͌݊����������B
+ * 自動的に伸張するバッファ。<br>
+ * RandomAccessFile の メモリ版として使用する。
+ * ただし、あまり巨大なデータを取り扱うのには向かない。
+ * スレッドセーフではない。
+ * jdk1.4 以降の ByteBufferとは互換性が無い。
  * 
  * <pre>
  * -- revision history --
  * $Log: GrowthByteBuffer.java,v $
  * Revision 1.1  2002/12/05 00:00:00  dangan
  * [maintenance]
- *     �\�[�X����
+ *     ソース整備
  *
  * Revision 1.0  2002/07/24 00:00:00  dangan
  * add to version control
  * [bug fix]
- *     grow() �Ńo�b�t�@�̑����ʂ̌v�Z���Ԉ���Ă����̂��C���B
+ *     grow() でバッファの増加量の計算が間違っていたのを修正。
  * [change]
- *     �ǂݍ��݌��E�ɒB������� read( new byte[0] ) �� 
- *     read( byte[] buf, int off, 0 ) �̖߂�l��
- *     InputStream �Ɠ����� 0 �ɂȂ�悤�ɂ���
+ *     読み込み限界に達した後の read( new byte[0] ) や 
+ *     read( byte[] buf, int off, 0 ) の戻り値を
+ *     InputStream と同じく 0 になるようにした
  * [maintenance]
- *     �\�[�X����
+ *     ソース整備
  *
  * </pre>
  * 
@@ -78,7 +78,7 @@ public class GrowthByteBuffer{
     //  private static final int DefaultBufferSize
     //------------------------------------------------------------------
     /**
-     * �f�t�H���g�̈�̃o�b�t�@�̃T�C�Y
+     * デフォルトの一つのバッファのサイズ
      */
     private static final int DefaultBufferSize = 16384;
 
@@ -93,21 +93,21 @@ public class GrowthByteBuffer{
     //  private int limit
     //------------------------------------------------------------------
     /**
-     * �o�b�t�@
-     * �S�� buffer[0].length �Ɠ����T�C�Y��byte�z��̔z��B
+     * バッファ
+     * 全て buffer[0].length と同じサイズのbyte配列の配列。
      */
     private byte[][] buffer;
 
     /**
-     * ���ݏ����ʒu�B
-     * position �� limit�ȍ~�ɂȂ�\��������B
+     * 現在処理位置。
+     * position は limit以降になる可能性もある。
      */
     private int position;
 
     /**
-     * ���ݓǂ݂��݌��E�B
-     * ����ȍ~�̃f�[�^�͕s��B
-     * ���̈ʒu�̃f�[�^�͓ǂ߂邱�Ƃɒ��ӂ��邱�ƁB
+     * 現在読みこみ限界。
+     * これ以降のデータは不定。
+     * この位置のデータは読めることに注意すること。
      */
     private int limit;
 
@@ -119,17 +119,17 @@ public class GrowthByteBuffer{
     //  public GrouthByteBuffer( int BufferSize )
     //------------------------------------------------------------------
     /**
-     * �T�C�Y�������ŐL������o�b�t�@���\�z����B<br>
-     * �o�b�t�@�T�C�Y�ɂ̓f�t�H���g�l���g�p�����B
+     * サイズを自動で伸張するバッファを構築する。<br>
+     * バッファサイズにはデフォルト値が使用される。
      */
     public GrowthByteBuffer(){
         this( GrowthByteBuffer.DefaultBufferSize );
     }
 
     /**
-     * �T�C�Y�������ŐL������o�b�t�@���\�z����B<br>
+     * サイズを自動で伸張するバッファを構築する。<br>
      *
-     * @param BufferSize �o�b�t�@�̃T�C�Y
+     * @param BufferSize バッファのサイズ
      */
     public GrowthByteBuffer( int BufferSize ){
         if( 0 < BufferSize ){
@@ -153,9 +153,9 @@ public class GrowthByteBuffer{
     //  public void write( byte[] buffer, int index, int length )
     //------------------------------------------------------------------
     /**
-     * ���݈ʒu�� 1�o�C�g�̃f�[�^���������ށB
+     * 現在位置に 1バイトのデータを書きこむ。
      * 
-     * @param data 1�o�C�g�̃f�[�^
+     * @param data 1バイトのデータ
      */
     public void write( int data ){
         this.grow( this.position );
@@ -168,20 +168,20 @@ public class GrowthByteBuffer{
     }
 
     /**
-     * ���݈ʒu�� buffer �̓��e���������ށB
+     * 現在位置に buffer の内容を書きこむ。
      * 
-     * @param buffer �������ރf�[�^�يi�[���ꂽ�o�b�t�@
+     * @param buffer 書きこむデータほ格納されたバッファ
      */
     public void write( byte[] buffer ){
         this.write( buffer, 0, buffer.length );
     }
 
     /**
-     * ���݈ʒu�� buffer �� index����length�o�C�g�̓��e���������ށB
+     * 現在位置に buffer の indexからlengthバイトの内容を書きこむ。
      * 
-     * @param buffer �������ރf�[�^�يi�[���ꂽ�o�b�t�@
-     * @param index  buffer���̏������ރf�[�^�̊J�n�ʒu
-     * @param length �������ރf�[�^��
+     * @param buffer 書きこむデータほ格納されたバッファ
+     * @param index  buffer内の書きこむデータの開始位置
+     * @param length 書きこむデータ量
      */
     public void write( byte[] buffer, int index, int length ){
         this.grow( this.position + length - 1 );
@@ -213,10 +213,10 @@ public class GrowthByteBuffer{
     //  public int read( byte[] buffer, int index, int length )
     //------------------------------------------------------------------
     /**
-     * ���݈ʒu���� 1byte�̃f�[�^��ǂ݂��ށB
+     * 現在位置から 1byteのデータを読みこむ。
      * 
-     * @return �ǂ݂��܂ꂽ1byte�̃f�[�^�B<br>
-     *         �ǂ݂��݌��E�𒴂��ēǂ����Ƃ����ꍇ�� -1
+     * @return 読みこまれた1byteのデータ。<br>
+     *         読みこみ限界を超えて読もうとした場合は -1
      */
     public int read(){
         if( this.position <= this.limit ){
@@ -228,26 +228,26 @@ public class GrowthByteBuffer{
     }
 
     /**
-     * ���݈ʒu���� buffer�𖞂����悤�Ƀf�[�^��ǂݍ��ށB
+     * 現在位置から bufferを満たすようにデータを読み込む。
      * 
-     * @param buffer �f�[�^��ǂݍ��ރo�b�t�@
+     * @param buffer データを読み込むバッファ
      * 
-     * @return ���ۂɓǂ݂��܂ꂽ�f�[�^��<br>
-     *         �ǂ݂��݌��E�𒴂��ēǂ����Ƃ����ꍇ�� -1
+     * @return 実際に読みこまれたデータ量<br>
+     *         読みこみ限界を超えて読もうとした場合は -1
      */
     public int read( byte[] buffer ){
         return this.read( buffer, 0, buffer.length );
     }
 
     /**
-     * ���݈ʒu���� buffer ��index�� length�̃f�[�^��ǂݍ��ށB
+     * 現在位置から buffer のindexへ lengthのデータを読み込む。
      * 
-     * @param buffer �f�[�^��ǂݍ��ރo�b�t�@
-     * @param index  buffer���f�[�^�ǂ݂��݈ʒu
-     * @param length �ǂݍ��ރf�[�^�̗�
+     * @param buffer データを読み込むバッファ
+     * @param index  buffer内データ読みこみ位置
+     * @param length 読み込むデータの量
      * 
-     * @return ���ۂɓǂ݂��܂ꂽ�f�[�^��<br>
-     *         �ǂ݂��݌��E�𒴂��ēǂ����Ƃ����ꍇ�� -1
+     * @return 実際に読みこまれたデータ量<br>
+     *         読みこみ限界を超えて読もうとした場合は -1
      */
     public int read( byte[] buffer, int index, int length ){
         if( this.position <= this.limit ){
@@ -292,18 +292,18 @@ public class GrowthByteBuffer{
     //  public void seek( int position )
     //------------------------------------------------------------------
     /**
-     * ���݂̓ǂ݂��݌��E�𓾂�B
+     * 現在の読みこみ限界を得る。
      * 
-     * @return ���݂̓ǂ݂��݌��E
+     * @return 現在の読みこみ限界
      */
     public int length(){
         return this.limit + 1;
     }
 
     /**
-     * �ǂ݂��݌��E�ʒu��ݒ肷��B
+     * 読みこみ限界位置を設定する。
      * 
-     * @param �V�����ǂ݂��݌��E�ʒu
+     * @param 新しい読みこみ限界位置
      */
     public void setLength( int length ){
         length--;
@@ -315,37 +315,37 @@ public class GrowthByteBuffer{
     }
 
     /**
-     * ���݈ʒu�𓾂�B
+     * 現在位置を得る。
      * 
-     * @return ���݈ʒu
+     * @return 現在位置
      */
     public int position(){
         return this.position;
     }
 
     /**
-     * ���݈ʒu��ݒ肷��B
-     * java.io.RandomAccessFile�Ɠ����� 
-     * setPosition �œǂ݂��݌��E�𒴂����l��
-     * �ݒ肵������ɂ̓o�b�t�@�͑������Ă��Ȃ��B
-     * ���̌� write �ɂ���ď������񂾎��ɂ͂�
-     * �߂ăo�b�t�@�͑�������B
+     * 現在位置を設定する。
+     * java.io.RandomAccessFileと同じく 
+     * setPosition で読みこみ限界を超えた値を
+     * 設定した直後にはバッファは増加していない。
+     * その後 write によって書きこんだ時にはじ
+     * めてバッファは増加する。
      * 
-     * @param position �V�������݈ʒu
+     * @param position 新しい現在位置
      */
     public void setPosition( int position ){
         this.position = position;
     }
 
     /**
-     * ���݈ʒu��ݒ肷��B
-     * java.io.RandomAccessFile�Ɠ����� 
-     * seek �œǂ݂��݌��E�𒴂����l��
-     * �ݒ肵������ɂ̓o�b�t�@�͑������Ă��Ȃ��B
-     * ���̌� write �ɂ���ď������񂾎��ɂ͂�
-     * �߂ăo�b�t�@�͑�������B
+     * 現在位置を設定する。
+     * java.io.RandomAccessFileと同じく 
+     * seek で読みこみ限界を超えた値を
+     * 設定した直後にはバッファは増加していない。
+     * その後 write によって書きこんだ時にはじ
+     * めてバッファは増加する。
      * 
-     * @param position �V�������݈ʒu
+     * @param position 新しい現在位置
      */
     public void seek( int position ){
         this.setPosition( position );
@@ -358,10 +358,10 @@ public class GrowthByteBuffer{
     //  private void grow( int limit )
     //------------------------------------------------------------------
     /**
-     * �V�����ǂ݂��݌��E limit ��ݒ肵�A
-     * limit �܂� �o�b�t�@�𑝉�������B
+     * 新しい読みこみ限界 limit を設定し、
+     * limit まで バッファを増加させる。
      * 
-     * @param �V�����ǂ݂��݌��E
+     * @param 新しい読みこみ限界
      */
     private void grow( int limit ){
         if( this.limit < limit ){

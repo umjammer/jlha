@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  * 
- * �ȉ��̏����ɓ��ӂ���Ȃ�΃\�[�X�ƃo�C�i���`���̍Ĕz�z�Ǝg�p��
- * �ύX�̗L���ɂ�����炸������B
+ * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
+ * 変更の有無にかかわらず許可する。
  * 
- * �P�D�\�[�X�R�[�h�̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐�������ێ����Ȃ��Ă͂Ȃ�Ȃ��B
+ * １．ソースコードの再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を保持しなくてはならない。
  * 
- * �Q�D�o�C�i���`���̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐��������g�p�������������� ���̑��̔z�z������
- *     �܂ގ����ɋL�q���Ȃ���΂Ȃ�Ȃ��B
+ * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を使用説明書もしくは その他の配布物内に
+ *     含む資料に記述しなければならない。
  * 
- * ���̃\�t�g�E�F�A�͐Β˔���ڂɂ���Ė��ۏ؂Œ񋟂���A����̖�
- * �I��B���ł���Ƃ����ۏ؁A���i���l���L��Ƃ����ۏ؂ɂƂǂ܂炸�A
- * �����Ȃ閾���I����шÎ��I�ȕۏ؂����Ȃ��B
- * �Β˔���ڂ� ���̃\�t�g�E�F�A�̎g�p�ɂ�钼�ړI�A�ԐړI�A����
- * �I�A����ȁA�T�^�I�ȁA���邢�͕K�R�I�ȑ��Q(�g�p�ɂ��f�[�^��
- * �����A�Ɩ��̒��f�〈���܂�Ă������v�̈⎸�A��֐��i��������
- * �T�[�r�X�̓�������l�����邪�A�����Ă��ꂾ���Ɍ��肳��Ȃ�
- * ���Q)�ɑ΂��āA�����Ȃ鎖�Ԃ̌����ƂȂ����Ƃ��Ă��A�_���̐�
- * �C�△�ߎ��ӔC���܂� �����Ȃ�ӔC�����낤�Ƃ��A���Ƃ����ꂪ�s
- * ���s�ׂ̂��߂ł������Ƃ��Ă��A�܂��͂��̂悤�ȑ��Q�̉\������
- * ������Ă����Ƃ��Ă���؂̐ӔC�𕉂�Ȃ����̂Ƃ���B
+ * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
+ * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
+ * いかなる明示的および暗示的な保証もしない。
+ * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
+ * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
+ * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
+ * サービスの導入費等が考えられるが、決してそれだけに限定されない
+ * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
+ * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
+ * 正行為のためであったとしても、またはそのような損害の可能性が報
+ * 告されていたとしても一切の責任を負わないものとする。
  */
 
 package jp.gr.java_conf.dangan.io;
@@ -40,12 +40,12 @@ import java.io.IOException;
 import java.lang.NullPointerException;
 
 /**
- * �f�[�^������������̓X�g���[���� �f�[�^����������
- * ���̓X�g���[���Ƃ̐ڑ����������邽�߂̃��[�e�B���e�B�N���X�B<br>
- * java.io.BufferedInputStream ���̃o�b�t�@�����O����X�g���[��
- * �Ƃ̐ڑ�����������ꍇ��
- * jp.gr.java_conf.dangan.io.LimitedInputStream �����g�p����
- * �ڑ������ʒu���߂����o�b�t�@�����O��}�~����K�v������B<br>
+ * データを供給する入力ストリームと データを処理する
+ * 入力ストリームとの接続を解除するためのユーティリティクラス。<br>
+ * java.io.BufferedInputStream 等のバッファリングするストリーム
+ * との接続を解除する場合は
+ * jp.gr.java_conf.dangan.io.LimitedInputStream 等を使用して
+ * 接続解除位置を過ぎたバッファリングを抑止する必要がある。<br>
  * 
  * <pre>
  * -- revision history --
@@ -53,9 +53,9 @@ import java.lang.NullPointerException;
  * Revision 1.0  2002/07/24 00:00:00  dangan
  * add to version control
  * [maintenance]
- *     �^�u�p�~
- *     ���C�Z���X���̏C��
- *     �\�[�X����
+ *     タブ廃止
+ *     ライセンス文の修正
+ *     ソース整備
  *
  * </pre>
  * 
@@ -73,26 +73,14 @@ public class DisconnectableInputStream extends InputStream
     //  private InputStream in
     //------------------------------------------------------------------
     /**
-     * �ڑ����ꂽ���̓X�g���[��
+     * 接続された入力ストリーム
      */
     private InputStream in;
 
-    //------------------------------------------------------------------
-    //  constructer
-    //------------------------------------------------------------------
-    //  private DisconnectableInputStream()
-    //  public DisconnectableInputStream( InputStream in )
-    //------------------------------------------------------------------
     /**
-     * �f�t�H���g�R���X�g���N�^�B
-     * �g�p�s�B
-     */
-    private DisconnectableInputStream(){    }
-
-    /**
-     * in �Ƃ̐ڑ��������\�ȓ��̓X�g���[�����\�z����B
+     * in との接続を解除可能な入力ストリームを構築する。
      * 
-     * @param in ���̓X�g���[��
+     * @param in 入力ストリーム
      */
     public DisconnectableInputStream( InputStream in ){
         if( in != null ){
@@ -114,48 +102,48 @@ public class DisconnectableInputStream extends InputStream
     //  public long skip( long length )
     //------------------------------------------------------------------
     /**
-     * �ڑ����ꂽ���̓X�g���[������ ����1�o�C�g�̃f�[�^�𓾂�B<br>
+     * 接続された入力ストリームから 次の1バイトのデータを得る。<br>
      * 
-     * @return �ǂݍ��܂ꂽ1�o�C�g�̃f�[�^�B<br>
-     *         EndOfStream�ɒB�����ꍇ�� -1 ��Ԃ��B<br>
+     * @return 読み込まれた1バイトのデータ。<br>
+     *         EndOfStreamに達した場合は -1 を返す。<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public int read() throws IOException {
         return this.in.read();                                                  //throws IOException
     }
 
     /**
-     * �ڑ����ꂽ���̓X�g���[������ �o�C�g�z�� buffer ��
-     * �������悤�Ƀf�[�^��ǂݍ��ށB<br>
-     * �f�[�^�͕K������ buffer �𖞂����Ƃ͌���Ȃ����Ƃɒ��ӁB<br>
+     * 接続された入力ストリームから バイト配列 buffer を
+     * 満たすようにデータを読み込む。<br>
+     * データは必ずしも buffer を満たすとは限らないことに注意。<br>
      * 
-     * @param buffer �ǂݍ��܂ꂽ�f�[�^���i�[���邽�߂̃o�C�g�z��
+     * @param buffer 読み込まれたデータを格納するためのバイト配列
      * 
-     * @return buffer �ɓǂݍ��񂾃f�[�^�ʂ��o�C�g���ŕԂ��B<br>
-     *         ���� EndOfStream �ɒB���Ă����ꍇ�� -1 ��Ԃ��B<br>
+     * @return buffer に読み込んだデータ量をバイト数で返す。<br>
+     *         既に EndOfStream に達していた場合は -1 を返す。<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public int read( byte[] buffer ) throws IOException {
         return this.in.read( buffer, 0, buffer.length );                        //throws IOException
     }
 
     /**
-     * �ڑ����ꂽ���̓X�g���[������ �o�C�g�z�� buffer ��
-     * index �Ŏw�肳�ꂽ�ʒu���� length �o�C�g�̃f�[�^��
-     * �ǂݍ��ށB<br>
-     * �f�[�^�͕K������ length �o�C�g�ǂݍ��܂��Ƃ͌���
-     * �Ȃ����Ƃɒ��ӁB<br>
+     * 接続された入力ストリームから バイト配列 buffer の
+     * index で指定された位置から length バイトのデータを
+     * 読み込む。<br>
+     * データは必ずしも length バイト読み込まれるとは限ら
+     * ないことに注意。<br>
      * 
-     * @param buffer �ǂݍ��܂ꂽ�f�[�^���i�[���邽�߂̃o�C�g�z��
-     * @param index  buffer���̃f�[�^�ǂݍ��݊J�n�ʒu
-     * @param length buffer�ɓǂݍ��ރf�[�^��
+     * @param buffer 読み込まれたデータを格納するためのバイト配列
+     * @param index  buffer内のデータ読み込み開始位置
+     * @param length bufferに読み込むデータ量
      * 
-     * @return buffer �ɓǂݍ��񂾃f�[�^�ʂ��o�C�g���ŕԂ��B<br>
-     *         ���� EndOfStream �ɒB���Ă����ꍇ�� -1 ��Ԃ��B<br>
+     * @return buffer に読み込んだデータ量をバイト数で返す。<br>
+     *         既に EndOfStream に達していた場合は -1 を返す。<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public int read( byte[] buffer, int index, int length ) throws IOException {
         if( 0 < length ){
@@ -166,14 +154,14 @@ public class DisconnectableInputStream extends InputStream
     }
 
     /**
-     * �ڑ����ꂽ���̓X�g���[���̃f�[�^�� length �o�C�g
-     * �ǂݔ�΂��B<br>
+     * 接続された入力ストリームのデータを length バイト
+     * 読み飛ばす。<br>
      * 
-     * @param length �ǂݔ�΂��o�C�g���B<br>
+     * @param length 読み飛ばすバイト数。<br>
      * 
-     * @return ���ۂɓǂݔ�΂��ꂽ�o�C�g���B<br>
+     * @return 実際に読み飛ばされたバイト数。<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public long skip( long length ) throws IOException {
         if( 0 < length ){
@@ -194,36 +182,36 @@ public class DisconnectableInputStream extends InputStream
     //  public boolean markSupprted()
     //------------------------------------------------------------------
     /**
-     * �ڑ����ꂽ���̓X�g���[���̌��݈ʒu�Ƀ}�[�N��ݒ肵�A
-     * reset() ���\�b�h�Ń}�[�N�������_�� �ǂݍ��݈ʒu��
-     * �߂��悤�ɂ���B<br>
+     * 接続された入力ストリームの現在位置にマークを設定し、
+     * reset() メソッドでマークした時点の 読み込み位置に
+     * 戻れるようにする。<br>
      * 
-     * @param readLimit �}�[�N�ʒu�ɖ߂����E�̃o�C�g���B
-     *                  ���̃o�C�g���𒴂��ăf�[�^��ǂ�
-     *                  ���񂾏ꍇ reset()�ł��Ȃ��Ȃ��
-     *                  �\��������B<br>
+     * @param readLimit マーク位置に戻れる限界のバイト数。
+     *                  このバイト数を超えてデータを読み
+     *                  込んだ場合 reset()できなくなる可
+     *                  能性がある。<br>
      */
     public void mark( int readLimit ){
         this.in.mark( readLimit );
     }
 
     /**
-     * �ڑ����ꂽ���̓X�g���[���̓ǂݍ��݈ʒu���Ō��
-     * mark() ���\�b�h���Ăяo���ꂽ�Ƃ��̈ʒu�ɐݒ肷��B<br>
+     * 接続された入力ストリームの読み込み位置を最後に
+     * mark() メソッドが呼び出されたときの位置に設定する。<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public void reset() throws IOException {
         this.in.reset();                                                        //throws IOException
     }
 
     /**
-     * �ڑ����ꂽ���̓X�g���[���� mark() �� reset() ��
-     * �T�|�[�g���邩�𓾂�B<br>
+     * 接続された入力ストリームが mark() と reset() を
+     * サポートするかを得る。<br>
      * 
-     * @return �X�g���[���� mark() �� reset() ��
-     *         �T�|�[�g����ꍇ�� true�B<br>
-     *         �T�|�[�g���Ȃ��ꍇ�� false�B<br>
+     * @return ストリームが mark() と reset() を
+     *         サポートする場合は true。<br>
+     *         サポートしない場合は false。<br>
      */
     public boolean  markSupprted(){
         return this.in.markSupported();
@@ -239,20 +227,20 @@ public class DisconnectableInputStream extends InputStream
     //  public void close()
     //------------------------------------------------------------------
     /**
-     * �ڑ����ꂽ���̓X�g���[������u���b�N���Ȃ���
-     * �ǂݍ��ނ��Ƃ̂ł���o�C�g���𓾂�B<br>
+     * 接続された入力ストリームからブロックしないで
+     * 読み込むことのできるバイト数を得る。<br>
      * 
-     * @return �u���b�N���Ȃ��œǂݏo����o�C�g���B<br>
+     * @return ブロックしないで読み出せるバイト数。<br>
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     public int available() throws IOException {
         return this.in.available();                                             //throws IOException
     }
 
     /**
-     * �ڑ����ꂽ���̓X�g���[���Ƃ̐ڑ�����������B<br>
-     * ���̃��\�b�h�� disconnect() ���ĂԂ����ł���B<br>
+     * 接続された入力ストリームとの接続を解除する。<br>
+     * このメソッドは disconnect() を呼ぶだけである。<br>
      */
     public void close(){
         this.disconnect();
@@ -265,7 +253,7 @@ public class DisconnectableInputStream extends InputStream
     //  public void disconnect
     //------------------------------------------------------------------
     /**
-     * �ڑ����ꂽ���̓X�g���[���Ƃ̐ڑ�����������B<br>
+     * 接続された入力ストリームとの接続を解除する。<br>
      */
     public void disconnect(){
         this.in = null;

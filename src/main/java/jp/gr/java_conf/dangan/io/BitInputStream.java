@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  * 
- * �ȉ��̏����ɓ��ӂ���Ȃ�΃\�[�X�ƃo�C�i���`���̍Ĕz�z�Ǝg�p��
- * �ύX�̗L���ɂ�����炸������B
+ * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
+ * 変更の有無にかかわらず許可する。
  * 
- * �P�D�\�[�X�R�[�h�̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐�������ێ����Ȃ��Ă͂Ȃ�Ȃ��B
+ * １．ソースコードの再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を保持しなくてはならない。
  * 
- * �Q�D�o�C�i���`���̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐��������g�p�������������� ���̑��̔z�z������
- *     �܂ގ����ɋL�q���Ȃ���΂Ȃ�Ȃ��B
+ * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を使用説明書もしくは その他の配布物内に
+ *     含む資料に記述しなければならない。
  * 
- * ���̃\�t�g�E�F�A�͐Β˔���ڂɂ���Ė��ۏ؂Œ񋟂���A����̖�
- * �I��B���ł���Ƃ����ۏ؁A���i���l���L��Ƃ����ۏ؂ɂƂǂ܂炸�A
- * �����Ȃ閾���I����шÎ��I�ȕۏ؂����Ȃ��B
- * �Β˔���ڂ� ���̃\�t�g�E�F�A�̎g�p�ɂ�钼�ړI�A�ԐړI�A����
- * �I�A����ȁA�T�^�I�ȁA���邢�͕K�R�I�ȑ��Q(�g�p�ɂ��f�[�^��
- * �����A�Ɩ��̒��f�〈���܂�Ă������v�̈⎸�A��֐��i��������
- * �T�[�r�X�̓�������l�����邪�A�����Ă��ꂾ���Ɍ��肳��Ȃ�
- * ���Q)�ɑ΂��āA�����Ȃ鎖�Ԃ̌����ƂȂ����Ƃ��Ă��A�_���̐�
- * �C�△�ߎ��ӔC���܂� �����Ȃ�ӔC�����낤�Ƃ��A���Ƃ����ꂪ�s
- * ���s�ׂ̂��߂ł������Ƃ��Ă��A�܂��͂��̂悤�ȑ��Q�̉\������
- * ������Ă����Ƃ��Ă���؂̐ӔC�𕉂�Ȃ����̂Ƃ���B
+ * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
+ * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
+ * いかなる明示的および暗示的な保証もしない。
+ * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
+ * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
+ * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
+ * サービスの導入費等が考えられるが、決してそれだけに限定されない
+ * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
+ * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
+ * 正行為のためであったとしても、またはそのような損害の可能性が報
+ * 告されていたとしても一切の責任を負わないものとする。
  */
 
 package jp.gr.java_conf.dangan.io;
@@ -43,49 +43,49 @@ import jp.gr.java_conf.dangan.io.BitDataBrokenException;
 import jp.gr.java_conf.dangan.io.NotEnoughBitsException;
 
 /**
- * �r�b�g���͂̂��߂̃��[�e�B���e�B�N���X�B<br>
+ * ビット入力のためのユーティリティクラス。<br>
  * 
  * <pre>
  * -- revision history --
  * $Log: BitInputStream.java,v $
  * Revision 1.5  2002/12/07 00:00:00  dangan
  * [maintenance]
- *     �\�[�X����
+ *     ソース整備
  *
  * Revision 1.4  2002/11/15 00:00:00  dangan
  * [improvement]
- *     prefetchBits() ��  32bit �̓ǂݍ��݂�ۏ؂���悤�ɏC��
+ *     prefetchBits() が  32bit の読み込みを保証するように修正
  * [change]
- *     ���\�b�h���̕ύX
+ *     メソッド名の変更
  *     prefetchBit     -> peekBit
  *     prefetchBoolean -> peekBoolean
  *     prefetchBits    -> peekBits
  *
  * Revision 1.3  2002/11/02 00:00:00  dangan
  * [bug fix]
- *     available() availableBits() ��
- *     �u���b�N�����ɓǂݍ��߂�ʂ����傫���l��Ԃ��Ă����B
+ *     available() availableBits() で
+ *     ブロックせずに読み込める量よりも大きい値を返していた。
  *
  * Revision 1.2  2002/09/05 00:00:00  dangan
  * [change]
- *     EndOfStream �ɒB������� read( new byte[0] ) �� 
- *     read( byte[] buf, int off, 0 ) �̖߂�l��
- *     InputStream �Ɠ����� 0 �ɂȂ�悤�ɂ���
+ *     EndOfStream に達した後の read( new byte[0] ) や 
+ *     read( byte[] buf, int off, 0 ) の戻り値を
+ *     InputStream と同じく 0 になるようにした
  *
  * Revision 1.1  2002/09/04 00:00:00  dangan
  * [bug fix]
- *     skip( len ) �� skipBits( len ) �� len �� 0 �����̂Ƃ�
- *     �����������ł��Ă��Ȃ������B
+ *     skip( len ) と skipBits( len ) で len が 0 未満のとき
+ *     正しく処理できていなかった。
  *
  * Revision 1.0  2002/09/03 00:00:00  dangan
  * add to version control
  * [bug fix]
- *     mark() �� �ڑ����ꂽ in �ɓn�� readLimit �̌v�Z���Â��������߁A
- *     �v�����ꂽ readLimit �ɒB����O�Ƀ}�[�N�ʒu���j������鎖���������B
- *     EndOfStream �ɒB������� skip() ����� skip( 0 ) �� -1 ��Ԃ��Ă����B
+ *     mark() で 接続された in に渡す readLimit の計算が甘かったため、
+ *     要求された readLimit に達する前にマーク位置が破棄される事があった。
+ *     EndOfStream に達した後の skip() および skip( 0 ) が -1 を返していた。
  * [maintenance]
- *     �^�u�p�~
- *     ���C�Z���X���̏C��
+ *     タブ廃止
+ *     ライセンス文の修正
  *
  *
  * </pre>
@@ -103,7 +103,7 @@ public class BitInputStream extends InputStream{
     //  private static final int DefaultCacheSize
     //------------------------------------------------------------------
     /**
-     * �f�t�H���g�̃L���b�V���T�C�Y
+     * デフォルトのキャッシュサイズ
      */
     private static final int DefaultCacheSize = 1024;
 
@@ -116,7 +116,7 @@ public class BitInputStream extends InputStream{
     //  private InputStream in
     //------------------------------------------------------------------
     /**
-     * �ڑ����ꂽ���̓X�g���[��
+     * 接続された入力ストリーム
      */
     private InputStream in;
 
@@ -131,17 +131,17 @@ public class BitInputStream extends InputStream{
     //  private int    cachePosition
     //------------------------------------------------------------------
     /**
-     * ���x�ቺ�}�~�p�o�C�g�z��
+     * 速度低下抑止用バイト配列
      */
     private byte[] cache;
 
     /**
-     * cache ���̗L���o�C�g��
+     * cache 内の有効バイト数
      */
     private int    cacheLimit;
 
     /**
-     * cache ���̌��ݏ����ʒu
+     * cache 内の現在処理位置
      */
     private int    cachePosition;
 
@@ -155,13 +155,13 @@ public class BitInputStream extends InputStream{
     //  private int    bitCount
     //------------------------------------------------------------------
     /**
-     * �r�b�g�o�b�t�@�B
-     * �r�b�g�f�[�^�͍ŏ�ʃr�b�g���� bitCount �����i�[����Ă���B
+     * ビットバッファ。
+     * ビットデータは最上位ビットから bitCount だけ格納されている。
      */
     private int    bitBuffer;
 
     /**
-     * bitBuffer �� �L���r�b�g��
+     * bitBuffer の 有効ビット数
      */
     private int    bitCount;
 
@@ -179,58 +179,45 @@ public class BitInputStream extends InputStream{
     //  private int    markBitCount
     //------------------------------------------------------------------
     /**
-     * mark�ʒu���L���b�V���͈͓̔��ɂ��邩�������B
-     * mark���ꂽ�Ƃ� true �ɐݒ肳��A
-     * ���� in ���� �L���b�V���ւ̓ǂݍ��݂�
-     * �s��ꂽ�Ƃ��� false �ɐݒ肳���B
+     * mark位置がキャッシュの範囲内にあるかを示す。
+     * markされたとき true に設定され、
+     * 次に in から キャッシュへの読み込みが
+     * 行われたときに false に設定される。
      */
     private boolean markPositionIsInCache;
 
-    /** cache �� �o�b�N�A�b�v�p */
+    /** cache の バックアップ用 */
     private byte[] markCache;
 
-    /** cacheLimit �̃o�b�N�A�b�v�p */
+    /** cacheLimit のバックアップ用 */
     private int    markCacheLimit;
 
-    /** cachePosition �̃o�b�N�A�b�v�p */
+    /** cachePosition のバックアップ用 */
     private int    markCachePosition;
 
-    /** bitBuffer �̃o�b�N�A�b�v�p */
+    /** bitBuffer のバックアップ用 */
     private int    markBitBuffer;
 
-    /** bitCount �̃o�b�N�A�b�v�p */
+    /** bitCount のバックアップ用 */
     private int    markBitCount;
 
 
-    //------------------------------------------------------------------
-    //  constructer
-    //------------------------------------------------------------------
-    //  private BitInputStream()
-    //  public BitInputStream( InputStream in )
-    //  public BitInputStream( InputStream in, int CacheSize )
-    //------------------------------------------------------------------
     /**
-     * �f�t�H���g�R���X�g���N�^�B
-     * �g�p�s�B
-     */
-    private BitInputStream(){ }
-
-    /**
-     * ���̓X�g���[�� in ����̃f�[�^���r�b�g�P�ʂ�
-     * �ǂݍ��߂�悤�ȃX�g���[�����\�z����B<br>
+     * 入力ストリーム in からのデータをビット単位で
+     * 読み込めるようなストリームを構築する。<br>
      * 
-     * @param in ���̓X�g���[��
+     * @param in 入力ストリーム
      */
     public BitInputStream( InputStream in ){
         this( in, BitInputStream.DefaultCacheSize );
     }
 
     /**
-     * ���̓X�g���[�� in ����̃f�[�^���r�b�g�P�ʂ�
-     * �ǂݍ��߂�悤�ȃX�g���[�����\�z����B<br>
+     * 入力ストリーム in からのデータをビット単位で
+     * 読み込めるようなストリームを構築する。<br>
      * 
-     * @param in        ���̓X�g���[��
-     * @param CacheSize �o�b�t�@�T�C�Y
+     * @param in        入力ストリーム
+     * @param CacheSize バッファサイズ
      */
     public BitInputStream( InputStream in, int CacheSize ){
         if( in != null && 4 <= CacheSize ){
@@ -266,18 +253,18 @@ public class BitInputStream extends InputStream{
     //  public long skip( long length )
     //------------------------------------------------------------------
     /**
-     * �ڑ����ꂽ�X�g���[������ 8�r�b�g�̃f�[�^��ǂݍ��ށB<br>
+     * 接続されたストリームから 8ビットのデータを読み込む。<br>
      * 
-     * @return �ǂݏo���ꂽ 8�r�b�g�̃f�[�^�B<br>
-     *         ���� EndOfStream �ɒB���Ă���ꍇ�� -1
+     * @return 読み出された 8ビットのデータ。<br>
+     *         既に EndOfStream に達している場合は -1
      * 
      * @exception IOException
-     *               �ڑ����ꂽ���̓X�g���[����
-     *               ���o�̓G���[�����������ꍇ
+     *               接続された入力ストリームで
+     *               入出力エラーが発生した場合
      * @exception BitDataBrokenException 
-     *               EndOfStream�ɒB��������
-     *               �v�����ꂽ�r�b�g���̃f�[�^��
-     *               �ǂݍ��݂Ɏ��s�����ꍇ�B<br>
+     *               EndOfStreamに達したため
+     *               要求されたビット数のデータの
+     *               読み込みに失敗した場合。<br>
      */
     public int read() throws IOException {
         try{
@@ -289,50 +276,50 @@ public class BitInputStream extends InputStream{
     }
 
     /**
-     * �ڑ����ꂽ���̓X�g���[������ �o�C�g�z�� buffer ��
-     * �������悤�Ƀf�[�^��ǂݍ��ށB<br>
-     * �f�[�^�͕K������ buffer �𖞂����Ƃ͌���Ȃ����Ƃɒ��ӁB<br>
+     * 接続された入力ストリームから バイト配列 buffer を
+     * 満たすようにデータを読み込む。<br>
+     * データは必ずしも buffer を満たすとは限らないことに注意。<br>
      * 
-     * @param buffer �ǂݍ��܂ꂽ�f�[�^���i�[���邽�߂̃o�C�g�z��
+     * @param buffer 読み込まれたデータを格納するためのバイト配列
      * 
-     * @return buffer �ɓǂݍ��񂾃f�[�^�ʂ��o�C�g���ŕԂ��B<br>
-     *         ���� EndOfStream �ɒB���Ă����ꍇ�� -1 ��Ԃ��B<br>
+     * @return buffer に読み込んだデータ量をバイト数で返す。<br>
+     *         既に EndOfStream に達していた場合は -1 を返す。<br>
      * 
      * @exception IOException
-     *               �ڑ����ꂽ���̓X�g���[����
-     *               ���o�̓G���[�����������ꍇ
+     *               接続された入力ストリームで
+     *               入出力エラーが発生した場合
      * @exception BitDataBrokenException 
-     *               EndOfStream�ɒB��������
-     *               �v�����ꂽ�r�b�g���̃f�[�^��
-     *               �ǂݍ��݂Ɏ��s�����ꍇ�B<br>
+     *               EndOfStreamに達したため
+     *               要求されたビット数のデータの
+     *               読み込みに失敗した場合。<br>
      */
     public int read( byte[] buffer ) throws IOException {
         return this.read( buffer, 0, buffer.length );                           //throws BitDataBrokenException IOException
     }
 
     /**
-     * �ڑ����ꂽ���̓X�g���[������ �o�C�g�z�� buffer ��
-     * index �Ŏw�肳�ꂽ�ʒu���� length �o�C�g�̃f�[�^��
-     * �ǂݍ��ށB<br>
-     * ���̃��\�b�h�� length�o�C�g�ǂݍ��ނ��A
-     * EndOfStream �ɓ��B����܂Ńu���b�N����B<br>
-     * �f�[�^�͕K������ length �o�C�g�ǂݍ��܂��Ƃ͌���
-     * �Ȃ����Ƃɒ��ӁB<br>
+     * 接続された入力ストリームから バイト配列 buffer の
+     * index で指定された位置から length バイトのデータを
+     * 読み込む。<br>
+     * このメソッドは lengthバイト読み込むか、
+     * EndOfStream に到達するまでブロックする。<br>
+     * データは必ずしも length バイト読み込まれるとは限ら
+     * ないことに注意。<br>
      * 
-     * @param buffer �ǂݍ��܂ꂽ�f�[�^���i�[���邽�߂̃o�C�g�z��
-     * @param index  buffer���̃f�[�^�ǂݍ��݊J�n�ʒu
-     * @param length buffer�ɓǂݍ��ރf�[�^��
+     * @param buffer 読み込まれたデータを格納するためのバイト配列
+     * @param index  buffer内のデータ読み込み開始位置
+     * @param length bufferに読み込むデータ量
      * 
-     * @return buffer �ɓǂݍ��񂾃f�[�^�ʂ��o�C�g���ŕԂ��B<br>
-     *         ���� EndOfStream �ɒB���Ă����ꍇ�� -1 ��Ԃ��B<br>
+     * @return buffer に読み込んだデータ量をバイト数で返す。<br>
+     *         既に EndOfStream に達していた場合は -1 を返す。<br>
      * 
      * @exception IOException
-     *               �ڑ����ꂽ���̓X�g���[����
-     *               ���o�̓G���[�����������ꍇ
+     *               接続された入力ストリームで
+     *               入出力エラーが発生した場合
      * @exception BitDataBrokenException 
-     *               EndOfStream�ɒB��������
-     *               �v�����ꂽ�r�b�g���̃f�[�^��
-     *               �ǂݍ��݂Ɏ��s�����ꍇ�B<br>
+     *               EndOfStreamに達したため
+     *               要求されたビット数のデータの
+     *               読み込みに失敗した場合。<br>
      */
     public int read( byte[] buffer, int index, int length ) throws IOException {
         final int requested = length;
@@ -365,19 +352,19 @@ public class BitInputStream extends InputStream{
     }
 
     /**
-     * �ڑ����ꂽ���̓X�g���[���̃f�[�^�� length �o�C�g
-     * �ǂݔ�΂��B<br>
-     * ���̃��\�b�h�� length�o�C�g�ǂݔ�΂����A
-     * EndOfStream �ɓ��B����܂Ńu���b�N����B<br>
-     * �f�[�^�͕K������ length �o�C�g�ǂݔ�΂����Ƃ͌���
-     * �Ȃ����Ƃɒ��ӁB<br>
+     * 接続された入力ストリームのデータを length バイト
+     * 読み飛ばす。<br>
+     * このメソッドは lengthバイト読み飛ばすか、
+     * EndOfStream に到達するまでブロックする。<br>
+     * データは必ずしも length バイト読み飛ばされるとは限ら
+     * ないことに注意。<br>
      * 
-     * @param length �ǂݔ�΂��o�C�g���B<br>
+     * @param length 読み飛ばすバイト数。<br>
      * 
-     * @return ���ۂɓǂݔ�΂��ꂽ�o�C�g���B<br>
+     * @return 実際に読み飛ばされたバイト数。<br>
      * 
-     * @exception IOException �ڑ����ꂽ���̓X�g���[����
-     *                        ���o�̓G���[�����������ꍇ
+     * @exception IOException 接続された入力ストリームで
+     *                        入出力エラーが発生した場合
      */
     public long skip( long length ) throws IOException {
         length = ( 0 < length ? length : 0 );
@@ -415,14 +402,14 @@ public class BitInputStream extends InputStream{
     //  public boolean markSupported()
     //------------------------------------------------------------------
     /**
-     * �ڑ����ꂽ���̓X�g���[���̌��݈ʒu�Ƀ}�[�N��ݒ肵�A
-     * reset() ���\�b�h�Ń}�[�N�������_�� �ǂݍ��݈ʒu��
-     * �߂��悤�ɂ���B<br>
+     * 接続された入力ストリームの現在位置にマークを設定し、
+     * reset() メソッドでマークした時点の 読み込み位置に
+     * 戻れるようにする。<br>
      * 
-     * @param readLimit �}�[�N�ʒu�ɖ߂����E�̃o�C�g���B
-     *                  ���̃o�C�g���𒴂��ăf�[�^��ǂ�
-     *                  ���񂾏ꍇ reset()�ł��Ȃ��Ȃ��
-     *                  �\��������B<br>
+     * @param readLimit マーク位置に戻れる限界のバイト数。
+     *                  このバイト数を超えてデータを読み
+     *                  込んだ場合 reset()できなくなる可
+     *                  能性がある。<br>
      */
     public void mark( int readLimit ){
         readLimit -= this.cacheLimit - this.cachePosition;
@@ -434,7 +421,7 @@ public class BitInputStream extends InputStream{
         this.in.mark( readLimit );
 
         if( this.markCache == null ){
-            this.markCache = (byte[])this.cache.clone();
+            this.markCache = this.cache.clone();
         }else{
             System.arraycopy( this.cache, 0, 
                               this.markCache, 0, 
@@ -448,16 +435,16 @@ public class BitInputStream extends InputStream{
     }
 
     /**
-     * �ڑ����ꂽ���̓X�g���[���̓ǂݍ��݈ʒu���Ō��
-     * mark() ���\�b�h���Ăяo���ꂽ�Ƃ��̈ʒu�ɐݒ肷��B<br>
+     * 接続された入力ストリームの読み込み位置を最後に
+     * mark() メソッドが呼び出されたときの位置に設定する。<br>
      * 
      * @exception IOException <br>
-     *              (1) BitInputStream �� mark ���Ȃ���Ă��Ȃ��ꍇ�B<br>
-     *              (2) �ڑ����ꂽ���̓X�g���[���� markSupported()��
-     *                  false ��Ԃ��ꍇ�B<br>
-     *              (3) �ڑ����ꂽ���̓X�g���[����
-     *                  ���o�̓G���[�����������ꍇ�B<br>
-     *              �̉��ꂩ�B
+     *              (1) BitInputStream に mark がなされていない場合。<br>
+     *              (2) 接続された入力ストリームが markSupported()で
+     *                  false を返す場合。<br>
+     *              (3) 接続された入力ストリームで
+     *                  入出力エラーが発生した場合。<br>
+     *              の何れか。
      */
     public void reset() throws IOException {
         if( this.markPositionIsInCache ){
@@ -466,12 +453,12 @@ public class BitInputStream extends InputStream{
             this.bitCount      = this.markBitCount;
         }else if( !this.in.markSupported() ){
             throw new IOException( "not support mark()/reset()." );
-        }else if( this.markCache == null ){ //���̏������͖����Ƀ}�[�N����Ă��Ȃ����Ƃ������B�R���X�g���N�^�� markCache �� null �ɐݒ肳���̂𗘗p����B 
+        }else if( this.markCache == null ){ //この条件式は未だにマークされていないことを示す。コンストラクタで markCache が null に設定されるのを利用する。 
             throw new IOException( "not marked." );
         }else{
-            //in �� reset() �ł��Ȃ��ꍇ��
-            //�ŏ��̍s�� this.in.reset() ��
-            //IOException �𓊂��邱�Ƃ����҂��Ă���B
+            //in が reset() できない場合は
+            //最初の行の this.in.reset() で
+            //IOException を投げることを期待している。
             this.in.reset();                                                    //throws IOException
             System.arraycopy( this.markCache, 0, 
                               this.cache, 0, 
@@ -484,12 +471,12 @@ public class BitInputStream extends InputStream{
     }
 
     /**
-     * �ڑ����ꂽ���̓X�g���[���� mark() �� reset() ��
-     * �T�|�[�g���邩�𓾂�B<br>
+     * 接続された入力ストリームが mark() と reset() を
+     * サポートするかを得る。<br>
      * 
-     * @return �X�g���[���� mark() �� reset() ��
-     *         �T�|�[�g����ꍇ�� true�B<br>
-     *         �T�|�[�g���Ȃ��ꍇ�� false�B<br>
+     * @return ストリームが mark() と reset() を
+     *         サポートする場合は true。<br>
+     *         サポートしない場合は false。<br>
      */
     public boolean markSupported(){
         return this.in.markSupported();
@@ -505,24 +492,24 @@ public class BitInputStream extends InputStream{
     //  public void close()
     //------------------------------------------------------------------
     /**
-     * �ڑ����ꂽ���̓X�g���[������u���b�N���Ȃ���
-     * �ǂݍ��ނ��Ƃ̂ł���o�C�g���𓾂�B<br>
+     * 接続された入力ストリームからブロックしないで
+     * 読み込むことのできるバイト数を得る。<br>
      * 
-     * @return �u���b�N���Ȃ��œǂݏo����o�C�g���B<br>
+     * @return ブロックしないで読み出せるバイト数。<br>
      * 
-     * @exception IOException �ڑ����ꂽ���̓X�g���[����
-     *                        ���o�̓G���[�����������ꍇ
+     * @exception IOException 接続された入力ストリームで
+     *                        入出力エラーが発生した場合
      */
     public int available() throws IOException {
         return this.availableBits() / 8;                                        //throws IOException
     }
 
     /**
-     * ���̓��̓X�g���[������A
-     * �g�p���Ă������\�[�X���J������B<br>
+     * この入力ストリームを閉じ、
+     * 使用していたリソースを開放する。<br>
      * 
-     * @exception IOException �ڑ����ꂽ���̓X�g���[����
-     *                        ���o�̓G���[�����������ꍇ
+     * @exception IOException 接続された入力ストリームで
+     *                        入出力エラーが発生した場合
      */
     public void close() throws IOException {
         this.in.close();                                                        //throws IOException
@@ -554,14 +541,14 @@ public class BitInputStream extends InputStream{
     //  public int skipBits( int count )
     //------------------------------------------------------------------
     /**
-     * �ڑ����ꂽ���̓X�g���[������ 1�r�b�g�̃f�[�^��
-     * �ǂݍ��ށB<br>
+     * 接続された入力ストリームから 1ビットのデータを
+     * 読み込む。<br>
      * 
-     * @return �ǂݍ��܂ꂽ1�r�b�g�̃f�[�^�B<br>
-     *         ����EndOfStream�ɒB���Ă���ꍇ�� -1�B<br>
+     * @return 読み込まれた1ビットのデータ。<br>
+     *         既にEndOfStreamに達している場合は -1。<br>
      * 
-     * @exception IOException �ڑ����ꂽ���̓X�g���[����
-     *                        ���o�̓G���[�����������ꍇ
+     * @exception IOException 接続された入力ストリームで
+     *                        入出力エラーが発生した場合
      */
     public int readBit() throws IOException {
         if( 0 < this.bitCount ){
@@ -587,15 +574,15 @@ public class BitInputStream extends InputStream{
     }
 
     /**
-     * �ڑ����ꂽ���̓X�g���[������ 1�r�b�g�̃f�[�^��
-     * �^�U�l�Ƃ��ēǂݍ��ށB<br>
+     * 接続された入力ストリームから 1ビットのデータを
+     * 真偽値として読み込む。<br>
      * 
-     * @return �ǂݍ��܂ꂽ1�r�b�g�̃f�[�^�� 
-     *         1�ł���� true�A0�ł���� false ��Ԃ��B<br>
+     * @return 読み込まれた1ビットのデータが 
+     *         1であれば true、0であれば false を返す。<br>
      * 
-     * @exception EOFException ����EndOfStream�ɒB���Ă����ꍇ
-     * @exception IOException  �ڑ����ꂽ���̓X�g���[����
-     *                         ���o�̓G���[�����������ꍇ
+     * @exception EOFException 既にEndOfStreamに達していた場合
+     * @exception IOException  接続された入力ストリームで
+     *                         入出力エラーが発生した場合
      */
     public boolean readBoolean() throws IOException {
         if( 0 < this.bitCount ){
@@ -613,32 +600,32 @@ public class BitInputStream extends InputStream{
     }
 
     /**
-     * �ڑ����ꂽ���̓X�g���[������ count �r�b�g�̃f�[�^��
-     * �ǂݍ��ށB �߂�l�� int�l�ł��鎖���������悤��
-     * �ǂݍ��ނ��Ƃ̂ł��� �ő�L���r�b�g���� 32�r�b�g��
-     * ���邪�Acount ��32�ȏ�̒l��ݒ肵�Ă��`�F�b�N��
-     * �󂯂Ȃ����� ����ȏ�̒l��ݒ肵���ꍇ�� �r�b�g
-     * �f�[�^���ǂݎ̂Ă���B<br>
-     * ���Ƃ��� readBits( 33 ) �Ƃ����Ƃ��� �܂�1�r�b�g��
-     * �f�[�^��ǂݎ̂āA���̌�� 32�r�b�g�̃f�[�^��Ԃ��B<br>
-     * �܂� count �� 0�ȉ��̐�����ݒ肵�ČĂяo�����ꍇ�A
-     * �f�[�^��ǂݍ��ޓ���𔺂�Ȃ����� �߂�l�� ���0�A
-     * EndOfStream �ɒB���Ă��Ă� EOFException ��
-     * �����Ȃ��_�ɒ��ӂ��邱�ƁB<br>
+     * 接続された入力ストリームから count ビットのデータを
+     * 読み込む。 戻り値が int値である事からも判るように
+     * 読み込むことのできる 最大有効ビット数は 32ビットで
+     * あるが、count は32以上の値を設定してもチェックを
+     * 受けないため それ以上の値を設定した場合は ビット
+     * データが読み捨てられる。<br>
+     * たとえば readBits( 33 ) としたときは まず1ビットの
+     * データを読み捨て、その後の 32ビットのデータを返す。<br>
+     * また count に 0以下の数字を設定して呼び出した場合、
+     * データを読み込む動作を伴わないため 戻り値は 常に0、
+     * EndOfStream に達していても EOFException を
+     * 投げない点に注意すること。<br>
      * 
-     * @param count  �ǂݍ��ރf�[�^�̃r�b�g��
+     * @param count  読み込むデータのビット数
      * 
-     * @return �ǂݍ��܂ꂽ�r�b�g�f�[�^�B<br>
+     * @return 読み込まれたビットデータ。<br>
      * 
      * @exception IOException 
-     *               �ڑ����ꂽ���̓X�g���[����
-     *               ���o�̓G���[�����������ꍇ
+     *               接続された入力ストリームで
+     *               入出力エラーが発生した場合
      * @exception EOFException 
-     *               ����EndOfStream�ɒB���Ă����ꍇ
+     *               既にEndOfStreamに達していた場合
      * @exception BitDataBrokenException 
-     *               �ǂݍ��ݓr���� EndOfStream�ɒB��������
-     *               �v�����ꂽ�r�b�g���̃f�[�^�̓ǂݍ���
-     *               �Ɏ��s�����ꍇ�B<br>
+     *               読み込み途中で EndOfStreamに達したため
+     *               要求されたビット数のデータの読み込み
+     *               に失敗した場合。<br>
      */
     public int readBits( int count ) throws IOException {
         if( 0 < count ){
@@ -679,15 +666,15 @@ public class BitInputStream extends InputStream{
     }
 
     /**
-     * �ڑ����ꂽ�X�g���[������ count �r�b�g�̃f�[�^��
-     * �ǂݔ�΂��B<br>
+     * 接続されたストリームから count ビットのデータを
+     * 読み飛ばす。<br>
      * 
-     * @param count �ǂݔ�΂��Ăق����r�b�g��
+     * @param count 読み飛ばしてほしいビット数
      * 
-     * @return ���ۂɓǂݔ�т����r�b�g��
+     * @return 実際に読み飛びしたビット数
      * 
-     * @exception IOException �ڑ����ꂽ���̓X�g���[����
-     *                        ���o�̓G���[�����������ꍇ
+     * @exception IOException 接続された入力ストリームで
+     *                        入出力エラーが発生した場合
      */
     public int skipBits( int count ) throws IOException {
         count = Math.max( count, 0 );
@@ -734,13 +721,13 @@ public class BitInputStream extends InputStream{
     //  public int peekBits( int count )
     //------------------------------------------------------------------
     /**
-     * �ǂݍ��݈ʒu��ς����� 1�r�b�g�̃f�[�^���ǂ݂���B<br>
+     * 読み込み位置を変えずに 1ビットのデータを先読みする。<br>
      * 
-     * @return �ǂݍ��܂ꂽ1�r�b�g�̃f�[�^�B<br>
-     *         ����EndOfStream�ɒB���Ă���ꍇ�� -1�B<br>
+     * @return 読み込まれた1ビットのデータ。<br>
+     *         既にEndOfStreamに達している場合は -1。<br>
      * 
-     * @exception IOException �ڑ����ꂽ���̓X�g���[����
-     *                        ���o�̓G���[�����������ꍇ
+     * @exception IOException 接続された入力ストリームで
+     *                        入出力エラーが発生した場合
      */
     public int peekBit() throws IOException {
         if( 0 < this.bitCount ){
@@ -761,15 +748,15 @@ public class BitInputStream extends InputStream{
     }
 
     /**
-     * �ǂݍ��݈ʒu��ς����� 1�r�b�g�̃f�[�^��
-     * �^�U�l�Ƃ��Đ�ǂ݂���B<br>
+     * 読み込み位置を変えずに 1ビットのデータを
+     * 真偽値として先読みする。<br>
      * 
-     * @return �ǂݍ��܂ꂽ1�r�b�g�̃f�[�^�� 
-     *         1�ł���� true�A0�ł���� false ��Ԃ��B<br>
+     * @return 読み込まれた1ビットのデータが 
+     *         1であれば true、0であれば false を返す。<br>
      * 
-     * @exception EOFException ����EndOfStream�ɒB���Ă����ꍇ
-     * @exception IOException  �ڑ����ꂽ���̓X�g���[����
-     *                         ���o�̓G���[�����������ꍇ
+     * @exception EOFException 既にEndOfStreamに達していた場合
+     * @exception IOException  接続された入力ストリームで
+     *                         入出力エラーが発生した場合
      */
     public boolean peekBoolean() throws IOException {
         if( 0 < this.bitCount ){
@@ -781,26 +768,26 @@ public class BitInputStream extends InputStream{
     }
 
     /**
-     * �ǂݍ��݈ʒu��ς����� count �r�b�g�̃f�[�^���ǂ݂���B<br>
-     * �߂�l�� int�^�ł��邱�Ƃ�����킩��悤��
-     * �ő�L���r�b�g���� 32�r�b�g�ł���B<br>
-     * EndOfStream �t�߂������āA��ǂݏo���邱�Ƃ��ۏႳ���̂�
-     * 32�r�b�g�ł���B(�r�b�g�o�b�t�@�̑傫���� 32�r�b�g�ł��邽��)<br>
-     * ���� 32�r�b�g�ȏ�̐�ǂ݋@�\���K�{�ƂȂ�ꍇ��
-     * ���̓s�x mark()�AreadBits()�Areset() ���J��Ԃ����A
-     * ���̃N���X���g�p���邱�Ƃ���߂邱�ƁB<br>
+     * 読み込み位置を変えずに count ビットのデータを先読みする。<br>
+     * 戻り値が int型であることからもわかるように
+     * 最大有効ビット数は 32ビットである。<br>
+     * EndOfStream 付近を除いて、先読み出来ることが保障されるのは
+     * 32ビットである。(ビットバッファの大きさが 32ビットであるため)<br>
+     * もし 32ビット以上の先読み機能が必須となる場合は
+     * その都度 mark()、readBits()、reset() を繰り返すか、
+     * このクラスを使用することを諦めること。<br>
      * 
-     * @param count �ǂݍ��ރr�b�g��
+     * @param count 読み込むビット数
      * 
-     * @return ��ǂ݂��� count �r�b�g�̃r�b�g�f�[�^
+     * @return 先読みした count ビットのビットデータ
      * 
      * @exception EOFException
-     *                    ����EndOfStream�ɒB���Ă����ꍇ
+     *                    既にEndOfStreamに達していた場合
      * @exception IOException
-     *                    �ڑ����ꂽ���̓X�g���[����
-     *                    ���o�̓G���[�����������ꍇ
+     *                    接続された入力ストリームで
+     *                    入出力エラーが発生した場合
      * @exception NotEnoughBitsException
-     *                    count ����ǂ݉\�Ȕ͈͊O�̏ꍇ
+     *                    count が先読み可能な範囲外の場合
      */
     public int peekBits( int count ) throws IOException {
         if( 0 < count ){
@@ -865,13 +852,13 @@ public class BitInputStream extends InputStream{
     //  private int cachedBits()
     //------------------------------------------------------------------
     /**
-     * �ڑ����ꂽ���̓X�g���[������u���b�N���Ȃ���
-     * �ǂݍ��ނ��Ƃ̂ł���r�b�g���𓾂�B<br>
+     * 接続された入力ストリームからブロックしないで
+     * 読み込むことのできるビット数を得る。<br>
      * 
-     * @return �u���b�N���Ȃ��œǂݏo����r�b�g���B<br>
+     * @return ブロックしないで読み出せるビット数。<br>
      * 
-     * @exception IOException �ڑ����ꂽ���̓X�g���[����
-     *                        ���o�̓G���[�����������ꍇ
+     * @exception IOException 接続された入力ストリームで
+     *                        入出力エラーが発生した場合
      */
     public int availableBits() throws IOException {
         int avail = ( this.cacheLimit - this.cachePosition )
@@ -882,9 +869,9 @@ public class BitInputStream extends InputStream{
     }
 
     /**
-     * ���� BitInputStream ���ɒ~�����Ă���r�b�g���𓾂�B<br>
+     * この BitInputStream 内に蓄えられているビット数を得る。<br>
      * 
-     * @return ���� BitInputStream ���ɒ~�����Ă���r�b�g���B<br>
+     * @return この BitInputStream 内に蓄えられているビット数。<br>
      */
     private int cachedBits(){
         return this.bitCount + ( ( this.cacheLimit - this.cachePosition ) << 3 );
@@ -900,12 +887,12 @@ public class BitInputStream extends InputStream{
     //  private void fillCache()
     //------------------------------------------------------------------
     /**
-     * bitBuffer �Ƀf�[�^�𖞂����B
-     * EndOfStream �t�߂������� bitBuffer �ɂ�
-     * 25bit �̃f�[�^���m�ۂ���邱�Ƃ�ۏႷ��B
+     * bitBuffer にデータを満たす。
+     * EndOfStream 付近を除いて bitBuffer には
+     * 25bit のデータが確保されることを保障する。
      * 
-     * @exception IOException       ���o�̓G���[�����������ꍇ
-     * @exception LocalEOFException bitBuffer ����̏�Ԃ� EndOfStream �ɒB�����ꍇ
+     * @exception IOException       入出力エラーが発生した場合
+     * @exception LocalEOFException bitBuffer が空の状態で EndOfStream に達した場合
      */
     private void fillBitBuffer() throws IOException {
         if( 32 <= this.cachedBits() ){
@@ -956,16 +943,16 @@ public class BitInputStream extends InputStream{
     }
 
     /**
-     * cache ����ɂȂ������� cache �Ƀf�[�^��ǂݍ��ށB
+     * cache が空になった時に cache にデータを読み込む。
      * 
-     * @exception IOException ���o�̓G���[�����������ꍇ
+     * @exception IOException 入出力エラーが発生した場合
      */
     private void fillCache() throws IOException {
         this.markPositionIsInCache = false;
         this.cacheLimit            = 0;
         this.cachePosition         = 0;
 
-        //cache �Ƀf�[�^��ǂݍ���
+        //cache にデータを読み込む
         int read = 0;
         while( 0 <= read && this.cacheLimit < this.cache.length ){
             read = this.in.read( this.cache,
@@ -983,9 +970,9 @@ public class BitInputStream extends InputStream{
     //  private static class LocalEOFException
     //------------------------------------------------------------------
     /**
-     * BitInputStream ���� EndOfStream �̌��o��
-     * EOFException ���g�p����̂͏��X��肪����̂�
-     * ���[�J���� EOFException ���`����B
+     * BitInputStream 内で EndOfStream の検出に
+     * EOFException を使用するのは少々問題があるので
+     * ローカルな EOFException を定義する。
      */
     private static class LocalEOFException extends EOFException {
 
@@ -996,7 +983,7 @@ public class BitInputStream extends InputStream{
         //  private Object owner
         //------------------------------------------------------------------
         /**
-         * ���̗�O�𓊂����I�u�W�F�N�g
+         * この例外を投げたオブジェクト
          */
         private Object owner;
 
@@ -1006,9 +993,9 @@ public class BitInputStream extends InputStream{
         //  public LocalEOFException( Object object )
         //------------------------------------------------------------------
         /**
-         * �R���X�g���N�^�B
+         * コンストラクタ。
          * 
-         * @param object ���̗�O�𓊂����I�u�W�F�N�g
+         * @param object この例外を投げたオブジェクト
          */
         public LocalEOFException( Object object ){
             super();
@@ -1021,13 +1008,13 @@ public class BitInputStream extends InputStream{
         //  public boolean thrownBy( Object object )
         //------------------------------------------------------------------
         /**
-         * ���̗�O�� object �ɂ���ē�����ꂽ���ǂ����𓾂�B<br>
+         * この例外が object によって投げられたかどうかを得る。<br>
          * 
-         * @param object �I�u�W�F�N�g
+         * @param object オブジェクト
          * 
-         * @return ���̗�O�� object�ɂ����
-         *         ������ꂽ��O�ł���� true<br>
-         *         �Ⴆ�� false<br>
+         * @return この例外が objectによって
+         *         投げられた例外であれば true<br>
+         *         違えば false<br>
          */
         public boolean thrownBy( Object object ){
             return this.owner == object;

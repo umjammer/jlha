@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  * 
- * �ȉ��̏����ɓ��ӂ���Ȃ�΃\�[�X�ƃo�C�i���`���̍Ĕz�z�Ǝg�p��
- * �ύX�̗L���ɂ�����炸������B
+ * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
+ * 変更の有無にかかわらず許可する。
  * 
- * �P�D�\�[�X�R�[�h�̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐�������ێ����Ȃ��Ă͂Ȃ�Ȃ��B
+ * １．ソースコードの再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を保持しなくてはならない。
  * 
- * �Q�D�o�C�i���`���̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐��������g�p�������������� ���̑��̔z�z������
- *     �܂ގ����ɋL�q���Ȃ���΂Ȃ�Ȃ��B
+ * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を使用説明書もしくは その他の配布物内に
+ *     含む資料に記述しなければならない。
  * 
- * ���̃\�t�g�E�F�A�͐Β˔���ڂɂ���Ė��ۏ؂Œ񋟂���A����̖�
- * �I��B���ł���Ƃ����ۏ؁A���i���l���L��Ƃ����ۏ؂ɂƂǂ܂炸�A
- * �����Ȃ閾���I����шÎ��I�ȕۏ؂����Ȃ��B
- * �Β˔���ڂ� ���̃\�t�g�E�F�A�̎g�p�ɂ�钼�ړI�A�ԐړI�A����
- * �I�A����ȁA�T�^�I�ȁA���邢�͕K�R�I�ȑ��Q(�g�p�ɂ��f�[�^��
- * �����A�Ɩ��̒��f�〈���܂�Ă������v�̈⎸�A��֐��i��������
- * �T�[�r�X�̓�������l�����邪�A�����Ă��ꂾ���Ɍ��肳��Ȃ�
- * ���Q)�ɑ΂��āA�����Ȃ鎖�Ԃ̌����ƂȂ����Ƃ��Ă��A�_���̐�
- * �C�△�ߎ��ӔC���܂� �����Ȃ�ӔC�����낤�Ƃ��A���Ƃ����ꂪ�s
- * ���s�ׂ̂��߂ł������Ƃ��Ă��A�܂��͂��̂悤�ȑ��Q�̉\������
- * ������Ă����Ƃ��Ă���؂̐ӔC�𕉂�Ȃ����̂Ƃ���B
+ * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
+ * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
+ * いかなる明示的および暗示的な保証もしない。
+ * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
+ * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
+ * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
+ * サービスの導入費等が考えられるが、決してそれだけに限定されない
+ * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
+ * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
+ * 正行為のためであったとしても、またはそのような損害の可能性が報
+ * 告されていたとしても一切の責任を負わないものとする。
  */
 
 package jp.gr.java_conf.dangan.io;
@@ -42,9 +42,9 @@ import java.lang.ArrayIndexOutOfBoundsException;
 
 
 /**
- * ���g���G���f�B�A����
- * �o�C�g�z��� InputStream, OutputStream
- * �ɃA�N�Z�X���郁�\�b�h��񋟂��郆�[�e�B���e�B�N���X�B
+ * リトルエンディアンで
+ * バイト配列や InputStream, OutputStream
+ * にアクセスするメソッドを提供するユーティリティクラス。
  * 
  * <pre>
  * -- revision history --
@@ -52,9 +52,9 @@ import java.lang.ArrayIndexOutOfBoundsException;
  * Revision 1.0  2002/07/24 00:00:00  dangan
  * add to version control
  * [change]
- *     writeByte(), readByte() ��P���B
+ *     writeByte(), readByte() を撤去。
  * [maintenance]
- *     �\�[�X����
+ *     ソース整備
  *
  * </pre>
  * 
@@ -70,7 +70,7 @@ public class LittleEndian{
     //  private LittleEndian()
     //------------------------------------------------------------------
     /**
-     * �f�t�H���g�R���X�g���N�^�B�g�p�s�B
+     * デフォルトコンストラクタ。使用不可。
      */
     private LittleEndian(){ }
 
@@ -85,18 +85,18 @@ public class LittleEndian{
     //  public static final long readLong( byte[] ByteArray, int index )
     //------------------------------------------------------------------
     /**
-     * ByteArray �� index �̈ʒu���� ���g���G���f�B�A����
-     * 2�o�C�g�l��ǂݏo���B�ǂݏo���ꂽ 2�o�C�g�l�� 
-     * 0x0000�`0xFFFF�Ƀ}�b�v�����B
+     * ByteArray の index の位置から リトルエンディアンで
+     * 2バイト値を読み出す。読み出された 2バイト値は 
+     * 0x0000〜0xFFFFにマップされる。
      *
-     * @param ByteArray �o�C�g�z��
-     * @param index     ByteArray���̃f�[�^�̊J�n�ʒu
+     * @param ByteArray バイト配列
+     * @param index     ByteArray内のデータの開始位置
      * 
-     * @return �ǂݏo���ꂽ2�o�C�g�l
+     * @return 読み出された2バイト値
      * 
      * @exception ArrayIndexOutOfBoundsException
-     *                  index����n�܂�f�[�^�� 
-     *                  ByteArray�͈͓̔��ɖ����ꍇ�B
+     *                  indexから始まるデータが 
+     *                  ByteArrayの範囲内に無い場合。
      */
     public static final int readShort( byte[] ByteArray, int index ){
         return   ( ByteArray[index]       & 0xFF )
@@ -104,17 +104,17 @@ public class LittleEndian{
     }
 
     /**
-     * ByteArray �� index �̈ʒu���烊�g���G���f�B�A����
-     * 4�o�C�g�l��ǂݏo���B
+     * ByteArray の index の位置からリトルエンディアンで
+     * 4バイト値を読み出す。
      *
-     * @param ByteArray �o�C�g�z��
-     * @param index     ByteArray���̃f�[�^�̊J�n�ʒu
+     * @param ByteArray バイト配列
+     * @param index     ByteArray内のデータの開始位置
      * 
-     * @return �ǂݏo���ꂽ4�o�C�g�l
+     * @return 読み出された4バイト値
      * 
      * @exception ArrayIndexOutOfBoundsException
-     *                  index����n�܂�f�[�^�� 
-     *                  ByteArray�͈͓̔��ɖ����ꍇ�B
+     *                  indexから始まるデータが 
+     *                  ByteArrayの範囲内に無い場合。
      */
     public static final int readInt( byte[] ByteArray, int index ){
         return   (   ByteArray[index]     & 0xFF )
@@ -124,20 +124,20 @@ public class LittleEndian{
     }
 
     /**
-     * ByteArray �� index �̈ʒu���烊�g���G���f�B�A����
-     * 8�o�C�g�l��ǂݏo���B
+     * ByteArray の index の位置からリトルエンディアンで
+     * 8バイト値を読み出す。
      * 
-     * @param ByteArray �o�C�g�z��
-     * @param index     ByteArray���̃f�[�^�̊J�n�ʒu
+     * @param ByteArray バイト配列
+     * @param index     ByteArray内のデータの開始位置
      * 
-     * @return �ǂݏo���ꂽ8�o�C�g�l
+     * @return 読み出された8バイト値
      * 
      * @exception ArrayIndexOutOfBoundsException
-     *                  index����n�܂�f�[�^�� 
-     *                  ByteArray�͈͓̔��ɖ����ꍇ�B
+     *                  indexから始まるデータが 
+     *                  ByteArrayの範囲内に無い場合。
      */
     public static final long readLong( byte[] ByteArray, int index ){
-        return   ( (long)LittleEndian.readInt( ByteArray, index ) & 0xFFFFFFFFL )
+        return   ( LittleEndian.readInt( ByteArray, index ) & 0xFFFFFFFFL )
                | ( (long)LittleEndian.readInt( ByteArray, index + 4 ) << 32L );
     }
 
@@ -152,19 +152,19 @@ public class LittleEndian{
     //  public static final long readLong( InputStream in )
     //------------------------------------------------------------------
     /**
-     * ���̓X�g���[�� in ���� ���g���G���f�B�A����
-     * 2byte�l��ǂݏo���B
+     * 入力ストリーム in から リトルエンディアンで
+     * 2byte値を読み出す。
      * 
-     * @param in ���̓X�g���[��
+     * @param in 入力ストリーム
      * 
-     * @return �ǂݏo���ꂽ2byte�l
+     * @return 読み出された2byte値
      * 
      * @exception EOFException
-     *                  ���� End Of Stream�ɒB���Ă������A
-     *                  �ǂݍ��݂̓r���� End Of Stream�ɒB�����B
-     *                  �ǂݍ��ݓr���̃f�[�^�͏�������B
+     *                  既に End Of Streamに達していたか、
+     *                  読み込みの途中で End Of Streamに達した。
+     *                  読み込み途中のデータは消失する。
      * @exception IOException
-     *                  ���o�̓G���[�����������ꍇ
+     *                  入出力エラーが発生した場合
      */
     public static final int  readShort( InputStream in )
                                                 throws IOException {
@@ -180,19 +180,19 @@ public class LittleEndian{
     }
 
     /**
-     * ���̓X�g���[�� in ���� ���g���G���f�B�A����
-     * 4byte�l��ǂݏo���B
+     * 入力ストリーム in から リトルエンディアンで
+     * 4byte値を読み出す。
      * 
-     * @param in ���̓X�g���[��
+     * @param in 入力ストリーム
      * 
-     * @return �ǂݏo���ꂽ4byte�l
+     * @return 読み出された4byte値
      * 
      * @exception EOFException
-     *                  ���� End Of Stream�ɒB���Ă������A
-     *                  �ǂݍ��݂̓r���� End Of Stream�ɒB�����B
-     *                  �ǂݍ��ݓr���̃f�[�^�͏�������B
+     *                  既に End Of Streamに達していたか、
+     *                  読み込みの途中で End Of Streamに達した。
+     *                  読み込み途中のデータは消失する。
      * @exception IOException
-     *                  ���o�̓G���[�����������ꍇ
+     *                  入出力エラーが発生した場合
      */
     public static final int  readInt( InputStream in )
                                                 throws IOException {
@@ -212,24 +212,24 @@ public class LittleEndian{
     }
 
     /**
-     * ���̓X�g���[�� in ���� ���g���G���f�B�A����
-     * 8byte�l��ǂݏo���B
+     * 入力ストリーム in から リトルエンディアンで
+     * 8byte値を読み出す。
      * 
-     * @param in ���̓X�g���[��
+     * @param in 入力ストリーム
      * 
-     * @return �ǂݏo���ꂽ8byte�l
+     * @return 読み出された8byte値
      * 
      * @exception EOFException
-     *                  ���� End Of Stream�ɒB���Ă������A
-     *                  �ǂݍ��݂̓r���� End Of Stream�ɒB�����B
-     *                  �ǂݍ��ݓr���̃f�[�^�͏�������B
+     *                  既に End Of Streamに達していたか、
+     *                  読み込みの途中で End Of Streamに達した。
+     *                  読み込み途中のデータは消失する。
      * @exception IOException
-     *                  ���o�̓G���[�����������ꍇ
+     *                  入出力エラーが発生した場合
      */
     public static final long readLong( InputStream in )
                                                 throws IOException {
 
-        return   ( (long)LittleEndian.readInt( in ) & 0xFFFFFFFFL )
+        return   ( LittleEndian.readInt( in ) & 0xFFFFFFFFL )
                | ( (long)LittleEndian.readInt( in ) << 32 );
 
     }
@@ -245,16 +245,16 @@ public class LittleEndian{
     //  public static final void writeLong( byte[] ByteArray, int index, long value )
     //------------------------------------------------------------------
     /**
-     * ByteArray �� index �̈ʒu�Ƀ��g���G���f�B�A����
-     * 2byte�l�������o���B
+     * ByteArray の index の位置にリトルエンディアンで
+     * 2byte値を書き出す。
      * 
-     * @param ByteArray �o�C�g�z��
-     * @param index     ByteArray���̃f�[�^���������ވʒu
-     * @param value     �������� 2byte�l
+     * @param ByteArray バイト配列
+     * @param index     ByteArray内のデータを書きこむ位置
+     * @param value     書きこむ 2byte値
      * 
      * @exception ArrayIndexOutOfBoundsException
-     *                  index����n�܂�f�[�^�� 
-     *                  ByteArray�͈͓̔��ɖ����ꍇ�B
+     *                  indexから始まるデータが 
+     *                  ByteArrayの範囲内に無い場合。
      */
     public static final void writeShort( byte[] ByteArray, 
                                          int    index, 
@@ -269,16 +269,16 @@ public class LittleEndian{
     }
 
     /**
-     * ByteArray �� index �̈ʒu�Ƀ��g���G���f�B�A����
-     * 4byte�l�������o���B
+     * ByteArray の index の位置にリトルエンディアンで
+     * 4byte値を書き出す。
      * 
-     * @param ByteArray �o�C�g�z��
-     * @param index     ByteArray���̃f�[�^���������ވʒu
-     * @param value     �������� 4byte�l
+     * @param ByteArray バイト配列
+     * @param index     ByteArray内のデータを書きこむ位置
+     * @param value     書きこむ 4byte値
      * 
      * @exception ArrayIndexOutOfBoundsException
-     *                  index����n�܂�f�[�^�� 
-     *                  ByteArray�͈͓̔��ɖ����ꍇ�B
+     *                  indexから始まるデータが 
+     *                  ByteArrayの範囲内に無い場合。
      */
     public static final void writeInt( byte[] ByteArray, 
                                        int    index, 
@@ -295,16 +295,16 @@ public class LittleEndian{
     }
 
     /**
-     * ByteArray �� index �̈ʒu�Ƀ��g���G���f�B�A����
-     * 8byte�l�������o���B
+     * ByteArray の index の位置にリトルエンディアンで
+     * 8byte値を書き出す。
      * 
-     * @param ByteArray �o�C�g�z��
-     * @param index     ByteArray���̃f�[�^���������ވʒu
-     * @param value     �������� 8byte�l
+     * @param ByteArray バイト配列
+     * @param index     ByteArray内のデータを書きこむ位置
+     * @param value     書きこむ 8byte値
      * 
      * @exception ArrayIndexOutOfBoundsException
-     *                  index����n�܂�f�[�^�� 
-     *                  ByteArray�͈͓̔��ɖ����ꍇ�B
+     *                  indexから始まるデータが 
+     *                  ByteArrayの範囲内に無い場合。
      */
     public static final void writeLong( byte[] ByteArray, 
                                         int    index, 
@@ -328,14 +328,14 @@ public class LittleEndian{
     //  public static final void writeLong( OutputStream out, long value )
     //------------------------------------------------------------------
     /**
-     * �o�̓X�g���[�� out �� ���g���G���f�B�A����
-     * 2�o�C�g�����o���B
+     * 出力ストリーム out に リトルエンディアンで
+     * 2バイト書き出す。
      * 
-     * @param out   �o�̓X�g���[��
-     * @param value �����o��2�o�C�g�l
+     * @param out   出力ストリーム
+     * @param value 書き出す2バイト値
      *
      * @exception IOException
-     *                  ���o�̓G���[�����������ꍇ
+     *                  入出力エラーが発生した場合
      */
     public static final void writeShort( OutputStream out, int value )
                                                 throws IOException {
@@ -344,14 +344,14 @@ public class LittleEndian{
     }
 
     /**
-     * �o�̓X�g���[�� out �� ���g���G���f�B�A����
-     * 4�o�C�g�l�������o���B
+     * 出力ストリーム out に リトルエンディアンで
+     * 4バイト値を書き出す。
      * 
-     * @param out   �o�̓X�g���[��
-     * @param value �����o��1�o�C�g�l
+     * @param out   出力ストリーム
+     * @param value 書き出す1バイト値
      *
      * @exception IOException
-     *                  ���o�̓G���[�����������ꍇ
+     *                  入出力エラーが発生した場合
      */
     public static final void writeInt( OutputStream out, int value )
                                                 throws IOException {
@@ -362,14 +362,14 @@ public class LittleEndian{
     }
 
     /**
-     * �o�̓X�g���[�� out �� ���g���G���f�B�A����
-     * 8�o�C�g�l�������o���B
+     * 出力ストリーム out に リトルエンディアンで
+     * 8バイト値を書き出す。
      * 
-     * @param out   �o�̓X�g���[��
-     * @param value �����o��1�o�C�g�l
+     * @param out   出力ストリーム
+     * @param value 書き出す1バイト値
      *
      * @exception IOException
-     *                  ���o�̓G���[�����������ꍇ
+     *                  入出力エラーが発生した場合
      */
     public static final void writeLong( OutputStream out, long value )
                                                 throws IOException {

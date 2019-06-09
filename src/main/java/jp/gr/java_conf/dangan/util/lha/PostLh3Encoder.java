@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  * 
- * €И‰є‚МЏрЊЏ‚Й“Ї€У‚·‚й‚И‚з‚Оѓ\Ѓ[ѓX‚ЖѓoѓCѓiѓЉЊ`Ћ®‚МЌД”z•z‚ЖЋg—p‚р
- * •ПЌX‚М—L–і‚Й‚©‚©‚н‚з‚ё‹–‰В‚·‚йЃB
+ * д»Ґдё‹гЃ®жќЎд»¶гЃ«еђЊж„ЏгЃ™г‚‹гЃЄг‚‰гЃ°г‚Ѕгѓјг‚№гЃЁгѓђг‚¤гѓЉгѓЄеЅўејЏгЃ®е†Ќй…ЌеёѓгЃЁдЅїз”Ёг‚’
+ * е¤‰ж›ґгЃ®жњ‰з„ЎгЃ«гЃ‹гЃ‹г‚Џг‚‰гЃљиЁ±еЏЇгЃ™г‚‹гЂ‚
  * 
- * ‚PЃDѓ\Ѓ[ѓXѓRЃ[ѓh‚МЌД”z•z‚Й‚Ё‚ў‚Д’ЌмЊ •\Ћ¦‚Ж ‚±‚МЏрЊЏ‚МѓЉѓXѓg
- *     ‚Ё‚ж‚С‰є‹L‚Мђє–ѕ•¶‚р•ЫЋќ‚µ‚И‚­‚Д‚Н‚И‚з‚И‚ўЃB
+ * пј‘пјЋг‚Ѕгѓјг‚№г‚ігѓјгѓ‰гЃ®е†Ќй…ЌеёѓгЃ«гЃЉгЃ„гЃ¦и‘—дЅњжЁ©иЎЁз¤єгЃЁ гЃ“гЃ®жќЎд»¶гЃ®гѓЄг‚№гѓ€
+ *     гЃЉг‚€гЃідё‹иЁгЃ®еЈ°жЋж–‡г‚’дїќжЊЃгЃ—гЃЄгЃЏгЃ¦гЃЇгЃЄг‚‰гЃЄгЃ„гЂ‚
  * 
- * ‚QЃDѓoѓCѓiѓЉЊ`Ћ®‚МЌД”z•z‚Й‚Ё‚ў‚Д’ЌмЊ •\Ћ¦‚Ж ‚±‚МЏрЊЏ‚МѓЉѓXѓg
- *     ‚Ё‚ж‚С‰є‹L‚Мђє–ѕ•¶‚рЋg—pђа–ѕЏ‘‚а‚µ‚­‚Н ‚»‚М‘ј‚М”z•z•Ё“а‚Й
- *     ЉЬ‚ЮЋ‘—ї‚Й‹LЏq‚µ‚И‚Ї‚к‚О‚И‚з‚И‚ўЃB
+ * пј’пјЋгѓђг‚¤гѓЉгѓЄеЅўејЏгЃ®е†Ќй…ЌеёѓгЃ«гЃЉгЃ„гЃ¦и‘—дЅњжЁ©иЎЁз¤єгЃЁ гЃ“гЃ®жќЎд»¶гЃ®гѓЄг‚№гѓ€
+ *     гЃЉг‚€гЃідё‹иЁгЃ®еЈ°жЋж–‡г‚’дЅїз”ЁиЄ¬жЋж›ёг‚‚гЃ—гЃЏгЃЇ гЃќгЃ®д»–гЃ®й…Ќеёѓз‰©е†…гЃ«
+ *     еђ«г‚Ђиі‡ж–™гЃ«иЁиї°гЃ—гЃЄгЃ‘г‚ЊгЃ°гЃЄг‚‰гЃЄгЃ„гЂ‚
  * 
- * ‚±‚Мѓ\ѓtѓgѓEѓFѓA‚НђО’Л”ьЋм—Ъ‚Й‚ж‚Б‚Д–і•ЫЏШ‚Е’с‹џ‚і‚кЃA“Б’и‚М–Ъ
- * “I‚р’Bђ¬‚Е‚«‚й‚Ж‚ў‚¤•ЫЏШЃAЏ¤•i‰ї’l‚Є—L‚й‚Ж‚ў‚¤•ЫЏШ‚Й‚Ж‚З‚Ь‚з‚ёЃA
- * ‚ў‚©‚И‚й–ѕЋ¦“I‚Ё‚ж‚С€ГЋ¦“I‚И•ЫЏШ‚а‚µ‚И‚ўЃB
- * ђО’Л”ьЋм—Ъ‚Н ‚±‚Мѓ\ѓtѓgѓEѓFѓA‚МЋg—p‚Й‚ж‚й’јђЪ“IЃAЉФђЪ“IЃA‹ф”­
- * “IЃA“БЋк‚ИЃA“TЊ^“I‚ИЃA‚ ‚й‚ў‚Н•K‘R“I‚И‘№ЉQ(Ћg—p‚Й‚ж‚йѓfЃ[ѓ^‚М
- * ‘№ЋёЃA‹Ж–±‚М’†’f‚вЊ©Ќћ‚Ь‚к‚Д‚ў‚Ѕ—‰v‚М€вЋёЃA‘г‘Цђ»•i‚а‚µ‚­‚Н
- * ѓTЃ[ѓrѓX‚М“±“ь”п“™‚ЄЌl‚¦‚з‚к‚й‚ЄЃAЊ€‚µ‚Д‚»‚к‚ѕ‚Ї‚ЙЊА’и‚і‚к‚И‚ў
- * ‘№ЉQ)‚Й‘О‚µ‚ДЃA‚ў‚©‚И‚йЋ–‘Ф‚МЊґ€ц‚Ж‚И‚Б‚Ѕ‚Ж‚µ‚Д‚аЃAЊ_–сЏг‚МђУ
- * ”C‚в–і‰ЯЋёђУ”C‚рЉЬ‚Ю ‚ў‚©‚И‚йђУ”C‚Є‚ ‚л‚¤‚Ж‚аЃA‚Ѕ‚Ж‚¦‚»‚к‚Є•s
- * ђіЌs€Ч‚М‚Ѕ‚Я‚Е‚ ‚Б‚Ѕ‚Ж‚µ‚Д‚аЃA‚Ь‚Ѕ‚Н‚»‚М‚ж‚¤‚И‘№ЉQ‚М‰В”\ђ«‚Є•с
- * Ќђ‚і‚к‚Д‚ў‚Ѕ‚Ж‚µ‚Д‚а€кђШ‚МђУ”C‚р•‰‚н‚И‚ў‚а‚М‚Ж‚·‚йЃB
+ * гЃ“гЃ®г‚Ѕгѓ•гѓ€г‚¦г‚§г‚ўгЃЇзџіеЎљзѕЋзЏ з‘ гЃ«г‚€гЃЈгЃ¦з„ЎдїќиЁјгЃ§жЏђдѕ›гЃ•г‚ЊгЂЃз‰№е®љгЃ®з›®
+ * зљ„г‚’йЃ”ж€ђгЃ§гЃЌг‚‹гЃЁгЃ„гЃ†дїќиЁјгЂЃе•†е“ЃдѕЎеЂ¤гЃЊжњ‰г‚‹гЃЁгЃ„гЃ†дїќиЁјгЃ«гЃЁгЃ©гЃѕг‚‰гЃљгЂЃ
+ * гЃ„гЃ‹гЃЄг‚‹жЋз¤єзљ„гЃЉг‚€гЃіжљ—з¤єзљ„гЃЄдїќиЁјг‚‚гЃ—гЃЄгЃ„гЂ‚
+ * зџіеЎљзѕЋзЏ з‘ гЃЇ гЃ“гЃ®г‚Ѕгѓ•гѓ€г‚¦г‚§г‚ўгЃ®дЅїз”ЁгЃ«г‚€г‚‹з›ґжЋҐзљ„гЂЃй–“жЋҐзљ„гЂЃеЃ¶з™є
+ * зљ„гЂЃз‰№ж®ЉгЃЄгЂЃе…ёећ‹зљ„гЃЄгЂЃгЃ‚г‚‹гЃ„гЃЇеї…з„¶зљ„гЃЄжђЌе®і(дЅїз”ЁгЃ«г‚€г‚‹гѓ‡гѓјг‚їгЃ®
+ * жђЌе¤±гЂЃжҐ­е‹™гЃ®дё­ж–­г‚„и¦‹иѕјгЃѕг‚ЊгЃ¦гЃ„гЃџе€©з›ЉгЃ®йЃєе¤±гЂЃд»Јж›їиЈЅе“Ѓг‚‚гЃ—гЃЏгЃЇ
+ * г‚µгѓјгѓ“г‚№гЃ®е°Ће…ҐиІ»з­‰гЃЊиЂѓгЃ€г‚‰г‚Њг‚‹гЃЊгЂЃж±єгЃ—гЃ¦гЃќг‚ЊгЃ гЃ‘гЃ«й™ђе®љгЃ•г‚ЊгЃЄгЃ„
+ * жђЌе®і)гЃ«еЇѕгЃ—гЃ¦гЂЃгЃ„гЃ‹гЃЄг‚‹дє‹ж…‹гЃ®еЋџе› гЃЁгЃЄгЃЈгЃџгЃЁгЃ—гЃ¦г‚‚гЂЃеҐ‘зґ„дёЉгЃ®иІ¬
+ * д»»г‚„з„ЎйЃЋе¤±иІ¬д»»г‚’еђ«г‚Ђ гЃ„гЃ‹гЃЄг‚‹иІ¬д»»гЃЊгЃ‚г‚ЌгЃ†гЃЁг‚‚гЂЃгЃџгЃЁгЃ€гЃќг‚ЊгЃЊдёЌ
+ * ж­ЈиЎЊз‚єгЃ®гЃџг‚ЃгЃ§гЃ‚гЃЈгЃџгЃЁгЃ—гЃ¦г‚‚гЂЃгЃѕгЃџгЃЇгЃќгЃ®г‚€гЃ†гЃЄжђЌе®ігЃ®еЏЇиѓЅжЂ§гЃЊе ±
+ * е‘ЉгЃ•г‚ЊгЃ¦гЃ„гЃџгЃЁгЃ—гЃ¦г‚‚дёЂе€‡гЃ®иІ¬д»»г‚’иІ г‚ЏгЃЄгЃ„г‚‚гЃ®гЃЁгЃ™г‚‹гЂ‚
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -45,27 +45,27 @@ import java.lang.IllegalArgumentException;
 
 
 /**
- * -lh3- €іЏk—p PostLzssEncoderЃB<br>
+ * -lh3- ењ§зё®з”Ё PostLzssEncoderгЂ‚<br>
  * 
  * <pre>
  * $Log: PostLh3Encoder.java,v $
  * Revision 1.2  2002/12/06 00:00:00  dangan
  * [maintenance]
- *     ѓ\Ѓ[ѓXђ®”х
+ *     г‚Ѕгѓјг‚№ж•ґе‚™
  *
  * Revision 1.1  2002/12/01 00:00:00  dangan
  * [change]
- *     flush() ‚і‚к‚И‚ў‚©‚¬‚и 
- *     ђЪ‘±‚і‚к‚Ѕ OutputStream ‚рflush() ‚µ‚И‚ў‚ж‚¤‚Й•ПЌXЃB
+ *     flush() гЃ•г‚ЊгЃЄгЃ„гЃ‹гЃЋг‚Љ 
+ *     жЋҐз¶љгЃ•г‚ЊгЃџ OutputStream г‚’flush() гЃ—гЃЄгЃ„г‚€гЃ†гЃ«е¤‰ж›ґгЂ‚
  * [maintenance]
- *     ѓ\Ѓ[ѓXђ®”хЃB
+ *     г‚Ѕгѓјг‚№ж•ґе‚™гЂ‚
  *
  * Revision 1.0  2002/07/31 00:00:00  dangan
  * add to version control
  * [maintenance]
- *     ѓ\Ѓ[ѓXђ®”х
- *     ѓ^ѓu”pЋ~
- *     ѓ‰ѓCѓZѓ“ѓX•¶‚МЏCђі
+ *     г‚Ѕгѓјг‚№ж•ґе‚™
+ *     г‚їгѓ–е»ѓж­ў
+ *     гѓ©г‚¤г‚»гѓіг‚№ж–‡гЃ®дї®ж­Ј
  *
  * </pre>
  * 
@@ -83,13 +83,13 @@ public class PostLh3Encoder implements PostLzssEncoder{
     //  private static final int MaxMatch
     //  private static final int Threshold
     //------------------------------------------------------------------
-    /** Ћ«Џ‘ѓTѓCѓY */
+    /** иѕћж›ёг‚µг‚¤г‚є */
     private static final int DictionarySize  = 8192;
 
-    /** ЌЕ‘е€к’v’· */
+    /** жњЂе¤§дёЂи‡ґй•· */
     private static final int MaxMatch        = 256;
 
-    /** ЌЕЏ¬€к’v’· */
+    /** жњЂе°ЏдёЂи‡ґй•· */
     private static final int Threshold       = 3;
 
 
@@ -100,13 +100,13 @@ public class PostLh3Encoder implements PostLzssEncoder{
     //  private static final int CodeSize
     //------------------------------------------------------------------
     /**
-     * OffHi•”•Є‚МЊЕ’иѓnѓtѓ}ѓ“•„Ќ†’·
+     * OffHiйѓЁе€†гЃ®е›єе®љгѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·
      */
     private static final int[] ConstOffHiLen = PostLh3Encoder.createConstOffHiLen();
 
     /**
-     * code•”‚Мѓnѓtѓ}ѓ“–Ш‚МѓTѓCѓY 
-     * code•”‚Є‚±‚к€ИЏг‚М’l‚р€µ‚¤ЏкЌ‡‚Н—]Њv‚Иѓrѓbѓg‚рЏo—Н‚µ‚Д•в‚¤ЃB
+     * codeйѓЁгЃ®гѓЏгѓ•гѓћгѓіжњЁгЃ®г‚µг‚¤г‚є 
+     * codeйѓЁгЃЊгЃ“г‚Њд»ҐдёЉгЃ®еЂ¤г‚’ж‰±гЃ†е ґеђ€гЃЇдЅ™иЁ€гЃЄгѓ“гѓѓгѓ€г‚’е‡єеЉ›гЃ—гЃ¦иЈњгЃ†гЂ‚
      */
     private static final int CodeSize = 286;
 
@@ -119,7 +119,7 @@ public class PostLh3Encoder implements PostLzssEncoder{
     //  private BitOutputStream out
     //------------------------------------------------------------------
     /**
-     * -lh3- Њ`Ћ®‚М€іЏkѓfЃ[ѓ^‚МЏo—Нђж‚М ѓrѓbѓgЏo—НѓXѓgѓЉЃ[ѓЂ
+     * -lh3- еЅўејЏгЃ®ењ§зё®гѓ‡гѓјг‚їгЃ®е‡єеЉ›е…€гЃ® гѓ“гѓѓгѓ€е‡єеЉ›г‚№гѓ€гѓЄгѓјгѓ 
      */
     private BitOutputStream out;
 
@@ -136,27 +136,27 @@ public class PostLh3Encoder implements PostLzssEncoder{
     //  private int flagPos
     //------------------------------------------------------------------
     /**
-     * ђГ“Iѓnѓtѓ}ѓ“€іЏk‚·‚й‚Ѕ‚Я‚ЙѓfЃ[ѓ^‚р€кЋћ“I‚Й’™‚¦‚йѓoѓbѓtѓ@
+     * йќ™зљ„гѓЏгѓ•гѓћгѓіењ§зё®гЃ™г‚‹гЃџг‚ЃгЃ«гѓ‡гѓјг‚їг‚’дёЂж™‚зљ„гЃ«иІЇгЃ€г‚‹гѓђгѓѓгѓ•г‚Ў
      */
     private byte[] buffer;
 
     /**
-     * ѓoѓbѓtѓ@“а‚Й‚ ‚й code ѓfЃ[ѓ^‚Мђ”ЃB
+     * гѓђгѓѓгѓ•г‚Ўе†…гЃ«гЃ‚г‚‹ code гѓ‡гѓјг‚їгЃ®ж•°гЂ‚
      */
     private int blockSize;
 
     /**
-     * buffer“а‚МЊ»ЌЭЏ€—ќ€К’u
+     * bufferе†…гЃ®зЏѕењЁе‡¦зђ†дЅЌзЅ®
      */
     private int position;
 
     /**
-     * flag ѓoѓCѓg“а‚МЊ»ЌЭЏ€—ќbit
+     * flag гѓђг‚¤гѓ€е†…гЃ®зЏѕењЁе‡¦зђ†bit
      */
     private int flagBit;
 
     /**
-     * buffer“а‚МЊ»ЌЭ‚МflagѓoѓCѓg‚М€К’u
+     * bufferе†…гЃ®зЏѕењЁгЃ®flagгѓђг‚¤гѓ€гЃ®дЅЌзЅ®
      */
     private int flagPos;
 
@@ -170,47 +170,34 @@ public class PostLh3Encoder implements PostLzssEncoder{
     //  private int[] offHiFreq
     //------------------------------------------------------------------
     /**
-     * code•”‚М•p“x•\
+     * codeйѓЁгЃ®й »еє¦иЎЁ
      */
     private int[] codeFreq;
 
     /**
-     * offHi•”‚М•p“x•\
+     * offHiйѓЁгЃ®й »еє¦иЎЁ
      */
     private int[] offHiFreq;
 
 
-    //------------------------------------------------------------------
-    //  constructers
-    //------------------------------------------------------------------
-    //  private PostLh3Encoder()
-    //  public PostLh3Encoder( OutputStream out )
-    //  public PostLh3Encoder( OutputStream out, int BufferSize )
-    //------------------------------------------------------------------
     /**
-     * ѓfѓtѓHѓ‹ѓgѓRѓ“ѓXѓgѓ‰ѓNѓ^ЃB
-     * Ћg—p•s‰ВЃB
-     */
-    private PostLh3Encoder(){   }
-
-    /**
-     * -lh3- €іЏk—p PostLzssEncoder‚рЌ\’z‚·‚йЃB<br>
-     * ѓoѓbѓtѓ@ѓTѓCѓY‚Й‚НѓfѓtѓHѓ‹ѓg’l‚ЄЋg—p‚і‚к‚йЃB
+     * -lh3- ењ§зё®з”Ё PostLzssEncoderг‚’ж§‹зЇ‰гЃ™г‚‹гЂ‚<br>
+     * гѓђгѓѓгѓ•г‚Ўг‚µг‚¤г‚єгЃ«гЃЇгѓ‡гѓ•г‚©гѓ«гѓ€еЂ¤гЃЊдЅїз”ЁгЃ•г‚Њг‚‹гЂ‚
      * 
-     * @param out €іЏkѓfЃ[ѓ^‚рЋу‚ЇЋж‚йЏo—НѓXѓgѓЉЃ[ѓЂ
+     * @param out ењ§зё®гѓ‡гѓјг‚їг‚’еЏ—гЃ‘еЏ–г‚‹е‡єеЉ›г‚№гѓ€гѓЄгѓјгѓ 
      */
     public PostLh3Encoder( OutputStream out ){
         this( out, 16384 );
     }
 
     /**
-     * -lh3- €іЏk—p PostLzssEncoder‚рЌ\’z‚·‚йЃB<br>
+     * -lh3- ењ§зё®з”Ё PostLzssEncoderг‚’ж§‹зЇ‰гЃ™г‚‹гЂ‚<br>
      * 
-     * @param out        €іЏkѓfЃ[ѓ^‚рЋу‚ЇЋж‚йЏo—НѓXѓgѓЉЃ[ѓЂ
-     * @param BufferSize ђГ“Iѓnѓtѓ}ѓ“€іЏk—p‚Мѓoѓbѓtѓ@ѓTѓCѓY
+     * @param out        ењ§зё®гѓ‡гѓјг‚їг‚’еЏ—гЃ‘еЏ–г‚‹е‡єеЉ›г‚№гѓ€гѓЄгѓјгѓ 
+     * @param BufferSize йќ™зљ„гѓЏгѓ•гѓћгѓіењ§зё®з”ЁгЃ®гѓђгѓѓгѓ•г‚Ўг‚µг‚¤г‚є
      * 
      * @exception IllegalArgumentException 
-     *                   BufferSize ‚ЄЏ¬‚і‚·‚¬‚йЏкЌ‡
+     *                   BufferSize гЃЊе°ЏгЃ•гЃ™гЃЋг‚‹е ґеђ€
      */
     public PostLh3Encoder( OutputStream out, int BufferSize ){
         final int DictionarySizeByteLen = 2;
@@ -248,13 +235,13 @@ public class PostLh3Encoder implements PostLzssEncoder{
     //  public void writeOffset( int offset )
     //------------------------------------------------------------------
     /**
-     * 1byte ‚М LZSS–ў€іЏk‚МѓfЃ[ѓ^‚а‚µ‚­‚НЃA
-     * LZSS ‚Е€іЏk‚і‚к‚Ѕ€іЏkѓRЃ[ѓh‚М‚¤‚ї€к’v’·‚рЏ‘‚«‚±‚ЮЃB<br>
+     * 1byte гЃ® LZSSжњЄењ§зё®гЃ®гѓ‡гѓјг‚їг‚‚гЃ—гЃЏгЃЇгЂЃ
+     * LZSS гЃ§ењ§зё®гЃ•г‚ЊгЃџењ§зё®г‚ігѓјгѓ‰гЃ®гЃ†гЃЎдёЂи‡ґй•·г‚’ж›ёгЃЌгЃ“г‚ЂгЂ‚<br>
      * 
-     * @param code 1byte ‚М LZSS–ў€іЏk‚МѓfЃ[ѓ^‚а‚µ‚­‚НЃA
-     *             LZSS ‚Е€іЏk‚і‚к‚Ѕ€іЏkѓRЃ[ѓh‚М‚¤‚ї€к’v’·
+     * @param code 1byte гЃ® LZSSжњЄењ§зё®гЃ®гѓ‡гѓјг‚їг‚‚гЃ—гЃЏгЃЇгЂЃ
+     *             LZSS гЃ§ењ§зё®гЃ•г‚ЊгЃџењ§зё®г‚ігѓјгѓ‰гЃ®гЃ†гЃЎдёЂи‡ґй•·
      * 
-     * @exception IOException “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
+     * @exception IOException е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
      */
     public void writeCode( int code ) throws IOException {
         final int CodeMax  = PostLh3Encoder.CodeSize - 1;
@@ -271,31 +258,31 @@ public class PostLh3Encoder implements PostLzssEncoder{
             this.buffer[ this.flagPos ] = 0;
         }
 
-        //ѓfЃ[ѓ^Љi”[
+        //гѓ‡гѓјг‚їж јзґЌ
         this.buffer[this.position++] = (byte)code;
 
-        //Џг€К1ѓrѓbѓg‚рѓtѓ‰ѓO‚Ж‚µ‚ДЉi”[
+        //дёЉдЅЌ1гѓ“гѓѓгѓ€г‚’гѓ•гѓ©г‚°гЃЁгЃ—гЃ¦ж јзґЌ
         if( 0x100 <= code ) this.buffer[ this.flagPos ] |= this.flagBit;
         this.flagBit >>= 1;
 
-        //•p“x•\ЌXђV
+        //й »еє¦иЎЁж›ґж–°
         this.codeFreq[ Math.min( code, CodeMax ) ]++;
 
-        //ѓuѓЌѓbѓNѓTѓCѓYЌXђV
+        //гѓ–гѓ­гѓѓг‚Їг‚µг‚¤г‚єж›ґж–°
         this.blockSize++;
     }
 
     /**
-     * LZSS ‚Е€іЏk‚і‚к‚Ѕ€іЏkѓRЃ[ѓh‚М‚¤‚ї€к’v€К’u‚рЏ‘‚«‚±‚ЮЃB<br>
+     * LZSS гЃ§ењ§зё®гЃ•г‚ЊгЃџењ§зё®г‚ігѓјгѓ‰гЃ®гЃ†гЃЎдёЂи‡ґдЅЌзЅ®г‚’ж›ёгЃЌгЃ“г‚ЂгЂ‚<br>
      * 
-     * @param offset LZSS ‚Е€іЏk‚і‚к‚Ѕ€іЏkѓRЃ[ѓh‚М‚¤‚ї€к’v€К’u
+     * @param offset LZSS гЃ§ењ§зё®гЃ•г‚ЊгЃџењ§зё®г‚ігѓјгѓ‰гЃ®гЃ†гЃЎдёЂи‡ґдЅЌзЅ®
      */
     public void writeOffset( int offset ){
-        //ѓfЃ[ѓ^Љi”[
+        //гѓ‡гѓјг‚їж јзґЌ
         this.buffer[ this.position++ ] = (byte)( offset >> 8 );
         this.buffer[ this.position++ ] = (byte)offset;
 
-        //•p“x•\ЌXђV
+        //й »еє¦иЎЁж›ґж–°
         this.offHiFreq[ ( offset >> 6 ) ]++;
     }
 
@@ -309,12 +296,12 @@ public class PostLh3Encoder implements PostLzssEncoder{
     //  public void close()
     //------------------------------------------------------------------
     /**
-     * ‚±‚М PostLzssEncoder ‚Йѓoѓbѓtѓ@ѓЉѓ“ѓO‚і‚к‚Д‚ў‚й‘S‚Д‚М
-     * 8ѓrѓbѓg’P€К‚МѓfЃ[ѓ^‚рЏo—Нђж‚М OutputStream ‚ЙЏo—Н‚µЃA
-     * Џo—Нђж‚М OutputStream ‚р flush() ‚·‚йЃB<br>
-     * ‚±‚МѓЃѓ\ѓbѓh‚Н€іЏk—¦‚р•П‰»‚і‚№‚йЃB
+     * гЃ“гЃ® PostLzssEncoder гЃ«гѓђгѓѓгѓ•г‚ЎгѓЄгѓіг‚°гЃ•г‚ЊгЃ¦гЃ„г‚‹е…ЁгЃ¦гЃ®
+     * 8гѓ“гѓѓгѓ€еЌдЅЌгЃ®гѓ‡гѓјг‚їг‚’е‡єеЉ›е…€гЃ® OutputStream гЃ«е‡єеЉ›гЃ—гЂЃ
+     * е‡єеЉ›е…€гЃ® OutputStream г‚’ flush() гЃ™г‚‹гЂ‚<br>
+     * гЃ“гЃ®гѓЎг‚Ѕгѓѓгѓ‰гЃЇењ§зё®зЋ‡г‚’е¤‰еЊ–гЃ•гЃ›г‚‹гЂ‚
      * 
-     * @exception IOException “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
+     * @exception IOException е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
      * 
      * @see PostLzssEncoder#flush()
      * @see BitOutputStream#flush()
@@ -325,10 +312,10 @@ public class PostLh3Encoder implements PostLzssEncoder{
     }
 
     /**
-     * ‚±‚МЏo—НѓXѓgѓЉЃ[ѓЂ‚ЖЃAђЪ‘±‚і‚к‚ЅЏo—НѓXѓgѓЉЃ[ѓЂ‚р•В‚¶ЃA
-     * Ћg—p‚µ‚Д‚ў‚ЅѓЉѓ\Ѓ[ѓX‚рЉJ•ъ‚·‚йЃB<br>
+     * гЃ“гЃ®е‡єеЉ›г‚№гѓ€гѓЄгѓјгѓ гЃЁгЂЃжЋҐз¶љгЃ•г‚ЊгЃџе‡єеЉ›г‚№гѓ€гѓЄгѓјгѓ г‚’й–‰гЃгЂЃ
+     * дЅїз”ЁгЃ—гЃ¦гЃ„гЃџгѓЄг‚Ѕгѓјг‚№г‚’й–‹ж”ѕгЃ™г‚‹гЂ‚<br>
      * 
-     * @exception IOException “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
+     * @exception IOException е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
      */
     public void close() throws IOException {
         this.writeOut();
@@ -351,27 +338,27 @@ public class PostLh3Encoder implements PostLzssEncoder{
     //  public int getThreshold()
     //------------------------------------------------------------------
     /**
-     * -lh3-Њ`Ћ®‚М LZSSЋ«Џ‘‚МѓTѓCѓY‚р“ѕ‚йЃB
+     * -lh3-еЅўејЏгЃ® LZSSиѕћж›ёгЃ®г‚µг‚¤г‚єг‚’еѕ—г‚‹гЂ‚
      * 
-     * @return -lh3-Њ`Ћ®‚М LZSSЋ«Џ‘‚МѓTѓCѓY
+     * @return -lh3-еЅўејЏгЃ® LZSSиѕћж›ёгЃ®г‚µг‚¤г‚є
      */
     public int getDictionarySize(){
         return PostLh3Encoder.DictionarySize;
     }
 
     /**
-     * -lh3-Њ`Ћ®‚М LZSS‚МЌЕ‘е€к’v’·‚р“ѕ‚йЃB
+     * -lh3-еЅўејЏгЃ® LZSSгЃ®жњЂе¤§дёЂи‡ґй•·г‚’еѕ—г‚‹гЂ‚
      * 
-     * @return -lh3-Њ`Ћ®‚М LZSS‚МЌЕ‘е€к’v’·
+     * @return -lh3-еЅўејЏгЃ® LZSSгЃ®жњЂе¤§дёЂи‡ґй•·
      */
     public int getMaxMatch(){
         return PostLh3Encoder.MaxMatch;
     }
 
     /**
-     * -lh3-Њ`Ћ®‚М LZSS‚М€іЏkЃA”с€іЏk‚Ми‡’l‚р“ѕ‚йЃB
+     * -lh3-еЅўејЏгЃ® LZSSгЃ®ењ§зё®гЂЃйќћењ§зё®гЃ®й–ѕеЂ¤г‚’еѕ—г‚‹гЂ‚
      * 
-     * @return -lh3-Њ`Ћ®‚М LZSS‚М€іЏkЃA”с€іЏk‚Ми‡’l
+     * @return -lh3-еЅўејЏгЃ® LZSSгЃ®ењ§зё®гЂЃйќћењ§зё®гЃ®й–ѕеЂ¤
      */
     public int getThreshold(){
         return PostLh3Encoder.Threshold;
@@ -386,20 +373,20 @@ public class PostLh3Encoder implements PostLzssEncoder{
     //  private void writeOut()
     //------------------------------------------------------------------
     /**
-     * ѓoѓbѓtѓ@ѓЉѓ“ѓO‚і‚к‚Ѕ‘S‚Д‚МѓfЃ[ѓ^‚р this.out ‚ЙЏo—Н‚·‚йЃB<br>
+     * гѓђгѓѓгѓ•г‚ЎгѓЄгѓіг‚°гЃ•г‚ЊгЃџе…ЁгЃ¦гЃ®гѓ‡гѓјг‚їг‚’ this.out гЃ«е‡єеЉ›гЃ™г‚‹гЂ‚<br>
      * 
-     * @exception IOException “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
+     * @exception IOException е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
      */
     private void writeOut() throws IOException {
         final int CodeMax = PostLh3Encoder.CodeSize - 1;
 
         if( 0 < this.blockSize ){
             //------------------------------------------------------------------
-            //  ѓuѓЌѓbѓNѓTѓCѓYЏo—Н
+            //  гѓ–гѓ­гѓѓг‚Їг‚µг‚¤г‚єе‡єеЉ›
             this.out.writeBits( 16, this.blockSize );                           //throws IOException
 
             //------------------------------------------------------------------
-            //  ѓnѓtѓ}ѓ“•„Ќ†•\ђ¶ђ¬
+            //  гѓЏгѓ•гѓћгѓіз¬¦еЏ·иЎЁз”џж€ђ
             int[] codeLen   = StaticHuffman.FreqListToLenList( this.codeFreq );
             int[] codeCode  = StaticHuffman.LenListToCodeList( codeLen );
             int[] offHiLen  = PostLh3Encoder.getBetterOffHiLen( this.offHiFreq,
@@ -407,17 +394,17 @@ public class PostLh3Encoder implements PostLzssEncoder{
             int[] offHiCode = StaticHuffman.LenListToCodeList( offHiLen );
 
             //------------------------------------------------------------------
-            //  code•”‚Мѓnѓtѓ}ѓ“•„Ќ†•\Џo—Н
+            //  codeйѓЁгЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·иЎЁе‡єеЉ›
             if( 2 <= PostLh3Encoder.countNoZeroElement( this.codeFreq ) ){
                 this.writeCodeLenList( codeLen );                               //throws IOException
             }else{
                 this.out.writeBits( 15, 0x4210 );                               //throws IOException
-                this.out.writeBits( 9,  
+                this.out.writeBits( 9,
                        PostLh3Encoder.getNoZeroElementIndex( this.codeFreq ) ); //throws IOException
             }
 
             //------------------------------------------------------------------
-            //  offHi•”‚Мѓnѓtѓ}ѓ“•„Ќ†•\Џo—Н
+            //  offHiйѓЁгЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·иЎЁе‡єеЉ›
             if( offHiLen != PostLh3Encoder.ConstOffHiLen ){
                 this.out.writeBit( 1 );                                         //throws IOException
 
@@ -425,7 +412,7 @@ public class PostLh3Encoder implements PostLzssEncoder{
                     this.writeOffHiLenList( offHiLen );                         //throws IOException
                 }else{
                     this.out.writeBits( 12, 0x0111 );                           //throws IOException
-                    this.out.writeBits( 7,  
+                    this.out.writeBits( 7,
                        PostLh3Encoder.getNoZeroElementIndex( this.offHiFreq ) );//throws IOException
                 }
             }else{
@@ -433,7 +420,7 @@ public class PostLh3Encoder implements PostLzssEncoder{
             }
 
             //------------------------------------------------------------------
-            //  ѓnѓtѓ}ѓ“•„Ќ†Џo—Н
+            //  гѓЏгѓ•гѓћгѓіз¬¦еЏ·е‡єеЉ›
             this.position = 0;
             this.flagBit  = 0;
             for( int i = 0 ; i < blockSize ; i++ ){
@@ -463,7 +450,7 @@ public class PostLh3Encoder implements PostLzssEncoder{
             }
 
             //------------------------------------------------------------------
-            //  Ћџ‚МѓuѓЌѓbѓN‚М‚Ѕ‚Я‚МЏ€—ќ
+            //  ж¬ЎгЃ®гѓ–гѓ­гѓѓг‚ЇгЃ®гЃџг‚ЃгЃ®е‡¦зђ†
             for( int i = 0 ; i < this.codeFreq.length ; i++ ){
                 this.codeFreq[i] = 0;
             }
@@ -489,11 +476,11 @@ public class PostLh3Encoder implements PostLzssEncoder{
     //  private void writeOffHiLenList( int[] offHiLen )
     //------------------------------------------------------------------
     /**
-     * code•”‚Мѓnѓtѓ}ѓ“•„Ќ†’·‚МѓЉѓXѓg‚р•„Ќ†‰»‚µ‚И‚Є‚зЏ‘‚«Џo‚·ЃB
+     * codeйѓЁгЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€г‚’з¬¦еЏ·еЊ–гЃ—гЃЄгЃЊг‚‰ж›ёгЃЌе‡єгЃ™гЂ‚
      * 
-     * @param codeLen code•”‚Мѓnѓtѓ}ѓ“•„Ќ†’·‚МѓЉѓXѓg
+     * @param codeLen codeйѓЁгЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€
      * 
-     * @exception IOException “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
+     * @exception IOException е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
      */
     private void writeCodeLenList( int[] codeLen ) throws IOException {
         for( int i = 0 ; i < codeLen.length ; i++ ){
@@ -506,11 +493,11 @@ public class PostLh3Encoder implements PostLzssEncoder{
     }
 
     /**
-     * OffHi•”‚Мѓnѓtѓ}ѓ“•„Ќ†’·‚МѓЉѓXѓg‚р•„Ќ†‰»‚µ‚И‚Є‚зЏ‘‚«Џo‚·ЃB
+     * OffHiйѓЁгЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€г‚’з¬¦еЏ·еЊ–гЃ—гЃЄгЃЊг‚‰ж›ёгЃЌе‡єгЃ™гЂ‚
      * 
-     * @param OffHiLenList CodeFreq ‚Мѓnѓtѓ}ѓ“•„Ќ†’·‚МѓЉѓXѓg
+     * @param OffHiLenList CodeFreq гЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€
      * 
-     * @exception IOException “ьЏo—НѓGѓ‰Ѓ[‚Є”­ђ¶‚µ‚ЅЏкЌ‡
+     * @exception IOException е…Ґе‡єеЉ›г‚Ёгѓ©гѓјгЃЊз™єз”џгЃ—гЃџе ґеђ€
      */
     private void writeOffHiLenList( int[] offHiLen ) throws IOException {
         for( int i = 0 ; i < offHiLen.length ; i++ ){
@@ -528,11 +515,11 @@ public class PostLh3Encoder implements PostLzssEncoder{
     //  private static int getNoZeroElementIndex( int[] array )
     //------------------------------------------------------------------
     /**
-     * ”z—с“а‚М 0‚Е‚И‚ў—v‘fђ”‚р“ѕ‚йЃB
+     * й…Ќе€—е†…гЃ® 0гЃ§гЃЄгЃ„и¦Ѓзґ ж•°г‚’еѕ—г‚‹гЂ‚
      * 
-     * @param array ”z—с
+     * @param array й…Ќе€—
      * 
-     * @return ”z—с“а‚М 0‚Е‚И‚ў—v‘fђ”
+     * @return й…Ќе€—е†…гЃ® 0гЃ§гЃЄгЃ„и¦Ѓзґ ж•°
      */
     private static int countNoZeroElement( int[] array ){
         int count = 0;
@@ -545,12 +532,12 @@ public class PostLh3Encoder implements PostLzssEncoder{
     }
 
     /**
-     * ”z—с“а‚М 0‚Е‚И‚ўЌЕЏ‰‚М—v‘f‚р“ѕ‚йЃB
+     * й…Ќе€—е†…гЃ® 0гЃ§гЃЄгЃ„жњЂе€ќгЃ®и¦Ѓзґ г‚’еѕ—г‚‹гЂ‚
      * 
-     * @param array ”z—с
+     * @param array й…Ќе€—
      * 
-     * @return ”z—с“а‚М 0‚Е‚И‚ўЌЕЏ‰‚М—v‘f
-     *         ‘S‚Д‚М—v‘f‚Є0‚МЏкЌ‡‚Н 0‚р•Ф‚·ЃB
+     * @return й…Ќе€—е†…гЃ® 0гЃ§гЃЄгЃ„жњЂе€ќгЃ®и¦Ѓзґ 
+     *         е…ЁгЃ¦гЃ®и¦Ѓзґ гЃЊ0гЃ®е ґеђ€гЃЇ 0г‚’иї”гЃ™гЂ‚
      */
     private static int getNoZeroElementIndex( int[] array ){
         for( int i = 0 ; i < array.length ; i++ ){
@@ -572,9 +559,9 @@ public class PostLh3Encoder implements PostLzssEncoder{
     //                                              int[] OffHiLen )
     //------------------------------------------------------------------
     /**
-     * -lh3- ‚М offHi•”ѓfѓRЃ[ѓh—p ѓnѓtѓ}ѓ“•„Ќ†’·ѓЉѓXѓg‚рђ¶ђ¬‚·‚йЃB
+     * -lh3- гЃ® offHiйѓЁгѓ‡г‚ігѓјгѓ‰з”Ё гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гѓЄг‚№гѓ€г‚’з”џж€ђгЃ™г‚‹гЂ‚
      * 
-     * @return -lh3- ‚М offHi•”ѓfѓRЃ[ѓh—p ѓnѓtѓ}ѓ“•„Ќ†’·ѓЉѓXѓg
+     * @return -lh3- гЃ® offHiйѓЁгѓ‡г‚ігѓјгѓ‰з”Ё гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гѓЄг‚№гѓ€
      */
     private static int[] createConstOffHiLen(){
         final int length = PostLh3Encoder.DictionarySize >> 6;
@@ -595,21 +582,21 @@ public class PostLh3Encoder implements PostLzssEncoder{
     }
 
     /**
-     * OffHiFreq‚©‚зђ¶ђ¬‚і‚к‚Ѕ ѓnѓtѓ}ѓ“•„Ќ†’·‚МѓЉѓXѓg‚Ж
-     * ЊЕ’иѓnѓtѓ}ѓ“•„Ќ†’·‚МѓЉѓXѓg‚р”дЉr‚µ‚ДЃAЏo—Нѓrѓbѓg
-     * ђ”‚МЏ­‚И‚ў‚а‚М‚р“ѕ‚йЃB
+     * OffHiFreqгЃ‹г‚‰з”џж€ђгЃ•г‚ЊгЃџ гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€гЃЁ
+     * е›єе®љгѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€г‚’жЇ”ијѓгЃ—гЃ¦гЂЃе‡єеЉ›гѓ“гѓѓгѓ€
+     * ж•°гЃ®е°‘гЃЄгЃ„г‚‚гЃ®г‚’еѕ—г‚‹гЂ‚
      * 
-     * @param OffHiFreq offset•”‚МЏг€К6bit‚МЏoЊ»•p“x‚М•\
-     * @param OffHiLen  OffHiFreq‚©‚зђ¶ђ¬‚і‚к‚Ѕѓnѓtѓ}ѓ“•„
-     *                  Ќ†’·‚МѓЉѓXѓg
+     * @param OffHiFreq offsetйѓЁгЃ®дёЉдЅЌ6bitгЃ®е‡єзЏѕй »еє¦гЃ®иЎЁ
+     * @param OffHiLen  OffHiFreqгЃ‹г‚‰з”џж€ђгЃ•г‚ЊгЃџгѓЏгѓ•гѓћгѓіз¬¦
+     *                  еЏ·й•·гЃ®гѓЄг‚№гѓ€
      * 
-     * @return Џo—Нѓrѓbѓgђ”‚МЏ­‚И‚ў•ы‚Мѓnѓtѓ}ѓ“•„Ќ†’·‚МѓЉѓXѓg
+     * @return е‡єеЉ›гѓ“гѓѓгѓ€ж•°гЃ®е°‘гЃЄгЃ„ж–№гЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·гЃ®гѓЄг‚№гѓ€
      */
     private static int[] getBetterOffHiLen( int[] OffHiFreq, 
                                             int[] OffHiLen ){
         boolean detect = false;
         for( int i = 0 ; i < OffHiLen.length ; i++ ){
-            if( 15 < OffHiLen[i] ){ //15 ‚НwriteOffHiLenList‚ЕЏ‘‚«‚±‚Я‚йЌЕ‘е‚Мѓnѓtѓ}ѓ“•„Ќ†’·‚р€У–Ў‚·‚йЃB
+            if( 15 < OffHiLen[i] ){ //15 гЃЇwriteOffHiLenListгЃ§ж›ёгЃЌгЃ“г‚Ѓг‚‹жњЂе¤§гЃ®гѓЏгѓ•гѓћгѓіз¬¦еЏ·й•·г‚’ж„Џе‘ігЃ™г‚‹гЂ‚
                 detect = true;
             }
         }

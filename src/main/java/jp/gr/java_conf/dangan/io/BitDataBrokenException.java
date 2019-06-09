@@ -6,27 +6,27 @@
  * 
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  * 
- * �ȉ��̏����ɓ��ӂ���Ȃ�΃\�[�X�ƃo�C�i���`���̍Ĕz�z�Ǝg�p��
- * �ύX�̗L���ɂ�����炸������B
+ * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
+ * 変更の有無にかかわらず許可する。
  * 
- * �P�D�\�[�X�R�[�h�̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐�������ێ����Ȃ��Ă͂Ȃ�Ȃ��B
+ * １．ソースコードの再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を保持しなくてはならない。
  * 
- * �Q�D�o�C�i���`���̍Ĕz�z�ɂ����Ē��쌠�\���� ���̏����̃��X�g
- *     ����щ��L�̐��������g�p�������������� ���̑��̔z�z������
- *     �܂ގ����ɋL�q���Ȃ���΂Ȃ�Ȃ��B
+ * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
+ *     および下記の声明文を使用説明書もしくは その他の配布物内に
+ *     含む資料に記述しなければならない。
  * 
- * ���̃\�t�g�E�F�A�͐Β˔���ڂɂ���Ė��ۏ؂Œ񋟂���A����̖�
- * �I��B���ł���Ƃ����ۏ؁A���i���l���L��Ƃ����ۏ؂ɂƂǂ܂炸�A
- * �����Ȃ閾���I����шÎ��I�ȕۏ؂����Ȃ��B
- * �Β˔���ڂ� ���̃\�t�g�E�F�A�̎g�p�ɂ�钼�ړI�A�ԐړI�A����
- * �I�A����ȁA�T�^�I�ȁA���邢�͕K�R�I�ȑ��Q(�g�p�ɂ��f�[�^��
- * �����A�Ɩ��̒��f�〈���܂�Ă������v�̈⎸�A��֐��i��������
- * �T�[�r�X�̓�������l�����邪�A�����Ă��ꂾ���Ɍ��肳��Ȃ�
- * ���Q)�ɑ΂��āA�����Ȃ鎖�Ԃ̌����ƂȂ����Ƃ��Ă��A�_���̐�
- * �C�△�ߎ��ӔC���܂� �����Ȃ�ӔC�����낤�Ƃ��A���Ƃ����ꂪ�s
- * ���s�ׂ̂��߂ł������Ƃ��Ă��A�܂��͂��̂悤�ȑ��Q�̉\������
- * ������Ă����Ƃ��Ă���؂̐ӔC�𕉂�Ȃ����̂Ƃ���B
+ * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
+ * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
+ * いかなる明示的および暗示的な保証もしない。
+ * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
+ * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
+ * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
+ * サービスの導入費等が考えられるが、決してそれだけに限定されない
+ * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
+ * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
+ * 正行為のためであったとしても、またはそのような損害の可能性が報
+ * 告されていたとしても一切の責任を負わないものとする。
  */
 
 package jp.gr.java_conf.dangan.io;
@@ -39,28 +39,28 @@ import java.lang.Throwable;
 
 
 /**
- * EndOfStream �ɒB���Ă��܂������ߗv�����ꂽ�r�b�g����
- * �f�[�^�𓾂��Ȃ������ꍇ�ɓ��������O�B<br>
- * jp.gr.java_conf.dangan.io.BitInputStream �p�ł��邽�߁A
- * �ێ����Ă����� �f�[�^�� 32�r�b�g�܂łƂȂ��Ă���_��
- * ���ӂ��邱�ƁB<br>
- * NotEnoughBitsException �ƈႢ�A������̗�O�𓊂���
- * �ꍇ�ɂ� ���ۂɓǂݍ��ݓ�����s���Ă��܂��Ă��邽��
- * �ǂݍ��݈ʒu�͗�O�𓊂���O�̎��_����ω����Ă��܂�
- * �Ă���_�ɒ��ӂ��邱�ƁB<br>
+ * EndOfStream に達してしまったため要求されたビット数の
+ * データを得られなかった場合に投げられる例外。<br>
+ * jp.gr.java_conf.dangan.io.BitInputStream 用であるため、
+ * 保持しておける データは 32ビットまでとなっている点に
+ * 注意すること。<br>
+ * NotEnoughBitsException と違い、こちらの例外を投げる
+ * 場合には 実際に読み込み動作を行ってしまっているため
+ * 読み込み位置は例外を投げる前の時点から変化してしまっ
+ * ている点に注意すること。<br>
  * 
  * <pre>
  * -- revision history --
  * $Log: BitDataBrokenException.java,v $
  * Revision 1.1  2002/12/07 00:00:00  dangan
  * [maintenance]
- *     �\�[�X����
+ *     ソース整備
  *
  * Revision 1.0  2002/07/24 00:00:00  dangan
  * add to version control
  * [maintenance]
- *     �^�u�p�~
- *     ���C�Z���X���̏C��
+ *     タブ廃止
+ *     ライセンス文の修正
  *
  * </pre>
  * 
@@ -78,42 +78,29 @@ public class BitDataBrokenException extends IOException{
     //  private int bitCount
     //------------------------------------------------------------------
     /**
-     * �r�b�g�f�[�^���r���܂ł���
-     * �擾�ł��Ȃ������ƂȂ�����O
+     * ビットデータが途中までしか
+     * 取得できない原因となった例外
      */
     private Throwable cause;
 
     /**
-     * �r���܂ł̃r�b�g�f�[�^
+     * 途中までのビットデータ
      */
     private int bitData;
 
     /**
-     * bitData �̗L���r�b�g��
+     * bitData の有効ビット数
      */
     private int bitCount;
 
 
-    //------------------------------------------------------------------
-    //  constructor
-    //------------------------------------------------------------------
-    //  private BitDataBrokenException()
-    //  public BitDataBrokenException( Throwable cause,
-    //                                 int bitData, int bitCount )
-    //------------------------------------------------------------------
     /**
-     * �f�t�H���g�R���X�g���N�^�B
-     * �g�p�s��
-     */
-    private BitDataBrokenException(){    }
-
-    /**
-     * �V���� BitDataBrokenException ���\�z����B<br>
+     * 新しい BitDataBrokenException を構築する。<br>
      * 
-     * @param cause    �r�b�g�f�[�^���r���܂ł����擾�ł��Ȃ�
-     *                 �����ƂȂ�����O
-     * @param bitData  �v�����ꂽ�r�b�g���ɖ����Ȃ��r�b�g�f�[�^
-     * @param bitCount bitData �̃r�b�g��
+     * @param cause    ビットデータが途中までしか取得できない
+     *                 原因となった例外
+     * @param bitData  要求されたビット数に満たないビットデータ
+     * @param bitCount bitData のビット数
      * 
      */
     public BitDataBrokenException( Throwable cause,
@@ -133,30 +120,30 @@ public class BitDataBrokenException extends IOException{
     //  public int getBitCount()
     //------------------------------------------------------------------
     /**
-     * �r�b�g�f�[�^���r���܂ł���
-     * �擾�ł��Ȃ������ƂȂ�����O�𓾂�B<br>
+     * ビットデータが途中までしか
+     * 取得できない原因となった例外を得る。<br>
      * 
-     * @return �����ƂȂ�����O
+     * @return 原因となった例外
      */
     public Throwable getCause(){
         return this.cause;
     }
 
     /**
-     * �v�����ꂽ�r�b�g���ɖ����Ȃ�
-     * "��ꂽ" �r�b�g�f�[�^�𓾂�B<br>
+     * 要求されたビット数に満たない
+     * "壊れた" ビットデータを得る。<br>
      *
-     * @return �r�b�g�f�[�^
+     * @return ビットデータ
      */
     public int getBitData(){
         return this.bitData;
     }
 
     /**
-     * getBitData() �œ�����
-     * �r�b�g�f�[�^�̗L���r�b�g���𓾂�B
+     * getBitData() で得られる
+     * ビットデータの有効ビット数を得る。
      * 
-     * @return �r�b�g�f�[�^�̗L���r�b�g��
+     * @return ビットデータの有効ビット数
      */
     public int getBitCount(){
         return this.bitCount;
