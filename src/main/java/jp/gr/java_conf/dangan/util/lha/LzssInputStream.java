@@ -3,19 +3,19 @@
 
 /**
  * LzssInputStream.java
- * 
+ *
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
- * 
+ *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
  * 変更の有無にかかわらず許可する。
- * 
+ *
  * １．ソースコードの再配布において著作権表示と この条件のリスト
  *     および下記の声明文を保持しなくてはならない。
- * 
+ *
  * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
  *     および下記の声明文を使用説明書もしくは その他の配布物内に
  *     含む資料に記述しなければならない。
- * 
+ *
  * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
  * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
  * いかなる明示的および暗示的な保証もしない。
@@ -39,15 +39,16 @@ import jp.gr.java_conf.dangan.util.lha.PreLzssDecoder;
 import java.io.IOException;
 import java.io.EOFException;
 
+
 /**
  * LZSS 圧縮されたデータを解凍しながら供給する入力ストリーム。<br>
- * 
+ *
  * <pre>
  * -- revision history --
  * $Log: LzssInputStream.java,v $
  * Revision 1.1  2002/12/08 00:00:00  dangan
  * [bug fix]
- *     mark() 内で接続された PreLzssDecoder の 
+ *     mark() 内で接続された PreLzssDecoder の
  *     mark に与える readLimit の計算が甘かったのを修正。
  *
  * Revision 1.0  2002/07/25 00:00:00  dangan
@@ -61,12 +62,11 @@ import java.io.EOFException;
  *     ライセンス文の修正
  *
  * </pre>
- * 
- * @author  $Author: dangan $
+ *
+ * @author $Author: dangan $
  * @version $Revision: 1.1 $
  */
-public class LzssInputStream extends InputStream{
-
+public class LzssInputStream extends InputStream {
 
     //------------------------------------------------------------------
     //  instance field
@@ -79,7 +79,6 @@ public class LzssInputStream extends InputStream{
      * LZSS圧縮コードを返す入力ストリーム
      */
     private PreLzssDecoder decoder;
-
 
     //------------------------------------------------------------------
     //  instance field
@@ -107,7 +106,6 @@ public class LzssInputStream extends InputStream{
      */
     private long Length;
 
-
     //------------------------------------------------------------------
     //  instance field
     //------------------------------------------------------------------
@@ -134,7 +132,6 @@ public class LzssInputStream extends InputStream{
      */
     private long TextDecoded;
 
-
     //------------------------------------------------------------------
     //  instance field
     //------------------------------------------------------------------
@@ -153,7 +150,6 @@ public class LzssInputStream extends InputStream{
     /** TextDecoded のバックアップ用 */
     private long MarkTextDecoded;
 
-
     /**
      * in から LZSS圧縮データ の入力を受けて、
      * 解凍されたデータを提供する入力ストリームを構築する。
@@ -162,36 +158,34 @@ public class LzssInputStream extends InputStream{
      * 次のデータの読み取りで必ずEndOfStreamに達するとは
      * 限らないデータを正常に復元できない(終端以降にゴミ
      * データがつく可能性がある)。
-     * 
+     *
      * @param decoder LZSS圧縮データ供給ストリーム
      */
-    public LzssInputStream( PreLzssDecoder decoder ){
-        this( decoder, Long.MAX_VALUE );
+    public LzssInputStream(PreLzssDecoder decoder) {
+        this(decoder, Long.MAX_VALUE);
     }
 
     /**
      * in から LZSS圧縮データ の入力を受けて、
      * 解凍されたデータを提供する入力ストリームを構築する。
-     * 
-     * 
+     *
+     *
      * @param decoder LZSS圧縮データ供給ストリーム
-     * @param length  解凍後のサイズ
+     * @param length 解凍後のサイズ
      */
-    public LzssInputStream( PreLzssDecoder decoder,
-                            long           length ){
-        this.MaxMatch      = decoder.getMaxMatch();
-        this.Threshold     = decoder.getThreshold();
-        this.Length        = length;
+    public LzssInputStream(PreLzssDecoder decoder, long length) {
+        this.MaxMatch = decoder.getMaxMatch();
+        this.Threshold = decoder.getThreshold();
+        this.Length = length;
 
-        this.decoder        = decoder;
-        this.TextBuffer     = new byte[ decoder.getDictionarySize() ];
-        this.TextPosition   = 0;
-        this.TextDecoded    = 0;
+        this.decoder = decoder;
+        this.TextBuffer = new byte[decoder.getDictionarySize()];
+        this.TextPosition = 0;
+        this.TextDecoded = 0;
 
-        if( this.decoder instanceof PreLz5Decoder )
+        if (this.decoder instanceof PreLz5Decoder)
             this.initLz5TextBuffer();
     }
-
 
     //------------------------------------------------------------------
     //  method of java.io.InputStream
@@ -206,67 +200,67 @@ public class LzssInputStream extends InputStream{
     /**
      * コンストラクタで指定された PreLzssDecoder の
      * 圧縮されたデータを解凍し、1バイトのデータを供給する。
-     * 
+     *
      * @return 解凍された 1バイトのデータ
-     * 
+     *
      * @exception IOException 入出力エラーが発生した場合
      */
     public int read() throws IOException {
-        if( this.TextDecoded <= this.TextPosition ){
-            try{
-                this.decode();                                                  //throws EOFException IOException
-            }catch( EOFException exception ){
-                if( this.TextDecoded <= this.TextPosition )
+        if (this.TextDecoded <= this.TextPosition) {
+            try {
+                this.decode(); //throws EOFException IOException
+            } catch (EOFException exception) {
+                if (this.TextDecoded <= this.TextPosition)
                     return -1;
             }
         }
 
-        return this.TextBuffer[ (int)this.TextPosition++
-                                 & ( this.TextBuffer.length - 1 ) ] & 0xFF;
+        return this.TextBuffer[(int) this.TextPosition++ & (this.TextBuffer.length - 1)] & 0xFF;
     }
 
     /**
      * コンストラクタで指定された PreLzssDecoder の
      * 圧縮されたデータを解凍し、bufferを満たすように
      * 解凍されたデータを読み込む。
-     * 
+     *
      * @param buffer データを読み込むバッファ
-     * 
+     *
      * @return 読みこんだデータ量
-     * 
+     *
      * @exception IOException 入出力エラーが発生した場合
      */
-    public int read( byte[] buffer ) throws IOException {
-        return this.read( buffer, 0, buffer.length );
+    public int read(byte[] buffer) throws IOException {
+        return this.read(buffer, 0, buffer.length);
     }
 
     /**
      * コンストラクタで指定された PreLzssDecoder の
      * 圧縮されたデータを解凍し、buffer の index から
      * length バイトのデータを読み込む。
-     * 
+     *
      * @param buffer データを読み込むバッファ
-     * @param index  buffer 内のデータ読みこみ開始位置
+     * @param index buffer 内のデータ読みこみ開始位置
      * @param length 読み込むデータ量
-     * 
+     *
      * @return 読みこんだデータ量
-     * 
+     *
      * @exception IOException 入出力エラーが発生した場合
      */
-    public int read( byte[] buffer, int index, int length ) throws IOException {
+    public int read(byte[] buffer, int index, int length) throws IOException {
         int position = index;
-        int end      = index + length;
-        try{
-            while( position < end ){
-                if( this.TextDecoded <= this.TextPosition )
-                    this.decode();                                              //throws IOException
+        int end = index + length;
+        try {
+            while (position < end) {
+                if (this.TextDecoded <= this.TextPosition)
+                    this.decode(); //throws IOException
 
-                position = this.copyTextBufferToBuffer( buffer, position, end );
+                position = this.copyTextBufferToBuffer(buffer, position, end);
             }
-        }catch( EOFException exception ){
-            position = this.copyTextBufferToBuffer( buffer, position, end );
+        } catch (EOFException exception) {
+            position = this.copyTextBufferToBuffer(buffer, position, end);
 
-            if( position == index ) return -1;
+            if (position == index)
+                return -1;
         }
 
         return position - index;
@@ -274,29 +268,28 @@ public class LzssInputStream extends InputStream{
 
     /**
      * 解凍されたデータを lengthバイト読み飛ばす。
-     * 
+     *
      * @param length 読み飛ばすデータ量(単位はバイト)
-     * 
+     *
      * @return 実際に読み飛ばしたバイト数
-     * 
+     *
      * @exception IOException 入出力エラーが発生した場合
      */
-    public long skip( long length ) throws IOException {
+    public long skip(long length) throws IOException {
         long end = this.TextPosition + length;
-        try{
-            while( this.TextPosition < end ){
-                if( this.TextDecoded <= this.TextPosition )
+        try {
+            while (this.TextPosition < end) {
+                if (this.TextDecoded <= this.TextPosition)
                     this.decode();
 
-                this.TextPosition = Math.min( end, this.TextDecoded );
+                this.TextPosition = Math.min(end, this.TextDecoded);
             }
-        }catch( EOFException exception ){
-            this.TextPosition = Math.min( end, this.TextDecoded );
+        } catch (EOFException exception) {
+            this.TextPosition = Math.min(end, this.TextDecoded);
         }
 
-        return length - ( end - this.TextPosition );
+        return length - (end - this.TextPosition);
     }
-
 
     //------------------------------------------------------------------
     //  method of java.io.InputStream
@@ -313,72 +306,66 @@ public class LzssInputStream extends InputStream{
      * 戻れるようにする。<br>
      * InputStream の mark() と違い、 readLimit で設定した
      * 限界バイト数より前にマーク位置が無効になる可能性がある。
-     * ただし、readLimit を無視して無限に reset() 可能な 
+     * ただし、readLimit を無視して無限に reset() 可能な
      * InputStream と接続している場合は readLimit に
      * どのような値を設定されても
      * reset() で必ずマーク位置に復旧できる事を保証する。<br>
-     * 
+     *
      * @param readLimit マーク位置に戻れる限界のバイト数。
-     *                  このバイト数を超えてデータを読み
-     *                  込んだ場合 reset()できなくなる可
-     *                  能性がある。<br>
-     * 
+     *            このバイト数を超えてデータを読み
+     *            込んだ場合 reset()できなくなる可
+     *            能性がある。<br>
+     *
      * @see PreLzssDecoder#mark(int)
      */
-    public void mark( int readLimit ){
-        readLimit -= (int)( this.TextDecoded - this.TextPosition );
+    public void mark(int readLimit) {
+        readLimit -= (int) (this.TextDecoded - this.TextPosition);
         int Size = this.TextBuffer.length - this.MaxMatch;
-        readLimit = ( readLimit + Size - 1 ) / Size * Size;
-        this.decoder.mark( Math.max( readLimit, 0 ) );
+        readLimit = (readLimit + Size - 1) / Size * Size;
+        this.decoder.mark(Math.max(readLimit, 0));
 
-        if( this.MarkTextBuffer == null ){
+        if (this.MarkTextBuffer == null) {
             this.MarkTextBuffer = this.TextBuffer.clone();
-        }else{
-            System.arraycopy( this.TextBuffer, 0, 
-                              this.MarkTextBuffer, 0, 
-                              this.TextBuffer.length );
+        } else {
+            System.arraycopy(this.TextBuffer, 0, this.MarkTextBuffer, 0, this.TextBuffer.length);
         }
         this.MarkTextPosition = this.TextPosition;
-        this.MarkTextDecoded  = this.TextDecoded;
+        this.MarkTextDecoded = this.TextDecoded;
     }
 
     /**
      * 接続された入力ストリームの読み込み位置を最後に
      * mark() メソッドが呼び出されたときの位置に設定する。<br>
-     * 
+     *
      * @exception IOException 入出力エラーが発生した場合
      */
     public void reset() throws IOException {
-        if( this.MarkTextBuffer == null ){
-            throw new IOException( "not marked." );
-        }else if( this.TextDecoded - this.MarkTextPosition 
-               <= this.TextBuffer.length ){
+        if (this.MarkTextBuffer == null) {
+            throw new IOException("not marked.");
+        } else if (this.TextDecoded - this.MarkTextPosition <= this.TextBuffer.length) {
             this.TextPosition = this.MarkTextPosition;
-        }else if( this.decoder.markSupported() ){
+        } else if (this.decoder.markSupported()) {
             //reset
-            this.decoder.reset();                                               //throws IOException
-            System.arraycopy( this.MarkTextBuffer, 0, 
-                              this.TextBuffer, 0, 
-                              this.TextBuffer.length );
+            this.decoder.reset(); //throws IOException
+            System.arraycopy(this.MarkTextBuffer, 0, this.TextBuffer, 0, this.TextBuffer.length);
             this.TextPosition = this.MarkTextPosition;
-            this.TextDecoded  = this.MarkTextDecoded;
-        }else{
-            throw new IOException( "mark/reset not supported." );
+            this.TextDecoded = this.MarkTextDecoded;
+        } else {
+            throw new IOException("mark/reset not supported.");
         }
     }
 
     /**
      * 接続された入力ストリームが mark() と reset() を
      * サポートするかを得る。<br>
-     * 
+     *
      * @return ストリームが mark() と reset() を
      *         サポートする場合は true。<br>
      *         サポートしない場合は false。<br>
      */
-    public boolean markSupported(){
-        return  this.decoder.markSupported();
+    public boolean markSupported() {
+        return this.decoder.markSupported();
     }
-
 
     //------------------------------------------------------------------
     //  method of java.io.InputStream
@@ -391,29 +378,27 @@ public class LzssInputStream extends InputStream{
     /**
      * 接続された入力ストリームからブロックしないで
      * 読み込むことのできるバイト数を得る。<br>
-     * 
+     *
      * @return ブロックしないで読み出せるバイト数。<br>
-     * 
+     *
      * @exception IOException 入出力エラーが発生した場合
      */
     public int available() throws IOException {
-        return (int)( this.TextDecoded - this.TextPosition )
-               + this.decoder.available();
+        return (int) (this.TextDecoded - this.TextPosition) + this.decoder.available();
     }
 
     /**
      * この入力ストリームを閉じ、使用していた
      * 全てのリソースを開放する。<br>
-     * 
+     *
      * @exception IOException 入出力エラーが発生した場合
      */
     public void close() throws IOException {
         this.decoder.close();
-        this.decoder        = null;
-        this.TextBuffer     = null;
+        this.decoder = null;
+        this.TextBuffer = null;
         this.MarkTextBuffer = null;
     }
-
 
     //------------------------------------------------------------------
     //  local method
@@ -425,81 +410,67 @@ public class LzssInputStream extends InputStream{
     /**
      * private変数 this.in から圧縮データを読み込み
      * 解凍しながら TextBuffer にデータを書きこむ。
-     * 
-     * @exception IOException  入出力エラーが発生した場合
+     *
+     * @exception IOException 入出力エラーが発生した場合
      * @exception EOFException ストリーム終端に達した場合
      */
     private void decode() throws IOException {
-        if( this.TextDecoded < this.Length ){
-            final int  TextMask  = this.TextBuffer.length - 1;
-            final int  TextStart = (int)this.TextDecoded & TextMask;
-            int        TextPos   = TextStart;
-            int        TextLimit = (int)( Math.min( this.TextPosition 
-                                                         + this.TextBuffer.length 
-                                                         - this.MaxMatch,
-                                                     this.Length ) 
-                                           - this.TextDecoded ) + TextStart;
-            try{
-                while( TextPos < TextLimit ){
-                    int Code = this.decoder.readCode();                             //throws EOFException IOException
+        if (this.TextDecoded < this.Length) {
+            final int TextMask = this.TextBuffer.length - 1;
+            final int TextStart = (int) this.TextDecoded & TextMask;
+            int TextPos = TextStart;
+            int TextLimit = (int) (Math.min(this.TextPosition + this.TextBuffer.length - this.MaxMatch, this.Length)
+                                   - this.TextDecoded)
+                            + TextStart;
+            try {
+                while (TextPos < TextLimit) {
+                    int Code = this.decoder.readCode(); //throws EOFException IOException
 
-                    if( Code < 0x100 ){
-                        this.TextBuffer[ TextMask & TextPos++ ] = (byte)Code;
-                    }else{
-                        int MatchLength   = ( Code & 0xFF ) + this.Threshold;
+                    if (Code < 0x100) {
+                        this.TextBuffer[TextMask & TextPos++] = (byte) Code;
+                    } else {
+                        int MatchLength = (Code & 0xFF) + this.Threshold;
                         int MatchPosition = TextPos - this.decoder.readOffset() - 1;//throws IOException
 
-                        while( 0 < MatchLength-- )
-                            this.TextBuffer[ TextMask & TextPos++ ]
-                                = this.TextBuffer[ TextMask & MatchPosition++ ];
+                        while (0 < MatchLength--)
+                            this.TextBuffer[TextMask & TextPos++] = this.TextBuffer[TextMask & MatchPosition++];
                     }
                 }
-            }finally{
+            } finally {
                 this.TextDecoded += TextPos - TextStart;
             }
-        }else{
+        } else {
             throw new EOFException();
         }
     }
 
     /**
      * private 変数 this.TextBuffer から bufferにデータを転送する。
-     * 
-     * @param buffer   TextBufferの内容をコピーするバッファ
+     *
+     * @param buffer TextBufferの内容をコピーするバッファ
      * @param position buffer内の書き込み現在位置
-     * @param end      buffer内の書き込み終了位置
-     * 
+     * @param end buffer内の書き込み終了位置
+     *
      * @return bufferの次に書き込みが行われるべき位置
      */
-    private int copyTextBufferToBuffer( byte[] buffer, int position, int end ){
-        if( ( this.TextPosition & ~( this.TextBuffer.length - 1 ) )
-              < ( this.TextDecoded & ~( this.TextBuffer.length - 1 ) ) ){
-            int length = Math.min( this.TextBuffer.length - 
-                                     ( (int)this.TextPosition 
-                                          & this.TextBuffer.length - 1 ),
-                                     end - position );
+    private int copyTextBufferToBuffer(byte[] buffer, int position, int end) {
+        if ((this.TextPosition & ~(this.TextBuffer.length - 1)) < (this.TextDecoded & ~(this.TextBuffer.length - 1))) {
+            int length = Math.min(this.TextBuffer.length - ((int) this.TextPosition & this.TextBuffer.length - 1),
+                                  end - position);
 
-            System.arraycopy( this.TextBuffer, 
-                              (int)this.TextPosition
-                                 & this.TextBuffer.length - 1,
-                              buffer, position, length  );
+            System.arraycopy(this.TextBuffer, (int) this.TextPosition & this.TextBuffer.length - 1, buffer, position, length);
 
             this.TextPosition += length;
-            position          += length;
+            position += length;
         }
 
-        if( this.TextPosition < this.TextDecoded ){
-            int length = Math.min( (int)( this.TextDecoded 
-                                          - this.TextPosition ),
-                                     end - position );
+        if (this.TextPosition < this.TextDecoded) {
+            int length = Math.min((int) (this.TextDecoded - this.TextPosition), end - position);
 
-            System.arraycopy( this.TextBuffer, 
-                              (int)this.TextPosition
-                                 & this.TextBuffer.length - 1,
-                              buffer, position, length  );
+            System.arraycopy(this.TextBuffer, (int) this.TextPosition & this.TextBuffer.length - 1, buffer, position, length);
 
             this.TextPosition += length;
-            position          += length;
+            position += length;
         }
 
         return position;
@@ -508,23 +479,23 @@ public class LzssInputStream extends InputStream{
     /**
      * -lz5- 用に TextBuffer を初期化する。
      */
-    private void initLz5TextBuffer(){
+    private void initLz5TextBuffer() {
         int position = 18;
-        for( int i = 0 ; i < 256 ; i++ )
-            for( int j = 0 ; j < 13 ; j++ )
-                this.TextBuffer[ position++ ] = (byte)i;
+        for (int i = 0; i < 256; i++)
+            for (int j = 0; j < 13; j++)
+                this.TextBuffer[position++] = (byte) i;
 
-        for( int i = 0 ; i < 256 ; i++ )
-            this.TextBuffer[ position++ ] = (byte)i;
+        for (int i = 0; i < 256; i++)
+            this.TextBuffer[position++] = (byte) i;
 
-        for( int i = 0 ; i < 256 ; i++ )
-            this.TextBuffer[ position++ ] = (byte)(255 - i);
+        for (int i = 0; i < 256; i++)
+            this.TextBuffer[position++] = (byte) (255 - i);
 
-        for( int i = 0 ; i < 128 ; i++ )
-            this.TextBuffer[ position++ ] = 0;
+        for (int i = 0; i < 128; i++)
+            this.TextBuffer[position++] = 0;
 
-        while( position < this.TextBuffer.length )
-            this.TextBuffer[ position++ ] = (byte)' ';
+        while (position < this.TextBuffer.length)
+            this.TextBuffer[position++] = (byte) ' ';
     }
 
 }

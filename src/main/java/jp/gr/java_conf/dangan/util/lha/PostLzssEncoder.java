@@ -3,19 +3,19 @@
 
 /**
  * PostLzssEncoder.java
- * 
+ *
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
- * 
+ *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
  * 変更の有無にかかわらず許可する。
- * 
+ *
  * １．ソースコードの再配布において著作権表示と この条件のリスト
  *     および下記の声明文を保持しなくてはならない。
- * 
+ *
  * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
  *     および下記の声明文を使用説明書もしくは その他の配布物内に
  *     含む資料に記述しなければならない。
- * 
+ *
  * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
  * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
  * いかなる明示的および暗示的な保証もしない。
@@ -36,9 +36,10 @@ package jp.gr.java_conf.dangan.util.lha;
 //import exceptions
 import java.io.IOException;
 
+
 /**
  * LZSS圧縮コードを処理する インターフェイス。
- * 
+ *
  * <pre>
  * -- revision history --
  * $Log: PostLzssEncoder.java,v $
@@ -50,12 +51,11 @@ import java.io.IOException;
  *     ライセンス文の修正
  *
  * </pre>
- * 
- * @author  $Author: dangan $
+ *
+ * @author $Author: dangan $
  * @version $Revision: 1.0 $
  */
-public interface PostLzssEncoder{
-
+public interface PostLzssEncoder {
 
     //------------------------------------------------------------------
     //  original method ( on the model of java.io.OutputStream )
@@ -75,6 +75,7 @@ public interface PostLzssEncoder{
      * つまりOutputStream の flush() では同じデータを出力する事を
      * 期待されるような以下の二つのコードは、
      * PostLzssEncoder においては 別のデータを出力をしても良い。
+     * 
      * <pre>
      * (1)
      *   PostLzssEncoder out = new ImplementedPostLzssEncoder();
@@ -82,7 +83,7 @@ public interface PostLzssEncoder{
      *   out.writeCode( 0 );
      *   out.writeCode( 0 );
      *   out.close();
-     * 
+     *
      * (2)
      *   PostLzssEncoder out = new ImplementedPostLzssEncoder();
      *   out.writeCode( 0 );
@@ -92,7 +93,7 @@ public interface PostLzssEncoder{
      *   out.writeCode( 0 );
      *   out.close();
      * </pre>
-     * 
+     *
      * @exception IOException 入出力エラーが発生した場合
      */
     public abstract void flush() throws IOException;
@@ -100,11 +101,10 @@ public interface PostLzssEncoder{
     /**
      * この出力ストリームと、接続された出力ストリームを閉じ、
      * 使用していたリソースを開放する。<br>
-     * 
+     *
      * @exception IOException 入出力エラーが発生した場合
      */
     public abstract void close() throws IOException;
-
 
     //------------------------------------------------------------------
     //  original method
@@ -119,23 +119,22 @@ public interface PostLzssEncoder{
      * LZSS で圧縮された圧縮コードのうち一致長を書きこむ。<br>
      * 未圧縮データは 0〜255、
      * LZSS圧縮コード(一致長)は 256〜510 を使用すること。
-     * 
+     *
      * @param code 1byte の LZSS未圧縮のデータもしくは、
-     *             LZSS で圧縮された圧縮コードのうち一致長
-     * 
+     *            LZSS で圧縮された圧縮コードのうち一致長
+     *
      * @exception IOException 入出力エラーが発生した場合
      */
-    public abstract void writeCode( int code ) throws IOException;
+    public abstract void writeCode(int code) throws IOException;
 
     /**
      * LZSS で圧縮された圧縮コードのうち一致位置を書きこむ。<br>
-     * 
+     *
      * @param offset LZSS で圧縮された圧縮コードのうち一致位置
-     * 
+     *
      * @exception IOException 入出力エラーが発生した場合
      */
-    public abstract void writeOffset( int offset ) throws IOException;
-
+    public abstract void writeOffset(int offset) throws IOException;
 
     //------------------------------------------------------------------
     //  original method
@@ -148,21 +147,21 @@ public interface PostLzssEncoder{
     //------------------------------------------------------------------
     /**
      * このPostLzssEncoderが処理するLZSS辞書のサイズを得る。
-     * 
+     *
      * @param LZSS辞書のサイズ
      */
     public abstract int getDictionarySize();
 
     /**
      * このPostLzssEncoderが処理する最大一致長を得る。
-     * 
+     *
      * @param 最長一致長
      */
     public abstract int getMaxMatch();
 
     /**
      * このPostLzssEncoderが処理する圧縮、非圧縮の閾値を得る。
-     * 
+     *
      * @param 圧縮、非圧縮の閾値
      */
     public abstract int getThreshold();

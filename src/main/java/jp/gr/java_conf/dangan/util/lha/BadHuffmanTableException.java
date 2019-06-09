@@ -1,21 +1,16 @@
-//start of BadHuffmanTableException.java
-//TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
-
-/**
- * BadHuffmanTableException.java
- * 
+/*
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
- * 
+ *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
  * 変更の有無にかかわらず許可する。
- * 
+ *
  * １．ソースコードの再配布において著作権表示と この条件のリスト
  *     および下記の声明文を保持しなくてはならない。
- * 
+ *
  * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
  *     および下記の声明文を使用説明書もしくは その他の配布物内に
  *     含む資料に記述しなければならない。
- * 
+ *
  * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
  * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
  * いかなる明示的および暗示的な保証もしない。
@@ -31,16 +26,14 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
-//import classes and interfaces
-
-//import exceptions
 import java.io.IOException;
+
 
 /**
  * BlockHuffman.LenListToCodeList() 内で、
  * 渡された LenList ( ハフマン符号長の表 )が不正なため、
  * ハフマン符号を生成できない事を示す。<br>
- * 
+ *
  * <pre>
  * -- revision history --
  * $Log: BadHuffmanTableException.java,v $
@@ -51,23 +44,16 @@ import java.io.IOException;
  *     ライセンス文の修正
  *
  * </pre>
- * 
- * @author  $Author: dangan $
+ *
+ * @author $Author: dangan $
  * @version $Revision: 1.0 $
  */
-public class BadHuffmanTableException extends IOException{
+public class BadHuffmanTableException extends IOException {
 
-
-    //------------------------------------------------------------------
-    //  constructor
-    //------------------------------------------------------------------
-    //  public BadHuffmanTableException()
-    //  public BadHuffmanTableException( String message )
-    //------------------------------------------------------------------
     /**
      * 新しい BadHuffmanTableException を構築する。
      */
-    public BadHuffmanTableException(){
+    public BadHuffmanTableException() {
         super();
     }
 
@@ -76,8 +62,7 @@ public class BadHuffmanTableException extends IOException{
      *
      * @param message 詳細なメッセージ
      */
-    public BadHuffmanTableException( String message ){
-        super( message );
+    public BadHuffmanTableException(String message) {
+        super(message);
     }
 }
-//end of BadHuffmanTableException.java

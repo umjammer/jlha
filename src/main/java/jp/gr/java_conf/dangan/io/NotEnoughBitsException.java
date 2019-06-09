@@ -1,21 +1,16 @@
-//start of NotEnoughBitsException.java
-//TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
-
-/**
- * NotEnoughBitsException.java
- * 
+/*
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
- * 
+ *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
  * 変更の有無にかかわらず許可する。
- * 
+ *
  * １．ソースコードの再配布において著作権表示と この条件のリスト
  *     および下記の声明文を保持しなくてはならない。
- * 
+ *
  * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
  *     および下記の声明文を使用説明書もしくは その他の配布物内に
  *     含む資料に記述しなければならない。
- * 
+ *
  * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
  * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
  * いかなる明示的および暗示的な保証もしない。
@@ -31,10 +26,8 @@
 
 package jp.gr.java_conf.dangan.io;
 
-//import classes and interfaces
-
-//import exceptions
 import java.io.IOException;
+
 
 /**
  * 要求されたビット数のデータを得られなかった場合に
@@ -43,7 +36,7 @@ import java.io.IOException;
  * 投げる場合には 実際には読み込み動作を行ってい
  * ないため、読み込み位置は例外を投げる前の時点と
  * 同じである点に注意すること。<br>
- * 
+ *
  * <pre>
  * -- revision history --
  * $Log: NotEnoughBitsException.java,v $
@@ -54,31 +47,24 @@ import java.io.IOException;
  *     ライセンス文の修正
  *
  * </pre>
- * 
- * @author  $Author: dangan $
+ *
+ * @author $Author: dangan $
  * @version $Revision: 1.0 $
  */
-public class NotEnoughBitsException extends IOException{
+public class NotEnoughBitsException extends IOException {
 
-
-    //------------------------------------------------------------------
-    //  instance field
-    //------------------------------------------------------------------
-    //  private int availableBits
-    //------------------------------------------------------------------
     /**
      * 実際に読み込めるビット数
      */
     private int availableBits;
 
-
     /**
      * availableBits 使用可能であることを示す
      * NotEnoughBitsException を構築する。
-     * 
+     *
      * @param availableBits 使用可能なビット数
      */
-    public NotEnoughBitsException( int availableBits ){
+    public NotEnoughBitsException(int availableBits) {
         super();
         this.availableBits = availableBits;
     }
@@ -87,30 +73,23 @@ public class NotEnoughBitsException extends IOException{
      * availableBits 使用可能であることを示し、
      * 詳細なメッセージを持つ
      * NotEnoughBitsException を構築する。
-     * 
-     * @param message       詳細なメッセージ
+     *
+     * @param message 詳細なメッセージ
      * @param availableBits 使用可能なビット数
      */
-    public NotEnoughBitsException( String message, int availableBits ){
-        super( message );
+    public NotEnoughBitsException(String message, int availableBits) {
+        super(message);
         this.availableBits = availableBits;
     }
 
-
-    //------------------------------------------------------------------
-    //  access method
-    //------------------------------------------------------------------
-    //  public int getAvailableBits()
-    //------------------------------------------------------------------
     /**
      * 使用可能なビット数を得る。<br>
      * この例外を投げたメソッドにおいて、現在使用可能なビット数を返す。<br>
-     * 
+     *
      * @return 使用可能なビット数
      */
-    public int getAvailableBits(){
+    public int getAvailableBits() {
         return this.availableBits;
     }
 
 }
-//end of NotEnoughBitsException.java

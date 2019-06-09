@@ -3,19 +3,19 @@
 
 /**
  * HashMethod.java
- * 
+ *
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
- * 
+ *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
  * 変更の有無にかかわらず許可する。
- * 
+ *
  * １．ソースコードの再配布において著作権表示と この条件のリスト
  *     および下記の声明文を保持しなくてはならない。
- * 
+ *
  * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
  *     および下記の声明文を使用説明書もしくは その他の配布物内に
  *     含む資料に記述しなければならない。
- * 
+ *
  * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
  * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
  * いかなる明示的および暗示的な保証もしない。
@@ -35,27 +35,30 @@ package jp.gr.java_conf.dangan.util.lha;
 
 //import exceptions
 
-
 /**
  * ハッシュ関数を提供するインターフェイス。<br>
  * <br>
  * コンストラクタの形式は
+ * 
  * <pre>
  * HashMethod( byte[] TextBuffer )
- * 
+ *
  * <strong>パラメータ:</strong>
  *   TextBuffer     - LZSS圧縮を施すデータの入ったバッファ
  * </pre>
+ * 
  * のような形式に則ること。<br>
  * また、追加の引数をとりたい場合は
+ * 
  * <pre>
  * HashMethod( byte[] TextBuffer,
  *             Object ExtraData1,
  *             Object ExtraData2 )
  * </pre>
+ * 
  * のような形式を用いる。<br>
  * なお、コンストラクタの引数チェックは追加の引数がある場合について行えばよい。
- * 
+ *
  * <pre>
  * -- revision history --
  * $Log: HashMethod.java,v $
@@ -70,12 +73,11 @@ package jp.gr.java_conf.dangan.util.lha;
  *     ライセンス文の修正
  *
  * </pre>
- * 
- * @author  $Author: dangan $
+ *
+ * @author $Author: dangan $
  * @version $Revision: 1.0 $
  */
-public interface HashMethod{
-
+public interface HashMethod {
 
     //------------------------------------------------------------------
     //  original method
@@ -90,24 +92,24 @@ public interface HashMethod{
      * position からのデータパタンの hash値を生成する。
      *
      * @param position データパタンの開始位置
-     * 
+     *
      * @return ハッシュ値
      */
-    public abstract int hash( int position );
+    public abstract int hash(int position);
 
     /**
      * ハッシュ関数が
      * ハッシュ値を生成するために使用するバイト数を得る。
-     * 
+     *
      * @return ハッシュ関数がハッシュ値を
      *         生成するために使用するバイト数
      */
     public abstract int hashRequires();
 
     /**
-     * この HashMethod を使った場合の 
+     * この HashMethod を使った場合の
      * HashTable のサイズを得る。
-     * 
+     *
      * @return この HashMethod を使った場合の HashTable のサイズ
      */
     public abstract int tableSize();

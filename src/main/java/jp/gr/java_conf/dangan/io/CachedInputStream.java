@@ -1,21 +1,18 @@
-//start of CachedInputStream.java
-//TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
-
 /**
  * CachedInputStream.java
- * 
+ *
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
- * 
+ *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
  * 変更の有無にかかわらず許可する。
- * 
+ *
  * １．ソースコードの再配布において著作権表示と この条件のリスト
  *     および下記の声明文を保持しなくてはならない。
- * 
+ *
  * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
  *     および下記の声明文を使用説明書もしくは その他の配布物内に
  *     含む資料に記述しなければならない。
- * 
+ *
  * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
  * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
  * いかなる明示的および暗示的な保証もしない。
@@ -38,13 +35,14 @@ import java.io.InputStream;
 import java.io.IOException;
 import java.lang.IllegalArgumentException;
 
+
 /**
- * キャッシュを使用して高速化するための入力ストリーム。<br> 
+ * キャッシュを使用して高速化するための入力ストリーム。<br>
  * BufferedInputStream とは read系メソッドが synchronized
  * されていないため、同期処理によるロスがない、mark/reset は
  * キャッシュ内の読み込み位置の移動で行えるときのみサポートであり、
  * それ以上は接続された入力ストリームの性能による、等の違いがある。
- * 
+ *
  * <pre>
  * -- revision history --
  * $Log: CachedInputStream.java,v $
@@ -58,7 +56,7 @@ import java.lang.IllegalArgumentException;
  *
  * Revision 1.1  2002/09/05 00:00:00  dangan
  * [change]
- *     EndOfStream に達した後の read( new byte[0] ) や 
+ *     EndOfStream に達した後の read( new byte[0] ) や
  *     read( byte[] buf, int off, 0 ) の戻り値を
  *     InputStream と同じく 0 になるようにした。
  *
@@ -67,7 +65,7 @@ import java.lang.IllegalArgumentException;
  * [bug fix]
  *     mark() で 接続された in に渡す readLimit の計算が甘かったため、
  *     要求された readLimit に達する前にマーク位置が破棄される事があった。
- *     read( buf, off, len ) 内の System.arraycopy の呼び出しで 
+ *     read( buf, off, len ) 内の System.arraycopy の呼び出しで
  *     dst と src を逆にしていた。
  * [change]
  *     EndOfStream に達した後の read( new byte[0] ) や
@@ -77,11 +75,11 @@ import java.lang.IllegalArgumentException;
  *     ライセンス文の修正
  *
  * </pre>
- * 
- * @author  $Author: dangan $
+ *
+ * @author $Author: dangan $
  * @version $Revision: 1.3 $
  */
-public class CachedInputStream extends InputStream{
+public class CachedInputStream extends InputStream {
 
     //------------------------------------------------------------------
     //  class field
@@ -95,7 +93,6 @@ public class CachedInputStream extends InputStream{
      */
     private static final int DefaultCacheSize = 1024;
 
-
     //------------------------------------------------------------------
     //  instance field
     //------------------------------------------------------------------
@@ -107,7 +104,6 @@ public class CachedInputStream extends InputStream{
      * データを供給する入力ストリーム
      */
     private InputStream in;
-
 
     //------------------------------------------------------------------
     //  instance field
@@ -132,7 +128,6 @@ public class CachedInputStream extends InputStream{
      * cacheの読み込み限界位置
      */
     private int cacheLimit;
-
 
     //------------------------------------------------------------------
     //  instance field
@@ -161,54 +156,52 @@ public class CachedInputStream extends InputStream{
     /** cacheLimitのバックアップ用 */
     private int markCacheLimit;
 
-
     /**
      * デフォルトのサイズのキャッシュを持つ
      * CachedInputStreamを構築する。
-     * 
+     *
      * @param in キャッシュが必要な入力ストリーム
-     * 
+     *
      * @exception IllegalArgumentException
-     *                     in が null だった場合
+     *                in が null だった場合
      */
-    public CachedInputStream( InputStream in ){
-        this( in, CachedInputStream.DefaultCacheSize );
+    public CachedInputStream(InputStream in) {
+        this(in, CachedInputStream.DefaultCacheSize);
     }
 
     /**
      * 指定されたサイズのキャッシュを持つ
      * CachedInputStreamを構築する。
-     * 
-     * @param in        キャッシュが必要な入力ストリーム
+     *
+     * @param in キャッシュが必要な入力ストリーム
      * @param cacheSize キャッシュのサイズ
-     * 
+     *
      * @exception IllegalArgumentException
-     *                     cacheSize が 0以下であるか、
-     *                     in が null だった場合
+     *                cacheSize が 0以下であるか、
+     *                in が null だった場合
      */
-    public CachedInputStream( InputStream in, int cacheSize ){
-        if( in != null && 0 < cacheSize ){
+    public CachedInputStream(InputStream in, int cacheSize) {
+        if (in != null && 0 < cacheSize) {
             this.in = in;
 
-            this.cache                 = new byte[cacheSize];
-            this.cachePosition         = 0;
-            this.cacheLimit            = 0;
+            this.cache = new byte[cacheSize];
+            this.cachePosition = 0;
+            this.cacheLimit = 0;
 
             this.markPositionIsInCache = false;
-            this.markCache             = null;
-            this.markCachePosition     = 0;
-            this.markCacheLimit        = 0;
+            this.markCache = null;
+            this.markCachePosition = 0;
+            this.markCacheLimit = 0;
 
-        }else if( in == null ){
-            throw new IllegalArgumentException( "in must not be null." );
-        }else{
-            throw new IllegalArgumentException( "cacheSize must be one or more." );
+        } else if (in == null) {
+            throw new IllegalArgumentException("in must not be null.");
+        } else {
+            throw new IllegalArgumentException("cacheSize must be one or more.");
         }
     }
 
-
     //------------------------------------------------------------------
-    //  method of java.io.InputStream 
+    //  method of java.io.InputStream
     //------------------------------------------------------------------
     //  read
     //------------------------------------------------------------------
@@ -220,22 +213,22 @@ public class CachedInputStream extends InputStream{
     /**
      * 接続されたストリームから 1バイトのデータを
      * 0〜255 にマップして読み込む。
-     * 
+     *
      * @return 読み出された 1バイトのデータを返す。<br>
      *         既に EndOfStreamに達していた場合は -1を返す。<br>
-     * 
+     *
      * @exception IOException 接続された入力ストリームで
-     *                        入出力エラーが発生した場合
+     *                入出力エラーが発生した場合
      */
     public int read() throws IOException {
-        if( this.cachePosition < this.cacheLimit ){
-            return this.cache[ this.cachePosition++ ] & 0xFF;
-        }else{
-            this.fillCache();                                                     //throws IOException
+        if (this.cachePosition < this.cacheLimit) {
+            return this.cache[this.cachePosition++] & 0xFF;
+        } else {
+            this.fillCache(); //throws IOException
 
-            if( this.cachePosition < this.cacheLimit ){
-                return this.cache[ this.cachePosition++ ] & 0xFF;
-            }else{
+            if (this.cachePosition < this.cacheLimit) {
+                return this.cache[this.cachePosition++] & 0xFF;
+            } else {
                 return -1;
             }
         }
@@ -246,17 +239,17 @@ public class CachedInputStream extends InputStream{
      * データを読み込む。<br>
      * このメソッドは buffer を満たすまでデータを読み込むか、
      * EndOfStreamに到達するまでブロックする。<br>
-     * 
+     *
      * @param buffer 読み込んだデータを格納するためのバイト配列
-     * 
+     *
      * @return buffer に読み込んだデータ量をバイト数で返す。<br>
      *         既に EndOfStreamに達していた場合は -1を返す。<br>
-     * 
+     *
      * @exception IOException 接続された入力ストリームで
-     *                        入出力エラーが発生した場合
+     *                入出力エラーが発生した場合
      */
-    public int read( byte[] buffer ) throws IOException {
-        return this.read( buffer, 0, buffer.length );
+    public int read(byte[] buffer) throws IOException {
+        return this.read(buffer, 0, buffer.length);
     }
 
     /**
@@ -264,40 +257,37 @@ public class CachedInputStream extends InputStream{
      * 位置へ length バイトデータを読み込む。<br>
      * このメソッドは length バイト読み込むか、
      * EndOfStreamに到達するまでブロックする。<br>
-     * 
+     *
      * @param buffer 読み込んだデータを格納するためのバイト配列
-     * @param index  buffer内のデータ読み込み開始位置
+     * @param index buffer内のデータ読み込み開始位置
      * @param length bufferに読み込むデータ量
-     * 
+     *
      * @return buffer に読み込んだデータ量をバイト数で返す。<br>
      *         既に EndOfStreamに達していた場合は -1を返す。<br>
-     * 
+     *
      * @exception IOException 接続された入力ストリームで
-     *                        入出力エラーが発生した場合
+     *                入出力エラーが発生した場合
      */
-    public int read( byte[] buffer, int index, int length ) 
-                                                     throws IOException {
+    public int read(byte[] buffer, int index, int length) throws IOException {
         final int requested = length;
 
-        while( 0 < length ){
-            if( this.cacheLimit <= this.cachePosition ){
-                this.fillCache();                                             //throws IOException
-                if( this.cacheLimit <= this.cachePosition ){
-                    if( requested == length ){
+        while (0 < length) {
+            if (this.cacheLimit <= this.cachePosition) {
+                this.fillCache(); //throws IOException
+                if (this.cacheLimit <= this.cachePosition) {
+                    if (requested == length) {
                         return -1;
-                    }else{
+                    } else {
                         break;
                     }
                 }
             }
 
-            int copylen = Math.min( length,
-                                    this.cacheLimit - this.cachePosition );
-            System.arraycopy( this.cache, this.cachePosition,
-                              buffer, index, copylen );
+            int copylen = Math.min(length, this.cacheLimit - this.cachePosition);
+            System.arraycopy(this.cache, this.cachePosition, buffer, index, copylen);
 
-            index              += copylen;
-            length             -= copylen;
+            index += copylen;
+            length -= copylen;
             this.cachePosition += copylen;
         }
 
@@ -308,100 +298,89 @@ public class CachedInputStream extends InputStream{
      * 接続された入力ストリームのデータを length バイト読み飛ばす。<br>
      * このメソッドは length バイト読み飛ばすか
      * EndOfStream に到達するまでブロックする。<br>
-     * 
+     *
      * @param length 読み飛ばすバイト数。<br>
-     * 
+     *
      * @return 実際に読み飛ばされたバイト数。<br>
-     * 
+     *
      * @exception IOException 接続された入力ストリームで
-     *                        入出力エラーが発生した場合
+     *                入出力エラーが発生した場合
      */
-    public long skip( long length ) throws IOException {
+    public long skip(long length) throws IOException {
         final long requested = length;
 
-        while( 0 < length ){
-            if( this.cacheLimit <= this.cachePosition ){
-                this.fillCache();                                             //throws IOException
+        while (0 < length) {
+            if (this.cacheLimit <= this.cachePosition) {
+                this.fillCache(); //throws IOException
 
-                if( this.cacheLimit <= this.cachePosition ){
+                if (this.cacheLimit <= this.cachePosition) {
                     break;
                 }
             }
 
-            long skiplen = Math.min( length, this.cacheLimit - this.cachePosition );
+            long skiplen = Math.min(length, this.cacheLimit - this.cachePosition);
 
-            length             -= skiplen;
-            this.cachePosition += (int)skiplen;
+            length -= skiplen;
+            this.cachePosition += (int) skiplen;
         }
 
         return requested - length;
     }
 
-
-    //------------------------------------------------------------------
-    //  method of java.io.InputStream
-    //------------------------------------------------------------------
-    //  mark/reset
-    //------------------------------------------------------------------
-    //  public void mark( int readLimit )
-    //  public void reset()
-    //  public boolean markSupported()
-    //------------------------------------------------------------------
     /**
      * 接続された入力ストリームの現在位置にマークを設定し、
      * reset() メソッドでマークした時点の 読み込み位置に
      * 戻れるようにする。<br>
-     * 
+     *
      * @param readLimit マーク位置に戻れる限界のバイト数。
-     *                  このバイト数を超えてデータを読み
-     *                  込んだ場合 reset()できなくなる可
-     *                  能性がある。<br>
+     *            このバイト数を超えてデータを読み
+     *            込んだ場合 reset()できなくなる可
+     *            能性がある。<br>
      */
-    public void mark( int readLimit ){
+    public void mark(int readLimit) {
         readLimit -= this.cacheLimit - this.cachePosition;
-        readLimit = ( readLimit / this.cache.length ) * this.cache.length
-                  + ( readLimit % this.cache.length == 0 ? 0 : this.cache.length );
+        readLimit = (readLimit / this.cache.length) * this.cache.length
+                    + (readLimit % this.cache.length == 0 ? 0 : this.cache.length);
 
+        this.in.mark(readLimit);
 
-        this.in.mark( readLimit );
-
-        if( this.markCache == null ){
+        if (this.markCache == null) {
             this.markCache = this.cache.clone();
-        }else{
-            System.arraycopy( this.cache, 0, this.markCache, 0, this.cacheLimit );
+        } else {
+            System.arraycopy(this.cache, 0, this.markCache, 0, this.cacheLimit);
         }
 
-        this.markCacheLimit        = this.cacheLimit;
-        this.markCachePosition     = this.cachePosition;
+        this.markCacheLimit = this.cacheLimit;
+        this.markCachePosition = this.cachePosition;
         this.markPositionIsInCache = true;
     }
 
     /**
      * 接続された入力ストリームの読み込み位置を最後に
      * mark() メソッドが呼び出されたときの位置に設定する。<br>
-     * 
+     *
      * @exception IOException <br>
-     *              (1) CachedInputStream に mark がなされていない場合。<br>
-     *              (2) 接続された入力ストリームが markSupported()で
-     *                  false を返す場合。<br>
-     *              (3) 接続された入力ストリームで
-     *                  入出力エラーが発生した場合。<br>
-     *              の何れか。
+     *                (1) CachedInputStream に mark がなされていない場合。<br>
+     *                (2) 接続された入力ストリームが markSupported()で
+     *                false を返す場合。<br>
+     *                (3) 接続された入力ストリームで
+     *                入出力エラーが発生した場合。<br>
+     *                の何れか。
      */
     public void reset() throws IOException {
-        if( this.markPositionIsInCache ){
-            this.cachePosition  = this.markCachePosition;
-        }else if( !this.in.markSupported() ){
-            throw new IOException( "not support mark()/reset()." );
-        }else if( this.markCache == null ){ //この条件式は未だにマークされていないことを示す。コンストラクタで markCache が null に設定されるのを利用する。 
-            throw new IOException( "not marked." );
-        }else{
+        if (this.markPositionIsInCache) {
+            this.cachePosition = this.markCachePosition;
+        } else if (!this.in.markSupported()) {
+            throw new IOException("not support mark()/reset().");
+        } else if (this.markCache == null) { //この条件式は未だにマークされていないことを示す。コンストラクタで markCache が null に設定されるのを利用する。
+            throw new IOException("not marked.");
+        } else {
             //in が reset() できない場合は
             //最初の行の this.in.reset() で
             //IOException を投げることを期待している。
-            this.in.reset();                                                    //throws IOException
-            System.arraycopy( this.markCache, 0, this.cache, 0, this.markCacheLimit );
-            this.cacheLimit    = this.markCacheLimit;
+            this.in.reset(); //throws IOException
+            System.arraycopy(this.markCache, 0, this.cache, 0, this.markCacheLimit);
+            this.cacheLimit = this.markCacheLimit;
             this.cachePosition = this.markCachePosition;
         }
     }
@@ -409,15 +388,14 @@ public class CachedInputStream extends InputStream{
     /**
      * 接続された入力ストリームが mark() と reset() を
      * サポートするかを得る。<br>
-     * 
+     *
      * @return ストリームが mark() と reset() を
      *         サポートする場合は true。<br>
      *         サポートしない場合は false。<br>
      */
-    public boolean markSupported(){
+    public boolean markSupported() {
         return this.in.markSupported();
     }
-
 
     //------------------------------------------------------------------
     //  method of java.io.InputStream
@@ -430,38 +408,36 @@ public class CachedInputStream extends InputStream{
     /**
      * 接続された入力ストリームからブロックしないで
      * 読み込むことのできるバイト数を得る。<br>
-     * 
+     *
      * @return ブロックしないで読み出せるバイト数。<br>
-     * 
+     *
      * @exception IOException 接続された入力ストリームで
-     *                        入出力エラーが発生した場合
+     *                入出力エラーが発生した場合
      */
     public int available() throws IOException {
-        return this.cacheLimit - this.cachePosition
-              + ( this.in.available() / this.cache.length ) * this.cache.length;//throws IOException
+        return this.cacheLimit - this.cachePosition + (this.in.available() / this.cache.length) * this.cache.length;//throws IOException
     }
 
     /**
      * この入力ストリームを閉じ、使用していた
      * 全てのリソースを開放する。<br>
-     * 
+     *
      * @exception IOException 接続された入力ストリームで
-     *                        入出力エラーが発生した場合
+     *                入出力エラーが発生した場合
      */
     public void close() throws IOException {
-        this.in.close();                                                        //throws IOException
-        this.in                    = null;
+        this.in.close(); //throws IOException
+        this.in = null;
 
-        this.cache                 = null;
-        this.cacheLimit            = 0;
-        this.cachePosition         = 0;
+        this.cache = null;
+        this.cacheLimit = 0;
+        this.cachePosition = 0;
 
-        this.markCache             = null;
-        this.markCacheLimit        = 0;
-        this.markCachePosition     = 0;
+        this.markCache = null;
+        this.markCacheLimit = 0;
+        this.markCachePosition = 0;
         this.markPositionIsInCache = false;
     }
-
 
     //------------------------------------------------------------------
     //  local methods
@@ -474,25 +450,23 @@ public class CachedInputStream extends InputStream{
      * ことを保証するために呼ばれる。<br>
      * もし EndOfStream まで読み込まれている場合は データが
      * 補填されないことによって それを示す。
-     * 
+     *
      * @exception IOException 入出力エラーが発生した場合
      */
     private void fillCache() throws IOException {
         this.markPositionIsInCache = false;
-        this.cacheLimit            = 0;
-        this.cachePosition         = 0;
+        this.cacheLimit = 0;
+        this.cachePosition = 0;
 
         //キャッシュにデータを読み込み
         int read = 0;
-        while( 0 <= read && this.cacheLimit < this.cache.length ){
-            read = this.in.read( this.cache,
-                                 this.cacheLimit, 
-                                 this.cache.length - this.cacheLimit );         //throws IOException
+        while (0 <= read && this.cacheLimit < this.cache.length) {
+            read = this.in.read(this.cache, this.cacheLimit, this.cache.length - this.cacheLimit); //throws IOException
 
-            if( 0 < read ) this.cacheLimit += read;
+            if (0 < read)
+                this.cacheLimit += read;
         }
     }
-
 
 }
 //end of CachedInputStream.java

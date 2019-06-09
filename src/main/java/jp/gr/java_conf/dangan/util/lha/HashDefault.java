@@ -3,19 +3,19 @@
 
 /**
  * HashDefault.java
- * 
+ *
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
- * 
+ *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
  * 変更の有無にかかわらず許可する。
- * 
+ *
  * １．ソースコードの再配布において著作権表示と この条件のリスト
  *     および下記の声明文を保持しなくてはならない。
- * 
+ *
  * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
  *     および下記の声明文を使用説明書もしくは その他の配布物内に
  *     含む資料に記述しなければならない。
- * 
+ *
  * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
  * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
  * いかなる明示的および暗示的な保証もしない。
@@ -40,7 +40,7 @@ import jp.gr.java_conf.dangan.util.lha.HashMethod;
 /**
  * 試作プログラム ar940528 や LHa for Unix で使用されているハッシュ関数。<br>
  * gzip で使用されているを参考にしたようだ。<br>
- * 
+ *
  * <pre>
  * -- revision history --
  * $Log: HashDefault.java,v $
@@ -55,12 +55,11 @@ import jp.gr.java_conf.dangan.util.lha.HashMethod;
  *     ライセンス文の修正
  *
  * </pre>
- * 
- * @author  $Author: dangan $
+ *
+ * @author $Author: dangan $
  * @version $Revision: 1.0 $
  */
-public class HashDefault implements HashMethod{
-
+public class HashDefault implements HashMethod {
 
     //------------------------------------------------------------------
     //  class field
@@ -71,7 +70,6 @@ public class HashDefault implements HashMethod{
      * ハッシュ値を生成するためのマスク値
      */
     private static final int HashMask = 0x7FFF;
-
 
     //------------------------------------------------------------------
     //  instance field
@@ -86,17 +84,15 @@ public class HashDefault implements HashMethod{
      */
     private byte[] TextBuffer;
 
-
     /**
      * ar940528 や LHa for Unix で使用されているハッシュ関数を構築する。
-     * 
+     *
      * @param TextBuffer LZSS圧縮用のバッファ。
-     *                   Hash値生成のため読み込み用に使用する。
+     *            Hash値生成のため読み込み用に使用する。
      */
-    public HashDefault( byte[] TextBuffer ){
+    public HashDefault(byte[] TextBuffer) {
         this.TextBuffer = TextBuffer;
     }
-
 
     //------------------------------------------------------------------
     //  method of jp.gr.java_conf.dangan.util.lha.HashMethod
@@ -111,14 +107,13 @@ public class HashDefault implements HashMethod{
      * データパタンの hash値を生成する。
      *
      * @param position データパタンの開始位置
-     * 
+     *
      * @return ハッシュ値
      */
-    public int hash( int position ){
-        return ( ( ( this.TextBuffer[ position ] << 5 ) 
-                 ^ ( this.TextBuffer[ position + 1 ] & 0xFF ) )
-               << 5 ^( this.TextBuffer[ position + 2 ] & 0xFF ) )
-             & HashDefault.HashMask;
+    public int hash(int position) {
+        return (((this.TextBuffer[position] << 5) ^ (this.TextBuffer[position + 1] & 0xFF)) << 5
+                ^ (this.TextBuffer[position + 2] & 0xFF))
+               & HashDefault.HashMask;
     }
 
     /**
@@ -126,10 +121,10 @@ public class HashDefault implements HashMethod{
      * このハッシュ関数は 3バイトのデータから
      * シフトとXORを使用してハッシュ値を生成するため、
      * このメソッドは常に 3 を返す。
-     * 
+     *
      * @return 常に 3
      */
-    public int hashRequires(){
+    public int hashRequires() {
         return 3;
     }
 
@@ -137,10 +132,10 @@ public class HashDefault implements HashMethod{
      * ハッシュテーブルのサイズを得る。<br>
      * このハッシュ関数は 0x0000 〜 0x7FFF のハッシュ値を生成するため、
      * このメソッドは常に 0x8000(32768) を返す。
-     * 
+     *
      * @return 常に 0x8000(32768)
      */
-    public int tableSize(){
+    public int tableSize() {
         return 0x8000;
     }
 

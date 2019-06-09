@@ -3,19 +3,19 @@
 
 /**
  * HashShort.java
- * 
+ *
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
- * 
+ *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
  * 変更の有無にかかわらず許可する。
- * 
+ *
  * １．ソースコードの再配布において著作権表示と この条件のリスト
  *     および下記の声明文を保持しなくてはならない。
- * 
+ *
  * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
  *     および下記の声明文を使用説明書もしくは その他の配布物内に
  *     含む資料に記述しなければならない。
- * 
+ *
  * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
  * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
  * いかなる明示的および暗示的な保証もしない。
@@ -40,7 +40,7 @@ import jp.gr.java_conf.dangan.util.lha.HashMethod;
 /**
  * データパタンの先頭2バイトから
  * 0 〜 4095 のハッシュ値を生成するハッシュ関数。
- * 
+ *
  * <pre>
  * -- revision history --
  * $Log: HashShort.java,v $
@@ -54,12 +54,11 @@ import jp.gr.java_conf.dangan.util.lha.HashMethod;
  *     ライセンス文の修正
  *
  * </pre>
- * 
- * @author  $Author: dangan $
+ *
+ * @author $Author: dangan $
  * @version $Revision: 1.0 $
  */
-public class HashShort implements HashMethod{
-
+public class HashShort implements HashMethod {
 
     //------------------------------------------------------------------
     //  instance field
@@ -74,18 +73,16 @@ public class HashShort implements HashMethod{
      */
     private byte[] TextBuffer;
 
-
     /**
      * データパタンの先頭2バイトから 0x000 〜 0xFFF までの値を生成する
      * ハッシュ関数を構築する。
-     * 
+     *
      * @param TextBuffer LZSS圧縮用のバッファ。
-     *                   Hash値生成のため読み込み用に使用する。
+     *            Hash値生成のため読み込み用に使用する。
      */
-    public HashShort( byte[] TextBuffer ){
+    public HashShort(byte[] TextBuffer) {
         this.TextBuffer = TextBuffer;
     }
-
 
     //------------------------------------------------------------------
     //  method of jp.gr.java_conf.dangan.util.lha.HashMethod
@@ -100,23 +97,22 @@ public class HashShort implements HashMethod{
      * データパタンの hash値を生成する。
      *
      * @param position データパタンの開始位置
-     * 
+     *
      * @return ハッシュ値
      */
-    public int hash( int position ){
-        return ( ( ( ( this.TextBuffer[ position + 1 ] & 0x0F ) << 8 )
-                 | ( ( this.TextBuffer[ position + 1 ] & 0xFF ) >> 4 ) )
-               ^ ( ( this.TextBuffer[ position  ] & 0xFF ) << 2 ) );
+    public int hash(int position) {
+        return ((((this.TextBuffer[position + 1] & 0x0F) << 8) | ((this.TextBuffer[position + 1] & 0xFF) >> 4))
+                ^ ((this.TextBuffer[position] & 0xFF) << 2));
     }
 
     /**
      * ハッシュ関数がハッシュ値を生成するために使用するバイト数を得る。<br>
      * このハッシュ関数はデータパタンの先頭 2 バイトのデータから
      * ハッシュ値を生成するため、このメソッドは常に 2 を返す。
-     * 
+     *
      * @return 常に 2
      */
-    public int hashRequires(){
+    public int hashRequires() {
         return 2;
     }
 
@@ -124,13 +120,12 @@ public class HashShort implements HashMethod{
      * ハッシュテーブルのサイズを得る。<br>
      * このハッシュ関数は 0x000 〜 0xFFF までのハッシュ値を生成するため
      * このメソッドは常に 0x1000(4096) を返す。
-     * 
-     * @return 常に 0x1000(4096) 
+     *
+     * @return 常に 0x1000(4096)
      */
-    public int tableSize(){
+    public int tableSize() {
         return 0x1000;
     }
-
 
 }
 //end of HashShort.java

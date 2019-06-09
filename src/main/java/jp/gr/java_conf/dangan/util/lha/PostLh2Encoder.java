@@ -3,19 +3,19 @@
 
 /**
  * PostLh2Encoder.java
- * 
+ *
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
- * 
+ *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
  * 変更の有無にかかわらず許可する。
- * 
+ *
  * １．ソースコードの再配布において著作権表示と この条件のリスト
  *     および下記の声明文を保持しなくてはならない。
- * 
+ *
  * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
  *     および下記の声明文を使用説明書もしくは その他の配布物内に
  *     含む資料に記述しなければならない。
- * 
+ *
  * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
  * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
  * いかなる明示的および暗示的な保証もしない。
@@ -42,9 +42,10 @@ import jp.gr.java_conf.dangan.util.lha.PostLzssEncoder;
 import java.io.IOException;
 import java.lang.NullPointerException;
 
+
 /**
  * -lh2- 圧縮用 PostLzssEncoder。 <br>
- * 
+ *
  * <pre>
  * -- revision history --
  * $Log: PostLh2Encoder.java,v $
@@ -60,8 +61,8 @@ import java.lang.NullPointerException;
  *     ライセンス文の修正
  *
  * </pre>
- * 
- * @author  $Author: dangan $
+ *
+ * @author $Author: dangan $
  * @version $Revision: 1.1 $
  */
 public class PostLh2Encoder implements PostLzssEncoder {
@@ -79,11 +80,10 @@ public class PostLh2Encoder implements PostLzssEncoder {
     private static final int DictionarySize = 8192;
 
     /** 最大一致長 */
-    private static final int MaxMatch       = 256;
+    private static final int MaxMatch = 256;
 
     /** 最小一致長 */
-    private static final int Threshold      = 3;
-
+    private static final int Threshold = 3;
 
     //------------------------------------------------------------------
     //  class field
@@ -91,11 +91,10 @@ public class PostLh2Encoder implements PostLzssEncoder {
     //  private static final int CodeSize
     //------------------------------------------------------------------
     /**
-     * code部のハフマン木のサイズ 
+     * code部のハフマン木のサイズ
      * code部がこれ以上の値を扱う場合は余計なビットを出力して補う。
      */
     private static final int CodeSize = 286;
-
 
     //------------------------------------------------------------------
     //  instance field
@@ -108,7 +107,6 @@ public class PostLh2Encoder implements PostLzssEncoder {
      * -lh2- 形式の圧縮データの出力先の ビット出力ストリーム
      */
     private BitOutputStream out;
-
 
     //------------------------------------------------------------------
     //  instance field
@@ -127,7 +125,6 @@ public class PostLh2Encoder implements PostLzssEncoder {
      * offHi部圧縮用適応的ハフマン木
      */
     private DynamicHuffman offHiHuffman;
-
 
     //------------------------------------------------------------------
     //  instance field
@@ -153,29 +150,26 @@ public class PostLh2Encoder implements PostLzssEncoder {
      */
     private int matchLength;
 
-
     /**
      * -lh2- 圧縮用 PostLzssEncoder を構築する。
-     * 
+     *
      * @param out 圧縮データを受け取る出力ストリーム
      */
-    public PostLh2Encoder( OutputStream out ){
-        if( out != null ){
-            if( out instanceof BitOutputStream ){
-                this.out = (BitOutputStream)out;
-            }else{
-                this.out = new BitOutputStream( out );
+    public PostLh2Encoder(OutputStream out) {
+        if (out != null) {
+            if (out instanceof BitOutputStream) {
+                this.out = (BitOutputStream) out;
+            } else {
+                this.out = new BitOutputStream(out);
             }
-            this.codeHuffman  = new DynamicHuffman( PostLh2Encoder.CodeSize );
-            this.offHiHuffman = new DynamicHuffman(
-                                      PostLh2Encoder.DictionarySize >> 6, 1 );
-            this.position     = 0;
+            this.codeHuffman = new DynamicHuffman(PostLh2Encoder.CodeSize);
+            this.offHiHuffman = new DynamicHuffman(PostLh2Encoder.DictionarySize >> 6, 1);
+            this.position = 0;
             this.nextPosition = 1 << 6;
-        }else{
-            throw new NullPointerException( "out" );
+        } else {
+            throw new NullPointerException("out");
         }
     }
-
 
     //------------------------------------------------------------------
     //  method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
@@ -188,76 +182,76 @@ public class PostLh2Encoder implements PostLzssEncoder {
     /**
      * 1byte の LZSS未圧縮のデータもしくは、
      * LZSS で圧縮された圧縮コードのうち一致長を書きこむ。<br>
-     * 
+     *
      * @param code 1byte の LZSS未圧縮のデータもしくは、
-     *             LZSS で圧縮された圧縮コードのうち一致長
-     * 
+     *            LZSS で圧縮された圧縮コードのうち一致長
+     *
      * @exception IOException 入出力エラーが発生した場合
      */
-    public void writeCode( int code ) throws IOException {
+    public void writeCode(int code) throws IOException {
         final int CodeMax = PostLh2Encoder.CodeSize - 1;
 
-        int node  = this.codeHuffman.codeToNode( Math.min( code, CodeMax ) );
+        int node = this.codeHuffman.codeToNode(Math.min(code, CodeMax));
         int hcode = 0;
-        int hlen  = 0;
-        do{
+        int hlen = 0;
+        do {
             hcode >>>= 1;
             hlen++;
-            if( ( node & 1 ) != 0 ) hcode |= 0x80000000;
+            if ((node & 1) != 0)
+                hcode |= 0x80000000;
 
-            node = this.codeHuffman.parentNode( node );
-        }while( node != DynamicHuffman.ROOT );
+            node = this.codeHuffman.parentNode(node);
+        } while (node != DynamicHuffman.ROOT);
 
-        this.out.writeBits( hlen, hcode >>> ( 32 - hlen ) );                    //throws IOException
+        this.out.writeBits(hlen, hcode >>> (32 - hlen)); //throws IOException
 
-
-        if( code < 0x100 ){
+        if (code < 0x100) {
             this.position++;
-        }else{
-            this.matchLength = ( code & 0xFF ) + PostLh2Encoder.Threshold;
+        } else {
+            this.matchLength = (code & 0xFF) + PostLh2Encoder.Threshold;
 
-            if( CodeMax <= code ){
-                this.out.writeBits( 8, code - CodeMax );                        //throws IOException
-                code = CodeMax;   //updateするコードをCodeMaxにする。
+            if (CodeMax <= code) {
+                this.out.writeBits(8, code - CodeMax); //throws IOException
+                code = CodeMax; //updateするコードをCodeMaxにする。
             }
         }
-        this.codeHuffman.update( code );
+        this.codeHuffman.update(code);
     }
 
     /**
      * LZSS で圧縮された圧縮コードのうち一致位置を書きこむ。<br>
-     * 
+     *
      * @param offset LZSS で圧縮された圧縮コードのうち一致位置
      */
-    public void writeOffset( int offset ) throws IOException {
-        if( this.nextPosition < PostLh2Encoder.DictionarySize ){
-            while( this.nextPosition < this.position ){
-                this.offHiHuffman.addLeaf( this.nextPosition >> 6 );
+    public void writeOffset(int offset) throws IOException {
+        if (this.nextPosition < PostLh2Encoder.DictionarySize) {
+            while (this.nextPosition < this.position) {
+                this.offHiHuffman.addLeaf(this.nextPosition >> 6);
                 this.nextPosition += 64;
 
-                if( PostLh2Encoder.DictionarySize <= this.nextPosition )
+                if (PostLh2Encoder.DictionarySize <= this.nextPosition)
                     break;
             }
         }
 
-        int node  = this.offHiHuffman.codeToNode( offset >> 6 );
+        int node = this.offHiHuffman.codeToNode(offset >> 6);
         int hcode = 0;
-        int hlen  = 0;
-        while( node != DynamicHuffman.ROOT ){
+        int hlen = 0;
+        while (node != DynamicHuffman.ROOT) {
             hcode >>>= 1;
             hlen++;
-            if( ( node & 1 ) != 0 ) hcode |= 0x80000000;
+            if ((node & 1) != 0)
+                hcode |= 0x80000000;
 
-            node = this.offHiHuffman.parentNode( node );
+            node = this.offHiHuffman.parentNode(node);
         }
 
-        this.out.writeBits( hlen, hcode >> ( 32 - hlen ) );                     //throws IOException
-        this.out.writeBits( 6, offset );                                        //throws IOException
-        this.offHiHuffman.update( offset >> 6 );
+        this.out.writeBits(hlen, hcode >> (32 - hlen)); //throws IOException
+        this.out.writeBits(6, offset); //throws IOException
+        this.offHiHuffman.update(offset >> 6);
 
         this.position += this.matchLength;
     }
-
 
     //------------------------------------------------------------------
     //  method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
@@ -272,30 +266,29 @@ public class PostLh2Encoder implements PostLzssEncoder {
      * 全ての 8ビット単位のデータを出力先の OutputStream に出力し、
      * 出力先の OutputStream を flush() する。<br>
      * このメソッドは圧縮率を変化させない。
-     * 
+     *
      * @exception IOException 入出力エラーが発生した場合
-     * 
+     *
      * @see PostLzssEncoder#flush()
      * @see BitOutputStream#flush()
      */
     public void flush() throws IOException {
-        this.out.flush();                                                       //throws IOException
+        this.out.flush(); //throws IOException
     }
 
     /**
      * この出力ストリームと、接続された出力ストリームを閉じ、
      * 使用していたリソースを開放する。<br>
-     * 
+     *
      * @exception IOException 入出力エラーが発生した場合
      */
     public void close() throws IOException {
-        this.out.close();                                                       //throws IOException
+        this.out.close(); //throws IOException
 
-        this.out          = null;
-        this.codeHuffman  = null;
+        this.out = null;
+        this.codeHuffman = null;
         this.offHiHuffman = null;
     }
-
 
     //------------------------------------------------------------------
     //  method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
@@ -308,28 +301,28 @@ public class PostLh2Encoder implements PostLzssEncoder {
     //------------------------------------------------------------------
     /**
      * -lh2-形式の LZSS辞書のサイズを得る。
-     * 
+     *
      * @return -lh2-形式の LZSS辞書のサイズ
      */
-    public int getDictionarySize(){
+    public int getDictionarySize() {
         return PostLh2Encoder.DictionarySize;
     }
 
     /**
      * -lh2-形式の LZSSの最大一致長を得る。
-     * 
+     *
      * @return -lh2-形式の LZSSの最大一致長
      */
-    public int getMaxMatch(){
+    public int getMaxMatch() {
         return PostLh2Encoder.MaxMatch;
     }
 
     /**
      * -lh2-形式の LZSSの圧縮、非圧縮の閾値を得る。
-     * 
+     *
      * @return -lh2-形式の LZSSの圧縮、非圧縮の閾値
      */
-    public int getThreshold(){
+    public int getThreshold() {
         return PostLh2Encoder.Threshold;
     }
 

@@ -1,21 +1,18 @@
-//start of Bits.java
-//TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
-
-/**
+/*
  * Bits.java
- * 
+ *
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
- * 
+ *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
  * 変更の有無にかかわらず許可する。
- * 
+ *
  * １．ソースコードの再配布において著作権表示と この条件のリスト
  *     および下記の声明文を保持しなくてはならない。
- * 
+ *
  * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
  *     および下記の声明文を使用説明書もしくは その他の配布物内に
  *     含む資料に記述しなければならない。
- * 
+ *
  * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
  * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
  * いかなる明示的および暗示的な保証もしない。
@@ -31,14 +28,9 @@
 
 package jp.gr.java_conf.dangan.io;
 
-//import classes and interfaces
-
-//import exceptions
-
-
 /**
  * ビット処理のためのユーティリティメソッド群。<br>
- * 
+ *
  * <pre>
  * -- revision history --
  * $Log: Bits.java,v $
@@ -47,45 +39,32 @@ package jp.gr.java_conf.dangan.io;
  * add to version control
  *
  * </pre>
- * 
- * @author  $Author: dangan $
+ *
+ * @author $Author: dangan $
  * @version $Revision: 1.0 $
  */
-public class Bits{
+public class Bits {
 
-
-    //------------------------------------------------------------------
-    //  constructor
-    //------------------------------------------------------------------
-    //  private Bits()
-    //------------------------------------------------------------------
     /**
      * デフォルトコンストラクタ。
      * 使用不可。
      */
-    private Bits(){     }
+    private Bits() {
+    }
 
-
-    //------------------------------------------------------------------
-    //  shared method
-    //------------------------------------------------------------------
-    //  length of bits
-    //------------------------------------------------------------------
-    //  public static int len( int val )
-    //------------------------------------------------------------------
     /**
      * val のビット長を得る。
      * val は符号なし 32ビット整数とみなされる。
      * log2( (long)val & 0xFFFFFFFFL ) の戻り値の
      * 小数点以下を切り捨てたものと同等。
-     * 
+     *
      * @param val 整数値
-     * 
+     *
      * @return val のビット長
      */
-    public static int len( int val ){
+    public static int len(int val) {
         int len = 0;
-        while( 0 != val ){
+        while (0 != val) {
             val >>>= 1;
             len++;
         }
@@ -93,4 +72,3 @@ public class Bits{
     }
 
 }
-//end of Bits.java

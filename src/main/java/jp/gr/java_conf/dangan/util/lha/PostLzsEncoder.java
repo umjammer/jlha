@@ -3,19 +3,19 @@
 
 /**
  * PostLzsEncoder.java
- * 
+ *
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
- * 
+ *
  * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
  * 変更の有無にかかわらず許可する。
- * 
+ *
  * １．ソースコードの再配布において著作権表示と この条件のリスト
  *     および下記の声明文を保持しなくてはならない。
- * 
+ *
  * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
  *     および下記の声明文を使用説明書もしくは その他の配布物内に
  *     含む資料に記述しなければならない。
- * 
+ *
  * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
  * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
  * いかなる明示的および暗示的な保証もしない。
@@ -44,7 +44,7 @@ import java.lang.NullPointerException;
 
 /**
  * -lzs- 圧縮用 PostLzssEncoder。
- * 
+ *
  * <pre>
  * -- revision history --
  * $Log: PostLzsEncoder.java,v $
@@ -62,12 +62,11 @@ import java.lang.NullPointerException;
  *     ライセンス文の修正
  *
  * </pre>
- * 
- * @author  $Author: dangan $
+ *
+ * @author $Author: dangan $
  * @version $Revision: 1.1 $
  */
 public class PostLzsEncoder implements PostLzssEncoder {
-
 
     //------------------------------------------------------------------
     //  class field
@@ -82,11 +81,10 @@ public class PostLzsEncoder implements PostLzssEncoder {
     private static final int DictionarySize = 2048;
 
     /** 最大一致長 */
-    private static final int MaxMatch       = 17;
+    private static final int MaxMatch = 17;
 
     /** 最小一致長 */
-    private static final int Threshold      = 2;
-
+    private static final int Threshold = 2;
 
     //------------------------------------------------------------------
     //  class field
@@ -97,11 +95,10 @@ public class PostLzsEncoder implements PostLzssEncoder {
     //  private static final int LengthBits
     //------------------------------------------------------------------
     /** 一致位置のビット数 */
-    private static final int PositionBits = Bits.len( PostLzsEncoder.DictionarySize - 1 );
+    private static final int PositionBits = Bits.len(PostLzsEncoder.DictionarySize - 1);
 
     /** 一致長のビット数 */
-    private static final int LengthBits = Bits.len( PostLzsEncoder.MaxMatch - PostLzsEncoder.Threshold );
-
+    private static final int LengthBits = Bits.len(PostLzsEncoder.MaxMatch - PostLzsEncoder.Threshold);
 
     //------------------------------------------------------------------
     //  instance field
@@ -125,26 +122,24 @@ public class PostLzsEncoder implements PostLzssEncoder {
      */
     private int matchLength;
 
-
     /**
      * -lzs- 圧縮用 PostLzssEncoder を構築する。
-     * 
+     *
      * @param out -lzs- 形式の圧縮データを出力するストリーム
      */
-    public PostLzsEncoder( OutputStream out ){
-        if( out != null ){
-            if( out instanceof BitOutputStream ){
-                this.out = (BitOutputStream)out;
-            }else{
-                this.out = new BitOutputStream( out );
+    public PostLzsEncoder(OutputStream out) {
+        if (out != null) {
+            if (out instanceof BitOutputStream) {
+                this.out = (BitOutputStream) out;
+            } else {
+                this.out = new BitOutputStream(out);
             }
-            this.position    = 0;
+            this.position = 0;
             this.matchLength = 0;
-        }else{
-            throw new NullPointerException( "out" );
+        } else {
+            throw new NullPointerException("out");
         }
     }
-
 
     //------------------------------------------------------------------
     //  method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
@@ -157,41 +152,38 @@ public class PostLzsEncoder implements PostLzssEncoder {
     /**
      * 1byte の LZSS未圧縮のデータもしくは、
      * LZSS で圧縮された圧縮コードのうち一致長を書きこむ。<br>
-     * 
+     *
      * @param code 1byte の LZSS未圧縮のデータもしくは、
-     *             LZSS で圧縮された圧縮コードのうち一致長
-     * 
+     *            LZSS で圧縮された圧縮コードのうち一致長
+     *
      * @exception IOException 入出力エラーが発生した場合
      */
-    public void writeCode( int code ) throws IOException {
-        if( code < 0x100 ){
-            this.out.writeBit( 1 );                                             //throws IOException
-            this.out.writeBits( 8, code );                                      //throws IOException
+    public void writeCode(int code) throws IOException {
+        if (code < 0x100) {
+            this.out.writeBit(1); //throws IOException
+            this.out.writeBits(8, code); //throws IOException
             this.position++;
-        }else{
+        } else {
             // close() 後の writeCode() で
             // NullPointerException を投げることを期待している。
-            this.out.writeBit( 0 );                                             //throws IOException
+            this.out.writeBit(0); //throws IOException
             this.matchLength = code - 0x100;
         }
     }
 
     /**
      * LZSS で圧縮された圧縮コードのうち一致位置を書きこむ。<br>
-     * 
+     *
      * @param offset LZSS で圧縮された圧縮コードのうち一致位置
      */
-    public void writeOffset( int offset ) throws IOException {
-        int pos = ( this.position - offset - 1
-                  - PostLzsEncoder.MaxMatch )
-                & ( PostLzsEncoder.DictionarySize - 1 );
+    public void writeOffset(int offset) throws IOException {
+        int pos = (this.position - offset - 1 - PostLzsEncoder.MaxMatch) & (PostLzsEncoder.DictionarySize - 1);
 
         this.position += this.matchLength + PostLzsEncoder.Threshold;
 
-        this.out.writeBits( PostLzsEncoder.PositionBits, pos );                           //throws IOException
-        this.out.writeBits( PostLzsEncoder.LengthBits,   this.matchLength );              //throws IOException
+        this.out.writeBits(PostLzsEncoder.PositionBits, pos); //throws IOException
+        this.out.writeBits(PostLzsEncoder.LengthBits, this.matchLength); //throws IOException
     }
-
 
     //------------------------------------------------------------------
     //  method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
@@ -203,31 +195,30 @@ public class PostLzsEncoder implements PostLzssEncoder {
     //------------------------------------------------------------------
     /**
      * この PostLzssEncoder にバッファリングされている
-     * 全ての 8ビット単位のデータを出力先の OutputStream に出力し、 
+     * 全ての 8ビット単位のデータを出力先の OutputStream に出力し、
      * 出力先の OutputStream を flush() する。<br>
-     * このメソッドは圧縮率を変化させない。 
-     * 
+     * このメソッドは圧縮率を変化させない。
+     *
      * @exception IOException 入出力エラーが発生した場合
      *
      * @see PostLzssEncoder#flush()
      * @see BitOutputStream#flush()
      */
     public void flush() throws IOException {
-        this.out.flush();                                                       //throws IOException
+        this.out.flush(); //throws IOException
     }
 
     /**
      * この出力ストリームと、接続された出力ストリームを閉じ、
      * 使用していたリソースを解放する。<br>
-     * 
+     *
      * @exception IOException 入出力エラーが発生した場合
      */
     public void close() throws IOException {
-        this.out.close();                                                       //throws IOException
+        this.out.close(); //throws IOException
 
         this.out = null;
     }
-
 
     //------------------------------------------------------------------
     //  method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
@@ -240,28 +231,28 @@ public class PostLzsEncoder implements PostLzssEncoder {
     //------------------------------------------------------------------
     /**
      * -lzs-形式の LZSS辞書のサイズを得る。
-     * 
+     *
      * @return -lzs-形式の LZSS辞書のサイズ
      */
-    public int getDictionarySize(){
+    public int getDictionarySize() {
         return PostLzsEncoder.DictionarySize;
     }
 
     /**
      * -lzs-形式の LZSSの最大一致長を得る。
-     * 
+     *
      * @return -lzs-形式の LZSSの最大一致長
      */
-    public int getMaxMatch(){
+    public int getMaxMatch() {
         return PostLzsEncoder.MaxMatch;
     }
 
     /**
      * -lzs-形式の LZSSの圧縮、非圧縮の閾値を得る。
-     * 
+     *
      * @return -lzs-形式の LZSSの圧縮、非圧縮の閾値
      */
-    public int getThreshold(){
+    public int getThreshold() {
         return PostLzsEncoder.Threshold;
     }
 
