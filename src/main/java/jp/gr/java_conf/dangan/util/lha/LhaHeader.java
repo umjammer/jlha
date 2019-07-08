@@ -201,7 +201,7 @@ public class LhaHeader implements Cloneable {
      * ディレクトリであると解釈される。
      *
      * @param path パス名
-     * @exception IllgelArgumentException
+     * @exception IllegalArgumentException
      *                path が null か 空文字列のいずれかである場合
      */
     public LhaHeader(String path) {
@@ -217,7 +217,7 @@ public class LhaHeader implements Cloneable {
      *
      * @param path パス名
      * @param date 最終更新日時
-     * @exception IllgelArgumentException
+     * @exception IllegalArgumentException
      *                path が null か 空文字列のいずれかであるか、
      *                date が nullである場合。
      */

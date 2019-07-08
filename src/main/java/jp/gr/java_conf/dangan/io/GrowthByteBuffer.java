@@ -231,7 +231,7 @@ public class GrowthByteBuffer {
     /**
      * 読みこみ限界位置を設定する。
      *
-     * @param 新しい読みこみ限界位置
+     * @param length 新しい読みこみ限界位置
      */
     public void setLength(int length) {
         length--;
@@ -283,7 +283,7 @@ public class GrowthByteBuffer {
      * 新しい読みこみ限界 limit を設定し、
      * limit まで バッファを増加させる。
      *
-     * @param 新しい読みこみ限界
+     * @param limit 新しい読みこみ限界
      */
     private void grow(int limit) {
         if (this.limit < limit) {

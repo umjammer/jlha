@@ -740,7 +740,7 @@ public class PreLh5Decoder implements PreLzssDecoder {
      *                予期せぬ原因でデータ読みこみが
      *                中断されたため要求されたビット数
      *                のデータが得られなかった場合
-     * @exception NotEnouthBitsException
+     * @exception NotEnoughBitsException
      *                予期せぬ原因でデータ読みこみが
      *                中断されたため要求されたビット数
      *                のデータが得られなかった場合

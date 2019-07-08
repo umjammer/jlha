@@ -255,7 +255,7 @@ public class WindowsDate extends Date implements Cloneable {
      * secounds で指定された値に設定する。<br>
      * このメソッドは範囲チェックを行うだけのために存在する。
      *
-     * @param secounds 秒数
+     * @param seconds 秒数
      * @exception IllegalArgumentException
      *                secounds に変更したところ FILETIME形式で扱えない
      *                範囲の時間になった場合

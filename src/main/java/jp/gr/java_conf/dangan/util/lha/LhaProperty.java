@@ -332,7 +332,7 @@ public class LhaProperty {
      * LHA Library for Java のプロパティ用の
      * 生成式 source を解析して 新しい Object を生成する。
      *
-     * @param souce 解析すべき生成式
+     * @param source 解析すべき生成式
      * @param substitute 置換対象文字列をkeyにもち、置換するObjectを値に持つ Hashtable
      * @param packages カンマで区切られたパッケージ名の列挙
      * @return 生成された Object
@@ -353,7 +353,7 @@ public class LhaProperty {
      * LHA Library for Java のプロパティ用の
      * 生成式 source を解析して 新しい Object を生成する。
      *
-     * @param souce 解析すべき文字列
+     * @param source 解析すべき文字列
      * @param substitute 置換対象文字列をkeyにもち、置換するObjectを値に持つ Hashtable
      * @param packages パッケージ名の配列
      * @return 生成された Object
@@ -380,7 +380,7 @@ public class LhaProperty {
      * コンストラクタを示す文字列 source を解析して、
      * 新しい インスタンスを生成する。
      *
-     * @param souce 解析すべきコンストラクタを示す文字列
+     * @param source 解析すべきコンストラクタを示す文字列
      * @param substitute 置換対象文字列をkeyにもち、置換するObjectを値に持つ Hashtable
      * @param packages パッケージ名の配列
      * @return 生成されたインスタンス
@@ -459,7 +459,7 @@ public class LhaProperty {
      * 配列を示す文字列 source を解析して、
      * 新しい Object の配列を生成する。
      *
-     * @param souce 解析すべきコンストラクタを示す文字列
+     * @param source 解析すべきコンストラクタを示す文字列
      * @param substitute 置換対象文字列をkeyにもち、置換するObjectを値に持つ Hashtable
      * @param packages パッケージ名の配列
      * @return 生成された Object の配列

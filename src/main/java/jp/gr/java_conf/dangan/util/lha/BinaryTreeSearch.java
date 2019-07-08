@@ -400,9 +400,6 @@ public class BinaryTreeSearch implements LzssSearchMethod {
      * TextBuffer内のpositionまでのデータを前方へ移動する際、
      * それに応じて 二分木を構成するデータも
      * TextBuffer内のデータと矛盾しないように前方へ移動する処理を行う。
-     *
-     * @param slideWidth ずらす幅
-     * @param slideEnd ずらすデータの終端 + 1(データ転送先)
      */
     public void slide() {
         this.DictionaryLimit = Math.max(0, this.DictionaryLimit - this.DictionarySize);

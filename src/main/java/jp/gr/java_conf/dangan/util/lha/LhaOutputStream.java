@@ -30,7 +30,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
-import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 import jp.gr.java_conf.dangan.io.GrowthByteBuffer;
@@ -198,8 +197,6 @@ public class LhaOutputStream extends OutputStream {
      *            </ul>
      *            の条件を満たすもの。
      * @param property 各圧縮形式に対応した符号器の生成式等が含まれるプロパティ
-     * @exception UnsupportedEncodingException
-     *                encode がサポートされない場合
      * @see LhaProperty
      */
     public LhaOutputStream(OutputStream out, RandomAccessFile file, Properties property) {
@@ -222,11 +219,6 @@ public class LhaOutputStream extends OutputStream {
      *
      * @param out LHA書庫形式のデータを出力する出力ストリーム
      * @param temp 圧縮データの一時退避機構
-     * @param encode ヘッダ内の文字列を変換するのに使用する
-     *            エンコード日本では シフトJIS(SJIS,MS932,
-     *            CP932等)を使用する事
-     * @exception UnsupportedEncodingException
-     *                encode がサポートされない場合
      */
     private void constructerHelper(OutputStream out, Temporary temp, Properties property) {
         this.out = out;

@@ -31,11 +31,7 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
-// import classes and interfaces
-
-// import exceptions
 import java.io.IOException;
-
 
 /**
  * LZSS圧縮コードを処理する インターフェイス。
@@ -57,14 +53,6 @@ import java.io.IOException;
  */
 public interface PostLzssEncoder {
 
-    // ------------------------------------------------------------------
-    // original method ( on the model of java.io.OutputStream )
-    // ------------------------------------------------------------------
-    // other
-    // ------------------------------------------------------------------
-    // public abstract void flush()
-    // public abstract void close()
-    // ------------------------------------------------------------------
     /**
      * この PostLzssEncoder にバッファリングされている
      * 出力可能なデータを出力先の OutputStream に出力し、
@@ -106,14 +94,6 @@ public interface PostLzssEncoder {
      */
     public abstract void close() throws IOException;
 
-    // ------------------------------------------------------------------
-    // original method
-    // ------------------------------------------------------------------
-    // write
-    // ------------------------------------------------------------------
-    // public abstract void writeCode( int code )
-    // public abstract void writeOffset( int offset )
-    // ------------------------------------------------------------------
     /**
      * 1byte の LZSS未圧縮のデータもしくは、
      * LZSS で圧縮された圧縮コードのうち一致長を書きこむ。<br>
@@ -136,35 +116,18 @@ public interface PostLzssEncoder {
      */
     public abstract void writeOffset(int offset) throws IOException;
 
-    // ------------------------------------------------------------------
-    // original method
-    // ------------------------------------------------------------------
-    // get LZSS parameter
-    // ------------------------------------------------------------------
-    // public abstract int getDictionarySize()
-    // public abstract int getMaxMatch()
-    // public abstract int getThreshold()
-    // ------------------------------------------------------------------
     /**
      * このPostLzssEncoderが処理するLZSS辞書のサイズを得る。
-     *
-     * @param LZSS辞書のサイズ
      */
     public abstract int getDictionarySize();
 
     /**
      * このPostLzssEncoderが処理する最大一致長を得る。
-     *
-     * @param 最長一致長
      */
     public abstract int getMaxMatch();
 
     /**
      * このPostLzssEncoderが処理する圧縮、非圧縮の閾値を得る。
-     *
-     * @param 圧縮、非圧縮の閾値
      */
     public abstract int getThreshold();
-
 }
-// end of PostLzssEncoder.java

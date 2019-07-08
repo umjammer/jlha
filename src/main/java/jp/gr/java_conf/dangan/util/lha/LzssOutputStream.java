@@ -382,7 +382,7 @@ public class LzssOutputStream extends OutputStream {
      * TextBuffer に貯えられたデータを圧縮しながら
      * private変数 this.encoder に出力する。
      *
-     * @return TextBuffer 内の出力完了したデータの終端位置 + 1
+     * @param last TextBuffer 内の出力完了したデータの終端位置 + 1
      * @exception IOException 入出力エラーが発生した場合
      */
     private void encode(boolean last) throws IOException {
@@ -519,10 +519,6 @@ public class LzssOutputStream extends OutputStream {
     /**
      * TextBuffer内のpositionまでのデータを
      * 前方へ移動する
-     *
-     * @param position 次に TextBuffer内で
-     *            DictionarySize の位置に来るべき
-     *            要素が現在あるindex
      */
     private void slide() {
         this.DictionaryLimit = Math.max(0, this.DictionaryLimit - this.DictionarySize);

@@ -112,7 +112,7 @@ public class DynamicHuffman implements Cloneable {
      * コンストラクタ
      *
      * @param max 葉の最大数
-     * @param start 開始時の葉の数
+     * @param first 開始時の葉の数
      */
     public DynamicHuffman(int max, int first) {
         if (1 <= first && first <= max) {

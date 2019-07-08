@@ -663,7 +663,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
      *
      * @param parentnode childnode を追加する対象の親ノード
      * @param childnode parentnode に追加するノード
-     * @param pos TextBuffer内現在処理位置。
+     * @param ch TextBuffer内現在処理位置。
      *            葉の position を確定するために使用される。
      */
     private void attachNode(int parentnode, int childnode, int ch) {

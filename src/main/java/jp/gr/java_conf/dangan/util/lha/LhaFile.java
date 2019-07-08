@@ -288,7 +288,7 @@ public class LhaFile {
      * file を走査してエントリ情報を構築する。
      *
      * @param file LHA書庫ファイル
-     * @param propety 各圧縮形式に対応した復号器の生成式等が含まれるプロパティ
+     * @param property 各圧縮形式に対応した復号器の生成式等が含まれるプロパティ
      * @param rescueMode true にすると壊れた書庫のデータを
      *            復旧するための復旧モードでエントリを検索する。
      * @exception IOException
