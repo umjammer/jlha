@@ -34,6 +34,8 @@ import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Properties;
 import java.util.Vector;
@@ -90,28 +92,28 @@ public class LhaFile {
      * headers.elementAt( index ) のヘッダを持つエントリは
      * entryPoint.elementAt( index ) の位置から始まる。
      */
-    private Vector<LhaHeader> headers;
+    private List<LhaHeader> headers;
 
     /**
      * 各エントリの開始位置を持つ Long の Vector
      * headers.elementAt( index ) のヘッダを持つエントリは
      * entryPoint.elementAt( index ) の位置から始まる。
      */
-    private Vector<Long> entryPoint;
+    private List<Long> entryPoint;
 
     /**
      * エントリの名前(格納ファイル名)をキーに、
      * キーの名前のエントリの index を持つハッシュテーブル。
      * 要素は Integer
      */
-    private Hashtable<String, Integer> hash;
+    private Map<String, Integer> hash;
 
     /**
      * 同名ファイルの救出用。
      * 重複した名前を持つエントリの index を持つ Vector
      * 要素は Integer
      */
-    private Vector<Integer> duplicate;
+    private List<Integer> duplicate;
 
     /**
      * 各圧縮形式に対応した復号器の生成式等が含まれるプロパティ
@@ -307,8 +309,8 @@ public class LhaFile {
         byte[] HeaderData = LhaHeader.getFirstHeaderData(archive);
         while (null != HeaderData) {
             LhaHeader header = LhaHeader.createInstance(HeaderData, property);
-            headers.addElement(header);
-            entryPoint.addElement(new Long(archive.position()));
+            headers.add(header);
+            entryPoint.add(new Long(archive.position()));
 
             if (!rescueMode) {
                 archive.skip(header.getCompressedSize());
@@ -322,12 +324,12 @@ public class LhaFile {
         this.hash = new Hashtable<>();
         this.duplicate = new Vector<>();
         for (int i = 0; i < this.headers.size(); i++) {
-            LhaHeader header = headers.elementAt(i);
+            LhaHeader header = headers.get(i);
 
             if (!this.hash.containsKey(header.getPath())) {
                 this.hash.put(header.getPath(), new Integer(i));
             } else {
-                this.duplicate.addElement(new Integer(i));
+                this.duplicate.add(i);
             }
         }
 
@@ -347,7 +349,7 @@ public class LhaFile {
     public InputStream getInputStream(LhaHeader header) {
         int index = this.getIndex(header);
         if (0 <= index) {
-            long start = this.entryPoint.elementAt(index).longValue();
+            long start = this.entryPoint.get(index);
             long len = header.getCompressedSize();
             InputStream in = new RandomAccessFileInputStream(start, len);
 
@@ -369,8 +371,8 @@ public class LhaFile {
     public InputStream getInputStream(String name) {
         if (this.hash.containsKey(name)) {
             int index = this.hash.get(name).intValue();
-            LhaHeader header = this.headers.elementAt(index);
-            long start = this.entryPoint.elementAt(index).longValue();
+            LhaHeader header = this.headers.get(index);
+            long start = this.entryPoint.get(index);
             long len = header.getCompressedSize();
             InputStream in = new RandomAccessFileInputStream(start, len);
 
@@ -392,7 +394,7 @@ public class LhaFile {
     public InputStream getInputStreamWithoutExtract(LhaHeader header) {
         int index = this.getIndex(header);
         if (0 <= index) {
-            long start = this.entryPoint.elementAt(index).longValue();
+            long start = this.entryPoint.get(index);
             long len = header.getCompressedSize();
 
             return new RandomAccessFileInputStream(start, len);
@@ -413,8 +415,8 @@ public class LhaFile {
     public InputStream getInputStreamWithoutExtract(String name) {
         if (this.hash.containsKey(name)) {
             int index = this.hash.get(name).intValue();
-            LhaHeader header = this.headers.elementAt(index);
-            long start = this.entryPoint.elementAt(index).longValue();
+            LhaHeader header = this.headers.get(index);
+            long start = this.entryPoint.get(index);
             long len = header.getCompressedSize();
 
             return new RandomAccessFileInputStream(start, len);
@@ -456,7 +458,7 @@ public class LhaFile {
         LhaHeader[] headers = new LhaHeader[this.headers.size()];
 
         for (int i = 0; i < this.headers.size(); i++) {
-            headers[i] = (LhaHeader) this.headers.elementAt(i).clone();
+            headers[i] = (LhaHeader) this.headers.get(i).clone();
         }
 
         return headers;
@@ -490,12 +492,12 @@ public class LhaFile {
     private int getIndex(LhaHeader target) {
         int index = this.hash.get(target.getPath()).intValue();
 
-        LhaHeader header = this.headers.elementAt(index);
+        LhaHeader header = this.headers.get(index);
         if (!LhaFile.equal(header, target)) {
             boolean match = false;
             for (int i = 0; i < this.duplicate.size() && !match; i++) {
-                index = this.duplicate.elementAt(i).intValue();
-                header = this.headers.elementAt(index);
+                index = this.duplicate.get(i);
+                header = this.headers.get(index);
 
                 if (LhaFile.equal(header, target)) {
                     match = true;
@@ -1011,7 +1013,7 @@ public class LhaFile {
             if (LhaFile.this.archive != null) {
                 return this.index < LhaFile.this.headers.size();
             } else {
-                throw new IllegalStateException();
+                throw new IllegalStateException("file might be closed");
             }
         }
 
@@ -1027,12 +1029,12 @@ public class LhaFile {
         public Object nextElement() {
             if (LhaFile.this.archive != null) {
                 if (this.index < LhaFile.this.headers.size()) {
-                    return LhaFile.this.headers.elementAt(this.index++).clone();
+                    return LhaFile.this.headers.get(this.index++).clone();
                 } else {
                     throw new NoSuchElementException();
                 }
             } else {
-                throw new IllegalStateException();
+                throw new IllegalStateException("file might be closed");
             }
         }
     }

@@ -357,7 +357,7 @@ public class LhaInputStream extends InputStream {
     /**
      * 次のエントリを解凍しながら読みこむようにストリームを設定する。
      *
-     * @return エントリの情報を持つ LhaHeader
+     * @return エントリの情報を持つ LhaHeader, null when next entry doesn't exists.
      * @exception IOException 入出力エラーが発生した場合
      */
     public LhaHeader getNextEntry() throws IOException {
@@ -395,7 +395,7 @@ public class LhaInputStream extends InputStream {
     /**
      * 次のエントリを解凍しないで読みこむようにストリームを設定する。
      *
-     * @return エントリの情報を持つ LhaHeader
+     * @return エントリの情報を持つ LhaHeader, null when next entry doesn't exists.
      * @exception IOException 入出力エラーが発生した場合
      */
     public LhaHeader getNextEntryWithoutExtract() throws IOException {
