@@ -1,4 +1,4 @@
-[![Release](https://jitpack.io/v/umjammer/jlha.svg)](https://jitpack.io/#umjammer/jlha)
+[![Release](https://jitpack.io/v/umjammer/jlha.svg)](https://jitpack.io/#umjammer/jlha) [![Parent](https://img.shields.io/badge/Parent-vavi--util--archive-pink)](https://github.com/umjammer/vavi-util-archive)
 
 # LHA for Java
 
