@@ -1,4 +1,8 @@
-[![Release](https://jitpack.io/v/umjammer/jlha.svg)](https://jitpack.io/#umjammer/jlha) [![Parent](https://img.shields.io/badge/Parent-vavi--util--archive-pink)](https://github.com/umjammer/vavi-util-archive)
+[![Release](https://jitpack.io/v/umjammer/jlha.svg)](https://jitpack.io/#umjammer/jlha)
+[![Java CI](https://github.com/umjammer/jlha/actions/workflows/maven.yml/badge.svg)](https://github.com/umjammer/jlha/actions/workflows/maven.yml)
+[![CodeQL](https://github.com/umjammer/jlha/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/umjammer/jlha/actions/workflows/codeql-analysis.yml)
+![Java](https://img.shields.io/badge/Java-8-b07219)
+[![Parent](https://img.shields.io/badge/Parent-vavi--util--archive-pink)](https://github.com/umjammer/vavi-util-archive)
 
 # LHA for Java
 
