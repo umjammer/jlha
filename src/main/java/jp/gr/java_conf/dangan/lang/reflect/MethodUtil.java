@@ -285,20 +285,20 @@ public class MethodUtil {
     public static Method getInstanceMethod(Class<?> type, String name, Object[] args, boolean all) {
         Method[] methods = all ? type.getDeclaredMethods() : type.getMethods();
 
-        for (int i = 0; i < methods.length; i++)
-            if (methods[i].getName().equals(name) && !Modifier.isStatic(methods[i].getModifiers())
-                && Type.matchFullAll(methods[i].getParameterTypes(), args))
-                return methods[i];
+        for (Method item : methods)
+            if (item.getName().equals(name) && !Modifier.isStatic(item.getModifiers())
+                    && Type.matchFullAll(item.getParameterTypes(), args))
+                return item;
 
-        for (int i = 0; i < methods.length; i++)
-            if (methods[i].getName().equals(name) && !Modifier.isStatic(methods[i].getModifiers())
-                && Type.matchRestrictAll(methods[i].getParameterTypes(), args))
-                return methods[i];
+        for (Method value : methods)
+            if (value.getName().equals(name) && !Modifier.isStatic(value.getModifiers())
+                    && Type.matchRestrictAll(value.getParameterTypes(), args))
+                return value;
 
-        for (int i = 0; i < methods.length; i++)
-            if (methods[i].getName().equals(name) && !Modifier.isStatic(methods[i].getModifiers())
-                && Type.matchAll(methods[i].getParameterTypes(), args))
-                return methods[i];
+        for (Method method : methods)
+            if (method.getName().equals(name) && !Modifier.isStatic(method.getModifiers())
+                    && Type.matchAll(method.getParameterTypes(), args))
+                return method;
 
         return null;
     }
@@ -405,10 +405,10 @@ public class MethodUtil {
     public static Method getMatchFullInstanceMethod(Class<?> type, String name, Object[] args, boolean all) {
         Method[] methods = all ? type.getDeclaredMethods() : type.getMethods();
 
-        for (int i = 0; i < methods.length; i++)
-            if (methods[i].getName().equals(name) && !Modifier.isStatic(methods[i].getModifiers())
-                && Type.matchFullAll(methods[i].getParameterTypes(), args))
-                return methods[i];
+        for (Method method : methods)
+            if (method.getName().equals(name) && !Modifier.isStatic(method.getModifiers())
+                    && Type.matchFullAll(method.getParameterTypes(), args))
+                return method;
 
         return null;
     }
@@ -516,20 +516,20 @@ public class MethodUtil {
     public static Method getStaticMethod(Class<?> type, String name, Object[] args, boolean all) {
         Method[] methods = all ? type.getDeclaredMethods() : type.getMethods();
 
-        for (int i = 0; i < methods.length; i++)
-            if (methods[i].getName().equals(name) && Modifier.isStatic(methods[i].getModifiers())
-                && Type.matchFullAll(methods[i].getParameterTypes(), args))
-                return methods[i];
+        for (Method item : methods)
+            if (item.getName().equals(name) && Modifier.isStatic(item.getModifiers())
+                    && Type.matchFullAll(item.getParameterTypes(), args))
+                return item;
 
-        for (int i = 0; i < methods.length; i++)
-            if (methods[i].getName().equals(name) && Modifier.isStatic(methods[i].getModifiers())
-                && Type.matchRestrictAll(methods[i].getParameterTypes(), args))
-                return methods[i];
+        for (Method value : methods)
+            if (value.getName().equals(name) && Modifier.isStatic(value.getModifiers())
+                    && Type.matchRestrictAll(value.getParameterTypes(), args))
+                return value;
 
-        for (int i = 0; i < methods.length; i++)
-            if (methods[i].getName().equals(name) && Modifier.isStatic(methods[i].getModifiers())
-                && Type.matchAll(methods[i].getParameterTypes(), args))
-                return methods[i];
+        for (Method method : methods)
+            if (method.getName().equals(name) && Modifier.isStatic(method.getModifiers())
+                    && Type.matchAll(method.getParameterTypes(), args))
+                return method;
 
         return null;
     }
@@ -620,10 +620,10 @@ public class MethodUtil {
     public static Method getMatchFullStaticMethod(Class<?> type, String name, Object[] args, boolean all) {
         Method[] methods = all ? type.getDeclaredMethods() : type.getMethods();
 
-        for (int i = 0; i < methods.length; i++)
-            if (methods[i].getName().equals(name) && Modifier.isStatic(methods[i].getModifiers())
-                && Type.matchFullAll(methods[i].getParameterTypes(), args))
-                return methods[i];
+        for (Method method : methods)
+            if (method.getName().equals(name) && Modifier.isStatic(method.getModifiers())
+                    && Type.matchFullAll(method.getParameterTypes(), args))
+                return method;
 
         return null;
     }

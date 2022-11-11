@@ -550,7 +550,7 @@ public class LhaHeader implements Cloneable {
         if (method == null) {
             throw new NullPointerException("method");
         } else if (!method.startsWith("-") || !method.endsWith("-")) {
-            throw new IllegalArgumentException("method must starts with \'-\' and ends with \'-\'");
+            throw new IllegalArgumentException("method must starts with '-' and ends with '-'");
         } else {
             this.Method = method;
         }
@@ -746,7 +746,7 @@ public class LhaHeader implements Cloneable {
 
         // ヘッダデータ位置の定義
         final int HeaderSizeIndex = 0;
-        final int HeaderSize = (HeaderData[HeaderSizeIndex] & 0xFF) + 2;
+        int HeaderSize = (HeaderData[HeaderSizeIndex] & 0xFF) + 2;
         final int CompressMethodIndex = 2;
         final int CompressedSizeIndex = 7;
         final int OriginalSizeIndex = 11;
@@ -754,11 +754,11 @@ public class LhaHeader implements Cloneable {
         final int DosAttributeIndex = 19;
         final int HeaderLevelIndex = 20;
         final int PathLengthIndex = 21;
-        final int PathLength = HeaderData[PathLengthIndex] & 0xFF;
+        int PathLength = HeaderData[PathLengthIndex] & 0xFF;
         final int PathIndex = 22;
-        final int CRCIndex = 22 + PathLength;
-        final int ExtraDataIndex = 24 + PathLength;
-        final int ExtraDataLength = HeaderSize - ExtraDataIndex;
+        int CRCIndex = 22 + PathLength;
+        int ExtraDataIndex = 24 + PathLength;
+        int ExtraDataLength = HeaderSize - ExtraDataIndex;
 
         // ヘッダデータ読み込み
         this.Method = new String(HeaderData, CompressMethodIndex, 5, encode);
@@ -796,19 +796,19 @@ public class LhaHeader implements Cloneable {
 
         // 基本ヘッダ内データ位置の定義
         final int BaseHeaderSizeIndex = 0;
-        final int BaseHeaderSize = (HeaderData[BaseHeaderSizeIndex] & 0xFF) + 2;
+        int BaseHeaderSize = (HeaderData[BaseHeaderSizeIndex] & 0xFF) + 2;
         final int CompressMethodIndex = 2;
         final int SkipSizeIndex = 7;
         final int OriginalSizeIndex = 11;
         final int LastModifiedIndex = 15;
         final int HeaderLevelIndex = 20;
         final int FileNameLengthIndex = 21;
-        final int FileNameLength = HeaderData[FileNameLengthIndex] & 0xFF;
+        int FileNameLength = HeaderData[FileNameLengthIndex] & 0xFF;
         final int FileNameIndex = 22;
-        final int CRCIndex = 22 + FileNameLength;
-        final int OSIDIndex = 24 + FileNameLength;
-        final int ExtraDataIndex = 25 + FileNameLength;
-        final int ExtraDataLength = BaseHeaderSize - ExtraDataIndex - 2;
+        int CRCIndex = 22 + FileNameLength;
+        int OSIDIndex = 24 + FileNameLength;
+        int ExtraDataIndex = 25 + FileNameLength;
+        int ExtraDataLength = BaseHeaderSize - ExtraDataIndex - 2;
 
         // 基本ヘッダデータ読み込み
         this.Method = new String(HeaderData, CompressMethodIndex, 5, encode);
@@ -858,8 +858,7 @@ public class LhaHeader implements Cloneable {
 
         // 基本ヘッダ内データ位置の定義
         final int HeaderSizeIndex = 0;
-        @SuppressWarnings("unused")
-        final int HeaderSize = LittleEndian.readShort(HeaderData, HeaderSizeIndex);
+        @SuppressWarnings("unused") int HeaderSize = LittleEndian.readShort(HeaderData, HeaderSizeIndex);
         final int CompressMethodIndex = 2;
         final int CompressedSizeIndex = 7;
         final int OriginalSizeIndex = 11;
@@ -903,8 +902,7 @@ public class LhaHeader implements Cloneable {
 
         // 基本ヘッダ内データ位置の定義
         final int WordSizeIndex = 0;
-        @SuppressWarnings("unused")
-        final int WordSize = LittleEndian.readShort(HeaderData, WordSizeIndex);
+        @SuppressWarnings("unused") int WordSize = LittleEndian.readShort(HeaderData, WordSizeIndex);
         final int CompressMethodIndex = 2;
         final int CompressedSizeIndex = 7;
         final int OriginalSizeIndex = 11;
@@ -1035,7 +1033,7 @@ public class LhaHeader implements Cloneable {
         final byte LhaFileSeparator = (byte) 0xFF;
 
         int off = 1;
-        String dir = "";
+        StringBuilder dir = new StringBuilder();
         while (off < length) {
             int len = 0;
             while (off + len < length) {
@@ -1047,14 +1045,14 @@ public class LhaHeader implements Cloneable {
             }
 
             if (off + len < length) {
-                dir += new String(HeaderData, index + off, len, encode) + File.separator;
+                dir.append(new String(HeaderData, index + off, len, encode)).append(File.separator);
             } else {
-                dir += new String(HeaderData, index + off, len, encode);
+                dir.append(new String(HeaderData, index + off, len, encode));
             }
             off += len + 1;
         }
 
-        this.setDirName(dir);
+        this.setDirName(dir.toString());
     }
 
     /**
@@ -1170,9 +1168,9 @@ public class LhaHeader implements Cloneable {
 
         // ヘッダ出力準備
         final int LHarcHeaderSize = 100;
-        final int CRCLength = (this.CRC == LhaHeader.NO_CRC || this.CRC == LhaHeader.UNKNOWN ? 0 : 2);
+        int CRCLength = (this.CRC == LhaHeader.NO_CRC || this.CRC == LhaHeader.UNKNOWN ? 0 : 2);
         byte[] CompressMethod = this.Method.getBytes(encode);
-        MsdosDate dosDate = null;
+        MsdosDate dosDate;
         try {
             dosDate = this.LastModified instanceof MsdosDate ? (MsdosDate) this.LastModified : new MsdosDate(this.LastModified); // throw IllegalArgumentException
         } catch (IllegalArgumentException exception) {
@@ -1290,7 +1288,7 @@ public class LhaHeader implements Cloneable {
      *                である LhaHeader.UNKNOWN( -1 )が設定されていた。
      *                </ol>
      *                の何れか
-     * @exception UnsupportedEncodingException<br>
+     * @exception UnsupportedEncodingException
      *                encode で指定されたエンコードが
      *                サポートされない場合
      */
@@ -1416,10 +1414,10 @@ public class LhaHeader implements Cloneable {
             out.write(this.OSID);
             out.write(ExtraData);
 
-            for (int i = 0; i < ExtendHeaders.length; i++) {
-                if (ExtendHeaders[i] != null) {
-                    LittleEndian.writeShort(out, ExtendHeaders[i].length + 2);
-                    out.write(ExtendHeaders[i]);
+            for (byte[] extendHeader : ExtendHeaders) {
+                if (extendHeader != null) {
+                    LittleEndian.writeShort(out, extendHeader.length + 2);
+                    out.write(extendHeader);
                 }
             }
             LittleEndian.writeShort(out, 0);
@@ -1431,7 +1429,7 @@ public class LhaHeader implements Cloneable {
         }
 
         final int ChecksumIndex = 1;
-        final int CRCIndex = LhaHeader.getCRC16Position(HeaderData);
+        int CRCIndex = LhaHeader.getCRC16Position(HeaderData);
         HeaderData[ChecksumIndex] = (byte) LhaHeader.calcHeaderChecksum(HeaderData);
         if (hasCRC) {
             LittleEndian.writeShort(HeaderData, CRCIndex, LhaHeader.calcHeaderCRC16(HeaderData));
@@ -1580,10 +1578,10 @@ public class LhaHeader implements Cloneable {
             LittleEndian.writeShort(out, this.CRC);
             out.write(this.OSID);
 
-            for (int i = 0; i < ExtendHeaders.length; i++) {
-                if (ExtendHeaders[i] != null) {
-                    LittleEndian.writeShort(out, ExtendHeaders[i].length + 2);
-                    out.write(ExtendHeaders[i]);
+            for (byte[] extendHeader : ExtendHeaders) {
+                if (extendHeader != null) {
+                    LittleEndian.writeShort(out, extendHeader.length + 2);
+                    out.write(extendHeader);
                 }
             }
             LittleEndian.writeShort(out, 0);
@@ -1598,7 +1596,7 @@ public class LhaHeader implements Cloneable {
                             + " ) which should be never thrown by ByteArrayOutputStream.");
         }
 
-        final int CRCIndex = LhaHeader.getCRC16Position(HeaderData);
+        int CRCIndex = LhaHeader.getCRC16Position(HeaderData);
         LittleEndian.writeShort(HeaderData, CRCIndex, LhaHeader.calcHeaderCRC16(HeaderData));
 
         return HeaderData;
@@ -1710,10 +1708,10 @@ public class LhaHeader implements Cloneable {
             out.write(this.OSID);
             LittleEndian.writeInt(out, HeaderLength);
 
-            for (int i = 0; i < ExtendHeaders.length; i++) {
-                if (ExtendHeaders[i] != null) {
-                    LittleEndian.writeInt(out, ExtendHeaders[i].length + 4);
-                    out.write(ExtendHeaders[i]);
+            for (byte[] extendHeader : ExtendHeaders) {
+                if (extendHeader != null) {
+                    LittleEndian.writeInt(out, extendHeader.length + 4);
+                    out.write(extendHeader);
                 }
             }
             LittleEndian.writeInt(out, 0);
@@ -1725,7 +1723,7 @@ public class LhaHeader implements Cloneable {
                             + " ) which should be never thrown by ByteArrayOutputStream.");
         }
 
-        final int CRCIndex = LhaHeader.getCRC16Position(HeaderData);
+        int CRCIndex = LhaHeader.getCRC16Position(HeaderData);
         LittleEndian.writeShort(HeaderData, CRCIndex, LhaHeader.calcHeaderCRC16(HeaderData));
 
         return HeaderData;
@@ -1963,10 +1961,9 @@ public class LhaHeader implements Cloneable {
             Headers.addElement(this.exportFileSizeHeader());
         }
 
-        for (int i = 0; i < ExtraExtHeaders.length; i++) {
-            byte[] ExtendHeaderData = ExtraExtHeaders[i];
+        for (byte[] ExtendHeaderData : ExtraExtHeaders) {
             if (0 < ExtendHeaderData.length && ExtendHeaderData[0] != 0x00 && ExtendHeaderData[0] != 0x01
-                && ExtendHeaderData[0] != 0x02) {
+                    && ExtendHeaderData[0] != 0x02) {
                 Headers.addElement(ExtendHeaderData);
             }
         }
@@ -2361,7 +2358,7 @@ public class LhaHeader implements Cloneable {
         HeaderData[2] = (byte) CompressMethod1;
 
         // ヘッダデータ取得
-        int readed = 0;
+        int readed;
         int length = 0;
         do {
             if (0 == headers.size()) {

@@ -331,8 +331,8 @@ public class LzssInputStream extends InputStream {
      */
     private void decode() throws IOException {
         if (this.TextDecoded < this.Length) {
-            final int TextMask = this.TextBuffer.length - 1;
-            final int TextStart = (int) this.TextDecoded & TextMask;
+            int TextMask = this.TextBuffer.length - 1;
+            int TextStart = (int) this.TextDecoded & TextMask;
             int TextPos = TextStart;
             int TextLimit = (int) (Math.min(this.TextPosition + this.TextBuffer.length - this.MaxMatch, this.Length)
                                    - this.TextDecoded)

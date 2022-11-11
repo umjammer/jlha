@@ -279,8 +279,7 @@ public class StaticHuffman {
         int[] CodeStart = new int[StaticHuffman.LimitLen + 2];
 
         // ハフマン符号長の頻度表作成
-        for (int i = 0; i < LenList.length; i++)
-            LenFreq[LenList[i]]++;
+        for (int j : LenList) LenFreq[j]++;
 
         if (LenFreq[0] < LenList.length) {
 
@@ -550,7 +549,7 @@ public class StaticHuffman {
     private static void internalHuffmanTreeToLenFreq(int[] SmallNode, int[] LargeNode, int node, int len, int[] LenFreq) {
         if (node < (SmallNode.length + 1) / 2) {
             // nodeが葉なら頻度表更新
-            LenFreq[(len < StaticHuffman.LimitLen ? len : StaticHuffman.LimitLen)]++;
+            LenFreq[(Math.min(len, StaticHuffman.LimitLen))]++;
         } else {
             // nodeがノードなら両方のノードを再帰的に探索
             StaticHuffman.internalHuffmanTreeToLenFreq(SmallNode, LargeNode, SmallNode[node], len + 1, LenFreq);

@@ -896,7 +896,7 @@ public class LhaRetainedOutputStream extends OutputStream {
         /**
          * キャッシュにデータを追加する。
          *
-         * @parma buffer データの格納されたバッファ
+         * @param buffer データの格納されたバッファ
          * @param index buffer内のデータ開始位置
          * @param length 格納されているデータの量
          */

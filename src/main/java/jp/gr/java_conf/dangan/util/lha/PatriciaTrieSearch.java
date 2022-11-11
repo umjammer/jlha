@@ -237,8 +237,8 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
         this.deleteNode(posnode);
 
         // PATRICIA Trie から最長一致を検索
-        int matchnode = -1;
-        int matchpos = position;
+        int matchnode;
+        int matchpos;
         int scannode;
         int matchlen;
         if (3 < this.lastMatchLen) {
@@ -349,10 +349,10 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
         this.deleteNode(posnode);
 
         // PATRICIA Trie から最長一致を検索
-        int matchnode = -1;
+        int matchnode;
         int matchpos = position;
-        int scannode = 0;
-        int matchlen = 0;
+        int scannode;
+        int matchlen;
         if (3 < this.lastMatchLen) {
 
             // 前回の一致長が閾値より大きければ、
@@ -485,9 +485,9 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
 
         byte[] buf = this.TextBuffer;
         int max = Math.min(this.TextBuffer.length, position + this.MaxMatch);
-        int s = 0;
-        int p = 0;
-        int len = 0;
+        int s;
+        int p;
+        int len;
         while (scanlimit < scanpos) {
             s = scanpos;
             p = position;
@@ -581,11 +581,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
 
         for (int i = 0; i < this.position.length; i++) {
             int pos = this.position[i] - this.DictionarySize;
-            if (0 < pos) {
-                this.position[i] = pos;
-            } else {
-                this.position[i] = 0;
-            }
+            this.position[i] = Math.max(0, pos);
         }
     }
 

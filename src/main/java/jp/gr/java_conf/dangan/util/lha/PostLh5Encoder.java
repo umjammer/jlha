@@ -293,7 +293,7 @@ public class PostLh5Encoder implements PostLzssEncoder {
             this.Threshold = CompressMethod.toThreshold(method);
             this.DictionarySizeByteLen = (Bits.len(this.DictionarySize - 1) + 7) / 8;
 
-            final int MinCapacity = (DictionarySizeByteLen + 1) * 8 + 1;
+            int MinCapacity = (DictionarySizeByteLen + 1) * 8 + 1;
 
             if (out != null && 0 < BlockNum && 0 <= DivideNum && DivideNum < BlockNum && MinCapacity <= BlockSize) {
 
@@ -553,19 +553,19 @@ public class PostLh5Encoder implements PostLzssEncoder {
         // ------------------------------------------------------------------
         // 出力 bit 数が最小となる pattern を総当りで求める。
         int smallest = Integer.MAX_VALUE;
-        for (int i = 0; i < this.pattern.length; i++) {
+        for (int[] ints : this.pattern) {
             int length = 0;
 
-            for (int j = 0; j < this.pattern[i].length; j++) {
-                if (0 <= groupHuffLen[this.pattern[i][j]]) {
-                    length += groupHuffLen[this.pattern[i][j]];
+            for (int j = 0; j < ints.length; j++) {
+                if (0 <= groupHuffLen[ints[j]]) {
+                    length += groupHuffLen[ints[j]];
                 } else {
                     length = Integer.MAX_VALUE;
                     break;
                 }
             }
             if (length < smallest) {
-                bestPattern = this.pattern[i];
+                bestPattern = ints;
                 smallest = length;
             }
         }
@@ -575,8 +575,8 @@ public class PostLh5Encoder implements PostLzssEncoder {
         // どの パターン もブロックサイズが 65536 以上の
         // グループを持つ場合はブロック単位で出力。
         if (bestPattern != null) {
-            for (int i = 0; i < bestPattern.length; i++) {
-                this.writeOutGroup(this.group[bestPattern[i]]);
+            for (int j : bestPattern) {
+                this.writeOutGroup(this.group[j]);
             }
         } else {
             for (int i = 0; i < this.block.length; i++) {
@@ -601,8 +601,8 @@ public class PostLh5Encoder implements PostLzssEncoder {
         int[] offLenFreq = PostLh5Encoder.margeArrays(group, this.blockOffLenFreq);
 
         int blockSize = 0;
-        for (int i = 0; i < group.length; i++) {
-            blockSize += this.blockSize[group[i]];
+        for (int item : group) {
+            blockSize += this.blockSize[item];
         }
 
         if (0 < blockSize) {
@@ -648,12 +648,12 @@ public class PostLh5Encoder implements PostLzssEncoder {
 
             // ------------------------------------------------------------------
             // ハフマン符号出力
-            for (int i = 0; i < group.length; i++) {
+            for (int value : group) {
                 this.position = 0;
                 this.flagBit = 0;
-                byte[] buffer = this.block[group[i]];
+                byte[] buffer = this.block[value];
 
-                for (int j = 0; j < this.blockSize[group[i]]; j++) {
+                for (int j = 0; j < this.blockSize[value]; j++) {
                     if (this.flagBit == 0) {
                         this.flagBit = 0x80;
                         this.flagPos = this.position++;
@@ -679,15 +679,15 @@ public class PostLh5Encoder implements PostLzssEncoder {
 
             // ------------------------------------------------------------------
             // 次のブロックのための処理
-            for (int i = 0; i < group.length; i++) {
-                this.blockSize[group[i]] = 0;
+            for (int k : group) {
+                this.blockSize[k] = 0;
 
-                codeFreq = this.blockCodeFreq[group[i]];
+                codeFreq = this.blockCodeFreq[k];
                 for (int j = 0; j < codeFreq.length; j++) {
                     codeFreq[j] = 0;
                 }
 
-                offLenFreq = this.blockOffLenFreq[group[i]];
+                offLenFreq = this.blockOffLenFreq[k];
                 for (int j = 0; j < offLenFreq.length; j++) {
                     offLenFreq[j] = 0;
                 }
@@ -828,8 +828,8 @@ public class PostLh5Encoder implements PostLzssEncoder {
      */
     private static int countNoZeroElement(int[] array) {
         int count = 0;
-        for (int i = 0; i < array.length; i++) {
-            if (0 != array[i]) {
+        for (int j : array) {
+            if (0 != j) {
                 count++;
             }
         }
@@ -863,8 +863,8 @@ public class PostLh5Encoder implements PostLzssEncoder {
         if (1 < indexes.length) {
             int[] array = new int[arrays[0].length];
 
-            for (int i = 0; i < indexes.length; i++) {
-                int[] src = arrays[indexes[i]];
+            for (int index : indexes) {
+                int[] src = arrays[index];
 
                 for (int j = 0; j < src.length; j++) {
                     array[j] += src[j];
@@ -1149,7 +1149,7 @@ public class PostLh5Encoder implements PostLzssEncoder {
      * @param BlockNum ブロックの個数
      * @param DivideNum 最大分割数
      *
-     * @reutrn 生成されたグループのリスト
+     * @return 生成されたグループのリスト
      */
     private static int[][] createGroup(int BlockNum, int DivideNum) {
         int[][] group = new int[(BlockNum + 1) * BlockNum / 2][];

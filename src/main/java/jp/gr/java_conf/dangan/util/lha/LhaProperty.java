@@ -412,7 +412,7 @@ public class LhaProperty {
                     }
                 } else if (token.equals(",")) {
                     if (stack.empty() || (!stack.peek().equals("(") && !stack.peek().equals("["))) {
-                        stack.push(new Integer(pos));
+                        stack.push(pos);
                     }
                 }
                 pos += token.length();
@@ -423,7 +423,7 @@ public class LhaProperty {
             for (int i = 0; i < stack.size() + 1; i++) {
                 String arg;
                 if (i < stack.size()) {
-                    arg = arguments.substring(pos, ((Integer) stack.elementAt(i)).intValue());
+                    arg = arguments.substring(pos, (Integer) stack.elementAt(i));
                 } else {
                     arg = arguments.substring(pos);
                 }
@@ -486,7 +486,7 @@ public class LhaProperty {
                         stack.pop();
                 } else if (token.equals(",")) {
                     if (stack.empty() || (!stack.peek().equals("(") && !stack.peek().equals("[")))
-                        stack.push(new Integer(pos));
+                        stack.push(pos);
                 }
                 pos += token.length();
             }
@@ -496,7 +496,7 @@ public class LhaProperty {
             for (int i = 0; i < stack.size() + 1; i++) {
                 String arg;
                 if (i < stack.size()) {
-                    arg = arguments.substring(pos, ((Integer) stack.elementAt(i)).intValue());
+                    arg = arguments.substring(pos, (Integer) stack.elementAt(i));
                 } else {
                     arg = arguments.substring(pos);
                 }
@@ -518,18 +518,17 @@ public class LhaProperty {
      * @return 完全修飾名、もしくは str
      */
     private static String applyPackages(String str, String[] packages) {
-        for (int i = 0; i < packages.length; i++) {
+        for (String aPackage : packages) {
             String classname;
-            if (packages[i].equals("")) {
+            if (aPackage.equals("")) {
                 classname = str;
             } else {
-                classname = packages[i] + "." + str;
+                classname = aPackage + "." + str;
             }
             try {
                 Class.forName(classname);
                 return classname;
-            } catch (ClassNotFoundException exception) {
-            } catch (LinkageError error) {
+            } catch (ClassNotFoundException | LinkageError exception) {
             }
         }
         return str;
@@ -540,7 +539,7 @@ public class LhaProperty {
      *
      * @return 生成されたプロパティ
      */
-    private static final Properties createLhaProperty() {
+    private static Properties createLhaProperty() {
         String path = "jp.gr.java_conf.dangan.util.lha.resources.lha";
         Properties property = LhaProperty.createDefaultProperty();
 
@@ -577,7 +576,7 @@ public class LhaProperty {
      *
      * @return デフォルトのプロパティ
      */
-    private static final Properties createDefaultProperty() {
+    private static Properties createDefaultProperty() {
         Properties property = new Properties();
 
         // encoding of String
@@ -629,7 +628,7 @@ public class LhaProperty {
      *
      * @return System.getProperty( "file.encoding" ) で得られる エンコーディング
      */
-    private static final String getSystemEncoding() {
+    private static String getSystemEncoding() {
         String encoding;
         try {
             encoding = System.getProperty("file.encoding");
@@ -650,7 +649,7 @@ public class LhaProperty {
      * @param encoding エンコーディング
      * @return encoding が日本語のエンコーディングなら true 違えば false
      */
-    private static final boolean isJapanese(String encoding) {
+    private static boolean isJapanese(String encoding) {
 
         String[] Coverters = {
             "Cp930", // Japanese EBCDIC
@@ -669,8 +668,8 @@ public class LhaProperty {
             "JIS0212", // JIS X 0212, 日本語
             "JISAutoDetect"
         }; // Shift-JIS EUC-JP ISO 2022 JP の検出および変換。読み込み専用。
-        for (int i = 0; i < Coverters.length; i++) {
-            if (encoding.equals(Coverters[i])) {
+        for (String coverter : Coverters) {
+            if (encoding.equals(coverter)) {
                 return true;
             }
         }
@@ -696,8 +695,8 @@ public class LhaProperty {
             "cp943c", // Alias of "Cp943C"
             "cp33722", "ibm-33722", "ibm33722", "33722"
         }; // Aliases of "Cp33722"
-        for (int i = 0; i < Aliases.length; i++) {
-            if (encoding.equalsIgnoreCase(Aliases[i])) {
+        for (String alias : Aliases) {
+            if (encoding.equalsIgnoreCase(alias)) {
                 return true;
             }
         }
@@ -711,7 +710,7 @@ public class LhaProperty {
      * @param encoding エンコーディング
      * @return encoding が日本語のエンコーディングなら true 違えば false
      */
-    private static final boolean isCategoryOfShiftJIS(String encoding) {
+    private static boolean isCategoryOfShiftJIS(String encoding) {
 
         String[] Coverters = {
             "Cp942", // SJIS OS/2 日本語, Cp932 のスーパーセット, 0x5C -> '＼' (半角バックスラッシュ)
@@ -721,8 +720,8 @@ public class LhaProperty {
             "MS932", // Windows 日本語
             "SJIS"
         }; // Shift-JIS、日本語
-        for (int i = 0; i < Coverters.length; i++) {
-            if (encoding.equals(Coverters[i])) {
+        for (String coverter : Coverters) {
+            if (encoding.equals(coverter)) {
                 return true;
             }
         }
@@ -736,8 +735,8 @@ public class LhaProperty {
             "cp943", "ibm-943", "ibm943", "943", // Aliases of "Cp943"
             "cp943c"
         }; // Alias of "Cp943C"
-        for (int i = 0; i < Aliases.length; i++) {
-            if (encoding.equalsIgnoreCase(Aliases[i])) {
+        for (String alias : Aliases) {
+            if (encoding.equalsIgnoreCase(alias)) {
                 return true;
             }
         }

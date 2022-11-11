@@ -84,7 +84,7 @@ public interface PostLzssEncoder {
      *
      * @exception IOException 入出力エラーが発生した場合
      */
-    public abstract void flush() throws IOException;
+    void flush() throws IOException;
 
     /**
      * この出力ストリームと、接続された出力ストリームを閉じ、
@@ -92,7 +92,7 @@ public interface PostLzssEncoder {
      *
      * @exception IOException 入出力エラーが発生した場合
      */
-    public abstract void close() throws IOException;
+    void close() throws IOException;
 
     /**
      * 1byte の LZSS未圧縮のデータもしくは、
@@ -105,7 +105,7 @@ public interface PostLzssEncoder {
      *
      * @exception IOException 入出力エラーが発生した場合
      */
-    public abstract void writeCode(int code) throws IOException;
+    void writeCode(int code) throws IOException;
 
     /**
      * LZSS で圧縮された圧縮コードのうち一致位置を書きこむ。<br>
@@ -114,20 +114,20 @@ public interface PostLzssEncoder {
      *
      * @exception IOException 入出力エラーが発生した場合
      */
-    public abstract void writeOffset(int offset) throws IOException;
+    void writeOffset(int offset) throws IOException;
 
     /**
      * このPostLzssEncoderが処理するLZSS辞書のサイズを得る。
      */
-    public abstract int getDictionarySize();
+    int getDictionarySize();
 
     /**
      * このPostLzssEncoderが処理する最大一致長を得る。
      */
-    public abstract int getMaxMatch();
+    int getMaxMatch();
 
     /**
      * このPostLzssEncoderが処理する圧縮、非圧縮の閾値を得る。
      */
-    public abstract int getThreshold();
+    int getThreshold();
 }

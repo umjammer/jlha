@@ -74,7 +74,7 @@ public class LittleEndian {
      *                indexから始まるデータが
      *                ByteArrayの範囲内に無い場合。
      */
-    public static final int readShort(byte[] ByteArray, int index) {
+    public static int readShort(byte[] ByteArray, int index) {
         return (ByteArray[index] & 0xFF) | ((ByteArray[index + 1] & 0xFF) << 8);
     }
 
@@ -89,7 +89,7 @@ public class LittleEndian {
      *                indexから始まるデータが
      *                ByteArrayの範囲内に無い場合。
      */
-    public static final int readInt(byte[] ByteArray, int index) {
+    public static int readInt(byte[] ByteArray, int index) {
         return (ByteArray[index] & 0xFF) | ((ByteArray[index + 1] & 0xFF) << 8) | ((ByteArray[index + 2] & 0xFF) << 16)
                | (ByteArray[index + 3] << 24);
     }
@@ -105,7 +105,7 @@ public class LittleEndian {
      *                indexから始まるデータが
      *                ByteArrayの範囲内に無い場合。
      */
-    public static final long readLong(byte[] ByteArray, int index) {
+    public static long readLong(byte[] ByteArray, int index) {
         return (LittleEndian.readInt(ByteArray, index) & 0xFFFFFFFFL)
                | ((long) LittleEndian.readInt(ByteArray, index + 4) << 32L);
     }
@@ -123,7 +123,7 @@ public class LittleEndian {
      * @exception IOException
      *                入出力エラーが発生した場合
      */
-    public static final int readShort(InputStream in) throws IOException {
+    public static int readShort(InputStream in) throws IOException {
         int byte1 = in.read();
         int byte2 = in.read();
 
@@ -147,7 +147,7 @@ public class LittleEndian {
      * @exception IOException
      *                入出力エラーが発生した場合
      */
-    public static final int readInt(InputStream in) throws IOException {
+    public static int readInt(InputStream in) throws IOException {
         int byte1 = in.read();
         int byte2 = in.read();
         int byte3 = in.read();
@@ -173,7 +173,7 @@ public class LittleEndian {
      * @exception IOException
      *                入出力エラーが発生した場合
      */
-    public static final long readLong(InputStream in) throws IOException {
+    public static long readLong(InputStream in) throws IOException {
 
         return (LittleEndian.readInt(in) & 0xFFFFFFFFL) | ((long) LittleEndian.readInt(in) << 32);
 
@@ -190,7 +190,7 @@ public class LittleEndian {
      *                indexから始まるデータが
      *                ByteArrayの範囲内に無い場合。
      */
-    public static final void writeShort(byte[] ByteArray, int index, int value) {
+    public static void writeShort(byte[] ByteArray, int index, int value) {
 
         if (0 <= index && index + 1 < ByteArray.length) {
             ByteArray[index] = (byte) value;
@@ -211,7 +211,7 @@ public class LittleEndian {
      *                indexから始まるデータが
      *                ByteArrayの範囲内に無い場合。
      */
-    public static final void writeInt(byte[] ByteArray, int index, int value) {
+    public static void writeInt(byte[] ByteArray, int index, int value) {
 
         if (0 <= index && index + 3 < ByteArray.length) {
             ByteArray[index] = (byte) value;
@@ -235,7 +235,7 @@ public class LittleEndian {
      *                indexから始まるデータが
      *                ByteArrayの範囲内に無い場合。
      */
-    public static final void writeLong(byte[] ByteArray, int index, long value) {
+    public static void writeLong(byte[] ByteArray, int index, long value) {
         if (0 <= index && index + 7 < ByteArray.length) {
             LittleEndian.writeInt(ByteArray, index, (int) value);
             LittleEndian.writeInt(ByteArray, index + 4, (int) (value >> 32));
@@ -253,7 +253,7 @@ public class LittleEndian {
      * @exception IOException
      *                入出力エラーが発生した場合
      */
-    public static final void writeShort(OutputStream out, int value) throws IOException {
+    public static void writeShort(OutputStream out, int value) throws IOException {
         out.write(value & 0xFF);
         out.write((value >> 8) & 0xFF);
     }
@@ -267,7 +267,7 @@ public class LittleEndian {
      * @exception IOException
      *                入出力エラーが発生した場合
      */
-    public static final void writeInt(OutputStream out, int value) throws IOException {
+    public static void writeInt(OutputStream out, int value) throws IOException {
         out.write(value & 0xFF);
         out.write((value >> 8) & 0xFF);
         out.write((value >> 16) & 0xFF);
@@ -283,7 +283,7 @@ public class LittleEndian {
      * @exception IOException
      *                入出力エラーが発生した場合
      */
-    public static final void writeLong(OutputStream out, long value) throws IOException {
+    public static void writeLong(OutputStream out, long value) throws IOException {
         int low = (int) value;
         int hi = (int) (value >> 32);
 

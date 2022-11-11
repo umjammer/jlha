@@ -310,7 +310,7 @@ public class LhaFile {
         while (null != HeaderData) {
             LhaHeader header = LhaHeader.createInstance(HeaderData, property);
             headers.add(header);
-            entryPoint.add(new Long(archive.position()));
+            entryPoint.add(archive.position());
 
             if (!rescueMode) {
                 archive.skip(header.getCompressedSize());
@@ -327,7 +327,7 @@ public class LhaFile {
             LhaHeader header = headers.get(i);
 
             if (!this.hash.containsKey(header.getPath())) {
-                this.hash.put(header.getPath(), new Integer(i));
+                this.hash.put(header.getPath(), i);
             } else {
                 this.duplicate.add(i);
             }
@@ -370,7 +370,7 @@ public class LhaFile {
      */
     public InputStream getInputStream(String name) {
         if (this.hash.containsKey(name)) {
-            int index = this.hash.get(name).intValue();
+            int index = this.hash.get(name);
             LhaHeader header = this.headers.get(index);
             long start = this.entryPoint.get(index);
             long len = header.getCompressedSize();
@@ -414,7 +414,7 @@ public class LhaFile {
      */
     public InputStream getInputStreamWithoutExtract(String name) {
         if (this.hash.containsKey(name)) {
-            int index = this.hash.get(name).intValue();
+            int index = this.hash.get(name);
             LhaHeader header = this.headers.get(index);
             long start = this.entryPoint.get(index);
             long len = header.getCompressedSize();
@@ -490,7 +490,7 @@ public class LhaFile {
      *         headers 内に target がない場合は -1
      */
     private int getIndex(LhaHeader target) {
-        int index = this.hash.get(target.getPath()).intValue();
+        int index = this.hash.get(target.getPath());
 
         LhaHeader header = this.headers.get(index);
         if (!LhaFile.equal(header, target)) {
@@ -809,7 +809,7 @@ public class LhaFile {
          * @exception IOException 入出力エラーが発生した場合
          */
         public int read(byte[] buffer, int index, int length) throws IOException {
-            final int requested = length;
+            int requested = length;
 
             while (0 < length) {
                 if (this.cacheLimit <= this.cachePosition) {
@@ -840,7 +840,7 @@ public class LhaFile {
          * @return 実際に読み飛ばされたバイト数
          */
         public long skip(long length) throws IOException {
-            final long requested = length;
+            long requested = length;
 
             if (this.cachePosition < this.cacheLimit) {
                 long avail = (long) this.cacheLimit - this.cachePosition;

@@ -221,17 +221,17 @@ public class Factory {
     public static Constructor<?> getConstructor(Class<?> type, Object[] args, boolean all) {
         Constructor<?>[] constructors = all ? type.getDeclaredConstructors() : type.getConstructors();
 
-        for (int i = 0; i < constructors.length; i++)
-            if (Type.matchFullAll(constructors[i].getParameterTypes(), args))
-                return constructors[i];
+        for (Constructor<?> item : constructors)
+            if (Type.matchFullAll(item.getParameterTypes(), args))
+                return item;
 
-        for (int i = 0; i < constructors.length; i++)
-            if (Type.matchRestrictAll(constructors[i].getParameterTypes(), args))
-                return constructors[i];
+        for (Constructor<?> value : constructors)
+            if (Type.matchRestrictAll(value.getParameterTypes(), args))
+                return value;
 
-        for (int i = 0; i < constructors.length; i++)
-            if (Type.matchAll(constructors[i].getParameterTypes(), args))
-                return constructors[i];
+        for (Constructor<?> constructor : constructors)
+            if (Type.matchAll(constructor.getParameterTypes(), args))
+                return constructor;
 
         return null;
     }
@@ -334,9 +334,9 @@ public class Factory {
     public static Constructor<?> getMatchFullConstructor(Class<?> type, Object[] args, boolean all) {
         Constructor<?>[] constructors = all ? type.getDeclaredConstructors() : type.getConstructors();
 
-        for (int i = 0; i < constructors.length; i++)
-            if (Type.matchFullAll(constructors[i].getParameterTypes(), args))
-                return constructors[i];
+        for (Constructor<?> constructor : constructors)
+            if (Type.matchFullAll(constructor.getParameterTypes(), args))
+                return constructor;
 
         return null;
     }

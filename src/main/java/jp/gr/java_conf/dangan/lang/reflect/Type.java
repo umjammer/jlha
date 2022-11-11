@@ -195,7 +195,7 @@ public class Type {
      *         違えば false。
      */
     public static boolean match(Class<?> type, Object obj) {
-        final String str = (obj == null ? null : obj.toString());
+        String str = (obj == null ? null : obj.toString());
 
         if (Type.matchRestrict(type, obj)) {
             return true;
@@ -260,7 +260,7 @@ public class Type {
      *                変換しようとした場合。
      */
     public static Object parse(Class<?> type, Object obj) {
-        final String str = (obj == null ? null : obj.toString());
+        String str = (obj == null ? null : obj.toString());
 
         if (type.isInstance(obj)) {
             return obj;
@@ -274,13 +274,13 @@ public class Type {
                     || type.equals(Double.class) || type.equals(Double.TYPE))
                    && (obj instanceof Number || (obj != null && Type.isLongString(str))
                        || (obj != null && Type.isDoubleString(str)))) {
-            Number num = null;
+            Number num;
             if (obj instanceof Number) {
                 num = (Number) obj;
             } else {
                 try {
                     if (Type.isLongString(str))
-                        num = new Long(Long.parseLong(str));
+                        num = Long.parseLong(str);
                     else
                         num = new Double(str);
                 } catch (NumberFormatException exception) {
@@ -289,29 +289,29 @@ public class Type {
             }
 
             if (type.equals(Byte.class) || type.equals(Byte.TYPE)) {
-                return new Byte(num.byteValue());
+                return num.byteValue();
             } else if (type.equals(Short.class) || type.equals(Short.TYPE)) {
-                return new Short(num.shortValue());
+                return num.shortValue();
             } else if (type.equals(Integer.class) || type.equals(Integer.TYPE)) {
-                return new Integer(num.intValue());
+                return num.intValue();
             } else if (type.equals(Long.class) || type.equals(Long.TYPE)) {
-                return new Long(num.longValue());
+                return num.longValue();
             } else if (type.equals(Float.class) || type.equals(Float.TYPE)) {
-                return new Float(num.floatValue());
+                return num.floatValue();
             } else {
-                return new Double(num.doubleValue());
+                return num.doubleValue();
             }
         } else if (type.equals(Boolean.class) || type.equals(Boolean.TYPE)) {
             if ("TRUE".equalsIgnoreCase(str)) {
-                return new Boolean(true);
+                return Boolean.TRUE;
             } else if ("FALSE".equalsIgnoreCase(str)) {
-                return new Boolean(false);
+                return Boolean.FALSE;
             }
         } else if ((type.equals(Character.class) || type.equals(Character.TYPE)) && obj != null) {
             if (str.length() == 1) {
-                return new Character(str.charAt(0));
+                return str.charAt(0);
             } else if (Type.isUnicodeEscape(str)) {
-                return new Character((char) Type.parseHexadecimal(str.substring(2)).intValue());
+                return (char) Type.parseHexadecimal(str.substring(2)).intValue();
             }
         }
         throw new IllegalArgumentException();
@@ -358,8 +358,8 @@ public class Type {
 
         if (str.startsWith("0x") && Type.isHexadecimal(str.substring(2))) {
             BigInteger val = Type.parseHexadecimal(str.substring(2));
-            final BigInteger zero = new BigInteger("0");
-            final BigInteger limit = new BigInteger("FFFFFFFFFFFFFFFF", 16);
+            BigInteger zero = new BigInteger("0");
+            BigInteger limit = new BigInteger("FFFFFFFFFFFFFFFF", 16);
 
             if (zero.compareTo(val) <= 0 && val.compareTo(limit) <= 0)
                 return true;
@@ -380,9 +380,9 @@ public class Type {
      */
     private static boolean isDoubleString(String str) {
         try {
-            Double num = Double.valueOf(str);
+            double num = Double.parseDouble(str);
 
-            if (!num.isInfinite() || str.equals("Infinity") || str.equals("-Infinity"))
+            if (!Double.isInfinite(num) || str.equals("Infinity") || str.equals("-Infinity"))
                 return true;
             else
                 return false;
