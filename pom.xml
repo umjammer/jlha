@@ -15,6 +15,42 @@
     <url>https://github.com/umjammer/jlha</url>
   </scm>
 
+  <profiles>
+    <profile>
+      <id>unix</id>
+      <activation>
+        <os>
+          <family>unix</family>
+        </os>
+      </activation>
+      <properties>
+        <dev.null>/dev/null</dev.null>
+      </properties>
+    </profile>
+    <profile>
+      <id>windows</id>
+      <activation>
+        <os>
+          <family>windows</family>
+        </os>
+      </activation>
+      <properties>
+        <dev.null>NUL</dev.null>
+      </properties>
+    </profile>
+    <profile>
+      <id>mac</id>
+      <activation>
+        <os>
+          <family>mac</family>
+        </os>
+      </activation>
+      <properties>
+        <dev.null>/dev/null</dev.null>
+      </properties>
+    </profile>
+  </profiles>
+
   <build>
     <plugins>
       <plugin>
@@ -52,6 +88,7 @@
           <trimStackTrace>false</trimStackTrace>
           <argLine>
             -Djava.util.logging.config.file=${project.build.testOutputDirectory}/logging.properties
+            -Dvavi.test.dev.null=${dev.null}
           </argLine>
         </configuration>
       </plugin>
