@@ -10,6 +10,21 @@
 
 LHA compatible archiving library works with Java.
 
+## Install
+
+https://jitpack.io/#umjammer/jlha
+
+## Usage
+
+```java
+    LhaFile file = new LhaFile(Paths.get("src/test/resources/test.lzh").toFile());
+    Path outDir = Paths.("/foo/bar");
+    for (LhaHeader header : file.getEntries()) {
+        Files.copy(file.getInputStream(header), Files.newOutputStream(outDir.resolve(header.getPath())));
+    }
+
+```
+
 ## Change Log
 
  * version 0.06 -- 2002-12-11

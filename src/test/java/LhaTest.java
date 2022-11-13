@@ -66,6 +66,7 @@ class LhaTest {
         int c = 0;
         Path nullPath = Paths.get(System.getProperty("vavi.test.dev.null"));
         for (LhaHeader header : file.getEntries()) {
+            // Files#copy cannot deal "/dev/null" as target
             ReadableByteChannel rbc = Channels.newChannel(file.getInputStream(header));
             FileChannel fc = new FileOutputStream(nullPath.toFile()).getChannel();
             fc.transferFrom(rbc, 0, header.getOriginalSize());
