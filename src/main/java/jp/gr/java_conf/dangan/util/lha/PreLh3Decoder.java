@@ -573,7 +573,7 @@ public class PreLh3Decoder implements PreLzssDecoder {
      */
     private static int[] createConstOffHiLen() {
         final int length = PreLh3Decoder.DictionarySize >> 6;
-        final int[] list = {
+        int[] list = {
             2, 0x01, 0x01, 0x03, 0x06, 0x0D, 0x1F, 0x4E, 0
         };
 

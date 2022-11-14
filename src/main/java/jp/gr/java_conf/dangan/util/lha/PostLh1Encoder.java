@@ -279,7 +279,7 @@ public class PostLh1Encoder implements PostLzssEncoder {
      */
     private static int[] createLenList() {
         final int length = 64;
-        final int[] list = {
+        int[] list = {
             3, 0x01, 0x04, 0x0C, 0x18, 0x30, 0
         };
 

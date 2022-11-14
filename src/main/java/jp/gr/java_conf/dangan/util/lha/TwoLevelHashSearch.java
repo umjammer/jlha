@@ -251,9 +251,9 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
 
         byte[] buf = this.TextBuffer;
         int max = position + this.MaxMatch;
-        int s = 0;
-        int p = 0;
-        int len = 0;
+        int s;
+        int p;
+        int len;
 
         // 二段目のハッシュによって選ばれた連結リストを検索するループ
         while (scanlimit <= scanpos) {
@@ -357,8 +357,8 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
 
         byte[] buf = this.TextBuffer;
         int max = Math.min(this.TextBuffer.length, position + this.MaxMatch);
-        int s = 0;
-        int p = 0;
+        int s;
+        int p;
         int len = 0;
         while (scanlimit < scanpos) {
             s = scanpos;

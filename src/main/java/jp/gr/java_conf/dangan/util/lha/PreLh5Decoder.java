@@ -747,7 +747,7 @@ public class PreLh5Decoder implements PreLzssDecoder {
      */
     private int[] readCodeLen(short[] codeLenTable, int[] codeLenLen) throws IOException {
 
-        final int codeLenTableBits = Bits.len(codeLenTable.length - 1);
+        int codeLenTableBits = Bits.len(codeLenTable.length - 1);
 
         int listlen = this.readBits(9);
         if (0 < listlen) {
@@ -868,7 +868,7 @@ public class PreLh5Decoder implements PreLzssDecoder {
                 this.bitCount -= count;
                 return bits;
             } else {
-                final int requested = count;
+                int requested = count;
                 int bits = 0;
                 try {
                     this.fillBitBuffer();

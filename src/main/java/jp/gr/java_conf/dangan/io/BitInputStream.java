@@ -254,7 +254,7 @@ public class BitInputStream extends InputStream {
      *                読み込みに失敗した場合。<br>
      */
     public int read(byte[] buffer, int index, int length) throws IOException {
-        final int requested = length;
+        int requested = length;
         try {
             while (0 < length) {
                 buffer[index++] = (byte) this.readBits(8);
@@ -301,7 +301,7 @@ public class BitInputStream extends InputStream {
      */
     public long skip(long length) throws IOException {
         length = (0 < length ? length : 0);
-        final long requested = length;
+        long requested = length;
         try {
             while (0 < length) {
                 this.readBits(8);
@@ -533,7 +533,7 @@ public class BitInputStream extends InputStream {
                 this.bitCount -= count;
                 return bits;
             } else {
-                final int requested = count;
+                int requested = count;
                 int bits = 0;
                 try {
                     this.fillBitBuffer();
@@ -582,7 +582,7 @@ public class BitInputStream extends InputStream {
             this.bitCount -= count;
             return count;
         } else {
-            final int requested = count;
+            int requested = count;
             count -= this.bitCount;
             this.bitCount = 0;
             this.bitBuffer = 0;
@@ -603,6 +603,7 @@ public class BitInputStream extends InputStream {
                     count = 0;
                 }
             } catch (LocalEOFException exception) {
+                exception.printStackTrace();
             }
             return requested - count;
         }
@@ -648,10 +649,10 @@ public class BitInputStream extends InputStream {
      */
     public boolean peekBoolean() throws IOException {
         if (0 < this.bitCount) {
-            return (this.bitBuffer < 0);
+            return this.bitBuffer < 0;
         } else {
             this.fillBitBuffer();
-            return (this.bitBuffer < 0);
+            return this.bitBuffer < 0;
         }
     }
 
@@ -692,7 +693,6 @@ public class BitInputStream extends InputStream {
                         return bits >>> (32 - count);
                     } else if (count - 32 < this.bitCount) {
                         int bits = this.bitBuffer << (count - 32);
-                        ;
                         int bcnt = this.bitCount - (count - 32);
                         int pos = this.cachePosition;
                         while (bcnt < 25) {

@@ -285,7 +285,7 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
 
         int matchlen = this.Threshold - 1;
         int matchpos = position;
-        int maxmatch = this.MaxMatch;
+        int maxmatch;
         int scanlimit = Math.max(this.DictionaryLimit, position - this.DictionarySize);
 
         // 連結リストの長さが長すぎる場合 offset を使用して
@@ -302,9 +302,9 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
         // 最大 offhash と poshash から始まる 2つの連結リストを走査する。
         byte[] buf = this.TextBuffer;
         int max = position + this.MaxMatch;
-        int s = 0;
-        int p = 0;
-        int len = 0;
+        int s;
+        int p;
+        int len;
         while (true) {
             int scanpos = this.hashTable[offhash];
             int searchCount = this.SearchLimitCount;
@@ -387,8 +387,8 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
 
         byte[] buf = this.TextBuffer;
         int max = Math.min(this.TextBuffer.length, position + this.MaxMatch);
-        int s = 0;
-        int p = 0;
+        int s;
+        int p;
         int len = 0;
         while (scanlimit < scanpos) {
             s = scanpos;
@@ -409,7 +409,7 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
 
         // ハッシュと連結リストを使用した検索機構 から検索する。
         if (this.hashMethod.hashRequires() < this.TextBuffer.length - position) {
-            int maxmatch = this.MaxMatch;
+            int maxmatch;
             scanlimit = Math.max(this.DictionaryLimit, position - this.DictionarySize);
 
             // 連結リストの長さが長すぎる場合 offset を使用して
@@ -492,7 +492,6 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
         for (int i = 0; i < this.prev.length; i++) {
             int pos = this.prev[i] - this.DictionarySize;
             this.prev[i] = (0 <= pos ? pos : -1);
-            ;
         }
     }
 

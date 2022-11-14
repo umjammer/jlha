@@ -352,7 +352,7 @@ public class CompressMethod {
 
         Hashtable<String, Object> substitute = new Hashtable<>();
         substitute.put("in", in);
-        substitute.put("length", new Long(length));
+        substitute.put("length", length);
 
         return (InputStream) LhaProperty.parse(generator, substitute, packages);
     }

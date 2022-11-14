@@ -394,6 +394,7 @@ public class LhaImmediateOutputStream extends OutputStream {
         try {
             this.archive.setLength(this.archive.getFilePointer());
         } catch (NoSuchMethodError error) {
+            error.printStackTrace();
         }
         this.archive.close();
         this.archive = null;

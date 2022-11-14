@@ -263,7 +263,7 @@ public class CachedInputStream extends InputStream {
      *                入出力エラーが発生した場合
      */
     public int read(byte[] buffer, int index, int length) throws IOException {
-        final int requested = length;
+        int requested = length;
 
         while (0 < length) {
             if (this.cacheLimit <= this.cachePosition) {
@@ -301,7 +301,7 @@ public class CachedInputStream extends InputStream {
      *                入出力エラーが発生した場合
      */
     public long skip(long length) throws IOException {
-        final long requested = length;
+        long requested = length;
 
         while (0 < length) {
             if (this.cacheLimit <= this.cachePosition) {

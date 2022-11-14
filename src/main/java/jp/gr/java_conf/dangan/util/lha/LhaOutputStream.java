@@ -465,7 +465,7 @@ public class LhaOutputStream extends OutputStream {
     /**
      * データの一時退避機構を提供する。
      */
-    private static interface Temporary {
+    private interface Temporary {
 
         /**
          * 一時退避機構に貯えられたデータを取り出すInputStream を得る。<br>

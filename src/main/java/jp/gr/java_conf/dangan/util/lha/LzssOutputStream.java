@@ -229,9 +229,9 @@ public class LzssOutputStream extends OutputStream {
         this.lastsearchret = LzssOutputStream.NEEDSEARCH;
 
         Object[] arguments = new Object[LzssSearchMethodExtraArguments.length + 4];
-        arguments[0] = new Integer(this.DictionarySize);
-        arguments[1] = new Integer(this.MaxMatch);
-        arguments[2] = new Integer(this.Threshold);
+        arguments[0] = this.DictionarySize;
+        arguments[1] = this.MaxMatch;
+        arguments[2] = this.Threshold;
         arguments[3] = this.TextBuffer;
         for (int i = 0; i < LzssSearchMethodExtraArguments.length; i++) {
             arguments[4 + i] = LzssSearchMethodExtraArguments[i];
@@ -551,7 +551,7 @@ public class LzssOutputStream extends OutputStream {
      * @param matchpos 一致位置
      * @return 一致長と一致位置の情報を含むsearchの戻り値
      */
-    public static final int createSearchReturn(int matchlen, int matchpos) {
+    public static int createSearchReturn(int matchlen, int matchpos) {
         return matchlen << 22 | matchpos;
     }
 
@@ -562,7 +562,7 @@ public class LzssOutputStream extends OutputStream {
      * @param searchret search の戻り値
      * @return 一致長
      */
-    public static final int getMatchLen(int searchret) {
+    public static int getMatchLen(int searchret) {
         return searchret >> 22;
     }
 
@@ -573,7 +573,7 @@ public class LzssOutputStream extends OutputStream {
      * @param searchret search の戻り値
      * @return 一致位置
      */
-    public static final int getMatchPos(int searchret) {
+    public static int getMatchPos(int searchret) {
         if (0 <= searchret)
             return searchret & 0x3FFFFF;
         else

@@ -364,9 +364,9 @@ public class PostLh3Encoder implements PostLzssEncoder {
      * @exception IOException 入出力エラーが発生した場合
      */
     private void writeCodeLenList(int[] codeLen) throws IOException {
-        for (int i = 0; i < codeLen.length; i++) {
-            if (0 < codeLen[i]) {
-                this.out.writeBits(5, 0x10 | (codeLen[i] - 1));
+        for (int j : codeLen) {
+            if (0 < j) {
+                this.out.writeBits(5, 0x10 | (j - 1));
             } else {
                 this.out.writeBit(0);
             }
@@ -380,8 +380,8 @@ public class PostLh3Encoder implements PostLzssEncoder {
      * @exception IOException 入出力エラーが発生した場合
      */
     private void writeOffHiLenList(int[] offHiLen) throws IOException {
-        for (int i = 0; i < offHiLen.length; i++) {
-            this.out.writeBits(4, offHiLen[i]);
+        for (int j : offHiLen) {
+            this.out.writeBits(4, j);
         }
     }
 
@@ -393,8 +393,8 @@ public class PostLh3Encoder implements PostLzssEncoder {
      */
     private static int countNoZeroElement(int[] array) {
         int count = 0;
-        for (int i = 0; i < array.length; i++) {
-            if (0 != array[i]) {
+        for (int j : array) {
+            if (0 != j) {
                 count++;
             }
         }
@@ -424,7 +424,7 @@ public class PostLh3Encoder implements PostLzssEncoder {
      */
     private static int[] createConstOffHiLen() {
         final int length = PostLh3Encoder.DictionarySize >> 6;
-        final int[] list = {
+        int[] list = {
             2, 0x01, 0x01, 0x03, 0x06, 0x0D, 0x1F, 0x4E, 0
         };
 
@@ -454,8 +454,8 @@ public class PostLh3Encoder implements PostLzssEncoder {
      */
     private static int[] getBetterOffHiLen(int[] OffHiFreq, int[] OffHiLen) {
         boolean detect = false;
-        for (int i = 0; i < OffHiLen.length; i++) {
-            if (15 < OffHiLen[i]) { // 15 はwriteOffHiLenListで書きこめる最大のハフマン符号長を意味する。
+        for (int j : OffHiLen) {
+            if (15 < j) { // 15 はwriteOffHiLenListで書きこめる最大のハフマン符号長を意味する。
                 detect = true;
             }
         }

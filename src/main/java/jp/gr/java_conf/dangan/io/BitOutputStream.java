@@ -65,7 +65,7 @@ public class BitOutputStream extends OutputStream {
     // private static final int DefaultCacheSize
     // ------------------------------------------------------------------
     /**
-     * デフォルトおキャッシュサイズ
+     * デフォルトキャッシュサイズ
      */
     private static final int DefaultCacheSize = 1024;
 

@@ -63,7 +63,7 @@ public interface PreLzssDecoder {
      *            このバイト数を超えてデータを読み込んだ場合
      *            reset()できなくなる可能性がある。<br>
      */
-    public abstract void mark(int readLimit);
+    void mark(int readLimit);
 
     /**
      * 接続された入力ストリームの読み込み位置を最後に
@@ -71,7 +71,7 @@ public interface PreLzssDecoder {
      *
      * @exception IOException 入出力エラーが発生した場合
      */
-    public abstract void reset() throws IOException;
+    void reset() throws IOException;
 
     /**
      * 接続された入力ストリームが mark() と reset() を
@@ -81,7 +81,7 @@ public interface PreLzssDecoder {
      *         サポートする場合は true。<br>
      *         サポートしない場合は false。<br>
      */
-    public abstract boolean markSupported();
+    boolean markSupported();
 
     // ------------------------------------------------------------------
     // original method ( on the model of java.io.InputStream )
@@ -103,7 +103,7 @@ public interface PreLzssDecoder {
      *
      * @exception IOException 入出力エラーが発生した場合
      */
-    public abstract int available() throws IOException;
+    int available() throws IOException;
 
     /**
      * この入力ストリームを閉じ、使用していた
@@ -111,7 +111,7 @@ public interface PreLzssDecoder {
      *
      * @exception IOException 入出力エラーが発生した場合
      */
-    public abstract void close() throws IOException;
+    void close() throws IOException;
 
     /**
      * 1byte の LZSS未圧縮のデータもしくは、
@@ -125,7 +125,7 @@ public interface PreLzssDecoder {
      * @exception IOException 入出力エラーが発生した場合
      * @exception EOFException EndOfStreamに達した場合<br>
      */
-    public abstract int readCode() throws IOException;
+    int readCode() throws IOException;
 
     /**
      * LZSS で圧縮された圧縮コードのうち一致位置を読み込む。<br>
@@ -134,26 +134,26 @@ public interface PreLzssDecoder {
      *
      * @exception IOException 入出力エラーが発生した場合
      */
-    public abstract int readOffset() throws IOException;
+    int readOffset() throws IOException;
 
     /**
      * このPreLzssDecoderが処理するLZSS辞書のサイズを得る。
      *
      * @return LZSS辞書のサイズ
      */
-    public abstract int getDictionarySize();
+    int getDictionarySize();
 
     /**
      * このPreLzssDecoderが処理する最長一致長を得る。
      *
      * @return 最長一致長
      */
-    public abstract int getMaxMatch();
+    int getMaxMatch();
 
     /**
      * このPreLzssDecoderが処理する圧縮、非圧縮の閾値を得る。
      *
      * @return LZSSの閾値
      */
-    public abstract int getThreshold();
+    int getThreshold();
 }
