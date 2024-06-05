@@ -1,27 +1,31 @@
 /*
  * Copyright (C) 2001  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -42,7 +46,6 @@ import java.io.IOException;
  *     ソース整備
  *     タブ廃止
  *     ライセンス文の修正
- *
  * </pre>
  *
  * @author $Author: dangan $
@@ -60,8 +63,7 @@ public interface PreLzssDecoder {
      * reset() で必ずマーク位置に復旧できなければならない。<br>
      *
      * @param readLimit マーク位置に戻れる限界のバイト数。
-     *            このバイト数を超えてデータを読み込んだ場合
-     *            reset()できなくなる可能性がある。<br>
+     *                  このバイト数を超えてデータを読み込んだ場合reset()できなくなる可能性がある。
      */
     void mark(int readLimit);
 
@@ -69,7 +71,7 @@ public interface PreLzssDecoder {
      * 接続された入力ストリームの読み込み位置を最後に
      * mark() メソッドが呼び出されたときの位置に設定する。<br>
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      */
     void reset() throws IOException;
 
@@ -77,20 +79,10 @@ public interface PreLzssDecoder {
      * 接続された入力ストリームが mark() と reset() を
      * サポートするかを得る。<br>
      *
-     * @return ストリームが mark() と reset() を
-     *         サポートする場合は true。<br>
-     *         サポートしない場合は false。<br>
+     * @return ストリームが mark() と reset() をサポートする場合は true。サポートしない場合は false。<br>
      */
     boolean markSupported();
 
-    // ------------------------------------------------------------------
-    // original method ( on the model of java.io.InputStream )
-    // ------------------------------------------------------------------
-    // other method
-    // ------------------------------------------------------------------
-    // public abstract int available()
-    // public abstract void close()
-    // ------------------------------------------------------------------
     /**
      * 接続された入力ストリームからブロックしないで
      * 読み込むことのできる最低バイト数を得る。<br>
@@ -99,9 +91,8 @@ public interface PreLzssDecoder {
      * 読み込む事の出来る最低バイト数を得るには
      * 実際に読み込んでみる以外に方法がないためである。
      *
-     * @return ブロックしないで読み出せる最低バイト数。<br>
-     *
-     * @exception IOException 入出力エラーが発生した場合
+     * @return ブロックしないで読み出せる最低バイト数。
+     * @throws IOException 入出力エラーが発生した場合
      */
     int available() throws IOException;
 
@@ -109,7 +100,7 @@ public interface PreLzssDecoder {
      * この入力ストリームを閉じ、使用していた
      * 全てのリソースを開放する。<br>
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      */
     void close() throws IOException;
 
@@ -117,22 +108,19 @@ public interface PreLzssDecoder {
      * 1byte の LZSS未圧縮のデータもしくは、
      * LZSS で圧縮された圧縮コードのうち一致長を読み込む。<br>
      * 未圧縮データは 0〜255、
-     * LZSS圧縮コード(一致長)は 256〜511 の値を取らなければならない。<br>
+     * LZSS圧縮コード(一致長)は 256〜511 の値を取らなければならない。
      *
-     * @return 1byte の LZSS未圧縮のデータもしくは、
-     *         LZSS で圧縮された圧縮コードのうち一致長
-     *
-     * @exception IOException 入出力エラーが発生した場合
-     * @exception EOFException EndOfStreamに達した場合<br>
+     * @return 1byte の LZSS未圧縮のデータもしくは、LZSS で圧縮された圧縮コードのうち一致長
+     * @throws IOException  入出力エラーが発生した場合
+     * @throws EOFException EndOfStreamに達した場合
      */
     int readCode() throws IOException;
 
     /**
-     * LZSS で圧縮された圧縮コードのうち一致位置を読み込む。<br>
+     * LZSS で圧縮された圧縮コードのうち一致位置を読み込む。
      *
      * @return LZSS で圧縮された圧縮コードのうち一致位置
-     *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      */
     int readOffset() throws IOException;
 

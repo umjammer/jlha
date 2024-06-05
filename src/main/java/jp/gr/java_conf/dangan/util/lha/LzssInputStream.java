@@ -1,27 +1,31 @@
-/**
+/*
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -68,18 +72,18 @@ public class LzssInputStream extends InputStream {
      * LZSS圧縮に使用される閾値。
      * 一致長が この値以上であれば、圧縮コードを出力する。
      */
-    private int Threshold;
+    private final int Threshold;
 
     /**
      * LZSS圧縮に使用される値。
      * 最大一致長を示す。
      */
-    private int MaxMatch;
+    private final int MaxMatch;
 
     /**
      * 解凍後のデータサイズ
      */
-    private long Length;
+    private final long Length;
 
     /**
      * LZSS圧縮を展開するためのバッファ。
@@ -151,6 +155,7 @@ public class LzssInputStream extends InputStream {
      *
      * @exception IOException 入出力エラーが発生した場合
      */
+    @Override
     public int read() throws IOException {
         if (this.TextDecoded <= this.TextPosition) {
             try {
@@ -173,6 +178,7 @@ public class LzssInputStream extends InputStream {
      * @return 読みこんだデータ量
      * @exception IOException 入出力エラーが発生した場合
      */
+    @Override
     public int read(byte[] buffer) throws IOException {
         return this.read(buffer, 0, buffer.length);
     }
@@ -188,6 +194,7 @@ public class LzssInputStream extends InputStream {
      * @return 読みこんだデータ量
      * @exception IOException 入出力エラーが発生した場合
      */
+    @Override
     public int read(byte[] buffer, int index, int length) throws IOException {
         int position = index;
         int end = index + length;
@@ -215,6 +222,7 @@ public class LzssInputStream extends InputStream {
      * @return 実際に読み飛ばしたバイト数
      * @exception IOException 入出力エラーが発生した場合
      */
+    @Override
     public long skip(long length) throws IOException {
         long end = this.TextPosition + length;
         try {
@@ -243,11 +251,10 @@ public class LzssInputStream extends InputStream {
      * reset() で必ずマーク位置に復旧できる事を保証する。
      *
      * @param readLimit マーク位置に戻れる限界のバイト数。
-     *            このバイト数を超えてデータを読み
-     *            込んだ場合 reset()できなくなる可
-     *            能性がある。<br>
+     *            このバイト数を超えてデータを読み込んだ場合 reset()できなくなる可能性がある。
      * @see PreLzssDecoder#mark(int)
      */
+    @Override
     public void mark(int readLimit) {
         readLimit -= (int) (this.TextDecoded - this.TextPosition);
         int Size = this.TextBuffer.length - this.MaxMatch;
@@ -269,6 +276,7 @@ public class LzssInputStream extends InputStream {
      *
      * @exception IOException 入出力エラーが発生した場合
      */
+    @Override
     public void reset() throws IOException {
         if (this.MarkTextBuffer == null) {
             throw new IOException("not marked.");
@@ -289,10 +297,9 @@ public class LzssInputStream extends InputStream {
      * 接続された入力ストリームが mark() と reset() を
      * サポートするかを得る。
      *
-     * @return ストリームが mark() と reset() を
-     *         サポートする場合は true。<br>
-     *         サポートしない場合は false。
+     * @return ストリームが mark() と reset() をサポートする場合は true。サポートしない場合は false。
      */
+    @Override
     public boolean markSupported() {
         return this.decoder.markSupported();
     }
@@ -305,6 +312,7 @@ public class LzssInputStream extends InputStream {
      *
      * @exception IOException 入出力エラーが発生した場合
      */
+    @Override
     public int available() throws IOException {
         return (int) (this.TextDecoded - this.TextPosition) + this.decoder.available();
     }
@@ -315,6 +323,7 @@ public class LzssInputStream extends InputStream {
      *
      * @exception IOException 入出力エラーが発生した場合
      */
+    @Override
     public void close() throws IOException {
         this.decoder.close();
         this.decoder = null;

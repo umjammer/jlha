@@ -1,32 +1,37 @@
-/**
+/*
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.util.lha;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 
 import jp.gr.java_conf.dangan.io.Bits;
 
@@ -76,25 +81,25 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
     /**
      * LZSS 辞書サイズ
      */
-    private int DictionarySize;
+    private final int DictionarySize;
 
     /**
      * LZSS 圧縮に使用される値。
      * 最大一致長を示す。
      */
-    private int MaxMatch;
+    private final int MaxMatch;
 
     /**
      * LZSS 圧縮/非圧縮の閾値。
      * 一致長が この値以上であれば、圧縮コードを出力する。
      */
-    private int Threshold;
+    private final int Threshold;
 
     /**
      * LZSS 圧縮を施すためのバッファ。
      * LzssSearchMethod の実装内では読み込みのみ許される。
      */
-    private byte[] TextBuffer;
+    private final byte[] TextBuffer;
 
     /**
      * 辞書の限界位置。
@@ -108,14 +113,14 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
      * 親のノード番号を示す。
      * parent[node] は node の親ノードの番号を示す。
      */
-    private int[] parent;
+    private final int[] parent;
 
     /**
      * 子のハッシュ値を示す。
      * hashTable[ hash( node, ch ) ] で
      * node の文字 ch の子ノードのハッシュ値を示す。
      */
-    private int[] hashTable;
+    private final int[] hashTable;
 
     /**
      * hashTable から連なる双方向連結リストの一部。
@@ -124,39 +129,39 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
      * 連結リスト内で node の一つ前に位置するノードの node 番号。
      * prev[ node ] が 負値の場合は全ビット反転したハッシュ値を示す。
      */
-    private int[] prev;
+    private final int[] prev;
 
     /**
      * hashTable から連なる双方向連結リストの一部。
      * 同じハッシュ値を持つ 一つ後のノードのノード番号を示す。
      * next[ node ] は node と同じハッシュ値を持ち、
      * 連結リスト内で node の一つ後ろに位置するノードの node 番号。
-     *
+     * <p>
      * また、葉でないノードに関しては next と avail で 未使用なノードの
      * スタック(一方向連結リスト)を構成する。
-     *
+     * <p>
      * さらに、完全一致があったため削除された葉ノードで、
      * PATRICIA Trie 内に存在している葉ノードへの一方向連結リストを構成する。
      */
-    private int[] next;
+    private final int[] next;
 
     /**
      * ノードの TextBuffer 内のデータパタンの開始位置を示す。
      * position[ node ] は node のデータパタンの開始位置を示す。
      */
-    private int[] position;
+    private final int[] position;
 
     /**
      * ノードの 分岐位置を示す。
      * level[ node ] は node の子ノードが分岐する位置を示す。
      */
-    private int[] level;
+    private final int[] level;
 
     /**
      * ノードの子ノードの数を示す。
      * childnum[ node ] は node の子ノードの数を示す。
      */
-    private int[] childnum;
+    private final int[] childnum;
 
     /**
      * next が構成する未使用ノードのスタックのスタックポインタ。
@@ -166,7 +171,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
     /**
      * ハッシュ時に使用するシフト値
      */
-    private int shift;
+    private final int shift;
 
     /**
      * 最後の searchAndPut() または put() で得られた
@@ -214,9 +219,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
             this.parent[i] = PatriciaTrieSearch.UNUSED;
         }
 
-        for (int i = 0; i < this.hashTable.length; i++) {
-            this.hashTable[i] = PatriciaTrieSearch.UNUSED;
-        }
+        Arrays.fill(this.hashTable, PatriciaTrieSearch.UNUSED);
 
         this.shift = Bits.len(this.DictionarySize) - 8;
 
@@ -230,6 +233,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
      *
      * @param position TextBuffer内のデータパタンの開始位置
      */
+    @Override
     public void put(int position) {
 
         // PATRICIA Trie から最も古いデータパタンを削除
@@ -342,6 +346,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
      * @see LzssOutputStream#createSearchReturn(int,int)
      * @see LzssOutputStream#NOMATCH
      */
+    @Override
     public int searchAndPut(int position) {
 
         // PATRICIA Trie から最も古いデータパタンを削除
@@ -474,6 +479,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
      * @see LzssOutputStream#createSearchReturn(int,int)
      * @see LzssOutputStream#NOMATCH
      */
+    @Override
     public int search(int position, int lastPutPos) {
 
         // PATRICIA Trie に登録されていないデータパタンを
@@ -575,6 +581,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
      * 内のデータも TextBuffer内のデータと矛盾しないよ
      * うに前方へ移動する処理を行う。
      */
+    @Override
     public void slide() {
         this.DictionaryLimit = Math.max(0, this.DictionaryLimit - this.DictionarySize);
         this.lastMatchPos -= this.DictionarySize;
@@ -592,6 +599,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
      *
      * @return 常に MaxMatch
      */
+    @Override
     public int putRequires() {
         return this.MaxMatch;
     }
@@ -794,7 +802,6 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
         }
         return num;
     }
-
 }
 
 // /**

@@ -9,12 +9,8 @@ import java.io.FileOutputStream;
 import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
-import java.nio.channels.WritableByteChannel;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.nio.file.StandardOpenOption;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,10 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import jp.gr.java_conf.dangan.util.lha.LhaFile;
 import jp.gr.java_conf.dangan.util.lha.LhaHeader;
 import jp.gr.java_conf.dangan.util.lha.LhaInputStream;
-import org.junit.jupiter.api.condition.DisabledIf;
-import org.junit.jupiter.api.condition.DisabledOnOs;
-import org.junit.jupiter.api.condition.OS;
-import vavi.util.ByteUtil;
 
 
 /**
@@ -76,5 +68,3 @@ System.err.println(header.getPath());
         assertEquals(7, c);
     }
 }
-
-/* */

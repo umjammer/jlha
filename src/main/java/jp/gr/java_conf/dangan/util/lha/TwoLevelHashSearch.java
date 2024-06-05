@@ -1,32 +1,37 @@
-/**
+/*
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.util.lha;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 
 import jp.gr.java_conf.dangan.io.Bits;
 import jp.gr.java_conf.dangan.lang.reflect.Factory;
@@ -47,7 +52,6 @@ import jp.gr.java_conf.dangan.lang.reflect.Factory;
  * Revision 1.0  2002/12/03 00:00:00  dangan
  * first edition
  * add to version control
- *
  * </pre>
  *
  * @author $Author: dangan $
@@ -58,19 +62,19 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
     /**
      * LZSS辞書サイズ。
      */
-    private int DictionarySize;
+    private final int DictionarySize;
 
     /**
      * LZSS圧縮に使用される値。
      * 最大一致長を示す。
      */
-    private int MaxMatch;
+    private final int MaxMatch;
 
     /**
      * LZSS圧縮に使用される閾値。
      * 一致長が この値以上であれば、圧縮コードを出力する。
      */
-    private int Threshold;
+    private final int Threshold;
 
     /**
      * LZSS圧縮を施すためのバッファ。
@@ -78,7 +82,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
      * 後半は圧縮を施すためのデータの入ったバッファ。
      * LzssSearchMethodの実装内では読み込みのみ許される。
      */
-    private byte[] TextBuffer;
+    private final byte[] TextBuffer;
 
     /**
      * 辞書の限界位置。
@@ -91,24 +95,24 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
     /**
      * 一段目のハッシュ関数
      */
-    private HashMethod primaryHash;
+    private final HashMethod primaryHash;
 
     /**
      * 一段目のハッシュテーブル
      * 添字は一段目のハッシュ値、内容は 二段目のハッシュテーブルの index
      */
-    private int[] primaryHashTable;
+    private final int[] primaryHashTable;
 
     /**
      * 一段目のハッシュテーブルに幾つのデータパタンが
      * 登録されているかをカウントしておく。
      */
-    private int[] primaryCount;
+    private final int[] primaryCount;
 
     /**
      * 二段目のハッシュ値を算出するために必要なバイト数。
      */
-    private int[] secondaryHashRequires;
+    private final int[] secondaryHashRequires;
 
     /**
      * 二段目のハッシュテーブル
@@ -127,16 +131,16 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
      * 同じハッシュ値を持つデータパタン開始位置を持つ
      * 単方向連結リスト。
      */
-    private int[] prev;
+    private final int[] prev;
 
     /**
      * 二段階ハッシュを使用した LzssSearchMethod を構築する。<br>
      * 一段目のハッシュ関数には デフォルトのものが使用される。<br>
      *
      * @param DictionarySize 辞書サイズ
-     * @param MaxMatch 最大一致長
-     * @param Threshold 圧縮、非圧縮の閾値
-     * @param TextBuffer LZSS圧縮を施すためのバッファ
+     * @param MaxMatch       最大一致長
+     * @param Threshold      圧縮、非圧縮の閾値
+     * @param TextBuffer     LZSS圧縮を施すためのバッファ
      */
     public TwoLevelHashSearch(int DictionarySize, int MaxMatch, int Threshold, byte[] TextBuffer) {
         this(DictionarySize, MaxMatch, Threshold, TextBuffer, HashShort.class.getName());
@@ -145,20 +149,14 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
     /**
      * 二段階ハッシュを使用した LzssSearchMethod を構築する。
      *
-     * @param DictionarySize 辞書サイズ
-     * @param MaxMatch 最大一致長
-     * @param Threshold 圧縮、非圧縮の閾値
-     * @param TextBuffer LZSS圧縮を施すためのバッファ
+     * @param DictionarySize      辞書サイズ
+     * @param MaxMatch            最大一致長
+     * @param Threshold           圧縮、非圧縮の閾値
+     * @param TextBuffer          LZSS圧縮を施すためのバッファ
      * @param HashMethodClassName Hash関数を提供するクラス名
-     *
-     * @exception NoClassDefFoundError
-     *                HashMethodClassName で与えられたクラスが見つからない場合。
-     * @exception InstantiationError
-     *                HashMethodClassName で与えられたクラスが
-     *                abstract class であるためインスタンスを生成できない場合。
-     * @exception NoSuchMethodError
-     *                HashMethodClassName で与えられたクラスが
-     *                コンストラクタ HashMethod( byte[] )を持たない場合。
+     * @throws NoClassDefFoundError HashMethodClassName で与えられたクラスが見つからない場合。
+     * @throws InstantiationError   HashMethodClassName で与えられたクラスがabstract class であるためインスタンスを生成できない場合。
+     * @throws NoSuchMethodError    HashMethodClassName で与えられたクラスがコンストラクタ HashMethod( byte[] )を持たない場合。
      */
     public TwoLevelHashSearch(int DictionarySize, int MaxMatch, int Threshold, byte[] TextBuffer, String HashMethodClassName) {
 
@@ -170,9 +168,9 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
 
         try {
             this.primaryHash = (HashMethod) Factory.createInstance(HashMethodClassName,
-                                                                   new Object[] {
-                                                                       TextBuffer
-                                                                   });
+                    new Object[] {
+                            TextBuffer
+                    });
         } catch (ClassNotFoundException exception) {
             throw new NoClassDefFoundError(exception.getMessage());
         } catch (InvocationTargetException exception) {
@@ -199,17 +197,16 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
 
         // 連結リスト初期化
         this.prev = new int[this.DictionarySize];
-        for (int i = 0; i < this.prev.length; i++) {
-            this.prev[i] = -1;
-        }
+        Arrays.fill(this.prev, -1);
     }
 
     /**
      * position から始まるデータパタンを
-     * 二段階ハッシュと連結リストから成る検索機構に登録する。<br>
+     * 二段階ハッシュと連結リストから成る検索機構に登録する。
      *
      * @param position TextBuffer内のデータパタンの開始位置
      */
+    @Override
     public void put(int position) {
         int phash = this.primaryHash.hash(position);
         int base = this.primaryHashTable[phash];
@@ -225,19 +222,18 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
      * データパタンから position から始まるデータパタンと
      * 最長の一致を持つものを検索し、
      * 同時に position から始まるデータパタンを
-     * 二段階ハッシュと連結リストから成る検索機構に登録する。<br>
+     * 二段階ハッシュと連結リストから成る検索機構に登録する。
      *
      * @param position TextBuffer内のデータパタンの開始位置。
-     *
      * @return 一致が見つかった場合は
-     *         LzssOutputStream.createSearchReturn
-     *         によって生成された一致位置と一致長の情報を持つ値、
-     *         一致が見つからなかった場合は
-     *         LzssOutputStream.NOMATCH。
-     *
-     * @see LzssOutputStream#createSearchReturn(int,int)
+     * LzssOutputStream.createSearchReturn
+     * によって生成された一致位置と一致長の情報を持つ値、
+     * 一致が見つからなかった場合は
+     * LzssOutputStream.NOMATCH。
+     * @see LzssOutputStream#createSearchReturn(int, int)
      * @see LzssOutputStream#NOMATCH
      */
+    @Override
     public int searchAndPut(int position) {
         int matchlen = this.Threshold - 1;
         int matchpos = position;
@@ -334,18 +330,17 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
      * データパタンを検索し position から始まるデータパタンと
      * 最長の一致を持つものを得る。<br>
      *
-     * @param position TextBuffer内のデータパタンの開始位置。
+     * @param position   TextBuffer内のデータパタンの開始位置。
      * @param lastPutPos 最後に登録したデータパタンの開始位置。
-     *
      * @return 一致が見つかった場合は
-     *         LzssOutputStream.createSearchReturn
-     *         によって生成された一致位置と一致長の情報を持つ値、
-     *         一致が見つからなかった場合は
-     *         LzssOutputStream.NOMATCH。
-     *
-     * @see LzssOutputStream#createSearchReturn(int,int)
+     * LzssOutputStream.createSearchReturn
+     * によって生成された一致位置と一致長の情報を持つ値、
+     * 一致が見つからなかった場合は
+     * LzssOutputStream.NOMATCH。
+     * @see LzssOutputStream#createSearchReturn(int, int)
      * @see LzssOutputStream#NOMATCH
      */
+    @Override
     public int search(int position, int lastPutPos) {
 
         // ハッシュと連結リストによる検索機構に登録されていない
@@ -447,6 +442,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
      * データも TextBuffer内のデータと矛盾しないように
      * 前方へ移動する処理を行う。
      */
+    @Override
     public void slide() {
 
         // DictionaryLimit更新
@@ -503,6 +499,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
      *
      * @return 一段目と二段目のハッシュに必要なバイト数を足したもの。
      */
+    @Override
     public int putRequires() {
         return this.primaryHash.hashRequires() + Math.max(Bits.len(this.DictionarySize) - 5, 0) / 2;
     }
@@ -510,7 +507,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
     /**
      * 二段目のハッシュ関数
      *
-     * @param position TextBuffer内のデータパタンの開始位置
+     * @param position     TextBuffer内のデータパタンの開始位置
      * @param hashRequires 二段目のハッシュ値を算出するのに必要なバイト数
      */
     private int secondaryHash(int position, int hashRequires) {
@@ -528,15 +525,15 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
     /**
      * 二段目のハッシュテーブルと連結リストを分岐させる。
      *
-     * @param dbase 分岐先 this.dummy の index
-     * @param sbase 分岐元 this.secondaryHashTable の index
+     * @param dbase  分岐先 this.dummy の index
+     * @param sbase  分岐元 this.secondaryHashTable の index
      * @param divoff 分岐位置
      */
     private void divide(int dbase, int sbase, int divoff) {
         int limit = this.DictionarySize;
         int position = this.secondaryHashTable[sbase];
         int[] current = {
-            -1, -1, -1, -1
+                -1, -1, -1, -1
         };
 
         // 連結リストを分岐させていくループ

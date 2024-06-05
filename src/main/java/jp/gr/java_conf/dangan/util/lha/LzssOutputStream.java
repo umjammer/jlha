@@ -1,27 +1,31 @@
-/**
+/*
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -95,19 +99,19 @@ public class LzssOutputStream extends OutputStream {
     /**
      * LZSS辞書サイズ。
      */
-    private int DictionarySize;
+    private final int DictionarySize;
 
     /**
      * LZSS圧縮に使用される閾値。
      * 一致長が この値以上であれば、圧縮コードを出力する。
      */
-    private int Threshold;
+    private final int Threshold;
 
     /**
      * LZSS圧縮に使用される値。
      * 最大一致長を示す。
      */
-    private int MaxMatch;
+    private final int MaxMatch;
 
     /**
      * LZSS圧縮を施すためのバッファ。
@@ -127,7 +131,7 @@ public class LzssOutputStream extends OutputStream {
     /**
      * TextBuffer内書き込み完了位置
      * LzssOutputStream.write() によって書き込まれた位置
-     *
+     * <p>
      * 以下の3者の関係は putPos <= searchedPos <= writtenPos となる。
      */
     private int writtenPos;
@@ -175,19 +179,15 @@ public class LzssOutputStream extends OutputStream {
      * LZSSで圧縮し、圧縮したデータを encoderに出力する
      * 出力ストリームを構築する。
      *
-     * @param encoder LZSS圧縮データ出力ストリーム
-     * @param LzssSearchMethodClassName
-     *            LzssSearchMethod の実装を示すパッケージ名も含めたクラス名
-     * @exception NoClassDefFoundError
-     *                LzssSearchMethodClassName で与えられたクラスが
-     *                見つからない場合。
-     * @exception InstantiationError
-     *                LzssSearchMethodClassName で与えられたクラスが
-     *                abstract class であるためインスタンスを生成できない場合。
-     * @exception NoSuchMethodError
-     *                LzssSearchMethodClassName で与えられたクラスが
-     *                コンストラクタ LzssSearchMethod( int, int, int, byte[], int )
-     *                を持たない場合
+     * @param encoder                   LZSS圧縮データ出力ストリーム
+     * @param LzssSearchMethodClassName LzssSearchMethod の実装を示すパッケージ名も含めたクラス名
+     * @throws NoClassDefFoundError LzssSearchMethodClassName で与えられたクラスが
+     *                              見つからない場合。
+     * @throws InstantiationError   LzssSearchMethodClassName で与えられたクラスが
+     *                              abstract class であるためインスタンスを生成できない場合。
+     * @throws NoSuchMethodError    LzssSearchMethodClassName で与えられたクラスが
+     *                              コンストラクタ LzssSearchMethod( int, int, int, byte[], int )
+     *                              を持たない場合
      */
     public LzssOutputStream(PostLzssEncoder encoder, String LzssSearchMethodClassName) {
         this(encoder, LzssSearchMethodClassName, new Object[0]);
@@ -198,23 +198,19 @@ public class LzssOutputStream extends OutputStream {
      * LZSSで圧縮し、圧縮したデータを encoderに出力する
      * 出力ストリームを構築する。
      *
-     * @param encoder LZSS圧縮データ出力ストリーム
-     * @param LzssSearchMethodClassName
-     *            LzssSearchMethod の実装を示すパッケージ名も含めたクラス名
-     * @exception NoClassDefFoundError
-     *                LzssSearchMethodClassName で与えられたクラスが
-     *                見つからない場合。
-     * @exception InstantiationError
-     *                LzssSearchMethodClassName で与えられたクラスが
-     *                abstract class であるためインスタンスを生成できない場合。
-     * @exception NoSuchMethodError
-     *                LzssSearchMethodClassName で与えられたクラスが
-     *                コンストラクタ LzssSearchMethod( int, int, int, byte[] )
-     *                を持たない場合
+     * @param encoder                   LZSS圧縮データ出力ストリーム
+     * @param LzssSearchMethodClassName LzssSearchMethod の実装を示すパッケージ名も含めたクラス名
+     * @throws NoClassDefFoundError LzssSearchMethodClassName で与えられたクラスが
+     *                              見つからない場合。
+     * @throws InstantiationError   LzssSearchMethodClassName で与えられたクラスが
+     *                              abstract class であるためインスタンスを生成できない場合。
+     * @throws NoSuchMethodError    LzssSearchMethodClassName で与えられたクラスが
+     *                              コンストラクタ LzssSearchMethod( int, int, int, byte[] )
+     *                              を持たない場合
      */
     public LzssOutputStream(PostLzssEncoder encoder,
-            String LzssSearchMethodClassName,
-            Object[] LzssSearchMethodExtraArguments) {
+                            String LzssSearchMethodClassName,
+                            Object[] LzssSearchMethodExtraArguments) {
 
         this.DictionarySize = encoder.getDictionarySize();
         this.MaxMatch = encoder.getMaxMatch();
@@ -257,8 +253,9 @@ public class LzssOutputStream extends OutputStream {
      * flush で明示的に出力を指示した時のみ。
      *
      * @param data 1バイトのデータ
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      */
+    @Override
     public void write(int data) throws IOException {
         this.TextBuffer[this.writtenPos++] = (byte) data;
 
@@ -275,8 +272,9 @@ public class LzssOutputStream extends OutputStream {
      * flush で明示的に出力を指示した時のみ。
      *
      * @param buffer データの格納されたバッファ
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      */
+    @Override
     public void write(byte[] buffer) throws IOException {
         this.write(buffer, 0, buffer.length);
     }
@@ -288,11 +286,11 @@ public class LzssOutputStream extends OutputStream {
      * flush で明示的に出力を指示した時のみ。
      *
      * @param buffer データの格納されたバッファ
-     * @param index buffer内データ開始位置
+     * @param index  buffer内データ開始位置
      * @param length buffer内データの長さ
-     *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      */
+    @Override
     public void write(byte[] buffer, int index, int length) throws IOException {
         int pos = index;
         int end = index + length;
@@ -335,13 +333,14 @@ public class LzssOutputStream extends OutputStream {
      *      }
      *  }
      * </pre>
-     *
+     * <p>
      * また、このメソッドは PostLzssEncoder.flush() を呼び出すため
      * flush() しない場合と比べて、出力データが変化する可能性がある。
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      * @see PostLzssEncoder#flush()
      */
+    @Override
     public void flush() throws IOException {
         this.encode(false);
         if (this.DictionarySize * 2 <= this.putPos) {
@@ -359,8 +358,9 @@ public class LzssOutputStream extends OutputStream {
      * 接続されたストリームを閉じ、
      * 使用していたリソースを開放する。
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      */
+    @Override
     public void close() throws IOException {
         while (this.DictionarySize <= this.writtenPos) {
             this.encode(true);
@@ -383,7 +383,7 @@ public class LzssOutputStream extends OutputStream {
      * private変数 this.encoder に出力する。
      *
      * @param last TextBuffer 内の出力完了したデータの終端位置 + 1
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      */
     private void encode(boolean last) throws IOException {
 

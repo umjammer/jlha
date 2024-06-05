@@ -1,27 +1,31 @@
-/**
+/*
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -52,7 +56,6 @@ import jp.gr.java_conf.dangan.io.NotEnoughBitsException;
  *     available の計算が甘かったのを修正。
  * [maintenance]
  *     ソース整備
- *
  * </pre>
  *
  * @author $Author: dangan $
@@ -129,11 +132,11 @@ public class PreLh1Decoder implements PreLzssDecoder {
      * 1byte のLZSS未圧縮のデータ、
      * もしくは圧縮コードのうち一致長を読み込む。
      *
-     * @return 1byte の 未圧縮のデータもしくは、
-     *         圧縮された圧縮コードのうち一致長
-     * @exception IOException 入出力エラーが発生した場合
-     * @exception EOFException EndOfStreamに達した場合
+     * @return 1byte の 未圧縮のデータもしくは、圧縮された圧縮コードのうち一致長
+     * @throws IOException  入出力エラーが発生した場合
+     * @throws EOFException EndOfStreamに達した場合
      */
+    @Override
     public int readCode() throws IOException {
         int node = this.huffman.childNode(DynamicHuffman.ROOT);
         while (0 <= node) {
@@ -149,18 +152,12 @@ public class PreLh1Decoder implements PreLzssDecoder {
      * LZSS圧縮コードのうち一致位置を読み込む。
      *
      * @return -lh1- で圧縮された圧縮コードのうち一致位置
-     * @exception IOException 入出力エラーが発生した場合。
-     * @exception EOFException データが途中までしかないため
-     *                予期せぬ EndOfStream に到達した場合。
-     * @exception BitDataBrokenException
-     *                データが途中までしかないため
-     *                予期せぬ EndOfStream に到達したか、
-     *                他の入出力エラーが発生した。
-     * @exception NotEnoughBitsException
-     *                データが途中までしかないため
-     *                予期せぬ EndOfStream に到達したか、
-     *                他の入出力エラーが発生した。
+     * @throws IOException            入出力エラーが発生した場合。
+     * @throws EOFException           データが途中までしかないため予期せぬ EndOfStream に到達した場合。
+     * @throws BitDataBrokenException データが途中までしかないため予期せぬ EndOfStream に到達したか、他の入出力エラーが発生した。
+     * @throws NotEnoughBitsException データが途中までしかないため予期せぬ EndOfStream に到達したか、他の入出力エラーが発生した。
      */
+    @Override
     public int readOffset() throws IOException {
         // offHiをあらわすのに最短の場合は 0 の 3bit で
         // offHiTableBits は 8bitで 両者の差は 5bit。
@@ -182,11 +179,10 @@ public class PreLh1Decoder implements PreLzssDecoder {
      * ある事に注意すること。
      *
      * @param readLimit マーク位置に戻れる限界のバイト数。
-     *            このバイト数を超えてデータを読み
-     *            込んだ場合 reset()できなくなる可
-     *            能性がある。
+     *                  このバイト数を超えてデータを読み込んだ場合 reset()できなくなる可能性がある。
      * @see PreLzssDecoder#mark(int)
      */
+    @Override
     public void mark(int readLimit) {
         this.in.mark(readLimit * 18 / 8 + 4);
         this.markHuffman = (DynamicHuffman) this.huffman.clone();
@@ -196,8 +192,9 @@ public class PreLh1Decoder implements PreLzssDecoder {
      * 接続された入力ストリームの読み込み位置を最後に
      * mark() メソッドが呼び出されたときの位置に設定する。
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      */
+    @Override
     public void reset() throws IOException {
         // mark()しないで reset() しようとした場合、
         // readLimit を超えて reset() しようとした場合、
@@ -211,10 +208,9 @@ public class PreLh1Decoder implements PreLzssDecoder {
     /**
      * 接続された入力ストリームが mark() と reset() をサポートするかを得る。
      *
-     * @return ストリームが mark() と reset() を
-     *         サポートする場合は true。<br>
-     *         サポートしない場合は false。
+     * @return ストリームが mark() と reset() をサポートする場合は true。サポートしない場合は false。
      */
+    @Override
     public boolean markSupported() {
         return this.in.markSupported();
     }
@@ -225,9 +221,10 @@ public class PreLh1Decoder implements PreLzssDecoder {
      * この最低バイト数は必ずしも保障されていない事に注意すること。
      *
      * @return ブロックしないで読み出せる最低バイト数。
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      * @see PreLzssDecoder#available()
      */
+    @Override
     public int available() throws IOException {
         return Math.max(this.in.availableBits() / 18 - 4, 0);
     }
@@ -235,8 +232,9 @@ public class PreLh1Decoder implements PreLzssDecoder {
     /**
      * このストリームを閉じ、使用していた全ての資源を解放する。
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      */
+    @Override
     public void close() throws IOException {
         this.in.close();
 
@@ -254,6 +252,7 @@ public class PreLh1Decoder implements PreLzssDecoder {
      *
      * @return -lh1-形式のLZSS辞書のサイズ
      */
+    @Override
     public int getDictionarySize() {
         return PreLh1Decoder.DictionarySize;
     }
@@ -263,6 +262,7 @@ public class PreLh1Decoder implements PreLzssDecoder {
      *
      * @return -lh1-形式のLZSSの最大一致長
      */
+    @Override
     public int getMaxMatch() {
         return PreLh1Decoder.MaxMatch;
     }
@@ -272,6 +272,7 @@ public class PreLh1Decoder implements PreLzssDecoder {
      *
      * @return -lh1-形式のLZSSの圧縮、非圧縮の閾値
      */
+    @Override
     public int getThreshold() {
         return PreLh1Decoder.Threshold;
     }
@@ -281,12 +282,12 @@ public class PreLh1Decoder implements PreLzssDecoder {
      * ハフマン符号長リストを生成する。
      *
      * @return -lh1- の offsetデコード用StaticHuffmanの
-     *         ハフマン符号長リスト
+     * ハフマン符号長リスト
      */
     private static int[] createLenList() {
         final int length = 64;
         int[] list = {
-            3, 0x01, 0x04, 0x0C, 0x18, 0x30, 0
+                3, 0x01, 0x04, 0x0C, 0x18, 0x30, 0
         };
 
         int[] LenList = new int[length];

@@ -1,40 +1,44 @@
 // start of PostLh5Encoder.java
 // TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
 
-/**
- * PostLh5Encoder.java
- *
+/*
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.util.lha;
 
 // import exceptions
+
 import java.io.IOException;
 // import classes and interfaces
 import java.io.OutputStream;
+import java.util.Arrays;
 
 import jp.gr.java_conf.dangan.io.BitOutputStream;
 import jp.gr.java_conf.dangan.io.Bits;
@@ -76,7 +80,6 @@ import jp.gr.java_conf.dangan.io.Bits;
  *     ソース整備
  *     タブ廃止
  *     ライセンス文の修正
- *
  * </pre>
  *
  * @author $Author: dangan $
@@ -84,57 +87,31 @@ import jp.gr.java_conf.dangan.io.Bits;
  */
 public class PostLh5Encoder implements PostLzssEncoder {
 
-    // ------------------------------------------------------------------
-    // instance field
-    // ------------------------------------------------------------------
-    // sink
-    // ------------------------------------------------------------------
-    // private BitOutputStream out
-    // ------------------------------------------------------------------
     /**
      * -lh4-, -lh5-, -lh6-, -lh7- 形式の圧縮データの出力先の ビット出力ストリーム
      */
     private BitOutputStream out;
 
-    // ------------------------------------------------------------------
-    // instance field
-    // ------------------------------------------------------------------
-    // LZSS parameter
-    // ------------------------------------------------------------------
-    // private int DictionarySize
-    // private int MaxMatch
-    // private int Threshold
-    // private int DictionarySizeByteLen
-    // ------------------------------------------------------------------
     /**
      * LZSSの辞書サイズ
      */
-    private int DictionarySize;
+    private final int DictionarySize;
 
     /**
      * LZSSの最大一致長
      */
-    private int MaxMatch;
+    private final int MaxMatch;
 
     /**
      * LZSS 圧縮/非圧縮 の閾値
      */
-    private int Threshold;
+    private final int Threshold;
 
     /**
      * 辞書サイズを示すのに必要なバイト数
      */
-    private int DictionarySizeByteLen;
+    private final int DictionarySizeByteLen;
 
-    // ------------------------------------------------------------------
-    // instance field
-    // ------------------------------------------------------------------
-    // current position
-    // ------------------------------------------------------------------
-    // private int position
-    // private int flagBit
-    // private int flagPos
-    // ------------------------------------------------------------------
     /**
      * this.block[ this.currentBlock ] 内の現在処理位置
      */
@@ -150,17 +127,6 @@ public class PostLh5Encoder implements PostLzssEncoder {
      */
     private int flagPos;
 
-    // ------------------------------------------------------------------
-    // instance field
-    // ------------------------------------------------------------------
-    // huffman code blocks
-    // ------------------------------------------------------------------
-    // private int currentBlock
-    // private byte[][] block
-    // private int[] blockSize
-    // private int[][] blockCodeFreq
-    // private int[][] blockOffLenFreq
-    // ------------------------------------------------------------------
     /**
      * 現在処理中のハフマンブロックを示す。
      */
@@ -174,7 +140,7 @@ public class PostLh5Encoder implements PostLzssEncoder {
     /**
      * 各ブロックの code データの数
      */
-    private int[] blockSize;
+    private final int[] blockSize;
 
     /**
      * 該当するブロックの code 部分の頻度表を持つ頻度表群
@@ -186,14 +152,6 @@ public class PostLh5Encoder implements PostLzssEncoder {
      */
     private int[][] blockOffLenFreq;
 
-    // ------------------------------------------------------------------
-    // instance field
-    // ------------------------------------------------------------------
-    // groups of huffman code blocks and patterns of groups
-    // ------------------------------------------------------------------
-    // private int[][] pattern
-    // private int[][] group
-    // ------------------------------------------------------------------
     /**
      * 全ブロックを幾つかのグループに分割するパターンの配列。
      */
@@ -221,16 +179,14 @@ public class PostLh5Encoder implements PostLzssEncoder {
      * -lh4-, -lh5-, -lh6-, -lh7- 圧縮用 PostLzssEncoder を構築する。<br>
      * バッファサイズにはデフォルト値が使用される。
      *
-     * @param out 圧縮データを受け取る OutputStream
-     * @param method 圧縮法を示す文字列<br>
-     *            &emsp;&emsp; CompressMethod.LH4 <br>
-     *            &emsp;&emsp; CompressMethod.LH5 <br>
-     *            &emsp;&emsp; CompressMethod.LH6 <br>
-     *            &emsp;&emsp; CompressMethod.LH7 <br>
-     *            &emsp;&emsp; の何れかを指定する。
-     *
-     * @exception IllegalArgumentException
-     *                method が上記以外の場合
+     * @param out    圧縮データを受け取る OutputStream
+     * @param method 圧縮法を示す文字列<ul>
+     *               &emsp;&emsp; CompressMethod.LH4 <br>
+     *               &emsp;&emsp; CompressMethod.LH5 <br>
+     *               &emsp;&emsp; CompressMethod.LH6 <br>
+     *               &emsp;&emsp; CompressMethod.LH7 <br>
+     *               &emsp;&emsp; の何れかを指定する。
+     * @throws IllegalArgumentException method が上記以外の場合
      */
     public PostLh5Encoder(OutputStream out, String method) {
         this(out, method, 16384);
@@ -239,20 +195,19 @@ public class PostLh5Encoder implements PostLzssEncoder {
     /**
      * -lh4-, -lh5-, -lh6-, -lh7- 圧縮用 PostLzssEncoder を構築する。<br>
      *
-     * @param out 圧縮データを受け取る OutputStream
-     * @param method 圧縮法を示す文字列<br>
-     *            &emsp;&emsp; CompressMethod.LH4 <br>
-     *            &emsp;&emsp; CompressMethod.LH5 <br>
-     *            &emsp;&emsp; CompressMethod.LH6 <br>
-     *            &emsp;&emsp; CompressMethod.LH7 <br>
-     *            &emsp;&emsp; の何れかを指定する。
+     * @param out        圧縮データを受け取る OutputStream
+     * @param method     圧縮法を示す文字列<ul>
+     *                   &emsp;&emsp; CompressMethod.LH4 <br>
+     *                   &emsp;&emsp; CompressMethod.LH5 <br>
+     *                   &emsp;&emsp; CompressMethod.LH6 <br>
+     *                   &emsp;&emsp; CompressMethod.LH7 <br>
+     *                   &emsp;&emsp; の何れかを指定する。
      * @param BufferSize LZSS圧縮データを退避しておく
-     *            バッファのサイズ
-     *
-     * @exception IllegalArgumentException <br>
-     *                &emsp;&emsp; (1) method が上記以外の場合<br>
-     *                &emsp;&emsp; (2) BufferSize が小さすぎる場合<br>
-     *                &emsp;&emsp; の何れか
+     *                   バッファのサイズ
+     * @throws IllegalArgumentException <ul>
+     *                                  &emsp;&emsp; (1) method が上記以外の場合<br>
+     *                                  &emsp;&emsp; (2) BufferSize が小さすぎる場合<br>
+     *                                  &emsp;&emsp; の何れか
      */
     public PostLh5Encoder(OutputStream out, String method, int BufferSize) {
         this(out, method, 1, BufferSize, 0);
@@ -265,28 +220,27 @@ public class PostLh5Encoder implements PostLzssEncoder {
      * 組み合わせは 全ブロックを DivideNum + 1 個に分割して得られる
      * 全パターンが試される。
      *
-     * @param out 圧縮データを受け取る OutputStream
-     * @param method 圧縮法を示す文字列<br>
-     *            &emsp;&emsp; CompressMethod.LH4 <br>
-     *            &emsp;&emsp; CompressMethod.LH5 <br>
-     *            &emsp;&emsp; CompressMethod.LH6 <br>
-     *            &emsp;&emsp; CompressMethod.LH7 <br>
-     *            &emsp;&emsp; の何れかを指定する。
-     * @param BlockNum ブロック数
+     * @param out       圧縮データを受け取る OutputStream
+     * @param method    圧縮法を示す文字列<ul>
+     *                  &emsp;&emsp; CompressMethod.LH4 <br>
+     *                  &emsp;&emsp; CompressMethod.LH5 <br>
+     *                  &emsp;&emsp; CompressMethod.LH6 <br>
+     *                  &emsp;&emsp; CompressMethod.LH7 <br>
+     *                  &emsp;&emsp; の何れかを指定する。
+     * @param BlockNum  ブロック数
      * @param BlockSize 1ブロックのバイト数
      * @param DivideNum 最大分割数
-     *
-     * @exception IllegalArgumentException <br>
-     *                &emsp;&emsp; (1) CompressMethod が上記以外の場合<br>
-     *                &emsp;&emsp; (2) BlockNum が 0以下の場合<br>
-     *                &emsp;&emsp; (3) BlockSize が小さすぎる場合<br>
-     *                &emsp;&emsp; (4) DivideNum が 0未満であるか、BlockNum以上の場合<br>
-     *                &emsp;&emsp; のいずれか。
+     * @throws IllegalArgumentException <ul>
+     *                                  &emsp;&emsp; (1) CompressMethod が上記以外の場合<br>
+     *                                  &emsp;&emsp; (2) BlockNum が 0以下の場合<br>
+     *                                  &emsp;&emsp; (3) BlockSize が小さすぎる場合<br>
+     *                                  &emsp;&emsp; (4) DivideNum が 0未満であるか、BlockNum以上の場合<br>
+     *                                  &emsp;&emsp; のいずれか。
      */
     public PostLh5Encoder(OutputStream out, String method, int BlockNum, int BlockSize, int DivideNum) {
 
         if (CompressMethod.LH4.equals(method) || CompressMethod.LH5.equals(method) || CompressMethod.LH6.equals(method)
-            || CompressMethod.LH7.equals(method)) {
+                || CompressMethod.LH7.equals(method)) {
 
             this.DictionarySize = CompressMethod.toDictionarySize(method);
             this.MaxMatch = CompressMethod.toMaxMatch(method);
@@ -341,23 +295,14 @@ public class PostLh5Encoder implements PostLzssEncoder {
         }
     }
 
-    // ------------------------------------------------------------------
-    // method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
-    // ------------------------------------------------------------------
-    // write
-    // ------------------------------------------------------------------
-    // public void writeCode( int code )
-    // public void writeOffset( int offset )
-    // ------------------------------------------------------------------
     /**
      * 1byte の LZSS未圧縮のデータもしくは、
-     * LZSS で圧縮された圧縮コードのうち一致長を書きこむ。<br>
+     * LZSS で圧縮された圧縮コードのうち一致長を書きこむ。
      *
-     * @param code 1byte の LZSS未圧縮のデータもしくは、
-     *            LZSS で圧縮された圧縮コードのうち一致長
-     *
-     * @exception IOException 入出力エラーが発生した場合
+     * @param code 1byte の LZSS未圧縮のデータもしくは、LZSS で圧縮された圧縮コードのうち一致長
+     * @throws IOException 入出力エラーが発生した場合
      */
+    @Override
     public void writeCode(int code) throws IOException {
         int need = ((0x100 <= code ? this.DictionarySizeByteLen + 1 : 1) + (this.flagBit == 0 ? 1 : 0));
 
@@ -400,6 +345,7 @@ public class PostLh5Encoder implements PostLzssEncoder {
      *
      * @param offset LZSS で圧縮された圧縮コードのうち一致位置
      */
+    @Override
     public void writeOffset(int offset) {
         // データ格納
         int shift = (this.DictionarySizeByteLen - 1) << 3;
@@ -412,25 +358,17 @@ public class PostLh5Encoder implements PostLzssEncoder {
         this.blockOffLenFreq[this.currentBlock][Bits.len(offset)]++;
     }
 
-    // ------------------------------------------------------------------
-    // method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
-    // ------------------------------------------------------------------
-    // other
-    // ------------------------------------------------------------------
-    // public void flush()
-    // public void close()
-    // ------------------------------------------------------------------
     /**
      * この PostLzssEncoder にバッファリングされている全ての
      * 8ビット単位のデータを出力先の OutputStream に出力し、
      * 出力先の OutputStream を flush() する。<br>
      * このメソッドは圧縮率を変化させる。
      *
-     * @exception IOException 入出力エラーが発生した場合
-     *
+     * @throws IOException 入出力エラーが発生した場合
      * @see PostLzssEncoder#flush()
      * @see BitOutputStream#flush()
      */
+    @Override
     public void flush() throws IOException {
         this.writeOut();
         this.out.flush();
@@ -440,8 +378,9 @@ public class PostLh5Encoder implements PostLzssEncoder {
      * この出力ストリームと、接続された出力ストリームを閉じ、
      * 使用していたリソースを開放する。<br>
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      */
+    @Override
     public void close() throws IOException {
         this.writeOut();
         this.out.close();
@@ -454,20 +393,12 @@ public class PostLh5Encoder implements PostLzssEncoder {
         this.pattern = null;
     }
 
-    // ------------------------------------------------------------------
-    // method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
-    // ------------------------------------------------------------------
-    // get LZSS parameter
-    // ------------------------------------------------------------------
-    // public int getDictionarySize()
-    // public int getMaxMatch()
-    // public int getThreshold()
-    // ------------------------------------------------------------------
     /**
      * この PostLh5Encoder が扱うLZSS辞書のサイズを得る。
      *
      * @return この PostLh5Encoder が扱うLZSS辞書のサイズ
      */
+    @Override
     public int getDictionarySize() {
         return this.DictionarySize;
     }
@@ -477,6 +408,7 @@ public class PostLh5Encoder implements PostLzssEncoder {
      *
      * @return この PostLh5Encoder が扱うLZSSの最大一致長
      */
+    @Override
     public int getMaxMatch() {
         return this.MaxMatch;
     }
@@ -486,30 +418,22 @@ public class PostLh5Encoder implements PostLzssEncoder {
      *
      * @return この PostLh5Encoder が扱うLZSSの圧縮、非圧縮の閾値
      */
+    @Override
     public int getThreshold() {
         return this.Threshold;
     }
 
-    // ------------------------------------------------------------------
-    // local method
-    // ------------------------------------------------------------------
-    // write huffman code
-    // ------------------------------------------------------------------
-    // private void writeOut()
-    // private void writeOutBestPattern()
-    // private void writeOutGroup( int[] group )
-    // ------------------------------------------------------------------
     /**
-     * バッファリングされた全てのデータを this.out に出力する。<br>
+     * バッファリングされた全てのデータを this.out に出力する。
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      */
     private void writeOut() throws IOException {
         if (1 < this.block.length) {
             this.writeOutBestPattern();
         } else {
             this.writeOutGroup(new int[] {
-                0
+                    0
             });
             this.currentBlock = 0;
         }
@@ -521,13 +445,13 @@ public class PostLh5Encoder implements PostLzssEncoder {
     /**
      * バッファリングされた全てのデータを最良の構成で this.out に出力する。<br>
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      */
     private void writeOutBestPattern() throws IOException {
         int[] bestPattern = null;
         int[] groupHuffLen = new int[this.group.length];
 
-        // ------------------------------------------------------------------
+        // ----
         // group を出力したときの bit 数を求める。
         for (int i = 0; i < this.group.length; i++) {
             if (this.group != null) {
@@ -538,8 +462,8 @@ public class PostLh5Encoder implements PostLzssEncoder {
                 if (0 < blockSize && blockSize < 65536) {
                     groupHuffLen[i] = PostLh5Encoder
                             .calcHuffmanCodeLength(this.DictionarySize,
-                                                   PostLh5Encoder.margeArrays(this.group[i], this.blockCodeFreq),
-                                                   PostLh5Encoder.margeArrays(this.group[i], this.blockOffLenFreq));
+                                    PostLh5Encoder.margeArrays(this.group[i], this.blockCodeFreq),
+                                    PostLh5Encoder.margeArrays(this.group[i], this.blockOffLenFreq));
                 } else if (0 == blockSize) {
                     groupHuffLen[i] = 0;
                 } else {
@@ -550,15 +474,15 @@ public class PostLh5Encoder implements PostLzssEncoder {
             }
         }
 
-        // ------------------------------------------------------------------
+        // ----
         // 出力 bit 数が最小となる pattern を総当りで求める。
         int smallest = Integer.MAX_VALUE;
         for (int[] ints : this.pattern) {
             int length = 0;
 
-            for (int j = 0; j < ints.length; j++) {
-                if (0 <= groupHuffLen[ints[j]]) {
-                    length += groupHuffLen[ints[j]];
+            for (int anInt : ints) {
+                if (0 <= groupHuffLen[anInt]) {
+                    length += groupHuffLen[anInt];
                 } else {
                     length = Integer.MAX_VALUE;
                     break;
@@ -570,7 +494,7 @@ public class PostLh5Encoder implements PostLzssEncoder {
             }
         }
 
-        // ------------------------------------------------------------------
+        // ----
         // 最も出力 bit 数の少ないパターンで出力
         // どの パターン もブロックサイズが 65536 以上の
         // グループを持つ場合はブロック単位で出力。
@@ -581,7 +505,7 @@ public class PostLh5Encoder implements PostLzssEncoder {
         } else {
             for (int i = 0; i < this.block.length; i++) {
                 this.writeOutGroup(new int[] {
-                    i
+                        i
                 });
             }
         }
@@ -593,8 +517,7 @@ public class PostLh5Encoder implements PostLzssEncoder {
      * group で指定された ブロック群をハフマン符号化して this.out に出力する。<br>
      *
      * @param group 出力するブロック番号を持つ配列
-     *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      */
     private void writeOutGroup(int[] group) throws IOException {
         int[] codeFreq = PostLh5Encoder.margeArrays(group, this.blockCodeFreq);
@@ -606,18 +529,18 @@ public class PostLh5Encoder implements PostLzssEncoder {
         }
 
         if (0 < blockSize) {
-            // ------------------------------------------------------------------
+            // ----
             // ブロックサイズ出力
             this.out.writeBits(16, blockSize);
 
-            // ------------------------------------------------------------------
+            // ----
             // ハフマン符号表生成
             int[] codeLen = StaticHuffman.FreqListToLenList(codeFreq);
             int[] codeCode = StaticHuffman.LenListToCodeList(codeLen);
             int[] offLenLen = StaticHuffman.FreqListToLenList(offLenFreq);
             int[] offLenCode = StaticHuffman.LenListToCodeList(offLenLen);
 
-            // ------------------------------------------------------------------
+            // ----
             // code 部のハフマン符号表出力
             if (2 <= PostLh5Encoder.countNoZeroElement(codeFreq)) {
                 int[] codeLenFreq = PostLh5Encoder.createCodeLenFreq(codeLen);
@@ -636,7 +559,7 @@ public class PostLh5Encoder implements PostLzssEncoder {
                 this.out.writeBits(18, PostLh5Encoder.getNoZeroElementIndex(codeFreq));
             }
 
-            // ------------------------------------------------------------------
+            // ----
             // offLen 部のハフマン符号表出力
             if (2 <= PostLh5Encoder.countNoZeroElement(offLenFreq)) {
                 this.writeOffLenLen(offLenLen);
@@ -646,7 +569,7 @@ public class PostLh5Encoder implements PostLzssEncoder {
                 this.out.writeBits(len, PostLh5Encoder.getNoZeroElementIndex(offLenFreq));
             }
 
-            // ------------------------------------------------------------------
+            // ----
             // ハフマン符号出力
             for (int value : group) {
                 this.position = 0;
@@ -677,40 +600,25 @@ public class PostLh5Encoder implements PostLzssEncoder {
                 }
             }
 
-            // ------------------------------------------------------------------
+            // ----
             // 次のブロックのための処理
             for (int k : group) {
                 this.blockSize[k] = 0;
 
                 codeFreq = this.blockCodeFreq[k];
-                for (int j = 0; j < codeFreq.length; j++) {
-                    codeFreq[j] = 0;
-                }
+                Arrays.fill(codeFreq, 0);
 
                 offLenFreq = this.blockOffLenFreq[k];
-                for (int j = 0; j < offLenFreq.length; j++) {
-                    offLenFreq[j] = 0;
-                }
+                Arrays.fill(offLenFreq, 0);
             }
-        } // if( 0 < blockSize )
+        }
     }
 
-    // ------------------------------------------------------------------
-    // local method
-    // ------------------------------------------------------------------
-    // write out huffman list
-    // ------------------------------------------------------------------
-    // private void writeCodeLenLen( int[] codeLenLen )
-    // private void writeCodeLen( int[] codeLen,
-    //          int[] codeLenLen, int[] codeLenCode )
-    // private void writeOffLenLen( int[] offLenLen )
-    // ------------------------------------------------------------------
     /**
      * codeLen の ハフマン符号長のリストを書き出す。
      *
      * @param codeLenLen codeLenFreq のハフマン符号長のリスト
-     *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      */
     private void writeCodeLenLen(int[] codeLenLen) throws IOException {
         int end = codeLenLen.length;
@@ -740,11 +648,10 @@ public class PostLh5Encoder implements PostLzssEncoder {
      * code 部のハフマン符号長のリストを
      * ハフマンとランレングスで符号化しながら書き出す。
      *
-     * @param codeLen codeFreq のハフマン符号長のリスト
-     * @param codeLenLen codeLenFreq のハフマン符号長のリスト
+     * @param codeLen     codeFreq のハフマン符号長のリスト
+     * @param codeLenLen  codeLenFreq のハフマン符号長のリスト
      * @param codeLenCode codeLenFreq のハフマン符号のリスト
-     *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      */
     private void writeCodeLen(int[] codeLen, int[] codeLenLen, int[] codeLenCode) throws IOException {
         int end = codeLen.length;
@@ -788,8 +695,7 @@ public class PostLh5Encoder implements PostLzssEncoder {
      * offLen のハフマン符号長のリストを書き出す
      *
      * @param offLenLen offLenFreq のハフマン符号長のリスト
-     *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      */
     private void writeOffLenLen(int[] offLenLen) throws IOException {
         int end = offLenLen.length;
@@ -809,21 +715,10 @@ public class PostLh5Encoder implements PostLzssEncoder {
         }
     }
 
-    // ------------------------------------------------------------------
-    // local method
-    // ------------------------------------------------------------------
-    // staff of huffman encoder
-    // ------------------------------------------------------------------
-    // private static int countNoZeroElement( int[] array )
-    // private static int getNoZeroElementIndex( int[] array )
-    // private static int[] margeArrays( int[] indexes, int[][] arrays )
-    // private static int[] createCodeLenFreq( int[] CodeLenList )
-    // ------------------------------------------------------------------
     /**
      * 配列内の 0でない要素数を得る。
      *
      * @param array 配列
-     *
      * @return 配列内の 0でない要素数
      */
     private static int countNoZeroElement(int[] array) {
@@ -840,9 +735,8 @@ public class PostLh5Encoder implements PostLzssEncoder {
      * 配列内の 0でない最初の要素を得る。
      *
      * @param array 配列
-     *
      * @return 配列内の 0でない最初の要素
-     *         全ての要素が0の場合は 0を返す。
+     * 全ての要素が0の場合は 0を返す。
      */
     private static int getNoZeroElementIndex(int[] array) {
         for (int i = 0; i < array.length; i++) {
@@ -857,7 +751,7 @@ public class PostLh5Encoder implements PostLzssEncoder {
      * arrays の中から、indexes で指定された配列を連結する。
      *
      * @param indexes arrays内の走査対象の配列を示す添え字の表
-     * @param arrays 走査対象の配列を含んだリスト
+     * @param arrays  走査対象の配列を含んだリスト
      */
     private static int[] margeArrays(int[] indexes, int[][] arrays) {
         if (1 < indexes.length) {
@@ -877,7 +771,7 @@ public class PostLh5Encoder implements PostLzssEncoder {
     }
 
     /**
-     * codeLen をランレングスとハフマンで符号化するための頻度表を作成する。
+     * codeLen をランレングスとハフマンで符号化するための頻度表を作成する。<br>
      * 作成する頻度表は
      * codeLenFreq[0]には要素数0の要素が1つあって読み飛ばす事を指示する
      * codeLenFreq[1]には要素数0の要素が3〜18あって、続く5bitのデータをみて
@@ -888,7 +782,6 @@ public class PostLh5Encoder implements PostLzssEncoder {
      * 従来の頻度は +2された位置にそれぞれ配置される。
      *
      * @param codeLen codeFreq のハフマン符号長のリスト
-     *
      * @return codeLen の頻度表
      */
     private static int[] createCodeLenFreq(int[] codeLen) {
@@ -927,30 +820,18 @@ public class PostLh5Encoder implements PostLzssEncoder {
         return codeLenFreq;
     }
 
-    // ------------------------------------------------------------------
-    // local method
-    // ------------------------------------------------------------------
-    // calc the langth of encoded data
-    // ------------------------------------------------------------------
-    // private static int calcHuffmanCodeLength( int DictionarySize,
-    //                           int[] CodeFreq, int[] OffLenFreq )
-    // private static int calcCodeLenLen( int[] codeLenLen )
-    // private static int calcCodeLen( int[] codeLen, int[] codeLenLen )
-    // private static int calcOffLenLen( int DictionarySize, int[] offLenLen )
-    // ------------------------------------------------------------------
     /**
      * 指定された頻度情報でハフマン符号を
      * 出力した場合のビット数を得る。
      *
      * @param DictionarySize LZSS辞書サイズ
-     * @param codeFreq コード部の頻度情報
-     * @param offLenFreq オフセット部の長さの頻度情報
-     *
+     * @param codeFreq       コード部の頻度情報
+     * @param offLenFreq     オフセット部の長さの頻度情報
      * @return この頻度情報でハフマン符号を出力した場合のビット数を得る。
      */
     private static int calcHuffmanCodeLength(int DictionarySize, int[] codeFreq, int[] offLenFreq) {
 
-        // ------------------------------------------------------------------
+        // ----
         // 初期化
         int length = 0;
         @SuppressWarnings("unused")
@@ -963,7 +844,7 @@ public class PostLh5Encoder implements PostLzssEncoder {
             throw new Error("caught the BadHuffmanTableException which should be never thrown.");
         }
 
-        // ------------------------------------------------------------------
+        // ----
         // code 部のハフマン頻度表の長さを算出する。
         length += 16;
         if (2 <= PostLh5Encoder.countNoZeroElement(codeFreq)) {
@@ -981,7 +862,7 @@ public class PostLh5Encoder implements PostLzssEncoder {
             length += 18;
         }
 
-        // ------------------------------------------------------------------
+        // ----
         // offLen 部のハフマン頻度表の長さを算出する。
         if (2 <= PostLh5Encoder.countNoZeroElement(offLenFreq)) {
             length += PostLh5Encoder.calcOffLenLen(DictionarySize, offLenLen);
@@ -991,7 +872,7 @@ public class PostLh5Encoder implements PostLzssEncoder {
             length += len;
         }
 
-        // ------------------------------------------------------------------
+        // ----
         // LZSS圧縮後のデータをさらにハフマン符号化した長さを算出する。
         for (int i = 0; i < codeFreq.length; i++) {
             length += codeFreq[i] * codeLen[i];
@@ -1005,9 +886,7 @@ public class PostLh5Encoder implements PostLzssEncoder {
     /**
      * 指定したハフマン符号長の表を出力した場合のビット数を得る。
      *
-     * @param codeLenLen コード部のハフマン符号長を
-     *            さらにハフマン符号化したものの表
-     *
+     * @param codeLenLen コード部のハフマン符号長をさらにハフマン符号化したものの表
      * @return 指定したハフマン符号長の表を出力した場合のビット数
      */
     private static int calcCodeLenLen(int[] codeLenLen) {
@@ -1040,10 +919,8 @@ public class PostLh5Encoder implements PostLzssEncoder {
     /**
      * 指定したハフマン符号長の表を出力した場合のビット数を得る。
      *
-     * @param codeLen コード部のハフマン符号長の表
-     * @param codeLenLen コード部のハフマン符号長を
-     *            さらにハフマン符号化したものの表
-     *
+     * @param codeLen    コード部のハフマン符号長の表
+     * @param codeLenLen コード部のハフマン符号長をさらにハフマン符号化したものの表
      * @return 指定したハフマン符号長の表を出力した場合のビット数
      */
     private static int calcCodeLen(int[] codeLen, int[] codeLenLen) {
@@ -1091,8 +968,7 @@ public class PostLh5Encoder implements PostLzssEncoder {
      * 指定したハフマン符号長の表を出力した場合のビット数を得る。
      *
      * @param DictionarySize LZSS辞書サイズ
-     * @param offLenLen オフセット部の長さのハフマン符号長の表
-     *
+     * @param offLenLen      オフセット部の長さのハフマン符号長の表
      * @return 指定したハフマン符号長の表を出力した場合のビット数
      */
     private static int calcOffLenLen(int DictionarySize, int[] offLenLen) {
@@ -1115,15 +991,6 @@ public class PostLh5Encoder implements PostLzssEncoder {
         return length;
     }
 
-    // ------------------------------------------------------------------
-    // local method
-    // ------------------------------------------------------------------
-    // create group and pattern
-    // ------------------------------------------------------------------
-    // private static int[][] createGroup( int BlockNum, int DivideNum )
-    // private static int[][] createPattern( int BlockNum, int DivideNum )
-    // private static int calcPatternNum( int BlockNum, int DivideNum )
-    // ------------------------------------------------------------------
     /**
      * BlockNumのブロックを連続したブロックに
      * グループ化したもののリストを返す。
@@ -1133,7 +1000,7 @@ public class PostLh5Encoder implements PostLzssEncoder {
      *     0, 1, 2
      * }
      * </pre>
-     *
+     * <p>
      * のような場合
      * block[0] と block[1] と block[2]
      * から成るグループであることを示す。
@@ -1146,23 +1013,22 @@ public class PostLh5Encoder implements PostLzssEncoder {
      * このメソッドを改変する場合は注意すること。
      * また、使用しない group には null が入っているので注意すること。
      *
-     * @param BlockNum ブロックの個数
+     * @param BlockNum  ブロックの個数
      * @param DivideNum 最大分割数
-     *
      * @return 生成されたグループのリスト
      */
     private static int[][] createGroup(int BlockNum, int DivideNum) {
         int[][] group = new int[(BlockNum + 1) * BlockNum / 2][];
 
         if (DivideNum == 0) {
-            // ------------------------------------------------------------------
+            // ----
             // 全ブロックを持つグループのみ生成
             group[0] = new int[BlockNum];
             for (int i = 0; i < BlockNum; i++) {
                 group[0][i] = i;
             }
         } else if (2 < BlockNum && DivideNum == 1) {
-            // ------------------------------------------------------------------
+            // ----
             // 同サイズのグループのうち最初のものと最後のものだけ生成。
             int index = 0;
             for (int size = BlockNum; 0 < size; size--) {
@@ -1180,7 +1046,7 @@ public class PostLh5Encoder implements PostLzssEncoder {
                 index++;
             }
         } else {
-            // ------------------------------------------------------------------
+            // ----
             // 全グループを生成。
             int index = 0;
             for (int size = BlockNum; 0 < size; size--) {
@@ -1208,13 +1074,12 @@ public class PostLh5Encoder implements PostLzssEncoder {
      *     1, 3
      * };
      * </pre>
-     *
+     * <p>
      * のような パターンは group[1] と group[3] の間で
      * 分割されたことを示す。
      *
-     * @param BlockNum ブロックの個数
+     * @param BlockNum  ブロックの個数
      * @param DivideNum 最大分割数
-     *
      * @return 生成されたパターンのリスト
      */
     private static int[][] createPattern(int BlockNum, int DivideNum) {
@@ -1274,9 +1139,8 @@ public class PostLh5Encoder implements PostLzssEncoder {
      * 最大 DivideNum + 1 個に連続した領域に分割した場合
      * 何パターンできるかを得る。
      *
-     * @param BlockNum ブロックの個数
+     * @param BlockNum  ブロックの個数
      * @param DivideNum 分割数
-     *
      * @return パターン数。
      */
     private static int calcPatternNum(int BlockNum, int DivideNum) {
@@ -1298,6 +1162,4 @@ public class PostLh5Encoder implements PostLzssEncoder {
         }
         return patternNum;
     }
-
 }
-// end of PostLh5Encoder.java

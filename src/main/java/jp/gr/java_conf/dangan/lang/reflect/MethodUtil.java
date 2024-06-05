@@ -1,27 +1,31 @@
-/**
+/*
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.lang.reflect;
@@ -48,11 +52,6 @@ import java.lang.reflect.Modifier;
  */
 public class MethodUtil {
 
-    // ------------------------------------------------------------------
-    // constructor
-    // ------------------------------------------------------------------
-    // private MethodUtil()
-    // ------------------------------------------------------------------
     /**
      * デフォルトコンストラクタ。
      * 使用不可。
@@ -60,32 +59,19 @@ public class MethodUtil {
     private MethodUtil() {
     }
 
-    // ------------------------------------------------------------------
-    //	shared method
-    // ------------------------------------------------------------------
-    // invoke static method
-    // ------------------------------------------------------------------
-    // public static Object invoke( Object obj, String name, Object[] args )
-    // ------------------------------------------------------------------
     /**
      * インスタンスobjの nameという名前の
      * メソッドをargsを引数として実行する。
      *
-     * @param obj インスタンス
+     * @param obj  インスタンス
      * @param name メソッド名
      * @param args 引数の配列
-     *
      * @return 戻り値
-     *
-     * @exception InvocationTargetException
-     *                コンストラクタで例外が発生した場合
-     *
-     * @exception NoSuchMethodException
-     *                args を引数に取れる name という名前の
-     *                インスタンスメソッドが見つからなかった場合。
+     * @throws InvocationTargetException コンストラクタで例外が発生した場合
+     * @throws NoSuchMethodException     args を引数に取れる name という名前のインスタンスメソッドが見つからなかった場合。
      */
-    public static Object invoke(Object obj, String name, Object[] args) throws InvocationTargetException,
-                                                                        NoSuchMethodException {
+    public static Object invoke(Object obj, String name, Object... args) throws InvocationTargetException,
+            NoSuchMethodException {
         Class<?> type = obj.getClass();
         Method method = MethodUtil.getMatchFullInstanceMethod(type, name, args);
 
@@ -107,40 +93,25 @@ public class MethodUtil {
         }
     }
 
-    // ------------------------------------------------------------------
-    //	shared method
-    // ------------------------------------------------------------------
-    // invoke static method
-    // ------------------------------------------------------------------
-    // public static Object invokeStatic( String classname, String name, Object[] args )
-    // public static Object invokeStatic( Class type, String name, Object[] args )
-    // ------------------------------------------------------------------
     /**
      * classname で示されるクラスの nameという名前の
      * static メソッドをargsを引数として実行する。
      *
      * @param classname クラス名
-     * @param name メソッド名
-     * @param args 引数の配列
-     *
+     * @param name      メソッド名
+     * @param args      引数の配列
      * @return 戻り値
-     *
-     * @exception ClassNotFoundException
-     *                classname のクラスが見つからなかった場合
-     *
-     * @exception InvocationTargetException
-     *                コンストラクタで例外が発生した場合
-     *
-     * @exception NoSuchMethodException
-     *                args を引数に取れる name という名前の
-     *                インスタンスメソッドが見つからなかった場合。
+     * @throws ClassNotFoundException    classname のクラスが見つからなかった場合
+     * @throws InvocationTargetException コンストラクタで例外が発生した場合
+     * @throws NoSuchMethodException     args を引数に取れる name という名前の
+     *                                   インスタンスメソッドが見つからなかった場合。
      */
-    public static Object invokeStatic(String classname, String name, Object[] args) throws ClassNotFoundException,
-                                                                                    InvocationTargetException,
-                                                                                    NoSuchMethodException {
+    public static Object invokeStatic(String classname, String name, Object... args) throws ClassNotFoundException,
+            InvocationTargetException,
+            NoSuchMethodException {
         return MethodUtil.invokeStatic(Class.forName(classname), // throw ClassNotFoundException
-                                       name,
-                                       args); // throw InvocationTargetException, NoSuchMethodException
+                name,
+                args); // throw InvocationTargetException, NoSuchMethodException
     }
 
     /**
@@ -150,18 +121,12 @@ public class MethodUtil {
      * @param type 型情報
      * @param name メソッド名
      * @param args 引数の配列
-     *
      * @return 戻り値
-     *
-     * @exception InvocationTargetException
-     *                コンストラクタで例外が発生した場合
-     *
-     * @exception NoSuchMethodException
-     *                args を引数に取れる name という名前の
-     *                インスタンスメソッドが見つからなかった場合。
+     * @throws InvocationTargetException コンストラクタで例外が発生した場合
+     * @throws NoSuchMethodException     args を引数に取れる name という名前のインスタンスメソッドが見つからなかった場合。
      */
-    public static Object invokeStatic(Class<?> type, String name, Object[] args) throws InvocationTargetException,
-                                                                                 NoSuchMethodException {
+    public static Object invokeStatic(Class<?> type, String name, Object... args) throws InvocationTargetException,
+            NoSuchMethodException {
         Method method = MethodUtil.getMatchFullStaticMethod(type, name, args);
 
         if (method == null) {
@@ -182,40 +147,22 @@ public class MethodUtil {
         }
     }
 
-    // ------------------------------------------------------------------
-    //	shared method
-    // ------------------------------------------------------------------
-    // get instance method
-    // ------------------------------------------------------------------
-    // public static Method getInstanceMethod( String classname,
-    //                                         String name, Object[] args )
-    // public static Method getInstanceMethod( Class  type,
-    //                                         String name, Object[] args )
-    // public static Method getInstanceMethod( String classname, String  name,
-    //                                         Object[] args,    boolean all )
-    // public static Method getInstanceMethod( Class  type,      String name,
-    //                                         Object[] args,    boolean all )
-    // ------------------------------------------------------------------
     /**
      * classname で示されるクラスの public なインスタンスメソッドのうち、
      * name という名前で args を Type.parse した後
      * 受け入れることができるものを得る。
      *
      * @param classname クラス名。
-     * @param name 検索するメソッド名。
-     * @param args 引数配列。
-     *            null を含めても良いが、null を使用した場合は
-     *            Object のサブクラスであれば全てマッチしてしまうため、
-     *            目的のメソッド以外のものが見つかる可能性がある。
-     *
+     * @param name      検索するメソッド名。
+     * @param args      引数配列。null を含めても良いが、null を使用した場合は
+     *                  Object のサブクラスであれば全てマッチしてしまうため、
+     *                  目的のメソッド以外のものが見つかる可能性がある。
      * @return args を引数に取ることができる nameという名前の メソッド。
-     *         見つからなければ null。
-     *
-     * @exception ClassNotFoundException
-     *                classname で示されるクラスが存在しない場合
+     * 見つからなければ null。
+     * @throws ClassNotFoundException classname で示されるクラスが存在しない場合
      */
-    public static Method getInstanceMethod(String classname, String name, Object[] args) throws ClassNotFoundException {
-        return MethodUtil.getInstanceMethod(Class.forName(classname), name, args, false);
+    public static Method getInstanceMethod(String classname, String name, Object... args) throws ClassNotFoundException {
+        return MethodUtil.getInstanceMethod(Class.forName(classname), name, false, args);
     }
 
     /**
@@ -225,16 +172,13 @@ public class MethodUtil {
      *
      * @param type 型情報。
      * @param name 検索するメソッド名。
-     * @param args 引数配列。
-     *            null を含めても良いが、null を使用した場合は
-     *            Object のサブクラスであれば全てマッチしてしまうため、
-     *            目的のメソッド以外のものが見つかる可能性がある。
-     *
+     * @param args 引数配列。null を含めても良いが、null を使用した場合は
+     *             Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
      * @return args を引数に取ることができる nameという名前の メソッド。
-     *         見つからなければ null。
+     * 見つからなければ null。
      */
-    public static Method getInstanceMethod(Class<?> type, String name, Object[] args) {
-        return MethodUtil.getInstanceMethod(type, name, args, false);
+    public static Method getInstanceMethod(Class<?> type, String name, Object... args) {
+        return MethodUtil.getInstanceMethod(type, name, false, args);
     }
 
     /**
@@ -243,26 +187,19 @@ public class MethodUtil {
      * 受け入れることができるものを得る。
      *
      * @param classname クラス名。
-     * @param name 検索するメソッド名。
-     * @param args 引数配列。
-     *            null を含めても良いが、null を使用した場合は
-     *            Object のサブクラスであれば全てマッチしてしまうため、
-     *            目的のメソッド以外のものが見つかる可能性がある。
-     * @param all public のメソッドのみを検索するなら false。
-     *            public, protected, private, パッケージプライベートの
-     *            全てのメソッドを検索するなら true。
-     *
+     * @param name      検索するメソッド名。
+     * @param all       public のメソッドのみを検索するなら false。
+     *                  public, protected, private, パッケージプライベートの全てのメソッドを検索するなら true。
+     * @param args      引数配列。null を含めても良いが、null を使用した場合は
+     *                  Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
      * @return args を引数に取ることができる nameという名前の メソッド。
-     *         見つからなければ null。
-     *
-     * @exception ClassNotFoundException
-     *                classname で示されるクラスが存在しない場合
+     * 見つからなければ null。
+     * @throws ClassNotFoundException classname で示されるクラスが存在しない場合
      */
     public static Method getInstanceMethod(String classname,
                                            String name,
-                                           Object[] args,
-                                           boolean all) throws ClassNotFoundException {
-        return MethodUtil.getInstanceMethod(Class.forName(classname), name, args, all);
+                                           boolean all, Object... args) throws ClassNotFoundException {
+        return MethodUtil.getInstanceMethod(Class.forName(classname), name, all, args);
     }
 
     /**
@@ -271,18 +208,14 @@ public class MethodUtil {
      *
      * @param type 型情報。
      * @param name 検索するメソッド名。
-     * @param args 引数配列。
-     *            null を含めても良いが、null を使用した場合は
-     *            Object のサブクラスであれば全てマッチしてしまうため、
-     *            目的のメソッド以外のものが見つかる可能性がある。
-     * @param all public のメソッドのみを検索するなら false。
-     *            public, protected, private, パッケージプライベートの
-     *            全てのメソッドを検索するなら true。
-     *
+     * @param all  public のメソッドのみを検索するなら false。
+     *             public, protected, private, パッケージプライベートの全てのメソッドを検索するなら true。
+     * @param args 引数配列。null を含めても良いが、null を使用した場合は
+     *             Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
      * @return args を引数に取ることができる nameという名前の メソッド。
-     *         見つからなければ null。
+     * 見つからなければ null。
      */
-    public static Method getInstanceMethod(Class<?> type, String name, Object[] args, boolean all) {
+    public static Method getInstanceMethod(Class<?> type, String name, boolean all, Object... args) {
         Method[] methods = all ? type.getDeclaredMethods() : type.getMethods();
 
         for (Method item : methods)
@@ -303,41 +236,21 @@ public class MethodUtil {
         return null;
     }
 
-    // ------------------------------------------------------------------
-    //	shared method
-    // ------------------------------------------------------------------
-    // get match full instance method
-    // ------------------------------------------------------------------
-    // public static Method getMatchFullInstanceMethod( String classname,
-    //                                   String name, Object[] args )
-    // public static Method getMatchFullInstanceMethod( Class  type,
-    //                                   String name, Object[] args )
-    // public static Method getMatchFullInstanceMethod( String classname,
-    //               String  name,  Object[] args,    boolean all )
-    // public static Method getMatchFullInstanceMethod( Class  type,
-    //               String name,   Object[] args,    boolean all )
-    // ------------------------------------------------------------------
     /**
      * classname で示されるクラスの public なインスタンスメソッドのうち、
      * name という名前で args を 直接受け入れることができるものを得る。
      *
      * @param classname クラス名。
-     * @param name 検索するメソッド名。
-     * @param args 引数配列。
-     *            null を含めても良いが、null を使用した場合は
-     *            Object のサブクラスであれば全てマッチしてしまうため、
-     *            目的のメソッド以外のものが見つかる可能性がある。
-     *
-     * @return args を引数に取ることができる nameという名前の メソッド。
-     *         見つからなければ null。
-     *
-     * @exception ClassNotFoundException
-     *                classname で示されるクラスが存在しない場合
+     * @param name      検索するメソッド名。
+     * @param args      引数配列。null を含めても良いが、null を使用した場合は
+     *                  Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
+     * @return args を引数に取ることができる nameという名前の メソッド。見つからなければ null。
+     * @throws ClassNotFoundException classname で示されるクラスが存在しない場合
      */
     public static Method getMatchFullInstanceMethod(String classname,
                                                     String name,
-                                                    Object[] args) throws ClassNotFoundException {
-        return MethodUtil.getMatchFullInstanceMethod(Class.forName(classname), name, args, false);
+                                                    Object... args) throws ClassNotFoundException {
+        return MethodUtil.getMatchFullInstanceMethod(Class.forName(classname), name, false, args);
     }
 
     /**
@@ -346,16 +259,12 @@ public class MethodUtil {
      *
      * @param type 型情報。
      * @param name 検索するメソッド名。
-     * @param args 引数配列。
-     *            null を含めても良いが、null を使用した場合は
-     *            Object のサブクラスであれば全てマッチしてしまうため、
-     *            目的のメソッド以外のものが見つかる可能性がある。
-     *
-     * @return args を引数に取ることができる nameという名前の メソッド。
-     *         見つからなければ null。
+     * @param args 引数配列。null を含めても良いが、null を使用した場合は
+     *             Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
+     * @return args を引数に取ることができる nameという名前の メソッド。見つからなければ null。
      */
-    public static Method getMatchFullInstanceMethod(Class<?> type, String name, Object[] args) {
-        return MethodUtil.getMatchFullInstanceMethod(type, name, args, false);
+    public static Method getMatchFullInstanceMethod(Class<?> type, String name, Object... args) {
+        return MethodUtil.getMatchFullInstanceMethod(type, name, false, args);
     }
 
     /**
@@ -363,26 +272,20 @@ public class MethodUtil {
      * name という名前で args を直接受け入れることができるものを得る。
      *
      * @param classname クラス名。
-     * @param name 検索するメソッド名。
-     * @param args 引数配列。
-     *            null を含めても良いが、null を使用した場合は
-     *            Object のサブクラスであれば全てマッチしてしまうため、
-     *            目的のメソッド以外のものが見つかる可能性がある。
-     * @param all public のメソッドのみを検索するなら false。
-     *            public, protected, private, パッケージプライベートの
-     *            全てのメソッドを検索するなら true。
-     *
+     * @param name      検索するメソッド名。
+     * @param args      引数配列。null を含めても良いが、null を使用した場合は
+     *                  Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
+     * @param all       public のメソッドのみを検索するなら false。
+     *                  public, protected, private, パッケージプライベートの全てのメソッドを検索するなら true。
      * @return args を引数に取ることができる nameという名前の メソッド。
-     *         見つからなければ null。
-     *
-     * @exception ClassNotFoundException
-     *                classname で示されるクラスが存在しない場合
+     * 見つからなければ null。
+     * @throws ClassNotFoundException classname で示されるクラスが存在しない場合
      */
     public static Method getMatchFullInstanceMethod(String classname,
                                                     String name,
                                                     Object[] args,
                                                     boolean all) throws ClassNotFoundException {
-        return MethodUtil.getMatchFullInstanceMethod(Class.forName(classname), name, args, all);
+        return MethodUtil.getMatchFullInstanceMethod(Class.forName(classname), name, all, args);
     }
 
     /**
@@ -391,18 +294,13 @@ public class MethodUtil {
      *
      * @param type 型情報。
      * @param name 検索するメソッド名。
-     * @param args 引数配列。
-     *            null を含めても良いが、null を使用した場合は
-     *            Object のサブクラスであれば全てマッチしてしまうため、
-     *            目的のメソッド以外のものが見つかる可能性がある。
-     * @param all public のメソッドのみを検索するなら false。
-     *            public, protected, private, パッケージプライベートの
-     *            全てのメソッドを検索するなら true。
-     *
-     * @return args を引数に取ることができる nameという名前の メソッド。
-     *         見つからなければ null。
+     * @param all  public のメソッドのみを検索するなら false。
+     *             public, protected, private, パッケージプライベートの全てのメソッドを検索するなら true。
+     * @param args 引数配列。null を含めても良いが、null を使用した場合は
+     *             Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
+     * @return args を引数に取ることができる nameという名前の メソッド。見つからなければ null。
      */
-    public static Method getMatchFullInstanceMethod(Class<?> type, String name, Object[] args, boolean all) {
+    public static Method getMatchFullInstanceMethod(Class<?> type, String name, boolean all, Object... args) {
         Method[] methods = all ? type.getDeclaredMethods() : type.getMethods();
 
         for (Method method : methods)
@@ -413,40 +311,20 @@ public class MethodUtil {
         return null;
     }
 
-    // ------------------------------------------------------------------
-    //	shared method
-    // ------------------------------------------------------------------
-    // get static method
-    // ------------------------------------------------------------------
-    // public static Method getStaticMethod( String classname,
-    //                                       String name, Object[] args )
-    // public static Method getStaticMethod( Class  type,
-    //                                       String name, Object[] args )
-    // public static Method getStaticMethod( String classname, String  name,
-    //                                       Object[] args,    boolean all )
-    // public static Method getStaticMethod( Class  type,      String name,
-    //                                       Object[] args,    boolean all )
-    // ------------------------------------------------------------------
     /**
      * classname で示されるクラスの public static メソッドのうち、
      * name という名前で args を Type.parse した後
      * 受け入れることができるものを得る。
      *
      * @param classname クラス名。
-     * @param name 検索するメソッド名。
-     * @param args 引数配列。
-     *            null を含めても良いが、null を使用した場合は
-     *            Object のサブクラスであれば全てマッチしてしまうため、
-     *            目的のメソッド以外のものが見つかる可能性がある。
-     *
-     * @return args を引数に取ることができる nameという名前の メソッド。
-     *         見つからなければ null。
-     *
-     * @exception ClassNotFoundException
-     *                classname で示されるクラスが存在しない場合
+     * @param name      検索するメソッド名。
+     * @param args      引数配列。null を含めても良いが、null を使用した場合は
+     *                  Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
+     * @return args を引数に取ることができる nameという名前の メソッド。見つからなければ null。
+     * @throws ClassNotFoundException classname で示されるクラスが存在しない場合
      */
-    public static Method getStaticMethod(String classname, String name, Object[] args) throws ClassNotFoundException {
-        return MethodUtil.getStaticMethod(Class.forName(classname), name, args, false);
+    public static Method getStaticMethod(String classname, String name, Object... args) throws ClassNotFoundException {
+        return MethodUtil.getStaticMethod(Class.forName(classname), name, false, args);
     }
 
     /**
@@ -456,16 +334,12 @@ public class MethodUtil {
      *
      * @param type 型情報。
      * @param name 検索するメソッド名。
-     * @param args 引数配列。
-     *            null を含めても良いが、null を使用した場合は
-     *            Object のサブクラスであれば全てマッチしてしまうため、
-     *            目的のメソッド以外のものが見つかる可能性がある。
-     *
-     * @return args を引数に取ることができる nameという名前の メソッド。
-     *         見つからなければ null。
+     * @param args 引数配列。null を含めても良いが、null を使用した場合は
+     *             Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
+     * @return args を引数に取ることができる nameという名前の メソッド。見つからなければ null。
      */
-    public static Method getStaticMethod(Class<?> type, String name, Object[] args) {
-        return MethodUtil.getStaticMethod(type, name, args, false);
+    public static Method getStaticMethod(Class<?> type, String name, Object... args) {
+        return MethodUtil.getStaticMethod(type, name, false, args);
     }
 
     /**
@@ -474,26 +348,18 @@ public class MethodUtil {
      * 受け入れることができるものを得る。
      *
      * @param classname クラス名。
-     * @param name 検索するメソッド名。
-     * @param args 引数配列。
-     *            null を含めても良いが、null を使用した場合は
-     *            Object のサブクラスであれば全てマッチしてしまうため、
-     *            目的のメソッド以外のものが見つかる可能性がある。
-     * @param all public のメソッドのみを検索するなら false。
-     *            public, protected, private, パッケージプライベートの
-     *            全てのメソッドを検索するなら true。
-     *
-     * @return args を引数に取ることができる nameという名前の メソッド。
-     *         見つからなければ null。
-     *
-     * @exception ClassNotFoundException
-     *                classname で示されるクラスが存在しない場合
+     * @param name      検索するメソッド名。
+     * @param all       public のメソッドのみを検索するなら false。public, protected, private, パッケージプライベートの
+     *                  全てのメソッドを検索するなら true。
+     * @param args      引数配列。null を含めても良いが、null を使用した場合は
+     *                  Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
+     * @return args を引数に取ることができる nameという名前の メソッド。見つからなければ null。
+     * @throws ClassNotFoundException classname で示されるクラスが存在しない場合
      */
     public static Method getStaticMethod(String classname,
                                          String name,
-                                         Object[] args,
-                                         boolean all) throws ClassNotFoundException {
-        return MethodUtil.getStaticMethod(Class.forName(classname), name, args, all);
+                                         boolean all, Object... args) throws ClassNotFoundException {
+        return MethodUtil.getStaticMethod(Class.forName(classname), name, all, args);
     }
 
     /**
@@ -502,18 +368,13 @@ public class MethodUtil {
      *
      * @param type 型情報。
      * @param name 検索するメソッド名。
-     * @param args 引数配列。
-     *            null を含めても良いが、null を使用した場合は
-     *            Object のサブクラスであれば全てマッチしてしまうため、
-     *            目的のメソッド以外のものが見つかる可能性がある。
-     * @param all public のメソッドのみを検索するなら false。
-     *            public, protected, private, パッケージプライベートの
-     *            全てのメソッドを検索するなら true。
-     *
-     * @return args を引数に取ることができる nameという名前の メソッド。
-     *         見つからなければ null。
+     * @param all  public のメソッドのみを検索するなら false。
+     *             public, protected, private, パッケージプライベートの全てのメソッドを検索するなら true。
+     * @param args 引数配列。null を含めても良いが、null を使用した場合は
+     *             Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
+     * @return args を引数に取ることができる nameという名前の メソッド。見つからなければ null。
      */
-    public static Method getStaticMethod(Class<?> type, String name, Object[] args, boolean all) {
+    public static Method getStaticMethod(Class<?> type, String name, boolean all, Object... args) {
         Method[] methods = all ? type.getDeclaredMethods() : type.getMethods();
 
         for (Method item : methods)
@@ -539,20 +400,14 @@ public class MethodUtil {
      * name という名前で args を 直接受け入れることができるものを得る。
      *
      * @param classname クラス名。
-     * @param name 検索するメソッド名。
-     * @param args 引数配列。
-     *            null を含めても良いが、null を使用した場合は
-     *            Object のサブクラスであれば全てマッチしてしまうため、
-     *            目的のメソッド以外のものが見つかる可能性がある。
-     *
-     * @return args を引数に取ることができる nameという名前の メソッド。
-     *         見つからなければ null。
-     *
-     * @exception ClassNotFoundException
-     *                classname で示されるクラスが存在しない場合
+     * @param name      検索するメソッド名。
+     * @param args      引数配列。null を含めても良いが、null を使用した場合は
+     *                  Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
+     * @return args を引数に取ることができる nameという名前の メソッド。見つからなければ null。
+     * @throws ClassNotFoundException classname で示されるクラスが存在しない場合
      */
-    public static Method getMatchFullStaticMethod(String classname, String name, Object[] args) throws ClassNotFoundException {
-        return MethodUtil.getMatchFullStaticMethod(Class.forName(classname), name, args, false);
+    public static Method getMatchFullStaticMethod(String classname, String name, Object... args) throws ClassNotFoundException {
+        return MethodUtil.getMatchFullStaticMethod(Class.forName(classname), name, false, args);
     }
 
     /**
@@ -561,16 +416,12 @@ public class MethodUtil {
      *
      * @param type 型情報。
      * @param name 検索するメソッド名。
-     * @param args 引数配列。
-     *            null を含めても良いが、null を使用した場合は
-     *            Object のサブクラスであれば全てマッチしてしまうため、
-     *            目的のメソッド以外のものが見つかる可能性がある。
-     *
-     * @return args を引数に取ることができる nameという名前の メソッド。
-     *         見つからなければ null。
+     * @param args 引数配列。null を含めても良いが、null を使用した場合は
+     *             Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
+     * @return args を引数に取ることができる nameという名前の メソッド。見つからなければ null。
      */
-    public static Method getMatchFullStaticMethod(Class<?> type, String name, Object[] args) {
-        return MethodUtil.getMatchFullStaticMethod(type, name, args, false);
+    public static Method getMatchFullStaticMethod(Class<?> type, String name, Object... args) {
+        return MethodUtil.getMatchFullStaticMethod(type, name, false, args);
     }
 
     /**
@@ -578,26 +429,19 @@ public class MethodUtil {
      * name という名前で args を直接受け入れることができるものを得る。
      *
      * @param classname クラス名。
-     * @param name 検索するメソッド名。
-     * @param args 引数配列。
-     *            null を含めても良いが、null を使用した場合は
-     *            Object のサブクラスであれば全てマッチしてしまうため、
-     *            目的のメソッド以外のものが見つかる可能性がある。
-     * @param all public のメソッドのみを検索するなら false。
-     *            public, protected, private, パッケージプライベートの
-     *            全てのメソッドを検索するなら true。
-     *
+     * @param name      検索するメソッド名。
+     * @param all       public のメソッドのみを検索するなら false。public, protected, private, パッケージプライベートの
+     *                  全てのメソッドを検索するなら true。
+     * @param args      引数配列。null を含めても良いが、null を使用した場合は
+     *                  Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
      * @return args を引数に取ることができる nameという名前の メソッド。
-     *         見つからなければ null。
-     *
-     * @exception ClassNotFoundException
-     *                classname で示されるクラスが存在しない場合
+     * 見つからなければ null。
+     * @throws ClassNotFoundException classname で示されるクラスが存在しない場合
      */
     public static Method getMatchFullStaticMethod(String classname,
                                                   String name,
-                                                  Object[] args,
-                                                  boolean all) throws ClassNotFoundException {
-        return MethodUtil.getMatchFullStaticMethod(Class.forName(classname), name, args, all);
+                                                  boolean all, Object... args) throws ClassNotFoundException {
+        return MethodUtil.getMatchFullStaticMethod(Class.forName(classname), name, all, args);
     }
 
     /**
@@ -606,18 +450,13 @@ public class MethodUtil {
      *
      * @param type 型情報。
      * @param name 検索するメソッド名。
-     * @param args 引数配列。
-     *            null を含めても良いが、null を使用した場合は
-     *            Object のサブクラスであれば全てマッチしてしまうため、
-     *            目的のメソッド以外のものが見つかる可能性がある。
-     * @param all public のメソッドのみを検索するなら false。
-     *            public, protected, private, パッケージプライベートの
-     *            全てのメソッドを検索するなら true。
-     *
-     * @return args を引数に取ることができる nameという名前の メソッド。
-     *         見つからなければ null。
+     * @param all  public のメソッドのみを検索するなら false。public, protected, private, パッケージプライベートの
+     *             全てのメソッドを検索するなら true。
+     * @param args 引数配列。null を含めても良いが、null を使用した場合は
+     *             Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
+     * @return args を引数に取ることができる nameという名前の メソッド。見つからなければ null。
      */
-    public static Method getMatchFullStaticMethod(Class<?> type, String name, Object[] args, boolean all) {
+    public static Method getMatchFullStaticMethod(Class<?> type, String name, boolean all, Object... args) {
         Method[] methods = all ? type.getDeclaredMethods() : type.getMethods();
 
         for (Method method : methods)
@@ -627,5 +466,4 @@ public class MethodUtil {
 
         return null;
     }
-
 }

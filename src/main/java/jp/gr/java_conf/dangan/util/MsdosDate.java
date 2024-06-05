@@ -1,27 +1,31 @@
-/**
+/*
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.util;
@@ -69,7 +73,6 @@ import java.util.Date;
  * [maintenance]
  *     タブの廃止
  *     ライセンス文の修正
- *
  * </pre>
  *
  * @author $Author: dangan $
@@ -84,11 +87,8 @@ public class MsdosDate extends Date implements Cloneable {
      * 無視され、最小時間単位は java.util.Date の 1ミリ秒でなく
      * MS-DOS 形式の時間情報 の最小単位である 2秒となる。
      *
-     * @param date 新しく構築される MsdosDate の基になる時間情報
-     *            を持つ Dateオブジェクト
-     * @exception IllegalArgumentException
-     *                date が MS-DOS時間形式で扱えない範囲の時間を
-     *                示していた場合
+     * @param date 新しく構築される MsdosDate の基になる時間情報を持つ Dateオブジェクト
+     * @throws IllegalArgumentException date が MS-DOS時間形式で扱えない範囲の時間を示していた場合
      */
     public MsdosDate(Date date) {
         super((date.getTime() / 2000L) * 2000L);
@@ -96,18 +96,17 @@ public class MsdosDate extends Date implements Cloneable {
     }
 
     /**
-     * MS-DOS 形式の時間情報から 新しい MsdosDate を構築
-     * する。
+     * MS-DOS 形式の時間情報から 新しい MsdosDate を構築する。
      *
      * @param time MS-DOS 形式の時間情報
      */
     public MsdosDate(int time) {
         super(((time >> 25) & 0x7F) + 80,
-              ((time >> 21) & 0x0F) - 1,
-              (time >> 16) & 0x1F,
-              (time >> 11) & 0x1F,
-              (time >> 5) & 0x3F,
-              (time << 1) & 0x3F); // deprecated
+                ((time >> 21) & 0x0F) - 1,
+                (time >> 16) & 0x1F,
+                (time >> 11) & 0x1F,
+                (time >> 5) & 0x3F,
+                (time << 1) & 0x3F); // deprecated
 
         this.checkRange();
     }
@@ -117,6 +116,7 @@ public class MsdosDate extends Date implements Cloneable {
      *
      * @return このMsdosDateオブジェクトの複製
      */
+    @Override
     public Object clone() {
         return new MsdosDate(this);
     }
@@ -126,12 +126,11 @@ public class MsdosDate extends Date implements Cloneable {
      * たものに設定する。<br>
      * このメソッドは範囲チェックを行うだけのために存在する。
      *
-     * @deprecated
      * @param year 1900を足すことで西暦を表すような 年の値
-     * @exception IllegalArgumentException
-     *                year が MS-DOS時間形式で扱えない範囲の時間を
-     *                示していた場合
+     * @throws IllegalArgumentException year が MS-DOS時間形式で扱えない範囲の時間を示していた場合
+     * @deprecated
      */
+    @Override
     public void setYear(int year) {
         if (year < 80 || 207 < year) {
             throw new IllegalArgumentException("out of MS-DOS time format range.");
@@ -148,10 +147,9 @@ public class MsdosDate extends Date implements Cloneable {
      * MS-DOS 形式の時間情報 の最小単位である 2秒となる。
      *
      * @param time 1970年1月1日 00:00:00GMT からの経過ミリ秒
-     * @exception IllegalArgumentException
-     *                time が MS-DOS時間形式で扱えない範囲の時間を
-     *                示していた場合
+     * @throws IllegalArgumentException time が MS-DOS時間形式で扱えない範囲の時間を示していた場合
      */
+    @Override
     public void setTime(long time) {
         int year = (new Date(time)).getYear();
         if (year < 80 || 207 < year) {
@@ -168,11 +166,11 @@ public class MsdosDate extends Date implements Cloneable {
      */
     public void setMsdosTime(int time) {
         Date date = new Date(((time >> 25) & 0x7F) + 80,
-                             ((time >> 21) & 0x0F) - 1,
-                             (time >> 16) & 0x1F,
-                             (time >> 11) & 0x1F,
-                             (time >> 5) & 0x3F,
-                             (time << 1) & 0x3F);
+                ((time >> 21) & 0x0F) - 1,
+                (time >> 16) & 0x1F,
+                (time >> 11) & 0x1F,
+                (time >> 5) & 0x3F,
+                (time << 1) & 0x3F);
 
         this.setTime(date.getTime());
     }
@@ -184,20 +182,18 @@ public class MsdosDate extends Date implements Cloneable {
      */
     public int getMsdosTime() {
         return ((super.getYear() - 80) << 25)
-               | ((super.getMonth() + 1) << 21)
-               | (super.getDate() << 16)
-               | (super.getHours() << 11)
-               | (super.getMinutes() << 5)
-               | (super.getSeconds() >> 1);
+                | ((super.getMonth() + 1) << 21)
+                | (super.getDate() << 16)
+                | (super.getHours() << 11)
+                | (super.getMinutes() << 5)
+                | (super.getSeconds() >> 1);
     }
 
     /**
      * この MsdosDate が MS-DOS時間形式で表せる時間の範囲内で
      * あるかを判定する。
      *
-     * @exception IllegalArgumentException
-     *                この MsdosDate が MS-DOS時間形式で扱えない
-     *                範囲の時間を示していた場合
+     * @throws IllegalArgumentException この MsdosDate が MS-DOS時間形式で扱えない範囲の時間を示していた場合
      */
     private void checkRange() {
         int year = this.getYear();

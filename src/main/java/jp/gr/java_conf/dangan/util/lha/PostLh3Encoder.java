@@ -1,33 +1,38 @@
-/**
+/*
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.util.lha;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Arrays;
 
 import jp.gr.java_conf.dangan.io.BitOutputStream;
 
@@ -135,10 +140,9 @@ public class PostLh3Encoder implements PostLzssEncoder {
     /**
      * -lh3- 圧縮用 PostLzssEncoderを構築する。
      *
-     * @param out 圧縮データを受け取る出力ストリーム
+     * @param out        圧縮データを受け取る出力ストリーム
      * @param BufferSize 静的ハフマン圧縮用のバッファサイズ
-     * @exception IllegalArgumentException
-     *                BufferSize が小さすぎる場合
+     * @throws IllegalArgumentException BufferSize が小さすぎる場合
      */
     public PostLh3Encoder(OutputStream out, int BufferSize) {
         final int DictionarySizeByteLen = 2;
@@ -169,10 +173,10 @@ public class PostLh3Encoder implements PostLzssEncoder {
      * 1byte の LZSS未圧縮のデータもしくは、
      * LZSS で圧縮された圧縮コードのうち一致長を書きこむ。
      *
-     * @param code 1byte の LZSS未圧縮のデータもしくは、
-     *            LZSS で圧縮された圧縮コードのうち一致長
-     * @exception IOException 入出力エラーが発生した場合
+     * @param code 1byte の LZSS未圧縮のデータもしくは、LZSS で圧縮された圧縮コードのうち一致長
+     * @throws IOException 入出力エラーが発生した場合
      */
+    @Override
     public void writeCode(int code) throws IOException {
         final int CodeMax = PostLh3Encoder.CodeSize - 1;
         final int DictionarySizeByteLen = 2;
@@ -207,6 +211,7 @@ public class PostLh3Encoder implements PostLzssEncoder {
      *
      * @param offset LZSS で圧縮された圧縮コードのうち一致位置
      */
+    @Override
     public void writeOffset(int offset) {
         // データ格納
         this.buffer[this.position++] = (byte) (offset >> 8);
@@ -222,10 +227,11 @@ public class PostLh3Encoder implements PostLzssEncoder {
      * 出力先の OutputStream を flush() する。<br>
      * このメソッドは圧縮率を変化させる。
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      * @see PostLzssEncoder#flush()
      * @see BitOutputStream#flush()
      */
+    @Override
     public void flush() throws IOException {
         this.writeOut();
         this.out.flush();
@@ -235,8 +241,9 @@ public class PostLh3Encoder implements PostLzssEncoder {
      * この出力ストリームと、接続された出力ストリームを閉じ、
      * 使用していたリソースを開放する。
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      */
+    @Override
     public void close() throws IOException {
         this.writeOut();
         this.out.close();
@@ -252,6 +259,7 @@ public class PostLh3Encoder implements PostLzssEncoder {
      *
      * @return -lh3-形式の LZSS辞書のサイズ
      */
+    @Override
     public int getDictionarySize() {
         return PostLh3Encoder.DictionarySize;
     }
@@ -261,6 +269,7 @@ public class PostLh3Encoder implements PostLzssEncoder {
      *
      * @return -lh3-形式の LZSSの最大一致長
      */
+    @Override
     public int getMaxMatch() {
         return PostLh3Encoder.MaxMatch;
     }
@@ -270,6 +279,7 @@ public class PostLh3Encoder implements PostLzssEncoder {
      *
      * @return -lh3-形式の LZSSの圧縮、非圧縮の閾値
      */
+    @Override
     public int getThreshold() {
         return PostLh3Encoder.Threshold;
     }
@@ -277,7 +287,7 @@ public class PostLh3Encoder implements PostLzssEncoder {
     /**
      * バッファリングされた全てのデータを this.out に出力する。
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      */
     private void writeOut() throws IOException {
         final int CodeMax = PostLh3Encoder.CodeSize - 1;
@@ -343,13 +353,9 @@ public class PostLh3Encoder implements PostLzssEncoder {
             }
 
             // 次のブロックのための処理
-            for (int i = 0; i < this.codeFreq.length; i++) {
-                this.codeFreq[i] = 0;
-            }
+            Arrays.fill(this.codeFreq, 0);
 
-            for (int i = 0; i < this.offHiFreq.length; i++) {
-                this.offHiFreq[i] = 0;
-            }
+            Arrays.fill(this.offHiFreq, 0);
 
             this.blockSize = 0;
             this.position = 0;
@@ -361,7 +367,7 @@ public class PostLh3Encoder implements PostLzssEncoder {
      * code部のハフマン符号長のリストを符号化しながら書き出す。
      *
      * @param codeLen code部のハフマン符号長のリスト
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      */
     private void writeCodeLenList(int[] codeLen) throws IOException {
         for (int j : codeLen) {
@@ -377,7 +383,7 @@ public class PostLh3Encoder implements PostLzssEncoder {
      * OffHi部のハフマン符号長のリストを符号化しながら書き出す。
      *
      * @param offHiLen CodeFreq のハフマン符号長のリスト
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      */
     private void writeOffHiLenList(int[] offHiLen) throws IOException {
         for (int j : offHiLen) {
@@ -406,7 +412,7 @@ public class PostLh3Encoder implements PostLzssEncoder {
      *
      * @param array 配列
      * @return 配列内の 0でない最初の要素
-     *         全ての要素が0の場合は 0を返す。
+     * 全ての要素が0の場合は 0を返す。
      */
     private static int getNoZeroElementIndex(int[] array) {
         for (int i = 0; i < array.length; i++) {
@@ -425,7 +431,7 @@ public class PostLh3Encoder implements PostLzssEncoder {
     private static int[] createConstOffHiLen() {
         final int length = PostLh3Encoder.DictionarySize >> 6;
         int[] list = {
-            2, 0x01, 0x01, 0x03, 0x06, 0x0D, 0x1F, 0x4E, 0
+                2, 0x01, 0x01, 0x03, 0x06, 0x0D, 0x1F, 0x4E, 0
         };
 
         int[] offHiLen = new int[length];
@@ -448,8 +454,7 @@ public class PostLh3Encoder implements PostLzssEncoder {
      * 数の少ないものを得る。
      *
      * @param OffHiFreq offset部の上位6bitの出現頻度の表
-     * @param OffHiLen OffHiFreqから生成されたハフマン符
-     *            号長のリスト
+     * @param OffHiLen  OffHiFreqから生成されたハフマン符号長のリスト
      * @return 出力ビット数の少ない方のハフマン符号長のリスト
      */
     private static int[] getBetterOffHiLen(int[] OffHiFreq, int[] OffHiLen) {

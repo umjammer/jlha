@@ -1,37 +1,35 @@
-// start of PostLh1Encoder.java
-// TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
-
-/**
- * PostLh1Encoder.java
- *
+/*
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.util.lha;
 
-// import exceptions
 import java.io.IOException;
 // import classes and interfaces
 import java.io.OutputStream;
@@ -63,15 +61,6 @@ import jp.gr.java_conf.dangan.io.BitOutputStream;
  */
 public class PostLh1Encoder implements PostLzssEncoder {
 
-    // ------------------------------------------------------------------
-    // class field
-    // ------------------------------------------------------------------
-    // LZSS parameter
-    // ------------------------------------------------------------------
-    // private static final int DictionarySize
-    // private static final int MaxMatch
-    // private static final int Threshold
-    // ------------------------------------------------------------------
     /** 辞書サイズ */
     private static final int DictionarySize = 4096;
 
@@ -81,38 +70,16 @@ public class PostLh1Encoder implements PostLzssEncoder {
     /** 最小一致長 */
     private static final int Threshold = 3;
 
-    // ------------------------------------------------------------------
-    // instance field
-    // ------------------------------------------------------------------
-    // sink
-    // ------------------------------------------------------------------
-    // private BitOutputStream out
-    // ------------------------------------------------------------------
     /**
      * -lh1- 形式の圧縮データの出力先の ビット出力ストリーム
      */
     private BitOutputStream out;
 
-    // ------------------------------------------------------------------
-    // instance field
-    // ------------------------------------------------------------------
-    // dynamic huffman tree
-    // ------------------------------------------------------------------
-    // private DynamicHuffman huffman
-    // ------------------------------------------------------------------
     /**
      * Code部圧縮用適応的ハフマン木
      */
     private DynamicHuffman huffman;
 
-    // ------------------------------------------------------------------
-    // instance field
-    // ------------------------------------------------------------------
-    // static huffman list
-    // ------------------------------------------------------------------
-    // private int[] offHiCode
-    // private int[] offHiLen
-    // ------------------------------------------------------------------
     /**
      * offset部の上位6bit圧縮用ハフマン符号の表
      */
@@ -146,23 +113,15 @@ public class PostLh1Encoder implements PostLzssEncoder {
         }
     }
 
-    // ------------------------------------------------------------------
-    // method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
-    // ------------------------------------------------------------------
-    // write
-    // ------------------------------------------------------------------
-    // public void writeCode( int code )
-    // public void writeOffset( int offset )
-    // ------------------------------------------------------------------
     /**
      * 1byte の LZSS未圧縮のデータもしくは、
      * LZSS で圧縮された圧縮コードのうち一致長を書きこむ。<br>
      *
      * @param code 1byte の LZSS未圧縮のデータもしくは、
-     *            LZSS で圧縮された圧縮コードのうち一致長
-     *
-     * @exception IOException 入出力エラーが発生した場合
+     *             LZSS で圧縮された圧縮コードのうち一致長
+     * @throws IOException 入出力エラーが発生した場合
      */
+    @Override
     public void writeCode(int code) throws IOException {
         int node = this.huffman.codeToNode(code);
         int hcode = 0;
@@ -185,31 +144,24 @@ public class PostLh1Encoder implements PostLzssEncoder {
      *
      * @param offset LZSS で圧縮された圧縮コードのうち一致位置
      */
+    @Override
     public void writeOffset(int offset) throws IOException {
         int offHi = (offset >> 6);
         this.out.writeBits(this.offHiLen[offHi], this.offHiCode[offHi]);
         this.out.writeBits(6, offset);
     }
 
-    // ------------------------------------------------------------------
-    // method jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
-    // ------------------------------------------------------------------
-    // other
-    // ------------------------------------------------------------------
-    // public void flush()
-    // public void close()
-    // ------------------------------------------------------------------
     /**
      * この PostLzssEncoder にバッファリングされている
      * 全ての 8ビット単位のデータを出力先の OutputStream に出力し、
      * 出力先の OutputStream を flush() する。<br>
      * このメソッドは圧縮率を変化させない。
      *
-     * @exception IOException 入出力エラーが発生した場合
-     *
+     * @throws IOException 入出力エラーが発生した場合
      * @see PostLzssEncoder#flush()
      * @see BitOutputStream#flush()
      */
+    @Override
     public void flush() throws IOException {
         this.out.flush();
     }
@@ -218,8 +170,9 @@ public class PostLh1Encoder implements PostLzssEncoder {
      * この出力ストリームと、接続された出力ストリームを閉じ、
      * 使用していたリソースを解放する。<br>
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      */
+    @Override
     public void close() throws IOException {
         this.out.close();
 
@@ -229,20 +182,12 @@ public class PostLh1Encoder implements PostLzssEncoder {
         this.offHiCode = null;
     }
 
-    // ------------------------------------------------------------------
-    // method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
-    // ------------------------------------------------------------------
-    // get LZSS parameter
-    // ------------------------------------------------------------------
-    // public int getDictionarySize()
-    // public int getMaxMatch()
-    // public int getThreshold()
-    // ------------------------------------------------------------------
     /**
      * -lh1-形式の LZSS辞書のサイズを得る。
      *
      * @return -lh1-形式の LZSS辞書のサイズ
      */
+    @Override
     public int getDictionarySize() {
         return PostLh1Encoder.DictionarySize;
     }
@@ -252,6 +197,7 @@ public class PostLh1Encoder implements PostLzssEncoder {
      *
      * @return -lz5-形式の LZSSの最大一致長
      */
+    @Override
     public int getMaxMatch() {
         return PostLh1Encoder.MaxMatch;
     }
@@ -261,26 +207,21 @@ public class PostLh1Encoder implements PostLzssEncoder {
      *
      * @return -lh1-形式の LZSSの圧縮、非圧縮の閾値
      */
+    @Override
     public int getThreshold() {
         return PostLh1Encoder.Threshold;
     }
 
-    // ------------------------------------------------------------------
-    // local method
-    // ------------------------------------------------------------------
-    // private static int[] createLenList()
-    // ------------------------------------------------------------------
     /**
      * -lh1- の offsetデコード用StaticHuffmanの
      * ハフマン符号長リストを生成する。
      *
-     * @return -lh1- の offsetデコード用StaticHuffmanの
-     *         ハフマン符号長リスト
+     * @return -lh1- の offsetデコード用StaticHuffmanの ハフマン符号長リスト
      */
     private static int[] createLenList() {
         final int length = 64;
         int[] list = {
-            3, 0x01, 0x04, 0x0C, 0x18, 0x30, 0
+                3, 0x01, 0x04, 0x0C, 0x18, 0x30, 0
         };
 
         int[] LenList = new int[length];
@@ -296,6 +237,4 @@ public class PostLh1Encoder implements PostLzssEncoder {
         }
         return LenList;
     }
-
 }
-// end of PostLh1Encoder.java

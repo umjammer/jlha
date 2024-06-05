@@ -1,27 +1,31 @@
-/**
- * Copyright (C) 2001-2002 Michel Ishizuka  All rights reserved.
+/*
+ * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -162,7 +166,7 @@ public class LhaOutputStream extends OutputStream {
      * LhaProperty.getProperties() で得られたプロパティが使用される。
      *
      * @param out 圧縮データを出力するストリーム
-     * @param file RandomAccessFile のインスタンス。<br>
+     * @param file RandomAccessFile のインスタンス。
      *            <ul>
      *            <li>既に close() されていない事。
      *            <li>コンストラクタの mode には "rw" オプションを使用して、
@@ -189,7 +193,7 @@ public class LhaOutputStream extends OutputStream {
      * out に 圧縮データを出力するOutputStreamを構築する。
      *
      * @param out 圧縮データを出力するストリーム
-     * @param file RandomAccessFile のインスタンス。<br>
+     * @param file RandomAccessFile のインスタンス。
      *            <ul>
      *            <li>既に close() されていない事。
      *            <li>コンストラクタの mode には "rw" オプションを使用して、
@@ -236,6 +240,7 @@ public class LhaOutputStream extends OutputStream {
      * @param data 書きこむデータ
      * @exception IOException 入出力エラーが発生した場合。
      */
+    @Override
     public void write(int data) throws IOException {
         if (this.tempOut != null) {
             if (this.header != null) {
@@ -255,6 +260,7 @@ public class LhaOutputStream extends OutputStream {
      * @param buffer 書き出すデータの入ったバイト配列
      * @exception IOException 入出力エラーが発生した場合。
      */
+    @Override
     public void write(byte[] buffer) throws IOException {
         this.write(buffer, 0, buffer.length);
     }
@@ -267,6 +273,7 @@ public class LhaOutputStream extends OutputStream {
      * @param length データのバイト数
      * @exception IOException 入出力エラーが発生した場合。
      */
+    @Override
     public void write(byte[] buffer, int index, int length) throws IOException {
         if (this.tempOut != null) {
             if (this.header != null) {
@@ -293,6 +300,7 @@ public class LhaOutputStream extends OutputStream {
      * @see PostLzssEncoder#flush()
      * @see LzssOutputStream#flush()
      */
+    @Override
     public void flush() throws IOException {
         if (this.tempOut != null) {
             this.tempOut.flush();
@@ -309,6 +317,7 @@ public class LhaOutputStream extends OutputStream {
      *
      * @exception IOException 入出力エラーが発生した場合
      */
+    @Override
     public void close() throws IOException {
         if (this.tempOut != null) {
             this.closeEntry();
@@ -341,8 +350,7 @@ public class LhaOutputStream extends OutputStream {
      * </ul>
      * のどれか一つでも LhaHeader.UNKNOWN であれば未だに圧縮されていないとする。
      *
-     * @param header 書きこむエントリについての情報を持つ
-     *            LhaHeaderのインスタンス。
+     * @param header 書きこむエントリについての情報を持つLhaHeaderのインスタンス。
      * @exception IOException 入出力エラーが発生した場合
      */
     public void putNextEntry(LhaHeader header) throws IOException {
@@ -359,11 +367,9 @@ public class LhaOutputStream extends OutputStream {
      * 圧縮済みなので、一時退避機構を経ずに直接出力先に出力される。
      * 圧縮済みデータが正しい事は、呼び出し側が保証する事。
      *
-     * @param header 書きこむエントリについての情報を持つ
-     *            LhaHeaderのインスタンス。
+     * @param header 書きこむエントリについての情報を持つLhaHeaderのインスタンス。
      * @exception IOException 入出力エラーが発生した場合
-     * @exception IllegalArgumentException
-     *                <ol>
+     * @exception IllegalArgumentException <ol>
      *                <li>header.getOriginalSize() が LhaHeader.UNKNOWN を返す場合
      *                <li>header.getComressedSize() が LhaHeader.UNKNOWN を返す場合
      *                <li>header.getCRC() が LhaHeader.UNKNOWN を返す場合
@@ -398,8 +404,7 @@ public class LhaOutputStream extends OutputStream {
      * 未だに圧縮されていないエントリを書きこむようにストリームを設定する。<br>
      * header に OriginalSize, CompressedSize, CRCが指定されていても無視される。
      *
-     * @param header 書きこむエントリについての情報を持つ
-     *            LhaHeaderのインスタンス。
+     * @param header 書きこむエントリについての情報を持つLhaHeaderのインスタンス。
      * @exception IOException 入出力エラーが発生した場合
      */
     public void putNextEntryNotYetCompressed(LhaHeader header) throws IOException {
@@ -548,6 +553,7 @@ public class LhaOutputStream extends OutputStream {
          * @return 一時退避機構からデータを取り出す InputStream
          * @exception IOException 入出力エラーが発生した場合
          */
+        @Override
         public InputStream getInputStream() throws IOException {
             return new TemporaryFileInputStream();
         }
@@ -560,6 +566,7 @@ public class LhaOutputStream extends OutputStream {
          * @return データを一時退避機構に貯える OutputStream
          * @exception IOException 入出力エラーが発生した場合
          */
+        @Override
         public OutputStream getOutputStream() throws IOException {
             return new TemporaryFileOutputStream();
         }
@@ -571,6 +578,7 @@ public class LhaOutputStream extends OutputStream {
          *
          * @return 一時退避機構に格納されているデータ量
          */
+        @Override
         public long length() {
             return this.length;
         }
@@ -581,6 +589,7 @@ public class LhaOutputStream extends OutputStream {
          *
          * @exception IOException 入出力エラーが発生した場合
          */
+        @Override
         public void close() throws IOException {
             this.tempfile.close();
             this.tempfile = null;
@@ -607,6 +616,7 @@ public class LhaOutputStream extends OutputStream {
              *         既にEndOfStreamに達している場合は-1
              * @exception IOException 入出力エラーが発生した場合
              */
+            @Override
             public int read() throws IOException {
                 long pos = TemporaryFile.this.tempfile.getFilePointer();
                 long limit = TemporaryFile.this.length;
@@ -622,10 +632,10 @@ public class LhaOutputStream extends OutputStream {
              * TemporaryFileから bufferを満たすようにデータを読み込む。
              *
              * @param buffer データを読み込むバッファ
-             * @return 読みこまれたデータ量
-             *         既にEndOfStreamに達している場合は-1
+             * @return 読みこまれたデータ量 既にEndOfStreamに達している場合は-1
              * @exception IOException 入出力エラーが発生した場合
              */
+            @Override
             public int read(byte[] buffer) throws IOException {
                 return this.read(buffer, 0, buffer.length);
             }
@@ -640,6 +650,7 @@ public class LhaOutputStream extends OutputStream {
              *         既にEndOfStreamに達している場合は-1
              * @exception IOException 入出力エラーが発生した場合
              */
+            @Override
             public int read(byte[] buffer, int index, int length) throws IOException {
                 long pos = TemporaryFile.this.tempfile.getFilePointer();
                 long limit = TemporaryFile.this.length;
@@ -651,7 +662,6 @@ public class LhaOutputStream extends OutputStream {
                     return -1;
                 }
             }
-
         }
 
         /**
@@ -675,6 +685,7 @@ public class LhaOutputStream extends OutputStream {
              * @param data 書き出す1byteのデータ
              * @exception IOException 入出力エラーが発生した場合
              */
+            @Override
             public void write(int data) throws IOException {
                 TemporaryFile.this.tempfile.write(data);
                 TemporaryFile.this.length++;
@@ -686,6 +697,7 @@ public class LhaOutputStream extends OutputStream {
              * @param buffer 書き出すデータの入ったバイト配列
              * @exception IOException 入出力エラーが発生した場合
              */
+            @Override
             public void write(byte[] buffer) throws IOException {
                 TemporaryFile.this.tempfile.write(buffer);
                 TemporaryFile.this.length += buffer.length;
@@ -699,6 +711,7 @@ public class LhaOutputStream extends OutputStream {
              * @param length 書き出すデータ量
              * @exception IOException 入出力エラーが発生した場合
              */
+            @Override
             public void write(byte[] buffer, int index, int length) throws IOException {
                 TemporaryFile.this.tempfile.write(buffer, index, length);
                 TemporaryFile.this.length += length;
@@ -730,6 +743,7 @@ public class LhaOutputStream extends OutputStream {
          *
          * @return 一時退避機構からデータを取り出す InputStream
          */
+        @Override
         public InputStream getInputStream() {
             return new TemporaryBufferInputStream();
         }
@@ -741,6 +755,7 @@ public class LhaOutputStream extends OutputStream {
          *
          * @return データを一時退避機構に貯える OutputStream
          */
+        @Override
         public OutputStream getOutputStream() {
             return new TemporaryBufferOutputStream();
         }
@@ -752,6 +767,7 @@ public class LhaOutputStream extends OutputStream {
          *
          * @return 一時退避機構に格納されているデータ量
          */
+        @Override
         public long length() {
             return this.tempbuffer.length();
         }
@@ -759,6 +775,7 @@ public class LhaOutputStream extends OutputStream {
         /**
          * 一時退避機構で使用されていた、全てのシステムリソースを開放する。
          */
+        @Override
         public void close() {
             this.tempbuffer = null;
         }
@@ -778,9 +795,9 @@ public class LhaOutputStream extends OutputStream {
             /**
              * TemporaryBuffer から 1バイトのデータを読み込む。
              *
-             * @return 読みこまれた1バイトのデータ
-             *         既にEndOfStreamに達している場合は-1
+             * @return 読みこまれた1バイトのデータ 既にEndOfStreamに達している場合は-1
              */
+            @Override
             public int read() {
                 return TemporaryBuffer.this.tempbuffer.read();
             }
@@ -789,9 +806,9 @@ public class LhaOutputStream extends OutputStream {
              * TemporaryBuffer から bufferを満たすようにデータを読み込む。
              *
              * @param buffer データを読み込むバッファ
-             * @return 読みこまれたデータ量
-             *         既にEndOfStreamに達している場合は-1
+             * @return 読みこまれたデータ量 既にEndOfStreamに達している場合は-1
              */
+            @Override
             public int read(byte[] buffer) {
                 return TemporaryBuffer.this.tempbuffer.read(buffer);
             }
@@ -802,9 +819,9 @@ public class LhaOutputStream extends OutputStream {
              * @param buffer データを読み込むバッファ
              * @param index buffer内のデータ読みこみ開始位置
              * @param length 読み込むデータ量
-             * @return 読みこまれたデータ量
-             *         既にEndOfStreamに達している場合は-1
+             * @return 読みこまれたデータ量 既にEndOfStreamに達している場合は-1
              */
+            @Override
             public int read(byte[] buffer, int index, int length) {
                 return TemporaryBuffer.this.tempbuffer.read(buffer, index, length);
             }
@@ -828,6 +845,7 @@ public class LhaOutputStream extends OutputStream {
              *
              * @param data 書き出す1byteのデータ
              */
+            @Override
             public void write(int data) {
                 TemporaryBuffer.this.tempbuffer.write(data);
             }
@@ -837,6 +855,7 @@ public class LhaOutputStream extends OutputStream {
              *
              * @param buffer 書き出すデータの入ったバイト配列
              */
+            @Override
             public void write(byte[] buffer) {
                 TemporaryBuffer.this.tempbuffer.write(buffer);
             }
@@ -848,6 +867,7 @@ public class LhaOutputStream extends OutputStream {
              * @param index buffer内の書き出すデータの開始位置
              * @param length 書き出すデータ量
              */
+            @Override
             public void write(byte[] buffer, int index, int length) {
                 TemporaryBuffer.this.tempbuffer.write(buffer, index, length);
             }

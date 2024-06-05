@@ -1,27 +1,31 @@
 /*
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.io;
@@ -29,10 +33,12 @@ package jp.gr.java_conf.dangan.io;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 
 
 /**
- * ビット入力のためのユーティリティクラス。<br>
+ * ビット入力のためのユーティリティクラス。
  *
  * <pre>
  * -- revision history --
@@ -75,14 +81,14 @@ import java.io.InputStream;
  * [maintenance]
  *     タブ廃止
  *     ライセンス文の修正
- *
- *
  * </pre>
  *
  * @author $Author: dangan $
  * @version $Revision: 1.5 $
  */
 public class BitInputStream extends InputStream {
+
+    private static final Logger logger = System.getLogger(BitInputStream.class.getName());
 
     /**
      * デフォルトのキャッシュサイズ
@@ -145,7 +151,7 @@ public class BitInputStream extends InputStream {
 
     /**
      * 入力ストリーム in からのデータをビット単位で
-     * 読み込めるようなストリームを構築する。<br>
+     * 読み込めるようなストリームを構築する。
      *
      * @param in 入力ストリーム
      */
@@ -155,9 +161,9 @@ public class BitInputStream extends InputStream {
 
     /**
      * 入力ストリーム in からのデータをビット単位で
-     * 読み込めるようなストリームを構築する。<br>
+     * 読み込めるようなストリームを構築する。
      *
-     * @param in 入力ストリーム
+     * @param in        入力ストリーム
      * @param CacheSize バッファサイズ
      */
     public BitInputStream(InputStream in, int CacheSize) {
@@ -183,19 +189,13 @@ public class BitInputStream extends InputStream {
     }
 
     /**
-     * 接続されたストリームから 8ビットのデータを読み込む。<br>
+     * 接続されたストリームから 8ビットのデータを読み込む。
      *
-     * @return 読み出された 8ビットのデータ。<br>
-     *         既に EndOfStream に達している場合は -1
-     *
-     * @exception IOException
-     *                接続された入力ストリームで
-     *                入出力エラーが発生した場合
-     * @exception BitDataBrokenException
-     *                EndOfStreamに達したため
-     *                要求されたビット数のデータの
-     *                読み込みに失敗した場合。<br>
+     * @return 読み出された 8ビットのデータ。既に EndOfStream に達している場合は -1
+     * @throws IOException            接続された入力ストリームで入出力エラーが発生した場合
+     * @throws BitDataBrokenException EndOfStreamに達したため要求されたビット数のデータの読み込みに失敗した場合。
      */
+    @Override
     public int read() throws IOException {
         try {
             return this.readBits(8);
@@ -210,21 +210,14 @@ public class BitInputStream extends InputStream {
     /**
      * 接続された入力ストリームから バイト配列 buffer を
      * 満たすようにデータを読み込む。<br>
-     * データは必ずしも buffer を満たすとは限らないことに注意。<br>
+     * データは必ずしも buffer を満たすとは限らないことに注意。
      *
      * @param buffer 読み込まれたデータを格納するためのバイト配列
-     *
-     * @return buffer に読み込んだデータ量をバイト数で返す。<br>
-     *         既に EndOfStream に達していた場合は -1 を返す。<br>
-     *
-     * @exception IOException
-     *                接続された入力ストリームで
-     *                入出力エラーが発生した場合
-     * @exception BitDataBrokenException
-     *                EndOfStreamに達したため
-     *                要求されたビット数のデータの
-     *                読み込みに失敗した場合。<br>
+     * @return buffer に読み込んだデータ量をバイト数で返す。既に EndOfStream に達していた場合は -1 を返す。
+     * @throws IOException            接続された入力ストリームで入出力エラーが発生した場合
+     * @throws BitDataBrokenException EndOfStreamに達したため要求されたビット数のデータの読み込みに失敗した場合。
      */
+    @Override
     public int read(byte[] buffer) throws IOException {
         return this.read(buffer, 0, buffer.length);
     }
@@ -234,25 +227,18 @@ public class BitInputStream extends InputStream {
      * index で指定された位置から length バイトのデータを
      * 読み込む。<br>
      * このメソッドは lengthバイト読み込むか、
-     * EndOfStream に到達するまでブロックする。<br>
+     * EndOfStream に到達するまでブロックする。
      * データは必ずしも length バイト読み込まれるとは限ら
      * ないことに注意。<br>
      *
      * @param buffer 読み込まれたデータを格納するためのバイト配列
-     * @param index buffer内のデータ読み込み開始位置
+     * @param index  buffer内のデータ読み込み開始位置
      * @param length bufferに読み込むデータ量
-     *
-     * @return buffer に読み込んだデータ量をバイト数で返す。<br>
-     *         既に EndOfStream に達していた場合は -1 を返す。<br>
-     *
-     * @exception IOException
-     *                接続された入力ストリームで
-     *                入出力エラーが発生した場合
-     * @exception BitDataBrokenException
-     *                EndOfStreamに達したため
-     *                要求されたビット数のデータの
-     *                読み込みに失敗した場合。<br>
+     * @return buffer に読み込んだデータ量をバイト数で返す。既に EndOfStream に達していた場合は -1 を返す。
+     * @throws IOException            接続された入力ストリームで入出力エラーが発生した場合
+     * @throws BitDataBrokenException EndOfStreamに達したため要求されたビット数のデータの読み込みに失敗した場合。
      */
+    @Override
     public int read(byte[] buffer, int index, int length) throws IOException {
         int requested = length;
         try {
@@ -272,7 +258,7 @@ public class BitInputStream extends InputStream {
             }
         } catch (BitDataBrokenException exception) {
             if (exception.getCause() instanceof LocalEOFException
-                && ((LocalEOFException) exception.getCause()).thrownBy(this)) {
+                    && ((LocalEOFException) exception.getCause()).thrownBy(this)) {
                 this.bitBuffer >>>= exception.getBitCount();
                 this.bitCount += exception.getBitCount();
                 this.bitBuffer |= exception.getBitData() << (32 - exception.getBitCount());
@@ -288,17 +274,15 @@ public class BitInputStream extends InputStream {
      * 接続された入力ストリームのデータを length バイト
      * 読み飛ばす。<br>
      * このメソッドは lengthバイト読み飛ばすか、
-     * EndOfStream に到達するまでブロックする。<br>
+     * EndOfStream に到達するまでブロックする。
      * データは必ずしも length バイト読み飛ばされるとは限ら
-     * ないことに注意。<br>
+     * ないことに注意。
      *
-     * @param length 読み飛ばすバイト数。<br>
-     *
-     * @return 実際に読み飛ばされたバイト数。<br>
-     *
-     * @exception IOException 接続された入力ストリームで
-     *                入出力エラーが発生した場合
+     * @param length 読み飛ばすバイト数。d
+     * @return 実際に読み飛ばされたバイト数。
+     * @throws IOException 接続された入力ストリームで入出力エラーが発生した場合
      */
+    @Override
     public long skip(long length) throws IOException {
         length = (0 < length ? length : 0);
         long requested = length;
@@ -312,7 +296,7 @@ public class BitInputStream extends InputStream {
             return requested - length;
         } catch (BitDataBrokenException exception) {
             if (exception.getCause() instanceof LocalEOFException
-                && ((LocalEOFException) exception.getCause()).thrownBy(this)) {
+                    && ((LocalEOFException) exception.getCause()).thrownBy(this)) {
                 this.bitBuffer >>>= exception.getBitCount();
                 this.bitCount += exception.getBitCount();
                 this.bitBuffer |= exception.getBitData() << (32 - exception.getBitCount());
@@ -329,16 +313,15 @@ public class BitInputStream extends InputStream {
      * 戻れるようにする。
      *
      * @param readLimit マーク位置に戻れる限界のバイト数。
-     *            このバイト数を超えてデータを読み
-     *            込んだ場合 reset()できなくなる可
-     *            能性がある。
+     *                  このバイト数を超えてデータを読み込んだ場合{@link #reset()}できなくなる可能性がある。
      */
+    @Override
     public void mark(int readLimit) {
         readLimit -= this.cacheLimit - this.cachePosition;
         readLimit -= this.bitCount / 8;
         readLimit += 4;
         readLimit = ((readLimit / this.cache.length) * this.cache.length
-                     + (readLimit % this.cache.length == 0 ? 0 : this.cache.length));
+                + (readLimit % this.cache.length == 0 ? 0 : this.cache.length));
 
         this.in.mark(readLimit);
 
@@ -358,14 +341,14 @@ public class BitInputStream extends InputStream {
      * 接続された入力ストリームの読み込み位置を最後に
      * mark() メソッドが呼び出されたときの位置に設定する。
      *
-     * @exception IOException <br>
-     *                (1) BitInputStream に mark がなされていない場合。<br>
-     *                (2) 接続された入力ストリームが markSupported()で
-     *                false を返す場合。<br>
-     *                (3) 接続された入力ストリームで
-     *                入出力エラーが発生した場合。<br>
-     *                の何れか。
+     * @throws IOException <od>
+     *                     <li> {@link BitInputStream}に{@code mark}がなされていない場合。</li>
+     *                     <li> 接続された入力ストリームが markSupported()でfalse を返す場合。</li>
+     *                     <li> 接続された入力ストリームで入出力エラーが発生した場合。</li>
+     *                     </od>
+     *                     の何れか。
      */
+    @Override
     public void reset() throws IOException {
         if (this.markPositionIsInCache) {
             this.cachePosition = this.markCachePosition;
@@ -390,25 +373,23 @@ public class BitInputStream extends InputStream {
 
     /**
      * 接続された入力ストリームが mark() と reset() を
-     * サポートするかを得る。<br>
+     * サポートするかを得る。
      *
-     * @return ストリームが mark() と reset() を
-     *         サポートする場合は true。<br>
-     *         サポートしない場合は false。<br>
+     * @return ストリームが mark() と reset() をサポートする場合は true。サポートしない場合は false。
      */
+    @Override
     public boolean markSupported() {
         return this.in.markSupported();
     }
 
     /**
      * 接続された入力ストリームからブロックしないで
-     * 読み込むことのできるバイト数を得る。<br>
+     * 読み込むことのできるバイト数を得る。
      *
-     * @return ブロックしないで読み出せるバイト数。<br>
-     *
-     * @exception IOException 接続された入力ストリームで
-     *                入出力エラーが発生した場合
+     * @return ブロックしないで読み出せるバイト数。
+     * @throws IOException 接続された入力ストリームで入出力エラーが発生した場合
      */
+    @Override
     public int available() throws IOException {
         return this.availableBits() / 8;
     }
@@ -417,9 +398,9 @@ public class BitInputStream extends InputStream {
      * この入力ストリームを閉じ、
      * 使用していたリソースを開放する。
      *
-     * @exception IOException 接続された入力ストリームで
-     *                入出力エラーが発生した場合
+     * @throws IOException 接続された入力ストリームで入出力エラーが発生した場合
      */
+    @Override
     public void close() throws IOException {
         this.in.close();
         this.in = null;
@@ -442,11 +423,8 @@ public class BitInputStream extends InputStream {
      * 接続された入力ストリームから 1ビットのデータを
      * 読み込む。
      *
-     * @return 読み込まれた1ビットのデータ。<br>
-     *         既にEndOfStreamに達している場合は -1。
-     *
-     * @exception IOException 接続された入力ストリームで
-     *                入出力エラーが発生した場合
+     * @return 読み込まれた1ビットのデータ。既にEndOfStreamに達している場合は -1。
+     * @throws IOException 接続された入力ストリームで入出力エラーが発生した場合
      */
     public int readBit() throws IOException {
         if (0 < this.bitCount) {
@@ -475,12 +453,9 @@ public class BitInputStream extends InputStream {
      * 接続された入力ストリームから 1ビットのデータを
      * 真偽値として読み込む。
      *
-     * @return 読み込まれた1ビットのデータが
-     *         1であれば true、0であれば false を返す。
-     *
-     * @exception EOFException 既にEndOfStreamに達していた場合
-     * @exception IOException 接続された入力ストリームで
-     *                入出力エラーが発生した場合
+     * @return 読み込まれた1ビットのデータが 1であれば true、0であれば false を返す。
+     * @throws EOFException 既にEndOfStreamに達していた場合
+     * @throws IOException  接続された入力ストリームで入出力エラーが発生した場合
      */
     public boolean readBoolean() throws IOException {
         if (0 < this.bitCount) {
@@ -512,18 +487,10 @@ public class BitInputStream extends InputStream {
      * 投げない点に注意すること。
      *
      * @param count 読み込むデータのビット数
-     *
-     * @return 読み込まれたビットデータ。<br>
-     *
-     * @exception IOException
-     *                接続された入力ストリームで
-     *                入出力エラーが発生した場合
-     * @exception EOFException
-     *                既にEndOfStreamに達していた場合
-     * @exception BitDataBrokenException
-     *                読み込み途中で EndOfStreamに達したため
-     *                要求されたビット数のデータの読み込み
-     *                に失敗した場合。
+     * @return 読み込まれたビットデータ。
+     * @throws IOException            接続された入力ストリームで入出力エラーが発生した場合
+     * @throws EOFException           既にEndOfStreamに達していた場合
+     * @throws BitDataBrokenException 読み込み途中で EndOfStreamに達したため要求されたビット数のデータの読み込みに失敗した場合。
      */
     public int readBits(int count) throws IOException {
         if (0 < count) {
@@ -568,11 +535,8 @@ public class BitInputStream extends InputStream {
      * 読み飛ばす。
      *
      * @param count 読み飛ばしてほしいビット数
-     *
      * @return 実際に読み飛びしたビット数
-     *
-     * @exception IOException 接続された入力ストリームで
-     *                入出力エラーが発生した場合
+     * @throws IOException 接続された入力ストリームで入出力エラーが発生した場合
      */
     public int skipBits(int count) throws IOException {
         count = Math.max(count, 0);
@@ -603,7 +567,7 @@ public class BitInputStream extends InputStream {
                     count = 0;
                 }
             } catch (LocalEOFException exception) {
-                exception.printStackTrace();
+                logger.log(Level.ERROR, exception.getMessage(), exception);
             }
             return requested - count;
         }
@@ -613,10 +577,9 @@ public class BitInputStream extends InputStream {
      * 読み込み位置を変えずに 1ビットのデータを先読みする。
      *
      * @return 読み込まれた1ビットのデータ。<br>
-     *         既にEndOfStreamに達している場合は -1。
-     *
-     * @exception IOException 接続された入力ストリームで
-     *                入出力エラーが発生した場合
+     * 既にEndOfStreamに達している場合は -1。
+     * @throws IOException 接続された入力ストリームで
+     *                     入出力エラーが発生した場合
      */
     public int peekBit() throws IOException {
         if (0 < this.bitCount) {
@@ -632,7 +595,6 @@ public class BitInputStream extends InputStream {
                     throw exception;
                 }
             }
-
         }
     }
 
@@ -641,11 +603,10 @@ public class BitInputStream extends InputStream {
      * 真偽値として先読みする。
      *
      * @return 読み込まれた1ビットのデータが
-     *         1であれば true、0であれば false を返す。
-     *
-     * @exception EOFException 既にEndOfStreamに達していた場合
-     * @exception IOException 接続された入力ストリームで
-     *                入出力エラーが発生した場合
+     * 1であれば true、0であれば false を返す。
+     * @throws EOFException 既にEndOfStreamに達していた場合
+     * @throws IOException  接続された入力ストリームで
+     *                      入出力エラーが発生した場合
      */
     public boolean peekBoolean() throws IOException {
         if (0 < this.bitCount) {
@@ -667,16 +628,10 @@ public class BitInputStream extends InputStream {
      * このクラスを使用することを諦めること。<br>
      *
      * @param count 読み込むビット数
-     *
      * @return 先読みした count ビットのビットデータ
-     *
-     * @exception EOFException
-     *                既にEndOfStreamに達していた場合
-     * @exception IOException
-     *                接続された入力ストリームで
-     *                入出力エラーが発生した場合
-     * @exception NotEnoughBitsException
-     *                count が先読み可能な範囲外の場合
+     * @throws EOFException           既にEndOfStreamに達していた場合
+     * @throws IOException            接続された入力ストリームで入出力エラーが発生した場合
+     * @throws NotEnoughBitsException count が先読み可能な範囲外の場合
      */
     public int peekBits(int count) throws IOException {
         if (0 < count) {
@@ -710,11 +665,11 @@ public class BitInputStream extends InputStream {
                         count &= 0x07;
                         if (0 < count) {
                             return (this.cache[pos] << (24 + count)) | ((this.cache[pos + 1] & 0xFF) << (16 + count))
-                                   | ((this.cache[pos + 2] & 0xFF) << (8 + count)) | ((this.cache[pos + 3] & 0xFF) << count)
-                                   | ((this.cache[pos + 4] & 0xFF) >> (8 - count));
+                                    | ((this.cache[pos + 2] & 0xFF) << (8 + count)) | ((this.cache[pos + 3] & 0xFF) << count)
+                                    | ((this.cache[pos + 4] & 0xFF) >> (8 - count));
                         } else {
                             return (this.cache[pos] << 24) | ((this.cache[pos + 1] & 0xFF) << 16)
-                                   | ((this.cache[pos + 2] & 0xFF) << 8) | (this.cache[pos + 3] & 0xFF);
+                                    | ((this.cache[pos + 2] & 0xFF) << 8) | (this.cache[pos + 3] & 0xFF);
                         }
                     }
                 } else {
@@ -731,9 +686,7 @@ public class BitInputStream extends InputStream {
      * 読み込むことのできるビット数を得る。
      *
      * @return ブロックしないで読み出せるビット数。
-     *
-     * @exception IOException 接続された入力ストリームで
-     *                入出力エラーが発生した場合
+     * @throws IOException 接続された入力ストリームで入出力エラーが発生した場合
      */
     public int availableBits() throws IOException {
         int avail = (this.cacheLimit - this.cachePosition) + this.in.available() / this.cache.length * this.cache.length;
@@ -756,8 +709,8 @@ public class BitInputStream extends InputStream {
      * EndOfStream 付近を除いて bitBuffer には
      * 25bit のデータが確保されることを保障する。
      *
-     * @exception IOException 入出力エラーが発生した場合
-     * @exception LocalEOFException bitBuffer が空の状態で EndOfStream に達した場合
+     * @throws IOException       入出力エラーが発生した場合
+     * @throws LocalEOFException bitBuffer が空の状態で EndOfStream に達した場合
      */
     private void fillBitBuffer() throws IOException {
         if (32 <= this.cachedBits()) {
@@ -803,7 +756,7 @@ public class BitInputStream extends InputStream {
     /**
      * cache が空になった時に cache にデータを読み込む。
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException 入出力エラーが発生した場合
      */
     private void fillCache() throws IOException {
         this.markPositionIsInCache = false;
@@ -830,7 +783,7 @@ public class BitInputStream extends InputStream {
         /**
          * この例外を投げたオブジェクト
          */
-        private Object owner;
+        private final Object owner;
 
         /**
          * コンストラクタ。
@@ -843,17 +796,13 @@ public class BitInputStream extends InputStream {
         }
 
         /**
-         * この例外が object によって投げられたかどうかを得る。
+         * この例外が{@code object}によって投げられたかどうかを得る。
          *
          * @param object オブジェクト
-         *
-         * @return この例外が objectによって
-         *         投げられた例外であれば true<br>
-         *         違えば false<br>
+         * @return この例外が{@code object}によって投げられた例外であれば{@code true}違えば{@code false}
          */
         public boolean thrownBy(Object object) {
             return this.owner == object;
         }
     }
-
 }
