@@ -44,186 +44,185 @@ import jp.gr.java_conf.dangan.lang.reflect.Factory;
 
 
 /**
- * LHA Library for Java の各種設定を扱う。<br>
- * LhaProperty.getProperty() や LhaProperty.getProperties() で得られる値は
- * システムプロパティ、設定ファイル、デフォルト値の何れかが用いられ、
- * その優先順位は以下のようになる。
+ * Handles various configurations for LHA Library for Java.<br>
+ * The values obtained by {@link #getProperty(String)} and {@link #getProperties()} are used from
+ * either system properties, configuration file, or default values,
+ * and the priority order is as follows:
  * <ol>
- * <li>システムプロパティ に設定されている値。
- * <li>jp/gr/java_conf/dangan/util/lha/resources/lha.properties
- * に設定された値。
- * <li>デフォルト値。
+ * <li>Value set in system properties.
+ * <li>Value set in jp/gr/java_conf/dangan/util/lha/resources/lha.properties.
+ * <li>Default value.
  * </ol>
  * <br>
  * <br>
- * キーの一覧は以下のとおり。
+ * The list of keys is as follows:
  * <br>
  * <table border="0" cellspacing="4">
  * <tr>
- * <td nowrap>キー</td>
- * <td nowrap>対応する値の説明</td>
+ * <td nowrap>Key</td>
+ * <td nowrap>Description of corresponding value</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.encoding</td>
- * <td nowrap>String とヘッダ内の文字列との相互変換に用いるエンコーディング</td>
+ * <td nowrap>Encoding used for mutual conversion between {@link String} and strings in header</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.packages</td>
- * <td nowrap>生成式内で使われるクラスのパッケージ名の列挙(カンマ区切り)</td>
+ * <td nowrap>Enumeration of package names of classes used in generator expressions (comma-separated)</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.lzs.encoder</td>
- * <td nowrap>-lzs- 形式への符号化を行うオブジェクトの生成式</td>
+ * <td nowrap>Generator expression for object that performs encoding into -lzs- format</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.lz4.encoder</td>
- * <td nowrap>-lz4- 形式への符号化を行うオブジェクトの生成式</td>
+ * <td nowrap>Generator expression for object that performs encoding into -lz4- format</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.lz5.encoder</td>
- * <td nowrap>-lz5- 形式への符号化を行うオブジェクトの生成式</td>
+ * <td nowrap>Generator expression for object that performs encoding into -lz5- format</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.lh0.encoder</td>
- * <td nowrap>-lh0- 形式への符号化を行うオブジェクトの生成式</td>
+ * <td nowrap>Generator expression for object that performs encoding into -lh0- format</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.lh1.encoder</td>
- * <td nowrap>-lh1- 形式への符号化を行うオブジェクトの生成式</td>
+ * <td nowrap>Generator expression for object that performs encoding into -lh1- format</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.lh2.encoder</td>
- * <td nowrap>-lh2- 形式への符号化を行うオブジェクトの生成式</td>
+ * <td nowrap>Generator expression for object that performs encoding into -lh2- format</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.lh3.encoder</td>
- * <td nowrap>-lh3- 形式への符号化を行うオブジェクトの生成式</td>
+ * <td nowrap>Generator expression for object that performs encoding into -lh3- format</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.lh4.encoder</td>
- * <td nowrap>-lh4- 形式への符号化を行うオブジェクトの生成式</td>
+ * <td nowrap>Generator expression for object that performs encoding into -lh4- format</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.lh5.encoder</td>
- * <td nowrap>-lh5- 形式への符号化を行うオブジェクトの生成式</td>
+ * <td nowrap>Generator expression for object that performs encoding into -lh5- format</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.lh6.encoder</td>
- * <td nowrap>-lh6- 形式への符号化を行うオブジェクトの生成式</td>
+ * <td nowrap>Generator expression for object that performs encoding into -lh6- format</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.lh7.encoder</td>
- * <td nowrap>-lh7- 形式への符号化を行うオブジェクトの生成式</td>
+ * <td nowrap>Generator expression for object that performs encoding into -lh7- format</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.lhd.encoder</td>
- * <td nowrap>-lhd- 形式への符号化を行うオブジェクトの生成式</td>
+ * <td nowrap>Generator expression for object that performs encoding into -lhd- format</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.lzs.decoder</td>
- * <td nowrap>-lzs- 形式のデータを復号化するオブジェクトの生成式</td>
+ * <td nowrap>Generator expression for object that decodes -lzs- format data</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.lz4.decoder</td>
- * <td nowrap>-lz4- 形式のデータを復号化するオブジェクトの生成式</td>
+ * <td nowrap>Generator expression for object that decodes -lz4- format data</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.lz5.decoder</td>
- * <td nowrap>-lz5- 形式のデータを復号化するオブジェクトの生成式</td>
+ * <td nowrap>Generator expression for object that decodes -lz5- format data</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.lh0.decoder</td>
- * <td nowrap>-lh0- 形式のデータを復号化するオブジェクトの生成式</td>
+ * <td nowrap>Generator expression for object that decodes -lh0- format data</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.lh1.decoder</td>
- * <td nowrap>-lh1- 形式のデータを復号化するオブジェクトの生成式</td>
+ * <td nowrap>Generator expression for object that decodes -lh1- format data</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.lh2.decoder</td>
- * <td nowrap>-lh2- 形式のデータを復号化するオブジェクトの生成式</td>
+ * <td nowrap>Generator expression for object that decodes -lh2- format data</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.lh3.decoder</td>
- * <td nowrap>-lh3- 形式のデータを復号化するオブジェクトの生成式</td>
+ * <td nowrap>Generator expression for object that decodes -lh3- format data</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.lh4.decoder</td>
- * <td nowrap>-lh4- 形式のデータを復号化するオブジェクトの生成式</td>
+ * <td nowrap>Generator expression for object that decodes -lh4- format data</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.lh5.decoder</td>
- * <td nowrap>-lh5- 形式のデータを復号化するオブジェクトの生成式</td>
+ * <td nowrap>Generator expression for object that decodes -lh5- format data</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.lh6.decoder</td>
- * <td nowrap>-lh6- 形式のデータを復号化するオブジェクトの生成式</td>
+ * <td nowrap>Generator expression for object that decodes -lh6- format data</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.lh7.decoder</td>
- * <td nowrap>-lh7- 形式のデータを復号化するオブジェクトの生成式</td>
+ * <td nowrap>Generator expression for object that decodes -lh7- format data</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.lhd.decoder</td>
- * <td nowrap>-lhd- 形式のデータを復号化するオブジェクトの生成式</td>
+ * <td nowrap>Generator expression for object that decodes -lhd- format data</td>
  * </tr>
  * <tr>
  * <td nowrap>lha.header</td>
- * <td nowrap>LhaHeader のインスタンスの生成式</td>
+ * <td nowrap>Generator expression for instance of {@link LhaHeader}</td>
  * </tr>
  * </table>
  * <br>
- * 生成式は以下のように定義される。<br>
+ * Generator expressions are defined as follows:<br>
  * <table border="0" cellspacing="4">
  * <tr>
- * <td nowrap>&lt;生成式&gt;</td>
- * <td nowrap>::= &lt;コンストラクタ&gt; | &lt;配列&gt; | &lt;置換文字列&gt; | &lt;クラス名&gt; |
- * &lt;文字列&gt;</td>
+ * <td nowrap>&lt;generator-expression&gt;</td>
+ * <td nowrap>::= &lt;constructor&gt; | &lt;array&gt; | &lt;substitution-string&gt; | &lt;class-name&gt; |
+ * &lt;string&gt;</td>
  * </tr>
  * <tr>
- * <td nowrap>&lt;コンストラクタ&gt;</td>
- * <td nowrap>::= &lt;クラス名&gt; '(' 引数 ')'</td>
+ * <td nowrap>&lt;constructor&gt;</td>
+ * <td nowrap>::= &lt;class-name&gt; '(' argument ')'</td>
  * </tr>
  * <tr>
- * <td nowrap>&lt;引数&gt;</td>
- * <td nowrap>::= [ &lt;生成式&gt; [ ',' &lt;引数&gt; ] ]</td>
+ * <td nowrap>&lt;argument&gt;</td>
+ * <td nowrap>::= [ &lt;generator-expression&gt; [ ',' &lt;argument&gt; ] ]</td>
  * </tr>
  * <tr>
- * <td nowrap>&lt;配列&gt;</td>
- * <td nowrap>::= '[' &lt;要素&gt; ']'</td>
+ * <td nowrap>&lt;array&gt;</td>
+ * <td nowrap>::= '[' &lt;element&gt; ']'</td>
  * </tr>
  * <tr>
- * <td nowrap>&lt;要素&gt;</td>
- * <td nowrap>::= [ &lt;生成式&gt; [ ',' &lt;要素&gt; ] ]</td>
+ * <td nowrap>&lt;element&gt;</td>
+ * <td nowrap>::= [ &lt;generator-expression&gt; [ ',' &lt;element&gt; ] ]</td>
  * </tr>
  * </table>
  * <br>
- * クラス名は "lha.packages" に対応する値を使用して完全修飾名へと変換される。<br>
- * 置換文字列 はライブラリ内部でオブジェクトに置換される文字列で
- * 現在以下の4種類が定義されている。<br>
+ * Class names are converted to fully qualified names using values corresponding to "lha.packages".<br>
+ * Substitution strings are strings that are replaced with objects inside the library, and
+ * the following 4 types are currently defined:<br>
  * <table border="0" cellspacing="4">
  * <tr>
  * <td nowrap>lha.???.encoder</td>
  * <td nowrap>out</td>
- * <td nowrap>圧縮後のデータを受け取る java.io.OutputStream</td>
+ * <td nowrap>java.io.OutputStream that receives compressed data</td>
  * </tr>
  * <tr>
  * <td nowrap rowspan="2">lha.???.decoder</td>
  * <td nowrap>in</td>
- * <td nowrap>圧縮データを供給する java.io.InputStream</td>
+ * <td nowrap>java.io.InputStream that supplies compressed data</td>
  * </tr>
  * <tr>
  * <td nowrap>length</td>
- * <td nowrap>復号化されたデータのバイト数</td>
+ * <td nowrap>Byte length of decoded data</td>
  * </tr>
  * <tr>
  * <td nowrap rowspan="2">lha.header</td>
  * <td nowrap>data</td>
- * <td nowrap>ヘッダデータを格納した byte配列</td>
+ * <td nowrap>byte array storing header data</td>
  * </tr>
  * <tr>
  * <td nowrap>encoding</td>
- * <td nowrap>ヘッダ内の文字データを String に変換する際に使用するエンコーディング</td>
+ * <td nowrap>Encoding used when converting character data in header to {@link String}</td>
  * </tr>
  * </table>
  * <br>
@@ -233,11 +232,11 @@ import jp.gr.java_conf.dangan.lang.reflect.Factory;
  * $Log: LhaProperty.java,v $
  * Revision 1.0.2.2  2005/04/29 02:15:53  dangan
  * [bug fix]
- *     createDefaultProperty() で圧縮法識別子 -lhd- 用のエンコーダどデコーダが設定されていなかった。
+ *     In createDefaultProperty(), encoder and decoder for compression method identifier -lhd- were not configured.
  *
  * Revision 1.0.2.1  2004/06/27 12:09:49  dangan
  * [bugfix]
- *     生成式でカンマを使うべき部分でピリオドを使っていたのを修正。
+ *     Fixed period used instead of comma in generator expression.
  *
  * Revision 1.0  2002/12/05 00:00:00  dangan
  * first edition
@@ -251,28 +250,26 @@ import jp.gr.java_conf.dangan.lang.reflect.Factory;
 public class LhaProperty {
 
     /**
-     * LHA Library for Java の設定を保持するプロパティ
+     * Properties holding settings for LHA Library for Java
      */
     private static final Properties property = LhaProperty.createLhaProperty();
 
     /**
-     * LHA Library for Java 内 で
-     * デフォルトで使用されるエンコーディング
+     * Default encoding used within LHA Library for Java
      */
     public static final String encoding = LhaProperty.property.getProperty("lha.encoding");
 
     /**
-     * デフォルトコンストラクタ使用不可
+     * Default constructor cannot be used.
      */
     private LhaProperty() {
     }
 
     /**
-     * LHA Library for Java のプロパティから
-     * key に対応するものを取得する。
+     * Gets property corresponding to {@code key} from the properties of LHA Library for Java.
      *
-     * @param key プロパティのキー
-     * @return ブロパティの文字列
+     * @param key property key
+     * @return property string
      */
     public static String getProperty(String key) {
         String def = LhaProperty.property.getProperty(key);
@@ -298,9 +295,9 @@ public class LhaProperty {
     }
 
     /**
-     * LHA Library for Java のプロパティのコピーを得る。
+     * Gets a copy of the properties of LHA Library for Java.
      *
-     * @return プロパティのコピー
+     * @return copy of properties
      */
     public static Properties getProperties() {
         Properties property = (Properties) LhaProperty.property.clone();
@@ -334,13 +331,12 @@ public class LhaProperty {
     }
 
     /**
-     * LHA Library for Java のプロパティ用の
-     * 生成式 source を解析して 新しい Object を生成する。
+     * Parses the generator expression {@code source} for properties of LHA Library for Java to generate a new {@link Object}.
      *
-     * @param source 解析すべき生成式
-     * @param substitute 置換対象文字列をkeyにもち、置換するObjectを値に持つ Hashtable
-     * @param packages カンマで区切られたパッケージ名の列挙
-     * @return 生成された Object
+     * @param source generator expression to parse
+     * @param substitute {@link Hashtable} having substitution target strings as keys and substitution {@link Object}s as values
+     * @param packages comma-separated enumeration of package names
+     * @return generated {@link Object}
      */
     public static Object parse(String source, Hashtable<?, ?> substitute, String packages) {
 
@@ -355,13 +351,12 @@ public class LhaProperty {
     }
 
     /**
-     * LHA Library for Java のプロパティ用の
-     * 生成式 source を解析して 新しい Object を生成する。
+     * Parses the generator expression {@code source} for properties of LHA Library for Java to generate a new {@link Object}.
      *
-     * @param source 解析すべき文字列
-     * @param substitute 置換対象文字列をkeyにもち、置換するObjectを値に持つ Hashtable
-     * @param packages パッケージ名の配列
-     * @return 生成された Object
+     * @param source string to parse
+     * @param substitute {@link Hashtable} having substitution target strings as keys and substitution {@link Object}s as values
+     * @param packages array of package names
+     * @return generated {@link Object}
      */
     public static Object parse(String source, Hashtable<?, ?> substitute, String[] packages) {
 
@@ -381,14 +376,13 @@ public class LhaProperty {
     }
 
     /**
-     * LHA Library for Java のプロパティ用の
-     * コンストラクタを示す文字列 source を解析して、
-     * 新しい インスタンスを生成する。
+     * Parses string {@code source} indicating a constructor for properties of LHA Library for Java
+     * to generate a new instance.
      *
-     * @param source 解析すべきコンストラクタを示す文字列
-     * @param substitute 置換対象文字列をkeyにもち、置換するObjectを値に持つ Hashtable
-     * @param packages パッケージ名の配列
-     * @return 生成されたインスタンス
+     * @param source string indicating a constructor to parse
+     * @param substitute {@link Hashtable} having substitution target strings as keys and substitution {@link Object}s as values
+     * @param packages array of package names
+     * @return generated instance
      */
     private static Object parseConstructor(String source, Hashtable<?, ?> substitute, String[] packages) {
 
@@ -462,14 +456,13 @@ public class LhaProperty {
     }
 
     /**
-     * LHA Library for Java のプロパティ用の
-     * 配列を示す文字列 source を解析して、
-     * 新しい Object の配列を生成する。
+     * Parses string {@code source} indicating an array for properties of LHA Library for Java
+     * to generate a new array of {@link Object}.
      *
-     * @param source 解析すべきコンストラクタを示す文字列
-     * @param substitute 置換対象文字列をkeyにもち、置換するObjectを値に持つ Hashtable
-     * @param packages パッケージ名の配列
-     * @return 生成された Object の配列
+     * @param source string indicating a constructor to parse
+     * @param substitute {@link Hashtable} having substitution target strings as keys and substitution {@link Object}s as values
+     * @param packages array of package names
+     * @return generated array of {@link Object}
      */
     private static Object[] parseArray(String source, Hashtable<?, ?> substitute, String[] packages) {
 
@@ -519,12 +512,12 @@ public class LhaProperty {
     }
 
     /**
-     * str をクラス名だと仮定して packages に含まれるパッケージ名と
-     * 連結して完全修飾名を作成する事を試みる。
+     * Assumes {@code str} is a class name and attempts to concatenate it with package names
+     * included in {@code packages} to create a fully qualified name.
      *
-     * @param str クラス名かもしれない文字列
-     * @param packages パッケージ名の列挙
-     * @return 完全修飾名、もしくは str
+     * @param str string that might be a class name
+     * @param packages enumeration of package names
+     * @return fully qualified name, or {@code str}
      */
     private static String applyPackages(String str, String[] packages) {
         for (String aPackage : packages) {
@@ -544,9 +537,9 @@ public class LhaProperty {
     }
 
     /**
-     * LHA Library for Java のプロパティを生成する。
+     * Generates properties for LHA Library for Java.
      *
-     * @return 生成されたプロパティ
+     * @return generated properties
      */
     private static Properties createLhaProperty() {
         String path = "jp.gr.java_conf.dangan.util.lha.resources.lha";
@@ -579,11 +572,10 @@ public class LhaProperty {
     }
 
     /**
-     * LHA Library for Java のデフォルトのプロパティを生成する。
-     * jp/gr/java_conf/dangan/util/lha/resources/ 以下に
-     * 設定ファイルが無かった場合用。
+     * Generates default properties for LHA Library for Java.
+     * For use when there is no configuration file under jp/gr/java_conf/dangan/util/lha/resources/.
      *
-     * @return デフォルトのプロパティ
+     * @return default properties
      */
     private static Properties createDefaultProperty() {
         Properties property = new Properties();
@@ -629,13 +621,12 @@ public class LhaProperty {
     }
 
     /**
-     * System.getProperty( "file.encoding" ) で得られる エンコーディングを返す。
-     * 得られたエンコーディングが 日本語のエンコーディングで、
-     * なおかつShiftJIS系列で無い場合は強制的に "SJIS" を使用する。
-     * セキュリティマネージャが システムプロパティへのアクセスを許さない場合は
-     * "ISO8859_1" を使用する。
+     * Returns the encoding obtained by {@code System.getProperty("file.encoding")}.
+     * If the obtained encoding is Japanese encoding and is not of the ShiftJIS family,
+     * "SJIS" is forcibly used.
+     * If the security manager does not allow access to system properties, "ISO8859_1" is used.
      *
-     * @return System.getProperty( "file.encoding" ) で得られる エンコーディング
+     * @return encoding obtained by {@code System.getProperty("file.encoding")}
      */
     private static String getSystemEncoding() {
         String encoding;
@@ -653,30 +644,30 @@ public class LhaProperty {
     }
 
     /**
-     * encoding が日本語のエンコーディングであるかを返す。
+     * Returns whether {@code encoding} is a Japanese encoding.
      *
-     * @param encoding エンコーディング
-     * @return encoding が日本語のエンコーディングなら true 違えば false
+     * @param encoding encoding
+     * @return {@code true} if {@code encoding} is a Japanese encoding, {@code false} otherwise
      */
     private static boolean isJapanese(String encoding) {
 
         String[] Coverters = {
             "Cp930", // Japanese EBCDIC
             "Cp939", // Japanese EBCDIC
-            "Cp942", // SJIS OS/2 日本語, Cp932 のスーパーセット, 0x5C -> '＼' (半角バックスラッシュ)
-            "Cp942C", // SJIS OS/2 日本語, Cp932 のスーパーセット, 0x5C -> '¥' (半角円記号)
-            "Cp943", // SJIS OS/2 日本語, Cp942 のスーパーセット 新JIS対応, 0x5C -> '＼' (半角バックスラッシュ)
-            "Cp943C", // SJIS OS/2 日本語, Cp942 のスーパーセット 新JIS対応, 0x5C -> '¥' (半角円記号)
-            "Cp33722", // EUC IBM 日本語,
-            "MS932", // Windows 日本語
-            "SJIS", // Shift-JIS、日本語
-            "EUC_JP", // EUC, 日本語 JIS X 0201, 0208, 0212
-            "ISO2022JP", // JIS X 0201, ISO 2022 形式の 0208、日本語
-            "JIS0201", // JIS X 0201, 日本語
-            "JIS0208", // JIS X 0208, 日本語
-            "JIS0212", // JIS X 0212, 日本語
+            "Cp942", // SJIS OS/2 Japanese, superset of Cp932, 0x5C -> '\' (halfwidth backslash)
+            "Cp942C", // SJIS OS/2 Japanese, superset of Cp932, 0x5C -> '¥' (halfwidth yen sign)
+            "Cp943", // SJIS OS/2 Japanese, superset of Cp942, supporting new JIS, 0x5C -> '\' (halfwidth backslash)
+            "Cp943C", // SJIS OS/2 Japanese, superset of Cp942, supporting new JIS, 0x5C -> '¥' (halfwidth yen sign)
+            "Cp33722", // EUC IBM Japanese
+            "MS932", // Windows Japanese
+            "SJIS", // Shift-JIS, Japanese
+            "EUC_JP", // EUC, Japanese JIS X 0201, 0208, 0212
+            "ISO2022JP", // JIS X 0201, ISO 2022 format 0208, Japanese
+            "JIS0201", // JIS X 0201, Japanese
+            "JIS0208", // JIS X 0208, Japanese
+            "JIS0212", // JIS X 0212, Japanese
             "JISAutoDetect"
-        }; // Shift-JIS EUC-JP ISO 2022 JP の検出および変換。読み込み専用。
+        }; // Shift-JIS EUC-JP ISO 2022 JP detection and conversion. Read-only.
         for (String coverter : Coverters) {
             if (encoding.equals(coverter)) {
                 return true;
@@ -714,21 +705,21 @@ public class LhaProperty {
     }
 
     /**
-     * encoding が ShiftJIS 系列のエンコーディングであるかを返す。
+     * Returns whether {@code encoding} is a ShiftJIS-family encoding.
      *
-     * @param encoding エンコーディング
-     * @return encoding が日本語のエンコーディングなら true 違えば false
+     * @param encoding encoding
+     * @return {@code true} if {@code encoding} is a Japanese encoding, {@code false} otherwise
      */
     private static boolean isCategoryOfShiftJIS(String encoding) {
 
         String[] Coverters = {
-            "Cp942", // SJIS OS/2 日本語, Cp932 のスーパーセット, 0x5C -> '＼' (半角バックスラッシュ)
-            "Cp942C", // SJIS OS/2 日本語, Cp932 のスーパーセット, 0x5C -> '¥' (半角円記号)
-            "Cp943", // SJIS OS/2 日本語, Cp942 のスーパーセット 新JIS対応, 0x5C -> '＼' (半角バックスラッシュ)
-            "Cp943C", // SJIS OS/2 日本語, Cp942 のスーパーセット 新JIS対応, 0x5C -> '¥' (半角円記号)
-            "MS932", // Windows 日本語
+            "Cp942", // SJIS OS/2 Japanese, superset of Cp932, 0x5C -> '\' (halfwidth backslash)
+            "Cp942C", // SJIS OS/2 Japanese, superset of Cp932, 0x5C -> '¥' (halfwidth yen sign)
+            "Cp943", // SJIS OS/2 Japanese, superset of Cp942, supporting new JIS, 0x5C -> '\' (halfwidth backslash)
+            "Cp943C", // SJIS OS/2 Japanese, superset of Cp942, supporting new JIS, 0x5C -> '¥' (halfwidth yen sign)
+            "MS932", // Windows Japanese
             "SJIS"
-        }; // Shift-JIS、日本語
+        }; // Shift-JIS, Japanese
         for (String coverter : Coverters) {
             if (encoding.equals(coverter)) {
                 return true;

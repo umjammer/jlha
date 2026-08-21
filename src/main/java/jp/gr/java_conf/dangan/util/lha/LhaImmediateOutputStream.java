@@ -41,17 +41,17 @@ import java.util.Properties;
 
 
 /**
- * 接続されたRandomAccessFileに 圧縮データを出力するためのユーティリティクラス。<br>
- * java.util.zip.ZipOutputStream と似たインターフェイスを持つように作った。<br>
- * 圧縮失敗時( 圧縮後サイズが圧縮前サイズを上回った場合 )の処理を
- * 手動で行わなければならない。
- * 以下に そのようなコードを示す。
+ * Utility class for outputting compressed data to a connected {@link RandomAccessFile}.<br>
+ * Designed to have an interface similar to {@link java.util.zip.ZipOutputStream}.<br>
+ * Processing when compression fails (when compressed size exceeds original size)
+ * must be handled manually.
+ * The following shows such code.
  *
  * <pre>
  * LhaCompressFiles( String arcfile, File[] files ){
  *   LhaImmediateOutputStream lio = new LhaImmediateOutputStream( arcfile );
  *
- *   for( int i = 0 ; i &lt files.length ; i++ ){
+ *   for( int i = 0 ; i &lt; files.length ; i++ ){
  *     RandomAccessFile raf = new RandomAccessFile( files[i] );
  *     LhaHeader header = new LhaHeader( files[i].getName() );
  *     header.setLastModified( new Date( files.lastModified() ) );
@@ -59,7 +59,7 @@ import java.util.Properties;
  *     byte[] buffer  = new byte[8192];
  *     int    length;
  *
- *     while( 0 &lt= ( length = raf.read( buffer ) ) ){
+ *     while( 0 &lt;= ( length = raf.read( buffer ) ) ){
  *         lio.write( buffer, 0, length );
  *     }
  * <strong>
@@ -67,7 +67,7 @@ import java.util.Properties;
  *       header.setCompressMethod( CompressMethod.LH0 );
  *       lio.putNextEntry( lhaheader );
  *       raf.seek( 0 );
- *       while( 0 &lt= ( length = raf.read( buffer ) ) ){
+ *       while( 0 &lt;= ( length = raf.read( buffer ) ) ){
  *           lio.write( buffer, 0, length );
  *       }
  *       lio.closeEntry();
@@ -77,33 +77,32 @@ import java.util.Properties;
  * }
  * </pre>
  * <p>
- * 進捗報告を実装する場合、このような処理をクラス内に隠蔽すると進捗報告は何秒間か
- * 時によっては何十分も応答しなくなる。(例えばギガバイト級のデータを扱った場合)
- * LhaRetainedOutputStream で発生する、このような事態を避けるために設計されている。<br>
- * また、JDK 1.1 以前では RandomAccessFile が setLength を持たないため、
- * 書庫データの後ろに他のデータがある場合でもファイルサイズを切り詰めることが出来ない。<br>
- * この問題点は常にサイズ0の新しいファイルを開く事によって回避する事ができる。
+ * When implementing progress reporting, hiding such processing inside the class will cause progress reporting
+ * to become unresponsive for several seconds or even tens of minutes (for example, when dealing with gigabyte-class data).
+ * This class is designed to avoid such situations that occur in {@link LhaRetainedOutputStream}.<br>
+ * Also, in JDK 1.1 and earlier, {@link RandomAccessFile} does not have {@code setLength}, so the file size cannot be truncated
+ * even if there is other data following the archive data.<br>
+ * This problem can be avoided by always opening a new file of size 0.
  *
  * <pre>
  * -- revision history --
  * $Log: LhaImmediateOutputStream.java,v $
  * Revision 1.2  2002/12/11 02:25:06  dangan
  * [bug fix]
- *     jdk1.2 でコンパイルできなかった箇所を修正。
+ *     Fixed parts that failed to compile on JDK 1.2.
  *
  * Revision 1.1  2002/12/08 00:00:00  dangan
  * [maintenance]
- *     LhaConstants から CompressMethod へのクラス名の変更に合わせて修正。
+ *     Updated to reflect the class name change from LhaConstants to CompressMethod.
  *
  * Revision 1.0  2002/08/05 00:00:00  dangan
  * add to version control
  * [change]
- *     コンストラクタから 引数に String encode を取るものを廃止、
- *     Properties を引数に取るものを追加。
+ *     Deprecated constructors taking String encode and added ones taking Properties.
  * [maintenance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
+ *     Source cleanup.
+ *     Eliminated tabs.
+ *     Updated license text.
  *
  * </pre>
  *
@@ -115,48 +114,47 @@ public class LhaImmediateOutputStream extends OutputStream {
     private static final Logger logger = System.getLogger(LhaImmediateOutputStream.class.getName());
 
     /**
-     * 書庫ファイル
+     * Archive file
      */
     private RandomAccessFile archive;
 
     /**
-     * 圧縮用出力ストリーム
+     * Compression output stream
      */
     private OutputStream out;
 
     /**
-     * 現在圧縮中のヘッダ
+     * Header currently being compressed
      */
     private LhaHeader header;
 
     /**
-     * ヘッダの出力に使用したエンコーディング
+     * Encoding used for header output
      */
     private String encoding;
 
     /**
-     * ヘッダ位置
+     * Header position
      */
     private long headerpos;
 
     /**
-     * CRC値算出用
+     * For CRC value calculation
      */
     private CRC16 crc;
 
     /**
-     * 各圧縮形式に対応した符号器の生成式等が含まれるプロパティ
+     * Properties containing encoder generator expressions corresponding to each compression format
      */
     private Properties property;
 
     /**
-     * filename のファイルに 圧縮データを出力するOutputStreamを構築する。<br>
-     * 各圧縮形式に対応した符号器の生成式等を持つプロパティには
-     * LhaProperty.getProperties() で得られたプロパティが使用される。
+     * Constructs an {@link OutputStream} that outputs compressed data to the file {@code filename}.<br>
+     * Properties obtained with {@link LhaProperty#getProperties()} are used as properties having generator expressions of encoders corresponding to each compression format.
      *
-     * @param filename 圧縮データを書きこむファイルの名前
-     * @throws FileNotFoundException filename で与えられたファイルが見つからない場合。
-     * @throws SecurityException     セキュリティマネージャがファイルへのアクセスを許さない場合。
+     * @param filename name of file to write compressed data to
+     * @throws FileNotFoundException if the file given by {@code filename} is not found
+     * @throws SecurityException     if security manager denies access to the file
      * @see LhaProperty#getProperties()
      */
     public LhaImmediateOutputStream(String filename) throws FileNotFoundException {
@@ -172,12 +170,12 @@ public class LhaImmediateOutputStream extends OutputStream {
     }
 
     /**
-     * filename のファイルに 圧縮データを出力するOutputStreamを構築する。
+     * Constructs an {@link OutputStream} that outputs compressed data to the file {@code filename}.
      *
-     * @param filename 圧縮データを書きこむファイルの名前
-     * @param property 各圧縮形式に対応した符号器の生成式等が含まれるプロパティ
-     * @throws FileNotFoundException filename で与えられたファイルが見つからない場合。
-     * @throws SecurityException     セキュリティマネージャがファイルへのアクセスを許さない場合。
+     * @param filename name of file to write compressed data to
+     * @param property properties containing generator expressions of encoders corresponding to each compression format
+     * @throws FileNotFoundException if the file given by {@code filename} is not found
+     * @throws SecurityException     if security manager denies access to the file
      * @see LhaProperty
      */
     public LhaImmediateOutputStream(String filename, Properties property) throws FileNotFoundException {
@@ -191,14 +189,13 @@ public class LhaImmediateOutputStream extends OutputStream {
     }
 
     /**
-     * filename のファイルに 圧縮データを出力するOutputStreamを構築する。<br>
-     * 各圧縮形式に対応した符号器の生成式等を持つプロパティには
-     * LhaProperty.getProperties() で得られたプロパティが使用される。
+     * Constructs an {@link OutputStream} that outputs compressed data to the file {@code filename}.<br>
+     * Properties obtained with {@link LhaProperty#getProperties()} are used as properties having generator expressions of encoders corresponding to each compression format.
      *
-     * @param filename 圧縮データを書きこむファイルの名前
-     * @throws FileNotFoundException filename で与えられたファイルが見つからない場合。
-     * @throws SecurityException     セキュリティマネージャがファイルへのアクセスを許さない場合。
-     * @throws IOException           JDK1.2 でコンパイルするためだけに存在する。
+     * @param filename name of file to write compressed data to
+     * @throws FileNotFoundException if the file given by {@code filename} is not found
+     * @throws SecurityException     if security manager denies access to the file
+     * @throws IOException           exists only for compilation in JDK 1.2
      * @see LhaProperty#getProperties()
      */
     public LhaImmediateOutputStream(File filename) throws IOException {
@@ -214,13 +211,13 @@ public class LhaImmediateOutputStream extends OutputStream {
     }
 
     /**
-     * filename のファイルに 圧縮データを出力するOutputStreamを構築する。
+     * Constructs an {@link OutputStream} that outputs compressed data to the file {@code filename}.
      *
-     * @param filename 圧縮データを書きこむファイルの名前
-     * @param property 各圧縮形式に対応した符号器の生成式等が含まれるプロパティ
-     * @throws FileNotFoundException filename で与えられたファイルが見つからない場合。
-     * @throws SecurityException     セキュリティマネージャがファイルへのアクセスを許さない場合。
-     * @throws IOException           JDK1.2 でコンパイルするためだけに存在する。
+     * @param filename name of file to write compressed data to
+     * @param property properties containing generator expressions of encoders corresponding to each compression format
+     * @throws FileNotFoundException if the file given by {@code filename} is not found
+     * @throws SecurityException     if security manager denies access to the file
+     * @throws IOException           exists only for compilation in JDK 1.2
      * @see LhaProperty
      */
     public LhaImmediateOutputStream(File filename, Properties property) throws IOException {
@@ -234,17 +231,15 @@ public class LhaImmediateOutputStream extends OutputStream {
     }
 
     /**
-     * fileに 圧縮データを出力するOutputStreamを構築する。<br>
-     * 各圧縮形式に対応した符号器の生成式等を持つプロパティには
-     * LhaProperty.getProperties() で得られたプロパティが使用される。
+     * Constructs an {@link OutputStream} that outputs compressed data to {@code file}.<br>
+     * Properties obtained with {@link LhaProperty#getProperties()} are used as properties having generator expressions of encoders corresponding to each compression format.
      *
-     * @param file RandomAccessFile のインスタンス。
+     * @param file instance of {@link RandomAccessFile}.
+     *             Must satisfy:
      *             <ul>
-     *             <li>既に close() されていない事。
-     *             <li>コンストラクタの mode には "rw" オプションを使用して、
-     *             読みこみと書きこみが出来るように生成されたインスタンスであること。
+     *             <li>Must not be already closed.
+     *             <li>Must be instantiated with mode "rw" in constructor to enable reading and writing.
      *             </ul>
-     *             の条件を満たすもの。
      * @see LhaProperty#getProperties()
      */
     public LhaImmediateOutputStream(RandomAccessFile file) {
@@ -258,18 +253,15 @@ public class LhaImmediateOutputStream extends OutputStream {
     }
 
     /**
-     * fileに 圧縮データを出力するOutputStreamを構築する。<br>
-     * 各圧縮形式に対応した符号器の生成式等を持つプロパティには
-     * LhaProperty.getProperties() で得られたプロパティが使用される。
+     * Constructs an {@link OutputStream} that outputs compressed data to {@code file}.<br>
      *
-     * @param file     RandomAccessFile のインスタンス。
+     * @param file     instance of {@link RandomAccessFile}.
+     *                 Must satisfy:
      *                 <ul>
-     *                 <li>既に close() されていない事。
-     *                 <li>コンストラクタの mode には "rw" オプションを使用して、
-     *                 読みこみと書きこみが出来るように生成されたインスタンスであること。
+     *                 <li>Must not be already closed.
+     *                 <li>Must be instantiated with mode "rw" in constructor to enable reading and writing.
      *                 </ul>
-     *                 の条件を満たすもの。
-     * @param property 各圧縮形式に対応した符号器の生成式等が含まれるプロパティ
+     * @param property properties containing generator expressions of encoders corresponding to each compression format
      * @see LhaProperty
      */
     public LhaImmediateOutputStream(RandomAccessFile file, Properties property) {
@@ -287,16 +279,15 @@ public class LhaImmediateOutputStream extends OutputStream {
     }
 
     /**
-     * コンストラクタの初期化処理を担当するメソッド。
+     * Helper method responsible for constructor initialization.
      *
-     * @param file     RandomAccessFile のインスタンス。
+     * @param file     instance of {@link RandomAccessFile}.
+     *                 Must satisfy:
      *                 <ul>
-     *                 <li>既に close() されていない事。
-     *                 <li>コンストラクタの mode には "rw" オプションを使用して、
-     *                 読みこみと書きこみが出来るように生成されたインスタンスであること。
+     *                 <li>Must not be already closed.
+     *                 <li>Must be instantiated with mode "rw" in constructor to enable reading and writing.
      *                 </ul>
-     *                 の条件を満たすもの。
-     * @param property 各圧縮形式に対応した符号器の生成式等が含まれるプロパティ
+     * @param property properties containing generator expressions of encoders corresponding to each compression format
      */
     private void constructerHelper(RandomAccessFile file, Properties property) {
 
@@ -310,10 +301,10 @@ public class LhaImmediateOutputStream extends OutputStream {
     }
 
     /**
-     * 現在のエントリに1バイトのデータを書きこむ。
+     * Writes 1 byte of data to the current entry.
      *
-     * @param data 書きこむデータ
-     * @throws IOException 入出力エラーが発生した場合。
+     * @param data data to write
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void write(int data) throws IOException {
@@ -329,10 +320,10 @@ public class LhaImmediateOutputStream extends OutputStream {
     }
 
     /**
-     * 現在のエントリに bufferの内容を全て書き出す。
+     * Writes all contents of {@code buffer} to the current entry.
      *
-     * @param buffer 書き出すデータの入ったバイト配列
-     * @throws IOException 入出力エラーが発生した場合。
+     * @param buffer byte array containing data to write
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void write(byte[] buffer) throws IOException {
@@ -340,13 +331,12 @@ public class LhaImmediateOutputStream extends OutputStream {
     }
 
     /**
-     * 現在のエントリに bufferの indexから
-     * lengthバイトのデータを書き出す。
+     * Writes {@code length} bytes of data starting from {@code index} of {@code buffer} to the current entry.
      *
-     * @param buffer 書き出すデータの入ったバイト配列
-     * @param index  buffer内の書き出すべきデータの開始位置
-     * @param length データのバイト数
-     * @throws IOException 入出力エラーが発生した場合。
+     * @param buffer byte array containing data to write
+     * @param index  start position of data to write in {@code buffer}
+     * @param length number of bytes of data
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void write(byte[] buffer, int index, int length) throws IOException {
@@ -362,12 +352,12 @@ public class LhaImmediateOutputStream extends OutputStream {
     }
 
     /**
-     * 現在書き込み中のエントリのデータを強制的に出力先に書き出す。
-     * これは PostLzssEncoder, LzssOutputStream の規約どおり
-     * flush() しなかった場合とは別のデータを出力する。
-     * (大抵の場合は 単に圧縮率が低下するだけである。)
+     * Forces data of the currently writing entry to be written to destination.
+     * According to the contract of {@link PostLzssEncoder} and {@link LzssOutputStream},
+     * this outputs different data than when {@link #flush()} is not called.
+     * (In most cases, it simply reduces the compression ratio.)
      *
-     * @throws IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      * @see PostLzssEncoder#flush()
      * @see LzssOutputStream#flush()
      */
@@ -381,10 +371,10 @@ public class LhaImmediateOutputStream extends OutputStream {
     }
 
     /**
-     * 出力先に全てのデータを出力し、ストリームを閉じる。<br>
-     * また、使用していた全てのリソースを解放する。
+     * Outputs all data to destination and closes the stream.<br>
+     * Also releases all resources used.
      *
-     * @throws IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void close() throws IOException {
@@ -392,7 +382,7 @@ public class LhaImmediateOutputStream extends OutputStream {
             this.closeEntry();
         }
 
-        // ターミネータを出力
+        // Output terminator
         this.archive.write(0);
         try {
             this.archive.setLength(this.archive.getFilePointer());
@@ -408,22 +398,20 @@ public class LhaImmediateOutputStream extends OutputStream {
     }
 
     /**
-     * 新しいエントリを書き込むようにストリームを設定する。<br>
-     * このメソッドは 既に圧縮済みのエントリの場合は
-     * putNextEntryAlreadyCompressed(),
-     * 未だに圧縮されていない場合は
-     * putNextEntryNotYetCompressed() を呼び出す。<br>
-     * 圧縮されているかの判定は、
+     * Sets up the stream to write a new entry.<br>
+     * This method calls {@link #putNextEntryAlreadyCompressed(LhaHeader)} if the entry is already compressed,
+     * or {@link #putNextEntryNotYetCompressed(LhaHeader)} if it is not yet compressed.<br>
+     * Judged as not yet compressed if any of:
      * <ul>
-     * <li>header.getCompressedSize()<br>
-     * <li>header.getCRC()<br>
+     * <li>{@code header.getCompressedSize()}
+     * <li>{@code header.getCRC()}
      * </ul>
-     * のどれか一つでも LhaHeader.UNKNOWN であれば未だに圧縮されていないとする。<br>
-     * header には正確な OriginalSize が指定されている必要がある。
+     * is {@link LhaHeader#UNKNOWN}.<br>
+     * {@code header} must have an accurate {@code OriginalSize} specified.
      *
-     * @param header 書きこむエントリについての情報を持つLhaHeaderのインスタンス。
-     * @throws IOException              入出力エラーが発生した場合
-     * @throws IllegalArgumentException header.getOriginalSize() が LhaHeader.UNKNOWN を返す場合
+     * @param header instance of {@link LhaHeader} having information about the entry to write
+     * @throws IOException              if an I/O error occurs
+     * @throws IllegalArgumentException if {@code header.getOriginalSize()} returns {@link LhaHeader#UNKNOWN}
      */
     public void putNextEntry(LhaHeader header) throws IOException {
         if (header.getCompressedSize() == LhaHeader.UNKNOWN || header.getCRC() == LhaHeader.UNKNOWN) {
@@ -434,18 +422,17 @@ public class LhaImmediateOutputStream extends OutputStream {
     }
 
     /**
-     * 既に圧縮済みのエントリを書きこむようにストリームを設定する。<br>
-     * 圧縮済みデータが正しい事は、呼び出し側が保証する事。
+     * Sets up the stream to write an already compressed entry.<br>
+     * Caller must guarantee that compressed data is correct.
      *
-     * @param header 書きこむエントリについての情報を持つLhaHeaderのインスタンス。
-     * @throws IOException              入出力エラーが発生した場合
+     * @param header instance of {@link LhaHeader} having information about the entry to write
+     * @throws IOException              if an I/O error occurs
      * @throws IllegalArgumentException <ol>
-     *                                                 <li>header.getOriginalSize() が LhaHeader.UNKNOWN を返す場合
-     *                                                 <li>header.getComressedSize() が LhaHeader.UNKNOWN を返す場合
-     *                                                 <li>header.getCRC() が LhaHeader.UNKNOWN を返す場合
-     *                                                 </ol>
-     *                                                 の何れか。
-     * @throws IllegalStateException    以前のエントリが未だに closeEntry() されていない場合
+     *                                  <li>if {@code header.getOriginalSize()} returns {@link LhaHeader#UNKNOWN}
+     *                                  <li>if {@code header.getCompressedSize()} returns {@link LhaHeader#UNKNOWN}
+     *                                  <li>if {@code header.getCRC()} returns {@link LhaHeader#UNKNOWN}
+     *                                  </ol>
+     * @throws IllegalStateException    if previous entry has not been closed by {@link #closeEntry()}
      */
     public void putNextEntryAlreadyCompressed(LhaHeader header) throws IOException {
 
@@ -478,16 +465,14 @@ public class LhaImmediateOutputStream extends OutputStream {
     }
 
     /**
-     * 未だに圧縮されていないエントリを書きこむようにストリームを
-     * 設定する。header に CompressedSize,CRCが指定されていても無
-     * 視される。このメソッドに渡される header には
-     * LhaHeader.setOriginalSize() を用いて 正確なオリジナルサイズ
-     * が指定されている必要がある。
+     * Sets up the stream to write an entry not yet compressed.
+     * Even if {@code CompressedSize} or {@code CRC} is specified in {@code header}, they are ignored.
+     * The {@code header} passed to this method must have the accurate original size specified using {@link LhaHeader#setOriginalSize(long)}.
      *
-     * @param header 書きこむエントリについての情報を持つLhaHeaderのインスタンス。
-     * @throws IOException              入出力エラーが発生した場合
-     * @throws IllegalArgumentException header.getOriginalSize() がLhaHeader.UNKNOWN を返した場合
-     * @throws IllegalStateException    以前のエントリが未だにcloseEntry() されていない場合
+     * @param header instance of {@link LhaHeader} having information about the entry to write
+     * @throws IOException              if an I/O error occurs
+     * @throws IllegalArgumentException if {@code header.getOriginalSize()} returns {@link LhaHeader#UNKNOWN}
+     * @throws IllegalStateException    if previous entry has not been closed by {@link #closeEntry()}
      */
     public void putNextEntryNotYetCompressed(LhaHeader header) throws IOException {
 
@@ -520,18 +505,15 @@ public class LhaImmediateOutputStream extends OutputStream {
     }
 
     /**
-     * 現在出力中のエントリを閉じ、次のエントリが出力可能な状態にする。<br>
-     * putNextEntryNotYetCompressed() で開いたエントリを閉じる場合
-     * このメソッドは圧縮に失敗した(圧縮後サイズが圧縮前サイズを上回った)場合、
-     * エントリ全体を書き込み先 の RandomAccessFile から削除する。<br>
-     * この削除処理は単に ファイルポインタを エントリ開始位置まで巻き戻すだけなので
-     * RandomAccessFile に setLength() が無い jdk1.1 以前では
-     * エントリを無圧縮(もしくは他の圧縮法)で再出力しない場合、
-     * 書庫データの終端以降に圧縮に失敗した不完全なデータが残ったままになる。
+     * Closes the currently outputting entry and prepares the stream to output the next entry.<br>
+     * When closing an entry opened with {@link #putNextEntryNotYetCompressed(LhaHeader)},
+     * if compression fails (compressed size exceeds original size), this method deletes the entire entry from destination {@link RandomAccessFile}.<br>
+     * Since this deletion simply rewinds the file pointer to the entry start position, in JDK 1.1 and earlier where {@link RandomAccessFile} lacks {@code setLength()},
+     * unless the entry is re-output uncompressed (or with another compression method), incomplete data from the failed compression will remain after the archive end.
      *
-     * @return エントリが出力された場合は true、圧縮前よりも圧縮後の方がサイズが大きくなったため、エントリが削除された場合は false。
-     * また、現在処理中のエントリが無かった場合も true を返す。
-     * @throws IOException 入出力エラーが発生した場合
+     * @return {@code true} if entry was output, {@code false} if entry was deleted because compressed size became larger than before compression.
+     * Also returns {@code true} if there was no entry currently being processed.
+     * @throws IOException if an I/O error occurs
      */
     public boolean closeEntry() throws IOException {
         if (this.out != null) {
@@ -573,31 +555,31 @@ public class LhaImmediateOutputStream extends OutputStream {
     }
 
     /**
-     * RandomAccessFileをOutputStreamのインタフェイスに合わせるためのラッパクラス
+     * Wrapper class to adapt {@link RandomAccessFile} to the {@link OutputStream} interface.
      */
     private static class RandomAccessFileOutputStream extends OutputStream {
 
         /**
-         * 出力先RandomAccessFile
+         * Destination {@link RandomAccessFile}
          */
         private RandomAccessFile archive;
 
         /**
-         * 現在処理位置
+         * Current processing position
          */
         private long pos;
 
         /**
-         * 格納限界
+         * Storage limit
          */
         private final long limit;
 
         /**
-         * RandomAccessFile をラップした OutputStream を構築する。
+         * Constructs an {@link OutputStream} wrapping {@link RandomAccessFile}.
          *
-         * @param archive 出力先のRandomAccessFile
-         * @param length  出力限界長
-         * @throws IOException 入出力エラーエラーが発生した場合
+         * @param archive destination {@link RandomAccessFile}
+         * @param length  output limit length
+         * @throws IOException if an I/O error occurs
          */
         public RandomAccessFileOutputStream(RandomAccessFile archive, long length) throws IOException {
             this.archive = archive;
@@ -606,12 +588,11 @@ public class LhaImmediateOutputStream extends OutputStream {
         }
 
         /**
-         * 接続されたRandomAccessFileに1バイト書きこむ。<br>
-         * コンストラクタに渡された限界を超えて書き込もうとした場合は
-         * 何も行わない。
+         * Writes 1 byte to connected {@link RandomAccessFile}.<br>
+         * Does nothing if attempting to write beyond the limit passed to constructor.
          *
-         * @param data 書きこむ1byteのデータ
-         * @throws IOException 入出力エラーが発生した場合
+         * @param data 1 byte of data to write
+         * @throws IOException if an I/O error occurs
          */
         @Override
         public void write(int data) throws IOException {
@@ -622,12 +603,11 @@ public class LhaImmediateOutputStream extends OutputStream {
         }
 
         /**
-         * 接続されたRandomAccessFileにbufferの内容を全て書きこむ。
-         * コンストラクタに渡された限界を超えて書き込もうとした場合は
-         * 何も行わない。
+         * Writes all contents of {@code buffer} to connected {@link RandomAccessFile}.
+         * Does nothing if attempting to write beyond the limit passed to constructor.
          *
-         * @param buffer 書きこむデータの入ったバイト配列
-         * @throws IOException 入出力エラーが発生した場合
+         * @param buffer byte array containing data to write
+         * @throws IOException if an I/O error occurs
          */
         @Override
         public void write(byte[] buffer) throws IOException {
@@ -635,14 +615,13 @@ public class LhaImmediateOutputStream extends OutputStream {
         }
 
         /**
-         * 接続されたRandomAccessFileにbufferの内容をindexから lengthバイト書きこむ。
-         * コンストラクタに渡された限界を超えて書き込もうとした場合は
-         * 何も行わない。
+         * Writes {@code length} bytes of contents of {@code buffer} starting from {@code index} to connected {@link RandomAccessFile}.
+         * Does nothing if attempting to write beyond the limit passed to constructor.
          *
-         * @param buffer 書きこむデータの入ったバイト配列
-         * @param index  buffer内の書きこむデータの開始位置
-         * @param length 書きこむデータ量
-         * @throws IOException 入出力エラーが発生した場合
+         * @param buffer byte array containing data to write
+         * @param index  start position of data to write in {@code buffer}
+         * @param length amount of data to write
+         * @throws IOException if an I/O error occurs
          */
         @Override
         public void write(byte[] buffer, int index, int length) throws IOException {
@@ -655,7 +634,7 @@ public class LhaImmediateOutputStream extends OutputStream {
         }
 
         /**
-         * このストリームを閉じて 使用していたリソースを開放する。
+         * Closes this stream and releases resources used.
          */
         @Override
         public void close() {

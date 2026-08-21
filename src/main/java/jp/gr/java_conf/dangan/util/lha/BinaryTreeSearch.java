@@ -35,22 +35,23 @@ import java.util.Arrays;
 
 
 /**
- * 二分木を使用した LzssSearchMethod の実装。
+ * Implementation of {@link LzssSearchMethod} using a binary tree.
  *
  * <pre>
- * データ圧縮ハンドブック[改定第二版]
- *        M.ネルソン/J.-L.ゲィリー 著
- *                萩原剛志・山口英 訳
+ * Reference:
+ * Data Compression Handbook [Revised 2nd Edition]
+ *        Written by M. Nelson / J.-L. Gailly
+ *        Translated by Takeshi Hagiwara / Suguru Yamaguchi
  *                  ISBN4-8101-8605-9
- *                             5728円(税抜き,当方の購入当時の価格)
+ *                             5728 yen (excluding tax, price at time of purchase)
  * </pre>
  *
- * を参考にした。<br>
- * 二分木では、最長一致を見つけることはできるが、
- * 最も近い一致を見つけられるとは限らないため、
- * LZSSで 一致位置が近い場所に偏る事を
- * 利用するような -lh5- のような圧縮法では、
- * 圧縮率はいくらか低下する。
+ * was used as reference.<br>
+ * With a binary tree, while the longest match can be found,
+ * it is not guaranteed to find the closest match.
+ * Therefore, in compression methods like -lh5- that exploit
+ * the tendency of LZSS match positions to be clustered nearby,
+ * the compression ratio may be somewhat degraded.
  *
  * <pre>
  * -- revision history --
@@ -58,11 +59,11 @@ import java.util.Arrays;
  * Revision 1.0  2002/08/06 00:00:00  dangan
  * add to version control
  * [change]
- *     LzssSearchMethod のインタフェイス変更にあわせてインタフェイス変更
+ *     Interface change to match {@link LzssSearchMethod} interface change
  * [maintenance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
+ *     source maintenance
+ *     tab removal
+ *     license comment update
  *
  * </pre>
  *
@@ -72,79 +73,78 @@ import java.util.Arrays;
 public class BinaryTreeSearch implements LzssSearchMethod {
 
     /**
-     * 使用されていない事を示す値。
-     * parent[node] に UNUSED がある場合は node は未使用のnodeである。
-     * small[node], large[node] に UNUSED がある場合は
-     * 二分木のそちら側には節が無い事を示す。
+     * Value indicating that it is not used.
+     * If {@code parent[node]} is {@link #UNUSED}, {@code node} is an unused node.
+     * If {@code small[node]} or {@code large[node]} is {@link #UNUSED},
+     * it indicates that there is no node on that side of the binary tree.
      */
     private static final int UNUSED = -1;
 
     /**
-     * 二分木の根を示す値。
-     * parent[node] に ROOT_NODE がある場合は node は二分木の根である。
+     * Value indicating the root of the binary tree.
+     * If {@code parent[node]} is {@link #ROOT_NODE}, {@code node} is the root of the binary tree.
      */
     private static final int ROOT_NODE = -2;
 
     /**
-     * LZSS辞書サイズ。
+     * LZSS dictionary size.
      */
     private final int DictionarySize;
 
     /**
-     * LZSS圧縮に使用される値。
-     * 最大一致長を示す。
+     * Value used for LZSS compression.
+     * Indicates maximum match length.
      */
     private final int MaxMatch;
 
     /**
-     * LZSS圧縮に使用される閾値。
-     * 一致長が この値以上であれば、圧縮コードを出力する。
+     * Threshold used for LZSS compression.
+     * If the match length is greater than or equal to this value, compression code is output.
      */
     private final int Threshold;
 
     /**
-     * LZSS圧縮を施すためのバッファ。
-     * position を境に 前半は辞書領域、
-     * 後半は圧縮を施すためのデータの入ったバッファ。
-     * LzssSearchMethodの実装内では読み込みのみ許される。
+     * Buffer for applying LZSS compression.
+     * With {@code position} as the boundary, the first half is the dictionary area,
+     * and the second half is the buffer containing data to be compressed.
+     * Only read access is permitted within implementations of {@link LzssSearchMethod}.
      */
     private final byte[] TextBuffer;
 
     /**
-     * 辞書の限界位置。
-     * TextBuffer前半の辞書領域にデータが無い場合に
-     * 辞書領域にある不定のデータ(Javaでは0)を使用
-     * して圧縮が行われるのを抑止する。
+     * Dictionary limit position.
+     * When there is no data in the dictionary area in the first half of {@link #TextBuffer},
+     * this prevents compression from using undefined data (0 in Java) in the dictionary area.
      */
     private int DictionaryLimit;
 
     /**
-     * 二分木の根のデータパタンの開始位置を示す。
+     * Indicates start position of the data pattern of the binary tree root.
      */
     private int root;
 
     /**
-     * 親のデータパタンの開始位置を示す。
+     * Indicates start position of the parent's data pattern.
      */
     private final int[] parent;
 
     /**
-     * 小さい子のデータパタンの開始位置を示す。
+     * Indicates start position of the small child's data pattern.
      */
     private final int[] small;
 
     /**
-     * 大きい子のデータパタンの開始位置を示す。
+     * Indicates start position of the large child's data pattern.
      */
     private final int[] large;
 
     /**
-     * 二分木を使用した LzssSearchMethod を構築する。
+     * Constructs a {@link LzssSearchMethod} using a binary tree.
      *
-     * @param DictionarySize 辞書サイズ
-     * @param MaxMatch 最長一致長
-     * @param Threshold 圧縮、非圧縮の閾値
-     * @param TextBuffer LZSS圧縮を施すためのバッファ
+     * @param DictionarySize dictionary size
+     * @param MaxMatch maximum match length
+     * @param Threshold threshold between compression and non-compression
+     * @param TextBuffer buffer for applying LZSS compression
      */
     public BinaryTreeSearch(int DictionarySize, int MaxMatch, int Threshold, byte[] TextBuffer) {
 
@@ -163,17 +163,17 @@ public class BinaryTreeSearch implements LzssSearchMethod {
     }
 
     /**
-     * position から始まるデータパタンを二分木に登録する。
+     * Registers the data pattern starting from {@code position} into the binary tree.
      *
-     * @param position TextBuffer内のデータパタンの開始位置
+     * @param position start position of the data pattern in {@link #TextBuffer}
      */
     @Override
     public void put(int position) {
 
-        // 二分木から最も古いデータパタンを削除
+        // Delete the oldest data pattern from the binary tree
         this.deleteNode(position - this.DictionarySize);
 
-        // 二分木から position を挿入する位置を検索
+        // Search for the position to insert position into the binary tree
         int parentpos = this.root;
         int scanpos = this.root;
 
@@ -190,7 +190,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
                 s++;
                 p++;
                 if (max <= p) {
-                    // 完全一致を発見
+                    // Full match found
                     this.replaceNode(scanpos, position);
                     return;
                 }
@@ -201,7 +201,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
                                        : this.small[scanpos & (this.DictionarySize - 1)]);
         }
 
-        // position から始まるデータパタンを 二分木に登録
+        // Register the data pattern starting from position into the binary tree
         if (this.root != BinaryTreeSearch.UNUSED) {
             this.addNode(parentpos, position, p - position);
         } else {
@@ -214,28 +214,25 @@ public class BinaryTreeSearch implements LzssSearchMethod {
     }
 
     /**
-     * 二分木に登録されたデータパタンから
-     * position から始まるデータパタンと
-     * 最長の一致を持つものを検索し、
-     * 同時に position から始まるデータパタンを
-     * 二分木に登録する。
+     * Searches for the data pattern with the longest match to the data pattern
+     * starting from {@code position} among the data patterns registered in the binary tree,
+     * and simultaneously registers the data pattern starting from {@code position}
+     * into the binary tree.
      *
-     * @param position TextBuffer内のデータパタンの開始位置。
-     * @return 一致が見つかった場合は
-     *         LzssOutputStream.createSearchReturn
-     *         によって生成された一致位置と一致長の情報を持つ値、
-     *         一致が見つからなかった場合は
-     *         LzssOutputStream.NOMATCH。
+     * @param position start position of the data pattern in {@link #TextBuffer}.
+     * @return If a match is found, a value holding information of the match position and match length
+     *         generated by {@link LzssOutputStream#createSearchReturn(int, int)};
+     *         if no match is found, {@link LzssOutputStream#NOMATCH}.
      * @see LzssOutputStream#createSearchReturn(int,int)
      * @see LzssOutputStream#NOMATCH
      */
     @Override
     public int searchAndPut(int position) {
 
-        // 二分木から最も古いデータパタンを削除
+        // Delete the oldest data pattern from the binary tree
         this.deleteNode(position - this.DictionarySize);
 
-        // 二分木から最長一致を検索
+        // Search for the longest match from the binary tree
         int matchlen = -1;
         int matchpos = this.root;
         int parentpos = this.root;
@@ -254,7 +251,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
                 s++;
                 p++;
                 if (max <= p) {
-                    // 完全一致を発見
+                    // Full match found
                     this.replaceNode(scanpos, position);
                     return LzssOutputStream.createSearchReturn(this.MaxMatch, scanpos);
                 }
@@ -273,7 +270,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
                                        : this.small[scanpos & (this.DictionarySize - 1)]);
         }
 
-        // position から始まるデータパタンを 二分木に登録
+        // Register the data pattern starting from position into the binary tree
         if (this.root != BinaryTreeSearch.UNUSED) {
             this.addNode(parentpos, position, len);
         } else {
@@ -284,8 +281,8 @@ public class BinaryTreeSearch implements LzssSearchMethod {
             this.large[node] = BinaryTreeSearch.UNUSED;
         }
 
-        // メソッドの先頭で削除された
-        // 最も遠いデータパタンと比較
+        // Compare with the farthest data pattern
+        // deleted at the beginning of the method
         scanpos = position - this.DictionarySize;
         if (this.DictionaryLimit <= scanpos) {
             s = scanpos;
@@ -304,7 +301,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
             }
         }
 
-        // 最長一致を呼び出し元に返す。
+        // Return the longest match to caller.
         if (this.Threshold <= matchlen) {
             return LzssOutputStream.createSearchReturn(matchlen, matchpos);
         } else {
@@ -313,29 +310,24 @@ public class BinaryTreeSearch implements LzssSearchMethod {
     }
 
     /**
-     * 二分木に登録されたデータパタンを検索し
-     * position から始まるデータパタンと
-     * 最長の一致を持つものを得る。<br>
-     * TextBuffer.length &lt position + MaxMatch
-     * となるような position では、
-     * 二分木を完全に走査できないため
-     * 最長一致を得られるとは限らない。
+     * Searches registered data patterns in the binary tree and gets the one
+     * with the longest match to the data pattern starting from {@code position}.<br>
+     * For {@code position} where {@code TextBuffer.length < position + MaxMatch},
+     * the binary tree cannot be fully traversed, so the longest match is not guaranteed to be obtained.
      *
-     * @param position TextBuffer内のデータパタンの開始位置。
-     * @param lastPutPos 最後に登録したデータパタンの開始位置。
-     * @return 一致が見つかった場合は
-     *         LzssOutputStream.createSearchReturn
-     *         によって生成された一致位置と一致長の情報を持つ値、
-     *         一致が見つからなかった場合は
-     *         LzssOutputStream.NOMATCH。
+     * @param position start position of the data pattern in {@link #TextBuffer}.
+     * @param lastPutPos start position of the last registered data pattern.
+     * @return If a match is found, a value holding information of the match position and match length
+     *         generated by {@link LzssOutputStream#createSearchReturn(int, int)};
+     *         if no match is found, {@link LzssOutputStream#NOMATCH}.
      * @see LzssOutputStream#createSearchReturn(int,int)
      * @see LzssOutputStream#NOMATCH
      */
     @Override
     public int search(int position, int lastPutPos) {
 
-        // 二分木に登録されていないデータパタンを
-        // 単純な逐次検索で検索する。
+        // Search data patterns not registered in the binary tree
+        // using simple sequential search.
         int matchlen = this.Threshold - 1;
         int matchpos = position;
         int scanpos = position - 1;
@@ -366,7 +358,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
             scanpos--;
         }
 
-        // 二分木を探索
+        // Search the binary tree
         scanpos = this.root;
         scanlimit = Math.max(this.DictionaryLimit, position - this.DictionarySize);
         while (scanpos != BinaryTreeSearch.UNUSED) {
@@ -396,7 +388,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
             }
         }
 
-        // 最長一致を呼び出し元に返す。
+        // Return the longest match to caller.
         if (this.Threshold <= matchlen) {
             return LzssOutputStream.createSearchReturn(matchlen, matchpos);
         } else {
@@ -405,9 +397,9 @@ public class BinaryTreeSearch implements LzssSearchMethod {
     }
 
     /**
-     * TextBuffer内のpositionまでのデータを前方へ移動する際、
-     * それに応じて 二分木を構成するデータも
-     * TextBuffer内のデータと矛盾しないように前方へ移動する処理を行う。
+     * When sliding data in {@link #TextBuffer} up to {@code position} forward,
+     * performs the process of shifting data constituting the binary tree forward accordingly
+     * so as not to contradict data in {@link #TextBuffer}.
      */
     @Override
     public void slide() {
@@ -420,13 +412,11 @@ public class BinaryTreeSearch implements LzssSearchMethod {
     }
 
     /**
-     * put() または searchAndPut() を使用して
-     * データパタンを二分木に登録する際に
-     * 必要とするデータ量を得る。<br>
-     * 二分木は登録の際にデータパタンを構成する
-     * 全て(MaxMatchバイト)のデータを必要とする。
+     * Gets the amount of data required when registering a data pattern
+     * into the binary tree using {@link #put(int)} or {@link #searchAndPut(int)}.<br>
+     * The binary tree requires all ({@link #MaxMatch} bytes) data that make up the data pattern upon registration.
      *
-     * @return コンストラクタで与えた MaxMatch
+     * @return {@link #MaxMatch} specified in constructor
      */
     @Override
     public int putRequires() {
@@ -434,15 +424,14 @@ public class BinaryTreeSearch implements LzssSearchMethod {
     }
 
     /**
-     * parentpos のデータパタンの子として
-     * position から始まるデータパタンを二分木に登録する。<br>
-     * parentpos と position のデータパタンは len バイト一致する。
-     * position の位置のノードはあらかじめ deleteNode 等で
-     * UNUSED の状態にしておくこと。
+     * Registers the data pattern starting from {@code position} into the binary tree
+     * as a child of the data pattern at {@code parentpos}.<br>
+     * The data patterns at {@code parentpos} and {@code position} match by {@code len} bytes.
+     * The node at {@code position} must be put into the {@link #UNUSED} state in advance by {@link #deleteNode(int)}, etc.
      *
-     * @param parentpos 親のデータパタンのTextBuffer内の開始位置
-     * @param position 新規追加するデータパタンのTextBuffer内の開始位置
-     * @param len 親のデータパタンと新規追加するデータパタンの一致長
+     * @param parentpos start position in {@link #TextBuffer} of the parent's data pattern
+     * @param position start position in {@link #TextBuffer} of the newly added data pattern
+     * @param len match length between the parent's data pattern and the newly added data pattern
      */
     private void addNode(int parentpos, int position, int len) {
         int parentnode = parentpos & (this.DictionarySize - 1);
@@ -459,9 +448,9 @@ public class BinaryTreeSearch implements LzssSearchMethod {
     }
 
     /**
-     * position から始まるデータパタンを二分木から削除する。
+     * Deletes the data pattern starting from {@code position} from the binary tree.
      *
-     * @param position 削除するデータパタンの開始位置
+     * @param position start position of the data pattern to delete
      */
     private void deleteNode(int position) {
         int node = position & (this.DictionarySize - 1);
@@ -482,11 +471,11 @@ public class BinaryTreeSearch implements LzssSearchMethod {
     }
 
     /**
-     * 子に newpos しか持たない oldpos を, newpos で置き換える。
-     * oldpos は二分木から削除される。
+     * Replaces {@code oldpos}, which has only {@code newpos} as a child, with {@code newpos}.
+     * {@code oldpos} is deleted from the binary tree.
      *
-     * @param oldpos 削除するデータパタンの開始位置
-     * @param newpos oldposに置き換わるデータパタンの開始位置
+     * @param oldpos start position of the data pattern to delete
+     * @param newpos start position of the data pattern replacing {@code oldpos}
      */
     private void contractNode(int oldpos, int newpos) {
         int oldnode = oldpos & (this.DictionarySize - 1);
@@ -512,14 +501,13 @@ public class BinaryTreeSearch implements LzssSearchMethod {
     }
 
     /**
-     * oldpos を二分木に含まれない新しいデータパタン newpos で置き換える。
-     * newpos が二分木に含まれているような場合には、
-     * いったんdeleteNode(newpos) するなどして、
-     * 二分木から外す必要がある。
-     * oldpos は二分木から削除される。
+     * Replaces {@code oldpos} with new data pattern {@code newpos} not contained in the binary tree.
+     * If {@code newpos} is contained in the binary tree, it must be removed from the binary tree
+     * in advance by e.g. calling {@code deleteNode(newpos)}.
+     * {@code oldpos} is deleted from the binary tree.
      *
-     * @param oldpos 削除するデータパタンの開始位置
-     * @param newpos oldposに置き換わるデータパタンの開始位置
+     * @param oldpos start position of the data pattern to delete
+     * @param newpos start position of the data pattern replacing {@code oldpos}
      */
     private void replaceNode(int oldpos, int newpos) {
         int oldnode = oldpos & (this.DictionarySize - 1);
@@ -553,14 +541,11 @@ public class BinaryTreeSearch implements LzssSearchMethod {
     }
 
     /**
-     * deleteNode( position ) したときに、
-     * small と large の両方の葉が見つかった場合、
-     * position から始まるデータパタンと
-     * 置き換えるべきデータパタンの開始位置を探し出す。
+     * When {@code deleteNode(position)} is called and both {@code small} and {@code large} leaves are found,
+     * searches for the start position of the data pattern that should replace the data pattern starting from {@code position}.
      *
-     * @param position 置き換えられるデータパタンの開始位置
-     * @return position から始まるデータパタンと
-     *         置き換えるべきデータパタンの開始位置
+     * @param position start position of the data pattern to be replaced
+     * @return start position of the data pattern that should replace the data pattern starting from {@code position}
      */
     private int findNext(int position) {
         int node = position & (this.DictionarySize - 1);
@@ -576,9 +561,9 @@ public class BinaryTreeSearch implements LzssSearchMethod {
     }
 
     /**
-     * slide() 時に、二分木の各要素を移動する。
+     * Shifts each element of the binary tree during {@link #slide()}.
      *
-     * @param array 二分木を構成する配列
+     * @param array array constituting the binary tree
      */
     private void slideTree(int[] array) {
         for (int i = 0; i < array.length; i++) {

@@ -36,7 +36,7 @@ import java.lang.reflect.Modifier;
 
 
 /**
- * メソッドに関するユーティリティクラス。
+ * A utility class for methods.
  *
  * <pre>
  * -- revision history --
@@ -53,22 +53,21 @@ import java.lang.reflect.Modifier;
 public class MethodUtil {
 
     /**
-     * デフォルトコンストラクタ。
-     * 使用不可。
+     * Default constructor.
+     * Cannot be used.
      */
     private MethodUtil() {
     }
 
     /**
-     * インスタンスobjの nameという名前の
-     * メソッドをargsを引数として実行する。
+     * Invokes the method named {@code name} on the instance {@code obj} with {@code args} as arguments.
      *
-     * @param obj  インスタンス
-     * @param name メソッド名
-     * @param args 引数の配列
-     * @return 戻り値
-     * @throws InvocationTargetException コンストラクタで例外が発生した場合
-     * @throws NoSuchMethodException     args を引数に取れる name という名前のインスタンスメソッドが見つからなかった場合。
+     * @param obj  instance
+     * @param name method name
+     * @param args array of arguments
+     * @return return value
+     * @throws InvocationTargetException if an exception occurs in the method
+     * @throws NoSuchMethodException     if an instance method named {@code name} that can accept {@code args} as arguments is not found.
      */
     public static Object invoke(Object obj, String name, Object... args) throws InvocationTargetException,
             NoSuchMethodException {
@@ -94,17 +93,15 @@ public class MethodUtil {
     }
 
     /**
-     * classname で示されるクラスの nameという名前の
-     * static メソッドをargsを引数として実行する。
+     * Invokes the static method named {@code name} of the class indicated by {@code classname} with {@code args} as arguments.
      *
-     * @param classname クラス名
-     * @param name      メソッド名
-     * @param args      引数の配列
-     * @return 戻り値
-     * @throws ClassNotFoundException    classname のクラスが見つからなかった場合
-     * @throws InvocationTargetException コンストラクタで例外が発生した場合
-     * @throws NoSuchMethodException     args を引数に取れる name という名前の
-     *                                   インスタンスメソッドが見つからなかった場合。
+     * @param classname class name
+     * @param name      method name
+     * @param args      array of arguments
+     * @return return value
+     * @throws ClassNotFoundException    if the class {@code classname} is not found
+     * @throws InvocationTargetException if an exception occurs in the method
+     * @throws NoSuchMethodException     if an instance method named {@code name} that can accept {@code args} as arguments is not found.
      */
     public static Object invokeStatic(String classname, String name, Object... args) throws ClassNotFoundException,
             InvocationTargetException,
@@ -115,15 +112,14 @@ public class MethodUtil {
     }
 
     /**
-     * type で示されるクラスの nameという名前の
-     * static メソッドをargsを引数として実行する。
+     * Invokes the static method named {@code name} of the class indicated by {@code type} with {@code args} as arguments.
      *
-     * @param type 型情報
-     * @param name メソッド名
-     * @param args 引数の配列
-     * @return 戻り値
-     * @throws InvocationTargetException コンストラクタで例外が発生した場合
-     * @throws NoSuchMethodException     args を引数に取れる name という名前のインスタンスメソッドが見つからなかった場合。
+     * @param type type information
+     * @param name method name
+     * @param args array of arguments
+     * @return return value
+     * @throws InvocationTargetException if an exception occurs in the method
+     * @throws NoSuchMethodException     if an instance method named {@code name} that can accept {@code args} as arguments is not found.
      */
     public static Object invokeStatic(Class<?> type, String name, Object... args) throws InvocationTargetException,
             NoSuchMethodException {
@@ -148,53 +144,46 @@ public class MethodUtil {
     }
 
     /**
-     * classname で示されるクラスの public なインスタンスメソッドのうち、
-     * name という名前で args を Type.parse した後
-     * 受け入れることができるものを得る。
+     * Obtains a {@code public} instance method of the class indicated by {@code classname}
+     * named {@code name} that can accept {@code args} after being parsed with {@link Type#parse(Class, Object)}.
      *
-     * @param classname クラス名。
-     * @param name      検索するメソッド名。
-     * @param args      引数配列。null を含めても良いが、null を使用した場合は
-     *                  Object のサブクラスであれば全てマッチしてしまうため、
-     *                  目的のメソッド以外のものが見つかる可能性がある。
-     * @return args を引数に取ることができる nameという名前の メソッド。
-     * 見つからなければ null。
-     * @throws ClassNotFoundException classname で示されるクラスが存在しない場合
+     * @param classname class name.
+     * @param name      method name to search for.
+     * @param args      array of arguments. May include {@code null}, but if {@code null} is used,
+     *                  since any subclass of {@link Object} will match, methods other than the intended one might be found.
+     * @return a method named {@code name} that can take {@code args} as arguments, or {@code null} if not found.
+     * @throws ClassNotFoundException if the class indicated by {@code classname} does not exist
      */
     public static Method getInstanceMethod(String classname, String name, Object... args) throws ClassNotFoundException {
         return MethodUtil.getInstanceMethod(Class.forName(classname), name, false, args);
     }
 
     /**
-     * type の public なインスタンスメソッドのうち、
-     * name という名前で args を Type.parse した後
-     * 受け入れることができるものを得る。
+     * Obtains a {@code public} instance method of {@code type}
+     * named {@code name} that can accept {@code args} after being parsed with {@link Type#parse(Class, Object)}.
      *
-     * @param type 型情報。
-     * @param name 検索するメソッド名。
-     * @param args 引数配列。null を含めても良いが、null を使用した場合は
-     *             Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
-     * @return args を引数に取ることができる nameという名前の メソッド。
-     * 見つからなければ null。
+     * @param type type information.
+     * @param name method name to search for.
+     * @param args array of arguments. May include {@code null}, but if {@code null} is used,
+     *             since any subclass of {@link Object} will match, methods other than the intended one might be found.
+     * @return a method named {@code name} that can take {@code args} as arguments, or {@code null} if not found.
      */
     public static Method getInstanceMethod(Class<?> type, String name, Object... args) {
         return MethodUtil.getInstanceMethod(type, name, false, args);
     }
 
     /**
-     * classname で示されるクラスの インスタンスメソッドのうち、
-     * name という名前で args を Type.parse した後
-     * 受け入れることができるものを得る。
+     * Obtains an instance method of the class indicated by {@code classname}
+     * named {@code name} that can accept {@code args} after being parsed with {@link Type#parse(Class, Object)}.
      *
-     * @param classname クラス名。
-     * @param name      検索するメソッド名。
-     * @param all       public のメソッドのみを検索するなら false。
-     *                  public, protected, private, パッケージプライベートの全てのメソッドを検索するなら true。
-     * @param args      引数配列。null を含めても良いが、null を使用した場合は
-     *                  Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
-     * @return args を引数に取ることができる nameという名前の メソッド。
-     * 見つからなければ null。
-     * @throws ClassNotFoundException classname で示されるクラスが存在しない場合
+     * @param classname class name.
+     * @param name      method name to search for.
+     * @param all       {@code false} to search only {@code public} methods;
+     *                  {@code true} to search all methods (public, protected, private, package-private).
+     * @param args      array of arguments. May include {@code null}, but if {@code null} is used,
+     *                  since any subclass of {@link Object} will match, methods other than the intended one might be found.
+     * @return a method named {@code name} that can take {@code args} as arguments, or {@code null} if not found.
+     * @throws ClassNotFoundException if the class indicated by {@code classname} does not exist
      */
     public static Method getInstanceMethod(String classname,
                                            String name,
@@ -203,17 +192,16 @@ public class MethodUtil {
     }
 
     /**
-     * type の インスタンスメソッドのうち、name という名前で args を
-     * Type.parse した後 受け入れることができるものを得る。
+     * Obtains an instance method of {@code type}
+     * named {@code name} that can accept {@code args} after being parsed with {@link Type#parse(Class, Object)}.
      *
-     * @param type 型情報。
-     * @param name 検索するメソッド名。
-     * @param all  public のメソッドのみを検索するなら false。
-     *             public, protected, private, パッケージプライベートの全てのメソッドを検索するなら true。
-     * @param args 引数配列。null を含めても良いが、null を使用した場合は
-     *             Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
-     * @return args を引数に取ることができる nameという名前の メソッド。
-     * 見つからなければ null。
+     * @param type type information.
+     * @param name method name to search for.
+     * @param all  {@code false} to search only {@code public} methods;
+     *             {@code true} to search all methods (public, protected, private, package-private).
+     * @param args array of arguments. May include {@code null}, but if {@code null} is used,
+     *             since any subclass of {@link Object} will match, methods other than the intended one might be found.
+     * @return a method named {@code name} that can take {@code args} as arguments, or {@code null} if not found.
      */
     public static Method getInstanceMethod(Class<?> type, String name, boolean all, Object... args) {
         Method[] methods = all ? type.getDeclaredMethods() : type.getMethods();
@@ -237,15 +225,15 @@ public class MethodUtil {
     }
 
     /**
-     * classname で示されるクラスの public なインスタンスメソッドのうち、
-     * name という名前で args を 直接受け入れることができるものを得る。
+     * Obtains a {@code public} instance method of the class indicated by {@code classname}
+     * named {@code name} that can accept {@code args} directly as is.
      *
-     * @param classname クラス名。
-     * @param name      検索するメソッド名。
-     * @param args      引数配列。null を含めても良いが、null を使用した場合は
-     *                  Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
-     * @return args を引数に取ることができる nameという名前の メソッド。見つからなければ null。
-     * @throws ClassNotFoundException classname で示されるクラスが存在しない場合
+     * @param classname class name.
+     * @param name      method name to search for.
+     * @param args      array of arguments. May include {@code null}, but if {@code null} is used,
+     *                  since any subclass of {@link Object} will match, methods other than the intended one might be found.
+     * @return a method named {@code name} that can take {@code args} as arguments, or {@code null} if not found.
+     * @throws ClassNotFoundException if the class indicated by {@code classname} does not exist
      */
     public static Method getMatchFullInstanceMethod(String classname,
                                                     String name,
@@ -254,32 +242,31 @@ public class MethodUtil {
     }
 
     /**
-     * type の public なインスタンスメソッドのうち、
-     * name という名前で args を直接受け入れることができるものを得る。
+     * Obtains a {@code public} instance method of {@code type}
+     * named {@code name} that can accept {@code args} directly as is.
      *
-     * @param type 型情報。
-     * @param name 検索するメソッド名。
-     * @param args 引数配列。null を含めても良いが、null を使用した場合は
-     *             Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
-     * @return args を引数に取ることができる nameという名前の メソッド。見つからなければ null。
+     * @param type type information.
+     * @param name method name to search for.
+     * @param args array of arguments. May include {@code null}, but if {@code null} is used,
+     *             since any subclass of {@link Object} will match, methods other than the intended one might be found.
+     * @return a method named {@code name} that can take {@code args} as arguments, or {@code null} if not found.
      */
     public static Method getMatchFullInstanceMethod(Class<?> type, String name, Object... args) {
         return MethodUtil.getMatchFullInstanceMethod(type, name, false, args);
     }
 
     /**
-     * classname で示されるクラスの インスタンスメソッドのうち、
-     * name という名前で args を直接受け入れることができるものを得る。
+     * Obtains an instance method of the class indicated by {@code classname}
+     * named {@code name} that can accept {@code args} directly as is.
      *
-     * @param classname クラス名。
-     * @param name      検索するメソッド名。
-     * @param args      引数配列。null を含めても良いが、null を使用した場合は
-     *                  Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
-     * @param all       public のメソッドのみを検索するなら false。
-     *                  public, protected, private, パッケージプライベートの全てのメソッドを検索するなら true。
-     * @return args を引数に取ることができる nameという名前の メソッド。
-     * 見つからなければ null。
-     * @throws ClassNotFoundException classname で示されるクラスが存在しない場合
+     * @param classname class name.
+     * @param name      method name to search for.
+     * @param args      array of arguments. May include {@code null}, but if {@code null} is used,
+     *                  since any subclass of {@link Object} will match, methods other than the intended one might be found.
+     * @param all       {@code false} to search only {@code public} methods;
+     *                  {@code true} to search all methods (public, protected, private, package-private).
+     * @return a method named {@code name} that can take {@code args} as arguments, or {@code null} if not found.
+     * @throws ClassNotFoundException if the class indicated by {@code classname} does not exist
      */
     public static Method getMatchFullInstanceMethod(String classname,
                                                     String name,
@@ -289,16 +276,16 @@ public class MethodUtil {
     }
 
     /**
-     * type の インスタンスメソッドのうち、name という名前で
-     * args を直接受け入れることができるものを得る。
+     * Obtains an instance method of {@code type}
+     * named {@code name} that can accept {@code args} directly as is.
      *
-     * @param type 型情報。
-     * @param name 検索するメソッド名。
-     * @param all  public のメソッドのみを検索するなら false。
-     *             public, protected, private, パッケージプライベートの全てのメソッドを検索するなら true。
-     * @param args 引数配列。null を含めても良いが、null を使用した場合は
-     *             Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
-     * @return args を引数に取ることができる nameという名前の メソッド。見つからなければ null。
+     * @param type type information.
+     * @param name method name to search for.
+     * @param all  {@code false} to search only {@code public} methods;
+     *             {@code true} to search all methods (public, protected, private, package-private).
+     * @param args array of arguments. May include {@code null}, but if {@code null} is used,
+     *             since any subclass of {@link Object} will match, methods other than the intended one might be found.
+     * @return a method named {@code name} that can take {@code args} as arguments, or {@code null} if not found.
      */
     public static Method getMatchFullInstanceMethod(Class<?> type, String name, boolean all, Object... args) {
         Method[] methods = all ? type.getDeclaredMethods() : type.getMethods();
@@ -312,49 +299,46 @@ public class MethodUtil {
     }
 
     /**
-     * classname で示されるクラスの public static メソッドのうち、
-     * name という名前で args を Type.parse した後
-     * 受け入れることができるものを得る。
+     * Obtains a {@code public static} method of the class indicated by {@code classname}
+     * named {@code name} that can accept {@code args} after being parsed with {@link Type#parse(Class, Object)}.
      *
-     * @param classname クラス名。
-     * @param name      検索するメソッド名。
-     * @param args      引数配列。null を含めても良いが、null を使用した場合は
-     *                  Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
-     * @return args を引数に取ることができる nameという名前の メソッド。見つからなければ null。
-     * @throws ClassNotFoundException classname で示されるクラスが存在しない場合
+     * @param classname class name.
+     * @param name      method name to search for.
+     * @param args      array of arguments. May include {@code null}, but if {@code null} is used,
+     *                  since any subclass of {@link Object} will match, methods other than the intended one might be found.
+     * @return a method named {@code name} that can take {@code args} as arguments, or {@code null} if not found.
+     * @throws ClassNotFoundException if the class indicated by {@code classname} does not exist
      */
     public static Method getStaticMethod(String classname, String name, Object... args) throws ClassNotFoundException {
         return MethodUtil.getStaticMethod(Class.forName(classname), name, false, args);
     }
 
     /**
-     * type の public staticなメソッドのうち、
-     * name という名前で args を Type.parse した後
-     * 受け入れることができるものを得る。
+     * Obtains a {@code public static} method of {@code type}
+     * named {@code name} that can accept {@code args} after being parsed with {@link Type#parse(Class, Object)}.
      *
-     * @param type 型情報。
-     * @param name 検索するメソッド名。
-     * @param args 引数配列。null を含めても良いが、null を使用した場合は
-     *             Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
-     * @return args を引数に取ることができる nameという名前の メソッド。見つからなければ null。
+     * @param type type information.
+     * @param name method name to search for.
+     * @param args array of arguments. May include {@code null}, but if {@code null} is used,
+     *             since any subclass of {@link Object} will match, methods other than the intended one might be found.
+     * @return a method named {@code name} that can take {@code args} as arguments, or {@code null} if not found.
      */
     public static Method getStaticMethod(Class<?> type, String name, Object... args) {
         return MethodUtil.getStaticMethod(type, name, false, args);
     }
 
     /**
-     * classname で示されるクラスの static メソッドのうち、
-     * name という名前で args を Type.parse した後
-     * 受け入れることができるものを得る。
+     * Obtains a static method of the class indicated by {@code classname}
+     * named {@code name} that can accept {@code args} after being parsed with {@link Type#parse(Class, Object)}.
      *
-     * @param classname クラス名。
-     * @param name      検索するメソッド名。
-     * @param all       public のメソッドのみを検索するなら false。public, protected, private, パッケージプライベートの
-     *                  全てのメソッドを検索するなら true。
-     * @param args      引数配列。null を含めても良いが、null を使用した場合は
-     *                  Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
-     * @return args を引数に取ることができる nameという名前の メソッド。見つからなければ null。
-     * @throws ClassNotFoundException classname で示されるクラスが存在しない場合
+     * @param classname class name.
+     * @param name      method name to search for.
+     * @param all       {@code false} to search only {@code public} methods;
+     *                  {@code true} to search all methods (public, protected, private, package-private).
+     * @param args      array of arguments. May include {@code null}, but if {@code null} is used,
+     *                  since any subclass of {@link Object} will match, methods other than the intended one might be found.
+     * @return a method named {@code name} that can take {@code args} as arguments, or {@code null} if not found.
+     * @throws ClassNotFoundException if the class indicated by {@code classname} does not exist
      */
     public static Method getStaticMethod(String classname,
                                          String name,
@@ -363,16 +347,16 @@ public class MethodUtil {
     }
 
     /**
-     * type の static メソッドのうち、name という名前で args を
-     * Type.parse した後 受け入れることができるものを得る。
+     * Obtains a static method of {@code type}
+     * named {@code name} that can accept {@code args} after being parsed with {@link Type#parse(Class, Object)}.
      *
-     * @param type 型情報。
-     * @param name 検索するメソッド名。
-     * @param all  public のメソッドのみを検索するなら false。
-     *             public, protected, private, パッケージプライベートの全てのメソッドを検索するなら true。
-     * @param args 引数配列。null を含めても良いが、null を使用した場合は
-     *             Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
-     * @return args を引数に取ることができる nameという名前の メソッド。見つからなければ null。
+     * @param type type information.
+     * @param name method name to search for.
+     * @param all  {@code false} to search only {@code public} methods;
+     *             {@code true} to search all methods (public, protected, private, package-private).
+     * @param args array of arguments. May include {@code null}, but if {@code null} is used,
+     *             since any subclass of {@link Object} will match, methods other than the intended one might be found.
+     * @return a method named {@code name} that can take {@code args} as arguments, or {@code null} if not found.
      */
     public static Method getStaticMethod(Class<?> type, String name, boolean all, Object... args) {
         Method[] methods = all ? type.getDeclaredMethods() : type.getMethods();
@@ -396,47 +380,46 @@ public class MethodUtil {
     }
 
     /**
-     * classname で示されるクラスの public static メソッドのうち、
-     * name という名前で args を 直接受け入れることができるものを得る。
+     * Obtains a {@code public static} method of the class indicated by {@code classname}
+     * named {@code name} that can accept {@code args} directly as is.
      *
-     * @param classname クラス名。
-     * @param name      検索するメソッド名。
-     * @param args      引数配列。null を含めても良いが、null を使用した場合は
-     *                  Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
-     * @return args を引数に取ることができる nameという名前の メソッド。見つからなければ null。
-     * @throws ClassNotFoundException classname で示されるクラスが存在しない場合
+     * @param classname class name.
+     * @param name      method name to search for.
+     * @param args      array of arguments. May include {@code null}, but if {@code null} is used,
+     *                  since any subclass of {@link Object} will match, methods other than the intended one might be found.
+     * @return a method named {@code name} that can take {@code args} as arguments, or {@code null} if not found.
+     * @throws ClassNotFoundException if the class indicated by {@code classname} does not exist
      */
     public static Method getMatchFullStaticMethod(String classname, String name, Object... args) throws ClassNotFoundException {
         return MethodUtil.getMatchFullStaticMethod(Class.forName(classname), name, false, args);
     }
 
     /**
-     * type の public staticなメソッドのうち、
-     * name という名前で args を直接受け入れることができるものを得る。
+     * Obtains a {@code public static} method of {@code type}
+     * named {@code name} that can accept {@code args} directly as is.
      *
-     * @param type 型情報。
-     * @param name 検索するメソッド名。
-     * @param args 引数配列。null を含めても良いが、null を使用した場合は
-     *             Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
-     * @return args を引数に取ることができる nameという名前の メソッド。見つからなければ null。
+     * @param type type information.
+     * @param name method name to search for.
+     * @param args array of arguments. May include {@code null}, but if {@code null} is used,
+     *             since any subclass of {@link Object} will match, methods other than the intended one might be found.
+     * @return a method named {@code name} that can take {@code args} as arguments, or {@code null} if not found.
      */
     public static Method getMatchFullStaticMethod(Class<?> type, String name, Object... args) {
         return MethodUtil.getMatchFullStaticMethod(type, name, false, args);
     }
 
     /**
-     * classname で示されるクラスの static メソッドのうち、
-     * name という名前で args を直接受け入れることができるものを得る。
+     * Obtains a static method of the class indicated by {@code classname}
+     * named {@code name} that can accept {@code args} directly as is.
      *
-     * @param classname クラス名。
-     * @param name      検索するメソッド名。
-     * @param all       public のメソッドのみを検索するなら false。public, protected, private, パッケージプライベートの
-     *                  全てのメソッドを検索するなら true。
-     * @param args      引数配列。null を含めても良いが、null を使用した場合は
-     *                  Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
-     * @return args を引数に取ることができる nameという名前の メソッド。
-     * 見つからなければ null。
-     * @throws ClassNotFoundException classname で示されるクラスが存在しない場合
+     * @param classname class name.
+     * @param name      method name to search for.
+     * @param all       {@code false} to search only {@code public} methods;
+     *                  {@code true} to search all methods (public, protected, private, package-private).
+     * @param args      array of arguments. May include {@code null}, but if {@code null} is used,
+     *                  since any subclass of {@link Object} will match, methods other than the intended one might be found.
+     * @return a method named {@code name} that can take {@code args} as arguments, or {@code null} if not found.
+     * @throws ClassNotFoundException if the class indicated by {@code classname} does not exist
      */
     public static Method getMatchFullStaticMethod(String classname,
                                                   String name,
@@ -445,16 +428,16 @@ public class MethodUtil {
     }
 
     /**
-     * type の static メソッドのうち、name という名前で
-     * args を直接受け入れることができるものを得る。
+     * Obtains a static method of {@code type}
+     * named {@code name} that can accept {@code args} directly as is.
      *
-     * @param type 型情報。
-     * @param name 検索するメソッド名。
-     * @param all  public のメソッドのみを検索するなら false。public, protected, private, パッケージプライベートの
-     *             全てのメソッドを検索するなら true。
-     * @param args 引数配列。null を含めても良いが、null を使用した場合は
-     *             Object のサブクラスであれば全てマッチしてしまうため、目的のメソッド以外のものが見つかる可能性がある。
-     * @return args を引数に取ることができる nameという名前の メソッド。見つからなければ null。
+     * @param type type information.
+     * @param name method name to search for.
+     * @param all  {@code false} to search only {@code public} methods;
+     *             {@code true} to search all methods (public, protected, private, package-private).
+     * @param args array of arguments. May include {@code null}, but if {@code null} is used,
+     *             since any subclass of {@link Object} will match, methods other than the intended one might be found.
+     * @return a method named {@code name} that can take {@code args} as arguments, or {@code null} if not found.
      */
     public static Method getMatchFullStaticMethod(Class<?> type, String name, boolean all, Object... args) {
         Method[] methods = all ? type.getDeclaredMethods() : type.getMethods();

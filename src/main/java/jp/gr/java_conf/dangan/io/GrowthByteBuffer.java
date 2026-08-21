@@ -31,29 +31,29 @@
 package jp.gr.java_conf.dangan.io;
 
 /**
- * 自動的に伸張するバッファ。<br>
- * RandomAccessFile の メモリ版として使用する。
- * ただし、あまり巨大なデータを取り扱うのには向かない。
- * スレッドセーフではない。
- * jdk1.4 以降の ByteBufferとは互換性が無い。
+ * An automatically expanding buffer.<br>
+ * Used as an in-memory version of {@link java.io.RandomAccessFile}.
+ * However, it is not suitable for handling very huge data.
+ * Not thread-safe.
+ * Not compatible with JDK 1.4+ {@link java.nio.ByteBuffer}.
  *
  * <pre>
  * -- revision history --
  * $Log: GrowthByteBuffer.java,v $
  * Revision 1.1  2002/12/05 00:00:00  dangan
  * [maintenance]
- *     ソース整備
+ *     source maintenance
  *
  * Revision 1.0  2002/07/24 00:00:00  dangan
  * add to version control
  * [bug fix]
- *     grow() でバッファの増加量の計算が間違っていたのを修正。
+ *     fixed incorrect calculation of buffer increase in grow().
  * [change]
- *     読み込み限界に達した後の read( new byte[0] ) や
- *     read( byte[] buf, int off, 0 ) の戻り値を
- *     InputStream と同じく 0 になるようにした
+ *     made return values of read(new byte[0]) and
+ *     read(byte[] buf, int off, 0) after reaching read limit 0,
+ *     same as InputStream
  * [maintenance]
- *     ソース整備
+ *     source maintenance
  * </pre>
  *
  * @author $Author: dangan $
@@ -62,41 +62,41 @@ package jp.gr.java_conf.dangan.io;
 public class GrowthByteBuffer {
 
     /**
-     * デフォルトの一つのバッファのサイズ
+     * Default size of a single buffer
      */
     private static final int DefaultBufferSize = 16384;
 
     /**
-     * バッファ
-     * 全て buffer[0].length と同じサイズのbyte配列の配列。
+     * Buffer.
+     * An array of byte arrays, all having the same size as {@code buffer[0].length}.
      */
     private byte[][] buffer;
 
     /**
-     * 現在処理位置。
-     * position は limit以降になる可能性もある。
+     * Current processing position.
+     * {@code position} may also be after {@code limit}.
      */
     private int position;
 
     /**
-     * 現在読みこみ限界。
-     * これ以降のデータは不定。
-     * この位置のデータは読めることに注意すること。
+     * Current read limit.
+     * Data after this is undefined.
+     * Note that data at this position can be read.
      */
     private int limit;
 
     /**
-     * サイズを自動で伸張するバッファを構築する。<br>
-     * バッファサイズにはデフォルト値が使用される。
+     * Constructs a buffer that automatically expands in size.<br>
+     * The default value is used for the buffer size.
      */
     public GrowthByteBuffer() {
         this(GrowthByteBuffer.DefaultBufferSize);
     }
 
     /**
-     * サイズを自動で伸張するバッファを構築する。
+     * Constructs a buffer that automatically expands in size.
      *
-     * @param BufferSize バッファのサイズ
+     * @param BufferSize buffer size
      */
     public GrowthByteBuffer(int BufferSize) {
         if (0 < BufferSize) {
@@ -110,9 +110,9 @@ public class GrowthByteBuffer {
     }
 
     /**
-     * 現在位置に 1バイトのデータを書きこむ。
+     * Writes 1 byte of data at the current position.
      *
-     * @param data 1バイトのデータ
+     * @param data 1 byte of data
      */
     public void write(int data) {
         this.grow(this.position);
@@ -123,20 +123,20 @@ public class GrowthByteBuffer {
     }
 
     /**
-     * 現在位置に buffer の内容を書きこむ。
+     * Writes the contents of {@code buffer} at the current position.
      *
-     * @param buffer 書きこむデータほ格納されたバッファ
+     * @param buffer buffer containing data to write
      */
     public void write(byte[] buffer) {
         this.write(buffer, 0, buffer.length);
     }
 
     /**
-     * 現在位置に buffer の indexからlengthバイトの内容を書きこむ。
+     * Writes {@code length} bytes of data from {@code index} of {@code buffer} at the current position.
      *
-     * @param buffer 書きこむデータほ格納されたバッファ
-     * @param index buffer内の書きこむデータの開始位置
-     * @param length 書きこむデータ量
+     * @param buffer buffer containing data to write
+     * @param index  starting position of data to write in {@code buffer}
+     * @param length amount of data to write
      */
     public void write(byte[] buffer, int index, int length) {
         this.grow(this.position + length - 1);
@@ -158,10 +158,10 @@ public class GrowthByteBuffer {
     }
 
     /**
-     * 現在位置から 1byteのデータを読みこむ。
+     * Reads 1 byte of data from the current position.
      *
-     * @return 読みこまれた1byteのデータ。<br>
-     *         読みこみ限界を超えて読もうとした場合は -1
+     * @return the 1 byte of data read.<br>
+     *         -1 if attempting to read beyond the read limit
      */
     public int read() {
         if (this.position <= this.limit) {
@@ -172,24 +172,24 @@ public class GrowthByteBuffer {
     }
 
     /**
-     * 現在位置から bufferを満たすようにデータを読み込む。
+     * Reads data from the current position to fill {@code buffer}.
      *
-     * @param buffer データを読み込むバッファ
-     * @return 実際に読みこまれたデータ量<br>
-     *         読みこみ限界を超えて読もうとした場合は -1
+     * @param buffer buffer to read data into
+     * @return the amount of data actually read<br>
+     *         -1 if attempting to read beyond the read limit
      */
     public int read(byte[] buffer) {
         return this.read(buffer, 0, buffer.length);
     }
 
     /**
-     * 現在位置から buffer のindexへ lengthのデータを読み込む。
+     * Reads {@code length} data from the current position into {@code index} of {@code buffer}.
      *
-     * @param buffer データを読み込むバッファ
-     * @param index buffer内データ読みこみ位置
-     * @param length 読み込むデータの量
-     * @return 実際に読みこまれたデータ量<br>
-     *         読みこみ限界を超えて読もうとした場合は -1
+     * @param buffer buffer to read data into
+     * @param index  position in {@code buffer} to read data into
+     * @param length amount of data to read
+     * @return the amount of data actually read<br>
+     *         -1 if attempting to read beyond the read limit
      */
     public int read(byte[] buffer, int index, int length) {
         if (this.position <= this.limit) {
@@ -223,18 +223,18 @@ public class GrowthByteBuffer {
     }
 
     /**
-     * 現在の読みこみ限界を得る。
+     * Gets the current read limit.
      *
-     * @return 現在の読みこみ限界
+     * @return current read limit
      */
     public int length() {
         return this.limit + 1;
     }
 
     /**
-     * 読みこみ限界位置を設定する。
+     * Sets the read limit position.
      *
-     * @param length 新しい読みこみ限界位置
+     * @param length new read limit position
      */
     public void setLength(int length) {
         length--;
@@ -246,47 +246,42 @@ public class GrowthByteBuffer {
     }
 
     /**
-     * 現在位置を得る。
+     * Gets the current position.
      *
-     * @return 現在位置
+     * @return current position
      */
     public int position() {
         return this.position;
     }
 
     /**
-     * 現在位置を設定する。
-     * java.io.RandomAccessFileと同じく
-     * setPosition で読みこみ限界を超えた値を
-     * 設定した直後にはバッファは増加していない。
-     * その後 write によって書きこんだ時にはじ
-     * めてバッファは増加する。
+     * Sets the current position.
+     * Same as {@link java.io.RandomAccessFile}, the buffer does not increase
+     * immediately after setting a value exceeding the read limit with {@link #setPosition(int)}.
+     * The buffer increases for the first time when written later by {@code write}.
      *
-     * @param position 新しい現在位置
+     * @param position new current position
      */
     public void setPosition(int position) {
         this.position = position;
     }
 
     /**
-     * 現在位置を設定する。
-     * java.io.RandomAccessFileと同じく
-     * seek で読みこみ限界を超えた値を
-     * 設定した直後にはバッファは増加していない。
-     * その後 write によって書きこんだ時にはじ
-     * めてバッファは増加する。
+     * Sets the current position.
+     * Same as {@link java.io.RandomAccessFile}, the buffer does not increase
+     * immediately after setting a value exceeding the read limit with {@link #seek(int)}.
+     * The buffer increases for the first time when written later by {@code write}.
      *
-     * @param position 新しい現在位置
+     * @param position new current position
      */
     public void seek(int position) {
         this.setPosition(position);
     }
 
     /**
-     * 新しい読みこみ限界 limit を設定し、
-     * limit まで バッファを増加させる。
+     * Sets a new read limit {@code limit} and expands the buffer up to {@code limit}.
      *
-     * @param limit 新しい読みこみ限界
+     * @param limit new read limit
      */
     private void grow(int limit) {
         if (this.limit < limit) {

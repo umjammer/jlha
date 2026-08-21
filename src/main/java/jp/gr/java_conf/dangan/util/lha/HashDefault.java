@@ -32,8 +32,8 @@ package jp.gr.java_conf.dangan.util.lha;
 
 
 /**
- * 試作プログラム ar940528 や LHa for Unix で使用されているハッシュ関数。<br>
- * gzip で使用されているを参考にしたようだ。
+ * Hash function used in prototype program ar940528 and LHa for Unix.<br>
+ * It appears to have been referenced from the one used in gzip.
  *
  * <pre>
  * -- revision history --
@@ -41,12 +41,12 @@ package jp.gr.java_conf.dangan.util.lha;
  * Revision 1.0  2002/08/05 00:00:00  dangan
  * add to version control
  * [change]
- *     HashMethod のインタフェイス変更にあわせてインテフェイス変更。
- *     コンストラクタで引数チェックを削除。
- * [maintanance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
+ *     Interface change to match {@link HashMethod} interface change.
+ *     Removed argument check in constructor.
+ * [maintenance]
+ *     source maintenance
+ *     tab removal
+ *     license comment update
  * </pre>
  *
  * @author $Author: dangan $
@@ -55,35 +55,34 @@ package jp.gr.java_conf.dangan.util.lha;
 public class HashDefault implements HashMethod {
 
     /**
-     * ハッシュ値を生成するためのマスク値
+     * Mask value for generating hash value.
      */
     private static final int HashMask = 0x7FFF;
 
     /**
-     * LZSS圧縮を施すためのバッファ。
-     * 前半は辞書領域、
-     * 後半は圧縮を施すためのデータの入ったバッファ。
-     * HashMethodの実装内では Hash値の生成のための読み込みにのみ使用する。
+     * Buffer for applying LZSS compression.
+     * The first half is the dictionary area,
+     * and the second half is the buffer containing data to be compressed.
+     * Used only for reading to generate hash values in implementations of {@link HashMethod}.
      */
     private final byte[] TextBuffer;
 
     /**
-     * ar940528 や LHa for Unix で使用されているハッシュ関数を構築する。
+     * Constructs a hash function used in ar940528 and LHa for Unix.
      *
-     * @param TextBuffer LZSS圧縮用のバッファ。
-     *            Hash値生成のため読み込み用に使用する。
+     * @param TextBuffer buffer for LZSS compression.
+     *            Used for reading to generate hash values.
      */
     public HashDefault(byte[] TextBuffer) {
         this.TextBuffer = TextBuffer;
     }
 
     /**
-     * ハッシュ関数。<br>
-     * コンストラクタで渡された TextBuffer の position からの
-     * データパタンの hash値を生成する。
+     * Hash function.<br>
+     * Generates the hash value of the data pattern from {@code position} of {@link #TextBuffer} passed to constructor.
      *
-     * @param position データパタンの開始位置
-     * @return ハッシュ値
+     * @param position start position of the data pattern
+     * @return hash value
      */
     @Override
     public int hash(int position) {
@@ -93,12 +92,11 @@ public class HashDefault implements HashMethod {
     }
 
     /**
-     * ハッシュ関数がハッシュ値を生成するために使用するバイト数を得る。<br>
-     * このハッシュ関数は 3バイトのデータから
-     * シフトとXORを使用してハッシュ値を生成するため、
-     * このメソッドは常に 3 を返す。
+     * Gets the number of bytes used by the hash function to generate a hash value.<br>
+     * Since this hash function generates a hash value from 3 bytes of data using shift and XOR,
+     * this method always returns 3.
      *
-     * @return 常に 3
+     * @return always 3
      */
     @Override
     public int hashRequires() {
@@ -106,11 +104,11 @@ public class HashDefault implements HashMethod {
     }
 
     /**
-     * ハッシュテーブルのサイズを得る。<br>
-     * このハッシュ関数は 0x0000 〜 0x7FFF のハッシュ値を生成するため、
-     * このメソッドは常に 0x8000(32768) を返す。
+     * Gets the size of the hash table.<br>
+     * Since this hash function generates hash values in the range 0x0000 to 0x7FFF,
+     * this method always returns 0x8000 (32768).
      *
-     * @return 常に 0x8000(32768)
+     * @return always 0x8000 (32768)
      */
     @Override
     public int tableSize() {

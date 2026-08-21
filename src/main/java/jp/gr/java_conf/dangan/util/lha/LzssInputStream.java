@@ -36,25 +36,25 @@ import java.io.InputStream;
 
 
 /**
- * LZSS 圧縮されたデータを解凍しながら供給する入力ストリーム。<br>
+ * Input stream that supplies data while decompressing LZSS compressed data.<br>
  *
  * <pre>
  * -- revision history --
  * $Log: LzssInputStream.java,v $
  * Revision 1.1  2002/12/08 00:00:00  dangan
  * [bug fix]
- *     mark() 内で接続された PreLzssDecoder の
- *     mark に与える readLimit の計算が甘かったのを修正。
+ *     Fixed inaccurate calculation of readLimit passed to mark
+ *     of connected PreLzssDecoder in mark().
  *
  * Revision 1.0  2002/07/25 00:00:00  dangan
  * add to version control
  * [bug fix]
- *     available() のスペルミスを修正。
- *     skip() において decode() を呼ぶ判定条件が間違っていたのを修正。
+ *     Fixed spelling mistake in available().
+ *     Fixed condition error for invoking decode() in skip().
  * [maintenance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
+ *     source maintenance
+ *     tab removal
+ *     license comment update
  *
  * </pre>
  *
@@ -64,74 +64,72 @@ import java.io.InputStream;
 public class LzssInputStream extends InputStream {
 
     /**
-     * LZSS圧縮コードを返す入力ストリーム
+     * Input stream that returns LZSS compression codes.
      */
     private PreLzssDecoder decoder;
 
     /**
-     * LZSS圧縮に使用される閾値。
-     * 一致長が この値以上であれば、圧縮コードを出力する。
+     * Threshold used for LZSS compression.
+     * If the match length is greater than or equal to this value, compression code is output.
      */
     private final int Threshold;
 
     /**
-     * LZSS圧縮に使用される値。
-     * 最大一致長を示す。
+     * Value used for LZSS compression.
+     * Indicates maximum match length.
      */
     private final int MaxMatch;
 
     /**
-     * 解凍後のデータサイズ
+     * Data size after decompression.
      */
     private final long Length;
 
     /**
-     * LZSS圧縮を展開するためのバッファ。
+     * Buffer for expanding LZSS compression.
      */
     private byte[] TextBuffer;
 
     /**
-     * 現在読み込み位置。
-     * read() によって外部に読み出された位置を示す。
+     * Current read position.
+     * Indicates the position read out externally by {@link #read()}.
      */
     private long TextPosition;
 
     /**
-     * 現在読み込み位置。
-     * LZSS圧縮コードを展開して得られた位置を示す。
+     * Current decoded position.
+     * Indicates the position obtained by decompressing LZSS compression codes.
      */
     private long TextDecoded;
 
-    /** TextBuffer のバックアップ用 */
+    /** For backing up {@link #TextBuffer} */
     private byte[] MarkTextBuffer;
 
-    /** TextPosition のバックアップ用 */
+    /** For backing up {@link #TextPosition} */
     private long MarkTextPosition;
 
-    /** TextDecoded のバックアップ用 */
+    /** For backing up {@link #TextDecoded} */
     private long MarkTextDecoded;
 
     /**
-     * in から LZSS圧縮データ の入力を受けて、
-     * 解凍されたデータを提供する入力ストリームを構築する。
-     * このコンストラクタから生成された LzssInputStreamは
-     * -lh1-等の解凍データの最後のデータを読み込んだ後、
-     * 次のデータの読み取りで必ずEndOfStreamに達するとは
-     * 限らないデータを正常に復元できない(終端以降にゴミ
-     * データがつく可能性がある)。
+     * Constructs an input stream that receives LZSS compressed data input from {@code decoder}
+     * and provides decompressed data.
+     * A {@link LzssInputStream} created from this constructor cannot correctly restore
+     * data where reading past the last decompressed data of -lh1-, etc. is not guaranteed
+     * to immediately reach EndOfStream (garbage data may be appended after the end).
      *
-     * @param decoder LZSS圧縮データ供給ストリーム
+     * @param decoder LZSS compressed data supply stream
      */
     public LzssInputStream(PreLzssDecoder decoder) {
         this(decoder, Long.MAX_VALUE);
     }
 
     /**
-     * in から LZSS圧縮データ の入力を受けて、
-     * 解凍されたデータを提供する入力ストリームを構築する。
+     * Constructs an input stream that receives LZSS compressed data input from {@code decoder}
+     * and provides decompressed data.
      *
-     * @param decoder LZSS圧縮データ供給ストリーム
-     * @param length 解凍後のサイズ
+     * @param decoder LZSS compressed data supply stream
+     * @param length size after decompression
      */
     public LzssInputStream(PreLzssDecoder decoder, long length) {
         this.MaxMatch = decoder.getMaxMatch();
@@ -148,12 +146,12 @@ public class LzssInputStream extends InputStream {
     }
 
     /**
-     * コンストラクタで指定された PreLzssDecoder の
-     * 圧縮されたデータを解凍し、1バイトのデータを供給する。
+     * Decompresses compressed data from the {@link PreLzssDecoder} specified in constructor
+     * and supplies 1 byte of data.
      *
-     * @return 解凍された 1バイトのデータ
+     * @return 1 byte of decompressed data
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @exception IOException if an I/O error occurs
      */
     @Override
     public int read() throws IOException {
@@ -170,13 +168,12 @@ public class LzssInputStream extends InputStream {
     }
 
     /**
-     * コンストラクタで指定された PreLzssDecoder の
-     * 圧縮されたデータを解凍し、bufferを満たすように
-     * 解凍されたデータを読み込む。
+     * Decompresses compressed data from the {@link PreLzssDecoder} specified in constructor
+     * and reads decompressed data to fill {@code buffer}.
      *
-     * @param buffer データを読み込むバッファ
-     * @return 読みこんだデータ量
-     * @exception IOException 入出力エラーが発生した場合
+     * @param buffer buffer into which data is read
+     * @return amount of data read
+     * @exception IOException if an I/O error occurs
      */
     @Override
     public int read(byte[] buffer) throws IOException {
@@ -184,15 +181,14 @@ public class LzssInputStream extends InputStream {
     }
 
     /**
-     * コンストラクタで指定された PreLzssDecoder の
-     * 圧縮されたデータを解凍し、buffer の index から
-     * length バイトのデータを読み込む。
+     * Decompresses compressed data from the {@link PreLzssDecoder} specified in constructor
+     * and reads {@code length} bytes of data into {@code buffer} starting from {@code index}.
      *
-     * @param buffer データを読み込むバッファ
-     * @param index buffer 内のデータ読みこみ開始位置
-     * @param length 読み込むデータ量
-     * @return 読みこんだデータ量
-     * @exception IOException 入出力エラーが発生した場合
+     * @param buffer buffer into which data is read
+     * @param index start position in {@code buffer} to read data into
+     * @param length amount of data to read
+     * @return amount of data read
+     * @exception IOException if an I/O error occurs
      */
     @Override
     public int read(byte[] buffer, int index, int length) throws IOException {
@@ -216,11 +212,11 @@ public class LzssInputStream extends InputStream {
     }
 
     /**
-     * 解凍されたデータを lengthバイト読み飛ばす。
+     * Skips {@code length} bytes of decompressed data.
      *
-     * @param length 読み飛ばすデータ量(単位はバイト)
-     * @return 実際に読み飛ばしたバイト数
-     * @exception IOException 入出力エラーが発生した場合
+     * @param length amount of data to skip (in bytes)
+     * @return actual number of bytes skipped
+     * @exception IOException if an I/O error occurs
      */
     @Override
     public long skip(long length) throws IOException {
@@ -240,18 +236,16 @@ public class LzssInputStream extends InputStream {
     }
 
     /**
-     * 接続された入力ストリームの現在位置にマークを設定し、
-     * reset() メソッドでマークした時点の 読み込み位置に
-     * 戻れるようにする。<br>
-     * InputStream の mark() と違い、 readLimit で設定した
-     * 限界バイト数より前にマーク位置が無効になる可能性がある。
-     * ただし、readLimit を無視して無限に reset() 可能な
-     * InputStream と接続している場合は readLimit に
-     * どのような値を設定されても
-     * reset() で必ずマーク位置に復旧できる事を保証する。
+     * Sets a mark at the current position of the connected input stream
+     * so that it can return to the read position at the time of marking with {@link #reset()}.<br>
+     * Unlike {@link InputStream#mark(int)}, the mark position may become invalid
+     * before the limit byte count set by {@code readLimit}.
+     * However, if connected to an {@link InputStream} that ignores {@code readLimit}
+     * and can reset indefinitely, it is guaranteed that the mark position can always
+     * be restored by {@link #reset()} regardless of what value is set for {@code readLimit}.
      *
-     * @param readLimit マーク位置に戻れる限界のバイト数。
-     *            このバイト数を超えてデータを読み込んだ場合 reset()できなくなる可能性がある。
+     * @param readLimit maximum byte limit that can be read before mark position becomes invalid.
+     *            If data exceeding this byte count is read, {@link #reset()} may not be possible.
      * @see PreLzssDecoder#mark(int)
      */
     @Override
@@ -271,10 +265,10 @@ public class LzssInputStream extends InputStream {
     }
 
     /**
-     * 接続された入力ストリームの読み込み位置を最後に
-     * mark() メソッドが呼び出されたときの位置に設定する。
+     * Sets the read position of the connected input stream to the position
+     * when the {@link #mark(int)} method was last called.
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @exception IOException if an I/O error occurs
      */
     @Override
     public void reset() throws IOException {
@@ -294,10 +288,10 @@ public class LzssInputStream extends InputStream {
     }
 
     /**
-     * 接続された入力ストリームが mark() と reset() を
-     * サポートするかを得る。
+     * Gets whether the connected input stream supports {@link #mark(int)} and {@link #reset()}.
      *
-     * @return ストリームが mark() と reset() をサポートする場合は true。サポートしない場合は false。
+     * @return {@code true} if the stream supports {@link #mark(int)} and {@link #reset()};
+     *         {@code false} otherwise.
      */
     @Override
     public boolean markSupported() {
@@ -305,12 +299,11 @@ public class LzssInputStream extends InputStream {
     }
 
     /**
-     * 接続された入力ストリームからブロックしないで
-     * 読み込むことのできるバイト数を得る。<br>
+     * Gets the number of bytes that can be read from the connected input stream without blocking.<br>
      *
-     * @return ブロックしないで読み出せるバイト数。<br>
+     * @return number of bytes that can be read without blocking.<br>
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @exception IOException if an I/O error occurs
      */
     @Override
     public int available() throws IOException {
@@ -318,10 +311,9 @@ public class LzssInputStream extends InputStream {
     }
 
     /**
-     * この入力ストリームを閉じ、使用していた
-     * 全てのリソースを開放する。<br>
+     * Closes this input stream and releases all resources used.<br>
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @exception IOException if an I/O error occurs
      */
     @Override
     public void close() throws IOException {
@@ -332,11 +324,11 @@ public class LzssInputStream extends InputStream {
     }
 
     /**
-     * private変数 this.in から圧縮データを読み込み
-     * 解凍しながら TextBuffer にデータを書きこむ。
+     * Reads compressed data from private field {@code this.decoder},
+     * decompresses it, and writes data into {@link #TextBuffer}.
      *
-     * @exception IOException 入出力エラーが発生した場合
-     * @exception EOFException ストリーム終端に達した場合
+     * @exception IOException if an I/O error occurs
+     * @exception EOFException if end of stream is reached
      */
     private void decode() throws IOException {
         if (this.TextDecoded < this.Length) {
@@ -369,12 +361,12 @@ public class LzssInputStream extends InputStream {
     }
 
     /**
-     * private 変数 this.TextBuffer から bufferにデータを転送する。
+     * Transfers data from private field {@code this.TextBuffer} to {@code buffer}.
      *
-     * @param buffer TextBufferの内容をコピーするバッファ
-     * @param position buffer内の書き込み現在位置
-     * @param end buffer内の書き込み終了位置
-     * @return bufferの次に書き込みが行われるべき位置
+     * @param buffer buffer to copy contents of {@link #TextBuffer} into
+     * @param position current write position in {@code buffer}
+     * @param end write end position in {@code buffer}
+     * @return position in {@code buffer} where the next write should occur
      */
     private int copyTextBufferToBuffer(byte[] buffer, int position, int end) {
         if ((this.TextPosition & ~(this.TextBuffer.length - 1)) < (this.TextDecoded & ~(this.TextBuffer.length - 1))) {
@@ -400,7 +392,7 @@ public class LzssInputStream extends InputStream {
     }
 
     /**
-     * -lz5- 用に TextBuffer を初期化する。
+     * Initializes {@link #TextBuffer} for -lz5-.
      */
     private void initLz5TextBuffer() {
         int position = 18;

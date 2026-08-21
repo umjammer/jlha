@@ -46,56 +46,53 @@ import jp.gr.java_conf.dangan.util.MsdosDate;
 
 
 /**
- * LHAヘッダを扱う。<br>
- * このクラスは java.util.zip パッケージでは ZipEntry と近いが、
- * ヘッダの入出力のためのユーティリティ関数を持つ点が違う。<br>
- * このクラスは set系メソッドで為された方が良いチェックを
- * getBytes() 時に行うように書かれている。その点は注意すること。
+ * Handles LHA headers.<br>
+ * This class is similar to {@link java.util.zip.ZipEntry} in the java.util.zip package,
+ * but differs in that it has utility functions for header input and output.<br>
+ * Note that this class is written to perform checks at {@link #getBytes()} time
+ * that would better be done in set methods.
  *
  * <pre>
  * -- revision history --
  * $Log: LhaHeader.java,v $
  * Revision 1.2.2.3  2005/05/03 07:50:30  dangan
  * [bug fix]
- *     exportLevel1Header() で skip size のチェックがされていなかった。
+ *     In exportLevel1Header(), skip size was not checked.
  *
  * Revision 1.2.2.2  2005/02/02 00:57:46  dangan
  * [bug fix]
- *     importLevelXHeader(byte[], String) でファイルサイズを int で読み込んでいたため
- *     31ビット値以上のサイズのファイルを正しく扱えていなかったのを修正。
+ *     Fixed issue where files with size greater than or equal to 31-bit value
+ *     were not handled correctly because file size was read as int in importLevelXHeader(byte[], String).
  *
  * Revision 1.2.2.1  2003/07/20 13:19:21  dangan
  * [bug fix]
- *     exportDirNameExtHeader(String) で System.arraycopy の src と dest の配置が間違っていた。
+ *     In exportDirNameExtHeader(String), src and dest order in System.arraycopy was reversed.
  *
  * Revision 1.2  2002/12/08 00:00:00  dangan
  * [maintenance]
- *     LhaConstants から CompressMethod へのクラス名の変更に合わせて修正。
+ *     Updated to reflect the class name change from LhaConstants to CompressMethod.
  *
  * Revision 1.1  2002/12/05 00:00:00  dangan
  * [improvement]
- *     64ビットファイルサイズヘッダに対応。
+ *     Supported 64-bit file size header.
  * [change]
- *     LhaUtil.DefaultEncoding から LhaProperty.encoding を使用するように変更。
- *     getNextHeaderData() を getFirstHeaderData() に名前変更。
- *     新しい getNextHeaderData() は呼び出された位置で
- *     ヘッダを発見できない場合 null を返す。
- *     LhaHeader を拡張したサブクラスを使用する人のための createInstance() を追加。
+ *     Changed to use LhaProperty.encoding instead of LhaUtil.DefaultEncoding.
+ *     Renamed getNextHeaderData() to getFirstHeaderData().
+ *     New getNextHeaderData() returns null if no header is found at the invoked position.
+ *     Added createInstance() for callers extending LhaHeader.
  *
  * Revision 1.0  2002/08/05 00:00:00  dangan
  * add to version control
  * [bug fix]
- *     setDate( null ) を許していた。
- *     setCompressMethod( null ) を許していた。
- *     exportLevel2,3Header で
- *     Date が 32bit の time_t の範囲外の値(負の値を含む)の場合を許していた。
+ *     setDate( null ) was allowed.
+ *     setCompressMethod( null ) was allowed.
+ *     In exportLevel2,3Header, Date values outside the 32-bit time_t range (including negative values) were allowed.
  * [change]
- *     exportHeader で ヘッダレベルが 0,1,2,3 のいずれでもない場合
- *     IllegalStateException を投げるように変更。
+ *     In exportHeader, changed to throw IllegalStateException if header level is not 0, 1, 2, or 3.
  * [maintenance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
+ *     Source cleanup.
+ *     Eliminated tabs.
+ *     Updated license text.
  * </pre>
  *
  * @author $Author: dangan $
@@ -104,84 +101,82 @@ import jp.gr.java_conf.dangan.util.MsdosDate;
 public class LhaHeader implements Cloneable {
 
     /**
-     * 不明を意味する値。
-     * LhaHeader.getCRC(), LhaHeader.getCompressedSize(),
-     * LhaHeader.getOriginalSzie() がこの値を返した場合は
-     * 処理前のために、その値が不明である事を示す。
+     * Value indicating unknown.
+     * When {@link #getCRC()}, {@link #getCompressedSize()}, or {@link #getOriginalSize()} returns this value,
+     * it indicates that the value is unknown because it has not been processed yet.
      */
     public static final int UNKNOWN = -1;
 
     /**
-     * CRC値が無い事を意味する値。
-     * レベル0ヘッダでCRC値が存在しない事を意味する。
+     * Value indicating there is no CRC value.
+     * Means there is no CRC value in a level 0 header.
      */
     public static final int NO_CRC = -2;
 
     /**
-     * 圧縮前サイズ。
-     * -1 は処理前のためサイズが不明であることを意味する。
+     * Size before compression.
+     * -1 means the size is unknown because it is before processing.
      */
     private long OriginalSize;
 
     /**
-     * 最終更新日時。
-     * 圧縮したファイルの最終更新日時。
+     * Last modified date and time.
+     * Last modified date and time of the compressed file.
      */
     private Date LastModified;
 
     /**
-     * パス名。
-     * パスデリミタには java.io.File.separator を使用する。
+     * Path name.
+     * {@link File#separator} is used as the path delimiter.
      */
     private String Path;
 
     /**
-     * CRC16 の値。
-     * -1 は 処理前のためにCRC16値が不明である事を意味する。
-     * -2 は レベル0ヘッダでCRC16値が無い事を意味する。
+     * CRC16 value.
+     * -1 means CRC16 value is unknown because it is before processing.
+     * -2 means there is no CRC16 value in a level 0 header.
      */
     private int CRC;
 
     /**
-     * 圧縮法文字列。
+     * Compression method string.
      */
     private String Method;
 
     /**
-     * 圧縮後サイズ。
-     * -1 は処理前のためサイズが不明であることを意味する。
+     * Size after compression.
+     * -1 means the size is unknown because it is before processing.
      */
     private long CompressedSize;
 
     /**
-     * ヘッダレベル。
-     * 0,1,2,3の何れか
+     * Header level.
+     * One of 0, 1, 2, 3.
      */
     private int HeaderLevel;
 
     /**
-     * ヘッダを作成した OS。
+     * OS that created the header.
      */
     private byte OSID;
 
     /**
-     * レベル0ヘッダもしくは レベル1ヘッダの基本ヘッダ内の
-     * 拡張情報があった場合、これを保存する。
+     * Stores extra data in the base header if present in level 0 or level 1 headers.
      */
     private byte[] ExtraData;
 
     /**
-     * レベル0ヘッダにおける DOSのファイル属性を保存する。
+     * Stores DOS file attributes in level 0 headers.
      */
     private byte Level0DosAttribute;
 
     /**
-     * LhaHeaderでは読み込まない情報を持つ拡張ヘッダを保存する。
+     * Stores extended headers having information not read by {@link LhaHeader}.
      */
     private Vector<byte[]> ExtraExtHeaders;
 
     /**
-     * LhaHeaderの各値を初期化する。
+     * Initializes values of {@link LhaHeader}.
      */
     private LhaHeader() {
         this.Method = CompressMethod.LH5;
@@ -198,28 +193,27 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * path という名前を持つ LhaHeader のインスタンスを生成する。<br>
-     * パスデリミタには File.separator を使用すること。<br>
-     * path が パスデリミタでターミネートされている場合は
-     * ディレクトリであると解釈される。
+     * Constructs an instance of {@link LhaHeader} with name {@code path}.<br>
+     * Use {@link File#separator} as the path delimiter.<br>
+     * If {@code path} is terminated by the path delimiter,
+     * it is interpreted as a directory.
      *
-     * @param path パス名
-     * @throws IllegalArgumentException path が null か 空文字列のいずれかである場合
+     * @param path path name
+     * @throws IllegalArgumentException if {@code path} is {@code null} or empty string
      */
     public LhaHeader(String path) {
         this(path, new Date(System.currentTimeMillis()));
     }
 
     /**
-     * path という名前を持ち、最終更新日時が date の
-     * LhaHeader のインスタンスを生成する。<br>
-     * パスデリミタには File.separator を使用すること。<br>
-     * path が パスデリミタでターミネートされている場合は
-     * ディレクトリであると解釈される。
+     * Constructs an instance of {@link LhaHeader} with name {@code path} and last modified date {@code date}.<br>
+     * Use {@link File#separator} as the path delimiter.<br>
+     * If {@code path} is terminated by the path delimiter,
+     * it is interpreted as a directory.
      *
-     * @param path パス名
-     * @param date 最終更新日時
-     * @throws IllegalArgumentException path が null か 空文字列のいずれかであるか、date が nullである場合。
+     * @param path path name
+     * @param date last modified date
+     * @throws IllegalArgumentException if {@code path} is {@code null} or empty string, or {@code date} is {@code null}
      */
     public LhaHeader(String path, Date date) {
         this();
@@ -240,13 +234,12 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * ヘッダデータから 新しい LhaHeader の
-     * インスタンスを生成する。<br>
-     * エンコードは LhaUtil.DefaultEncode が使用される。
+     * Constructs a new instance of {@link LhaHeader} from header data.<br>
+     * The encoding used is {@link LhaProperty#encoding}.
      *
-     * @param HeaderData ヘッダデータ
-     * @throws IndexOutOfBoundsException ヘッダデータが壊れているためデータがあると仮定した位置がHeaderData の範囲外になった
-     * @throws IllegalArgumentException  ヘッダレベルが 0,1,2,3 の何れでもないか、HeaderData が null の場合
+     * @param HeaderData header data
+     * @throws IndexOutOfBoundsException if position where data is assumed to exist is outside the range of {@code HeaderData} because header data is corrupted
+     * @throws IllegalArgumentException  if header level is not 0, 1, 2, or 3, or if {@code HeaderData} is {@code null}
      */
     public LhaHeader(byte[] HeaderData) {
         this();
@@ -262,14 +255,13 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * ヘッダデータから 新しい LhaHeader の
-     * インスタンスを生成する。
+     * Constructs a new instance of {@link LhaHeader} from header data.
      *
-     * @param HeaderData ヘッダデータ
-     * @param encode     文字列情報を解釈する際に使用するエンコード
-     * @throws IndexOutOfBoundsException    ヘッダデータが壊れているためデータがあると仮定した位置がHeaderData の範囲外になった
-     * @throws UnsupportedEncodingException encode で指定されたエンコードがサポートされない場合
-     * @throws IllegalArgumentException     ヘッダレベルが 0,1,2,3 の何れでもないか、HeaderData が null の場合
+     * @param HeaderData header data
+     * @param encode     encoding used to interpret string information
+     * @throws IndexOutOfBoundsException    if position where data is assumed to exist is outside the range of {@code HeaderData} because header data is corrupted
+     * @throws UnsupportedEncodingException if the encoding specified by {@code encode} is not supported
+     * @throws IllegalArgumentException     if header level is not 0, 1, 2, or 3, or if {@code HeaderData} is {@code null}
      */
     public LhaHeader(byte[] HeaderData, String encode) throws UnsupportedEncodingException {
         this();
@@ -283,9 +275,9 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * このオブジェクトのコピーを作成して返す。
+     * Creates and returns a copy of this object.
      *
-     * @return このオブジェクトのコピー
+     * @return a copy of this object
      */
     @Override
     public Object clone() {
@@ -297,20 +289,19 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * データを圧縮した方法を識別する文字列を得る。
+     * Gets the string identifying the compression method of data.
      *
-     * @return 圧縮法文字列
+     * @return compression method string
      */
     public String getCompressMethod() {
         return this.Method;
     }
 
     /**
-     * データの圧縮前のサイズを得る。
+     * Gets the size of data before compression.
      *
-     * @return 圧縮前のサイズ LhaHeader( String path ) または
-     * LhaHeader( String path, Date date )で生成された インスタンスは初期状態ではサイズが不明のため
-     * LhaHeader.UNKNOWN( -1 ) を返す。
+     * @return size before compression. An instance created by {@link #LhaHeader(String)} or
+     * {@link #LhaHeader(String, Date)} returns {@link #UNKNOWN} (-1) because the size is unknown in initial state.
      * @see LhaHeader#UNKNOWN
      */
     public long getOriginalSize() {
@@ -318,11 +309,10 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * データの圧縮後のサイズを得る。
+     * Gets the size of data after compression.
      *
-     * @return 圧縮後のサイズ LhaHeader( String path ) または
-     * LhaHeader( String path, Date date )で生成された インスタンスは初期状態ではサイズが不明のため
-     * LhaHeader.UNKNOWN( -1 ) を返す。
+     * @return size after compression. An instance created by {@link #LhaHeader(String)} or
+     * {@link #LhaHeader(String, Date)} returns {@link #UNKNOWN} (-1) because the size is unknown in initial state.
      * @see LhaHeader#UNKNOWN
      */
     public long getCompressedSize() {
@@ -330,31 +320,29 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * データの最終更新日時を得る。
+     * Gets the last modified date and time of the data.
      *
-     * @return データの最終更新日時
+     * @return last modified date and time of the data
      */
     public Date getLastModified() {
         return new Date(this.LastModified.getTime());
     }
 
     /**
-     * このヘッダのヘッダレベルを得る。
+     * Gets the header level of this header.
      *
-     * @return ヘッダレベル
+     * @return header level
      */
     public int getHeaderLevel() {
         return this.HeaderLevel;
     }
 
     /**
-     * データの名前、
-     * もしくはデータがファイルであった場合のパス名を得る。<br>
-     * パス名とはいっても、Windows 系の A: のような
-     * ドライブ名を含んではならない。<br>
-     * パスデリミタには File.separator を使用する。
+     * Gets the name of the data, or the path name if the data is a file.<br>
+     * Even though it is a path name, it must not include drive letters like A: in Windows.<br>
+     * {@link File#separator} is used as the path delimiter.
      *
-     * @return データの名前、もしくは パス名。
+     * @return name of the data, or path name.
      * @see File#separator
      */
     public String getPath() {
@@ -362,16 +350,14 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * データのCRC16値を得る。
+     * Gets the CRC16 value of the data.
      *
-     * @return データのCRC16値<br>
-     * LhaHeader( String path ) または
-     * LhaHeader( String path, Date date )で生成された
-     * インスタンスは初期状態ではCRCが不明のため
-     * LhaHeader.UNKNOWN( -1 ) を返す。<br>
-     * レベル0ヘッダでCRC16値の
-     * フィールドが無い場合は
-     * LhaHeader.NO_CRC( -2 )を返す
+     * @return CRC16 value of the data<br>
+     * An instance created by {@link #LhaHeader(String)} or
+     * {@link #LhaHeader(String, Date)} returns {@link #UNKNOWN} (-1)
+     * because the CRC is unknown in initial state.<br>
+     * If there is no CRC16 value field in a level 0 header,
+     * returns {@link #NO_CRC} (-2).
      * @see LhaHeader#UNKNOWN
      * @see LhaHeader#NO_CRC
      */
@@ -380,78 +366,72 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * このヘッダを作成した OS の識別子を得る。
+     * Gets the identifier of the OS that created this header.
      *
-     * @return OSの識別子
+     * @return OS identifier
      */
     public byte getOSID() {
         return this.OSID;
     }
 
     /**
-     * レベル 0 ヘッダ、 レベル 1 ヘッダの時に
-     * 付加される可能性がある基本ヘッダ内の拡張データを得る。
+     * Gets extra data in the base header that may be attached in level 0 or level 1 headers.
      *
-     * @return 拡張データ
+     * @return extra data
      */
     protected byte[] getExtraData() {
         return this.ExtraData.clone();
     }
 
     /**
-     * レベル 0 ヘッダに記される
-     * DOS のファイル属性を得る。
+     * Gets DOS file attributes recorded in level 0 headers.
      *
-     * @return DOS の ファイル属性
+     * @return DOS file attributes
      */
     protected byte getLevel0DosAttribute() {
         return this.Level0DosAttribute;
     }
 
     /**
-     * パス名から切り分けられたファイル名を得る。
+     * Gets the file name extracted from the path name.
      *
-     * @return ファイル名
+     * @return file name
      */
     private String getFileName() {
         return this.Path.substring(this.Path.lastIndexOf(File.separatorChar) + 1);
     }
 
     /**
-     * パス名から切り分けられたディレクトリ名を得る。
+     * Gets the directory name extracted from the path name.
      *
-     * @return ディレクトリ名
+     * @return directory name
      */
     private String getDirName() {
         return this.Path.substring(0, this.Path.lastIndexOf(File.separatorChar) + 1);
     }
 
     /**
-     * このLhaHeaderのデータを使用して ヘッダデータを生成し、
-     * それをバイト配列の形で得る。<br>
-     * エンコードはデフォルトのものが使用される。
+     * Generates header data using data of this {@link LhaHeader} and returns it as a byte array.<br>
+     * Default encoding is used.
      *
-     * @return バイト配列に格納したヘッダデータ
+     * @return header data stored in a byte array
      * @throws IllegalStateException <ol>
-     *                               <li>圧縮法文字列をencodeでバイト配列にしたものが 5byteで無い場合
-     *                               <li>レベル0,1,2で ファイル名が長すぎるためヘッダに収まりきらない。
-     *                               <li>レベル1,2で共通拡張ヘッダが大きすぎて出力できない。そのためヘッダのCRC格納場所が無い。
-     *                               <li>レベル0以外で CRC に レベル0ヘッダでCRC情報が無い事を示す特別な値である
-     *                               LhaHeader.NO_CRC( -2 ) が設定されていた。
-     *                               <li>レベル0,1の時にLastModifiedがMS-DOS形式で表現できない範囲の時間であった場合
-     *                               <li>レベル2,3の時にLastModifiedが4バイトのtime_tで表現できない範囲の時間であった場合
-     *                               <li>OriginalSize にサイズが不明である事を示す特別な値である LhaHeader.UNKNOWN( -1 )が設定されていた。
-     *                               <li>OriginalSize が負値である場合
-     *                               <li>レベル0,1,3 の時に OriginalSize が4byte値で表現できない値である場合
-     *                               <li>CompressedSize にサイズが不明である事を示す特別な値である LhaHeader.UNKNOWN( -1 )が設定されていた。
-     *                               <li>CompressedSize が負値である場合
-     *                               <li>レベル0,1,3 の時に CompressedSize が4byte値で表現できない値である場合
-     *                               <li>レベル2の時にOriginalSize または CompressedSizeが4バイト値を超えるためファイルサイズヘッダが必要な際に
-     *                               他の拡張ヘッダが大きすぎてファイルサイズヘッダが出力出来ない場合。
-     *                               <li>CRC にCRC16値が不明である事を示す特別な値である LhaHeader.UNKNOWN( -1 )が設定されていた。
-     *                               <li>ヘッダレベルが 0,1,2,3 以外である場合
+     *                               <li>if byte array of compression method string converted by {@code encode} is not 5 bytes
+     *                               <li>if file name is too long to fit in header in level 0, 1, or 2
+     *                               <li>if common extended header is too large to output in level 1 or 2, hence there is no place to store header CRC
+     *                               <li>if {@link #NO_CRC} (-2), a special value indicating no CRC information in level 0 headers, is set for non-level 0 headers
+     *                               <li>if {@code LastModified} is outside the range that can be represented in MS-DOS format in level 0 or 1
+     *                               <li>if {@code LastModified} is outside the range that can be represented in 4-byte time_t in level 2 or 3
+     *                               <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code OriginalSize}
+     *                               <li>if {@code OriginalSize} is negative
+     *                               <li>if {@code OriginalSize} cannot be represented as a 4-byte value in level 0, 1, or 3
+     *                               <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code CompressedSize}
+     *                               <li>if {@code CompressedSize} is negative
+     *                               <li>if {@code CompressedSize} cannot be represented as a 4-byte value in level 0, 1, or 3
+     *                               <li>if file size header is required because {@code OriginalSize} or {@code CompressedSize} exceeds 4-byte value in level 2, but file size header cannot be output because other extended headers are too large
+     *                               <li>if {@link #UNKNOWN} (-1), a special value indicating unknown CRC16 value, is set in CRC
+     *                               <li>if header level is other than 0, 1, 2, or 3
      *                               </ol>
-     *                               の何れか。
      */
     public byte[] getBytes() {
         try {
@@ -462,51 +442,38 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * このLhaHeaderのデータを使用して ヘッダデータを生成し、
-     * それをバイト配列の形で得る。
+     * Generates header data using data of this {@link LhaHeader} and returns it as a byte array.
      *
-     * @param encode 文字列情報を出力する際に使用するエンコード
-     * @return バイト配列に格納したヘッダデータ
+     * @param encode encoding used when outputting string information
+     * @return header data stored in a byte array
      * @throws IllegalStateException        <ol>
-     *                                      <li>圧縮法文字列をencodeでバイト配列にしたものが 5byteで無い場合
-     *                                      <li>レベル0,1,2で ファイル名が長すぎるためヘッダに収まりきらない。
-     *                                      <li>レベル1,2で共通拡張ヘッダが大きすぎて出力できない。
-     *                                      そのためヘッダのCRC格納場所が無い。
-     *                                      <li>レベル0以外で CRC に レベル0ヘッダでCRC情報が無い事を示す特別な値である
-     *                                      LhaHeader.NO_CRC( -2 ) が設定されていた。
-     *                                      <li>レベル0,1の時にLastModifiedがMS-DOS形式
-     *                                      で表現できない範囲の時間であった場合
-     *                                      <li>レベル2,3の時にLastModifiedが4バイトの
-     *                                      time_tで表現できない範囲の時間であった場合
-     *                                      <li>OriginalSize にサイズが不明である事を示す
-     *                                      特別な値である LhaHeader.UNKNOWN( -1 )が設定されていた。
-     *                                      <li>OriginalSize が負値である場合
-     *                                      <li>レベル0,1,3 の時に OriginalSize が
-     *                                      4byte値で表現できない値である場合
-     *                                      <li>CompressedSize にサイズが不明である事を示す
-     *                                      特別な値である LhaHeader.UNKNOWN( -1 )が設定されていた。
-     *                                      <li>CompressedSize が負値である場合
-     *                                      <li>レベル0,1,3 の時に CompressedSize が
-     *                                      4byte値で表現できない値である場合
-     *                                      <li>レベル2の時にOriginalSize または CompressedSizeが
-     *                                      4バイト値を超えるためファイルサイズヘッダが必要な際に
-     *                                      他の拡張ヘッダが大きすぎてファイルサイズヘッダが出力出来ない場合。
-     *                                      <li>CRC にCRC16値が不明である事を示す
-     *                                      特別な値である LhaHeader.UNKNOWN( -1 )が設定されていた。
-     *                                      <li>ヘッダレベルが 0,1,2,3 以外である場合
+     *                                      <li>if byte array of compression method string converted by {@code encode} is not 5 bytes
+     *                                      <li>if file name is too long to fit in header in level 0, 1, or 2
+     *                                      <li>if common extended header is too large to output in level 1 or 2, hence there is no place to store header CRC
+     *                                      <li>if {@link #NO_CRC} (-2), a special value indicating no CRC information in level 0 headers, is set for non-level 0 headers
+     *                                      <li>if {@code LastModified} is outside the range that can be represented in MS-DOS format in level 0 or 1
+     *                                      <li>if {@code LastModified} is outside the range that can be represented in 4-byte time_t in level 2 or 3
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code OriginalSize}
+     *                                      <li>if {@code OriginalSize} is negative
+     *                                      <li>if {@code OriginalSize} cannot be represented as a 4-byte value in level 0, 1, or 3
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code CompressedSize}
+     *                                      <li>if {@code CompressedSize} is negative
+     *                                      <li>if {@code CompressedSize} cannot be represented as a 4-byte value in level 0, 1, or 3
+     *                                      <li>if file size header is required because {@code OriginalSize} or {@code CompressedSize} exceeds 4-byte value in level 2, but file size header cannot be output because other extended headers are too large
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown CRC16 value, is set in CRC
+     *                                      <li>if header level is other than 0, 1, 2, or 3
      *                                      </ol>
-     *                                      の何れか。
-     * @throws UnsupportedEncodingException encode で指定されたエンコードがサポートされない場合
+     * @throws UnsupportedEncodingException if the encoding specified by {@code encode} is not supported
      */
     public byte[] getBytes(String encode) throws UnsupportedEncodingException {
         return this.exportHeader(encode);
     }
 
     /**
-     * 圧縮法文字列を設定する。
+     * Sets the compression method string.
      *
-     * @param method 圧縮法文字列
-     * @throws IllegalArgumentException 圧縮法文字列が '-' で始まっていないか、'-' で終わっていない場合。
+     * @param method compression method string
+     * @throws IllegalArgumentException if compression method string does not start with '-' or does not end with '-'
      */
     public void setCompressMethod(String method) {
         if (method == null) {
@@ -519,14 +486,13 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * 圧縮前データサイズを設定する。<br>
-     * LhaHeader.UNKNOWN( -1 ) は サイズ不明を示す
-     * 特別な数字であるため設定できない。<br>
-     * また レベル0,1,3 では処理できるのは 4バイト値のみであるため
-     * 4バイトで表現できない値を設定した場合 getByte() 時に例外を投げる。
+     * Sets data size before compression.<br>
+     * {@link #UNKNOWN} (-1) cannot be set because it is a special number indicating unknown size.<br>
+     * Also, since only 4-byte values can be processed in level 0, 1, and 3,
+     * setting a value that cannot be represented in 4 bytes will throw an exception at {@link #getBytes()} time.
      *
-     * @param size 圧縮前データサイズ
-     * @throws IllegalArgumentException size に LhaHeader.UNKNOWN( -1 )を設定しようとした場合
+     * @param size data size before compression
+     * @throws IllegalArgumentException if attempting to set {@link #UNKNOWN} (-1) to {@code size}
      * @see LhaHeader#UNKNOWN
      */
     public void setOriginalSize(long size) {
@@ -538,14 +504,13 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * 圧縮後データサイズを設定する。<br>
-     * LhaHeader.UNKNOWN( -1 ) は サイズ不明を示す
-     * 特別な数字であるため設定できない。<br>
-     * また レベル0,1,3 では処理できるのは 4バイト値のみであるため
-     * 4バイトで表現できない値を設定した場合 getByte() 時に例外を投げる。
+     * Sets data size after compression.<br>
+     * {@link #UNKNOWN} (-1) cannot be set because it is a special number indicating unknown size.<br>
+     * Also, since only 4-byte values can be processed in level 0, 1, and 3,
+     * setting a value that cannot be represented in 4 bytes will throw an exception at {@link #getBytes()} time.
      *
-     * @param size 圧縮後データサイズ
-     * @throws IllegalArgumentException size に LhaHeader.UNKNOWN を設定しようとした
+     * @param size data size after compression
+     * @throws IllegalArgumentException if attempting to set {@link #UNKNOWN} to {@code size}
      * @see LhaHeader#UNKNOWN
      */
     public void setCompressedSize(long size) {
@@ -557,16 +522,14 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * 圧縮データの最終更新日時を設定する。<br>
-     * ヘッダレベルが 0,1 の場合は MsdosDateで表せる範囲内、
-     * ヘッダレベルが 2,3 の場合は 4byte の time_tで表せる範囲内
-     * の日付で無ければならない。<br>
-     * 範囲内でなくても このメソッドは例外を投げないことに注意す
-     * ること。範囲内に無い場合は このメソッドは例外を投げないが、
-     * getBytes() 時に例外を投げる。
+     * Sets last modified date and time of compressed data.<br>
+     * If header level is 0 or 1, the date must be within the range that can be represented by {@link MsdosDate};
+     * if header level is 2 or 3, it must be within the range that can be represented by 4-byte time_t.<br>
+     * Note that this method does not throw an exception even if it is not within the range.
+     * If it is not within the range, this method does not throw an exception, but an exception will be thrown at {@link #getBytes()} time.
      *
-     * @param date 最終更新日時
-     * @throws IllegalArgumentException date に null を設定しようとした場合
+     * @param date last modified date and time
+     * @throws IllegalArgumentException if attempting to set {@code null} to {@code date}
      */
     public void setLastModified(Date date) {
         if (date != null) {
@@ -577,28 +540,25 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * ヘッダレベルを設定する。<br>
-     * 現在設定できるのは 0,1,2,3 のみとなっている。<br>
-     * ヘッダレベルの変更はパスの最大長や、LastModified の制限範囲
-     * などを変化させるため注意が必要である。
+     * Sets header level.<br>
+     * Currently only 0, 1, 2, 3 can be set.<br>
+     * Note that changing the header level changes the maximum length of path and the restricted range of {@code LastModified}.
      *
-     * @param level ヘッダレベル
+     * @param level header level
      */
     public void setHeaderLevel(int level) {
         this.HeaderLevel = level;
     }
 
     /**
-     * データの名前、もしくはデータがファイルである場合、
-     * データのパスを設定する。<br>
-     * パスデリミタには File.separator を使用する。<br>
-     * ヘッダレベルによって path にはバイト数の制限が存在するが、
-     * このメソッドは制限を越えた場合でも 例外を投げないことに
-     * 注意。制限を越えた場合は このメソッドは例外を投げないが、
-     * getBytes()時に例外を投げる
+     * Sets the name of the data, or the path of the data if the data is a file.<br>
+     * {@link File#separator} is used as the path delimiter.<br>
+     * Note that although there is a byte length restriction on {@code path} depending on the header level,
+     * this method does not throw an exception even if the restriction is exceeded.
+     * If the restriction is exceeded, this method does not throw an exception, but an exception will be thrown at {@link #getBytes()} time.
      *
-     * @param path データの名前、もしくはファイル名
-     * @throws IllegalArgumentException path が空文字列である場合
+     * @param path name of data, or file name
+     * @throws IllegalArgumentException if {@code path} is empty string
      * @see File#separator
      */
     public void setPath(String path) {
@@ -612,19 +572,15 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * 圧縮前のデータの CRC16値を設定する。<br>
-     * LhaHeader.UNKNOWN( -1 ) は サイズ不明を示す
-     * 特別な数字であるため設定できない。<br>
-     * LhaHeader.NO_CRC( -2 ) は レベル0ヘッダの場
-     * 合に CRC値を出力しないことを意味する特別な値
-     * である。<br>
-     * 他のヘッダレベルの時に LhaHeader.NO_CRC( -2 )
-     * を設定しても例外を投げないが getBytes() 時に
-     * 例外を投げるので注意すること。<br>
-     * 有効なのは下位2バイトで、上位2バイトは無視される。
+     * Sets CRC16 value of data before compression.<br>
+     * {@link #UNKNOWN} (-1) cannot be set because it is a special number indicating unknown size.<br>
+     * {@link #NO_CRC} (-2) is a special value meaning that CRC value is not output in case of level 0 header.<br>
+     * Note that setting {@link #NO_CRC} (-2) for other header levels will not throw an exception here,
+     * but will throw an exception at {@link #getBytes()} time.<br>
+     * The lower 2 bytes are valid, and the upper 2 bytes are ignored.
      *
-     * @param crc データの圧縮前のCRC16値
-     * @throws IllegalArgumentException crc に LhaHeader.UNKNOWN を設定しようとした
+     * @param crc CRC16 value of data before compression
+     * @throws IllegalArgumentException if attempting to set {@link #UNKNOWN} to {@code crc}
      * @see LhaHeader#UNKNOWN
      * @see LhaHeader#NO_CRC
      */
@@ -637,70 +593,64 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * このヘッダにOS固有の情報が含まれる場合、
-     * そのデータを解釈する手がかりとして OSの識別子を設定する。
+     * If OS-specific information is included in this header,
+     * sets the OS identifier as a clue to interpret the data.
      *
-     * @param id OS識別子
+     * @param id OS identifier
      */
     public void setOSID(byte id) {
         this.OSID = id;
     }
 
     /**
-     * レベル 0,1ヘッダ時に使用される 基本ヘッダ内
-     * 拡張情報を設定する。<br>
-     * 拡張情報のバイト数には制限が存在するが、このメソッドは
-     * 制限を越えても例外を投げないことに注意。制限を越えた場合
-     * getBytes()時に例外を投げる。
+     * Sets extra information in base header used in level 0 and 1 headers.<br>
+     * Note that although there is a restriction on the byte length of extra information,
+     * this method does not throw an exception even if the restriction is exceeded.
+     * If the restriction is exceeded, an exception will be thrown at {@link #getBytes()} time.
      *
-     * @param data 拡張情報
-     *             拡張情報を出力しない場合は nullを設定する。
+     * @param data extra information, or {@code null} if not outputting extra information
      */
     protected void setExtraData(byte[] data) {
         this.ExtraData = data;
     }
 
     /**
-     * レベル 0ヘッダの場合に出力される、
-     * MS-DOS のファイル属性を設定する。
+     * Sets MS-DOS file attributes output in case of level 0 header.
      *
-     * @param attribute MS-DOSのファイル属性
+     * @param attribute MS-DOS file attributes
      */
     protected void setLevel0DosAttribute(byte attribute) {
         this.Level0DosAttribute = attribute;
     }
 
     /**
-     * filename で指定されるファイル名をパス名に設定する。
+     * Sets file name specified by {@code filename} to path name.
      *
-     * @param filename ファイル名
+     * @param filename file name
      */
     private void setFileName(String filename) {
         this.Path = this.getDirName() + filename;
     }
 
     /**
-     * dirname で指定される ディレクトリ名をパス名に設定する。
+     * Sets directory name specified by {@code dirname} to path name.
      *
-     * @param dirname ディレクトリ名
+     * @param dirname directory name
      */
     private void setDirName(String dirname) {
         this.Path = dirname + this.getFileName();
     }
 
     /**
-     * HeaderDataをレベル0ヘッダのデータとして解釈し、
-     * このLhaHeaderに値を設定する。
+     * Interprets {@code HeaderData} as level 0 header data and sets values to this {@link LhaHeader}.
      *
-     * @param HeaderData ヘッダデータ
-     * @param encode     文字列情報を解釈する際に使用する
-     *                   エンコード
-     * @throws UnsupportedEncodingException encode で指定されたエンコードが
-     *                                      サポートされない場合
+     * @param HeaderData header data
+     * @param encode     encoding used to interpret string information
+     * @throws UnsupportedEncodingException if the encoding specified by {@code encode} is not supported
      */
     private void importLevel0Header(byte[] HeaderData, String encode) throws UnsupportedEncodingException {
 
-        // ヘッダデータ位置の定義
+        // Definition of header data positions
         final int HeaderSizeIndex = 0;
         int HeaderSize = (HeaderData[HeaderSizeIndex] & 0xFF) + 2;
         final int CompressMethodIndex = 2;
@@ -716,7 +666,7 @@ public class LhaHeader implements Cloneable {
         int ExtraDataIndex = 24 + PathLength;
         int ExtraDataLength = HeaderSize - ExtraDataIndex;
 
-        // ヘッダデータ読み込み
+        // Read header data
         this.Method = new String(HeaderData, CompressMethodIndex, 5, encode);
         this.CompressedSize = (LittleEndian.readInt(HeaderData, CompressedSizeIndex)) & 0xFFFFFFFFL;
         this.OriginalSize = (LittleEndian.readInt(HeaderData, OriginalSizeIndex)) & 0xFFFFFFFFL;
@@ -738,16 +688,15 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * HeaderDataをレベル1ヘッダのデータとして解釈し、
-     * このLhaHeaderに値を設定する。
+     * Interprets {@code HeaderData} as level 1 header data and sets values to this {@link LhaHeader}.
      *
-     * @param HeaderData ヘッダデータ
-     * @param encode     文字列情報を解釈する際に使用するエンコード
-     * @throws UnsupportedEncodingException encode で指定されたエンコードがサポートされない場合
+     * @param HeaderData header data
+     * @param encode     encoding used to interpret string information
+     * @throws UnsupportedEncodingException if the encoding specified by {@code encode} is not supported
      */
     private void importLevel1Header(byte[] HeaderData, String encode) throws UnsupportedEncodingException {
 
-        // 基本ヘッダ内データ位置の定義
+        // Definition of base header data positions
         final int BaseHeaderSizeIndex = 0;
         int BaseHeaderSize = (HeaderData[BaseHeaderSizeIndex] & 0xFF) + 2;
         final int CompressMethodIndex = 2;
@@ -763,7 +712,7 @@ public class LhaHeader implements Cloneable {
         int ExtraDataIndex = 25 + FileNameLength;
         int ExtraDataLength = BaseHeaderSize - ExtraDataIndex - 2;
 
-        // 基本ヘッダデータ読み込み
+        // Read base header data
         this.Method = new String(HeaderData, CompressMethodIndex, 5, encode);
         this.CompressedSize = (LittleEndian.readInt(HeaderData, SkipSizeIndex)) & 0xFFFFFFFFL;
         this.OriginalSize = (LittleEndian.readInt(HeaderData, OriginalSizeIndex)) & 0xFFFFFFFFL;
@@ -777,7 +726,7 @@ public class LhaHeader implements Cloneable {
             System.arraycopy(HeaderData, ExtraDataIndex, this.ExtraData, 0, ExtraDataLength);
         }
 
-        // 拡張ヘッダデータの読み込み
+        // Read extended header data
         boolean hasFileSize = false;
         int index = BaseHeaderSize;
         int length = LittleEndian.readShort(HeaderData, index - 2);
@@ -797,16 +746,15 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * HeaderDataをレベル2ヘッダのデータとして解釈し、
-     * このLhaHeaderに値を設定する。
+     * Interprets {@code HeaderData} as level 2 header data and sets values to this {@link LhaHeader}.
      *
-     * @param HeaderData ヘッダデータ
-     * @param encode     文字列情報を解釈する際に使用するエンコード
-     * @throws UnsupportedEncodingException encode で指定されたエンコードがサポートされない場合
+     * @param HeaderData header data
+     * @param encode     encoding used to interpret string information
+     * @throws UnsupportedEncodingException if the encoding specified by {@code encode} is not supported
      */
     private void importLevel2Header(byte[] HeaderData, String encode) throws UnsupportedEncodingException {
 
-        // 基本ヘッダ内データ位置の定義
+        // Definition of base header data positions
         final int HeaderSizeIndex = 0;
         @SuppressWarnings("unused") int HeaderSize = LittleEndian.readShort(HeaderData, HeaderSizeIndex);
         final int CompressMethodIndex = 2;
@@ -817,7 +765,7 @@ public class LhaHeader implements Cloneable {
         final int CRCIndex = 21;
         final int OSIDIndex = 23;
 
-        // 基本ヘッダデータ読み込み
+        // Read base header data
         this.Method = new String(HeaderData, CompressMethodIndex, 5, encode);
         this.CompressedSize = (LittleEndian.readInt(HeaderData, CompressedSizeIndex)) & 0xFFFFFFFFL;
         this.OriginalSize = (LittleEndian.readInt(HeaderData, OriginalSizeIndex)) & 0xFFFFFFFFL;
@@ -826,7 +774,7 @@ public class LhaHeader implements Cloneable {
         this.CRC = LittleEndian.readShort(HeaderData, CRCIndex);
         this.OSID = HeaderData[OSIDIndex];
 
-        // 拡張ヘッダデータの読み込み
+        // Read extended header data
         final int BaseHeaderSize = 26;
         int index = BaseHeaderSize;
         int length = LittleEndian.readShort(HeaderData, index - 2);
@@ -838,16 +786,15 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * HeaderDataをレベル3ヘッダのデータとして解釈し、
-     * このLhaHeaderに値を設定する。
+     * Interprets {@code HeaderData} as level 3 header data and sets values to this {@link LhaHeader}.
      *
-     * @param HeaderData ヘッダデータ
-     * @param encode     文字列情報を解釈する際に使用するエンコード
-     * @throws UnsupportedEncodingException encode で指定されたエンコードがサポートされない場合
+     * @param HeaderData header data
+     * @param encode     encoding used to interpret string information
+     * @throws UnsupportedEncodingException if the encoding specified by {@code encode} is not supported
      */
     private void importLevel3Header(byte[] HeaderData, String encode) throws UnsupportedEncodingException {
 
-        // 基本ヘッダ内データ位置の定義
+        // Definition of base header data positions
         final int WordSizeIndex = 0;
         @SuppressWarnings("unused") int WordSize = LittleEndian.readShort(HeaderData, WordSizeIndex);
         final int CompressMethodIndex = 2;
@@ -858,7 +805,7 @@ public class LhaHeader implements Cloneable {
         final int CRCIndex = 21;
         final int OSIDIndex = 23;
 
-        // 基本ヘッダデータ読み込み
+        // Read base header data
         this.Method = new String(HeaderData, CompressMethodIndex, 5, encode);
         this.CompressedSize = (LittleEndian.readInt(HeaderData, CompressedSizeIndex)) & 0xFFFFFFFFL;
         this.OriginalSize = (LittleEndian.readInt(HeaderData, OriginalSizeIndex)) & 0xFFFFFFFFL;
@@ -867,7 +814,7 @@ public class LhaHeader implements Cloneable {
         this.CRC = LittleEndian.readShort(HeaderData, CRCIndex);
         this.OSID = HeaderData[OSIDIndex];
 
-        // 拡張ヘッダデータの読み込み
+        // Read extended header data
         final int BaseHeaderSize = 32;
         int index = BaseHeaderSize;
         int length = LittleEndian.readInt(HeaderData, index - 4);
@@ -879,14 +826,13 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * HeaderData を LHAヘッダデータとして解釈し
-     * LhaHeader に値を設定する。
+     * Interprets {@code HeaderData} as LHA header data and sets values to {@link LhaHeader}.
      *
-     * @param HeaderData ヘッダデータ
-     * @param encode     文字列情報を解釈する際に使用するエンコード
-     * @throws IndexOutOfBoundsException    ヘッダデータが壊れているためデータがあると仮定した位置がHeaderData の範囲外になった
-     * @throws UnsupportedEncodingException encode で指定されたエンコードがサポートされない場合
-     * @throws IllegalArgumentException     ヘッダレベルが 0,1,2,3 の何れでもない。
+     * @param HeaderData header data
+     * @param encode     encoding used to interpret string information
+     * @throws IndexOutOfBoundsException    if position where data is assumed to exist is outside the range of {@code HeaderData} because header data is corrupted
+     * @throws UnsupportedEncodingException if the encoding specified by {@code encode} is not supported
+     * @throws IllegalArgumentException     if header level is not 0, 1, 2, or 3
      */
     private void importHeader(byte[] HeaderData, String encode) throws UnsupportedEncodingException {
         final int HeaderLevelIndex = 20;
@@ -911,20 +857,19 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * HeaderData から 共通拡張ヘッダを読み込む。
-     * このメソッドは共通拡張ヘッダに ヘッダ検査用のCRC16値以外
-     * のデータが存在した場合 共通拡張ヘッダを ExtraExtHeaders に
-     * 登録するだけである。
+     * Reads common extended header from {@code HeaderData}.
+     * If data other than CRC16 value for header inspection exists in common extended header,
+     * this method simply registers the common extended header in {@code ExtraExtHeaders}.
      *
-     * @param HeaderData ヘッダデータ
-     * @param index      HeaderData内の拡張ヘッダの開始位置
-     * @param length     拡張ヘッダの長さ
+     * @param HeaderData header data
+     * @param index      starting position of extended header in {@code HeaderData}
+     * @param length     length of extended header
      */
     private void importCommonExtHeader(byte[] HeaderData, int index, int length) {
-        // ( 3 < length )の比較は 拡張ヘッダID(1byte)と
-        // ヘッダのCRC16値(2byte)以外にデータを含むかの判定。
-        // CRC16値以外の情報を持つなら その情報を保存するため
-        // ExtraExtHeadersに登録する。
+        // Comparison (3 < length) determines whether data is included other than
+        // extended header ID (1 byte) and header CRC16 value (2 bytes).
+        // If it has information other than CRC16 value, register in ExtraExtHeaders
+        // to save that information.
         if (3 < length) {
             if (this.ExtraExtHeaders == null) {
                 this.ExtraExtHeaders = new Vector<>();
@@ -936,14 +881,13 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * HeaderData から ファイル名拡張ヘッダを読み込む。
+     * Reads file name extended header from {@code HeaderData}.
      *
-     * @param HeaderData ヘッダデータ
-     * @param index      HeaderData内の拡張ヘッダの開始位置
-     * @param length     拡張ヘッダの長さ
-     * @param encode     文字列情報を解釈する際に使用する
-     *                   エンコード
-     * @throws UnsupportedEncodingException この例外が投げられることは無い。
+     * @param HeaderData header data
+     * @param index      starting position of extended header in {@code HeaderData}
+     * @param length     length of extended header
+     * @param encode     encoding used to interpret string information
+     * @throws UnsupportedEncodingException this exception is never thrown
      */
     private void importFileNameExtHeader(byte[] HeaderData,
                                          int index,
@@ -954,14 +898,13 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * HeaderData から ディレクトリ名拡張ヘッダを読み込む。
+     * Reads directory name extended header from {@code HeaderData}.
      *
-     * @param HeaderData ヘッダデータ
-     * @param index      HeaderData内の拡張ヘッダの開始位置
-     * @param length     拡張ヘッダの長さ
-     * @param encode     文字列情報を解釈する際に使用する
-     *                   エンコード
-     * @throws UnsupportedEncodingException この例外が投げられることは無い。
+     * @param HeaderData header data
+     * @param index      starting position of extended header in {@code HeaderData}
+     * @param length     length of extended header
+     * @param encode     encoding used to interpret string information
+     * @throws UnsupportedEncodingException this exception is never thrown
      */
     private void importDirNameExtHeader(byte[] HeaderData,
                                         int index,
@@ -994,11 +937,11 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * HeaderData から ファイルサイズ拡張ヘッダを読み込む。
+     * Reads file size extended header from {@code HeaderData}.
      *
-     * @param HeaderData ヘッダデータ
-     * @param index      HeaderData内の拡張ヘッダの開始位置
-     * @param length     拡張ヘッダの長さ
+     * @param HeaderData header data
+     * @param index      starting position of extended header in {@code HeaderData}
+     * @param length     length of extended header
      */
     private void importFileSizeHeader(byte[] HeaderData, int index, int length) {
         if (length == 17) {
@@ -1009,19 +952,15 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * 拡張ヘッダを読み込む。
-     * このメソッドをオーバーライドする事によって
-     * 様々な拡張ヘッダに対応することが可能となる。
-     * LhaHeader では 拡張ヘッダを private メンバである
-     * ExtraExtHeaders に登録するだけである。
+     * Reads extended header.
+     * By overriding this method, it becomes possible to support various extended headers.
+     * {@link LhaHeader} simply registers the extended header in {@code ExtraExtHeaders}, a private member.
      *
-     * @param HeaderData ヘッダデータ
-     * @param index      HeaderData内の拡張ヘッダの開始位置
-     * @param length     拡張ヘッダの長さ
-     * @param encode     文字列情報を解釈する際に使用する
-     *                   エンコード
-     * @throws UnsupportedEncodingException encode で指定されたエンコードが
-     *                                      サポートされない場合
+     * @param HeaderData header data
+     * @param index      starting position of extended header in {@code HeaderData}
+     * @param length     length of extended header
+     * @param encode     encoding used to interpret string information
+     * @throws UnsupportedEncodingException if the encoding specified by {@code encode} is not supported
      */
     protected void importExtendHeader(byte[] HeaderData,
                                       int index,
@@ -1036,16 +975,13 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * HeaderData の index からはじまる length バイトの
-     * 拡張ヘッダを読み込む。
+     * Reads extended header of {@code length} bytes starting from {@code index} of {@code HeaderData}.
      *
-     * @param HeaderData ヘッダデータ
-     * @param index      HeaderData内の拡張ヘッダの開始位置
-     * @param length     拡張ヘッダの長さ
-     * @param encode     文字列情報を解釈する際に使用する
-     *                   エンコード
-     * @throws UnsupportedEncodingException encode で指定されたエンコードが
-     *                                      サポートされない場合
+     * @param HeaderData header data
+     * @param index      starting position of extended header in {@code HeaderData}
+     * @param length     length of extended header
+     * @param encode     encoding used to interpret string information
+     * @throws UnsupportedEncodingException if the encoding specified by {@code encode} is not supported
      */
     private void importExtHeader(byte[] HeaderData, int index, int length, String encode) throws UnsupportedEncodingException {
         final int ExtendHeaderIDIndex = 0;
@@ -1069,38 +1005,25 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * この LhaHeader の情報を使って
-     * レベル0ヘッダのデータを生成する。<br>
-     * その際、ExtraData を含めるとヘッダサイズが
-     * 規定値に収まらない場合は ExtraData は含まれないことがある。
+     * Generates level 0 header data using information of this {@link LhaHeader}.<br>
+     * At that time, if including {@code ExtraData} causes the header size to exceed the specified value,
+     * {@code ExtraData} may not be included.
      *
-     * @param encode 文字列情報を出力する際に使用する
-     *               エンコード
+     * @param encode encoding used when outputting string information
      * @throws IllegalStateException        <ol>
-     *                                      <li>圧縮法文字列をencodeでバイト配列に
-     *                                      したものが 5byteで無い場合
-     *                                      <li>Path が大きすぎるため レベル0ヘッダの
-     *                                      最大サイズに収まりきらない。
-     *                                      <li>LastModifiedがMS-DOS形式で
-     *                                      表現できない範囲の時間であった場合
-     *                                      <li>OriginalSize にサイズが不明である事を示す
-     *                                      特別な値である LhaHeader.UNKNOWN( -1 )が設定
-     *                                      されていた。
-     *                                      <li>OriginalSize が負値であるか、
-     *                                      4byte値で表現できない値である場合
-     *                                      <li>CompressedSize にサイズが不明である事を示す
-     *                                      特別な値である LhaHeader.UNKNOWN( -1 )が
-     *                                      設定されていた。
-     *                                      <li>CompressedSize が負値であるか、
-     *                                      4byte値で表現できない値である場合
+     *                                      <li>if byte array of compression method string converted by {@code encode} is not 5 bytes
+     *                                      <li>if {@code Path} is too large to fit in the maximum size of level 0 header
+     *                                      <li>if {@code LastModified} is outside the range that can be represented in MS-DOS format
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code OriginalSize}
+     *                                      <li>if {@code OriginalSize} is negative or cannot be represented as a 4-byte value
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code CompressedSize}
+     *                                      <li>if {@code CompressedSize} is negative or cannot be represented as a 4-byte value
      *                                      </ol>
-     *                                      の何れか
-     * @throws UnsupportedEncodingException encode で指定されたエンコードが
-     *                                      サポートされない場合
+     * @throws UnsupportedEncodingException if the encoding specified by {@code encode} is not supported
      */
     private byte[] exportLevel0Header(String encode) throws UnsupportedEncodingException {
 
-        // ヘッダ出力準備
+        // Preparation for header output
         final int LHarcHeaderSize = 100;
         int CRCLength = (this.CRC == LhaHeader.NO_CRC || this.CRC == LhaHeader.UNKNOWN ? 0 : 2);
         byte[] CompressMethod = this.Method.getBytes(encode);
@@ -1121,7 +1044,7 @@ public class LhaHeader implements Cloneable {
 
         HeaderLength += ExtraData.length;
 
-        // ヘッダ正当性チェック
+        // Header validity check
         if (CompressMethod.length != 5) {
             throw new IllegalStateException("CompressMethod doesn't follow Format.");
         }
@@ -1154,13 +1077,12 @@ public class LhaHeader implements Cloneable {
             throw new IllegalStateException("OriginalSize must be 0 or more.");
         }
 
-        // ヘッダ出力
+        // Header output
         byte[] HeaderData;
         try {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-            // 出力するヘッダ長にはヘッダ先頭の ヘッダ長(1byte)、
-            // チェックサム(1byte)の2byteを含まないため -2 している。
+            // -2 because output header length does not include header length (1 byte) and checksum (1 byte) at head of header.
             out.write(HeaderLength - 2);
             out.write(0);
             out.write(CompressMethod);
@@ -1189,45 +1111,32 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * この LhaHeader の情報を使って
-     * レベル1ヘッダのデータを生成する。<br>
-     * その際、ExtraData を含めるとヘッダサイズが
-     * 規定値に収まらない場合は ExtraData は含まれないことがある。
-     * また、拡張ヘッダで 65534バイト以上のサイズを
-     * 持つものは無視される。
+     * Generates level 1 header data using information of this {@link LhaHeader}.<br>
+     * At that time, if including {@code ExtraData} causes the header size to exceed the specified value,
+     * {@code ExtraData} may not be included.
+     * Also, extended headers with a size of 65534 bytes or more are ignored.
      *
-     * @param encode 文字列情報を出力する際に使用するエンコード
+     * @param encode encoding used when outputting string information
      * @throws IllegalStateException        <ol>
-     *                                      <li>圧縮法文字列をencodeでバイト配列に
-     *                                      したものが 5byteで無い場合
-     *                                      <li>ファイル名が大きすぎるため
-     *                                      基本ヘッダにも拡張ヘッダにも収まりきらない。
-     *                                      <li>共通拡張ヘッダが大きすぎて出力できない。
-     *                                      そのためヘッダのCRC格納場所が無い。
-     *                                      <li>CRC に レベル0ヘッダで CRC情報が無い事を示す
-     *                                      特別な値である LhaHeader.NO_CRC( -2 ) が設定されていた。
-     *                                      <li>LastModifiedがMS-DOS形式で
-     *                                      表現できない範囲の時間であった場合
-     *                                      <li>OriginalSize にサイズが不明である事を示す
-     *                                      特別な値である LhaHeader.UNKNOWN( -1 )が設定されていた。
-     *                                      <li>OriginalSize が負値であるか、
-     *                                      4byte値で表現できない値である場合
-     *                                      <li>CompressedSize にサイズが不明である事を示す
-     *                                      特別な値である LhaHeader.UNKNOWN( -1 )が設定されていた。
-     *                                      <li>CompressedSize が負値であるか、
-     *                                      4byte値で表現できない値である場合
-     *                                      <li>CRC にCRC16値が不明である事を示す 特別な値
-     *                                      である LhaHeader.UNKNOWN( -1 )が設定されていた。
+     *                                      <li>if byte array of compression method string converted by {@code encode} is not 5 bytes
+     *                                      <li>if file name is too large to fit in base header or extended header
+     *                                      <li>if common extended header is too large to output, hence there is no place to store header CRC
+     *                                      <li>if {@link #NO_CRC} (-2), a special value indicating no CRC information in level 0 headers, is set in CRC
+     *                                      <li>if {@code LastModified} is outside the range that can be represented in MS-DOS format
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code OriginalSize}
+     *                                      <li>if {@code OriginalSize} is negative or cannot be represented as a 4-byte value
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code CompressedSize}
+     *                                      <li>if {@code CompressedSize} is negative or cannot be represented as a 4-byte value
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown CRC16 value, is set in CRC
      *                                      </ol>
-     *                                      の何れか
-     * @throws UnsupportedEncodingException encode で指定されたエンコードがサポートされない場合
+     * @throws UnsupportedEncodingException if the encoding specified by {@code encode} is not supported
      */
     private byte[] exportLevel1Header(String encode) throws UnsupportedEncodingException {
 
-        // ヘッダ出力準備
+        // Preparation for header output
         final int LHarcHeaderSize = 100;
-        boolean hasFileName = false; // ファイル名情報を持つかを示す
-        boolean hasCRC = false; // ヘッダのCRC情報を持つかを示す
+        boolean hasFileName = false; // Indicates whether it has file name information
+        boolean hasCRC = false; // Indicates whether it has header CRC information
         byte[] CompressMethod = this.Method.getBytes(encode);
         MsdosDate dosDate;
         try {
@@ -1274,7 +1183,7 @@ public class LhaHeader implements Cloneable {
             }
         }
 
-        // ヘッダ正当性チェック
+        // Header validity check
         if (CompressMethod.length != 5) {
             throw new IllegalStateException("CompressMethod doesn't follow Format.");
         }
@@ -1323,13 +1232,12 @@ public class LhaHeader implements Cloneable {
             throw new IllegalStateException("SkipSize must be 0xFFFFFFFF or less.");
         }
 
-        // ヘッダ出力
+        // Header output
         byte[] HeaderData;
         try {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-            // 出力するヘッダ長にはヘッダ先頭の ヘッダ長(1byte)、
-            // チェックサム(1byte)の2byteを含まないため -2 している。
+            // -2 because output header length does not include header length (1 byte) and checksum (1 byte) at head of header.
             out.write(HeaderLength - 2);
             out.write(0);
             out.write(CompressMethod);
@@ -1369,53 +1277,38 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * この LhaHeader の情報を使って
-     * レベル2ヘッダのデータを生成する。<br>
-     * また、全拡張ヘッダが65536バイト以上のサイズになる場合は
-     * 共通拡張ヘッダ、ファイル名拡張ヘッダが最優先で格納される。
-     * 上記の 2つの拡張ヘッダのみで 65536バイト以上になる場合は
-     * 例外を投げる。その後は ディレクトリ名拡張ヘッダが優先され、
-     * その後は exportExtendHeaders(String) が出力した順に
-     * 優先して登録され、全ヘッダが 65536バイト以上に
-     * ならないように格納される。
+     * Generates level 2 header data using information of this {@link LhaHeader}.<br>
+     * Also, if all extended headers total 65536 bytes or more in size,
+     * common extended header and file name extended header are stored with highest priority.
+     * If these two extended headers alone become 65536 bytes or more, an exception is thrown.
+     * After that, directory name extended header is prioritized, and subsequent extended headers
+     * are prioritized and registered in the order output by {@link #exportExtendHeaders(String)},
+     * stored so that all headers do not become 65536 bytes or more.
      *
-     * @param encode 文字列情報を出力する際に使用するエンコード
+     * @param encode encoding used when outputting string information
      * @throws IllegalStateException        <ol>
-     *                                      <li>圧縮法文字列をencodeでバイト配列に
-     *                                      したものが 5byteで無い場合
-     *                                      <li>ファイル名が大きすぎるため
-     *                                      拡張ヘッダに収まりきらない。
-     *                                      <li>共通拡張ヘッダが大きすぎて出力できない。
-     *                                      そのためヘッダのCRC格納場所が無い。
-     *                                      <li>CRC に レベル0ヘッダで CRC情報が無い事を示す
-     *                                      特別な値である LhaHeader.NO_CRC( -2 ) が設定されていた。
-     *                                      <li>LastModifiedが4バイトのtime_tで
-     *                                      表現できない範囲の時間であった場合
-     *                                      <li>OriginalSize にサイズが不明である事を示す
-     *                                      特別な値である LhaHeader.UNKNOWN( -1 )が設定されていた。
-     *                                      <li>OriginalSize が負値である場合
-     *                                      <li>CompressedSize にサイズが不明である事を示す
-     *                                      特別な値である LhaHeader.UNKNOWN( -1 )が設定されていた。
-     *                                      <li>CompressedSize が負値である場合
-     *                                      <li>CRC にCRC16値が不明である事を示す 特別な値である
-     *                                      LhaHeader.UNKNOWN( -1 )が設定されていた。
-     *                                      <li>OriginalSize または CompressedSizeが4バイト値を
-     *                                      超えるためファイルサイズヘッダが必要な際に
-     *                                      他の拡張ヘッダが大きすぎて
-     *                                      ファイルサイズヘッダが出力出来ない場合。
+     *                                      <li>if byte array of compression method string converted by {@code encode} is not 5 bytes
+     *                                      <li>if file name is too large to fit in extended header
+     *                                      <li>if common extended header is too large to output, hence there is no place to store header CRC
+     *                                      <li>if {@link #NO_CRC} (-2), a special value indicating no CRC information in level 0 headers, is set in CRC
+     *                                      <li>if {@code LastModified} is outside the range that can be represented in 4-byte time_t
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code OriginalSize}
+     *                                      <li>if {@code OriginalSize} is negative
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code CompressedSize}
+     *                                      <li>if {@code CompressedSize} is negative
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown CRC16 value, is set in CRC
+     *                                      <li>if file size header is required because {@code OriginalSize} or {@code CompressedSize} exceeds 4-byte value, but file size header cannot be output because other extended headers are too large
      *                                      </ol>
-     *                                      の何れか。
-     * @throws UnsupportedEncodingException encode で指定されたエンコードが
-     *                                      サポートされない場合
+     * @throws UnsupportedEncodingException if the encoding specified by {@code encode} is not supported
      */
     private byte[] exportLevel2Header(String encode) throws UnsupportedEncodingException {
 
-        // ヘッダ出力準備
+        // Preparation for header output
         final int MaxHeaderLength = 65535;
-        boolean hasFileName = false; // ファイル名情報を持つかを示す
-        boolean hasCRC = false; // ヘッダのCRC情報を持つかを示す
-        boolean needExtraByte = false; // ヘッダの先頭を0x00にしないために余分な1バイトを付加するかを示す。
-        boolean hasFileSize = false; // ファイルサイズヘッダを持つか示す。
+        boolean hasFileName = false; // Indicates whether it has file name information
+        boolean hasCRC = false; // Indicates whether it has header CRC information
+        boolean needExtraByte = false; // Indicates whether to append an extra 1 byte to prevent the head of the header from being 0x00.
+        boolean hasFileSize = false; // Indicates whether it has file size header.
         byte[] CompressMethod = this.Method.getBytes(encode); // After Java 1.1 throw UnsupportedEncodingException
         int HeaderLength = 26;
 
@@ -1445,7 +1338,7 @@ public class LhaHeader implements Cloneable {
             needExtraByte = true;
         }
 
-        // ヘッダ正当性チェック
+        // Header validity check
         if (CompressMethod.length != 5) {
             throw new IllegalStateException("CompressMethod doesn't follow Format.");
         }
@@ -1490,7 +1383,7 @@ public class LhaHeader implements Cloneable {
             throw new IllegalStateException("OriginalSize must be 0 or more.");
         }
 
-        // ヘッダ出力
+        // Header output
         byte[] HeaderData;
         try {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -1530,37 +1423,26 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * この LhaHeader の情報を使って
-     * レベル3ヘッダのデータを生成する。
+     * Generates level 3 header data using information of this {@link LhaHeader}.
      *
-     * @param encode 文字列情報を出力する際に使用するエンコード
-     * @return バイト配列に格納したヘッダデータ
+     * @param encode encoding used when outputting string information
+     * @return header data stored in a byte array
      * @throws IllegalStateException        <ol>
-     *                                      <li>圧縮法文字列をencodeでバイト配列に
-     *                                      したものが 5byteで無い場合
-     *                                      <li>共通拡張ヘッダが大きすぎて出力できない。
-     *                                      そのためヘッダのCRC格納場所が無い。
-     *                                      <li>CRC に レベル0ヘッダで CRC情報が無い事を示す
-     *                                      特別な値である LhaHeader.NO_CRC( -2 ) が設定されていた。
-     *                                      <li>LastModifiedが4バイトのtime_tで
-     *                                      表現できない範囲の時間であった場合<br>
-     *                                      <li>OriginalSize にサイズが不明である事を示す
-     *                                      特別な値である LhaHeader.UNKNOWN( -1 )が設定されていた。<br>
-     *                                      <li>OriginalSize が負値であるか、
-     *                                      4byte値で表現できない値である場合<br>
-     *                                      <li>CompressedSize にサイズが不明である事を示す
-     *                                      特別な値である LhaHeader.UNKNOWN( -1 )が設定されていた。<br>
-     *                                      <li>CompressedSize が負値であるか、
-     *                                      4byte値で表現できない値である場合<br>
-     *                                      <li>CRC にCRC16値が不明である事を示す 特別な値である
-     *                                      LhaHeader.UNKNOWN( -1 )が設定されていた。<br>
+     *                                      <li>if byte array of compression method string converted by {@code encode} is not 5 bytes
+     *                                      <li>if common extended header is too large to output, hence there is no place to store header CRC
+     *                                      <li>if {@link #NO_CRC} (-2), a special value indicating no CRC information in level 0 headers, is set in CRC
+     *                                      <li>if {@code LastModified} is outside the range that can be represented in 4-byte time_t<br>
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code OriginalSize}<br>
+     *                                      <li>if {@code OriginalSize} is negative or cannot be represented as a 4-byte value<br>
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code CompressedSize}<br>
+     *                                      <li>if {@code CompressedSize} is negative or cannot be represented as a 4-byte value<br>
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown CRC16 value, is set in CRC<br>
      *                                      </ol>
-     *                                      の何れか。
-     * @throws UnsupportedEncodingException encode で指定されたエンコードがサポートされない場合
+     * @throws UnsupportedEncodingException if the encoding specified by {@code encode} is not supported
      */
     private byte[] exportLevel3Header(String encode) throws UnsupportedEncodingException {
 
-        // ヘッダ出力準備
+        // Preparation for header output
         final int WordSize = 4;
         byte[] CompressMethod = this.Method.getBytes(encode);
         int HeaderLength = 32;
@@ -1574,7 +1456,7 @@ public class LhaHeader implements Cloneable {
             }
         }
 
-        // ヘッダ正当性チェック
+        // Header validity check
         if (CompressMethod.length != 5) {
             throw new IllegalStateException("CompressMethod doesn't follow Format.");
         }
@@ -1615,7 +1497,7 @@ public class LhaHeader implements Cloneable {
             throw new IllegalStateException("OriginalSize must be 0 or more.");
         }
 
-        // ヘッダ出力
+        // Header output
         byte[] HeaderData;
         try {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -1653,43 +1535,27 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * このLhaHeaderのデータを使用して ヘッダデータを生成し、
-     * それをバイト配列の形で得る。
+     * Generates header data using data of this {@link LhaHeader} and returns it as a byte array.
      *
-     * @param encode 文字列情報を出力する際に使用するエンコード
+     * @param encode encoding used when outputting string information
      * @throws IllegalStateException        <ol>
-     *                                      <li>圧縮法文字列をencodeでバイト配列に
-     *                                      したものが 5byteで無い場合
-     *                                      <li>レベル0,1,2で ファイル名が長すぎるため
-     *                                      ヘッダに収まりきらない。
-     *                                      <li>レベル1,2で共通拡張ヘッダが大きすぎて出力できない。
-     *                                      そのためヘッダのCRC格納場所が無い。
-     *                                      <li>レベル0以外で CRC に レベル0ヘッダで
-     *                                      CRC情報が無い事を示す特別な値である
-     *                                      LhaHeader.NO_CRC( -2 ) が設定されていた。
-     *                                      <li>レベル0,1の時にLastModifiedがMS-DOS形式
-     *                                      で表現できない範囲の時間であった場合
-     *                                      <li>レベル2,3の時にLastModifiedが4バイトの
-     *                                      time_tで表現できない範囲の時間であった場合
-     *                                      <li>OriginalSize にサイズが不明である事を示す
-     *                                      特別な値である LhaHeader.UNKNOWN( -1 )が設定されていた。
-     *                                      <li>OriginalSize が負値である場合
-     *                                      <li>レベル0,1,3 の時に OriginalSize が
-     *                                      4byte値で表現できない値である場合
-     *                                      <li>CompressedSize にサイズが不明である事を示す
-     *                                      特別な値である LhaHeader.UNKNOWN( -1 )が設定されていた。
-     *                                      <li>CompressedSize が負値である場合
-     *                                      <li>レベル0,1,3 の時に CompressedSize が
-     *                                      4byte値で表現できない値である場合
-     *                                      <li>レベル2の時にOriginalSize または CompressedSizeが
-     *                                      4バイト値を超えるためファイルサイズヘッダが必要な際に
-     *                                      他の拡張ヘッダが大きすぎてファイルサイズヘッダが出力出来ない場合。
-     *                                      <li>CRC にCRC16値が不明である事を示す
-     *                                      特別な値である LhaHeader.UNKNOWN( -1 )が設定されていた。
-     *                                      <li>ヘッダレベルが 0,1,2,3 以外である場合
+     *                                      <li>if byte array of compression method string converted by {@code encode} is not 5 bytes
+     *                                      <li>if file name is too long to fit in header in level 0, 1, or 2
+     *                                      <li>if common extended header is too large to output in level 1 or 2, hence there is no place to store header CRC
+     *                                      <li>if {@link #NO_CRC} (-2), a special value indicating no CRC information in level 0 headers, is set for non-level 0 headers
+     *                                      <li>if {@code LastModified} is outside the range that can be represented in MS-DOS format in level 0 or 1
+     *                                      <li>if {@code LastModified} is outside the range that can be represented in 4-byte time_t in level 2 or 3
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code OriginalSize}
+     *                                      <li>if {@code OriginalSize} is negative
+     *                                      <li>if {@code OriginalSize} cannot be represented as a 4-byte value in level 0, 1, or 3
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code CompressedSize}
+     *                                      <li>if {@code CompressedSize} is negative
+     *                                      <li>if {@code CompressedSize} cannot be represented as a 4-byte value in level 0, 1, or 3
+     *                                      <li>if file size header is required because {@code OriginalSize} or {@code CompressedSize} exceeds 4-byte value in level 2, but file size header cannot be output because other extended headers are too large
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown CRC16 value, is set in CRC
+     *                                      <li>if header level is other than 0, 1, 2, or 3
      *                                      </ol>
-     *                                      の何れか。
-     * @throws UnsupportedEncodingException encode で指定されたエンコードがサポートされない場合
+     * @throws UnsupportedEncodingException if the encoding specified by {@code encode} is not supported
      */
     private byte[] exportHeader(String encode) throws UnsupportedEncodingException {
         return switch (this.HeaderLevel) {
@@ -1702,12 +1568,11 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * 共通拡張ヘッダをバイト配列の形にして出力する。
-     * このメソッドは ExtraExtHeaders に 共通拡張ヘッダの情報が
-     * 登録されていればその情報を、でなれば 0で初期化された
-     * 3 バイトのバイト配列を返すだけである。
+     * Outputs common extended header as a byte array.
+     * If common extended header information is registered in {@code ExtraExtHeaders},
+     * this method returns that information, otherwise returns a 3-byte array initialized with 0.
      *
-     * @return 共通拡張ヘッダをバイト配列に格納したもの
+     * @return common extended header stored in a byte array
      */
     private byte[] exportCommonExtHeader() {
         if (this.ExtraExtHeaders != null) {
@@ -1724,29 +1589,28 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * ファイル名拡張ヘッダをバイト配列の形にして出力する。
-     * ファイル名拡張ヘッダは空でも出力される。
+     * Outputs file name extended header as a byte array.
+     * File name extended header is output even if empty.
      *
-     * @param encode 文字列情報を出力する際に使用するエンコード
-     * @return ファイル名拡張ヘッダをバイト配列に格納したもの
+     * @param encode encoding used when outputting string information
+     * @return file name extended header stored in a byte array
      */
     private byte[] exportFileNameExtHeader(String encode) throws UnsupportedEncodingException {
         byte[] FileName = this.getFileName().getBytes(encode); // After Java 1.1
 
         byte[] ExtendHeaderData = new byte[FileName.length + 1];
-        ExtendHeaderData[0] = 0x01; // 拡張ヘッダIDを設定
+        ExtendHeaderData[0] = 0x01; // Set extended header ID
         System.arraycopy(FileName, 0, ExtendHeaderData, 1, FileName.length);
         return ExtendHeaderData;
     }
 
     /**
-     * ディレクトリ名拡張ヘッダをバイト配列の形にして出力する。
-     * このメソッドでは ディレクトリ名拡張ヘッダは
-     * 空でも出力されるが、ディレクトリ名拡張ヘッダが空である
-     * 場合は exportExtHeaders() の段階で取り除かれる。
+     * Outputs directory name extended header as a byte array.
+     * In this method, directory name extended header is output even if empty,
+     * but if directory name extended header is empty, it is removed at the {@link #exportExtHeaders(String)} stage.
      *
-     * @param encode 文字列情報を出力する際に使用するエンコード
-     * @return ディレクトリ名拡張ヘッダをバイト配列に格納したもの
+     * @param encode encoding used when outputting string information
+     * @return directory name extended header stored in a byte array
      */
     private byte[] exportDirNameExtHeader(String encode) throws UnsupportedEncodingException {
 
@@ -1781,7 +1645,7 @@ public class LhaHeader implements Cloneable {
         }
 
         byte[] ExtendHeaderData = new byte[length + 1];
-        ExtendHeaderData[0] = 0x02; // 拡張ヘッダIDを設定
+        ExtendHeaderData[0] = 0x02; // Set extended header ID
         index = 1;
         for (int i = 0; i < vec.size(); i++) {
             byte[] array = vec.elementAt(i);
@@ -1794,12 +1658,11 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * 64bitファイルサイズヘッダをバイト配列にして出力する。
-     * このメソッドはオリジナルサイズ、または圧縮後サイズが
-     * 32bit値で表現できる場合でもバイト配列を出力する。
-     * 必要の無い場合には exportExtHeaders() が出力を抑止する。
+     * Outputs 64-bit file size header as a byte array.
+     * This method outputs a byte array even if original size or compressed size can be represented as 32-bit values.
+     * When not needed, {@link #exportExtHeaders(String)} suppresses output.
      *
-     * @return 64bitファイルサイズヘッダ
+     * @return 64-bit file size header
      */
     private byte[] exportFileSizeHeader() {
         byte[] ExtendHeaderData = new byte[17];
@@ -1812,19 +1675,15 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * 拡張ヘッダをバイト配列の形にして出力する。
-     * このメソッドをオーバーライドする事によって
-     * 様々な拡張ヘッダに対応することが可能となる。
-     * LhaHeader では private メンバである
-     * ExtraExtHeaders に登録された拡張ヘッダの情報を
-     * 返すだけである。
-     * 出力の形式は 第一バイト目に拡張ヘッダ識別子
-     * 続いて、拡張ヘッダデータが格納され、
-     * 次の拡張ヘッダの大きさは添付されない。
+     * Outputs extended headers as a byte array.
+     * By overriding this method, it becomes possible to support various extended headers.
+     * {@link LhaHeader} simply returns the extended header information registered in {@code ExtraExtHeaders}, a private member.
+     * The output format stores the extended header identifier in the first byte, followed by extended header data,
+     * without attaching the size of the next extended header.
      *
-     * @param encode 文字列情報を出力する際に使用するエンコード
-     * @return 1つの拡張ヘッダを1つのバイト配列に格納し、 それを配列の形にしたもの
-     * @throws UnsupportedEncodingException encode で指定されたエンコードがサポートされない場合
+     * @param encode encoding used when outputting string information
+     * @return an array of byte arrays, each storing one extended header
+     * @throws UnsupportedEncodingException if the encoding specified by {@code encode} is not supported
      */
     protected byte[][] exportExtendHeaders(String encode) throws UnsupportedEncodingException {
         if (this.ExtraExtHeaders != null) {
@@ -1841,11 +1700,11 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * 拡張ヘッダをバイト配列の形にして出力する。
+     * Outputs extended headers as byte arrays.
      *
-     * @param encode 文字列情報を出力する際に使用するエンコード
-     * @return 1つの拡張ヘッダを1つのバイト配列に格納し、それを全ての拡張ヘッダの配列の形にしたもの
-     * @throws UnsupportedEncodingException encode で指定されたエンコードがサポートされない場合
+     * @param encode encoding used when outputting string information
+     * @return an array of byte arrays of all extended headers, each storing one extended header
+     * @throws UnsupportedEncodingException if the encoding specified by {@code encode} is not supported
      */
     private byte[][] exportExtHeaders(String encode) throws UnsupportedEncodingException {
         byte[] CommonExtHeader = this.exportCommonExtHeader();
@@ -1881,10 +1740,10 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * ヘッダデータが正当であるかをチェックする。
+     * Checks whether header data is valid.
      *
-     * @param HeaderData ヘッダデータをバイト配列に格納したもの
-     * @return ヘッダデータが正当であれば true 違えば false
+     * @param HeaderData header data stored in a byte array
+     * @return {@code true} if header data is valid, {@code false} otherwise
      */
     public static boolean checkHeaderData(byte[] HeaderData) {
         final int HeaderLevelIndex = 20;
@@ -1910,10 +1769,10 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * ヘッダのCRC値を格納している位置を得る。
+     * Gets the position where CRC value of header is stored.
      *
-     * @param HeaderData ヘッダデータをバイト配列に格納したもの
-     * @return ヘッダのCRC値の位置 ヘッダがCRC値を持たない場合は -1
+     * @param HeaderData header data stored in a byte array
+     * @return position of CRC value of header, or -1 if header has no CRC value
      */
     private static int getCRC16Position(byte[] HeaderData) {
         final int HeaderLevelIndex = 20;
@@ -1958,11 +1817,10 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * レベル0ヘッダ、レベル1ヘッダの
-     * ヘッダデータからチェックサム値を計算する。
+     * Calculates checksum value from header data of level 0 and level 1 headers.
      *
-     * @param HeaderData ヘッダデータをバイト配列に格納したもの
-     * @return 計算されたヘッダのチェックサム値
+     * @param HeaderData header data stored in a byte array
+     * @return calculated header checksum value
      */
     private static int calcHeaderChecksum(byte[] HeaderData) {
         int length = HeaderData[0] & 0xFF;
@@ -1974,11 +1832,10 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * レベル1ヘッダ、レベル2ヘッダ、レベル3ヘッダの
-     * ヘッダデータからCRC16値を計算する。
+     * Calculates CRC16 value from header data of level 1, level 2, and level 3 headers.
      *
-     * @param HeaderData ヘッダデータをバイト配列に格納したもの
-     * @return 計算されたヘッダのCRC16値
+     * @param HeaderData header data stored in a byte array
+     * @return calculated header CRC16 value
      */
     private static int calcHeaderCRC16(byte[] HeaderData) {
         int position = LhaHeader.getCRC16Position(HeaderData);
@@ -1999,22 +1856,20 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * レベル0ヘッダ、レベル1ヘッダの
-     * ヘッダデータからチェックサム値を読み込む。
+     * Reads checksum value from header data of level 0 and level 1 headers.
      *
-     * @param HeaderData ヘッダデータをバイト配列に格納したもの
-     * @return ヘッダに記録されたチェックサム値
+     * @param HeaderData header data stored in a byte array
+     * @return checksum value recorded in header
      */
     private static int readHeaderChecksum(byte[] HeaderData) {
         return HeaderData[1] & 0xFF;
     }
 
     /**
-     * レベル1ヘッダ、レベル2ヘッダ、レベル3ヘッダの
-     * ヘッダデータからCRC16値を読み込む。
+     * Reads CRC16 value from header data of level 1, level 2, and level 3 headers.
      *
-     * @param HeaderData ヘッダデータをバイト配列に格納したもの
-     * @return ヘッダに記録されたCRC16値
+     * @param HeaderData header data stored in a byte array
+     * @return CRC16 value recorded in header
      */
     private static int readHeaderCRC16(byte[] HeaderData) {
         int position = LhaHeader.getCRC16Position(HeaderData);
@@ -2026,10 +1881,10 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * チェックサム値によってヘッダデータの正当性をチェックする。
+     * Checks validity of header data using checksum value.
      *
-     * @param HeaderData ヘッダデータをバイト配列に格納したもの
-     * @return チェックサム値によってヘッダデータの正当性が証明されれば true、証明されなければ false
+     * @param HeaderData header data stored in a byte array
+     * @return {@code true} if validity of header data is proven by checksum value, {@code false} otherwise
      */
     private static boolean verifyHeaderChecksum(byte[] HeaderData) {
         final int HeaderLevelIndex = 20;
@@ -2041,10 +1896,10 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * CRC16値によってヘッダデータの正当性をチェックする。
+     * Checks validity of header data using CRC16 value.
      *
-     * @param HeaderData ヘッダデータをバイト配列に格納したもの
-     * @return CRC16値によってヘッダデータの正当性が証明されれば true、証明されなければ false
+     * @param HeaderData header data stored in a byte array
+     * @return {@code true} if validity of header data is proven by CRC16 value, {@code false} otherwise
      */
     private static boolean verifyHeaderCRC16(byte[] HeaderData) {
         final int HeaderLevelIndex = 20;
@@ -2056,21 +1911,18 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * 入力ストリームから 最初のヘッダを読み込む。<br>
-     * このメソッドはレベル1ヘッダ、もしくは レベル3ヘッダに
-     * 似たデータが存在すると、ヘッダ全てを読み込もうとして
-     * in.mark( 65536 ) の 限界を超えて 読み込む可能性があり、
-     * その結果 reset() できずに その間のデータを読み落とす
-     * 可能性がある。<br>
-     * また、InputStream のmark/reset の実装次第では
-     * ストリーム終端付近で ヘッダに似たデータが存在すると
-     * ヘッダを全て読み込もうとして EndOfStreamに達してしまい、
-     * reset()できずに その間のデータを読み落とす可能性がある。
+     * Reads the first header from the input stream.<br>
+     * If data similar to a level 1 header or level 3 header exists, this method may attempt
+     * to read the entire header beyond the limit of {@code in.mark(65536)}, and as a result,
+     * it may fail to {@code reset()} and miss data in between.<br>
+     * Also, depending on the implementation of mark/reset in {@link InputStream}, if data similar
+     * to a header exists near the end of the stream, it may reach EndOfStream while attempting
+     * to read the entire header, failing to {@code reset()} and missing data in between.
      *
-     * @param in ヘッダデータを読み込む入力ストリームストリームは mark/resetのサポートを必要とする。
-     * @return 読み取られたヘッダデータヘッダが見つからずに EndOfStream に達した場合は null
-     * @throws IOException              入出力エラーが発生した場合
-     * @throws IllegalArgumentException in が mark/resetをサポートしない場合
+     * @param in input stream to read header data from. Stream requires mark/reset support.
+     * @return read header data, or {@code null} if EndOfStream is reached without finding a header
+     * @throws IOException              if an I/O error occurs
+     * @throws IllegalArgumentException if {@code in} does not support mark/reset
      */
     public static byte[] getFirstHeaderData(InputStream in) throws IOException {
         if (in.markSupported()) {
@@ -2081,7 +1933,7 @@ public class LhaHeader implements Cloneable {
 
                 while (0 <= (read = in.read())) {
                     if (read == '-' && 0 < stock1) {
-                        in.mark(65536); // 65536 で保証できるのは level 0,2 のみ
+                        in.mark(65536); // 65536 guarantees only level 0, 2
                         LhaHeader.ensureSkip(in, 3);
                         if (in.read() == '-') {
                             LhaHeader.ensureSkip(in, 13);
@@ -2112,29 +1964,26 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * 入力ストリームから 次のヘッダを読み込む。<br>
-     * このメソッドはレベル1ヘッダ、もしくは レベル3ヘッダに
-     * 似たデータが存在すると、ヘッダ全てを読み込もうとして
-     * in.mark( 65536 ) の 限界を超えて 読み込む可能性があり、
-     * その結果 reset() できずに その間のデータを読み落とす
-     * 可能性がある。<br>
-     * また、ストリーム終端付近で ヘッダに似たデータが存在する
-     * と ヘッダを全て読み込もうとして EndOfStreamに達してしまい、
-     * reset()できずに その間のデータを読み落とす可能性がある。
+     * Reads the next header from the input stream.<br>
+     * If data similar to a level 1 header or level 3 header exists, this method may attempt
+     * to read the entire header beyond the limit of {@code in.mark(65536)}, and as a result,
+     * it may fail to {@code reset()} and miss data in between.<br>
+     * Also, if data similar to a header exists near the end of the stream, it may reach EndOfStream
+     * while attempting to read the entire header, failing to {@code reset()} and missing data in between.
      *
-     * @param in ヘッダデータを読み込む入力ストリーム ストリームは mark/resetのサポートを必要とする。
-     * @return 読み取られたヘッダデータ ヘッダが見つからずに EndOfStream に達した場合は null
-     * @throws IOException              入出力エラーが発生した場合
-     * @throws IllegalArgumentException in が mark/resetをサポートしない場合
+     * @param in input stream to read header data from. Stream requires mark/reset support.
+     * @return read header data, or {@code null} if EndOfStream is reached without finding a header
+     * @throws IOException              if an I/O error occurs
+     * @throws IllegalArgumentException if {@code in} does not support mark/reset
      */
     public static byte[] getNextHeaderData(InputStream in) throws IOException {
         if (in.markSupported()) {
             try {
                 int first = in.read();
-                if (0 < first) { // 負の値は EndOfStream に到達、 0 の場合は書庫終端に到達
+                if (0 < first) { // Negative value reaches EndOfStream, 0 reaches archive end
                     int second = in.read();
                     int third = in.read();
-                    in.mark(65536); // 65536 で保証できるのは level 0, 2 のみ
+                    in.mark(65536); // 65536 guarantees only level 0, 2
                     LhaHeader.ensureSkip(in, 3);
                     int seventh = in.read();
                     if (third == '-' && seventh == '-') {
@@ -2163,15 +2012,15 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * 入力ストリームからレベル0ヘッダを読み込む
+     * Reads level 0 header from input stream.
      *
-     * @param HeaderLength    ヘッダの長さ
-     * @param HeaderChecksum  ヘッダのチェックサム
-     * @param CompressMethod1 圧縮法文字列
-     * @param in              ヘッダデータを読み込む入力ストリーム
-     * @return 読み取られたヘッダデータ
-     * @throws IOException  入出力エラーが発生した場合
-     * @throws EOFException ヘッダの読み込み途中で EndOfStream に達した場合
+     * @param HeaderLength    length of header
+     * @param HeaderChecksum  checksum of header
+     * @param CompressMethod1 compression method string
+     * @param in              input stream to read header data from
+     * @return read header data
+     * @throws IOException  if an I/O error occurs
+     * @throws EOFException if EndOfStream is reached while reading header
      */
     private static byte[] readLevel0HeaderData(int HeaderLength,
                                                int HeaderChecksum,
@@ -2198,16 +2047,15 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * 入力ストリームからレベル1ヘッダを読み込む
+     * Reads level 1 header from input stream.
      *
-     * @param BaseHeaderLength   基本ヘッダの長さ
-     * @param BaseHeaderChecksum 基本ヘッダのチェックサム
-     * @param CompressMethod1    圧縮法文字列
-     * @param in                 ヘッダデータを読み込む入力ストリーム
-     * @return 読み取られたヘッダデータ。
-     * レベル1ヘッダでないことが判明した場合は nullを返す。
-     * @throws IOException  入出力エラーが発生した場合
-     * @throws EOFException ヘッダの読み込み途中で EndOfStream に達した場合
+     * @param BaseHeaderLength   length of base header
+     * @param BaseHeaderChecksum checksum of base header
+     * @param CompressMethod1    compression method string
+     * @param in                 input stream to read header data from
+     * @return read header data, or {@code null} if determined not to be a level 1 header
+     * @throws IOException  if an I/O error occurs
+     * @throws EOFException if EndOfStream is reached while reading header
      */
     private static byte[] readLevel1HeaderData(int BaseHeaderLength,
                                                int BaseHeaderChecksum,
@@ -2220,7 +2068,7 @@ public class LhaHeader implements Cloneable {
         HeaderData[1] = (byte) BaseHeaderChecksum;
         HeaderData[2] = (byte) CompressMethod1;
 
-        // ヘッダデータ取得
+        // Obtain header data
         int readed;
         int length = 0;
         do {
@@ -2250,7 +2098,7 @@ public class LhaHeader implements Cloneable {
             HeaderData = new byte[HeaderLength];
         } while (0 < HeaderLength && readed == length);
 
-        // 取得したヘッダデータを一つのバイト配列に
+        // Combine obtained header data into a single byte array
         HeaderLength = 0;
         for (int i = 0; i < headers.size(); i++) {
             HeaderLength += headers.elementAt(i).length;
@@ -2268,15 +2116,15 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * 入力ストリームからレベル2ヘッダを読み込む
+     * Reads level 2 header from input stream.
      *
-     * @param HeaderLengthLow ヘッダの長さ下位バイト
-     * @param HeaderLengthHi  ヘッダの長さ上位バイト
-     * @param CompressMethod1 圧縮法文字列
-     * @param in              ヘッダデータを読み込む入力ストリーム
-     * @return 読み取られたヘッダデータ
-     * @throws IOException  入出力エラーが発生した場合
-     * @throws EOFException ヘッダの読み込み途中で EndOfStreamに達した場合
+     * @param HeaderLengthLow lower byte of header length
+     * @param HeaderLengthHi  upper byte of header length
+     * @param CompressMethod1 compression method string
+     * @param in              input stream to read header data from
+     * @return read header data
+     * @throws IOException  if an I/O error occurs
+     * @throws EOFException if EndOfStream is reached while reading header
      */
     private static byte[] readLevel2HeaderData(int HeaderLengthLow,
                                                int HeaderLengthHi,
@@ -2303,19 +2151,16 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * 入力ストリームからレベル3ヘッダを読み込む。<br>
-     * このメソッドは 他の読み込みメソッドと違い、
-     * getNextHeaderData() において mark() されて
-     * いる事を前提としている。
+     * Reads level 3 header from input stream.<br>
+     * Unlike other read methods, this method assumes that {@code mark()} has been called in {@link #getNextHeaderData(InputStream)}.
      *
-     * @param WordSizeLow     ヘッダに使用されるワードサイズ 下位バイト
-     * @param WordSizeHi      ヘッダに使用されるワードサイズ 上位バイト
-     * @param CompressMethod1 圧縮法文字列
-     * @param in              ヘッダデータを読み込む入力ストリーム
-     * @return 読み取られたヘッダデータ。<br>
-     * レベル3ヘッダでないことが判明した場合は nullを返す。
-     * @throws IOException  入出力エラーが発生した場合
-     * @throws EOFException ヘッダの読み込み途中で EndOfStream に達した場合
+     * @param WordSizeLow     lower byte of word size used in header
+     * @param WordSizeHi      upper byte of word size used in header
+     * @param CompressMethod1 compression method string
+     * @param in              input stream to read header data from
+     * @return read header data, or {@code null} if determined not to be a level 3 header
+     * @throws IOException  if an I/O error occurs
+     * @throws EOFException if EndOfStream is reached while reading header
      */
     private static byte[] readLevel3HeaderData(int WordSizeLow,
                                                int WordSizeHi,
@@ -2349,13 +2194,12 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * property の キー"lha.header" に結び付けられた生成式を使用して
-     * HeaderData から LhaHeader のインスタンスを生成する。
+     * Creates an instance of {@link LhaHeader} from {@code HeaderData} using the generator expression
+     * bound to key "lha.header" in {@code property}.
      *
-     * @param HeaderData ヘッダのデータを持つバイト配列
-     * @param property   LhaProperty.parse() で LhaHeader のインスタンスが生成できるような
-     *                   生成式を キー"lha.header" の値として持つプロパティ
-     * @return LhaHeader のインスタンス
+     * @param HeaderData byte array having header data
+     * @param property   properties having generator expression as value of key "lha.header" such that {@link LhaProperty#parse(String, Hashtable, String)} can instantiate {@link LhaHeader}
+     * @return instance of {@link LhaHeader}
      */
     public static LhaHeader createInstance(byte[] HeaderData, Properties property) {
 
@@ -2382,12 +2226,12 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * InputStream を len バイトスキップする。
+     * Skips {@code len} bytes in {@link InputStream}.
      *
-     * @param in  入力ストリーム
-     * @param len スキップする長さ
-     * @throws IOException  入出力エラーが発生した場合
-     * @throws EOFException EndOfStream に達した場合。
+     * @param in  input stream
+     * @param len length to skip
+     * @throws IOException  if an I/O error occurs
+     * @throws EOFException if EndOfStream is reached
      */
     private static void ensureSkip(InputStream in, long len) throws IOException {
         while (0 < len) {

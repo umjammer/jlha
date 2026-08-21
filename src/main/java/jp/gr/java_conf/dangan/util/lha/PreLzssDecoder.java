@@ -35,7 +35,7 @@ import java.io.IOException;
 
 
 /**
- * LZSS圧縮コードを供給するインターフェイス。
+ * Interface for supplying LZSS compression codes.
  *
  * <pre>
  * -- revision history --
@@ -43,9 +43,9 @@ import java.io.IOException;
  * Revision 1.0  2002/07/25 00:00:00  dangan
  * add to version control
  * [maintenance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
+ *     source maintenance
+ *     tab removal
+ *     fix license statement
  * </pre>
  *
  * @author $Author: dangan $
@@ -54,94 +54,89 @@ import java.io.IOException;
 public interface PreLzssDecoder {
 
     /**
-     * 接続された入力ストリームの現在位置にマークを設定し、
-     * reset() メソッドでマークした時点の読み込み位置に戻れるようにする。<br>
-     * InputStream の mark() と違い、 readLimit で設定した
-     * 限界バイト数より前にマーク位置が無効になってもかまわない。
-     * ただし、readLimit を無視して無限に reset() 可能な
-     * InputStream と接続している場合は readLimit にどのような値を設定されても
-     * reset() で必ずマーク位置に復旧できなければならない。<br>
+     * Sets a mark at the current position in the connected input stream,
+     * allowing return to the read position at the time of marking using the {@link #reset()} method.<br>
+     * Unlike {@link java.io.InputStream#mark(int)}, the mark position may become invalid
+     * before the limit specified by {@code readLimit}.
+     * However, if connected to an {@link java.io.InputStream} that can be reset indefinitely ignoring {@code readLimit},
+     * it must always be possible to restore the marked position with {@link #reset()} regardless of the value set in {@code readLimit}.<br>
      *
-     * @param readLimit マーク位置に戻れる限界のバイト数。
-     *                  このバイト数を超えてデータを読み込んだ場合reset()できなくなる可能性がある。
+     * @param readLimit limit of bytes that can be read while still retaining the mark position.
+     *                  If data exceeds this number of bytes, reset() may no longer be possible.
      */
     void mark(int readLimit);
 
     /**
-     * 接続された入力ストリームの読み込み位置を最後に
-     * mark() メソッドが呼び出されたときの位置に設定する。<br>
+     * Sets the read position of the connected input stream to the position
+     * where {@link #mark(int)} was last called.<br>
      *
-     * @throws IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     void reset() throws IOException;
 
     /**
-     * 接続された入力ストリームが mark() と reset() を
-     * サポートするかを得る。<br>
+     * Gets whether the connected input stream supports {@code mark()} and {@code reset()}.<br>
      *
-     * @return ストリームが mark() と reset() をサポートする場合は true。サポートしない場合は false。<br>
+     * @return {@code true} if the stream supports {@code mark()} and {@code reset()}; {@code false} otherwise.<br>
      */
     boolean markSupported();
 
     /**
-     * 接続された入力ストリームからブロックしないで
-     * 読み込むことのできる最低バイト数を得る。<br>
-     * この数値は完全である事を保障しなくてよい。
-     * これは故意に作成されたデータ等ではブロックせずに
-     * 読み込む事の出来る最低バイト数を得るには
-     * 実際に読み込んでみる以外に方法がないためである。
+     * Gets the minimum number of bytes that can be read without blocking from the connected input stream.<br>
+     * This number does not need to be guaranteed to be exact.
+     * This is because for intentionally crafted data, there is no way to know the minimum number of bytes
+     * that can be read without blocking other than actually attempting to read.
      *
-     * @return ブロックしないで読み出せる最低バイト数。
-     * @throws IOException 入出力エラーが発生した場合
+     * @return the minimum number of bytes that can be read without blocking
+     * @throws IOException if an I/O error occurs
      */
     int available() throws IOException;
 
     /**
-     * この入力ストリームを閉じ、使用していた
-     * 全てのリソースを開放する。<br>
+     * Closes this input stream and releases any resources used.<br>
      *
-     * @throws IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     void close() throws IOException;
 
     /**
-     * 1byte の LZSS未圧縮のデータもしくは、
-     * LZSS で圧縮された圧縮コードのうち一致長を読み込む。<br>
-     * 未圧縮データは 0〜255、
-     * LZSS圧縮コード(一致長)は 256〜511 の値を取らなければならない。
+     * Reads 1 byte of uncompressed LZSS data or
+     * the match length of LZSS compressed code.<br>
+     * Uncompressed data must take values 0 to 255,
+     * and LZSS compressed codes (match length) must take values 256 to 511.
      *
-     * @return 1byte の LZSS未圧縮のデータもしくは、LZSS で圧縮された圧縮コードのうち一致長
-     * @throws IOException  入出力エラーが発生した場合
-     * @throws EOFException EndOfStreamに達した場合
+     * @return 1 byte of uncompressed LZSS data or the match length of LZSS compressed code
+     * @throws IOException  if an I/O error occurs
+     * @throws EOFException if EndOfStream is reached
      */
     int readCode() throws IOException;
 
     /**
-     * LZSS で圧縮された圧縮コードのうち一致位置を読み込む。
+     * Reads the match offset of LZSS compressed code.
      *
-     * @return LZSS で圧縮された圧縮コードのうち一致位置
-     * @throws IOException 入出力エラーが発生した場合
+     * @return the match offset of LZSS compressed code
+     * @throws IOException if an I/O error occurs
      */
     int readOffset() throws IOException;
 
     /**
-     * このPreLzssDecoderが処理するLZSS辞書のサイズを得る。
+     * Gets the size of the LZSS dictionary processed by this {@link PreLzssDecoder}.
      *
-     * @return LZSS辞書のサイズ
+     * @return the size of the LZSS dictionary
      */
     int getDictionarySize();
 
     /**
-     * このPreLzssDecoderが処理する最長一致長を得る。
+     * Gets the maximum match length processed by this {@link PreLzssDecoder}.
      *
-     * @return 最長一致長
+     * @return the maximum match length
      */
     int getMaxMatch();
 
     /**
-     * このPreLzssDecoderが処理する圧縮、非圧縮の閾値を得る。
+     * Gets the compression/non-compression threshold processed by this {@link PreLzssDecoder}.
      *
-     * @return LZSSの閾値
+     * @return the LZSS threshold
      */
     int getThreshold();
 }

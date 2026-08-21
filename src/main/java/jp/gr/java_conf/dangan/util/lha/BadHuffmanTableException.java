@@ -34,9 +34,9 @@ import java.io.IOException;
 
 
 /**
- * BlockHuffman.LenListToCodeList() 内で、
- * 渡された LenList ( ハフマン符号長の表 )が不正なため、
- * ハフマン符号を生成できない事を示す。<br>
+ * Indicates that the passed LenList (Huffman code length table) in
+ * {@code BlockHuffman.LenListToCodeList()} is invalid, so
+ * Huffman codes cannot be generated.<br>
  *
  * <pre>
  * -- revision history --
@@ -44,8 +44,8 @@ import java.io.IOException;
  * Revision 1.0  2002/07/24 00:00:00  dangan
  * add to version control
  * [maintenance]
- *     タブ廃止
- *     ライセンス文の修正
+ *     Eliminated tabs.
+ *     Updated license text.
  *
  * </pre>
  *
@@ -55,16 +55,16 @@ import java.io.IOException;
 public class BadHuffmanTableException extends IOException {
 
     /**
-     * 新しい BadHuffmanTableException を構築する。
+     * Constructs a new {@link BadHuffmanTableException}.
      */
     public BadHuffmanTableException() {
         super();
     }
 
     /**
-     * 新しい BadHuffmanTableException を構築する。
+     * Constructs a new {@link BadHuffmanTableException}.
      *
-     * @param message 詳細なメッセージ
+     * @param message detailed message
      */
     public BadHuffmanTableException(String message) {
         super(message);

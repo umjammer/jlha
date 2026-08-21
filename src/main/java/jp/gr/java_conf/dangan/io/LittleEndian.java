@@ -37,9 +37,8 @@ import java.io.OutputStream;
 
 
 /**
- * リトルエンディアンで
- * バイト配列や InputStream, OutputStream
- * にアクセスするメソッドを提供するユーティリティクラス。
+ * Utility class providing methods to access byte arrays, {@link InputStream},
+ * and {@link OutputStream} in little-endian.
  *
  * <pre>
  * -- revision history --
@@ -47,9 +46,9 @@ import java.io.OutputStream;
  * Revision 1.0  2002/07/24 00:00:00  dangan
  * add to version control
  * [change]
- *     writeByte(), readByte() を撤去。
+ *     removed writeByte(), readByte().
  * [maintenance]
- *     ソース整備
+ *     source maintenance
  * </pre>
  *
  * @author $Author: dangan $
@@ -58,33 +57,31 @@ import java.io.OutputStream;
 public class LittleEndian {
 
     /**
-     * デフォルトコンストラクタ。使用不可。
+     * Default constructor. Cannot be used.
      */
     private LittleEndian() {
     }
 
     /**
-     * ByteArray の index の位置から リトルエンディアンで
-     * 2バイト値を読み出す。読み出された 2バイト値は
-     * 0x0000〜0xFFFFにマップされる。
+     * Reads a 2-byte value in little-endian starting from the {@code index} position of {@code ByteArray}.
+     * The read 2-byte value is mapped to 0x0000-0xFFFF.
      *
-     * @param ByteArray バイト配列
-     * @param index     ByteArray内のデータの開始位置
-     * @return 読み出された2バイト値
-     * @throws ArrayIndexOutOfBoundsException indexから始まるデータがByteArrayの範囲内に無い場合。
+     * @param ByteArray byte array
+     * @param index     starting position of data in {@code ByteArray}
+     * @return the read 2-byte value
+     * @throws ArrayIndexOutOfBoundsException if data starting from {@code index} is not within the range of {@code ByteArray}.
      */
     public static int readShort(byte[] ByteArray, int index) {
         return (ByteArray[index] & 0xFF) | ((ByteArray[index + 1] & 0xFF) << 8);
     }
 
     /**
-     * ByteArray の index の位置からリトルエンディアンで
-     * 4バイト値を読み出す。
+     * Reads a 4-byte value in little-endian starting from the {@code index} position of {@code ByteArray}.
      *
-     * @param ByteArray バイト配列
-     * @param index     ByteArray内のデータの開始位置
-     * @return 読み出された4バイト値
-     * @throws ArrayIndexOutOfBoundsException indexから始まるデータがByteArrayの範囲内に無い場合。
+     * @param ByteArray byte array
+     * @param index     starting position of data in {@code ByteArray}
+     * @return the read 4-byte value
+     * @throws ArrayIndexOutOfBoundsException if data starting from {@code index} is not within the range of {@code ByteArray}.
      */
     public static int readInt(byte[] ByteArray, int index) {
         return (ByteArray[index] & 0xFF) | ((ByteArray[index + 1] & 0xFF) << 8) | ((ByteArray[index + 2] & 0xFF) << 16)
@@ -92,13 +89,12 @@ public class LittleEndian {
     }
 
     /**
-     * ByteArray の index の位置からリトルエンディアンで
-     * 8バイト値を読み出す。
+     * Reads an 8-byte value in little-endian starting from the {@code index} position of {@code ByteArray}.
      *
-     * @param ByteArray バイト配列
-     * @param index     ByteArray内のデータの開始位置
-     * @return 読み出された8バイト値
-     * @throws ArrayIndexOutOfBoundsException indexから始まるデータがByteArrayの範囲内に無い場合。
+     * @param ByteArray byte array
+     * @param index     starting position of data in {@code ByteArray}
+     * @return the read 8-byte value
+     * @throws ArrayIndexOutOfBoundsException if data starting from {@code index} is not within the range of {@code ByteArray}.
      */
     public static long readLong(byte[] ByteArray, int index) {
         return (LittleEndian.readInt(ByteArray, index) & 0xFFFFFFFFL)
@@ -106,13 +102,12 @@ public class LittleEndian {
     }
 
     /**
-     * 入力ストリーム in から リトルエンディアンで
-     * 2byte値を読み出す。
+     * Reads a 2-byte value in little-endian from the input stream {@code in}.
      *
-     * @param in 入力ストリーム
-     * @return 読み出された2byte値
-     * @throws EOFException 既に End Of Streamに達していたか、読み込みの途中で End Of Streamに達した。読み込み途中のデータは消失する。
-     * @throws IOException  入出力エラーが発生した場合
+     * @param in input stream
+     * @return the read 2-byte value
+     * @throws EOFException if End Of Stream has already been reached or End Of Stream was reached while reading. Partial data is lost.
+     * @throws IOException  if an I/O error occurs
      */
     public static int readShort(InputStream in) throws IOException {
         int byte1 = in.read();
@@ -126,13 +121,12 @@ public class LittleEndian {
     }
 
     /**
-     * 入力ストリーム in から リトルエンディアンで
-     * 4byte値を読み出す。
+     * Reads a 4-byte value in little-endian from the input stream {@code in}.
      *
-     * @param in 入力ストリーム
-     * @return 読み出された4byte値
-     * @throws EOFException 既に End Of Streamに達していたか、読み込みの途中で End Of Streamに達した。読み込み途中のデータは消失する。
-     * @throws IOException  入出力エラーが発生した場合
+     * @param in input stream
+     * @return the read 4-byte value
+     * @throws EOFException if End Of Stream has already been reached or End Of Stream was reached while reading. Partial data is lost.
+     * @throws IOException  if an I/O error occurs
      */
     public static int readInt(InputStream in) throws IOException {
         int byte1 = in.read();
@@ -148,13 +142,12 @@ public class LittleEndian {
     }
 
     /**
-     * 入力ストリーム in から リトルエンディアンで
-     * 8byte値を読み出す。
+     * Reads an 8-byte value in little-endian from the input stream {@code in}.
      *
-     * @param in 入力ストリーム
-     * @return 読み出された8byte値
-     * @throws EOFException 既に End Of Streamに達していたか、読み込みの途中で End Of Streamに達した。読み込み途中のデータは消失する。
-     * @throws IOException  入出力エラーが発生した場合
+     * @param in input stream
+     * @return the read 8-byte value
+     * @throws EOFException if End Of Stream has already been reached or End Of Stream was reached while reading. Partial data is lost.
+     * @throws IOException  if an I/O error occurs
      */
     public static long readLong(InputStream in) throws IOException {
 
@@ -163,13 +156,12 @@ public class LittleEndian {
     }
 
     /**
-     * ByteArray の index の位置にリトルエンディアンで
-     * 2byte値を書き出す。
+     * Writes a 2-byte value in little-endian at the {@code index} position of {@code ByteArray}.
      *
-     * @param ByteArray バイト配列
-     * @param index     ByteArray内のデータを書きこむ位置
-     * @param value     書きこむ 2byte値
-     * @throws ArrayIndexOutOfBoundsException indexから始まるデータがByteArrayの範囲内に無い場合。
+     * @param ByteArray byte array
+     * @param index     position to write data in {@code ByteArray}
+     * @param value     2-byte value to write
+     * @throws ArrayIndexOutOfBoundsException if data starting from {@code index} is not within the range of {@code ByteArray}.
      */
     public static void writeShort(byte[] ByteArray, int index, int value) {
 
@@ -182,13 +174,12 @@ public class LittleEndian {
     }
 
     /**
-     * ByteArray の index の位置にリトルエンディアンで
-     * 4byte値を書き出す。
+     * Writes a 4-byte value in little-endian at the {@code index} position of {@code ByteArray}.
      *
-     * @param ByteArray バイト配列
-     * @param index     ByteArray内のデータを書きこむ位置
-     * @param value     書きこむ 4byte値
-     * @throws ArrayIndexOutOfBoundsException indexから始まるデータがByteArrayの範囲内に無い場合。
+     * @param ByteArray byte array
+     * @param index     position to write data in {@code ByteArray}
+     * @param value     4-byte value to write
+     * @throws ArrayIndexOutOfBoundsException if data starting from {@code index} is not within the range of {@code ByteArray}.
      */
     public static void writeInt(byte[] ByteArray, int index, int value) {
 
@@ -203,13 +194,12 @@ public class LittleEndian {
     }
 
     /**
-     * ByteArray の index の位置にリトルエンディアンで
-     * 8byte値を書き出す。
+     * Writes an 8-byte value in little-endian at the {@code index} position of {@code ByteArray}.
      *
-     * @param ByteArray バイト配列
-     * @param index     ByteArray内のデータを書きこむ位置
-     * @param value     書きこむ 8byte値
-     * @throws ArrayIndexOutOfBoundsException indexから始まるデータがByteArrayの範囲内に無い場合。
+     * @param ByteArray byte array
+     * @param index     position to write data in {@code ByteArray}
+     * @param value     8-byte value to write
+     * @throws ArrayIndexOutOfBoundsException if data starting from {@code index} is not within the range of {@code ByteArray}.
      */
     public static void writeLong(byte[] ByteArray, int index, long value) {
         if (0 <= index && index + 7 < ByteArray.length) {
@@ -221,12 +211,11 @@ public class LittleEndian {
     }
 
     /**
-     * 出力ストリーム out に リトルエンディアンで
-     * 2バイト書き出す。
+     * Writes 2 bytes in little-endian to the output stream {@code out}.
      *
-     * @param out   出力ストリーム
-     * @param value 書き出す2バイト値
-     * @throws IOException 入出力エラーが発生した場合
+     * @param out   output stream
+     * @param value 2-byte value to write
+     * @throws IOException if an I/O error occurs
      */
     public static void writeShort(OutputStream out, int value) throws IOException {
         out.write(value & 0xFF);
@@ -234,12 +223,11 @@ public class LittleEndian {
     }
 
     /**
-     * 出力ストリーム out に リトルエンディアンで
-     * 4バイト値を書き出す。
+     * Writes a 4-byte value in little-endian to the output stream {@code out}.
      *
-     * @param out   出力ストリーム
-     * @param value 書き出す1バイト値
-     * @throws IOException 入出力エラーが発生した場合
+     * @param out   output stream
+     * @param value 4-byte value to write
+     * @throws IOException if an I/O error occurs
      */
     public static void writeInt(OutputStream out, int value) throws IOException {
         out.write(value & 0xFF);
@@ -249,12 +237,11 @@ public class LittleEndian {
     }
 
     /**
-     * 出力ストリーム out に リトルエンディアンで
-     * 8バイト値を書き出す。
+     * Writes an 8-byte value in little-endian to the output stream {@code out}.
      *
-     * @param out   出力ストリーム
-     * @param value 書き出す1バイト値
-     * @throws IOException 入出力エラーが発生した場合
+     * @param out   output stream
+     * @param value 8-byte value to write
+     * @throws IOException if an I/O error occurs
      */
     public static void writeLong(OutputStream out, long value) throws IOException {
         int low = (int) value;

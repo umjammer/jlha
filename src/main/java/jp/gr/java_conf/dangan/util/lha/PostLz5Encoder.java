@@ -36,24 +36,24 @@ import java.io.OutputStream;
 
 
 /**
- * -lz5- 圧縮用 PostLzssEncoder。
+ * {@link PostLzssEncoder} for -lz5- compression.
  *
  * <pre>
  * -- revision history --
  * $Log: PostLz5Encoder.java,v $
  * Revision 1.1  2002/12/01 00:00:00  dangan
  * [maintenance]
- *     ソース整備
+ *     source maintenance
  *
  * Revision 1.0  2002/07/31 00:00:00  dangan
  * add to version control
  * [bug fix]
- *     -lz5- の MaxMatch は 16 でなく 18 だった。
- *     flush() で出力できるデータを出力していなかったのを修正。
+ *     Fixed MaxMatch for -lz5- to be 18 instead of 16.
+ *     Fixed failure to output data that could be output in flush().
  * [maintenance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
+ *     source maintenance
+ *     tab removal
+ *     fix license statement
  *
  * </pre>
  *
@@ -62,42 +62,42 @@ import java.io.OutputStream;
  */
 public class PostLz5Encoder implements PostLzssEncoder {
 
-    /** 辞書サイズ */
+    /** Dictionary size */
     private static final int DictionarySize = 4096;
 
-    /** 最大一致長 */
+    /** Maximum match length */
     private static final int MaxMatch = 18;
 
-    /** 最小一致長 */
+    /** Minimum match length */
     private static final int Threshold = 3;
 
     /**
-     * -lz5- 圧縮データを出力するストリーム
+     * Stream to output -lz5- compressed data.
      */
     private OutputStream out;
 
-    /** 圧縮データの一時格納用バッファ */
+    /** Buffer for temporarily storing compressed data. */
     private byte[] buf;
 
-    /** buf内の現在処理位置 */
+    /** Current processing position in buf. */
     private int index;
 
-    /** buf内の Lzss圧縮、非圧縮を示すフラグの位置を示す */
+    /** Position of flag in buf indicating LZSS compression/non-compression. */
     private int flagIndex;
 
-    /** Lzss圧縮、非圧縮を示すフラグ */
+    /** Flag indicating LZSS compression/non-compression. */
     private int flagBit;
 
     /**
-     * ストリーム内現在処理位置
-     * lha の offset から larc の offset への変換に必要
+     * Current processing position in the stream.
+     * Needed to convert from LHA offset to LARC offset.
      */
     private int position;
 
     /**
-     * -lz5- 圧縮用 PostLzssEncoder を構築する。<br>
+     * Constructs a {@link PostLzssEncoder} for -lz5- compression.<br>
      *
-     * @param out 圧縮データを出力する出力ストリーム
+     * @param out output stream to output compressed data
      */
     public PostLz5Encoder(OutputStream out) {
         if (out != null) {
@@ -113,11 +113,11 @@ public class PostLz5Encoder implements PostLzssEncoder {
     }
 
     /**
-     * 1byte の LZSS未圧縮のデータもしくは、
-     * LZSS で圧縮された圧縮コードのうち一致長を書きこむ。<br>
+     * Writes 1 byte of uncompressed LZSS data or
+     * the match length of LZSS compressed code.<br>
      *
-     * @param code 1byte の LZSS未圧縮のデータもしくは、LZSS で圧縮された圧縮コードのうち一致長
-     * @throws IOException 入出力エラーが発生した場合
+     * @param code 1 byte of uncompressed LZSS data or the match length of LZSS compressed code
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void writeCode(int code) throws IOException {
@@ -142,9 +142,9 @@ public class PostLz5Encoder implements PostLzssEncoder {
     }
 
     /**
-     * LZSS で圧縮された圧縮コードのうち一致位置を書きこむ。
+     * Writes the match offset of LZSS compressed code.
      *
-     * @param offset LZSS で圧縮された圧縮コードのうち一致位置
+     * @param offset the match offset of LZSS compressed code
      */
     @Override
     public void writeOffset(int offset) {
@@ -158,14 +158,14 @@ public class PostLz5Encoder implements PostLzssEncoder {
     }
 
     /**
-     * この PostLzssEncoder にバッファリングされている
-     * 出力可能なデータを出力先の OutputStream に出力し、
-     * 出力先の OutputStream を flush() する。<br>
-     * このメソッドは出力不可能な 最大15バイトのデータを
-     * バッファリングしたまま 出力しない。
-     * このメソッドは圧縮率を変化させない。
+     * Flushes outputtable data buffered in this {@link PostLzssEncoder}
+     * to the output destination {@link OutputStream},
+     * and calls {@code flush()} on the destination {@link OutputStream}.<br>
+     * This method leaves unoutputtable data of at most 15 bytes buffered
+     * without outputting.
+     * This method does not affect the compression ratio.
      *
-     * @throws IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      * @see PostLzssEncoder#flush()
      */
     @Override
@@ -189,10 +189,10 @@ public class PostLz5Encoder implements PostLzssEncoder {
     }
 
     /**
-     * この出力ストリームと、接続された出力ストリームを閉じ、
-     * 使用していたリソースを開放する。
+     * Closes this output stream and the connected output stream,
+     * and releases any resources used.
      *
-     * @throws IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void close() throws IOException {
@@ -204,9 +204,9 @@ public class PostLz5Encoder implements PostLzssEncoder {
     }
 
     /**
-     * -lz5-形式の LZSS辞書のサイズを得る。
+     * Gets the size of the -lz5- format LZSS dictionary.
      *
-     * @return -lz5-形式の LZSS辞書のサイズ
+     * @return the size of the -lz5- format LZSS dictionary
      */
     @Override
     public int getDictionarySize() {
@@ -214,9 +214,9 @@ public class PostLz5Encoder implements PostLzssEncoder {
     }
 
     /**
-     * -lz5-形式の LZSSの最長一致長を得る。
+     * Gets the maximum match length of the -lz5- format LZSS.
      *
-     * @return -lz5-形式の LZSSの最長一致長
+     * @return the maximum match length of the -lz5- format LZSS
      */
     @Override
     public int getMaxMatch() {
@@ -224,9 +224,9 @@ public class PostLz5Encoder implements PostLzssEncoder {
     }
 
     /**
-     * -lz5-形式の LZSSの圧縮、非圧縮の閾値を得る。
+     * Gets the threshold for LZSS compression/non-compression of -lz5- format.
      *
-     * @return -lz5-形式の LZSSの圧縮、非圧縮の閾値
+     * @return the threshold for LZSS compression/non-compression of -lz5- format
      */
     @Override
     public int getThreshold() {

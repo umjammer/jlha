@@ -38,21 +38,21 @@ import jp.gr.java_conf.dangan.io.BitOutputStream;
 
 
 /**
- * -lh1- 圧縮用の PostLzssEncoder。 <br>
+ * {@link PostLzssEncoder} for -lh1- compression. <br>
  *
  * <pre>
  * -- revision history --
  * $Log: PostLh1Encoder.java,v $
  * Revision 1.1  2002/12/01 00:00:00  dangan
  * [maintenance]
- *     ソース整備
+ *     source maintenance
  *
  * Revision 1.0  2002/07/31 00:00:00  dangan
  * add to version control
  * [maintenance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
+ *     source maintenance
+ *     tab removal
+ *     fix license statement
  *
  * </pre>
  *
@@ -61,39 +61,39 @@ import jp.gr.java_conf.dangan.io.BitOutputStream;
  */
 public class PostLh1Encoder implements PostLzssEncoder {
 
-    /** 辞書サイズ */
+    /** Dictionary size */
     private static final int DictionarySize = 4096;
 
-    /** 最大一致長 */
+    /** Maximum match length */
     private static final int MaxMatch = 60;
 
-    /** 最小一致長 */
+    /** Minimum match length */
     private static final int Threshold = 3;
 
     /**
-     * -lh1- 形式の圧縮データの出力先の ビット出力ストリーム
+     * Bit output stream to output -lh1- compressed data.
      */
     private BitOutputStream out;
 
     /**
-     * Code部圧縮用適応的ハフマン木
+     * Adaptive Huffman tree for compressing Code part.
      */
     private DynamicHuffman huffman;
 
     /**
-     * offset部の上位6bit圧縮用ハフマン符号の表
+     * Huffman code table for compressing the upper 6 bits of offset part.
      */
     private int[] offHiCode;
 
     /**
-     * offset部の上位6bit圧縮用ハフマン符号長の表
+     * Huffman code length table for compressing the upper 6 bits of offset part.
      */
     private int[] offHiLen;
 
     /**
-     * -lh1- 圧縮用 PostLzssEncoder を構築する。
+     * Constructs a {@link PostLzssEncoder} for -lh1- compression.
      *
-     * @param out 圧縮データを受け取る出力ストリーム
+     * @param out output stream that receives compressed data
      */
     public PostLh1Encoder(OutputStream out) {
         if (out != null) {
@@ -114,12 +114,12 @@ public class PostLh1Encoder implements PostLzssEncoder {
     }
 
     /**
-     * 1byte の LZSS未圧縮のデータもしくは、
-     * LZSS で圧縮された圧縮コードのうち一致長を書きこむ。<br>
+     * Writes 1 byte of uncompressed LZSS data or
+     * the match length of LZSS compressed code.<br>
      *
-     * @param code 1byte の LZSS未圧縮のデータもしくは、
-     *             LZSS で圧縮された圧縮コードのうち一致長
-     * @throws IOException 入出力エラーが発生した場合
+     * @param code 1 byte of uncompressed LZSS data or
+     *             the match length of LZSS compressed code
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void writeCode(int code) throws IOException {
@@ -140,9 +140,9 @@ public class PostLh1Encoder implements PostLzssEncoder {
     }
 
     /**
-     * LZSS で圧縮された圧縮コードのうち一致位置を書きこむ。<br>
+     * Writes the match offset of LZSS compressed code.<br>
      *
-     * @param offset LZSS で圧縮された圧縮コードのうち一致位置
+     * @param offset the match offset of LZSS compressed code
      */
     @Override
     public void writeOffset(int offset) throws IOException {
@@ -152,12 +152,12 @@ public class PostLh1Encoder implements PostLzssEncoder {
     }
 
     /**
-     * この PostLzssEncoder にバッファリングされている
-     * 全ての 8ビット単位のデータを出力先の OutputStream に出力し、
-     * 出力先の OutputStream を flush() する。<br>
-     * このメソッドは圧縮率を変化させない。
+     * Flushes all 8-bit unit data buffered in this {@link PostLzssEncoder}
+     * to the output destination {@link OutputStream},
+     * and calls {@code flush()} on the destination {@link OutputStream}.<br>
+     * This method does not affect the compression ratio.
      *
-     * @throws IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      * @see PostLzssEncoder#flush()
      * @see BitOutputStream#flush()
      */
@@ -167,10 +167,10 @@ public class PostLh1Encoder implements PostLzssEncoder {
     }
 
     /**
-     * この出力ストリームと、接続された出力ストリームを閉じ、
-     * 使用していたリソースを解放する。<br>
+     * Closes this output stream and the connected output stream,
+     * and releases any resources used.<br>
      *
-     * @throws IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void close() throws IOException {
@@ -183,9 +183,9 @@ public class PostLh1Encoder implements PostLzssEncoder {
     }
 
     /**
-     * -lh1-形式の LZSS辞書のサイズを得る。
+     * Gets the size of the -lh1- format LZSS dictionary.
      *
-     * @return -lh1-形式の LZSS辞書のサイズ
+     * @return the size of the -lh1- format LZSS dictionary
      */
     @Override
     public int getDictionarySize() {
@@ -193,9 +193,9 @@ public class PostLh1Encoder implements PostLzssEncoder {
     }
 
     /**
-     * -lh1-形式の LZSSの最大一致長を得る。
+     * Gets the maximum match length of the -lh1- format LZSS.
      *
-     * @return -lz5-形式の LZSSの最大一致長
+     * @return the maximum match length of the -lh1- format LZSS
      */
     @Override
     public int getMaxMatch() {
@@ -203,9 +203,9 @@ public class PostLh1Encoder implements PostLzssEncoder {
     }
 
     /**
-     * -lh1-形式の LZSSの圧縮、非圧縮の閾値を得る。
+     * Gets the threshold for LZSS compression/non-compression of -lh1- format.
      *
-     * @return -lh1-形式の LZSSの圧縮、非圧縮の閾値
+     * @return the threshold for LZSS compression/non-compression of -lh1- format
      */
     @Override
     public int getThreshold() {
@@ -213,10 +213,10 @@ public class PostLh1Encoder implements PostLzssEncoder {
     }
 
     /**
-     * -lh1- の offsetデコード用StaticHuffmanの
-     * ハフマン符号長リストを生成する。
+     * Generates a Huffman code length list for {@link StaticHuffman}
+     * for decoding offset of -lh1-.
      *
-     * @return -lh1- の offsetデコード用StaticHuffmanの ハフマン符号長リスト
+     * @return Huffman code length list for {@link StaticHuffman} for decoding offset of -lh1-
      */
     private static int[] createLenList() {
         final int length = 64;

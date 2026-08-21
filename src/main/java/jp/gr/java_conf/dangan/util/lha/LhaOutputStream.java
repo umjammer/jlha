@@ -40,39 +40,38 @@ import jp.gr.java_conf.dangan.io.GrowthByteBuffer;
 
 
 /**
- * 接続されたストリームに 圧縮データを出力するためのユーティリティクラス。<br>
- * java.util.zip.ZipOutputStream と似たインターフェイスを持つように作った。
- * Zipと違い、LHAの出力は本来 2パスであるため、1つのエントリを圧縮するまで、
- * エントリ全体のデータを持つ一時記憶領域が必要となる。
- * そのような記憶領域を使用したくない場合は LhaRetainedOutputStream か
- * LhaImmediateOutputStream を使用する事。
+ * Utility class for outputting compressed data to a connected stream.<br>
+ * Designed to have an interface similar to {@link java.util.zip.ZipOutputStream}.
+ * Unlike Zip, LHA output is inherently 2-pass, so temporary storage holding data
+ * of an entire entry is required until one entry is compressed.
+ * If you do not wish to use such storage, use {@link LhaRetainedOutputStream} or
+ * {@link LhaImmediateOutputStream}.
  *
  * <pre>
  * -- revision history --
  * $Log: LhaOutputStream.java,v $
  * Revision 1.1.2.2  2005/05/03 07:48:40  dangan
  * [bug fix]
- *     圧縮法識別子 -lhd- を指定した時、圧縮後サイズがオリジナルサイズを下回らないため、
- *     必ず -lh0- に再設定されていた。そのためディレクトリ情報を格納できなかった。
+ *     When compression method identifier -lhd- was specified, since compressed size does not drop below original size,
+ *     it was always reset to -lh0-. As a result, directory information could not be stored.
  *
  * Revision 1.1.2.1  2005/04/29 02:14:28  dangan
  * [bug fix]
- *     圧縮法識別子 -lhd- を指定した時、圧縮後サイズがオリジナルサイズを下回らないため、
- *     必ず -lh0- に再設定されていた。そのためディレクトリ情報を格納できなかった。
+ *     When compression method identifier -lhd- was specified, since compressed size does not drop below original size,
+ *     it was always reset to -lh0-. As a result, directory information could not be stored.
  *
  * Revision 1.1  2002/12/08 00:00:00  dangan
  * [maintenance]
- *     LhaConstants から CompressMethod へのクラス名の変更に合わせて修正。
+ *     Updated to reflect the class name change from LhaConstants to CompressMethod.
  *
  * Revision 1.0  2002/08/05 00:00:00  dangan
  * add to version control
  * [change]
- *     コンストラクタから 引数に String encode を取るものを廃止、
- *     Properties を引数に取るものを追加。
+ *     Deprecated constructors taking String encode and added ones taking Properties.
  * [maintenance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
+ *     Source cleanup.
+ *     Eliminated tabs.
+ *     Updated license text.
  *
  * </pre>
  *
@@ -82,48 +81,46 @@ import jp.gr.java_conf.dangan.io.GrowthByteBuffer;
 public class LhaOutputStream extends OutputStream {
 
     /**
-     * 圧縮データを出力するストリーム
+     * Stream to output compressed data
      */
     private OutputStream out;
 
     /**
-     * CRC16値算出用クラス
+     * Class for CRC16 calculation
      */
     private CRC16 crc;
 
     /**
-     * 一時記憶用オブジェクト
+     * Temporary storage object
      */
     private Temporary temp;
 
     /**
-     * 現在圧縮中のエントリのヘッダ
+     * Header of entry currently being compressed
      */
     private LhaHeader header;
 
     /**
-     * 現在圧縮中のエントリの圧縮用出力ストリーム
+     * Compression output stream for entry currently being compressed
      */
     private OutputStream tempOut;
 
     /**
-     * 現在圧縮中エントリの圧縮前のデータの長さ
+     * Length of uncompressed data of entry currently being compressed
      */
     private long length;
 
     /**
-     * 各圧縮形式に対応した符号器の生成式等が含まれるプロパティ
+     * Properties containing encoder generator expressions corresponding to each compression format
      */
     private Properties property;
 
     /**
-     * out に 圧縮データを出力するOutputStreamを構築する。<br>
-     * 一時退避機構はメモリを使用する。このため、
-     * 圧縮時データ量がメモリ量を超えるようなファイルは圧縮できない。<br>
-     * 各圧縮形式に対応した符号器の生成式等を持つプロパティには
-     * LhaProperty.getProperties() で得られたプロパティが使用される。
+     * Constructs an {@link OutputStream} that outputs compressed data to {@code out}.<br>
+     * Memory is used for temporary storage. Therefore, files whose compressed data exceeds available memory cannot be compressed.<br>
+     * Properties obtained with {@link LhaProperty#getProperties()} are used as properties having generator expressions of encoders corresponding to each compression format.
      *
-     * @param out 圧縮データを出力するストリーム
+     * @param out stream to output compressed data
      * @see LhaProperty#getProperties()
      */
     public LhaOutputStream(OutputStream out) {
@@ -139,12 +136,11 @@ public class LhaOutputStream extends OutputStream {
     }
 
     /**
-     * out に 圧縮データを出力するOutputStreamを構築する。<br>
-     * 一時退避機構はメモリを使用する。このため、
-     * 圧縮時データ量がメモリ量を超えるようなファイルは圧縮できない。
+     * Constructs an {@link OutputStream} that outputs compressed data to {@code out}.<br>
+     * Memory is used for temporary storage. Therefore, files whose compressed data exceeds available memory cannot be compressed.
      *
-     * @param out 圧縮データを出力するストリーム
-     * @param property 各圧縮形式に対応した符号器の生成式等が含まれるプロパティ
+     * @param out      stream to output compressed data
+     * @param property properties containing generator expressions of encoders corresponding to each compression format
      * @see LhaProperty
      */
     public LhaOutputStream(OutputStream out, Properties property) {
@@ -161,18 +157,16 @@ public class LhaOutputStream extends OutputStream {
     }
 
     /**
-     * out に 圧縮データを出力するOutputStreamを構築する。<br>
-     * 各圧縮形式に対応した符号器の生成式等を持つプロパティには
-     * LhaProperty.getProperties() で得られたプロパティが使用される。
+     * Constructs an {@link OutputStream} that outputs compressed data to {@code out}.<br>
+     * Properties obtained with {@link LhaProperty#getProperties()} are used as properties having generator expressions of encoders corresponding to each compression format.
      *
-     * @param out 圧縮データを出力するストリーム
-     * @param file RandomAccessFile のインスタンス。
-     *            <ul>
-     *            <li>既に close() されていない事。
-     *            <li>コンストラクタの mode には "rw" オプションを使用して、
-     *            読みこみと書きこみが出来るように生成されたインスタンスであること。
-     *            </ul>
-     *            の条件を満たすもの。
+     * @param out  stream to output compressed data
+     * @param file instance of {@link RandomAccessFile}.
+     *             Must satisfy:
+     *             <ul>
+     *             <li>Must not be already closed.
+     *             <li>Must be instantiated with mode "rw" in constructor to enable reading and writing.
+     *             </ul>
      * @see LhaProperty#getProperties()
      */
     public LhaOutputStream(OutputStream out, RandomAccessFile file) {
@@ -190,17 +184,16 @@ public class LhaOutputStream extends OutputStream {
     }
 
     /**
-     * out に 圧縮データを出力するOutputStreamを構築する。
+     * Constructs an {@link OutputStream} that outputs compressed data to {@code out}.
      *
-     * @param out 圧縮データを出力するストリーム
-     * @param file RandomAccessFile のインスタンス。
-     *            <ul>
-     *            <li>既に close() されていない事。
-     *            <li>コンストラクタの mode には "rw" オプションを使用して、
-     *            読みこみと書きこみが出来るように生成されたインスタンスであること。
-     *            </ul>
-     *            の条件を満たすもの。
-     * @param property 各圧縮形式に対応した符号器の生成式等が含まれるプロパティ
+     * @param out      stream to output compressed data
+     * @param file     instance of {@link RandomAccessFile}.
+     *                 Must satisfy:
+     *                 <ul>
+     *                 <li>Must not be already closed.
+     *                 <li>Must be instantiated with mode "rw" in constructor to enable reading and writing.
+     *                 </ul>
+     * @param property properties containing generator expressions of encoders corresponding to each compression format
      * @see LhaProperty
      */
     public LhaOutputStream(OutputStream out, RandomAccessFile file, Properties property) {
@@ -219,10 +212,11 @@ public class LhaOutputStream extends OutputStream {
     }
 
     /**
-     * コンストラクタの初期化処理を担当するメソッド。
+     * Helper method responsible for constructor initialization.
      *
-     * @param out LHA書庫形式のデータを出力する出力ストリーム
-     * @param temp 圧縮データの一時退避機構
+     * @param out      output stream to output data in LHA archive format
+     * @param temp     temporary storage mechanism for compressed data
+     * @param property properties containing generator expressions of encoders corresponding to each compression format
      */
     private void constructerHelper(OutputStream out, Temporary temp, Properties property) {
         this.out = out;
@@ -235,10 +229,10 @@ public class LhaOutputStream extends OutputStream {
     }
 
     /**
-     * 現在のエントリに1バイトのデータを書きこむ。
+     * Writes 1 byte of data to the current entry.
      *
-     * @param data 書きこむデータ
-     * @exception IOException 入出力エラーが発生した場合。
+     * @param data data to write
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void write(int data) throws IOException {
@@ -255,10 +249,10 @@ public class LhaOutputStream extends OutputStream {
     }
 
     /**
-     * 現在のエントリに bufferの内容を全て書き出す。
+     * Writes all contents of {@code buffer} to the current entry.
      *
-     * @param buffer 書き出すデータの入ったバイト配列
-     * @exception IOException 入出力エラーが発生した場合。
+     * @param buffer byte array containing data to write
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void write(byte[] buffer) throws IOException {
@@ -266,12 +260,12 @@ public class LhaOutputStream extends OutputStream {
     }
 
     /**
-     * 現在のエントリに bufferの indexから lengthバイトのデータを書き出す。
+     * Writes {@code length} bytes of data starting from {@code index} of {@code buffer} to the current entry.
      *
-     * @param buffer 書き出すデータの入ったバイト配列
-     * @param index buffer内の書き出すべきデータの開始位置
-     * @param length データのバイト数
-     * @exception IOException 入出力エラーが発生した場合。
+     * @param buffer byte array containing data to write
+     * @param index  start position of data to write in {@code buffer}
+     * @param length number of bytes of data
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void write(byte[] buffer, int index, int length) throws IOException {
@@ -288,15 +282,13 @@ public class LhaOutputStream extends OutputStream {
     }
 
     /**
-     * flush は二つの動作を行う。
-     * 一つは現在書き込み中のエントリのデータを
-     * 一時退避機構に送りこむように指示する。
-     * これは PostLzssDecoder、LzssOutputStream
-     * の規約どおり flush() しなかった場合と
-     * 同じデータが出力される事を保証しない。
-     * もう一つは 実際の出力先を flush() する。
+     * {@code flush} performs two operations.
+     * First, it instructs data of the currently writing entry to be sent to temporary storage.
+     * According to the contract of {@link PostLzssEncoder} and {@link LzssOutputStream},
+     * this does not guarantee that the same data is output as when {@code flush()} is not called.
+     * Second, it flushes the actual output destination.
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      * @see PostLzssEncoder#flush()
      * @see LzssOutputStream#flush()
      */
@@ -312,10 +304,9 @@ public class LhaOutputStream extends OutputStream {
     }
 
     /**
-     * 出力先に全てのデータを出力し、
-     * ストリームを閉じる。
+     * Outputs all data to destination and closes the stream.
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void close() throws IOException {
@@ -323,7 +314,7 @@ public class LhaOutputStream extends OutputStream {
             this.closeEntry();
         }
 
-        // ターミネータを出力
+        // Output terminator
         this.out.write(0);
         this.out.close();
         this.out = null;
@@ -337,21 +328,19 @@ public class LhaOutputStream extends OutputStream {
     }
 
     /**
-     * 新しいエントリを書き込むようにストリームを設定する。<br>
-     * このメソッドは 既に圧縮済みのエントリの場合は
-     * putNextEntryAlreadyCompressed(),
-     * 未だに圧縮されていない場合は
-     * putNextEntryNotYetCompressed() を呼び出す。<br>
-     * 圧縮されているかの判定は、
+     * Sets up the stream to write a new entry.<br>
+     * This method calls {@link #putNextEntryAlreadyCompressed(LhaHeader)} if the entry is already compressed,
+     * or {@link #putNextEntryNotYetCompressed(LhaHeader)} if it is not yet compressed.<br>
+     * Judged as not yet compressed if any of:
      * <ul>
-     * <li>header.getCompressedSize()<br>
-     * <li>header.getOriginalSize()<br>
-     * <li>header.getCRC()<br>
+     * <li>{@code header.getCompressedSize()}
+     * <li>{@code header.getOriginalSize()}
+     * <li>{@code header.getCRC()}
      * </ul>
-     * のどれか一つでも LhaHeader.UNKNOWN であれば未だに圧縮されていないとする。
+     * is {@link LhaHeader#UNKNOWN}.
      *
-     * @param header 書きこむエントリについての情報を持つLhaHeaderのインスタンス。
-     * @exception IOException 入出力エラーが発生した場合
+     * @param header instance of {@link LhaHeader} having information about the entry to write
+     * @throws IOException if an I/O error occurs
      */
     public void putNextEntry(LhaHeader header) throws IOException {
         if (header.getCompressedSize() == LhaHeader.UNKNOWN || header.getOriginalSize() == LhaHeader.UNKNOWN
@@ -363,18 +352,17 @@ public class LhaOutputStream extends OutputStream {
     }
 
     /**
-     * 既に圧縮済みのエントリを書きこむようにストリームを設定する。<br>
-     * 圧縮済みなので、一時退避機構を経ずに直接出力先に出力される。
-     * 圧縮済みデータが正しい事は、呼び出し側が保証する事。
+     * Sets up the stream to write an already compressed entry.<br>
+     * Since it is already compressed, it is output directly to the destination without passing through temporary storage.
+     * Caller must guarantee that compressed data is correct.
      *
-     * @param header 書きこむエントリについての情報を持つLhaHeaderのインスタンス。
-     * @exception IOException 入出力エラーが発生した場合
-     * @exception IllegalArgumentException <ol>
-     *                <li>header.getOriginalSize() が LhaHeader.UNKNOWN を返す場合
-     *                <li>header.getComressedSize() が LhaHeader.UNKNOWN を返す場合
-     *                <li>header.getCRC() が LhaHeader.UNKNOWN を返す場合
-     *                </ol>
-     *                の何れか。
+     * @param header instance of {@link LhaHeader} having information about the entry to write
+     * @throws IOException              if an I/O error occurs
+     * @throws IllegalArgumentException <ol>
+     *                                  <li>if {@code header.getOriginalSize()} returns {@link LhaHeader#UNKNOWN}
+     *                                  <li>if {@code header.getCompressedSize()} returns {@link LhaHeader#UNKNOWN}
+     *                                  <li>if {@code header.getCRC()} returns {@link LhaHeader#UNKNOWN}
+     *                                  </ol>
      */
     public void putNextEntryAlreadyCompressed(LhaHeader header) throws IOException {
         if (header.getOriginalSize() != LhaHeader.UNKNOWN && header.getCompressedSize() != LhaHeader.UNKNOWN
@@ -401,11 +389,11 @@ public class LhaOutputStream extends OutputStream {
     }
 
     /**
-     * 未だに圧縮されていないエントリを書きこむようにストリームを設定する。<br>
-     * header に OriginalSize, CompressedSize, CRCが指定されていても無視される。
+     * Sets up the stream to write an entry not yet compressed.<br>
+     * Even if {@code OriginalSize}, {@code CompressedSize}, or {@code CRC} is specified in {@code header}, they are ignored.
      *
-     * @param header 書きこむエントリについての情報を持つLhaHeaderのインスタンス。
-     * @exception IOException 入出力エラーが発生した場合
+     * @param header instance of {@link LhaHeader} having information about the entry to write
+     * @throws IOException if an I/O error occurs
      */
     public void putNextEntryNotYetCompressed(LhaHeader header) throws IOException {
         if (this.tempOut != null) {
@@ -419,12 +407,11 @@ public class LhaOutputStream extends OutputStream {
     }
 
     /**
-     * 現在出力中のエントリを閉じ、次のエントリが出力可能な状態にする。
-     * 圧縮に失敗した(圧縮後サイズが圧縮前サイズを上回った)場合、
-     * 解凍し無圧縮で格納する。エントリのサイズが大きい場合、
-     * この処理にはかなりの時間がかかる。
+     * Closes the currently outputting entry and prepares the stream to output the next entry.
+     * If compression fails (compressed size exceeds original size), decompresses and stores uncompressed.
+     * If entry size is large, this processing takes considerable time.
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     public void closeEntry() throws IOException {
         if (this.header != null) {
@@ -468,74 +455,68 @@ public class LhaOutputStream extends OutputStream {
     }
 
     /**
-     * データの一時退避機構を提供する。
+     * Provides a temporary storage mechanism for data.
      */
     private interface Temporary {
 
         /**
-         * 一時退避機構に貯えられたデータを取り出すInputStream を得る。<br>
-         * このデータは直前の getOutputStream() で与えられる
-         * OutputStream に出力されたデータと同じである。<br>
-         * getInputStream() で得られた InputStream が close() されるまで、
-         * getOutputStream() を呼んではならない。<br>
-         * また、getInputStream() で得られた InputStream が close() されるまで、
-         * 再び getInputStream() を呼んではならない。
+         * Gets an {@link InputStream} to retrieve data stored in the temporary storage mechanism.<br>
+         * This data is identical to the data output to the {@link OutputStream} provided by the immediately preceding {@link #getOutputStream()}.<br>
+         * {@link #getOutputStream()} must not be called until the {@link InputStream} obtained by {@link #getInputStream()} is closed.<br>
+         * Also, {@link #getInputStream()} must not be called again until the {@link InputStream} obtained by {@link #getInputStream()} is closed.
          *
-         * @return 一時退避機構からデータを取り出す InputStream
-         * @exception IOException 入出力エラーが発生した場合
+         * @return {@link InputStream} to retrieve data from temporary storage mechanism
+         * @throws IOException if an I/O error occurs
          */
         InputStream getInputStream() throws IOException;
 
         /**
-         * データを一時退避機構に貯えるOutputStream を得る。<br>
-         * 貯えたデータは直後の getInputStream() で得られる
-         * InputStream から得る事が出来る。<br>
-         * getOutputStream で得られた OutputStream が close() されるまで、
-         * getInputStream() を呼んではならない。
-         * また、getOutputStream() で得られた OutputStream が close() されるまで、
-         * 再び getOutputStream() を呼んではならない。
+         * Gets an {@link OutputStream} to store data in the temporary storage mechanism.<br>
+         * Stored data can be obtained from the {@link InputStream} obtained by immediately following {@link #getInputStream()}.<br>
+         * {@link #getInputStream()} must not be called until the {@link OutputStream} obtained by {@link #getOutputStream()} is closed.
+         * Also, {@link #getOutputStream()} must not be called again until the {@link OutputStream} obtained by {@link #getOutputStream()} is closed.
          *
-         * @return データを一時退避機構に貯える OutputStream
-         * @exception IOException 入出力エラーが発生した場合
+         * @return {@link OutputStream} to store data in temporary storage mechanism
+         * @throws IOException if an I/O error occurs
          */
         OutputStream getOutputStream() throws IOException;
 
         /**
-         * 一時退避機構に格納されているデータ量を得る。
-         * これは 直前の getOutputStream() で与えられた
-         * OutputStream に出力されたデータ量と同じである。
+         * Gets the amount of data stored in the temporary storage mechanism.
+         * This is identical to the amount of data output to the {@link OutputStream} provided by the immediately preceding {@link #getOutputStream()}.
          *
-         * @return 一時退避機構に格納されているデータ量
+         * @return amount of data stored in temporary storage mechanism
          */
         long length() throws IOException;
 
         /**
-         * 一時退避機構で使用されていた、全てのシステムリソースを開放する。
-         * @exception IOException 入出力エラーが発生した場合
+         * Releases all system resources used by the temporary storage mechanism.
+         *
+         * @throws IOException if an I/O error occurs
          */
         void close() throws IOException;
 
     }
 
     /**
-     * 一時退避機構に RandomAccessFile を使用するクラス。
+     * Class that uses {@link RandomAccessFile} for temporary storage mechanism.
      */
     private static class TemporaryFile implements Temporary {
 
         /**
-         * 一時退避機構に使用する RandomAccessFile
+         * {@link RandomAccessFile} used for temporary storage mechanism
          */
         private RandomAccessFile tempfile;
 
         /**
-         * getOutputStream で与えた OutputStream に出力されたデータ量を保持する。
+         * Holds the amount of data output to the {@link OutputStream} provided by {@link #getOutputStream()}.
          */
         private long length;
 
         /**
-         * コンストラクタ fileを使用して TemporaryFile を構築する。
+         * Constructs a {@link TemporaryFile} using {@code file}.
          *
-         * @param file RandomAccessFile のインスタンス
+         * @param file instance of {@link RandomAccessFile}
          */
         public TemporaryFile(RandomAccessFile file) {
             if (file != null) {
@@ -546,12 +527,11 @@ public class LhaOutputStream extends OutputStream {
         }
 
         /**
-         * 一時退避機構に貯えられたデータを取り出す InputStream を得る。<br>
-         * このデータは直前の getOutputStream() で与えられる
-         * OutputStream に出力されたデータと同じ。
+         * Gets an {@link InputStream} to retrieve data stored in the temporary storage mechanism.<br>
+         * This data is identical to the data output to the {@link OutputStream} provided by the immediately preceding {@link #getOutputStream()}.
          *
-         * @return 一時退避機構からデータを取り出す InputStream
-         * @exception IOException 入出力エラーが発生した場合
+         * @return {@link InputStream} to retrieve data from temporary storage mechanism
+         * @throws IOException if an I/O error occurs
          */
         @Override
         public InputStream getInputStream() throws IOException {
@@ -559,12 +539,11 @@ public class LhaOutputStream extends OutputStream {
         }
 
         /**
-         * データを一時退避機構に貯えるOutputStreamを得る。<br>
-         * 貯えたデータは直後の getInputStream() で
-         * 得られる InputStream から得る事が出来る。
+         * Gets an {@link OutputStream} to store data in the temporary storage mechanism.<br>
+         * Stored data can be obtained from the {@link InputStream} obtained by immediately following {@link #getInputStream()}.
          *
-         * @return データを一時退避機構に貯える OutputStream
-         * @exception IOException 入出力エラーが発生した場合
+         * @return {@link OutputStream} to store data in temporary storage mechanism
+         * @throws IOException if an I/O error occurs
          */
         @Override
         public OutputStream getOutputStream() throws IOException {
@@ -572,11 +551,10 @@ public class LhaOutputStream extends OutputStream {
         }
 
         /**
-         * 一時退避機構に格納されているデータ量を得る。<br>
-         * これは 直前の getOutputStream() で与えられた
-         * OutputStream に出力されたデータ量と同じである。
+         * Gets the amount of data stored in the temporary storage mechanism.<br>
+         * This is identical to the amount of data output to the {@link OutputStream} provided by the immediately preceding {@link #getOutputStream()}.
          *
-         * @return 一時退避機構に格納されているデータ量
+         * @return amount of data stored in temporary storage mechanism
          */
         @Override
         public long length() {
@@ -584,10 +562,10 @@ public class LhaOutputStream extends OutputStream {
         }
 
         /**
-         * 一時退避機構で使用されていた、全てのシステムリソースを開放する。
-         * コンストラクタで与えられた RandomAccessFile は閉じられる。
+         * Releases all system resources used by the temporary storage mechanism.
+         * The {@link RandomAccessFile} provided in constructor is closed.
          *
-         * @exception IOException 入出力エラーが発生した場合
+         * @throws IOException if an I/O error occurs
          */
         @Override
         public void close() throws IOException {
@@ -596,25 +574,24 @@ public class LhaOutputStream extends OutputStream {
         }
 
         /**
-         * TemporaryFile の入力ストリーム
+         * Input stream for {@link TemporaryFile}
          */
         private class TemporaryFileInputStream extends InputStream {
 
             /**
-             * TemporaryFile からデータを読み込む InputStream を構築する。<br>
+             * Constructs an {@link InputStream} that reads data from {@link TemporaryFile}.<br>
              *
-             * @exception IOException 入出力エラーが発生した場合
+             * @throws IOException if an I/O error occurs
              */
             public TemporaryFileInputStream() throws IOException {
                 TemporaryFile.this.tempfile.seek(0);
             }
 
             /**
-             * TemporaryFileから 1バイトのデータを読み込む。
+             * Reads 1 byte of data from {@link TemporaryFile}.
              *
-             * @return 読みこまれた1バイトのデータ
-             *         既にEndOfStreamに達している場合は-1
-             * @exception IOException 入出力エラーが発生した場合
+             * @return 1 byte of read data, or -1 if EndOfStream has already been reached
+             * @throws IOException if an I/O error occurs
              */
             @Override
             public int read() throws IOException {
@@ -629,11 +606,11 @@ public class LhaOutputStream extends OutputStream {
             }
 
             /**
-             * TemporaryFileから bufferを満たすようにデータを読み込む。
+             * Reads data from {@link TemporaryFile} to fill {@code buffer}.
              *
-             * @param buffer データを読み込むバッファ
-             * @return 読みこまれたデータ量 既にEndOfStreamに達している場合は-1
-             * @exception IOException 入出力エラーが発生した場合
+             * @param buffer buffer to read data into
+             * @return amount of read data, or -1 if EndOfStream has already been reached
+             * @throws IOException if an I/O error occurs
              */
             @Override
             public int read(byte[] buffer) throws IOException {
@@ -641,14 +618,13 @@ public class LhaOutputStream extends OutputStream {
             }
 
             /**
-             * TemporaryFileから bufferの indexへlengthバイトのデータを読み込む
+             * Reads {@code length} bytes of data from {@link TemporaryFile} into {@code buffer} starting at {@code index}.
              *
-             * @param buffer データを読み込むバッファ
-             * @param index buffer内のデータ読みこみ開始位置
-             * @param length 読み込むデータ量
-             * @return 読みこまれたデータ量
-             *         既にEndOfStreamに達している場合は-1
-             * @exception IOException 入出力エラーが発生した場合
+             * @param buffer buffer to read data into
+             * @param index  start position of data reading in {@code buffer}
+             * @param length amount of data to read
+             * @return amount of read data, or -1 if EndOfStream has already been reached
+             * @throws IOException if an I/O error occurs
              */
             @Override
             public int read(byte[] buffer, int index, int length) throws IOException {
@@ -665,14 +641,14 @@ public class LhaOutputStream extends OutputStream {
         }
 
         /**
-         * TemporaryFile の出力ストリーム
+         * Output stream for {@link TemporaryFile}
          */
         private class TemporaryFileOutputStream extends OutputStream {
 
             /**
-             * TemporaryFile にデータを出力する OutputStream を構築する。
+             * Constructs an {@link OutputStream} that outputs data to {@link TemporaryFile}.
              *
-             * @exception IOException 入出力エラーが発生した場合
+             * @throws IOException if an I/O error occurs
              */
             public TemporaryFileOutputStream() throws IOException {
                 TemporaryFile.this.tempfile.seek(0);
@@ -680,10 +656,10 @@ public class LhaOutputStream extends OutputStream {
             }
 
             /**
-             * TemporaryFile に 1byteのデータを書き出す。
+             * Writes 1 byte of data to {@link TemporaryFile}.
              *
-             * @param data 書き出す1byteのデータ
-             * @exception IOException 入出力エラーが発生した場合
+             * @param data 1 byte of data to write
+             * @throws IOException if an I/O error occurs
              */
             @Override
             public void write(int data) throws IOException {
@@ -692,10 +668,10 @@ public class LhaOutputStream extends OutputStream {
             }
 
             /**
-             * TemporaryFile に bufferの内容を全て書き出す。
+             * Writes all contents of {@code buffer} to {@link TemporaryFile}.
              *
-             * @param buffer 書き出すデータの入ったバイト配列
-             * @exception IOException 入出力エラーが発生した場合
+             * @param buffer byte array containing data to write
+             * @throws IOException if an I/O error occurs
              */
             @Override
             public void write(byte[] buffer) throws IOException {
@@ -704,12 +680,12 @@ public class LhaOutputStream extends OutputStream {
             }
 
             /**
-             * TemporaryFile に bufferのindex からlengthバイトの内容を書き出す。
+             * Writes {@code length} bytes of contents of {@code buffer} starting from {@code index} to {@link TemporaryFile}.
              *
-             * @param buffer 書き出すデータの入ったバイト配列
-             * @param index buffer内の書き出すデータの開始位置
-             * @param length 書き出すデータ量
-             * @exception IOException 入出力エラーが発生した場合
+             * @param buffer byte array containing data to write
+             * @param index  start position of data to write in {@code buffer}
+             * @param length amount of data to write
+             * @throws IOException if an I/O error occurs
              */
             @Override
             public void write(byte[] buffer, int index, int length) throws IOException {
@@ -720,28 +696,27 @@ public class LhaOutputStream extends OutputStream {
     }
 
     /**
-     * 一時退避機構に GrowthByteBufferを使用するクラス
+     * Class that uses {@link GrowthByteBuffer} for temporary storage mechanism.
      */
     private static class TemporaryBuffer implements Temporary {
 
         /**
-         * 一時退避機構に使用されるバッファ
+         * Buffer used for temporary storage mechanism
          */
         private GrowthByteBuffer tempbuffer;
 
         /**
-         * GrowthByteBuffer を使用した検索機構を構築する。
+         * Constructs a search mechanism using {@link GrowthByteBuffer}.
          */
         public TemporaryBuffer() {
             this.tempbuffer = new GrowthByteBuffer();
         }
 
         /**
-         * 一時退避機構に貯えられたデータを取り出す InputStream を得る。<br>
-         * このデータは直前の getOutputStream() で与えられる
-         * OutputStream に出力されたデータと同じ。
+         * Gets an {@link InputStream} to retrieve data stored in the temporary storage mechanism.<br>
+         * This data is identical to the data output to the {@link OutputStream} provided by the immediately preceding {@link #getOutputStream()}.
          *
-         * @return 一時退避機構からデータを取り出す InputStream
+         * @return {@link InputStream} to retrieve data from temporary storage mechanism
          */
         @Override
         public InputStream getInputStream() {
@@ -749,11 +724,10 @@ public class LhaOutputStream extends OutputStream {
         }
 
         /**
-         * データを一時退避機構に貯える OutputStream を得る。<br>
-         * 貯えたデータは直後の getInputStream() で得られる
-         * InputStream から得る事が出来る。
+         * Gets an {@link OutputStream} to store data in the temporary storage mechanism.<br>
+         * Stored data can be obtained from the {@link InputStream} obtained by immediately following {@link #getInputStream()}.
          *
-         * @return データを一時退避機構に貯える OutputStream
+         * @return {@link OutputStream} to store data in temporary storage mechanism
          */
         @Override
         public OutputStream getOutputStream() {
@@ -761,11 +735,10 @@ public class LhaOutputStream extends OutputStream {
         }
 
         /**
-         * 一時退避機構に格納されているデータ量を得る。<br>
-         * これは 直前の getOutputStream() で与えた
-         * OutputStream に出力されたデータ量と同じである。
+         * Gets the amount of data stored in the temporary storage mechanism.<br>
+         * This is identical to the amount of data output to the {@link OutputStream} provided by the immediately preceding {@link #getOutputStream()}.
          *
-         * @return 一時退避機構に格納されているデータ量
+         * @return amount of data stored in temporary storage mechanism
          */
         @Override
         public long length() {
@@ -773,7 +746,7 @@ public class LhaOutputStream extends OutputStream {
         }
 
         /**
-         * 一時退避機構で使用されていた、全てのシステムリソースを開放する。
+         * Releases all system resources used by the temporary storage mechanism.
          */
         @Override
         public void close() {
@@ -781,21 +754,21 @@ public class LhaOutputStream extends OutputStream {
         }
 
         /**
-         * TemporaryBuffer の入力ストリーム
+         * Input stream for {@link TemporaryBuffer}
          */
         private class TemporaryBufferInputStream extends InputStream {
 
             /**
-             * TemporaryBuffer からデータを読み込む InputStream を構築する。
+             * Constructs an {@link InputStream} that reads data from {@link TemporaryBuffer}.
              */
             public TemporaryBufferInputStream() {
                 TemporaryBuffer.this.tempbuffer.seek(0);
             }
 
             /**
-             * TemporaryBuffer から 1バイトのデータを読み込む。
+             * Reads 1 byte of data from {@link TemporaryBuffer}.
              *
-             * @return 読みこまれた1バイトのデータ 既にEndOfStreamに達している場合は-1
+             * @return 1 byte of read data, or -1 if EndOfStream has already been reached
              */
             @Override
             public int read() {
@@ -803,10 +776,10 @@ public class LhaOutputStream extends OutputStream {
             }
 
             /**
-             * TemporaryBuffer から bufferを満たすようにデータを読み込む。
+             * Reads data from {@link TemporaryBuffer} to fill {@code buffer}.
              *
-             * @param buffer データを読み込むバッファ
-             * @return 読みこまれたデータ量 既にEndOfStreamに達している場合は-1
+             * @param buffer buffer to read data into
+             * @return amount of read data, or -1 if EndOfStream has already been reached
              */
             @Override
             public int read(byte[] buffer) {
@@ -814,12 +787,12 @@ public class LhaOutputStream extends OutputStream {
             }
 
             /**
-             * TemporaryBuffer から bufferの indexへ lengthバイトのデータを読み込む
+             * Reads {@code length} bytes of data from {@link TemporaryBuffer} into {@code buffer} starting at {@code index}.
              *
-             * @param buffer データを読み込むバッファ
-             * @param index buffer内のデータ読みこみ開始位置
-             * @param length 読み込むデータ量
-             * @return 読みこまれたデータ量 既にEndOfStreamに達している場合は-1
+             * @param buffer buffer to read data into
+             * @param index  start position of data reading in {@code buffer}
+             * @param length amount of data to read
+             * @return amount of read data, or -1 if EndOfStream has already been reached
              */
             @Override
             public int read(byte[] buffer, int index, int length) {
@@ -828,12 +801,12 @@ public class LhaOutputStream extends OutputStream {
         }
 
         /**
-         * TemporaryBuffer の出力ストリーム
+         * Output stream for {@link TemporaryBuffer}
          */
         private class TemporaryBufferOutputStream extends OutputStream {
 
             /**
-             * TemporaryBuffer にデータを出力する OutputStream を構築する。
+             * Constructs an {@link OutputStream} that outputs data to {@link TemporaryBuffer}.
              */
             public TemporaryBufferOutputStream() {
                 TemporaryBuffer.this.tempbuffer.seek(0);
@@ -841,9 +814,9 @@ public class LhaOutputStream extends OutputStream {
             }
 
             /**
-             * TemporaryBuffer に 1byteのデータを書き出す。
+             * Writes 1 byte of data to {@link TemporaryBuffer}.
              *
-             * @param data 書き出す1byteのデータ
+             * @param data 1 byte of data to write
              */
             @Override
             public void write(int data) {
@@ -851,9 +824,9 @@ public class LhaOutputStream extends OutputStream {
             }
 
             /**
-             * TemporaryBuffer に bufferの内容を全て書き出す。
+             * Writes all contents of {@code buffer} to {@link TemporaryBuffer}.
              *
-             * @param buffer 書き出すデータの入ったバイト配列
+             * @param buffer byte array containing data to write
              */
             @Override
             public void write(byte[] buffer) {
@@ -861,11 +834,11 @@ public class LhaOutputStream extends OutputStream {
             }
 
             /**
-             * TemporaryBuffer に bufferのindex から lengthバイトの内容を書き出す。
+             * Writes {@code length} bytes of contents of {@code buffer} starting from {@code index} to {@link TemporaryBuffer}.
              *
-             * @param buffer 書き出すデータの入ったバイト配列
-             * @param index buffer内の書き出すデータの開始位置
-             * @param length 書き出すデータ量
+             * @param buffer byte array containing data to write
+             * @param index  start position of data to write in {@code buffer}
+             * @param length amount of data to write
              */
             @Override
             public void write(byte[] buffer, int index, int length) {

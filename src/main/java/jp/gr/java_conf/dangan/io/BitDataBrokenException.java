@@ -36,28 +36,27 @@ import java.io.IOException;
 
 
 /**
- * EndOfStream に達してしまったため要求されたビット数の
- * データを得られなかった場合に投げられる例外。<br>
- * jp.gr.java_conf.dangan.io.BitInputStream 用であるため、
- * 保持しておける データは 32ビットまでとなっている点に
- * 注意すること。<br>
- * NotEnoughBitsException と違い、こちらの例外を投げる
- * 場合には 実際に読み込み動作を行ってしまっているため
- * 読み込み位置は例外を投げる前の時点から変化してしまっ
- * ている点に注意すること。<br>
+ * An exception thrown when data for the requested number of bits
+ * could not be obtained because the EndOfStream was reached.<br>
+ * Note that since this is for {@link BitInputStream},
+ * the data that can be held is up to 32 bits.<br>
+ * Unlike {@link NotEnoughBitsException}, note that when this exception
+ * is thrown, the read operation has actually been performed, so
+ * the read position has changed from the point before throwing the
+ * exception.<br>
  *
  * <pre>
  * -- revision history --
  * $Log: BitDataBrokenException.java,v $
  * Revision 1.1  2002/12/07 00:00:00  dangan
  * [maintenance]
- *     ソース整備
+ *     source maintenance
  *
  * Revision 1.0  2002/07/24 00:00:00  dangan
  * add to version control
  * [maintenance]
- *     タブ廃止
- *     ライセンス文の修正
+ *     tab removal
+ *     license statement fix
  * </pre>
  *
  * @author $Author: dangan $
@@ -66,28 +65,27 @@ import java.io.IOException;
 public class BitDataBrokenException extends IOException {
 
     /**
-     * ビットデータが途中までしか
-     * 取得できない原因となった例外
+     * The exception that caused the bit data to be
+     * obtained only partially
      */
     private final Throwable cause;
 
     /**
-     * 途中までのビットデータ
+     * Partial bit data
      */
     private final int bitData;
 
     /**
-     * bitData の有効ビット数
+     * Number of valid bits in {@code bitData}
      */
     private final int bitCount;
 
     /**
-     * 新しい BitDataBrokenException を構築する。
+     * Constructs a new {@link BitDataBrokenException}.
      *
-     * @param cause ビットデータが途中までしか取得できない原因となった例外
-     * @param bitData 要求されたビット数に満たないビットデータ
-     * @param bitCount bitData のビット数
-     *
+     * @param cause the exception that caused the bit data to be obtained only partially
+     * @param bitData the bit data that did not reach the requested number of bits
+     * @param bitCount the number of bits in {@code bitData}
      */
     public BitDataBrokenException(Throwable cause, int bitData, int bitCount) {
         this.cause = cause;
@@ -96,10 +94,10 @@ public class BitDataBrokenException extends IOException {
     }
 
     /**
-     * ビットデータが途中までしか
-     * 取得できない原因となった例外を得る。
+     * Gets the exception that caused the bit data to be
+     * obtained only partially.
      *
-     * @return 原因となった例外
+     * @return the causing exception
      */
     @Override
     public Throwable getCause() {
@@ -107,20 +105,20 @@ public class BitDataBrokenException extends IOException {
     }
 
     /**
-     * 要求されたビット数に満たない
-     * "壊れた" ビットデータを得る。
+     * Gets the "broken" bit data that did not reach
+     * the requested number of bits.
      *
-     * @return ビットデータ
+     * @return the bit data
      */
     public int getBitData() {
         return this.bitData;
     }
 
     /**
-     * getBitData() で得られる
-     * ビットデータの有効ビット数を得る。
+     * Gets the number of valid bits in the bit data
+     * obtained by {@link #getBitData()}.
      *
-     * @return ビットデータの有効ビット数
+     * @return the number of valid bits in the bit data
      */
     public int getBitCount() {
         return this.bitCount;

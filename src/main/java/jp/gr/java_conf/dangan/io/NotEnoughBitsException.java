@@ -34,12 +34,10 @@ import java.io.IOException;
 
 
 /**
- * 要求されたビット数のデータを得られなかった場合に
- * 投げられる例外。<br>
- * BitDataBrokenException と違い、こちらの例外を
- * 投げる場合には 実際には読み込み動作を行ってい
- * ないため、読み込み位置は例外を投げる前の時点と
- * 同じである点に注意すること。<br>
+ * An exception thrown when data for the requested number of bits could not be obtained.<br>
+ * Unlike {@link BitDataBrokenException}, note that when this exception is thrown,
+ * the read operation has not actually been performed, so the read position
+ * is the same as before throwing the exception.<br>
  *
  * <pre>
  * -- revision history --
@@ -47,8 +45,8 @@ import java.io.IOException;
  * Revision 1.0  2002/07/24 00:00:00  dangan
  * add to version control
  * [maintenance]
- *     タブ廃止
- *     ライセンス文の修正
+ *     tab removal
+ *     license statement fix
  * </pre>
  *
  * @author $Author: dangan $
@@ -57,15 +55,14 @@ import java.io.IOException;
 public class NotEnoughBitsException extends IOException {
 
     /**
-     * 実際に読み込めるビット数
+     * Number of bits that can actually be read
      */
     private final int availableBits;
 
     /**
-     * availableBits 使用可能であることを示す
-     * NotEnoughBitsException を構築する。
+     * Constructs a {@link NotEnoughBitsException} indicating that {@code availableBits} are available.
      *
-     * @param availableBits 使用可能なビット数
+     * @param availableBits number of available bits
      */
     public NotEnoughBitsException(int availableBits) {
         super();
@@ -73,12 +70,11 @@ public class NotEnoughBitsException extends IOException {
     }
 
     /**
-     * availableBits 使用可能であることを示し、
-     * 詳細なメッセージを持つ
-     * NotEnoughBitsException を構築する。
+     * Constructs a {@link NotEnoughBitsException} indicating that {@code availableBits} are available,
+     * with a detailed message.
      *
-     * @param message 詳細なメッセージ
-     * @param availableBits 使用可能なビット数
+     * @param message       detailed message
+     * @param availableBits number of available bits
      */
     public NotEnoughBitsException(String message, int availableBits) {
         super(message);
@@ -86,10 +82,10 @@ public class NotEnoughBitsException extends IOException {
     }
 
     /**
-     * 使用可能なビット数を得る。<br>
-     * この例外を投げたメソッドにおいて、現在使用可能なビット数を返す。
+     * Gets the number of available bits.<br>
+     * Returns the number of currently available bits in the method that threw this exception.
      *
-     * @return 使用可能なビット数
+     * @return number of available bits
      */
     public int getAvailableBits() {
         return this.availableBits;

@@ -32,19 +32,18 @@ package jp.gr.java_conf.dangan.util.lha;
 
 
 /**
- * ハッシュ関数を提供するインターフェイス。
+ * Interface that provides hash functions.
  * <br>
- * コンストラクタの形式は
+ * The constructor form must conform to a format like:
  *
  * <pre>
  * HashMethod( byte[] TextBuffer )
  *
- * <strong>パラメータ:</strong>
- *   TextBuffer     - LZSS圧縮を施すデータの入ったバッファ
+ * <strong>Parameters:</strong>
+ *   TextBuffer     - Buffer containing data to be LZSS compressed
  * </pre>
  *
- * のような形式に則ること。<br>
- * また、追加の引数をとりたい場合は
+ * Furthermore, if additional arguments are needed, use a format like:
  *
  * <pre>
  * HashMethod( byte[] TextBuffer,
@@ -52,8 +51,7 @@ package jp.gr.java_conf.dangan.util.lha;
  *             Object ExtraData2 )
  * </pre>
  *
- * のような形式を用いる。<br>
- * なお、コンストラクタの引数チェックは追加の引数がある場合について行えばよい。
+ * Note that argument checking in the constructor only needs to be performed when there are additional arguments.
  *
  * <pre>
  * -- revision history --
@@ -61,12 +59,12 @@ package jp.gr.java_conf.dangan.util.lha;
  * Revision 1.0  2002/08/05 00:00:00  dangan
  * add to version cotrol
  * [change]
- *     requiredSize() を hashRequires() に名前変更。
- *     size() を tableSize() 名前変更。
- * [maintanance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
+ *     Renamed requiredSize() to hashRequires().
+ *     Renamed size() to tableSize().
+ * [maintenance]
+ *     source maintenance
+ *     tab removal
+ *     license comment update
  * </pre>
  *
  * @author $Author: dangan $
@@ -75,29 +73,26 @@ package jp.gr.java_conf.dangan.util.lha;
 public interface HashMethod {
 
     /**
-     * ハッシュ関数。
-     * コンストラクタで渡された TextBuffer 内の
-     * position からのデータパタンの hash値を生成する。
+     * Hash function.
+     * Generates the hash value of the data pattern starting from {@code position}
+     * in the {@code TextBuffer} passed to the constructor.
      *
-     * @param position データパタンの開始位置
-     * @return ハッシュ値
+     * @param position start position of the data pattern
+     * @return hash value
      */
     int hash(int position);
 
     /**
-     * ハッシュ関数が
-     * ハッシュ値を生成するために使用するバイト数を得る。
+     * Gets the number of bytes used by the hash function to generate a hash value.
      *
-     * @return ハッシュ関数がハッシュ値を
-     *         生成するために使用するバイト数
+     * @return number of bytes used by the hash function to generate a hash value
      */
     int hashRequires();
 
     /**
-     * この HashMethod を使った場合の
-     * HashTable のサイズを得る。
+     * Gets the size of the {@code HashTable} when using this {@link HashMethod}.
      *
-     * @return この HashMethod を使った場合の HashTable のサイズ
+     * @return size of the {@code HashTable} when using this {@link HashMethod}
      */
     int tableSize();
 }

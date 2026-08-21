@@ -34,10 +34,8 @@ import java.io.IOException;
 
 
 /**
- * 接続を解除できるストリームのための
- * インターフェイス。<br>
- * このインターフェイスを実装するストリームは
- * close() は disconnect() を呼ぶべきである。<br>
+ * An interface for disconnectable streams.<br>
+ * Streams implementing this interface should have {@code close()} call {@link #disconnect()}.<br>
  *
  * <pre>
  * -- revision history --
@@ -45,9 +43,9 @@ import java.io.IOException;
  * Revision 1.0  2002/07/24 00:00:00  dangan
  * add to version control
  * [maintenance]
- *     タブ廃止
- *     ライセンス文の修正
- *     ソース整備
+ *     tab removal
+ *     license statement fix
+ *     source maintenance
  * </pre>
  *
  * @author $Author: dangan $
@@ -56,9 +54,9 @@ import java.io.IOException;
 public interface Disconnectable {
 
     /**
-     * 接続されていたストリームとの接続を解除する。
+     * Disconnects from the connected stream.
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     void disconnect() throws IOException;
 }

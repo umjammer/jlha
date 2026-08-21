@@ -45,23 +45,23 @@ import jp.gr.java_conf.dangan.io.Bits;
 
 
 /**
- * -lzs- 解凍用 PreLzssDecoder。
+ * {@link PreLzssDecoder} for -lzs- decompression.
  *
  * <pre>
  * -- revision history --
  * $Log: PreLzsDecoder.java,v $
  * Revision 1.1  2002/12/06 00:00:00  dangan
  * [maintenance]
- *     ソース整備
+ *     source maintenance
  *
  * Revision 1.0  2002/08/05 00:00:00  dangan
  * add to version control
  * [bug fix]
- *     -lzs- の MaxMatch が 17 であるべきが 16 となっていたのを修正。
+ *     Fixed MaxMatch to be 17 instead of 16.
  * [maintenance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
+ *     source maintenance
+ *     tab removal
+ *     fix license statement
  * </pre>
  *
  * @author $Author: dangan $
@@ -69,56 +69,56 @@ import jp.gr.java_conf.dangan.io.Bits;
  */
 public class PreLzsDecoder implements PreLzssDecoder {
 
-    /** 辞書サイズ */
+    /** Dictionary size */
     private static final int DictionarySize = 2048;
 
-    /** 最大一致長 */
+    /** Maximum match length */
     private static final int MaxMatch = 17;
 
-    /** 最小一致長 */
+    /** Minimum match length */
     private static final int Threshold = 2;
 
-    /** 一致位置のビット数 */
+    /** Number of bits for match position */
     private static final int OffsetBits = Bits.len(PreLzsDecoder.DictionarySize - 1);
 
-    /** 一致長のビット数 */
+    /** Number of bits for match length */
     private static final int LengthBits = Bits.len(PreLzsDecoder.MaxMatch - PreLzsDecoder.Threshold);
 
     /**
-     * -lzs- 形式の圧縮データを供給する BitInputStream
+     * BitInputStream supplying -lzs- compressed data.
      */
     private BitInputStream in;
 
     /**
-     * 現在処理位置。
-     * LzssInputStreamの内部状態を取得できないために存在する。
-     * LzssInputStreamの内部クラスとして書けば、positionは必要無い。
+     * Current processing position.
+     * Exists because internal state of LzssInputStream cannot be obtained.
+     * If written as an inner class of LzssInputStream, position is not needed.
      */
     private int position;
 
-    /** 最も新しいLzssコードの一致位置 */
+    /** Match position of the most recent LZSS code */
     private int matchOffset;
 
     /**
-     * 最も新しいLzssコードの一致長
-     * LzssInputStreamの内部状態を取得できないために存在する。
-     * LzssInputStreamの内部クラスとして書けば、matchLengthは必要無い。
+     * Match length of the most recent LZSS code.
+     * Exists because internal state of LzssInputStream cannot be obtained.
+     * If written as an inner class of LzssInputStream, matchLength is not needed.
      */
     private int matchLength;
 
-    /** matchPositionのバックアップ用 */
+    /** For backing up matchPosition */
     private int markPosition;
 
-    /** matchPositionのバックアップ用 */
+    /** For backing up matchOffset */
     private int markMatchOffset;
 
-    /** matchLengthのバックアップ用 */
+    /** For backing up matchLength */
     private int markMatchLength;
 
     /**
-     * -lzs- 解凍用 PreLzssDecoder を構築する。
+     * Constructs a {@link PreLzssDecoder} for -lzs- decompression.
      *
-     * @param in -lzs- 形式の圧縮データを供給する入力ストリーム
+     * @param in input stream supplying -lzs- format compressed data
      */
     public PreLzsDecoder(InputStream in) {
         if (in != null) {
@@ -136,12 +136,11 @@ public class PreLzsDecoder implements PreLzssDecoder {
     }
 
     /**
-     * -lzs- で圧縮された
-     * 1byte の LZSS未圧縮のデータ、
-     * もしくは圧縮コードのうち一致長を読み込む。
+     * Reads 1 byte of uncompressed LZSS data or
+     * the match length of compressed code compressed with -lzs-.
      *
-     * @return 1byte の 未圧縮のデータもしくは、圧縮された圧縮コードのうち一致長
-     * @throws IOException 入出力エラーが発生した場合
+     * @return 1 byte of uncompressed data or the match length of compressed code
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public int readCode() throws IOException {
@@ -163,11 +162,10 @@ public class PreLzsDecoder implements PreLzssDecoder {
     }
 
     /**
-     * -lzs- で圧縮された圧縮コードのうち
-     * 一致位置を読み込む。<br>
+     * Reads the match position of LZSS compressed code compressed with -lzs-.<br>
      *
-     * @return -lzs- で圧縮された圧縮コードのうち一致位置
-     * @throws IOException 入出力エラーが発生した場合
+     * @return match position of compressed code compressed with -lzs-
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public int readOffset() throws IOException {
@@ -178,17 +176,13 @@ public class PreLzsDecoder implements PreLzssDecoder {
     }
 
     /**
-     * 接続された入力ストリームの現在位置にマークを設定し、
-     * reset() メソッドでマークした時点の 読み込み位置に
-     * 戻れるようにする。<br>
-     * InputStream の mark() と違い、readLimit で設定した
-     * 限界バイト数より前にマーク位置が無効になる可能性が
-     * ある事に注意すること。<br>
+     * Sets a mark at the current position in the connected input stream,
+     * allowing return to the read position at the time of marking using {@link #reset()}.<br>
+     * Note that unlike {@link InputStream#mark(int)}, the mark position
+     * may become invalid before the limit specified by {@code readLimit}.<br>
      *
-     * @param readLimit マーク位置に戻れる限界のバイト数。
-     *                  このバイト数を超えてデータを読み
-     *                  込んだ場合 reset()できなくなる可
-     *                  能性がある。<br>
+     * @param readLimit limit of bytes that can be read while still retaining the mark position.
+     *                  If data exceeds this number of bytes, reset() may no longer be possible.<br>
      * @see PreLzssDecoder#mark(int)
      */
     @Override
@@ -200,20 +194,21 @@ public class PreLzsDecoder implements PreLzssDecoder {
     }
 
     /**
-     * 接続された入力ストリームの読み込み位置を最後に
-     * mark() メソッドが呼び出されたときの位置に設定する。<br>
+     * Sets the read position of the connected input stream to the position
+     * where {@link #mark(int)} was last called.<br>
      *
-     * @throws IOException <ol>
-     *                     <li> mark() せずに reset() しようとした場合。</li>
-     *                     <li> 接続された入力ストリームが markSupported()でfalse を返す場合。</li>
-     *                     <li> 接続された入力ストリームで入出力エラーが発生した場合。</li>
-     *                     </ol> の何れか。
+     * @throws IOException <ul>
+     *                     <li> (1) if attempting to {@code reset()} without {@code mark()}.</li>
+     *                     <li> (2) if the connected input stream returns {@code false} for {@code markSupported()}.</li>
+     *                     <li> (3) if an I/O error occurs in the connected input stream.</li>
+     *                     </ul>
+     *                     any of these.
      */
     @Override
     public void reset() throws IOException {
-        // mark()しないで reset()しようとした場合、
-        // 接続された InputStream が mark/resetをサポートしない場合は
-        // BitInputStream の reset()によって IOExceptionが投げられる。
+        // If attempting to reset() without mark(),
+        // or if the connected InputStream returns false for markSupported(),
+        // BitInputStream's reset() throws an IOException.
         this.in.reset();
 
         this.position = this.markPosition;
@@ -222,9 +217,9 @@ public class PreLzsDecoder implements PreLzssDecoder {
     }
 
     /**
-     * 接続された入力ストリームが mark() と reset() をサポートするかを得る。
+     * Gets whether the connected input stream supports {@code mark()} and {@code reset()}.
      *
-     * @return ストリームが mark() と reset() をサポートする場合は true。サポートしない場合は false。
+     * @return {@code true} if the stream supports {@code mark()} and {@code reset()}; {@code false} otherwise.
      */
     @Override
     public boolean markSupported() {
@@ -232,12 +227,11 @@ public class PreLzsDecoder implements PreLzssDecoder {
     }
 
     /**
-     * ブロックせずに読み出すことの出来る最低バイト数を得る。<br>
-     * InputStream の available() と違い、
-     * この最低バイト数は保証される。
+     * Gets the minimum number of bytes that can be read without blocking.<br>
+     * Unlike {@link InputStream#available()}, this minimum number of bytes is guaranteed.
      *
-     * @return ブロックしないで読み出せる最低バイト数。
-     * @throws IOException 入出力エラーが発生した場合
+     * @return the minimum number of bytes that can be read without blocking
+     * @throws IOException if an I/O error occurs
      * @see PreLzssDecoder#available()
      */
     @Override
@@ -246,11 +240,10 @@ public class PreLzsDecoder implements PreLzssDecoder {
     }
 
     /**
-     * この出力とストリームと
-     * 接続されていたストリームを閉じ、
-     * 使用していたリソースを解放する。
+     * Closes this stream and connected stream,
+     * and releases any resources used.
      *
-     * @throws IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void close() throws IOException {
@@ -260,9 +253,9 @@ public class PreLzsDecoder implements PreLzssDecoder {
     }
 
     /**
-     * -lzs-形式の LZSS辞書のサイズを得る。
+     * Gets the size of the -lzs- format LZSS dictionary.
      *
-     * @return -lzs-形式の LZSS辞書のサイズ
+     * @return the size of the -lzs- format LZSS dictionary
      */
     @Override
     public int getDictionarySize() {
@@ -270,9 +263,9 @@ public class PreLzsDecoder implements PreLzssDecoder {
     }
 
     /**
-     * -lzs-形式の LZSSの最長一致長を得る。
+     * Gets the maximum match length of the -lzs- format LZSS.
      *
-     * @return -lzs-形式の LZSSの最長一致長
+     * @return the maximum match length of the -lzs- format LZSS
      */
     @Override
     public int getMaxMatch() {
@@ -280,9 +273,9 @@ public class PreLzsDecoder implements PreLzssDecoder {
     }
 
     /**
-     * -lzs-形式の LZSSの圧縮、非圧縮の閾値を得る。
+     * Gets the threshold for LZSS compression/non-compression of -lzs- format.
      *
-     * @return -lzs-形式の LZSSの圧縮、非圧縮の閾値
+     * @return the threshold for LZSS compression/non-compression of -lzs- format
      */
     @Override
     public int getThreshold() {

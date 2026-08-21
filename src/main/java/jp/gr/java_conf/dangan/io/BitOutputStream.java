@@ -35,24 +35,23 @@ import java.io.OutputStream;
 
 
 /**
- * 接続された出力ストリームにビットデータを出力するための
- * 出力ストリームクラス。<br>
+ * An output stream class for outputting bit data to a connected output stream.<br>
  *
  * <pre>
  * -- revision history --
  * $Log: BitOutputStream.java,v $
  * Revision 1.1  2002/12/05 00:00:00  dangan
  * [maintenance]
- *     ソース整備
+ *     source maintenance
  *
  * Revision 1.0  2002/09/11 00:00:00  dangan
  * add to version control
  * [change]
- *     close() 後の write系メソッドと flush() で
- *     例外を投げるように修正
+ *     modified write methods and flush() to throw an exception
+ *     after close()
  * [maintenance]
- *     タブ廃止
- *     ライセンス文の修正
+ *     tab removal
+ *     license statement fix
  * </pre>
  *
  * @author $Author: dangan $
@@ -61,53 +60,51 @@ import java.io.OutputStream;
 public class BitOutputStream extends OutputStream {
 
     /**
-     * デフォルトキャッシュサイズ
+     * Default cache size
      */
     private static final int DefaultCacheSize = 1024;
 
     /**
-     * 接続された出力ストリーム
+     * Connected output stream
      */
     private OutputStream out;
 
     /**
-     * 速度低下抑止用バイト配列
+     * Byte array for caching to prevent performance degradation
      */
     private byte[] cache;
 
     /**
-     * cacheBuffer 内の現在処理位置
+     * Current processing position in {@code cache}
      */
     private int cachePosition;
 
     /**
-     * ビットバッファ
+     * Bit buffer
      */
     private int bitBuffer;
 
     /**
-     * bitBuffer の 有効ビット数
+     * Number of valid bits in {@code bitBuffer}
      */
     private int bitCount;
 
     /**
-     * 出力ストリーム out へ データをビット単位で
-     * 書きこめるようなストリームを構築する。<br>
-     * キャッシュサイズにはデフォルト値が使用される。
+     * Constructs a stream that can write data to the output stream {@code out} bit by bit.<br>
+     * The default value is used for the cache size.
      *
-     * @param out 出力ストリーム
+     * @param out output stream
      */
     public BitOutputStream(OutputStream out) {
         this(out, BitOutputStream.DefaultCacheSize);
     }
 
     /**
-     * 出力ストリーム out へ データをビット単位で
-     * 書きこめるようなストリームを構築する。
+     * Constructs a stream that can write data to the output stream {@code out} bit by bit.
      *
-     * @param out       出力ストリーム
-     * @param CacheSize キャッシュサイズ
-     * @throws IllegalArgumentException CacheSize が 4未満の場合、または CacheSize が 4の倍数で無い場合。
+     * @param out       output stream
+     * @param CacheSize cache size
+     * @throws IllegalArgumentException if {@code CacheSize} is less than 4, or {@code CacheSize} is not a multiple of 4.
      */
     public BitOutputStream(OutputStream out, int CacheSize) {
         if (out != null && 4 <= CacheSize && 0 == (CacheSize & 0x03)) {
@@ -126,10 +123,10 @@ public class BitOutputStream extends OutputStream {
     }
 
     /**
-     * 接続された出力ストリームに 8ビットのデータを出力する。
+     * Outputs 8-bit data to the connected output stream.
      *
-     * @param data 8ビットのデータ。上位24ビットは無視される。
-     * @throws IOException 入出力エラーが発生した場合
+     * @param data 8-bit data. The upper 24 bits are ignored.
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void write(int data) throws IOException {
@@ -137,11 +134,11 @@ public class BitOutputStream extends OutputStream {
     }
 
     /**
-     * 接続された出力ストリームにbufferの内容を連続した
-     * 8ビットのデータとして出力する。
+     * Outputs the contents of {@code buffer} as continuous 8-bit data
+     * to the connected output stream.
      *
-     * @param buffer 出力すべきデータを格納したバイト配列
-     * @throws IOException 入出力エラーが発生した場合
+     * @param buffer byte array containing data to be output
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void write(byte[] buffer) throws IOException {
@@ -149,14 +146,13 @@ public class BitOutputStream extends OutputStream {
     }
 
     /**
-     * 接続された出力ストリームにbufferのindexから
-     * lengthバイトの内容を連続した 8ビットのデータ
-     * として出力する。
+     * Outputs {@code length} bytes of data from {@code index} of {@code buffer}
+     * as continuous 8-bit data to the connected output stream.
      *
-     * @param buffer 出力すべきデータを格納したバイト配列
-     * @param index  buffer内のデータ開始位置
-     * @param length 出力するデータ量(バイト数)
-     * @throws IOException 入出力エラーが発生した場合
+     * @param buffer byte array containing data to be output
+     * @param index  starting position of data in {@code buffer}
+     * @param length amount of data to output (number of bytes)
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void write(byte[] buffer, int index, int length) throws IOException {
@@ -170,11 +166,11 @@ public class BitOutputStream extends OutputStream {
     }
 
     /**
-     * このビット出力ストリームにバッファリングされている
-     * 8ビット単位のデータを全て出力先に出力する。<br>
-     * 8ビットに満たないデータは出力されないことに注意。
+     * Flushes all 8-bit unit data buffered in this bit output stream
+     * to the output destination.<br>
+     * Note that data of less than 8 bits is not output.
      *
-     * @throws IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void flush() throws IOException {
@@ -190,10 +186,10 @@ public class BitOutputStream extends OutputStream {
     }
 
     /**
-     * この出力ストリームと、接続された出力ストリームを閉じ、
-     * 使用していたリソースを開放する。
+     * Closes this output stream and the connected output stream,
+     * and releases any resources used.
      *
-     * @throws IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void close() throws IOException {
@@ -216,10 +212,10 @@ public class BitOutputStream extends OutputStream {
     }
 
     /**
-     * 接続された出力ストリームに1ビットのデータを出力する。
+     * Outputs 1 bit of data to the connected output stream.
      *
-     * @param data 1ビットのデータ。上位31ビットは無視される。
-     * @throws IOException 入出力エラーが発生した場合
+     * @param data 1-bit data. The upper 31 bits are ignored.
+     * @throws IOException if an I/O error occurs
      */
     public void writeBit(int data) throws IOException {
         this.bitBuffer |= (data & 0x00000001) << 31 - this.bitCount;
@@ -230,14 +226,12 @@ public class BitOutputStream extends OutputStream {
     }
 
     /**
-     * 真偽値を接続された出力ストリームに1ビットの
-     * データとして出力する。<br>
-     * true は 1、false は 0として出力する。
-     * java.io.DataOutput の writeBoolean() とは
-     * 互換性が無いので注意すること。<br>
+     * Outputs a boolean value as 1-bit data to the connected output stream.<br>
+     * {@code true} is output as 1, and {@code false} as 0.
+     * Note that there is no compatibility with {@link java.io.DataOutput#writeBoolean(boolean)}.<br>
      *
-     * @param bool 真偽値
-     * @throws IOException 入出力エラーが発生した場合
+     * @param bool boolean value
+     * @throws IOException if an I/O error occurs
      */
     public void writeBoolean(boolean bool) throws IOException {
         if (bool)
@@ -250,11 +244,11 @@ public class BitOutputStream extends OutputStream {
     }
 
     /**
-     * 接続された出力ストリームにビットデータを出力する。
+     * Outputs bit data to the connected output stream.
      *
-     * @param count data の有効ビット数
-     * @param data  ビットデータ
-     * @throws IOException 入出力エラーが発生した場合
+     * @param count number of valid bits in {@code data}
+     * @param data  bit data
+     * @throws IOException if an I/O error occurs
      */
     public void writeBits(int count, int data) throws IOException {
         while (0 < count) {
@@ -272,11 +266,11 @@ public class BitOutputStream extends OutputStream {
     }
 
     /**
-     * ビットバッファに蓄えられたデータを全てキャッシュに
-     * 出力し、キャッシュが満ちた場合はキャッシュのデータを
-     * 接続された出力ストリームに出力する。<br>
+     * Outputs all data stored in the bit buffer to the cache,
+     * and outputs the data in the cache to the connected output stream
+     * if the cache is full.<br>
      *
-     * @throws IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     private void writeOutBitBuffer() throws IOException {
         this.cache[this.cachePosition++] = (byte) (this.bitBuffer >> 24);

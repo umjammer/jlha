@@ -34,45 +34,45 @@ import java.util.Date;
 
 
 /**
- * MS-DOS形式の時間情報を扱うDateの派生クラス。<br>
- * データは 4byte値であり、MS-DOSが 主にIntel の x86系CPU上で
- * 動作したことから LittleEndianで格納される。<br>
- * フォーマットは以下のとおり。
+ * A derived class of {@link Date} that handles MS-DOS format time information.<br>
+ * The data is a 4-byte value and is stored in little-endian because MS-DOS mainly operated
+ * on Intel x86 CPUs.<br>
+ * The format is as follows.
  *
  * <pre>
  * +---------------+---------------++---------------+---------------+
- * | 日付-上位byte  | 日付-下位byte   || 時刻-上位byte   | 時刻-下位byte  |
+ * | Date high-byte| Date low-byte || Time high-byte| Time low-byte |
  * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  * |7|6|5|4|3|2|1|0|7|6|5|4|3|2|1|0||7|6|5|4|3|2|1|0|7|6|5|4|3|2|1|0|
  * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- * |   年-7bit   |月-4bit | 日-5bit ||時間-5bit |  分-6bit  | 秒-5bit  |
+ * |  Year-7bit  |Mo-4bit|Day-5bit ||Hour-5bit|Minute-6bit|Sec-5bit |
  * +-------------+-------+---------++---------+-----------+---------+
  * </pre>
  *
- * <li>年は 1980〜2107年 を 0〜127 で表す。WindowsのシステムAPIの
- * 一部は 2099年までしかサポートしないという情報がある。</li>
- * <li>月は 1〜12月 を 1〜12で表す。0〜11でないことに注意。</li>
- * <li>日は 1〜31日 を 1〜31で表す。0〜30でないことに注意。</li>
- * <li>時間は 0〜23時 を 0〜23で表す。</li>
- * <li>分は 0〜59分 を 0〜59で表す。</li>
- * <li>秒は 0〜58秒 を 0〜29で表す。秒の情報はビット数が足りない
- * ため 最小単位は 1秒でなく 2秒である。</li>
+ * <li>Year represents 1980 to 2107 with 0 to 127. There is information that some
+ * Windows system APIs only support up to the year 2099.</li>
+ * <li>Month represents January to December with 1 to 12. Note that it is not 0 to 11.</li>
+ * <li>Day represents 1st to 31st with 1 to 31. Note that it is not 0 to 30.</li>
+ * <li>Hour represents 0 to 23 hours with 0 to 23.</li>
+ * <li>Minute represents 0 to 59 minutes with 0 to 59.</li>
+ * <li>Second represents 0 to 58 seconds with 0 to 29. Because the number of bits is insufficient
+ * for second information, the minimum unit is 2 seconds instead of 1 second.</li>
  *
  * <pre>
  * -- revision history --
  * $Log: MsdosDate.java,v $
  * Revision 1.1  2002/12/05 00:00:00  dangan
  * [maintenance]
- *     javadoc コメントのスペルミスを修正。
- *     ソース整備
+ *     Fixed typo in javadoc comments.
+ *     Source cleanup.
  *
  * Revision 1.0  2002/07/24 00:00:00  dangan
  * add to version control
  * [bug fix]
- *     setTime() で ftimeの限界精度である2秒以上の精度で記録していた。
+ *     In setTime(), recorded with precision exceeding the 2-second limit precision of ftime.
  * [maintenance]
- *     タブの廃止
- *     ライセンス文の修正
+ *     Eliminated tabs.
+ *     Updated license text.
  * </pre>
  *
  * @author $Author: dangan $
@@ -82,13 +82,13 @@ import java.util.Date;
 public class MsdosDate extends Date implements Cloneable {
 
     /**
-     * date で示される時間を表す MsdosDate を構築する。 <br>
-     * MS-DOS 形式の時間情報で表せない細かい精度の情報は
-     * 無視され、最小時間単位は java.util.Date の 1ミリ秒でなく
-     * MS-DOS 形式の時間情報 の最小単位である 2秒となる。
+     * Constructs an {@link MsdosDate} representing the time indicated by {@code date}.<br>
+     * Detailed precision information that cannot be represented in MS-DOS format time information
+     * is ignored, and the minimum time unit is 2 seconds, which is the minimum unit of MS-DOS format time information,
+     * instead of 1 millisecond of {@link Date}.
      *
-     * @param date 新しく構築される MsdosDate の基になる時間情報を持つ Dateオブジェクト
-     * @throws IllegalArgumentException date が MS-DOS時間形式で扱えない範囲の時間を示していた場合
+     * @param date the {@link Date} object containing the time information on which the newly constructed {@link MsdosDate} is based
+     * @throws IllegalArgumentException if {@code date} indicates a time outside the range that can be handled in MS-DOS time format
      */
     public MsdosDate(Date date) {
         super((date.getTime() / 2000L) * 2000L);
@@ -96,9 +96,9 @@ public class MsdosDate extends Date implements Cloneable {
     }
 
     /**
-     * MS-DOS 形式の時間情報から 新しい MsdosDate を構築する。
+     * Constructs a new {@link MsdosDate} from MS-DOS format time information.
      *
-     * @param time MS-DOS 形式の時間情報
+     * @param time MS-DOS format time information
      */
     public MsdosDate(int time) {
         super(((time >> 25) & 0x7F) + 80,
@@ -112,9 +112,9 @@ public class MsdosDate extends Date implements Cloneable {
     }
 
     /**
-     * このオブジェクトのコピーを返す。
+     * Returns a copy of this object.
      *
-     * @return このMsdosDateオブジェクトの複製
+     * @return a clone of this {@link MsdosDate} object
      */
     @Override
     public Object clone() {
@@ -122,12 +122,11 @@ public class MsdosDate extends Date implements Cloneable {
     }
 
     /**
-     * この MsdosDate の示す年を year で指定された値に1900を足し
-     * たものに設定する。<br>
-     * このメソッドは範囲チェックを行うだけのために存在する。
+     * Sets the year represented by this {@link MsdosDate} to the value obtained by adding 1900 to the value specified by {@code year}.<br>
+     * This method exists solely for range checking.
      *
-     * @param year 1900を足すことで西暦を表すような 年の値
-     * @throws IllegalArgumentException year が MS-DOS時間形式で扱えない範囲の時間を示していた場合
+     * @param year the year value such that adding 1900 represents the Western calendar year
+     * @throws IllegalArgumentException if {@code year} indicates a time outside the range that can be handled in MS-DOS time format
      * @deprecated
      */
     @Override
@@ -140,14 +139,13 @@ public class MsdosDate extends Date implements Cloneable {
     }
 
     /**
-     * この MsdosDate の示す時間を 1970年1月1日 00:00:00 GMTから
-     * time ミリ秒経過した時刻に設定する。<br>
-     * MS-DOS 形式の時間情報で表せない細かい精度の情報は
-     * 無視され、最小時間単位は java.util.Date の 1ミリ秒でなく
-     * MS-DOS 形式の時間情報 の最小単位である 2秒となる。
+     * Sets the time represented by this {@link MsdosDate} to the time when {@code time} milliseconds have elapsed since January 1, 1970, 00:00:00 GMT.<br>
+     * Detailed precision information that cannot be represented in MS-DOS format time information
+     * is ignored, and the minimum time unit is 2 seconds, which is the minimum unit of MS-DOS format time information,
+     * instead of 1 millisecond of {@link Date}.
      *
-     * @param time 1970年1月1日 00:00:00GMT からの経過ミリ秒
-     * @throws IllegalArgumentException time が MS-DOS時間形式で扱えない範囲の時間を示していた場合
+     * @param time elapsed milliseconds from January 1, 1970, 00:00:00 GMT
+     * @throws IllegalArgumentException if {@code time} indicates a time outside the range that can be handled in MS-DOS time format
      */
     @Override
     public void setTime(long time) {
@@ -160,9 +158,9 @@ public class MsdosDate extends Date implements Cloneable {
     }
 
     /**
-     * この MsdosDate に MS-DOS 時間形式の時間情報を設定する。
+     * Sets MS-DOS format time information to this {@link MsdosDate}.
      *
-     * @param time MS-DOS 時間形式の時間情報
+     * @param time MS-DOS format time information
      */
     public void setMsdosTime(int time) {
         Date date = new Date(((time >> 25) & 0x7F) + 80,
@@ -176,9 +174,9 @@ public class MsdosDate extends Date implements Cloneable {
     }
 
     /**
-     * この MsdosDateが示す時間情報を MS-DOS 時間形式で得る。
+     * Gets the time information represented by this {@link MsdosDate} in MS-DOS time format.
      *
-     * @return MS-DOS時間形式の値
+     * @return the value in MS-DOS time format
      */
     public int getMsdosTime() {
         return ((super.getYear() - 80) << 25)
@@ -190,10 +188,9 @@ public class MsdosDate extends Date implements Cloneable {
     }
 
     /**
-     * この MsdosDate が MS-DOS時間形式で表せる時間の範囲内で
-     * あるかを判定する。
+     * Determines whether this {@link MsdosDate} is within the time range that can be represented in MS-DOS time format.
      *
-     * @throws IllegalArgumentException この MsdosDate が MS-DOS時間形式で扱えない範囲の時間を示していた場合
+     * @throws IllegalArgumentException if this {@link MsdosDate} indicates a time outside the range that can be handled in MS-DOS time format
      */
     private void checkRange() {
         int year = this.getYear();

@@ -34,7 +34,7 @@ import java.io.IOException;
 
 
 /**
- * LZSS圧縮コードを処理する インターフェイス。
+ * Interface for processing LZSS compression codes.
  *
  * <pre>
  * -- revision history --
@@ -42,9 +42,9 @@ import java.io.IOException;
  * Revision 1.0  2002/07/25 00:00:00  dangan
  * add to version control
  * [maintenance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
+ *     source maintenance
+ *     tab removal
+ *     fix license statement
  * </pre>
  *
  * @author $Author: dangan $
@@ -53,15 +53,13 @@ import java.io.IOException;
 public interface PostLzssEncoder {
 
     /**
-     * この PostLzssEncoder にバッファリングされている
-     * 出力可能なデータを出力先の OutputStream に出力し、
-     * 出力先の OutputStream を flush() する。<br>
-     * java.io.OutputStream の メソッド flush() と似ているが、
-     * flush() しなかった場合と flush() した場合の出力については
-     * 同じであることを保証しなくて良い。<br>
-     * つまりOutputStream の flush() では同じデータを出力する事を
-     * 期待されるような以下の二つのコードは、
-     * PostLzssEncoder においては 別のデータを出力をしても良い。
+     * Flushes outputtable data buffered in this {@link PostLzssEncoder}
+     * to the output destination {@link java.io.OutputStream},
+     * and calls {@code flush()} on the destination {@link java.io.OutputStream}.<br>
+     * Similar to {@link java.io.OutputStream#flush()}, but it is not
+     * guaranteed that output when {@code flush()} is not called and when {@code flush()} is called will be the same.<br>
+     * That is, the following two codes, which would be expected to output the same data in {@link java.io.OutputStream#flush()},
+     * may output different data in {@link PostLzssEncoder}.
      *
      * <pre>
      * (1)
@@ -81,49 +79,55 @@ public interface PostLzssEncoder {
      *   out.close();
      * </pre>
      *
-     * @throws IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     void flush() throws IOException;
 
     /**
-     * この出力ストリームと、接続された出力ストリームを閉じ、
-     * 使用していたリソースを開放する。<br>
+     * Closes this output stream and the connected output stream,
+     * and releases any resources used.<br>
      *
-     * @throws IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     void close() throws IOException;
 
     /**
-     * 1byte の LZSS未圧縮のデータもしくは、
-     * LZSS で圧縮された圧縮コードのうち一致長を書きこむ。<br>
-     * 未圧縮データは 0〜255、
-     * LZSS圧縮コード(一致長)は 256〜510 を使用すること。
+     * Writes 1 byte of uncompressed LZSS data or
+     * the match length of LZSS compressed code.<br>
+     * Use 0 to 255 for uncompressed data,
+     * and 256 to 510 for LZSS compressed codes (match length).
      *
-     * @param code 1byte の LZSS未圧縮のデータもしくは、LZSS で圧縮された圧縮コードのうち一致長
-     * @throws IOException 入出力エラーが発生した場合
+     * @param code 1 byte of uncompressed LZSS data or the match length of LZSS compressed code
+     * @throws IOException if an I/O error occurs
      */
     void writeCode(int code) throws IOException;
 
     /**
-     * LZSS で圧縮された圧縮コードのうち一致位置を書きこむ。<br>
+     * Writes the match offset of LZSS compressed code.<br>
      *
-     * @param offset LZSS で圧縮された圧縮コードのうち一致位置
-     * @throws IOException 入出力エラーが発生した場合
+     * @param offset the match offset of LZSS compressed code
+     * @throws IOException if an I/O error occurs
      */
     void writeOffset(int offset) throws IOException;
 
     /**
-     * このPostLzssEncoderが処理するLZSS辞書のサイズを得る。
+     * Gets the size of the LZSS dictionary processed by this {@link PostLzssEncoder}.
+     *
+     * @return the size of the LZSS dictionary
      */
     int getDictionarySize();
 
     /**
-     * このPostLzssEncoderが処理する最大一致長を得る。
+     * Gets the maximum match length processed by this {@link PostLzssEncoder}.
+     *
+     * @return the maximum match length
      */
     int getMaxMatch();
 
     /**
-     * このPostLzssEncoderが処理する圧縮、非圧縮の閾値を得る。
+     * Gets the compression/non-compression threshold processed by this {@link PostLzssEncoder}.
+     *
+     * @return the compression threshold
      */
     int getThreshold();
 }

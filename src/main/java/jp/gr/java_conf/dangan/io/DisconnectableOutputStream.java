@@ -35,9 +35,8 @@ import java.io.OutputStream;
 
 
 /**
- * データを処理して出力する出力ストリームと
- * データをデバイスに出力するストリームとの
- * 接続を解除するためのユーティリティクラス。
+ * Utility class for disconnecting between an output stream that processes and outputs data
+ * and a stream that outputs data to a device.
  *
  * <pre>
  * -- revision history --
@@ -45,9 +44,9 @@ import java.io.OutputStream;
  * Revision 1.0  2002/07/24 00:00:00  dangan
  * add to version control
  * [maintenance]
- *     タブ廃止
- *     ライセンス文の修正
- *     ソース整備
+ *     tab removal
+ *     license statement fix
+ *     source maintenance
  * </pre>
  *
  * @author $Author: dangan $
@@ -56,14 +55,14 @@ import java.io.OutputStream;
 public class DisconnectableOutputStream extends OutputStream implements Disconnectable {
 
     /**
-     * 接続された出力ストリーム
+     * Connected output stream
      */
     private OutputStream out;
 
     /**
-     * out との接続を解除可能な出力ストリームを構築する。
+     * Constructs an output stream that can be disconnected from {@code out}.
      *
-     * @param out 出力ストリーム
+     * @param out output stream
      */
     public DisconnectableOutputStream(OutputStream out) {
         if (out != null) {
@@ -74,10 +73,10 @@ public class DisconnectableOutputStream extends OutputStream implements Disconne
     }
 
     /**
-     * 接続された出力ストリームに 1バイトのデータを出力する。
+     * Outputs 1 byte of data to the connected output stream.
      *
-     * @param data 書きこまれるべき 1バイトのデータ。一般的に上位3バイトは無視される。
-     * @exception IOException 入出力エラーが発生した場合
+     * @param data 1 byte of data to be written. Generally, the upper 3 bytes are ignored.
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void write(int data) throws IOException {
@@ -85,11 +84,10 @@ public class DisconnectableOutputStream extends OutputStream implements Disconne
     }
 
     /**
-     * 接続された出力ストリームに buffer内のデータを
-     * 全て出力する。
+     * Outputs all data in {@code buffer} to the connected output stream.
      *
-     * @param buffer 書きこまれるべきデータを格納したバイト配列。
-     * @exception IOException 入出力エラーが発生した場合
+     * @param buffer byte array containing data to be written.
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void write(byte[] buffer) throws IOException {
@@ -97,13 +95,13 @@ public class DisconnectableOutputStream extends OutputStream implements Disconne
     }
 
     /**
-     * 接続された出力ストリームに buffer内のデータを
-     * indexで指定された位置から lengthバイト出力する。
+     * Outputs {@code length} bytes of data from {@code buffer} starting from the position
+     * specified by {@code index} to the connected output stream.
      *
-     * @param buffer 書きこまれるべきデータを格納したバイト配列。
-     * @param index buffer内の書きこむべきデータの開始位置。
-     * @param length 書きこむべきデータ量。
-     * @exception IOException 入出力エラーが発生した場合
+     * @param buffer byte array containing data to be written.
+     * @param index  starting position of data to write in {@code buffer}.
+     * @param length amount of data to write.
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void write(byte[] buffer, int index, int length) throws IOException {
@@ -111,10 +109,9 @@ public class DisconnectableOutputStream extends OutputStream implements Disconne
     }
 
     /**
-     * 接続された出力ストリームに蓄えられたデータを全て出力する
-     * ように指示する。
+     * Instructs the connected output stream to output all stored data.
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void flush() throws IOException {
@@ -122,8 +119,8 @@ public class DisconnectableOutputStream extends OutputStream implements Disconne
     }
 
     /**
-     * 接続された出力ストリームとの接続を解除する。<br>
-     * このメソッドは disconnect() を呼び出すだけである。
+     * Disconnects from the connected output stream.<br>
+     * This method only calls {@link #disconnect()}.
      */
     @Override
     public void close() {
@@ -131,7 +128,7 @@ public class DisconnectableOutputStream extends OutputStream implements Disconne
     }
 
     /**
-     * 接続された出力ストリームとの接続を解除する。
+     * Disconnects from the connected output stream.
      */
     @Override
     public void disconnect() {

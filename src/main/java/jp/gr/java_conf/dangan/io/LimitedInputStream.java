@@ -35,28 +35,28 @@ import java.io.InputStream;
 
 
 /**
- * 読み込み可能なデータ量が制限された入力ストリーム。<br>
+ * An input stream with a limit on the amount of data that can be read.<br>
  *
  * <pre>
  * -- revision history --
  * $Log: LimitedInputStream.java,v $
  * Revision 1.1.2.1  2003/07/20 17:03:37  dangan
  * [maintenance]
- *     最新の LimitedInputStream からソースを取り込む。
+ *     imported source from latest LimitedInputStream.
  *
  * Revision 1.1  2002/12/05 00:00:00  dangan
  * [maintenance]
- *     ソース整備
+ *     source maintenance
  *
  * Revision 1.0  2002/07/24 00:00:00  dangan
  * add to version control
  * [change]
- *     EndOfStream に達した後の read( new byte[0] ) や
- *     read( byte[] buf, int off, 0 ) の戻り値を
- *     InputStream と同じく 0 になるようにした
+ *     made return values of read(new byte[0]) and
+ *     read(byte[] buf, int off, 0) after reaching EndOfStream 0,
+ *     same as InputStream
  * [maintenance]
- *     タブ廃止
- *     ライセンス文の修正
+ *     tab removal
+ *     license statement fix
  *
  * </pre>
  *
@@ -66,34 +66,31 @@ import java.io.InputStream;
 public class LimitedInputStream extends InputStream {
 
     /**
-     * 接続された入力ストリーム
+     * Connected input stream
      */
     private InputStream in;
 
     /**
-     * 現在読み込み位置
+     * Current read position
      */
     private long position;
 
     /**
-     * 読み込み限界
+     * Read limit
      */
     private final long limit;
 
     /**
-     * マーク位置
+     * Mark position
      */
     private long markPosition;
 
     /**
-     * in からの読み込み可能なデータ量を制限した
-     * 入力ストリームを構築する。<br>
+     * Constructs an input stream that limits the amount of data that can be read from {@code in}.<br>
      *
-     * @param in 入力ストリーム
-     * @param limit 読み込み可能バイト数
-     *
-     * @exception IllegalArgumentException
-     *                limit が負数である場合
+     * @param in    input stream
+     * @param limit number of bytes that can be read
+     * @throws IllegalArgumentException if {@code limit} is negative
      */
     public LimitedInputStream(InputStream in, long limit) {
         if (in != null && 0 <= limit) {
@@ -109,10 +106,10 @@ public class LimitedInputStream extends InputStream {
     }
 
     /**
-     * 接続された入力ストリームから 1バイトのデータを読み込む。
+     * Reads 1 byte of data from the connected input stream.
      *
-     * @return 読み込まれた 1バイトのデータ既にEndOfStream に達していたか、制限に達した場合は -1 を返す。
-     * @exception IOException 入出力エラーが発生した場合
+     * @return the 1 byte of data read, or -1 if EndOfStream or the limit has been reached.
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public int read() throws IOException {
@@ -128,13 +125,12 @@ public class LimitedInputStream extends InputStream {
     }
 
     /**
-     * 接続された入力ストリームから buffer を満たすように
-     * データを読み込む。<br>
-     * データは必ずしも buffer を満たすとは限らないことに注意。
+     * Reads data from the connected input stream to fill {@code buffer}.<br>
+     * Note that data does not necessarily fill {@code buffer}.
      *
-     * @param buffer 読み込んだデータを格納するためのバイト配列
-     * @return buffer に読み込んだデータ量をバイト数で返す。既にEndOfStream に達していたか、制限に達した場合は -1 を返す。
-     * @exception IOException 入出力エラーが発生した場合
+     * @param buffer byte array for storing read data
+     * @return the amount of data read into {@code buffer} in bytes, or -1 if EndOfStream or the limit has been reached.
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public int read(byte[] buffer) throws IOException {
@@ -157,17 +153,15 @@ public class LimitedInputStream extends InputStream {
     }
 
     /**
-     * 接続された入力ストリームから バイト配列 buffer の
-     * index で指定された位置から length バイトのデータを
-     * 読み込む。<br>
-     * データは必ずしも length バイト読み込まれるとは限ら
-     * ないことに注意。
+     * Reads {@code length} bytes of data into the byte array {@code buffer} starting at the position
+     * specified by {@code index} from the connected input stream.<br>
+     * Note that {@code length} bytes of data are not necessarily read.
      *
-     * @param buffer 読み込まれたデータを格納するためのバイト配列
-     * @param index buffer内のデータ読み込み開始位置
-     * @param length bufferに読み込むデータ量
-     * @return buffer に読み込んだデータ量をバイト数で返す。既にEndOfStream に達していたか、制限に達した場合は -1 を返す。
-     * @exception IOException 入出力エラーが発生した場合
+     * @param buffer byte array for storing read data
+     * @param index  starting position in {@code buffer} to read data
+     * @param length amount of data to read into {@code buffer}
+     * @return the amount of data read into {@code buffer} in bytes, or -1 if EndOfStream or the limit has been reached.
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public int read(byte[] buffer, int index, int length) throws IOException {
@@ -189,11 +183,11 @@ public class LimitedInputStream extends InputStream {
     }
 
     /**
-     * 接続された入力ストリームのデータを length バイト読み飛ばす。
+     * Skips {@code length} bytes of data in the connected input stream.
      *
-     * @param length 読み飛ばすバイト数。
-     * @return 実際に読み飛ばされたバイト数。
-     * @exception IOException 入出力エラーが発生した場合
+     * @param length number of bytes to skip.
+     * @return actual number of bytes skipped.
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public long skip(long length) throws IOException {
@@ -215,12 +209,12 @@ public class LimitedInputStream extends InputStream {
     }
 
     /**
-     * 接続された入力ストリームの現在位置にマークを設定し、
-     * reset() メソッドでマークした時点の 読み込み位置に
-     * 戻れるようにする。
+     * Sets a mark at the current position in the connected input stream,
+     * allowing returning to the read position at the time of marking
+     * using the {@link #reset()} method.
      *
-     * @param readLimit マーク位置に戻れる限界のバイト数。
-     *            このバイト数を超えてデータを読み込んだ場合 reset()できなくなる可能性がある。
+     * @param readLimit the maximum number of bytes that can be read before the mark position becomes invalid.
+     *                  If data exceeding this number of bytes is read, {@link #reset()} may not be possible.
      */
     @Override
     public void mark(int readLimit) {
@@ -229,21 +223,21 @@ public class LimitedInputStream extends InputStream {
     }
 
     /**
-     * 接続された入力ストリームの読み込み位置を最後に
-     * mark() メソッドが呼び出されたときの位置に設定する。
+     * Sets the read position of the connected input stream to the position
+     * when the {@link #mark(int)} method was last called.
      *
-     * @exception IOException <ol>
-     *                <li>LimitedInputStream に mark がなされていない場合。</li>
-     *                <li>接続された入力ストリームが markSupported()でfalse を返す場合。</li>
-     *                <li>接続された入力ストリームで入出力エラーが発生した場合。</li>
-     *                </ol>
-     *                の何れか。
+     * @throws IOException one of the following:
+     *                     <ol>
+     *                     <li> When {@link LimitedInputStream} has not been marked.</li>
+     *                     <li> When the connected input stream returns {@code false} for {@link #markSupported()}.</li>
+     *                     <li> When an I/O error occurs in the connected input stream.</li>
+     *                     </ol>
      */
     @Override
     public void reset() throws IOException {
         if (!this.in.markSupported()) {
             throw new IOException("not support mark()/reset().");
-        } else if (this.markPosition < 0) { // コンストラクタで MarkPosition が -1 に設定されるのを利用する。
+        } else if (this.markPosition < 0) { // Takes advantage of markPosition being set to -1 in the constructor.
             throw new IOException("not marked.");
         } else {
             this.in.reset();
@@ -252,10 +246,9 @@ public class LimitedInputStream extends InputStream {
     }
 
     /**
-     * 接続された入力ストリームが mark() と reset() を
-     * サポートするかを得る。
+     * Gets whether the connected input stream supports {@link #mark(int)} and {@link #reset()}.
      *
-     * @return ストリームが mark() と reset() をサポートする場合は true。サポートしない場合は false。
+     * @return {@code true} if the stream supports {@link #mark(int)} and {@link #reset()}; {@code false} otherwise.
      */
     @Override
     public boolean markSupported() {
@@ -263,11 +256,10 @@ public class LimitedInputStream extends InputStream {
     }
 
     /**
-     * 接続された入力ストリームからブロックしないで
-     * 読み込むことのできるバイト数を得る。
+     * Gets the number of bytes that can be read from the connected input stream without blocking.
      *
-     * @return ブロックしないで読み出せるバイト数。
-     * @exception IOException 入出力エラーが発生した場合
+     * @return the number of bytes that can be read without blocking.
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public int available() throws IOException {
@@ -275,10 +267,9 @@ public class LimitedInputStream extends InputStream {
     }
 
     /**
-     * この入力ストリームを閉じ、使用していた
-     * 全てのリソースを開放する。<br>
+     * Closes this input stream and releases all resources used.<br>
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void close() throws IOException {

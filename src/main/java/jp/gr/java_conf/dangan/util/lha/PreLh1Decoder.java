@@ -41,21 +41,21 @@ import jp.gr.java_conf.dangan.io.NotEnoughBitsException;
 
 
 /**
- * -lh1- 解凍用の PreLzssDecoder。<br>
+ * {@link PreLzssDecoder} for -lh1- decompression.<br>
  *
  * <pre>
  * -- revision history --
  * $Log: PreLh1Decoder.java,v $
  * Revision 1.1  2002/12/01 00:00:00  dangan
  * [maintenance]
- *     ソース整備
+ *     source maintenance
  *
  * Revision 1.0  2002/08/05 00:00:00  dangan
  * add to version control
  * [bug fix]
- *     available の計算が甘かったのを修正。
+ *     Fixed inaccurate calculation of available.
  * [maintenance]
- *     ソース整備
+ *     source maintenance
  * </pre>
  *
  * @author $Author: dangan $
@@ -63,48 +63,47 @@ import jp.gr.java_conf.dangan.io.NotEnoughBitsException;
  */
 public class PreLh1Decoder implements PreLzssDecoder {
 
-    /** 辞書サイズ */
+    /** Dictionary size */
     private static final int DictionarySize = 4096;
 
-    /** 最大一致長 */
+    /** Maximum match length */
     private static final int MaxMatch = 60;
 
-    /** 最小一致長 */
+    /** Minimum match length */
     private static final int Threshold = 3;
 
     /**
-     * -lh1- の圧縮データを供給する BitInputStream
+     * BitInputStream supplying -lh1- compressed data.
      */
     BitInputStream in;
 
     /**
-     * code部復号用の動的ハフマン木
+     * Dynamic Huffman tree for decoding code part.
      */
     DynamicHuffman huffman;
 
     /**
-     * オフセット部の上位6bit復号用
-     * ハフマン符号長リスト。
+     * Huffman code length list for decoding the upper 6 bits of offset part.
      */
     int[] offHiLen;
 
     /**
-     * オフセット部の上位6bit復号用テーブル。
+     * Table for decoding the upper 6 bits of offset part.
      */
     short[] offHiTable;
 
     /**
-     * オフセット部の上位6bit復号用テーブルを引くのに必要なbit数。
+     * Number of bits required to look up the table for decoding the upper 6 bits of offset part.
      */
     int offHiTableBits;
 
-    /** huffman のバックアップ用 */
+    /** For backing up huffman */
     DynamicHuffman markHuffman;
 
     /**
-     * -lh1- 解凍用 PreLzssDecoder を構築する。
+     * Constructs a {@link PreLzssDecoder} for -lh1- decompression.
      *
-     * @param in -lh1- で圧縮されたデータを供給する入力ストリーム
+     * @param in input stream that supplies data compressed with -lh1-
      */
     public PreLh1Decoder(InputStream in) {
         if (in != null) {
@@ -128,13 +127,12 @@ public class PreLh1Decoder implements PreLzssDecoder {
     }
 
     /**
-     * -lh1- で圧縮された
-     * 1byte のLZSS未圧縮のデータ、
-     * もしくは圧縮コードのうち一致長を読み込む。
+     * Reads 1 byte of uncompressed LZSS data or
+     * the match length of compressed code compressed with -lh1-.
      *
-     * @return 1byte の 未圧縮のデータもしくは、圧縮された圧縮コードのうち一致長
-     * @throws IOException  入出力エラーが発生した場合
-     * @throws EOFException EndOfStreamに達した場合
+     * @return 1 byte of uncompressed data or the match length of compressed code
+     * @throws IOException  if an I/O error occurs
+     * @throws EOFException if EndOfStream is reached
      */
     @Override
     public int readCode() throws IOException {
@@ -148,22 +146,20 @@ public class PreLh1Decoder implements PreLzssDecoder {
     }
 
     /**
-     * -lh1- で圧縮された
-     * LZSS圧縮コードのうち一致位置を読み込む。
+     * Reads the match offset of LZSS compressed code compressed with -lh1-.
      *
-     * @return -lh1- で圧縮された圧縮コードのうち一致位置
-     * @throws IOException            入出力エラーが発生した場合。
-     * @throws EOFException           データが途中までしかないため予期せぬ EndOfStream に到達した場合。
-     * @throws BitDataBrokenException データが途中までしかないため予期せぬ EndOfStream に到達したか、他の入出力エラーが発生した。
-     * @throws NotEnoughBitsException データが途中までしかないため予期せぬ EndOfStream に到達したか、他の入出力エラーが発生した。
+     * @return match offset of compressed code compressed with -lh1-
+     * @throws IOException            if an I/O error occurs
+     * @throws EOFException           if unexpected EndOfStream is reached because the data is incomplete
+     * @throws BitDataBrokenException if unexpected EndOfStream is reached because the data is incomplete, or other I/O error occurs
+     * @throws NotEnoughBitsException if unexpected EndOfStream is reached because the data is incomplete, or other I/O error occurs
      */
     @Override
     public int readOffset() throws IOException {
-        // offHiをあらわすのに最短の場合は 0 の 3bit で
-        // offHiTableBits は 8bitで 両者の差は 5bit。
-        // そのため、下位6bitを読み込む事を加味すると
-        // 正常なデータでは peekBits が
-        // NotEnoughBitsException を投げることは無い。
+        // In the shortest case, offHi is represented by 3 bits of 0,
+        // and offHiTableBits is 8 bits, so the difference between them is 5 bits.
+        // Therefore, taking into account that the lower 6 bits are read,
+        // peekBits will not throw NotEnoughBitsException for normal data.
         int offHi = this.offHiTable[this.in.peekBits(this.offHiTableBits)];
         this.in.skipBits(this.offHiLen[offHi]);
 
@@ -171,15 +167,13 @@ public class PreLh1Decoder implements PreLzssDecoder {
     }
 
     /**
-     * 接続された入力ストリームの現在位置にマークを設定し、
-     * reset() メソッドでマークした時点の 読み込み位置に
-     * 戻れるようにする。<br>
-     * InputStream の mark() と違い、readLimit で設定した
-     * 限界バイト数より前にマーク位置が無効になる可能性が
-     * ある事に注意すること。
+     * Sets a mark at the current position in the connected input stream,
+     * allowing return to the read position at the time of marking using {@link #reset()}.<br>
+     * Note that unlike {@link InputStream#mark(int)}, the mark position
+     * may become invalid before the limit specified by {@code readLimit}.
      *
-     * @param readLimit マーク位置に戻れる限界のバイト数。
-     *                  このバイト数を超えてデータを読み込んだ場合 reset()できなくなる可能性がある。
+     * @param readLimit limit of bytes that can be read while still retaining the mark position.
+     *                  If data exceeds this number of bytes, reset() may no longer be possible.
      * @see PreLzssDecoder#mark(int)
      */
     @Override
@@ -189,26 +183,26 @@ public class PreLh1Decoder implements PreLzssDecoder {
     }
 
     /**
-     * 接続された入力ストリームの読み込み位置を最後に
-     * mark() メソッドが呼び出されたときの位置に設定する。
+     * Sets the read position of the connected input stream to the position
+     * where {@link #mark(int)} was last called.
      *
-     * @throws IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void reset() throws IOException {
-        // mark()しないで reset() しようとした場合、
-        // readLimit を超えて reset() しようとした場合、
-        // 接続された InputStream が markSupported() で false を返す場合は
-        // BitInputStream が IOException を投げる。
+        // If attempting to reset() without mark(),
+        // if attempting to reset() beyond readLimit,
+        // or if the connected InputStream returns false for markSupported(),
+        // BitInputStream throws an IOException.
         this.in.reset();
 
         this.huffman = (DynamicHuffman) this.markHuffman.clone();
     }
 
     /**
-     * 接続された入力ストリームが mark() と reset() をサポートするかを得る。
+     * Gets whether the connected input stream supports {@code mark()} and {@code reset()}.
      *
-     * @return ストリームが mark() と reset() をサポートする場合は true。サポートしない場合は false。
+     * @return {@code true} if the stream supports {@code mark()} and {@code reset()}; {@code false} otherwise.
      */
     @Override
     public boolean markSupported() {
@@ -216,12 +210,11 @@ public class PreLh1Decoder implements PreLzssDecoder {
     }
 
     /**
-     * ブロックせずに読み出すことの出来る最低バイト数を得る。<br>
-     * InputStream の available() と違い、
-     * この最低バイト数は必ずしも保障されていない事に注意すること。
+     * Gets the minimum number of bytes that can be read without blocking.<br>
+     * Note that unlike {@link InputStream#available()}, this minimum number of bytes is not necessarily guaranteed.
      *
-     * @return ブロックしないで読み出せる最低バイト数。
-     * @throws IOException 入出力エラーが発生した場合
+     * @return the minimum number of bytes that can be read without blocking
+     * @throws IOException if an I/O error occurs
      * @see PreLzssDecoder#available()
      */
     @Override
@@ -230,9 +223,9 @@ public class PreLh1Decoder implements PreLzssDecoder {
     }
 
     /**
-     * このストリームを閉じ、使用していた全ての資源を解放する。
+     * Closes this stream and releases all resources used.
      *
-     * @throws IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void close() throws IOException {
@@ -248,9 +241,9 @@ public class PreLh1Decoder implements PreLzssDecoder {
     }
 
     /**
-     * -lh1-形式のLZSS辞書のサイズを得る。
+     * Gets the size of the -lh1- format LZSS dictionary.
      *
-     * @return -lh1-形式のLZSS辞書のサイズ
+     * @return the size of the -lh1- format LZSS dictionary
      */
     @Override
     public int getDictionarySize() {
@@ -258,9 +251,9 @@ public class PreLh1Decoder implements PreLzssDecoder {
     }
 
     /**
-     * -lh1-形式のLZSSの最大一致長を得る。
+     * Gets the maximum match length of the -lh1- format LZSS.
      *
-     * @return -lh1-形式のLZSSの最大一致長
+     * @return the maximum match length of the -lh1- format LZSS
      */
     @Override
     public int getMaxMatch() {
@@ -268,9 +261,9 @@ public class PreLh1Decoder implements PreLzssDecoder {
     }
 
     /**
-     * -lh1-形式のLZSSの圧縮、非圧縮の閾値を得る。
+     * Gets the threshold for LZSS compression/non-compression of -lh1- format.
      *
-     * @return -lh1-形式のLZSSの圧縮、非圧縮の閾値
+     * @return the threshold for LZSS compression/non-compression of -lh1- format
      */
     @Override
     public int getThreshold() {
@@ -278,11 +271,10 @@ public class PreLh1Decoder implements PreLzssDecoder {
     }
 
     /**
-     * -lh1- の offsetデコード用StaticHuffmanの
-     * ハフマン符号長リストを生成する。
+     * Generates a Huffman code length list for {@link StaticHuffman}
+     * for decoding offset of -lh1-.
      *
-     * @return -lh1- の offsetデコード用StaticHuffmanの
-     * ハフマン符号長リスト
+     * @return Huffman code length list for {@link StaticHuffman} for decoding offset of -lh1-
      */
     private static int[] createLenList() {
         final int length = 64;

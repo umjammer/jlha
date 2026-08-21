@@ -39,20 +39,20 @@ import jp.gr.java_conf.dangan.io.BitInputStream;
 
 
 /**
- * -lh2- 解凍用 PreLzssDecoder。<br>
+ * {@link PreLzssDecoder} for -lh2- decompression.<br>
  *
  * <pre>
  * -- revision history --
  * $Log: PreLh2Decoder.java,v $
  * Revision 1.1  2002/12/06 00:00:00  dangan
  * [maintenance]
- *     ソース整備
+ *     source maintenance
  *
  * Revision 1.0  2002/08/05 00:00:00  dangan
  * [bug fix]
- *     available() の計算が甘かったのを修正。
+ *     Fixed inaccurate calculation of available().
  * [maintenance]
- *     ソース整備
+ *     source maintenance
  *
  * </pre>
  *
@@ -61,71 +61,71 @@ import jp.gr.java_conf.dangan.io.BitInputStream;
  */
 public class PreLh2Decoder implements PreLzssDecoder {
 
-    /** 辞書サイズ */
+    /** Dictionary size */
     private static final int DictionarySize = 8192;
 
-    /** 最大一致長 */
+    /** Maximum match length */
     private static final int MaxMatch = 256;
 
-    /** 最小一致長 */
+    /** Minimum match length */
     private static final int Threshold = 3;
 
     /**
-     * code部のハフマン木のサイズ
-     * code部がこれ以上の値を扱う場合は余計なビットを出力して補う。
+     * Size of the Huffman tree for the code part.
+     * If the code part handles a value larger than this, extra bits are output to compensate.
      */
     private static final int CodeSize = 286;
 
     /**
-     * -lh2- の圧縮データを供給する BitInputStream
+     * BitInputStream supplying -lh2- compressed data.
      */
     private BitInputStream in;
 
     /**
-     * Lzss非圧縮データ 1byte か Lzss圧縮コードのうち一致長を
-     * 得るための 動的ハフマン木
+     * Dynamic Huffman tree for obtaining 1 byte of uncompressed LZSS data or
+     * match length from LZSS compressed code.
      */
     private DynamicHuffman codeHuffman;
 
     /**
-     * Lzss圧縮コードの上位7bitの値を得るための動的ハフマン木
+     * Dynamic Huffman tree for obtaining the upper 7-bit value of LZSS compressed code.
      */
     private DynamicHuffman offHiHuffman;
 
     /**
-     * (解凍後のデータの)現在処理位置
+     * Current processing position (of decompressed data).
      */
     private int position;
 
     /**
-     * 次に addLeaf() すべき position
+     * Position where addLeaf() should be performed next.
      */
     private int nextPosition;
 
     /**
-     * 一致長
+     * Match length.
      */
     private int matchLength;
 
-    /** codeHuffman のバックアップ用 */
+    /** For backing up codeHuffman */
     private DynamicHuffman markCodeHuffman;
 
-    /** offHiHuffman のバックアップ用 */
+    /** For backing up offHiHuffman */
     private DynamicHuffman markOffHiHuffman;
 
-    /** position のバックアップ用 */
+    /** For backing up position */
     private int markPosition;
 
-    /** nextPosition のバックアップ用 */
+    /** For backing up nextPosition */
     private int markNextPosition;
 
-    /** matchLength のバックアップ用 */
+    /** For backing up matchLength */
     private int markMatchLength;
 
     /**
-     * -lh2- 解凍用 PreLzssDecoder を構築する。<br>
+     * Constructs a {@link PreLzssDecoder} for -lh2- decompression.<br>
      *
-     * @param in 圧縮データを供給する入力ストリーム
+     * @param in input stream that supplies compressed data
      */
     public PreLh2Decoder(InputStream in) {
         if (in != null) {
@@ -146,13 +146,12 @@ public class PreLh2Decoder implements PreLzssDecoder {
     }
 
     /**
-     * -lh2- で圧縮された
-     * 1byte のLZSS未圧縮のデータ、
-     * もしくは圧縮コードのうち一致長を読み込む。
+     * Reads 1 byte of uncompressed LZSS data or
+     * the match length of compressed code compressed with -lh2-.
      *
-     * @return 1byte の 未圧縮のデータもしくは、圧縮された圧縮コードのうち一致長
-     * @exception IOException 入出力エラーが発生した場合
-     * @exception EOFException EndOfStreamに達した場合
+     * @return 1 byte of uncompressed data or the match length of compressed code
+     * @throws IOException  if an I/O error occurs
+     * @throws EOFException if EndOfStream is reached
      */
     @Override
     public int readCode() throws IOException {
@@ -182,12 +181,11 @@ public class PreLh2Decoder implements PreLzssDecoder {
     }
 
     /**
-     * -lh2- で圧縮された
-     * LZSS圧縮コードのうち一致位置を読み込む。
+     * Reads the match offset of LZSS compressed code compressed with -lh2-.
      *
-     * @return -lh2- で圧縮された圧縮コードのうち一致位置
-     * @exception IOException 入出力エラーが発生した場合
-     * @exception EOFException EndOfStreamに達した場合
+     * @return match offset of compressed code compressed with -lh2-
+     * @throws IOException  if an I/O error occurs
+     * @throws EOFException if EndOfStream is reached
      */
     @Override
     public int readOffset() throws IOException {
@@ -213,15 +211,13 @@ public class PreLh2Decoder implements PreLzssDecoder {
     }
 
     /**
-     * 接続された入力ストリームの現在位置にマークを設定し、
-     * reset() メソッドでマークした時点の 読み込み位置に
-     * 戻れるようにする。<br>
-     * InputStream の mark() と違い、readLimit で設定した
-     * 限界バイト数より前にマーク位置が無効になる可能性が
-     * ある事に注意すること。
+     * Sets a mark at the current position in the connected input stream,
+     * allowing return to the read position at the time of marking using {@link #reset()}.<br>
+     * Note that unlike {@link InputStream#mark(int)}, the mark position
+     * may become invalid before the limit specified by {@code readLimit}.
      *
-     * @param readLimit マーク位置に戻れる限界のバイト数。
-     *            このバイト数を超えてデータを読み込んだ場合 reset()できなくなる可能性がある。
+     * @param readLimit limit of bytes that can be read while still retaining the mark position.
+     *                  If data exceeds this number of bytes, reset() may no longer be possible.
      * @see PreLzssDecoder#available()
      */
     @Override
@@ -235,17 +231,17 @@ public class PreLh2Decoder implements PreLzssDecoder {
     }
 
     /**
-     * 接続された入力ストリームの読み込み位置を最後に
-     * mark() メソッドが呼び出されたときの位置に設定する。
+     * Sets the read position of the connected input stream to the position
+     * where {@link #mark(int)} was last called.
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void reset() throws IOException {
-        // mark()しないで reset() しようとした場合、
-        // readLimit を超えて reset() しようとした場合、
-        // 接続された InputStream が markSupported() で false を返す場合は
-        // BitInputStream が IOException を投げる。
+        // If attempting to reset() without mark(),
+        // if attempting to reset() beyond readLimit,
+        // or if the connected InputStream returns false for markSupported(),
+        // BitInputStream throws an IOException.
         this.in.reset();
 
         this.codeHuffman = (DynamicHuffman) this.markCodeHuffman.clone();
@@ -256,10 +252,9 @@ public class PreLh2Decoder implements PreLzssDecoder {
     }
 
     /**
-     * 接続された入力ストリームが mark() と reset() を
-     * サポートするかを得る。
+     * Gets whether the connected input stream supports {@code mark()} and {@code reset()}.
      *
-     * @return ストリームが mark() と reset() をサポートする場合は true。サポートしない場合は false。
+     * @return {@code true} if the stream supports {@code mark()} and {@code reset()}; {@code false} otherwise.
      */
     @Override
     public boolean markSupported() {
@@ -267,12 +262,11 @@ public class PreLh2Decoder implements PreLzssDecoder {
     }
 
     /**
-     * ブロックせずに読み出すことの出来る最低バイト数を得る。<br>
-     * InputStream の available() と違い、
-     * この最低バイト数は必ずしも保障されていない事に注意すること。
+     * Gets the minimum number of bytes that can be read without blocking.<br>
+     * Note that unlike {@link InputStream#available()}, this minimum number of bytes is not necessarily guaranteed.
      *
-     * @return ブロックしないで読み出せる最低バイト数。
-     * @exception IOException 入出力エラーが発生した場合
+     * @return the minimum number of bytes that can be read without blocking
+     * @throws IOException if an I/O error occurs
      * @see PreLzssDecoder#available()
      */
     @Override
@@ -281,9 +275,9 @@ public class PreLh2Decoder implements PreLzssDecoder {
     }
 
     /**
-     * このストリームを閉じ、使用していた全ての資源を解放する。
+     * Closes this stream and releases all resources used.
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void close() throws IOException {
@@ -297,9 +291,9 @@ public class PreLh2Decoder implements PreLzssDecoder {
     }
 
     /**
-     * -lh2-形式の LZSS辞書のサイズを得る。
+     * Gets the size of the -lh2- format LZSS dictionary.
      *
-     * @return -lh2-形式の LZSS辞書のサイズ
+     * @return the size of the -lh2- format LZSS dictionary
      */
     @Override
     public int getDictionarySize() {
@@ -307,9 +301,9 @@ public class PreLh2Decoder implements PreLzssDecoder {
     }
 
     /**
-     * -lh2-形式の LZSSの最大一致長を得る。
+     * Gets the maximum match length of the -lh2- format LZSS.
      *
-     * @return -lh2-形式の LZSSの最大一致長
+     * @return the maximum match length of the -lh2- format LZSS
      */
     @Override
     public int getMaxMatch() {
@@ -317,9 +311,9 @@ public class PreLh2Decoder implements PreLzssDecoder {
     }
 
     /**
-     * -lh2-形式の LZSSの圧縮、非圧縮の閾値を得る。
+     * Gets the threshold for LZSS compression/non-compression of -lh2- format.
      *
-     * @return -lh2-形式の LZSSの圧縮、非圧縮の閾値
+     * @return the threshold for LZSS compression/non-compression of -lh2- format
      */
     @Override
     public int getThreshold() {

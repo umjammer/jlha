@@ -44,23 +44,23 @@ import jp.gr.java_conf.dangan.io.Bits;
 
 
 /**
- * -lzs- 圧縮用 PostLzssEncoder。
+ * {@link PostLzssEncoder} for -lzs- compression.
  *
  * <pre>
  * -- revision history --
  * $Log: PostLzsEncoder.java,v $
  * Revision 1.1  2002/12/01 00:00:00  dangan
  * [maintenance]
- *     ソース整備
+ *     source maintenance
  *
  * Revision 1.0  2002/07/31 00:00:00  dangan
  * add to version control
  * [bug fix]
- *     -lzs- の MaxMatch は 16 でなく 17 だったのを修正。
+ *     Fixed MaxMatch for -lzs- to be 17 instead of 16.
  * [maintenance]
- *     ソース整備
- *     タブの廃止
- *     ライセンス文の修正
+ *     source maintenance
+ *     tab removal
+ *     fix license statement
  * </pre>
  *
  * @author $Author: dangan $
@@ -68,40 +68,40 @@ import jp.gr.java_conf.dangan.io.Bits;
  */
 public class PostLzsEncoder implements PostLzssEncoder {
 
-    /** 辞書サイズ */
+    /** Dictionary size */
     private static final int DictionarySize = 2048;
 
-    /** 最大一致長 */
+    /** Maximum match length */
     private static final int MaxMatch = 17;
 
-    /** 最小一致長 */
+    /** Minimum match length */
     private static final int Threshold = 2;
 
-    /** 一致位置のビット数 */
+    /** Number of bits for match position */
     private static final int PositionBits = Bits.len(PostLzsEncoder.DictionarySize - 1);
 
-    /** 一致長のビット数 */
+    /** Number of bits for match length */
     private static final int LengthBits = Bits.len(PostLzsEncoder.MaxMatch - PostLzsEncoder.Threshold);
 
     /**
-     * -lzs- 形式のデータを出力するビット出力ストリーム
+     * Bit output stream to output -lzs- format data.
      */
     private BitOutputStream out;
 
     /**
-     * ストリーム内現在処理位置
+     * Current processing position in the stream.
      */
     private int position;
 
     /**
-     * 現在処理中のLZSS圧縮コード
+     * LZSS compressed code currently being processed.
      */
     private int matchLength;
 
     /**
-     * -lzs- 圧縮用 PostLzssEncoder を構築する。
+     * Constructs a {@link PostLzssEncoder} for -lzs- compression.
      *
-     * @param out -lzs- 形式の圧縮データを出力するストリーム
+     * @param out stream to output -lzs- format compressed data
      */
     public PostLzsEncoder(OutputStream out) {
         if (out != null) {
@@ -118,11 +118,11 @@ public class PostLzsEncoder implements PostLzssEncoder {
     }
 
     /**
-     * 1byte の LZSS未圧縮のデータもしくは、
-     * LZSS で圧縮された圧縮コードのうち一致長を書きこむ。<br>
+     * Writes 1 byte of uncompressed LZSS data or
+     * the match length of LZSS compressed code.<br>
      *
-     * @param code 1byte の LZSS未圧縮のデータもしくは、LZSS で圧縮された圧縮コードのうち一致長
-     * @throws IOException 入出力エラーが発生した場合
+     * @param code 1 byte of uncompressed LZSS data or the match length of LZSS compressed code
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void writeCode(int code) throws IOException {
@@ -131,17 +131,16 @@ public class PostLzsEncoder implements PostLzssEncoder {
             this.out.writeBits(8, code);
             this.position++;
         } else {
-            // close() 後の writeCode() で
-            // NullPointerException を投げることを期待している。
+            // Expecting NullPointerException to be thrown on writeCode() after close().
             this.out.writeBit(0);
             this.matchLength = code - 0x100;
         }
     }
 
     /**
-     * LZSS で圧縮された圧縮コードのうち一致位置を書きこむ。<br>
+     * Writes the match offset of LZSS compressed code.<br>
      *
-     * @param offset LZSS で圧縮された圧縮コードのうち一致位置
+     * @param offset the match offset of LZSS compressed code
      */
     @Override
     public void writeOffset(int offset) throws IOException {
@@ -154,12 +153,12 @@ public class PostLzsEncoder implements PostLzssEncoder {
     }
 
     /**
-     * この PostLzssEncoder にバッファリングされている
-     * 全ての 8ビット単位のデータを出力先の OutputStream に出力し、
-     * 出力先の OutputStream を flush() する。<br>
-     * このメソッドは圧縮率を変化させない。
+     * Flushes all 8-bit unit data buffered in this {@link PostLzssEncoder}
+     * to the output destination {@link OutputStream},
+     * and calls {@code flush()} on the destination {@link OutputStream}.<br>
+     * This method does not affect the compression ratio.
      *
-     * @throws IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      * @see PostLzssEncoder#flush()
      * @see BitOutputStream#flush()
      */
@@ -169,10 +168,10 @@ public class PostLzsEncoder implements PostLzssEncoder {
     }
 
     /**
-     * この出力ストリームと、接続された出力ストリームを閉じ、
-     * 使用していたリソースを解放する。<br>
+     * Closes this output stream and the connected output stream,
+     * and releases any resources used.<br>
      *
-     * @throws IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void close() throws IOException {
@@ -182,9 +181,9 @@ public class PostLzsEncoder implements PostLzssEncoder {
     }
 
     /**
-     * -lzs-形式の LZSS辞書のサイズを得る。
+     * Gets the size of the -lzs- format LZSS dictionary.
      *
-     * @return -lzs-形式の LZSS辞書のサイズ
+     * @return the size of the -lzs- format LZSS dictionary
      */
     @Override
     public int getDictionarySize() {
@@ -192,9 +191,9 @@ public class PostLzsEncoder implements PostLzssEncoder {
     }
 
     /**
-     * -lzs-形式の LZSSの最大一致長を得る。
+     * Gets the maximum match length of the -lzs- format LZSS.
      *
-     * @return -lzs-形式の LZSSの最大一致長
+     * @return the maximum match length of the -lzs- format LZSS
      */
     @Override
     public int getMaxMatch() {
@@ -202,9 +201,9 @@ public class PostLzsEncoder implements PostLzssEncoder {
     }
 
     /**
-     * -lzs-形式の LZSSの圧縮、非圧縮の閾値を得る。
+     * Gets the threshold for LZSS compression/non-compression of -lzs- format.
      *
-     * @return -lzs-形式の LZSSの圧縮、非圧縮の閾値
+     * @return the threshold for LZSS compression/non-compression of -lzs- format
      */
     @Override
     public int getThreshold() {

@@ -43,21 +43,25 @@ import jp.gr.java_conf.dangan.io.CachedInputStream;
 
 
 /**
- * -lz5- 解凍用 PreLzssDecoder。<br>
+ * {@link PreLzssDecoder} for -lz5- decompression.
  *
  * <pre>
  * -- revision history --
  * $Log: PreLz5Decoder.java,v $
  * Revision 1.1  2002/12/01 00:00:00  dangan
  * [maintenance]
- *     ソース整備
+ *     source maintenance
  *
  * Revision 1.0  2002/08/05 00:00:00  dangan
  * add to version control
+ * [bug fix]
+ *     Fixed MaxMatch for -lz5- to be 18 instead of 16.
+ *     Fixed inaccurate calculation of available.
  * [maintenance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
+ *     source maintenance
+ *     tab removal
+ *     fix license statement
+ *
  * </pre>
  *
  * @author $Author: dangan $
@@ -65,191 +69,174 @@ import jp.gr.java_conf.dangan.io.CachedInputStream;
  */
 public class PreLz5Decoder implements PreLzssDecoder {
 
-    /** 辞書サイズ */
+    /** Dictionary size */
     private static final int DictionarySize = 4096;
 
-    /** 最大一致長 */
+    /** Maximum match length */
     private static final int MaxMatch = 18;
 
-    /** 最小一致長 */
+    /** Minimum match length */
     private static final int Threshold = 3;
 
     /**
-     * -lz5- 形式の圧縮データを供給するストリーム
+     * Input stream supplying -lz5- compressed data.
      */
     private InputStream in;
 
+    /** Flag indicating LZSS compression/non-compression. */
+    private int flagByte;
+
+    /** Mask for obtaining 1 bit indicating LZSS compression/non-compression. */
+    private int flagBit;
+
     /**
-     * 現在処理位置。
-     * larc の一致位置から lha の一致位置への変換に必要
+     * Current processing position in the stream.
+     * Needed to convert from LARC offset to LHA offset.
      */
     private int position;
 
-    /** Lzss圧縮情報のうち 一致位置(larcの一致位置) */
-    private int matchPos;
+    /**
+     * Match length of LZSS compressed code currently being processed.
+     */
+    private int matchLength;
 
-    /** Lzss圧縮符号のうち 一致長 */
-    private int matchLen;
-
-    /** 8つのLzss圧縮、非圧縮を示すフラグをまとめたもの */
-    private int flagByte;
-
-    /** Lzss圧縮、非圧縮を示すフラグ */
-    private int flagBit;
-
-    /** positionのバックアップ用 */
-    private int markPosition;
-
-    /** matchOffsetのバックアップ用 */
-    private int markMatchPos;
-
-    /** matchLengthのバックアップ用 */
-    private int markMatchLen;
-
-    /** flagByteのバックアップ用。 */
+    /** For backing up flagByte */
     private int markFlagByte;
 
-    /** flagCountのバックアップ用。 */
+    /** For backing up flagBit */
     private int markFlagBit;
 
+    /** For backing up position */
+    private int markPosition;
+
+    /** For backing up matchLength */
+    private int markMatchLength;
+
     /**
-     * -lz5- 解凍用 PreLzssDecoder を構築する。
+     * Constructs a {@link PreLzssDecoder} for -lz5- decompression.<br>
      *
-     * @param in 圧縮データを供給する入力ストリーム
+     * @param in input stream that supplies compressed data
      */
     public PreLz5Decoder(InputStream in) {
         if (in != null) {
-            if (in instanceof CachedInputStream) {
-                this.in = in;
-            } else {
-                this.in = new CachedInputStream(in);
-            }
-
+            this.in = in;
             this.position = 0;
-            this.matchPos = 0;
-            this.matchLen = 0;
+            this.matchLength = 0;
             this.flagByte = 0;
-            this.flagBit = 0x100;
-
-            this.markPosition = 0;
-            this.markMatchPos = 0;
-            this.markMatchLen = 0;
-            this.markFlagByte = 0;
-            this.markFlagBit = 0;
+            this.flagBit = 0;
         } else {
             throw new NullPointerException("in");
         }
     }
 
     /**
-     * -lz5- で圧縮された
-     * 1byte の LZSS未圧縮のデータ、
-     * もしくは圧縮コードのうち一致長を読み込む。<br>
+     * Reads 1 byte of uncompressed LZSS data or
+     * the match length of compressed code compressed with -lz5-.
      *
-     * @return 1byte の 未圧縮のデータもしくは、圧縮された圧縮コードのうち一致長
-     * @throws IOException  入出力エラーが発生した場合
-     * @throws EOFException EndOfStreamに達した場合
+     * @return 1 byte of uncompressed data or the match length of compressed code
+     * @throws IOException  if an I/O error occurs
+     * @throws EOFException if EndOfStream is reached
      */
     @Override
     public int readCode() throws IOException {
-        if (this.flagBit == 0x100) {
+        int code;
+        if (this.flagBit == 0) {
             this.flagByte = this.in.read();
 
-            if (0 <= this.flagByte) {
-                this.flagBit = 0x01;
+            if (this.flagByte < 0) {
+                return -1;
+            }
+
+            this.flagBit = 0x01;
+        }
+
+        if ((this.flagByte & this.flagBit) == 0) {
+            this.flagBit <<= 1;
+            this.flagBit &= 0xFF;
+
+            int code1 = this.in.read();
+            int code2 = this.in.read();
+
+            if (0 <= code1 && 0 <= code2) {
+                this.matchLength = (code2 & 0x0F) + PreLz5Decoder.Threshold;
+                code = (code2 & 0xF0) << 4 | code1;
             } else {
                 throw new EOFException();
             }
-        }
-
-        if (0 != (this.flagByte & this.flagBit)) {
-            this.flagBit <<= 1;
-            this.position++;
-            int ret = this.in.read();
-            if (0 <= ret)
-                return ret;
-            else
-                throw new EOFException();
         } else {
             this.flagBit <<= 1;
-            int c1 = this.in.read();
-            int c2 = this.in.read();
+            this.flagBit &= 0xFF;
 
-            if (0 <= c1) {
-                this.matchPos = ((c2 & 0xF0) << 4) | c1;
-                this.matchLen = c2 & 0x0F;
-                return this.matchLen | 0x100;
-            } else {
+            code = this.in.read();
+
+            if (code < 0) {
                 throw new EOFException();
             }
+
+            this.position++;
         }
+        return code;
     }
 
     /**
-     * -lz5- で圧縮された
-     * 圧縮コードのうち一致位置を読み込む。<br>
+     * Reads the match offset of LZSS compressed code compressed with -lz5-.
      *
-     * @return -lz5- で圧縮された圧縮コードのうち一致位置
-     * @throws IOException 入出力エラーが発生した場合
+     * @return match offset of compressed code compressed with -lz5-
+     * @throws IOException  if an I/O error occurs
+     * @throws EOFException if EndOfStream is reached
      */
     @Override
     public int readOffset() throws IOException {
-        int offset = (this.position - this.matchPos - 1 - PreLz5Decoder.MaxMatch) & (PreLz5Decoder.DictionarySize - 1);
-
-        this.position += this.matchLen + PreLz5Decoder.Threshold;
+        int offset = (this.position - this.readCode() - 1 - PreLz5Decoder.MaxMatch)
+                & (PreLz5Decoder.DictionarySize - 1);
+        this.position += this.matchLength;
 
         return offset;
     }
 
     /**
-     * 接続された入力ストリームの現在位置にマークを設定し、
-     * reset() メソッドでマークした時点の 読み込み位置に
-     * 戻れるようにする。<br>
+     * Sets a mark at the current position in the connected input stream,
+     * allowing return to the read position at the time of marking using {@link #reset()}.<br>
+     * Note that unlike {@link InputStream#mark(int)}, the mark position
+     * may become invalid before the limit specified by {@code readLimit}.
      *
-     * @param readLimit マーク位置に戻れる限界のバイト数。
-     *                  このバイト数を超えてデータを読み込んだ場合 reset()できなくなる可                  能性がある。<br>
+     * @param readLimit limit of bytes that can be read while still retaining the mark position.
+     *                  If data exceeds this number of bytes, reset() may no longer be possible.
      * @see PreLzssDecoder#mark(int)
      */
     @Override
     public void mark(int readLimit) {
         this.in.mark((readLimit * 9 + 7) / 8 + 2);
-        this.markPosition = this.position;
-        this.markMatchLen = this.matchLen;
-        this.markMatchPos = this.matchPos;
         this.markFlagByte = this.flagByte;
         this.markFlagBit = this.flagBit;
+        this.markPosition = this.position;
+        this.markMatchLength = this.matchLength;
     }
 
     /**
-     * 接続された入力ストリームの読み込み位置を最後に
-     * mark() メソッドが呼び出されたときの位置に設定する。<br>
+     * Sets the read position of the connected input stream to the position
+     * where {@link #mark(int)} was last called.
      *
-     * @throws IOException <ol>
-     *                     <li> mark() せずに reset() しようとした場合。</li>
-     *                     <li> 接続された入力ストリームが markSupported()で false を返す場合。</li>
-     *                     <li> 接続された入力ストリームで入出力エラーが発生した場合。</li>
-     *                     </ol> の何れか。
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void reset() throws IOException {
-        // mark() していないのに reset() しようとした場合、
-        // 接続されたストリームがmark/resetをサポートしない場合は
-        // CachedInputStream が IOException を投げる。
+        // If attempting to reset() without mark(),
+        // if attempting to reset() beyond readLimit,
+        // or if the connected InputStream returns false for markSupported(),
+        // this.in.reset() throws an IOException.
         this.in.reset();
 
-        this.position = this.markPosition;
-        this.matchLen = this.markMatchLen;
-        this.matchPos = this.markMatchPos;
         this.flagByte = this.markFlagByte;
         this.flagBit = this.markFlagBit;
+        this.position = this.markPosition;
+        this.matchLength = this.markMatchLength;
     }
 
     /**
-     * 接続されたストリームが mark() と reset()
-     * をサポートするかを返す。
+     * Gets whether the connected input stream supports {@code mark()} and {@code reset()}.
      *
-     * @return 接続されたストリームが mark,reset をサポートするならtrue,
-     * サポートしないなら false
+     * @return {@code true} if the stream supports {@code mark()} and {@code reset()}; {@code false} otherwise.
      */
     @Override
     public boolean markSupported() {
@@ -257,11 +244,11 @@ public class PreLz5Decoder implements PreLzssDecoder {
     }
 
     /**
-     * ブロックせずに読み出すことの出来る最低バイト数を得る。<br>
-     * この値は保証される。
+     * Gets the minimum number of bytes that can be read without blocking.<br>
+     * This value is guaranteed.
      *
-     * @return ブロックしないで読み出せる最低バイト数。
-     * @throws IOException 入出力エラーが発生した場合
+     * @return the minimum number of bytes that can be read without blocking
+     * @throws IOException if an I/O error occurs
      * @see PreLzssDecoder#available()
      */
     @Override
@@ -270,9 +257,9 @@ public class PreLz5Decoder implements PreLzssDecoder {
     }
 
     /**
-     * このストリームを閉じ、使用していた全ての資源を解放する。
+     * Closes this stream and releases all resources used.
      *
-     * @throws IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void close() throws IOException {
@@ -282,9 +269,9 @@ public class PreLz5Decoder implements PreLzssDecoder {
     }
 
     /**
-     * -lz5-形式の LZSS辞書のサイズを得る。
+     * Gets the size of the -lz5- format LZSS dictionary.
      *
-     * @return -lz5-形式の LZSS辞書のサイズ
+     * @return the size of the -lz5- format LZSS dictionary
      */
     @Override
     public int getDictionarySize() {
@@ -292,9 +279,9 @@ public class PreLz5Decoder implements PreLzssDecoder {
     }
 
     /**
-     * -lz5-形式の LZSSの最大一致長を得る。
+     * Gets the maximum match length of the -lz5- format LZSS.
      *
-     * @return -lz5-形式の LZSSの最大一致長
+     * @return the maximum match length of the -lz5- format LZSS
      */
     @Override
     public int getMaxMatch() {
@@ -302,9 +289,9 @@ public class PreLz5Decoder implements PreLzssDecoder {
     }
 
     /**
-     * -lz5-形式の LZSSの圧縮、非圧縮の閾値を得る。
+     * Gets the threshold for LZSS compression/non-compression of -lz5- format.
      *
-     * @return -lz5-形式の LZSSの圧縮、非圧縮の閾値
+     * @return the threshold for LZSS compression/non-compression of -lz5- format
      */
     @Override
     public int getThreshold() {

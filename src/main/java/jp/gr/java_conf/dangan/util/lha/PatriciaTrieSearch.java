@@ -37,31 +37,31 @@ import jp.gr.java_conf.dangan.io.Bits;
 
 
 /**
- * PATRICIA Trie を使用した LzssSearchMethod の実装。
+ * Implementation of {@link LzssSearchMethod} using PATRICIA Trie.
  *
  * <pre>
  * -- revision history --
  * $Log: PatriciaTrieSearch.java,v $
  * Revision 1.2  2002/12/10 22:28:55  dangan
  * [bug fix]
- *     put( DictionarySize * 2 )
- *     searchAndPut( DictionarySize * 2 ) に対応していなかったのを修正。
+ *     Fixed put( DictionarySize * 2 )
+ *     and searchAndPut( DictionarySize * 2 ) not being supported.
  *
  * Revision 1.1  2002/12/04 00:00:00  dangan
  * [change]
- *     LzssSearchMethod のインタフェイス変更に合わせてインタフェイス変更。
+ *     Interface change to match {@link LzssSearchMethod} interface change.
  * [maintenance]
- *     ソース整備
+ *     source maintenance
  *
  * Revision 1.0  2002/08/15 00:00:00  dangan
  * add to version control
  * [bug fix]
- *     contractNode で hashtable からの連結リストに繋ぐのを忘れていた修正。
- *     配列 に PatriciaTrieSearch.ROOT_NODE(-1) でアクセスしていたのを修正。
+ *     Fixed forgetting to link to linked list from hashtable in contractNode.
+ *     Fixed accessing array with PatriciaTrieSearch.ROOT_NODE(-1).
  * [maintenance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
+ *     source maintenance
+ *     tab removal
+ *     license comment update
  *
  * </pre>
  *
@@ -71,128 +71,120 @@ import jp.gr.java_conf.dangan.io.Bits;
 public class PatriciaTrieSearch implements LzssSearchMethod {
 
     /**
-     * 使用されていない事を示す値。
-     * parent[node] に UNUSED がある場合は node は未使用の node である。
-     * prev[node], next[node] に UNUSED がある場合は、
-     * そちら側に兄弟ノードが無いことを示す。
+     * Value indicating that it is not used.
+     * If {@code parent[node]} is {@link #UNUSED}, {@code node} is an unused node.
+     * If {@code prev[node]} or {@code next[node]} is {@link #UNUSED},
+     * it indicates that there is no sibling node on that side.
      */
     private static final int UNUSED = 0;
 
     /**
-     * LZSS 辞書サイズ
+     * LZSS dictionary size
      */
     private final int DictionarySize;
 
     /**
-     * LZSS 圧縮に使用される値。
-     * 最大一致長を示す。
+     * Value used for LZSS compression.
+     * Indicates maximum match length.
      */
     private final int MaxMatch;
 
     /**
-     * LZSS 圧縮/非圧縮の閾値。
-     * 一致長が この値以上であれば、圧縮コードを出力する。
+     * Threshold for LZSS compression/non-compression.
+     * If the match length is greater than or equal to this value, compression code is output.
      */
     private final int Threshold;
 
     /**
-     * LZSS 圧縮を施すためのバッファ。
-     * LzssSearchMethod の実装内では読み込みのみ許される。
+     * Buffer for applying LZSS compression.
+     * Only read access is permitted within implementations of {@link LzssSearchMethod}.
      */
     private final byte[] TextBuffer;
 
     /**
-     * 辞書の限界位置。
-     * TextBuffer前半の辞書領域に未だにデータが無い場合に
-     * 辞書領域にある不定のデータ(Java では0)を使用して
-     * 圧縮が行われないようにする。
+     * Dictionary limit position.
+     * When there is no data in the dictionary area in the first half of {@link #TextBuffer},
+     * this prevents compression from using undefined data (0 in Java) in the dictionary area.
      */
     private int DictionaryLimit;
 
     /**
-     * 親のノード番号を示す。
-     * parent[node] は node の親ノードの番号を示す。
+     * Indicates parent node number.
+     * {@code parent[node]} indicates the number of the parent node of {@code node}.
      */
     private final int[] parent;
 
     /**
-     * 子のハッシュ値を示す。
-     * hashTable[ hash( node, ch ) ] で
-     * node の文字 ch の子ノードのハッシュ値を示す。
+     * Indicates hash value of children.
+     * {@code hashTable[hash(node, ch)]} indicates the hash value of the child node of {@code node} for character {@code ch}.
      */
     private final int[] hashTable;
 
     /**
-     * hashTable から連なる双方向連結リストの一部。
-     * 同じハッシュ値を持つ 一つ前のノードのノード番号を示す。
-     * prev[ node ] は node と同じハッシュ値を持ち、
-     * 連結リスト内で node の一つ前に位置するノードの node 番号。
-     * prev[ node ] が 負値の場合は全ビット反転したハッシュ値を示す。
+     * Part of doubly linked list chained from {@link #hashTable}.
+     * Indicates node number of previous node having the same hash value.
+     * {@code prev[node]} is the node number of the node positioned immediately before {@code node} in the linked list with the same hash value.
+     * If {@code prev[node]} is negative, it indicates bitwise inverted hash value.
      */
     private final int[] prev;
 
     /**
-     * hashTable から連なる双方向連結リストの一部。
-     * 同じハッシュ値を持つ 一つ後のノードのノード番号を示す。
-     * next[ node ] は node と同じハッシュ値を持ち、
-     * 連結リスト内で node の一つ後ろに位置するノードの node 番号。
+     * Part of doubly linked list chained from {@link #hashTable}.
+     * Indicates node number of next node having the same hash value.
+     * {@code next[node]} is the node number of the node positioned immediately after {@code node} in the linked list with the same hash value.
      * <p>
-     * また、葉でないノードに関しては next と avail で 未使用なノードの
-     * スタック(一方向連結リスト)を構成する。
+     * For non-leaf nodes, {@code next} and {@link #avail} form a stack (singly linked list) of unused nodes.
      * <p>
-     * さらに、完全一致があったため削除された葉ノードで、
-     * PATRICIA Trie 内に存在している葉ノードへの一方向連結リストを構成する。
+     * Furthermore, for leaf nodes deleted due to full match, forms a singly linked list to leaf nodes existing within PATRICIA Trie.
      */
     private final int[] next;
 
     /**
-     * ノードの TextBuffer 内のデータパタンの開始位置を示す。
-     * position[ node ] は node のデータパタンの開始位置を示す。
+     * Indicates start position of data pattern in {@link #TextBuffer} of the node.
+     * {@code position[node]} indicates start position of the data pattern of {@code node}.
      */
     private final int[] position;
 
     /**
-     * ノードの 分岐位置を示す。
-     * level[ node ] は node の子ノードが分岐する位置を示す。
+     * Indicates branch position of the node.
+     * {@code level[node]} indicates the position where child nodes of {@code node} branch.
      */
     private final int[] level;
 
     /**
-     * ノードの子ノードの数を示す。
-     * childnum[ node ] は node の子ノードの数を示す。
+     * Indicates the number of child nodes of the node.
+     * {@code childnum[node]} indicates the number of child nodes of {@code node}.
      */
     private final int[] childnum;
 
     /**
-     * next が構成する未使用ノードのスタックのスタックポインタ。
+     * Stack pointer of unused node stack formed by {@link #next}.
      */
     private int avail;
 
     /**
-     * ハッシュ時に使用するシフト値
+     * Shift value used during hashing
      */
     private final int shift;
 
     /**
-     * 最後の searchAndPut() または put() で得られた
-     * 得られた PatriciaTrie内の最長一致位置
+     * Longest match position in PATRICIA Trie obtained in the last {@link #searchAndPut(int)} or {@link #put(int)}
      */
     private int lastMatchPos;
 
     /**
-     * 最後の searchAndPut() または put() で
-     * 得られた PatriciaTrie内の最長一致長
+     * Longest match length in PATRICIA Trie obtained in the last {@link #searchAndPut(int)} or {@link #put(int)}
      */
     private int lastMatchLen;
 
     /**
-     * コンストラクタ。
-     * PATRICIA Trie を使用した検索機構を構築する。
+     * Constructor.
+     * Constructs a search mechanism using PATRICIA Trie.
      *
-     * @param DictionarySize 辞書サイズ
-     * @param MaxMatch 最長一致長
-     * @param Threshold 圧縮、非圧縮の閾値
-     * @param TextBuffer LZSS圧縮を施すためのバッファ
+     * @param DictionarySize dictionary size
+     * @param MaxMatch maximum match length
+     * @param Threshold threshold between compression and non-compression
+     * @param TextBuffer buffer for applying LZSS compression
      */
     public PatriciaTrieSearch(int DictionarySize, int MaxMatch, int Threshold, byte[] TextBuffer) {
 
@@ -228,37 +220,36 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
     }
 
     /**
-     * position から始まるデータパタンを
-     * PATRICIA Trie に登録する。
+     * Registers the data pattern starting from {@code position}
+     * into the PATRICIA Trie.
      *
-     * @param position TextBuffer内のデータパタンの開始位置
+     * @param position start position of the data pattern in {@link #TextBuffer}
      */
     @Override
     public void put(int position) {
 
-        // PATRICIA Trie から最も古いデータパタンを削除
+        // Delete the oldest data pattern from PATRICIA Trie
         int posnode = (position & (this.DictionarySize - 1)) + this.DictionarySize;
         this.deleteNode(posnode);
 
-        // PATRICIA Trie から最長一致を検索
+        // Search longest match from PATRICIA Trie
         int matchnode;
         int matchpos;
         int scannode;
         int matchlen;
         if (3 < this.lastMatchLen) {
 
-            // 前回の一致長が閾値より大きければ、
-            // 葉から lastMatchLen - 1 の一致を検索する。
+            // If the previous match length is greater than threshold,
+            // search for match of lastMatchLen - 1 from leaves.
             scannode = (this.lastMatchPos + 1) | this.DictionarySize;
 
-            // 最長一致があったために scannode が
-            // PATRICIA Trie から取り除かれている場合の処理
+            // Processing when scannode was removed from PATRICIA Trie due to longest match
             while (this.parent[scannode] == PatriciaTrieSearch.UNUSED) {
                 scannode = this.next[scannode];
             }
 
-            // 葉から 順番に親へと辿って
-            // lastMatchLen - 1 以下の level を持つノードを探す。
+            // Traverse from leaves to parents sequentially
+            // to find a node with level <= lastMatchLen - 1.
             int node = this.parent[scannode];
             this.lastMatchLen--;
             while (0 < node && this.lastMatchLen <= this.level[node]) {
@@ -266,7 +257,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
                 node = this.parent[node];
             }
 
-            // さらに親へと辿って position を更新していく。
+            // Traverse further to parents and update position.
             while (0 < node) {
                 this.position[node] = position;
                 node = this.parent[node];
@@ -275,12 +266,12 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
             matchlen = this.lastMatchLen;
         } else {
 
-            // PATRICIA Trie を 根から辿る。
+            // Traverse PATRICIA Trie from root.
             scannode = this.child(this.TextBuffer[position] - 128, this.TextBuffer[position + 1] & 0xFF);
             matchlen = 2;
 
             if (scannode == PatriciaTrieSearch.UNUSED) {
-                // 根に position を追加する。
+                // Add position to root.
                 this.attachNode(this.TextBuffer[position] - 128, posnode, this.TextBuffer[position + 1] & 0xFF);
                 this.lastMatchLen = matchlen;
                 return;
@@ -314,64 +305,60 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
                     matchlen++;
                 }
             } else if (matchlen < max) {
-                // matchnode と position を分岐させる。
+                // Branch matchnode and position.
                 this.splitNode(matchnode, matchpos, posnode, position, matchlen);
                 break;
             } else {
-                // 完全一致を発見、ノードを置き換える。
+                // Full match found, replace node.
                 this.replaceNode(matchnode, posnode);
                 this.next[matchnode] = position;
                 break;
             }
         }
 
-        // 検索結果を保存
+        // Save search result
         this.lastMatchLen = matchlen;
         this.lastMatchPos = matchpos;
     }
 
     /**
-     * PATRICIA Trie に登録されたデータパタンから
-     * position から始まるデータパタンと
-     * 最長の一致を持つものを検索し、
-     * 同時に position から始まるデータパタンを
-     * PATRICIA Trie に登録する。
+     * Searches for the data pattern with the longest match to the data pattern
+     * starting from {@code position} among the data patterns registered in the
+     * PATRICIA Trie, and simultaneously registers the data pattern starting
+     * from {@code position} into the PATRICIA Trie.
      *
-     * @param position TextBuffer内のデータパタンの開始位置。
-     * @return 一致が見つかった場合は
-     *         LzssOutputStream.createSearchReturn
-     *         によって生成された一致位置と一致長の情報を持つ値、
-     *         一致が見つからなかった場合は
-     *         LzssOutputStream.NOMATCH。
+     * @param position start position of the data pattern in {@link #TextBuffer}.
+     * @return If a match is found, a value holding information of the match position and match length
+     *         generated by {@link LzssOutputStream#createSearchReturn(int, int)};
+     *         if no match is found, {@link LzssOutputStream#NOMATCH}.
      * @see LzssOutputStream#createSearchReturn(int,int)
      * @see LzssOutputStream#NOMATCH
      */
     @Override
     public int searchAndPut(int position) {
 
-        // PATRICIA Trie から最も古いデータパタンを削除
+        // Delete the oldest data pattern from PATRICIA Trie
         int posnode = (position & (this.DictionarySize - 1)) + this.DictionarySize;
         this.deleteNode(posnode);
 
-        // PATRICIA Trie から最長一致を検索
+        // Search longest match from PATRICIA Trie
         int matchnode;
         int matchpos = position;
         int scannode;
         int matchlen;
         if (3 < this.lastMatchLen) {
 
-            // 前回の一致長が閾値より大きければ、
-            // 葉から lastMatchLen - 1 の一致を検索する。
+            // If the previous match length is greater than threshold,
+            // search for match of lastMatchLen - 1 from leaves.
             scannode = (this.lastMatchPos + 1) | this.DictionarySize;
 
-            // 最長一致があったために scannode が
-            // PATRICIA Trie から取り除かれている場合の処理
+            // Processing when scannode was removed from PATRICIA Trie due to longest match
             while (this.parent[scannode] == PatriciaTrieSearch.UNUSED) {
                 scannode = this.next[scannode];
             }
 
-            // 葉から 順番に親へと辿って
-            // lastMatchLen - 1 以下の level を持つノードを探す。
+            // Traverse from leaves to parents sequentially
+            // to find a node with level <= lastMatchLen - 1.
             int node = this.parent[scannode];
             this.lastMatchLen--;
             while (0 < node && this.lastMatchLen <= this.level[node]) {
@@ -379,7 +366,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
                 node = this.parent[node];
             }
 
-            // さらに親へと辿って position を更新していく。
+            // Traverse further to parents and update position.
             while (0 < node) {
                 this.position[node] = position;
                 node = this.parent[node];
@@ -387,12 +374,12 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
 
             matchlen = this.lastMatchLen;
         } else {
-            // PATRICIA Trie を 根から辿る。
+            // Traverse PATRICIA Trie from root.
             scannode = this.child(this.TextBuffer[position] - 128, this.TextBuffer[position + 1] & 0xFF);
             matchlen = 2;
         }
 
-        // scannode == UNUSED となるのは lastMatchLen が閾値より小さいときのみ。
+        // scannode == UNUSED only when lastMatchLen is smaller than threshold.
         if (scannode != PatriciaTrieSearch.UNUSED) {
             while (true) {
                 int max;
@@ -415,34 +402,34 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
                     scannode = this.child(scannode, this.TextBuffer[position + matchlen] & 0xFF);
 
                     if (scannode == PatriciaTrieSearch.UNUSED) {
-                        // matchnode に position を追加する。
+                        // Add position to matchnode.
                         this.attachNode(matchnode, posnode, this.TextBuffer[position + matchlen] & 0xFF);
                         break;
                     } else {
                         matchlen++;
                     }
                 } else if (matchlen < max) {
-                    // matchnode と position を分岐させる。
+                    // Branch matchnode and position.
                     this.splitNode(matchnode, matchpos, posnode, position, matchlen);
                     break;
                 } else {
-                    // 完全一致を発見、ノードを置き換える。
+                    // Full match found, replace node.
                     this.replaceNode(matchnode, posnode);
                     this.next[matchnode] = position;
                     break;
                 }
             }
         } else { // if( scannode != PatriciaTrieSearch.UNUSED )
-                 // 根に position を追加する。
+                 // Add position to root.
             this.attachNode(this.TextBuffer[position] - 128, posnode, this.TextBuffer[position + 1] & 0xFF);
             matchlen = 0;
         }
 
-        // 検索結果を保存
+        // Save search result
         this.lastMatchLen = matchlen;
         this.lastMatchPos = matchpos;
 
-        // メソッド先頭で PATRICIA Trie から削除したデータパタンもチェックする。
+        // Also check data pattern deleted from PATRICIA Trie at beginning of method.
         scannode = position - this.DictionarySize;
         if (this.DictionaryLimit <= scannode) {
             int len = 0;
@@ -456,7 +443,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
             }
         }
 
-        // 最長一致を呼び出し元に返す。
+        // Return the longest match to caller.
         if (this.Threshold <= matchlen) {
             return LzssOutputStream.createSearchReturn(matchlen, matchpos);
         } else {
@@ -465,25 +452,22 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
     }
 
     /**
-     * PATRICIA Trie に登録されたデータパタンを検索し
-     * position から始まるデータパタンと
-     * 最長の一致を持つものを得る。<br>
+     * Searches registered data patterns in PATRICIA Trie and gets the one
+     * with the longest match to the data pattern starting from {@code position}.<br>
      *
-     * @param position TextBuffer内のデータパタンの開始位置。
-     * @param lastPutPos 最後に登録したデータパタンの開始位置。
-     * @return 一致が見つかった場合は
-     *         LzssOutputStream.createSearchReturn
-     *         によって生成された一致位置と一致長の情報を持つ値、
-     *         一致が見つからなかった場合は
-     *         LzssOutputStream.NOMATCH。
+     * @param position start position of the data pattern in {@link #TextBuffer}.
+     * @param lastPutPos start position of the last registered data pattern.
+     * @return If a match is found, a value holding information of the match position and match length
+     *         generated by {@link LzssOutputStream#createSearchReturn(int, int)};
+     *         if no match is found, {@link LzssOutputStream#NOMATCH}.
      * @see LzssOutputStream#createSearchReturn(int,int)
      * @see LzssOutputStream#NOMATCH
      */
     @Override
     public int search(int position, int lastPutPos) {
 
-        // PATRICIA Trie に登録されていないデータパタンを
-        // 単純な逐次検索で検索する。
+        // Search data patterns not registered in PATRICIA Trie
+        // using simple sequential search.
         int scanlimit = Math.max(this.DictionaryLimit, lastPutPos);
         int scanpos = position - 1;
         int matchlen = 0;
@@ -514,7 +498,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
             scanpos--;
         }
 
-        // PATRICIA Trie を探索
+        // Search PATRICIA Trie
         if (2 < this.TextBuffer.length - position) {
             int matchnode = this.child(this.TextBuffer[position] - 128, this.TextBuffer[position + 1] & 0xFF);
             scanlimit = Math.max(this.DictionaryLimit, position - this.DictionarySize);
@@ -558,16 +542,16 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
                         } else {
                             break;
                         }
-                    } else { // maxlen に満たない一致が見つかったか 完全一致が見つかった
+                    } else { // Match less than maxlen found or full match found
                         break;
                     }
-                } else { // if( scanlimit <= scanpos ) 一致したパタンは検索限界を超えていた。
+                } else { // if( scanlimit <= scanpos ) Matched pattern exceeded search limit.
                     break;
                 }
             }
         }
 
-        // 最長一致を呼び出し元に返す。
+        // Return the longest match to caller.
         if (this.Threshold <= matchlen) {
             return LzssOutputStream.createSearchReturn(matchlen, matchpos);
         } else {
@@ -576,10 +560,9 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
     }
 
     /**
-     * TextBuffer内のpositionまでのデータを
-     * 前方へ移動する際、それに応じて LzssSearchMethod
-     * 内のデータも TextBuffer内のデータと矛盾しないよ
-     * うに前方へ移動する処理を行う。
+     * When sliding data in {@link #TextBuffer} up to {@code position} forward,
+     * performs processing to shift data in {@link LzssSearchMethod} forward
+     * accordingly so as not to contradict data in {@link #TextBuffer}.
      */
     @Override
     public void slide() {
@@ -593,11 +576,10 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
     }
 
     /**
-     * put() で LzssSearchMethodにデータを
-     * 登録するときに使用されるデータ量を得る。
-     * PatriciaTrieSearch では、常に MaxMatch を返す。
+     * Gets the amount of data used when registering data into {@link LzssSearchMethod} with {@link #put(int)}.
+     * {@link PatriciaTrieSearch} always returns {@link #MaxMatch}.
      *
-     * @return 常に MaxMatch
+     * @return always {@link #MaxMatch}
      */
     @Override
     public int putRequires() {
@@ -605,18 +587,18 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
     }
 
     /**
-     * oldnode を splitLen で分岐させる。
-     * oldnode のあった位置には新しいノードが新設され、
-     * 新しいノードは oldnode と position を子に持つ。
+     * Branches {@code oldnode} at {@code splitLen}.
+     * A new node is created at the position where {@code oldnode} was,
+     * and the new node has {@code oldnode} and {@code position} as children.
      *
-     * @param oldnode 分岐させるノード
-     * @param oldpos oldnode が指すデータパタンの開始位置
-     * @param posnode position 用ノード
-     * @param position TextBuffer 内のデータパタンの開始位置
-     * @param splitLen データパタン内の分岐位置
+     * @param oldnode node to branch
+     * @param oldpos start position of data pattern pointed to by {@code oldnode}
+     * @param posnode node for {@code position}
+     * @param position start position of data pattern in {@link #TextBuffer}
+     * @param splitLen branch position within data pattern
      */
     private void splitNode(int oldnode, int oldpos, int posnode, int position, int splitLen) {
-        // スタックから 新しいノードを取得する。
+        // Obtain new node from stack.
         int newnode = this.avail;
         this.avail = this.next[newnode];
 
@@ -630,10 +612,10 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
     }
 
     /**
-     * PATRICIA Trie から葉である node を削除する。
-     * 必要であれば node の親ノードの繰上げ処理も行う。
+     * Deletes leaf {@code node} from PATRICIA Trie.
+     * If necessary, also promotes parent node of {@code node}.
      *
-     * @param node 削除する葉ノード
+     * @param node leaf node to delete
      */
     private void deleteNode(int node) {
         if (this.parent[node] != PatriciaTrieSearch.UNUSED) {
@@ -652,7 +634,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
             }
             this.prev[next] = prev;
 
-            if (0 < parent) { // parent が PATRICIA Trie の根で無い場合 true となる条件式
+            if (0 < parent) { // Conditional expression that is true when parent is not the root of PATRICIA Trie
                 this.childnum[parent]--;
 
                 if (this.childnum[parent] <= 1) {
@@ -663,12 +645,12 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
     }
 
     /**
-     * parentnode に childnode を追加する。
+     * Adds {@code childnode} to {@code parentnode}.
      *
-     * @param parentnode childnode を追加する対象の親ノード
-     * @param childnode parentnode に追加するノード
-     * @param ch TextBuffer内現在処理位置。
-     *            葉の position を確定するために使用される。
+     * @param parentnode target parent node to add {@code childnode} to
+     * @param childnode node to add to {@code parentnode}
+     * @param ch current processing position in {@link #TextBuffer}.
+     *            Used to determine leaf {@code position}.
      */
     private void attachNode(int parentnode, int childnode, int ch) {
         int hash = this.hash(parentnode, ch);
@@ -685,12 +667,12 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
     }
 
     /**
-     * oldnode と newnode を入れ替える。
-     * newnode は子ノードとの関係を保持する。
-     * oldnode は置き換えられて PATRICIA Trie から取り除かれる。
+     * Swaps {@code oldnode} and {@code newnode}.
+     * {@code newnode} maintains relationship with child nodes.
+     * {@code oldnode} is replaced and removed from PATRICIA Trie.
      *
-     * @param oldnode 入れ替えられて Trie から削除されるノード
-     * @param newnode oldnode のあった位置へ接続されるノード
+     * @param oldnode node replaced and deleted from Trie
+     * @param newnode node connected to the position where {@code oldnode} was
      */
     private void replaceNode(int oldnode, int newnode) {
         this.parent[newnode] = this.parent[oldnode];
@@ -711,12 +693,12 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
     }
 
     /**
-     * 兄弟の無くなった node を引き上げる。
-     * node の親ノードは PATRICIA Trie から削除され、
-     * 代わりに node がその位置に接続される。
-     * 兄弟が無いかどうかの 判定は呼び出し側が行う。
+     * Promotes {@code node} whose siblings are gone.
+     * Parent node of {@code node} is deleted from PATRICIA Trie,
+     * and {@code node} is connected to that position instead.
+     * Determination of whether siblings are gone is made by caller.
      *
-     * @param node 引き上げるノード
+     * @param node node to promote
      */
     private void contractNode(int node) {
         int parentnode = this.parent[node];
@@ -729,17 +711,17 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
         }
         this.replaceNode(parentnode, node);
 
-        // 使用されなくなった parentnode をスタックに返還する。
+        // Return unused parentnode to stack.
         this.next[parentnode] = this.avail;
         this.avail = parentnode;
     }
 
     /**
-     * slide 時に Trie の各要素を移動させる処理を行う。
+     * Shifts each element of Trie during {@link #slide()}.
      *
-     * @param src 移動元
-     * @param dst 移動先
-     * @param width 移動幅
+     * @param src copy source
+     * @param dst copy destination
+     * @param width shift width
      */
     @SuppressWarnings("unused")
     private void slideTree(int[] src, int[] dst, int width) {
@@ -754,12 +736,12 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
     }
 
     /**
-     * parent から ch で分岐した子を得る。
-     * ノードが無い場合は UNUSED を返す。
+     * Gets child branched with {@code ch} from {@code parent}.
+     * Returns {@link #UNUSED} if there is no node.
      *
-     * @param parent 親ノード
-     * @param ch 分岐文字
-     * @return 子ノード
+     * @param parent parent node
+     * @param ch branch character
+     * @return child node
      */
     private int child(int parent, int ch) {
         int node = this.hashTable[this.hash(parent, ch)];
@@ -773,23 +755,23 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
     }
 
     /**
-     * node と ch から ハッシュ値を得る
+     * Gets hash value from {@code node} and {@code ch}.
      *
-     * @param node ノード
-     * @param ch 分岐文字
-     * @return ハッシュ値
+     * @param node node
+     * @param ch branch character
+     * @return hash value
      */
     private int hash(int node, int ch) {
         return (node + (ch << this.shift) + 256) % this.hashTable.length;
     }
 
     /**
-     * num 以上の最も小さい 素数(もしくは擬似素数)を生成する。
-     * 戻り値が 素数でない確率は 1/256 以下である。
+     * Generates the smallest prime (or probable prime) greater than or equal to {@code num}.
+     * The probability that the return value is not prime is 1/256 or less.
      *
-     * @param num この値以上の素数を生成する。
+     * @param num generates prime greater than or equal to this value.
      *
-     * @return 生成された素数(もしくは擬似素数)
+     * @return generated prime (or probable prime)
      */
     private static int generateProbablePrime(int num) {
         num = num + ((num & 1) == 0 ? 1 : 0);
@@ -805,11 +787,11 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
 }
 
 // /**
-//  * Trie全体のチェックを行う。
+//  * Checks the entire Trie.
 //  *
-//  * @param pos 現在処理位置。
+//  * @param pos current processing position.
 //  *
-//  * @exception RuntimeException Trie が崩れていた場合。
+//  * @exception RuntimeException if Trie is broken.
 //  */
 // private void checkTrie( int pos ){
 //     for( int i = -256 ; i < 0 ; i++ ){
@@ -824,18 +806,18 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
 // }
 //
 // /**
-//  * 葉でない Node のチェックを行う。
+//  * Checks non-leaf Node.
 //  *
-//  * チェック項目は
-//  * (1) 親子関係
-//  * (2) position に矛盾が無い事。
-//  * (3) level に矛盾が無い事。
-//  * (4) node が this.childnum[node] 個の子供を持っている事。
-//  * の4項目。
+//  * Check items are:
+//  * (1) Parent-child relationship
+//  * (2) No contradiction in position.
+//  * (3) No contradiction in level.
+//  * (4) node has this.childnum[node] children.
+//  * 4 items above.
 //  *
-//  * @param node チェックするノード
-//  * @param pos  現在処理位置
-//  * @exception RuntimeException 上記のチェックの何れかが失敗した場合。
+//  * @param node node to check
+//  * @param pos  current processing position
+//  * @exception RuntimeException if any of the above checks fail.
 //  */
 // private void checkNode(int node, int pos) {
 //
@@ -900,9 +882,9 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
 // }
 //
 // /**
-//  * ノードの情報を出力する。
+//  * Outputs node information.
 //  *
-//  * @param node 情報を出力するノード
+//  * @param node node to output information for
 //  */
 // private void writeNode( int node ){
 //     if( 0 < node ){

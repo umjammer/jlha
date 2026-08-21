@@ -35,12 +35,11 @@ import java.io.InputStream;
 
 
 /**
- * データを供給する入力ストリームと データを処理する
- * 入力ストリームとの接続を解除するためのユーティリティクラス。<br>
- * java.io.BufferedInputStream 等のバッファリングするストリーム
- * との接続を解除する場合は
- * jp.gr.java_conf.dangan.io.LimitedInputStream 等を使用して
- * 接続解除位置を過ぎたバッファリングを抑止する必要がある。<br>
+ * Utility class for disconnecting between an input stream that supplies data
+ * and an input stream that processes data.<br>
+ * When disconnecting from a buffering stream such as {@link java.io.BufferedInputStream},
+ * buffering past the disconnection position must be prevented using
+ * {@link LimitedInputStream} or similar.<br>
  *
  * <pre>
  * -- revision history --
@@ -48,9 +47,9 @@ import java.io.InputStream;
  * Revision 1.0  2002/07/24 00:00:00  dangan
  * add to version control
  * [maintenance]
- *     タブ廃止
- *     ライセンス文の修正
- *     ソース整備
+ *     tab removal
+ *     license statement fix
+ *     source maintenance
  * </pre>
  *
  * @author $Author: dangan $
@@ -59,14 +58,14 @@ import java.io.InputStream;
 public class DisconnectableInputStream extends InputStream implements Disconnectable {
 
     /**
-     * 接続された入力ストリーム
+     * Connected input stream
      */
     private InputStream in;
 
     /**
-     * in との接続を解除可能な入力ストリームを構築する。
+     * Constructs an input stream that can be disconnected from {@code in}.
      *
-     * @param in 入力ストリーム
+     * @param in input stream
      */
     public DisconnectableInputStream(InputStream in) {
         if (in != null) {
@@ -77,10 +76,10 @@ public class DisconnectableInputStream extends InputStream implements Disconnect
     }
 
     /**
-     * 接続された入力ストリームから 次の1バイトのデータを得る。
+     * Obtains the next byte of data from the connected input stream.
      *
-     * @return 読み込まれた1バイトのデータ。EndOfStreamに達した場合は -1 を返す。
-     * @exception IOException 入出力エラーが発生した場合
+     * @return the byte of data read, or -1 if EndOfStream has been reached.
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public int read() throws IOException {
@@ -88,13 +87,12 @@ public class DisconnectableInputStream extends InputStream implements Disconnect
     }
 
     /**
-     * 接続された入力ストリームから バイト配列 buffer を
-     * 満たすようにデータを読み込む。<br>
-     * データは必ずしも buffer を満たすとは限らないことに注意。
+     * Reads data from the connected input stream to fill the byte array {@code buffer}.<br>
+     * Note that data does not necessarily fill {@code buffer}.
      *
-     * @param buffer 読み込まれたデータを格納するためのバイト配列
-     * @return buffer に読み込んだデータ量をバイト数で返す。既に EndOfStream に達していた場合は -1 を返す。
-     * @exception IOException 入出力エラーが発生した場合
+     * @param buffer byte array for storing read data
+     * @return the amount of data read into {@code buffer} in bytes, or -1 if EndOfStream has already been reached.
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public int read(byte[] buffer) throws IOException {
@@ -102,15 +100,15 @@ public class DisconnectableInputStream extends InputStream implements Disconnect
     }
 
     /**
-     * 接続された入力ストリームから バイト配列 buffer の
-     * index で指定された位置から length バイトのデータを読み込む。<br>
-     * データは必ずしも length バイト読み込まれるとは限らないことに注意。
+     * Reads {@code length} bytes of data into the byte array {@code buffer} starting at the position specified
+     * by {@code index} from the connected input stream.<br>
+     * Note that {@code length} bytes of data are not necessarily read.
      *
-     * @param buffer 読み込まれたデータを格納するためのバイト配列
-     * @param index buffer内のデータ読み込み開始位置
-     * @param length bufferに読み込むデータ量
-     * @return buffer に読み込んだデータ量をバイト数で返す。既に EndOfStream に達していた場合は -1 を返す。
-     * @exception IOException 入出力エラーが発生した場合
+     * @param buffer byte array for storing read data
+     * @param index  starting position in {@code buffer} to read data
+     * @param length amount of data to read into {@code buffer}
+     * @return the amount of data read into {@code buffer} in bytes, or -1 if EndOfStream has already been reached.
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public int read(byte[] buffer, int index, int length) throws IOException {
@@ -122,12 +120,11 @@ public class DisconnectableInputStream extends InputStream implements Disconnect
     }
 
     /**
-     * 接続された入力ストリームのデータを length バイト
-     * 読み飛ばす。
+     * Skips {@code length} bytes of data in the connected input stream.
      *
-     * @param length 読み飛ばすバイト数。
-     * @return 実際に読み飛ばされたバイト数。
-     * @exception IOException 入出力エラーが発生した場合
+     * @param length number of bytes to skip.
+     * @return actual number of bytes skipped.
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public long skip(long length) throws IOException {
@@ -139,12 +136,12 @@ public class DisconnectableInputStream extends InputStream implements Disconnect
     }
 
     /**
-     * 接続された入力ストリームの現在位置にマークを設定し、
-     * reset() メソッドでマークした時点の 読み込み位置に
-     * 戻れるようにする。
+     * Sets a mark at the current position in the connected input stream,
+     * allowing returning to the read position at the time of marking
+     * using the {@link #reset()} method.
      *
-     * @param readLimit マーク位置に戻れる限界のバイト数。
-     *            このバイト数を超えてデータを読み込んだ場合 reset()できなくなる可能性がある。
+     * @param readLimit the maximum number of bytes that can be read before the mark position becomes invalid.
+     *                  If data exceeding this number of bytes is read, {@link #reset()} may not be possible.
      */
     @Override
     public void mark(int readLimit) {
@@ -152,10 +149,10 @@ public class DisconnectableInputStream extends InputStream implements Disconnect
     }
 
     /**
-     * 接続された入力ストリームの読み込み位置を最後に
-     * mark() メソッドが呼び出されたときの位置に設定する。
+     * Sets the read position of the connected input stream to the position
+     * when the {@link #mark(int)} method was last called.
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public void reset() throws IOException {
@@ -163,21 +160,19 @@ public class DisconnectableInputStream extends InputStream implements Disconnect
     }
 
     /**
-     * 接続された入力ストリームが mark() と reset() を
-     * サポートするかを得る。
+     * Gets whether the connected input stream supports {@link #mark(int)} and {@link #reset()}.
      *
-     * @return ストリームが mark() と reset() をサポートする場合は{@code true}。サポートしない場合は{@code false}。
+     * @return {@code true} if the stream supports {@link #mark(int)} and {@link #reset()}; {@code false} otherwise.
      */
     public boolean markSupprted() {
         return this.in.markSupported();
     }
 
     /**
-     * 接続された入力ストリームからブロックしないで
-     * 読み込むことのできるバイト数を得る。
+     * Gets the number of bytes that can be read from the connected input stream without blocking.
      *
-     * @return ブロックしないで読み出せるバイト数。
-     * @exception IOException 入出力エラーが発生した場合
+     * @return the number of bytes that can be read without blocking.
+     * @throws IOException if an I/O error occurs
      */
     @Override
     public int available() throws IOException {
@@ -185,8 +180,8 @@ public class DisconnectableInputStream extends InputStream implements Disconnect
     }
 
     /**
-     * 接続された入力ストリームとの接続を解除する。<br>
-     * このメソッドは disconnect() を呼ぶだけである。
+     * Disconnects from the connected input stream.<br>
+     * This method only calls {@link #disconnect()}.
      */
     @Override
     public void close() {
@@ -194,7 +189,7 @@ public class DisconnectableInputStream extends InputStream implements Disconnect
     }
 
     /**
-     * 接続された入力ストリームとの接続を解除する。
+     * Disconnects from the connected input stream.
      */
     @Override
     public void disconnect() {

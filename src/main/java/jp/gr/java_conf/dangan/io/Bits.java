@@ -32,7 +32,7 @@ package jp.gr.java_conf.dangan.io;
 
 
 /**
- * ビット処理のためのユーティリティメソッド群。
+ * Utility methods for bit operations.
  *
  * <pre>
  * -- revision history --
@@ -48,21 +48,21 @@ package jp.gr.java_conf.dangan.io;
 public class Bits {
 
     /**
-     * デフォルトコンストラクタ。
-     * 使用不可。
+     * Default constructor.
+     * Cannot be used.
      */
     private Bits() {
     }
 
     /**
-     * {@code val} のビット長を得る。
+     * Gets the bit length of {@code val}.
      * <p>
-     * {@code val} は符号なし 32ビット整数とみなされる。
-     * {@code log2((long) val & 0xFFFF_FFFFL)} の戻り値の
-     * 小数点以下を切り捨てたものと同等。
+     * {@code val} is treated as an unsigned 32-bit integer.
+     * Equivalent to the floor of the return value of
+     * {@code log2((long) val & 0xFFFF_FFFFL)}.
      *
-     * @param val 整数値
-     * @return val のビット長
+     * @param val integer value
+     * @return bit length of {@code val}
      */
     public static int len(int val) {
         int len = 0;

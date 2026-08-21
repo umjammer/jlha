@@ -34,27 +34,25 @@ import java.util.zip.Checksum;
 
 
 /**
- * CRC16値を算出するためのクラス。
+ * Class for calculating CRC16 values.
  * <p>
- * クラス内の定数、処理、説明は
+ * Constants, processing, and descriptions in this class are based on:
  *
  * <pre>
- * Ｃ言語によるアルゴリズム辞典
- *   奥村晴彦著 技術評論社
- *   ISBN4-87408-414-1 C3055 2400円(購入当時)
+ * C-gengo ni yoru Algorithm Jiten (Algorithm Dictionary in C)
+ *   Haruhiko Okumura, Gijutsu-Hyohron Co., Ltd.
+ *   ISBN4-87408-414-1 C3055 2400 yen (at time of purchase)
  * </pre>
- *
- * によった。
  *
  * <pre>
  * -- revision history --
  * $Log: CRC16.java,v $
  * Revision 1.0  2002/07/24 00:00:00  dangan
  * add to version control
- * [maintanance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の変更
+ * [maintenance]
+ *     Source cleanup.
+ *     Eliminated tabs.
+ *     Updated license text.
  * </pre>
  *
  * @author $Author: dangan $
@@ -63,93 +61,91 @@ import java.util.zip.Checksum;
 public class CRC16 implements Checksum {
 
     /**
-     * CRC-ANSY または CRC-16 として有名な
-     * 多項式{@code x^16 + x^15 + x^2 + 1}をビット表現にしたもの。
+     * Bit representation of the polynomial {@code x^16 + x^15 + x^2 + 1},
+     * well known as CRC-ANSI or CRC-16.
      */
     public static final int CRC_ANSY_POLY = 0xA001;
 
     /**
-     * LHAで使用される crc の初期値。
-     * 作者が勝手に設定した値であり、
-     * CRC-ANSY でこの値が初期値として
-     * 定められているかは知らない。
+     * Initial value of CRC used in LHA.
+     * This is a value set arbitrarily by the author, and it is unknown
+     * whether this value is specified as the initial value in CRC-ANSI.
      */
     public static final int CRC_ANSY_INIT = 0x0000;
 
     /**
-     * CCITT の X.25という規格の
-     * 多項式{@code x^16 + x^12 + x^5 + 1}をビット表現にしたもの。
+     * Bit representation of the polynomial {@code x^16 + x^12 + x^5 + 1}
+     * in the CCITT X.25 standard.
      */
     public static final int CCITT_POLY = 0x8408;
 
     /**
-     * CCITT の X.25という規格の crc の初期値。
+     * Initial value of CRC in the CCITT X.25 standard.
      */
     public static final int CCITT_INIT = 0xFFFF;
 
     /**
-     * LHAで通常使用される、という意味でデフォルトのCRC多項式。
-     * CRC16.CRC_ANSY_POLY と同等である。
+     * Default CRC polynomial in the sense that it is normally used in LHA.
+     * Equivalent to {@link #CRC_ANSY_POLY}.
      */
     public static final int DefaultPOLY = CRC16.CRC_ANSY_POLY;
 
     /**
-     * LHAで通常使用される、という意味でデフォルトのcrcの初期値。
-     * CRC16.CRC_ANSY_INIT と同等である。
+     * Default CRC initial value in the sense that it is normally used in LHA.
+     * Equivalent to {@link #CRC_ANSY_INIT}.
      */
     public static final int DefaultINIT = CRC16.CRC_ANSY_INIT;
 
     /**
-     * CRC16値
+     * CRC16 value
      */
     private int crc;
 
     /**
-     * crc の初期値
+     * Initial value of CRC
      */
     private final int init;
 
     /**
-     * CRC16値の更新用テーブル
+     * Table for updating CRC16 value
      */
     private final int[] crcTable;
 
     /**
-     * LHAで使用される 多項式と初期値を持つ CRC16を生成する。
+     * Creates a {@link CRC16} with polynomial and initial value used in LHA.
      */
     public CRC16() {
         this(DefaultPOLY, DefaultINIT);
     }
 
     /**
-     * poly で指定される 多項式を持つ CRC16を生成する。
-     * 初期値は poly が CRC16.CCITT_POLY であれば
-     * CRC16.CCITT_INIT を そうでなければ
-     * CRC16.DefaultINIT を使用する。
+     * Creates a {@link CRC16} with the polynomial specified by {@code poly}.
+     * The initial value is {@link #CCITT_INIT} if {@code poly} is {@link #CCITT_POLY},
+     * or {@link #DefaultINIT} otherwise.
      *
-     * @param poly CRC16算出に使用する多項式のビット表現
+     * @param poly bit representation of the polynomial used for CRC16 calculation
      */
     public CRC16(int poly) {
         this(poly, (poly == CRC16.CCITT_POLY ? CRC16.CCITT_INIT : CRC16.DefaultINIT));
     }
 
     /**
-     * poly で指定される 多項式と initで指定される初期値を持つ
-     * CRC16を生成する。
+     * Creates a {@link CRC16} with the polynomial specified by {@code poly}
+     * and the initial value specified by {@code init}.
      *
-     * @param poly CRC16算出に使用する多項式のビット表現
-     * @param init crc の初期値
+     * @param poly bit representation of the polynomial used for CRC16 calculation
+     * @param init initial value of CRC
      */
     public CRC16(int poly, int init) {
         this(CRC16.makeCrcTable(poly), init);
     }
 
     /**
-     * crcTable で指定される CRC算出用表と
-     * initで指定される初期値を持つ CRC16を作成する。
+     * Creates a {@link CRC16} with the CRC calculation table specified by {@code crcTable}
+     * and the initial value specified by {@code init}.
      *
-     * @param crcTable CRC16算出に使用する表
-     * @param init crc の初期値
+     * @param crcTable table used for CRC16 calculation
+     * @param init initial value of CRC
      */
     public CRC16(int[] crcTable, int init) {
         final int BYTE_PATTERNS = 256;
@@ -165,9 +161,9 @@ public class CRC16 implements Checksum {
     }
 
     /**
-     * byte8 で指定される 1バイトのデータで crcの値を更新する。
+     * Updates the CRC value with 1-byte data specified by {@code byte8}.
      *
-     * @param byte8 crcを更新する 1バイトのデータ
+     * @param byte8 1-byte data to update CRC
      */
     @Override
     public void update(int byte8) {
@@ -176,9 +172,9 @@ public class CRC16 implements Checksum {
     }
 
     /**
-     * buffer で指定したバイト配列で crc の値を更新する。
+     * Updates the CRC value with the byte array specified by {@code buffer}.
      *
-     * @param buffer crcを更新する データを持つバイト配列
+     * @param buffer byte array containing data to update CRC
      */
     @Override
     public void update(byte[] buffer) {
@@ -186,11 +182,11 @@ public class CRC16 implements Checksum {
     }
 
     /**
-     * buffer で指定したバイト配列で crc の値を更新する。
+     * Updates the CRC value with the byte array specified by {@code buffer}.
      *
-     * @param buffer crcを更新する データを持つバイト配列
-     * @param index データの開始位置
-     * @param length チェックサムの更新に使うバイト数
+     * @param buffer byte array containing data to update CRC
+     * @param index starting position of data
+     * @param length number of bytes used to update checksum
      */
     @Override
     public void update(byte[] buffer, int index, int length) {
@@ -220,7 +216,7 @@ public class CRC16 implements Checksum {
     }
 
     /**
-     * crc 値を初期値に設定しなおす。
+     * Resets the CRC value to the initial value.
      */
     @Override
     public void reset() {
@@ -228,11 +224,10 @@ public class CRC16 implements Checksum {
     }
 
     /**
-     * crc 値を得る。
-     * crc 値は 2バイトの値であり、
-     * 0x0000〜0xFFFFにマップされる。
+     * Gets the CRC value.
+     * The CRC value is a 2-byte value, mapped to 0x0000 to 0xFFFF.
      *
-     * @return crc 値
+     * @return CRC value
      */
     @Override
     public long getValue() {
@@ -240,9 +235,10 @@ public class CRC16 implements Checksum {
     }
 
     /**
-     * CRC値算出用の 表を作成する。
+     * Creates a table for CRC value calculation.
      *
-     * @param poly CRC算出用の多項式
+     * @param poly polynomial for CRC calculation
+     * @return CRC calculation table
      */
     public static int[] makeCrcTable(int poly) {
         final int BYTE_PATTERNS = 256;

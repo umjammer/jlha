@@ -34,18 +34,17 @@ import java.util.zip.Checksum;
 
 
 /**
- * LHAで使用される 単純な 1バイトのチェックサム値を
- * 算出するためのクラス。
+ * Class for calculating simple 1-byte checksum values used in LHA.
  *
  * <pre>
  * -- revision history --
  * $Log: LhaChecksum.java,v $
  * Revision 1.0  2002/08/05 00:00:00  dangan
  * add to version control
- * [maintanance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
+ * [maintenance]
+ *     Source cleanup.
+ *     Eliminated tabs.
+ *     Updated license text.
  *
  * </pre>
  *
@@ -55,12 +54,12 @@ import java.util.zip.Checksum;
 public class LhaChecksum implements Checksum {
 
     /**
-     * チェックサム値
+     * Checksum value
      */
     private int checksum;
 
     /**
-     * 新しい チェックサムクラスを作成する。
+     * Constructs a new checksum object.
      */
     public LhaChecksum() {
         super();
@@ -68,9 +67,9 @@ public class LhaChecksum implements Checksum {
     }
 
     /**
-     * byte8 で指定した 1バイトのデータで チェックサム値を更新する。
+     * Updates the checksum value with the 1-byte data specified by {@code byte8}.
      *
-     * @param byte8 チェックサムを更新する1バイトのデータ
+     * @param byte8 1-byte data to update checksum
      */
     @Override
     public void update(int byte8) {
@@ -78,12 +77,10 @@ public class LhaChecksum implements Checksum {
     }
 
     /**
-     * buffer で指定したバイト配列で チェックサム値を更新する。
-     * このメソッドは
-     * update( buffer, 0, buffer.length )
-     * と同等。
+     * Updates the checksum value with the byte array specified by {@code buffer}.
+     * This method is equivalent to {@code update(buffer, 0, buffer.length)}.
      *
-     * @param buffer チェックサムを更新するデータを持つバイト配列
+     * @param buffer byte array containing data to update checksum
      */
     @Override
     public void update(byte[] buffer) {
@@ -91,11 +88,11 @@ public class LhaChecksum implements Checksum {
     }
 
     /**
-     * buffer で指定したバイト配列で チェックサム値を更新する。
+     * Updates the checksum value with the byte array specified by {@code buffer}.
      *
-     * @param buffer チェックサムを更新するデータを持つバイト配列
-     * @param index データの開始位置
-     * @param length チェックサムの更新に使うバイト数
+     * @param buffer byte array containing data to update checksum
+     * @param index starting position of data
+     * @param length number of bytes used to update checksum
      */
     @Override
     public void update(byte[] buffer, int index, int length) {
@@ -104,7 +101,7 @@ public class LhaChecksum implements Checksum {
     }
 
     /**
-     * チェックサム値を初期値に設定しなおす。
+     * Resets the checksum value to the initial value.
      */
     @Override
     public void reset() {
@@ -112,11 +109,10 @@ public class LhaChecksum implements Checksum {
     }
 
     /**
-     * チェックサム値を得る。
-     * チェックサム値は 1バイトの値であり、
-     * 0x00〜0xFFにマップされる。
+     * Gets the checksum value.
+     * The checksum value is a 1-byte value, mapped to 0x00 to 0xFF.
      *
-     * @return チェックサム値
+     * @return checksum value
      */
     @Override
     public long getValue() {
