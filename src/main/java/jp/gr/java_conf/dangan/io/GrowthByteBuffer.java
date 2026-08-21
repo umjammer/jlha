@@ -297,8 +297,7 @@ public class GrowthByteBuffer {
                     byte[][] old = this.buffer;
                     this.buffer = new byte[Math.max(old.length * 2, need)][];
 
-                    for (int i = 0; i < last; i++)
-                        this.buffer[i] = old[i];
+                    System.arraycopy(old, 0, this.buffer, 0, last);
                 }
                 for (int i = last; i < need; i++)
                     this.buffer[i] = new byte[this.buffer[0].length];

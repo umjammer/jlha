@@ -53,7 +53,6 @@ import jp.gr.java_conf.dangan.io.BitOutputStream;
  *     source maintenance
  *     tab removal
  *     fix license statement
- *
  * </pre>
  *
  * @author $Author: dangan $

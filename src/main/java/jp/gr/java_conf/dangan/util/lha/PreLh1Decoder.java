@@ -118,7 +118,7 @@ public class PreLh1Decoder implements PreLzssDecoder {
             this.offHiLen = PreLh1Decoder.createLenList();
             try {
                 this.offHiTable = StaticHuffman.createTable(this.offHiLen);
-            } catch (BadHuffmanTableException exception) {
+            } catch (BadHuffmanTableException ignore) {
             }
             this.offHiTableBits = Bits.len(this.offHiTable.length - 1);
         } else {

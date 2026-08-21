@@ -103,7 +103,6 @@ import java.util.Properties;
  *     Source cleanup.
  *     Eliminated tabs.
  *     Updated license text.
- *
  * </pre>
  *
  * @author $Author: dangan $
@@ -136,7 +135,7 @@ public class LhaImmediateOutputStream extends OutputStream {
     /**
      * Header position
      */
-    private long headerpos;
+    private long headerPos;
 
     /**
      * For CRC value calculation
@@ -237,8 +236,8 @@ public class LhaImmediateOutputStream extends OutputStream {
      * @param file instance of {@link RandomAccessFile}.
      *             Must satisfy:
      *             <ul>
-     *             <li>Must not be already closed.
-     *             <li>Must be instantiated with mode "rw" in constructor to enable reading and writing.
+     *             <li>Must not be already closed.</li>
+     *             <li>Must be instantiated with mode "rw" in constructor to enable reading and writing.</li>
      *             </ul>
      * @see LhaProperty#getProperties()
      */
@@ -258,8 +257,8 @@ public class LhaImmediateOutputStream extends OutputStream {
      * @param file     instance of {@link RandomAccessFile}.
      *                 Must satisfy:
      *                 <ul>
-     *                 <li>Must not be already closed.
-     *                 <li>Must be instantiated with mode "rw" in constructor to enable reading and writing.
+     *                 <li>Must not be already closed.</li>
+     *                 <li>Must be instantiated with mode "rw" in constructor to enable reading and writing.</li>
      *                 </ul>
      * @param property properties containing generator expressions of encoders corresponding to each compression format
      * @see LhaProperty
@@ -275,7 +274,6 @@ public class LhaImmediateOutputStream extends OutputStream {
         } else {
             throw new NullPointerException("property");
         }
-
     }
 
     /**
@@ -284,8 +282,8 @@ public class LhaImmediateOutputStream extends OutputStream {
      * @param file     instance of {@link RandomAccessFile}.
      *                 Must satisfy:
      *                 <ul>
-     *                 <li>Must not be already closed.
-     *                 <li>Must be instantiated with mode "rw" in constructor to enable reading and writing.
+     *                 <li>Must not be already closed.</li>
+     *                 <li>Must be instantiated with mode "rw" in constructor to enable reading and writing.</li>
      *                 </ul>
      * @param property properties containing generator expressions of encoders corresponding to each compression format
      */
@@ -295,7 +293,7 @@ public class LhaImmediateOutputStream extends OutputStream {
 
         this.out = null;
         this.header = null;
-        this.headerpos = -1;
+        this.headerPos = -1;
         this.crc = new CRC16();
         this.property = property;
     }
@@ -428,9 +426,9 @@ public class LhaImmediateOutputStream extends OutputStream {
      * @param header instance of {@link LhaHeader} having information about the entry to write
      * @throws IOException              if an I/O error occurs
      * @throws IllegalArgumentException <ol>
-     *                                  <li>if {@code header.getOriginalSize()} returns {@link LhaHeader#UNKNOWN}
-     *                                  <li>if {@code header.getCompressedSize()} returns {@link LhaHeader#UNKNOWN}
-     *                                  <li>if {@code header.getCRC()} returns {@link LhaHeader#UNKNOWN}
+     *                                  <li>if {@code header.getOriginalSize()} returns {@link LhaHeader#UNKNOWN}</li>
+     *                                  <li>if {@code header.getCompressedSize()} returns {@link LhaHeader#UNKNOWN}</li>
+     *                                  <li>if {@code header.getCRC()} returns {@link LhaHeader#UNKNOWN}</li>
      *                                  </ol>
      * @throws IllegalStateException    if previous entry has not been closed by {@link #closeEntry()}
      */
@@ -441,7 +439,7 @@ public class LhaImmediateOutputStream extends OutputStream {
             if (header.getOriginalSize() != LhaHeader.UNKNOWN && header.getCompressedSize() != LhaHeader.UNKNOWN
                     && header.getCRC() != LhaHeader.UNKNOWN) {
 
-                this.headerpos = this.archive.getFilePointer();
+                this.headerPos = this.archive.getFilePointer();
 
                 this.encoding = this.property.getProperty("lha.encoding");
                 if (this.encoding == null) {
@@ -481,7 +479,7 @@ public class LhaImmediateOutputStream extends OutputStream {
             if (header.getOriginalSize() != LhaHeader.UNKNOWN) {
 
                 this.crc.reset();
-                this.headerpos = this.archive.getFilePointer();
+                this.headerPos = this.archive.getFilePointer();
                 this.header = (LhaHeader) header.clone();
                 this.header.setCompressedSize(0);
                 this.header.setCRC(0);
@@ -522,14 +520,14 @@ public class LhaImmediateOutputStream extends OutputStream {
             if (this.header != null) {
 
                 long pos = this.archive.getFilePointer();
-                long size = (pos - this.headerpos - this.header.getBytes(this.encoding).length);
+                long size = (pos - this.headerPos - this.header.getBytes(this.encoding).length);
 
                 this.header.setCompressedSize(size);
                 if (this.header.getCRC() != LhaHeader.NO_CRC) {
                     this.header.setCRC((int) this.crc.getValue());
                 }
 
-                this.archive.seek(this.headerpos);
+                this.archive.seek(this.headerPos);
                 if (this.header.getCompressMethod().equals(CompressMethod.LH0)
                         || this.header.getCompressMethod().equals(CompressMethod.LHD)
                         || this.header.getCompressMethod().equals(CompressMethod.LZ4)

@@ -218,7 +218,7 @@ public class BitOutputStream extends OutputStream {
      * @throws IOException if an I/O error occurs
      */
     public void writeBit(int data) throws IOException {
-        this.bitBuffer |= (data & 0x00000001) << 31 - this.bitCount;
+        this.bitBuffer |= (data & 0x0000_0001) << 31 - this.bitCount;
         this.bitCount++;
 
         if (32 <= this.bitCount)
@@ -254,12 +254,12 @@ public class BitOutputStream extends OutputStream {
         while (0 < count) {
             int available = 32 - this.bitCount;
             if (count < available) {
-                this.bitBuffer |= (data & (0xFFFFFFFF >>> 32 - count)) << available - count;
+                this.bitBuffer |= (data & (0xffff_ffff >>> 32 - count)) << available - count;
                 this.bitCount += count;
                 count = 0;
             } else {
                 count -= available;
-                this.bitBuffer |= data >> count & (0xFFFFFFFF >>> 32 - available);
+                this.bitBuffer |= data >> count & (0xffff_ffff >>> 32 - available);
                 this.writeOutBitBuffer();
             }
         }

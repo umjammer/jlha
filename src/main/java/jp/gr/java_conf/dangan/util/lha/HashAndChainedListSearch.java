@@ -83,11 +83,11 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
      * and the second half is the buffer containing data to be compressed.
      * Only read access is permitted within implementations of {@link LzssSearchMethod}.
      */
-    private final byte[] TextBuffer;
+    private final byte[] textBuffer;
 
     /**
      * Dictionary limit position.
-     * When there is no data in the dictionary area in the first half of {@link #TextBuffer},
+     * When there is no data in the dictionary area in the first half of {@link #textBuffer},
      * this prevents compression from using undefined data (0 in Java) in the dictionary area.
      */
     private int dictionaryLimit;
@@ -99,7 +99,7 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
 
     /**
      * Hash table.
-     * Index is hash value, content is position in {@link #TextBuffer}.
+     * Index is hash value, content is position in {@link #textBuffer}.
      */
     private final int[] hashTable;
 
@@ -129,50 +129,50 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
      * Constructs a {@link LzssSearchMethod} using hash and linked list.<br>
      * Default hash method and search attempt limit are used.
      *
-     * @param DictionarySize dictionary size
-     * @param MaxMatch maximum match length
-     * @param Threshold threshold between compression and non-compression
-     * @param TextBuffer buffer for applying LZSS compression
+     * @param dictionarySize dictionary size
+     * @param maxMatch maximum match length
+     * @param threshold threshold between compression and non-compression
+     * @param textBuffer buffer for applying LZSS compression
      */
-    public HashAndChainedListSearch(int DictionarySize, int MaxMatch, int Threshold, byte[] TextBuffer) {
-        this(DictionarySize, MaxMatch, Threshold, TextBuffer, HashDefault.class.getName(), 256);
+    public HashAndChainedListSearch(int dictionarySize, int maxMatch, int threshold, byte[] textBuffer) {
+        this(dictionarySize, maxMatch, threshold, textBuffer, HashDefault.class.getName(), 256);
     }
 
     /**
      * Constructs a {@link LzssSearchMethod} using hash and linked list.<br>
      * Default hash method is used.
      *
-     * @param DictionarySize dictionary size
-     * @param MaxMatch maximum match length
-     * @param Threshold threshold between compression and non-compression
-     * @param TextBuffer buffer for applying LZSS compression
-     * @param SearchLimitCount upper limit on search attempts
+     * @param dictionarySize dictionary size
+     * @param maxMatch maximum match length
+     * @param threshold threshold between compression and non-compression
+     * @param textBuffer buffer for applying LZSS compression
+     * @param searchLimitCount upper limit on search attempts
      *
      * @exception IllegalArgumentException if {@code searchLimitCount} is 0 or less
      */
-    public HashAndChainedListSearch(int DictionarySize, int MaxMatch, int Threshold, byte[] TextBuffer, int SearchLimitCount) {
-        this(DictionarySize, MaxMatch, Threshold, TextBuffer, HashDefault.class.getName(), SearchLimitCount);
+    public HashAndChainedListSearch(int dictionarySize, int maxMatch, int threshold, byte[] textBuffer, int searchLimitCount) {
+        this(dictionarySize, maxMatch, threshold, textBuffer, HashDefault.class.getName(), searchLimitCount);
     }
 
     /**
      * Constructs a {@link LzssSearchMethod} using hash and linked list.<br>
      * Default search attempt limit is used.
      *
-     * @param DictionarySize dictionary size
-     * @param MaxMatch maximum match length
-     * @param Threshold threshold between compression and non-compression
-     * @param TextBuffer buffer for applying LZSS compression
-     * @param HashMethodClassName class name providing the {@link HashMethod}
-     * @exception NoClassDefFoundError if the class specified by {@code HashMethodClassName} is not found.
-     * @exception InstantiationError if an instance cannot be created because the class specified by {@code HashMethodClassName} is an abstract class.
-     * @exception NoSuchMethodError if the class specified by {@code HashMethodClassName} does not have the constructor {@code HashMethod(byte[])}.
+     * @param dictionarySize dictionary size
+     * @param maxMatch maximum match length
+     * @param threshold threshold between compression and non-compression
+     * @param textBuffer buffer for applying LZSS compression
+     * @param hashMethodClassName class name providing the {@link HashMethod}
+     * @exception NoClassDefFoundError if the class specified by {@code hashMethodClassName} is not found.
+     * @exception InstantiationError if an instance cannot be created because the class specified by {@code hashMethodClassName} is an abstract class.
+     * @exception NoSuchMethodError if the class specified by {@code hashMethodClassName} does not have the constructor {@code HashMethod(byte[])}.
      */
-    public HashAndChainedListSearch(int DictionarySize,
-            int MaxMatch,
-            int Threshold,
-            byte[] TextBuffer,
-            String HashMethodClassName) {
-        this(DictionarySize, MaxMatch, Threshold, TextBuffer, HashMethodClassName, 256);
+    public HashAndChainedListSearch(int dictionarySize,
+            int maxMatch,
+            int threshold,
+            byte[] textBuffer,
+            String hashMethodClassName) {
+        this(dictionarySize, maxMatch, threshold, textBuffer, hashMethodClassName, 256);
     }
 
     /**
@@ -201,7 +201,7 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
             this.dictionarySize = dictionarySize;
             this.maxMatch = maxMatch;
             this.threshold = threshold;
-            this.TextBuffer = textBuffer;
+            this.textBuffer = textBuffer;
             this.dictionaryLimit = this.dictionarySize;
             this.searchLimitCount = searchLimitCount;
 
@@ -236,7 +236,7 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
      * Registers the data pattern starting from {@code position}
      * into the search mechanism consisting of hash and linked list.
      *
-     * @param position start position of the data pattern in {@link #TextBuffer}
+     * @param position start position of the data pattern in {@link #textBuffer}
      */
     @Override
     public void put(int position) {
@@ -252,7 +252,7 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
      * the data pattern starting from {@code position} into the search mechanism
      * consisting of hash and linked list.
      *
-     * @param position start position of the data pattern in {@link #TextBuffer}.
+     * @param position start position of the data pattern in {@link #textBuffer}.
      *
      * @return If a match is found, a value holding information of the match position and match length
      *         generated by {@link LzssOutputStream#createSearchReturn};
@@ -280,7 +280,7 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
 
         // Main loop
         // Traverse at most 2 linked lists starting from offhash and poshash.
-        byte[] buf = this.TextBuffer;
+        byte[] buf = this.textBuffer;
         int max = position + this.maxMatch;
         int s;
         int p;
@@ -344,7 +344,7 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
      * Searches registered data patterns in the search mechanism using hash and linked list
      * and gets the one with the longest match to the data pattern starting from {@code position}.
      *
-     * @param position start position of the data pattern in {@link #TextBuffer}.
+     * @param position start position of the data pattern in {@link #textBuffer}.
      * @param lastPutPos start position of the last registered data pattern.
      *
      * @return If a match is found, a value holding information of the match position and match length
@@ -363,8 +363,8 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
         int scanpos = position - 1;
         int scanlimit = Math.max(this.dictionaryLimit, lastPutPos);
 
-        byte[] buf = this.TextBuffer;
-        int max = Math.min(this.TextBuffer.length, position + this.maxMatch);
+        byte[] buf = this.textBuffer;
+        int max = Math.min(this.textBuffer.length, position + this.maxMatch);
         int s;
         int p;
         int len = 0;
@@ -386,7 +386,7 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
         }
 
         // Search from the search mechanism using hash and linked list.
-        if (this.hashMethod.hashRequires() < this.TextBuffer.length - position) {
+        if (this.hashMethod.hashRequires() < this.textBuffer.length - position) {
             int maxmatch;
             scanlimit = Math.max(this.dictionaryLimit, position - this.dictionarySize);
 
@@ -437,7 +437,7 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
                 if (0 < offset && matchlen < this.hashMethod.hashRequires() + offset) {
                     offset = 0;
                     maxmatch = this.hashMethod.hashRequires() + offset - 1;
-                    max = Math.min(this.TextBuffer.length, position + maxmatch);
+                    max = Math.min(this.textBuffer.length, position + maxmatch);
                     offhash = poshash;
                 } else {
                     break;
@@ -454,9 +454,9 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
     }
 
     /**
-     * When sliding data in {@link #TextBuffer} up to {@code position} forward,
+     * When sliding data in {@link #textBuffer} up to {@code position} forward,
      * performs the process of shifting data in {@link LzssSearchMethod} forward
-     * accordingly so as not to contradict data in {@link #TextBuffer}.
+     * accordingly so as not to contradict data in {@link #textBuffer}.
      */
     @Override
     public void slide() {
@@ -512,9 +512,9 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
         int scanpos = this.hashTable[this.hashMethod.hash(position)];
 
         while (scanlimit < scanpos && 0 < searchCount--) {
-            if (this.TextBuffer[scanpos + matchlen] == this.TextBuffer[position + matchlen]) {
+            if (this.textBuffer[scanpos + matchlen] == this.textBuffer[position + matchlen]) {
                 int len = 0;
-                while (this.TextBuffer[scanpos + len] == this.TextBuffer[position + len]) {
+                while (this.textBuffer[scanpos + len] == this.textBuffer[position + len]) {
                     if (maxmatch <= ++len)
                         break;
                 }

@@ -48,7 +48,7 @@ import jp.gr.java_conf.dangan.lang.reflect.Factory;
  * [change]
  *     Modified flush() to output all write()'d data to the connected PostLzssEncoder.
  * [maintenance]
- *     Fixed slide width to always be DictionarySize bytes.
+ *     Fixed slide width to always be dictionarySize bytes.
  *
  * Revision 1.1  2002/10/20 00:00:00  dangan
  * [bug fix]
@@ -57,7 +57,7 @@ import jp.gr.java_conf.dangan.lang.reflect.Factory;
  *     the immediately following 1 byte was corrupted.
  *     Fixed performing searchAndPut that corrupted the search mechanism
  *     because putLength() was not considered during flush().
- *     Fixed MaxMatch bytes of data at the end of TextBuffer not being output during flush().
+ *     Fixed maxMatch bytes of data at the end of TextBuffer not being output during flush().
  *
  * Revision 1.0  2002/07/25 00:00:00  dangan
  * add to version control
@@ -68,7 +68,6 @@ import jp.gr.java_conf.dangan.lang.reflect.Factory;
  *     source maintenance
  *     tab removal
  *     license comment update
- *
  * </pre>
  *
  * @author $Author: dangan $
@@ -96,19 +95,19 @@ public class LzssOutputStream extends OutputStream {
     /**
      * LZSS dictionary size.
      */
-    private final int DictionarySize;
+    private final int dictionarySize;
 
     /**
-     * Threshold used for LZSS compression.
+     * threshold used for LZSS compression.
      * If the match length is greater than or equal to this value, compression code is output.
      */
-    private final int Threshold;
+    private final int threshold;
 
     /**
      * Value used for LZSS compression.
      * Indicates maximum match length.
      */
-    private final int MaxMatch;
+    private final int maxMatch;
 
     /**
      * Buffer for applying LZSS compression.
@@ -186,39 +185,39 @@ public class LzssOutputStream extends OutputStream {
      * with LZSS and outputs the compressed data to {@code encoder}.
      *
      * @param encoder                   LZSS compressed data output stream
-     * @param LzssSearchMethodClassName class name including package name indicating the implementation of {@link LzssSearchMethod}
-     * @param LzssSearchMethodExtraArguments extra arguments for the {@link LzssSearchMethod} constructor
-     * @throws NoClassDefFoundError if the class specified by {@code LzssSearchMethodClassName} is not found.
-     * @throws InstantiationError   if an instance cannot be created because the class specified by {@code LzssSearchMethodClassName} is an abstract class.
-     * @throws NoSuchMethodError    if the class specified by {@code LzssSearchMethodClassName} does not have the constructor {@code LzssSearchMethod(int, int, int, byte[])}.
+     * @param lzssSearchMethodClassName class name including package name indicating the implementation of {@link LzssSearchMethod}
+     * @param lzssSearchMethodExtraArguments extra arguments for the {@link LzssSearchMethod} constructor
+     * @throws NoClassDefFoundError if the class specified by {@code lzssSearchMethodClassName} is not found.
+     * @throws InstantiationError   if an instance cannot be created because the class specified by {@code lzssSearchMethodClassName} is an abstract class.
+     * @throws NoSuchMethodError    if the class specified by {@code lzssSearchMethodClassName} does not have the constructor {@code LzssSearchMethod(int, int, int, byte[])}.
      */
     public LzssOutputStream(PostLzssEncoder encoder,
-                            String LzssSearchMethodClassName,
-                            Object[] LzssSearchMethodExtraArguments) {
+                            String lzssSearchMethodClassName,
+                            Object[] lzssSearchMethodExtraArguments) {
 
-        this.DictionarySize = encoder.getDictionarySize();
-        this.MaxMatch = encoder.getMaxMatch();
-        this.Threshold = encoder.getThreshold();
+        this.dictionarySize = encoder.getDictionarySize();
+        this.maxMatch = encoder.getMaxMatch();
+        this.threshold = encoder.getThreshold();
 
         this.encoder = encoder;
-        this.TextBuffer = new byte[this.DictionarySize * 2 + this.MaxMatch];
-        this.writtenPos = this.DictionarySize;
-        this.putPos = this.DictionarySize;
-        this.searchPos = this.DictionarySize;
-        this.DictionaryLimit = this.DictionarySize;
+        this.TextBuffer = new byte[this.dictionarySize * 2 + this.maxMatch];
+        this.writtenPos = this.dictionarySize;
+        this.putPos = this.dictionarySize;
+        this.searchPos = this.dictionarySize;
+        this.DictionaryLimit = this.dictionarySize;
         this.lastsearchret = LzssOutputStream.NEEDSEARCH;
 
-        Object[] arguments = new Object[LzssSearchMethodExtraArguments.length + 4];
-        arguments[0] = this.DictionarySize;
-        arguments[1] = this.MaxMatch;
-        arguments[2] = this.Threshold;
+        Object[] arguments = new Object[lzssSearchMethodExtraArguments.length + 4];
+        arguments[0] = this.dictionarySize;
+        arguments[1] = this.maxMatch;
+        arguments[2] = this.threshold;
         arguments[3] = this.TextBuffer;
-        for (int i = 0; i < LzssSearchMethodExtraArguments.length; i++) {
-            arguments[4 + i] = LzssSearchMethodExtraArguments[i];
+        for (int i = 0; i < lzssSearchMethodExtraArguments.length; i++) {
+            arguments[4 + i] = lzssSearchMethodExtraArguments[i];
         }
 
         try {
-            this.method = (LzssSearchMethod) Factory.createInstance(LzssSearchMethodClassName, arguments);
+            this.method = (LzssSearchMethod) Factory.createInstance(lzssSearchMethodClassName, arguments);
         } catch (ClassNotFoundException exception) {
             throw new NoClassDefFoundError(exception.getMessage());
         } catch (InvocationTargetException exception) {
@@ -298,16 +297,16 @@ public class LzssOutputStream extends OutputStream {
      * At this time, near the end of the output data, search uses {@link LzssSearchMethod#search(int, int)},
      * which decreases compression speed.
      * Also, the compression ratio changes compared to when not calling {@link #flush()}.
-     * This is because near the flushed position, data patterns shorter than {@link #MaxMatch}
+     * This is because near the flushed position, data patterns shorter than {@link #maxMatch}
      * are used for pattern searching, resulting in incomplete search results.
      * While this change in compression ratio usually only causes a slight degradation,
      * code such as the following will not perform any LZ compression at all:
      *
      * <pre>
-     *  public void wrongCompress( InputStream in, LzssOutputSteam out ){
+     *  public void wrongCompress(InputStream in, LzssOutputSteam out) {
      *      int r;
-     *      while( 0 <= r = in.read() ){
-     *          out.write( r );
+     *      while (0 <= r = in.read()) {
+     *          out.write(r);
      *          out.flush();
      *      }
      *  }
@@ -322,7 +321,7 @@ public class LzssOutputStream extends OutputStream {
     @Override
     public void flush() throws IOException {
         this.encode(false);
-        if (this.DictionarySize * 2 <= this.putPos) {
+        if (this.dictionarySize * 2 <= this.putPos) {
             this.slide();
             if (this.searchPos < this.writtenPos) {
                 this.encode(false);
@@ -340,7 +339,7 @@ public class LzssOutputStream extends OutputStream {
      */
     @Override
     public void close() throws IOException {
-        while (this.DictionarySize <= this.writtenPos) {
+        while (this.dictionarySize <= this.writtenPos) {
             this.encode(true);
             if (this.writtenPos <= this.searchPos) {
                 break;
@@ -364,7 +363,7 @@ public class LzssOutputStream extends OutputStream {
      */
     private void encode(boolean last) throws IOException {
 
-        int end = Math.min(this.TextBuffer.length - this.MaxMatch, this.writtenPos - (last ? 0 : this.method.putRequires()));
+        int end = Math.min(this.TextBuffer.length - this.maxMatch, this.writtenPos - (last ? 0 : this.method.putRequires()));
         if (this.searchPos < end) {
 
             // Pre-processing
@@ -375,7 +374,7 @@ public class LzssOutputStream extends OutputStream {
                     this.method.put(++this.putPos);
 
                     // If we only put() data patterns that couldn't be put() in the immediately preceding flush(), return
-                    if (this.DictionarySize * 2 <= this.putPos) {
+                    if (this.dictionarySize * 2 <= this.putPos) {
                         return;
                     }
                 }
@@ -403,7 +402,7 @@ public class LzssOutputStream extends OutputStream {
                     matchlen = this.writtenPos - this.searchPos;
                 }
 
-                if (lastmatchlen < matchlen || lastmatchlen < this.Threshold) {
+                if (lastmatchlen < matchlen || lastmatchlen < this.threshold) {
                     this.encoder.writeCode(0xFF & this.TextBuffer[this.searchPos - 1]);
                     if (end <= this.searchPos) {
                         this.putPos = this.searchPos;
@@ -411,7 +410,7 @@ public class LzssOutputStream extends OutputStream {
                         break;
                     }
                 } else {
-                    this.encoder.writeCode(256 + lastmatchlen - this.Threshold);
+                    this.encoder.writeCode(256 + lastmatchlen - this.threshold);
                     this.encoder.writeOffset(lastmatchoff);
 
                     lastmatchlen--;
@@ -450,7 +449,7 @@ public class LzssOutputStream extends OutputStream {
 
         // Exclusively for flush()
         // Advance only searchPos while keeping putPos as is.
-        end = Math.min(this.TextBuffer.length - this.MaxMatch, this.writtenPos);
+        end = Math.min(this.TextBuffer.length - this.maxMatch, this.writtenPos);
         if (!last && this.searchPos < end) {
             if (this.lastsearchret == LzssOutputStream.NEEDSEARCH) {
                 this.lastsearchret = this.method.search(this.searchPos, this.putPos);
@@ -473,10 +472,10 @@ public class LzssOutputStream extends OutputStream {
                     matchlen = this.writtenPos - this.searchPos;
                 }
 
-                if (lastmatchlen < matchlen || lastmatchlen < this.Threshold) {
+                if (lastmatchlen < matchlen || lastmatchlen < this.threshold) {
                     this.encoder.writeCode(0xFF & this.TextBuffer[this.searchPos - 1]);
                 } else {
-                    this.encoder.writeCode(256 + lastmatchlen - this.Threshold);
+                    this.encoder.writeCode(256 + lastmatchlen - this.threshold);
                     this.encoder.writeOffset(lastmatchoff);
 
                     this.searchPos += lastmatchlen - 1;
@@ -496,21 +495,21 @@ public class LzssOutputStream extends OutputStream {
      * Shifts data in {@link #TextBuffer} up to position forward.
      */
     private void slide() {
-        this.DictionaryLimit = Math.max(0, this.DictionaryLimit - this.DictionarySize);
+        this.DictionaryLimit = Math.max(0, this.DictionaryLimit - this.dictionarySize);
 
         this.method.slide();
 
         if (this.lastsearchret != LzssOutputStream.NEEDSEARCH) {
             int matchlen = LzssOutputStream.getMatchLen(this.lastsearchret);
             int matchpos = LzssOutputStream.getMatchPos(this.lastsearchret);
-            this.lastsearchret = LzssOutputStream.createSearchReturn(matchlen, matchpos - this.DictionarySize);
+            this.lastsearchret = LzssOutputStream.createSearchReturn(matchlen, matchpos - this.dictionarySize);
         }
 
-        this.writtenPos -= this.DictionarySize;
-        this.searchPos -= this.DictionarySize;
-        this.putPos -= this.DictionarySize;
+        this.writtenPos -= this.dictionarySize;
+        this.searchPos -= this.dictionarySize;
+        this.putPos -= this.dictionarySize;
         for (int i = this.DictionaryLimit; i < this.writtenPos; i++)
-            this.TextBuffer[i] = this.TextBuffer[i + this.DictionarySize];
+            this.TextBuffer[i] = this.TextBuffer[i + this.dictionarySize];
     }
 
     /**
@@ -548,7 +547,7 @@ public class LzssOutputStream extends OutputStream {
      */
     public static int getMatchPos(int searchret) {
         if (0 <= searchret)
-            return searchret & 0x3FFFFF;
+            return searchret & 0x3f_ffff;
         else
             return -1;
     }

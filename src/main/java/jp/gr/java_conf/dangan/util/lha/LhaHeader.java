@@ -36,8 +36,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Properties;
 import java.util.Vector;
 
@@ -117,79 +119,79 @@ public class LhaHeader implements Cloneable {
      * Size before compression.
      * -1 means the size is unknown because it is before processing.
      */
-    private long OriginalSize;
+    private long originalSize;
 
     /**
      * Last modified date and time.
      * Last modified date and time of the compressed file.
      */
-    private Date LastModified;
+    private Date lastModified;
 
     /**
      * Path name.
      * {@link File#separator} is used as the path delimiter.
      */
-    private String Path;
+    private String path;
 
     /**
      * CRC16 value.
      * -1 means CRC16 value is unknown because it is before processing.
      * -2 means there is no CRC16 value in a level 0 header.
      */
-    private int CRC;
+    private int crc;
 
     /**
      * Compression method string.
      */
-    private String Method;
+    private String method;
 
     /**
      * Size after compression.
      * -1 means the size is unknown because it is before processing.
      */
-    private long CompressedSize;
+    private long compressedSize;
 
     /**
      * Header level.
      * One of 0, 1, 2, 3.
      */
-    private int HeaderLevel;
+    private int headerLevel;
 
     /**
      * OS that created the header.
      */
-    private byte OSID;
+    private byte osid;
 
     /**
      * Stores extra data in the base header if present in level 0 or level 1 headers.
      */
-    private byte[] ExtraData;
+    private byte[] extraData;
 
     /**
      * Stores DOS file attributes in level 0 headers.
      */
-    private byte Level0DosAttribute;
+    private byte level0DosAttribute;
 
     /**
      * Stores extended headers having information not read by {@link LhaHeader}.
      */
-    private Vector<byte[]> ExtraExtHeaders;
+    private Vector<byte[]> extraExtHeaders;
 
     /**
      * Initializes values of {@link LhaHeader}.
      */
     private LhaHeader() {
-        this.Method = CompressMethod.LH5;
-        this.OriginalSize = LhaHeader.UNKNOWN;
-        this.CompressedSize = LhaHeader.UNKNOWN;
-        this.LastModified = null;
-        this.HeaderLevel = 2;
-        this.Path = "";
-        this.CRC = LhaHeader.UNKNOWN;
-        this.OSID = (byte) 'J';
-        this.ExtraData = null;
-        this.Level0DosAttribute = 0x20;
-        this.ExtraExtHeaders = null;
+        this.method = CompressMethod.LH5;
+        this.originalSize = LhaHeader.UNKNOWN;
+        this.compressedSize = LhaHeader.UNKNOWN;
+        this.lastModified = null;
+        this.headerLevel = 2;
+        this.path = "";
+        this.crc = LhaHeader.UNKNOWN;
+        this.osid = (byte) 'J';
+        this.extraData = null;
+        this.level0DosAttribute = 0x20;
+        this.extraExtHeaders = null;
     }
 
     /**
@@ -219,11 +221,11 @@ public class LhaHeader implements Cloneable {
         this();
         if (path != null && !path.isEmpty() && date != null) {
             if (path.endsWith(File.separator)) {
-                this.Method = CompressMethod.LHD;
+                this.method = CompressMethod.LHD;
             }
 
-            this.Path = path;
-            this.LastModified = date;
+            this.path = path;
+            this.lastModified = date;
         } else if (path == null) {
             throw new NullPointerException("path");
         } else if (path.isEmpty()) {
@@ -294,7 +296,7 @@ public class LhaHeader implements Cloneable {
      * @return compression method string
      */
     public String getCompressMethod() {
-        return this.Method;
+        return this.method;
     }
 
     /**
@@ -305,7 +307,7 @@ public class LhaHeader implements Cloneable {
      * @see LhaHeader#UNKNOWN
      */
     public long getOriginalSize() {
-        return this.OriginalSize;
+        return this.originalSize;
     }
 
     /**
@@ -316,7 +318,7 @@ public class LhaHeader implements Cloneable {
      * @see LhaHeader#UNKNOWN
      */
     public long getCompressedSize() {
-        return this.CompressedSize;
+        return this.compressedSize;
     }
 
     /**
@@ -325,7 +327,7 @@ public class LhaHeader implements Cloneable {
      * @return last modified date and time of the data
      */
     public Date getLastModified() {
-        return new Date(this.LastModified.getTime());
+        return new Date(this.lastModified.getTime());
     }
 
     /**
@@ -334,7 +336,7 @@ public class LhaHeader implements Cloneable {
      * @return header level
      */
     public int getHeaderLevel() {
-        return this.HeaderLevel;
+        return this.headerLevel;
     }
 
     /**
@@ -346,7 +348,7 @@ public class LhaHeader implements Cloneable {
      * @see File#separator
      */
     public String getPath() {
-        return this.Path;
+        return this.path;
     }
 
     /**
@@ -362,7 +364,7 @@ public class LhaHeader implements Cloneable {
      * @see LhaHeader#NO_CRC
      */
     public int getCRC() {
-        return this.CRC;
+        return this.crc;
     }
 
     /**
@@ -371,7 +373,7 @@ public class LhaHeader implements Cloneable {
      * @return OS identifier
      */
     public byte getOSID() {
-        return this.OSID;
+        return this.osid;
     }
 
     /**
@@ -380,7 +382,7 @@ public class LhaHeader implements Cloneable {
      * @return extra data
      */
     protected byte[] getExtraData() {
-        return this.ExtraData.clone();
+        return this.extraData.clone();
     }
 
     /**
@@ -389,7 +391,7 @@ public class LhaHeader implements Cloneable {
      * @return DOS file attributes
      */
     protected byte getLevel0DosAttribute() {
-        return this.Level0DosAttribute;
+        return this.level0DosAttribute;
     }
 
     /**
@@ -398,7 +400,7 @@ public class LhaHeader implements Cloneable {
      * @return file name
      */
     private String getFileName() {
-        return this.Path.substring(this.Path.lastIndexOf(File.separatorChar) + 1);
+        return this.path.substring(this.path.lastIndexOf(File.separatorChar) + 1);
     }
 
     /**
@@ -407,7 +409,7 @@ public class LhaHeader implements Cloneable {
      * @return directory name
      */
     private String getDirName() {
-        return this.Path.substring(0, this.Path.lastIndexOf(File.separatorChar) + 1);
+        return this.path.substring(0, this.path.lastIndexOf(File.separatorChar) + 1);
     }
 
     /**
@@ -420,15 +422,15 @@ public class LhaHeader implements Cloneable {
      *                               <li>if file name is too long to fit in header in level 0, 1, or 2
      *                               <li>if common extended header is too large to output in level 1 or 2, hence there is no place to store header CRC
      *                               <li>if {@link #NO_CRC} (-2), a special value indicating no CRC information in level 0 headers, is set for non-level 0 headers
-     *                               <li>if {@code LastModified} is outside the range that can be represented in MS-DOS format in level 0 or 1
-     *                               <li>if {@code LastModified} is outside the range that can be represented in 4-byte time_t in level 2 or 3
-     *                               <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code OriginalSize}
-     *                               <li>if {@code OriginalSize} is negative
-     *                               <li>if {@code OriginalSize} cannot be represented as a 4-byte value in level 0, 1, or 3
-     *                               <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code CompressedSize}
-     *                               <li>if {@code CompressedSize} is negative
-     *                               <li>if {@code CompressedSize} cannot be represented as a 4-byte value in level 0, 1, or 3
-     *                               <li>if file size header is required because {@code OriginalSize} or {@code CompressedSize} exceeds 4-byte value in level 2, but file size header cannot be output because other extended headers are too large
+     *                               <li>if {@code lastModified} is outside the range that can be represented in MS-DOS format in level 0 or 1
+     *                               <li>if {@code lastModified} is outside the range that can be represented in 4-byte time_t in level 2 or 3
+     *                               <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code originalSize}
+     *                               <li>if {@code originalSize} is negative
+     *                               <li>if {@code originalSize} cannot be represented as a 4-byte value in level 0, 1, or 3
+     *                               <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code compressedSize}
+     *                               <li>if {@code compressedSize} is negative
+     *                               <li>if {@code compressedSize} cannot be represented as a 4-byte value in level 0, 1, or 3
+     *                               <li>if file size header is required because {@code originalSize} or {@code compressedSize} exceeds 4-byte value in level 2, but file size header cannot be output because other extended headers are too large
      *                               <li>if {@link #UNKNOWN} (-1), a special value indicating unknown CRC16 value, is set in CRC
      *                               <li>if header level is other than 0, 1, 2, or 3
      *                               </ol>
@@ -451,15 +453,15 @@ public class LhaHeader implements Cloneable {
      *                                      <li>if file name is too long to fit in header in level 0, 1, or 2
      *                                      <li>if common extended header is too large to output in level 1 or 2, hence there is no place to store header CRC
      *                                      <li>if {@link #NO_CRC} (-2), a special value indicating no CRC information in level 0 headers, is set for non-level 0 headers
-     *                                      <li>if {@code LastModified} is outside the range that can be represented in MS-DOS format in level 0 or 1
-     *                                      <li>if {@code LastModified} is outside the range that can be represented in 4-byte time_t in level 2 or 3
-     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code OriginalSize}
-     *                                      <li>if {@code OriginalSize} is negative
-     *                                      <li>if {@code OriginalSize} cannot be represented as a 4-byte value in level 0, 1, or 3
-     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code CompressedSize}
-     *                                      <li>if {@code CompressedSize} is negative
-     *                                      <li>if {@code CompressedSize} cannot be represented as a 4-byte value in level 0, 1, or 3
-     *                                      <li>if file size header is required because {@code OriginalSize} or {@code CompressedSize} exceeds 4-byte value in level 2, but file size header cannot be output because other extended headers are too large
+     *                                      <li>if {@code lastModified} is outside the range that can be represented in MS-DOS format in level 0 or 1
+     *                                      <li>if {@code lastModified} is outside the range that can be represented in 4-byte time_t in level 2 or 3
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code originalSize}
+     *                                      <li>if {@code originalSize} is negative
+     *                                      <li>if {@code originalSize} cannot be represented as a 4-byte value in level 0, 1, or 3
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code compressedSize}
+     *                                      <li>if {@code compressedSize} is negative
+     *                                      <li>if {@code compressedSize} cannot be represented as a 4-byte value in level 0, 1, or 3
+     *                                      <li>if file size header is required because {@code originalSize} or {@code compressedSize} exceeds 4-byte value in level 2, but file size header cannot be output because other extended headers are too large
      *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown CRC16 value, is set in CRC
      *                                      <li>if header level is other than 0, 1, 2, or 3
      *                                      </ol>
@@ -481,7 +483,7 @@ public class LhaHeader implements Cloneable {
         } else if (!method.startsWith("-") || !method.endsWith("-")) {
             throw new IllegalArgumentException("method must starts with '-' and ends with '-'");
         } else {
-            this.Method = method;
+            this.method = method;
         }
     }
 
@@ -497,7 +499,7 @@ public class LhaHeader implements Cloneable {
      */
     public void setOriginalSize(long size) {
         if (size != LhaHeader.UNKNOWN) {
-            this.OriginalSize = size;
+            this.originalSize = size;
         } else {
             throw new IllegalArgumentException("size must not LhaHeader.UNKNOWN( " + LhaHeader.UNKNOWN + " )");
         }
@@ -515,7 +517,7 @@ public class LhaHeader implements Cloneable {
      */
     public void setCompressedSize(long size) {
         if (size != LhaHeader.UNKNOWN) {
-            this.CompressedSize = size;
+            this.compressedSize = size;
         } else {
             throw new IllegalArgumentException("size must not LhaHeader.UNKNOWN( " + LhaHeader.UNKNOWN + " )");
         }
@@ -533,7 +535,7 @@ public class LhaHeader implements Cloneable {
      */
     public void setLastModified(Date date) {
         if (date != null) {
-            this.LastModified = date;
+            this.lastModified = date;
         } else {
             throw new NullPointerException("date");
         }
@@ -542,12 +544,12 @@ public class LhaHeader implements Cloneable {
     /**
      * Sets header level.<br>
      * Currently only 0, 1, 2, 3 can be set.<br>
-     * Note that changing the header level changes the maximum length of path and the restricted range of {@code LastModified}.
+     * Note that changing the header level changes the maximum length of path and the restricted range of {@code lastModified}.
      *
      * @param level header level
      */
     public void setHeaderLevel(int level) {
-        this.HeaderLevel = level;
+        this.headerLevel = level;
     }
 
     /**
@@ -567,7 +569,7 @@ public class LhaHeader implements Cloneable {
         } else if (path.isEmpty()) {
             throw new IllegalArgumentException("path must not empty.");
         } else {
-            this.Path = path;
+            this.path = path;
         }
     }
 
@@ -586,7 +588,7 @@ public class LhaHeader implements Cloneable {
      */
     public void setCRC(int crc) {
         if (crc != LhaHeader.UNKNOWN) {
-            this.CRC = crc;
+            this.crc = crc;
         } else {
             throw new IllegalArgumentException("crc must not LhaHeader.UNKNOWN( " + LhaHeader.UNKNOWN + " )");
         }
@@ -599,7 +601,7 @@ public class LhaHeader implements Cloneable {
      * @param id OS identifier
      */
     public void setOSID(byte id) {
-        this.OSID = id;
+        this.osid = id;
     }
 
     /**
@@ -611,7 +613,7 @@ public class LhaHeader implements Cloneable {
      * @param data extra information, or {@code null} if not outputting extra information
      */
     protected void setExtraData(byte[] data) {
-        this.ExtraData = data;
+        this.extraData = data;
     }
 
     /**
@@ -620,7 +622,7 @@ public class LhaHeader implements Cloneable {
      * @param attribute MS-DOS file attributes
      */
     protected void setLevel0DosAttribute(byte attribute) {
-        this.Level0DosAttribute = attribute;
+        this.level0DosAttribute = attribute;
     }
 
     /**
@@ -629,7 +631,7 @@ public class LhaHeader implements Cloneable {
      * @param filename file name
      */
     private void setFileName(String filename) {
-        this.Path = this.getDirName() + filename;
+        this.path = this.getDirName() + filename;
     }
 
     /**
@@ -638,7 +640,7 @@ public class LhaHeader implements Cloneable {
      * @param dirname directory name
      */
     private void setDirName(String dirname) {
-        this.Path = dirname + this.getFileName();
+        this.path = dirname + this.getFileName();
     }
 
     /**
@@ -667,23 +669,23 @@ public class LhaHeader implements Cloneable {
         int ExtraDataLength = HeaderSize - ExtraDataIndex;
 
         // Read header data
-        this.Method = new String(HeaderData, CompressMethodIndex, 5, encode);
-        this.CompressedSize = (LittleEndian.readInt(HeaderData, CompressedSizeIndex)) & 0xFFFFFFFFL;
-        this.OriginalSize = (LittleEndian.readInt(HeaderData, OriginalSizeIndex)) & 0xFFFFFFFFL;
-        this.LastModified = new MsdosDate(LittleEndian.readInt(HeaderData, LastModifiedIndex));
-        this.Level0DosAttribute = HeaderData[DosAttributeIndex];
-        this.HeaderLevel = HeaderData[HeaderLevelIndex] & 0xFF;
-        this.Path = new String(HeaderData, PathIndex, PathLength, encode);
-        this.Path = this.Path.replace('\\', File.separatorChar);
+        this.method = new String(HeaderData, CompressMethodIndex, 5, encode);
+        this.compressedSize = (LittleEndian.readInt(HeaderData, CompressedSizeIndex)) & 0xFFFFFFFFL;
+        this.originalSize = (LittleEndian.readInt(HeaderData, OriginalSizeIndex)) & 0xFFFFFFFFL;
+        this.lastModified = new MsdosDate(LittleEndian.readInt(HeaderData, LastModifiedIndex));
+        this.level0DosAttribute = HeaderData[DosAttributeIndex];
+        this.headerLevel = HeaderData[HeaderLevelIndex] & 0xFF;
+        this.path = new String(HeaderData, PathIndex, PathLength, encode);
+        this.path = this.path.replace('\\', File.separatorChar);
 
         if (CRCIndex + 2 <= HeaderSize) {
-            this.CRC = LittleEndian.readShort(HeaderData, CRCIndex);
+            this.crc = LittleEndian.readShort(HeaderData, CRCIndex);
             if (0 < ExtraDataLength) {
-                this.ExtraData = new byte[ExtraDataLength];
-                System.arraycopy(HeaderData, ExtraDataIndex, this.ExtraData, 0, ExtraDataLength);
+                this.extraData = new byte[ExtraDataLength];
+                System.arraycopy(HeaderData, ExtraDataIndex, this.extraData, 0, ExtraDataLength);
             }
         } else {
-            this.CRC = LhaHeader.NO_CRC;
+            this.crc = LhaHeader.NO_CRC;
         }
     }
 
@@ -713,17 +715,17 @@ public class LhaHeader implements Cloneable {
         int ExtraDataLength = BaseHeaderSize - ExtraDataIndex - 2;
 
         // Read base header data
-        this.Method = new String(HeaderData, CompressMethodIndex, 5, encode);
-        this.CompressedSize = (LittleEndian.readInt(HeaderData, SkipSizeIndex)) & 0xFFFFFFFFL;
-        this.OriginalSize = (LittleEndian.readInt(HeaderData, OriginalSizeIndex)) & 0xFFFFFFFFL;
-        this.LastModified = new MsdosDate(LittleEndian.readInt(HeaderData, LastModifiedIndex));
-        this.HeaderLevel = HeaderData[HeaderLevelIndex] & 0xFF;
-        this.Path = new String(HeaderData, FileNameIndex, FileNameLength, encode);
-        this.CRC = LittleEndian.readShort(HeaderData, CRCIndex);
-        this.OSID = HeaderData[OSIDIndex];
+        this.method = new String(HeaderData, CompressMethodIndex, 5, encode);
+        this.compressedSize = (LittleEndian.readInt(HeaderData, SkipSizeIndex)) & 0xFFFFFFFFL;
+        this.originalSize = (LittleEndian.readInt(HeaderData, OriginalSizeIndex)) & 0xFFFFFFFFL;
+        this.lastModified = new MsdosDate(LittleEndian.readInt(HeaderData, LastModifiedIndex));
+        this.headerLevel = HeaderData[HeaderLevelIndex] & 0xFF;
+        this.path = new String(HeaderData, FileNameIndex, FileNameLength, encode);
+        this.crc = LittleEndian.readShort(HeaderData, CRCIndex);
+        this.osid = HeaderData[OSIDIndex];
         if (0 < ExtraDataLength) {
-            this.ExtraData = new byte[ExtraDataLength];
-            System.arraycopy(HeaderData, ExtraDataIndex, this.ExtraData, 0, ExtraDataLength);
+            this.extraData = new byte[ExtraDataLength];
+            System.arraycopy(HeaderData, ExtraDataIndex, this.extraData, 0, ExtraDataLength);
         }
 
         // Read extended header data
@@ -732,7 +734,7 @@ public class LhaHeader implements Cloneable {
         int length = LittleEndian.readShort(HeaderData, index - 2);
         while (length != 0) {
             if (!hasFileSize) {
-                this.CompressedSize -= length;
+                this.compressedSize -= length;
             }
 
             this.importExtHeader(HeaderData, index, length - 2, encode);
@@ -766,13 +768,13 @@ public class LhaHeader implements Cloneable {
         final int OSIDIndex = 23;
 
         // Read base header data
-        this.Method = new String(HeaderData, CompressMethodIndex, 5, encode);
-        this.CompressedSize = (LittleEndian.readInt(HeaderData, CompressedSizeIndex)) & 0xFFFFFFFFL;
-        this.OriginalSize = (LittleEndian.readInt(HeaderData, OriginalSizeIndex)) & 0xFFFFFFFFL;
-        this.LastModified = new Date(LittleEndian.readInt(HeaderData, LastModifiedIndex) * 1000L);
-        this.HeaderLevel = HeaderData[HeaderLevelIndex] & 0xFF;
-        this.CRC = LittleEndian.readShort(HeaderData, CRCIndex);
-        this.OSID = HeaderData[OSIDIndex];
+        this.method = new String(HeaderData, CompressMethodIndex, 5, encode);
+        this.compressedSize = (LittleEndian.readInt(HeaderData, CompressedSizeIndex)) & 0xFFFFFFFFL;
+        this.originalSize = (LittleEndian.readInt(HeaderData, OriginalSizeIndex)) & 0xFFFFFFFFL;
+        this.lastModified = new Date(LittleEndian.readInt(HeaderData, LastModifiedIndex) * 1000L);
+        this.headerLevel = HeaderData[HeaderLevelIndex] & 0xFF;
+        this.crc = LittleEndian.readShort(HeaderData, CRCIndex);
+        this.osid = HeaderData[OSIDIndex];
 
         // Read extended header data
         final int BaseHeaderSize = 26;
@@ -806,13 +808,13 @@ public class LhaHeader implements Cloneable {
         final int OSIDIndex = 23;
 
         // Read base header data
-        this.Method = new String(HeaderData, CompressMethodIndex, 5, encode);
-        this.CompressedSize = (LittleEndian.readInt(HeaderData, CompressedSizeIndex)) & 0xFFFFFFFFL;
-        this.OriginalSize = (LittleEndian.readInt(HeaderData, OriginalSizeIndex)) & 0xFFFFFFFFL;
-        this.LastModified = new Date(LittleEndian.readInt(HeaderData, LastModifiedIndex) * 1000L);
-        this.HeaderLevel = HeaderData[HeaderLevelIndex] & 0xFF;
-        this.CRC = LittleEndian.readShort(HeaderData, CRCIndex);
-        this.OSID = HeaderData[OSIDIndex];
+        this.method = new String(HeaderData, CompressMethodIndex, 5, encode);
+        this.compressedSize = (LittleEndian.readInt(HeaderData, CompressedSizeIndex)) & 0xFFFFFFFFL;
+        this.originalSize = (LittleEndian.readInt(HeaderData, OriginalSizeIndex)) & 0xFFFFFFFFL;
+        this.lastModified = new Date(LittleEndian.readInt(HeaderData, LastModifiedIndex) * 1000L);
+        this.headerLevel = HeaderData[HeaderLevelIndex] & 0xFF;
+        this.crc = LittleEndian.readShort(HeaderData, CRCIndex);
+        this.osid = HeaderData[OSIDIndex];
 
         // Read extended header data
         final int BaseHeaderSize = 32;
@@ -859,7 +861,7 @@ public class LhaHeader implements Cloneable {
     /**
      * Reads common extended header from {@code HeaderData}.
      * If data other than CRC16 value for header inspection exists in common extended header,
-     * this method simply registers the common extended header in {@code ExtraExtHeaders}.
+     * this method simply registers the common extended header in {@code extraExtHeaders}.
      *
      * @param HeaderData header data
      * @param index      starting position of extended header in {@code HeaderData}
@@ -868,15 +870,15 @@ public class LhaHeader implements Cloneable {
     private void importCommonExtHeader(byte[] HeaderData, int index, int length) {
         // Comparison (3 < length) determines whether data is included other than
         // extended header ID (1 byte) and header CRC16 value (2 bytes).
-        // If it has information other than CRC16 value, register in ExtraExtHeaders
+        // If it has information other than CRC16 value, register in extraExtHeaders
         // to save that information.
         if (3 < length) {
-            if (this.ExtraExtHeaders == null) {
-                this.ExtraExtHeaders = new Vector<>();
+            if (this.extraExtHeaders == null) {
+                this.extraExtHeaders = new Vector<>();
             }
             byte[] ExtHeaderData = new byte[length];
             System.arraycopy(HeaderData, index, ExtHeaderData, 0, length);
-            this.ExtraExtHeaders.addElement(ExtHeaderData);
+            this.extraExtHeaders.addElement(ExtHeaderData);
         }
     }
 
@@ -945,8 +947,8 @@ public class LhaHeader implements Cloneable {
      */
     private void importFileSizeHeader(byte[] HeaderData, int index, int length) {
         if (length == 17) {
-            this.CompressedSize = LittleEndian.readLong(HeaderData, index + 1);
-            this.OriginalSize = LittleEndian.readLong(HeaderData, index + 9);
+            this.compressedSize = LittleEndian.readLong(HeaderData, index + 1);
+            this.originalSize = LittleEndian.readLong(HeaderData, index + 9);
         } else {
         }
     }
@@ -954,7 +956,7 @@ public class LhaHeader implements Cloneable {
     /**
      * Reads extended header.
      * By overriding this method, it becomes possible to support various extended headers.
-     * {@link LhaHeader} simply registers the extended header in {@code ExtraExtHeaders}, a private member.
+     * {@link LhaHeader} simply registers the extended header in {@code extraExtHeaders}, a private member.
      *
      * @param HeaderData header data
      * @param index      starting position of extended header in {@code HeaderData}
@@ -966,12 +968,12 @@ public class LhaHeader implements Cloneable {
                                       int index,
                                       int length,
                                       String encode) throws UnsupportedEncodingException {
-        if (this.ExtraExtHeaders == null) {
-            this.ExtraExtHeaders = new Vector<>();
+        if (this.extraExtHeaders == null) {
+            this.extraExtHeaders = new Vector<>();
         }
         byte[] ExtHeaderData = new byte[length];
         System.arraycopy(HeaderData, index, ExtHeaderData, 0, length);
-        this.ExtraExtHeaders.addElement(ExtHeaderData);
+        this.extraExtHeaders.addElement(ExtHeaderData);
     }
 
     /**
@@ -1006,18 +1008,18 @@ public class LhaHeader implements Cloneable {
 
     /**
      * Generates level 0 header data using information of this {@link LhaHeader}.<br>
-     * At that time, if including {@code ExtraData} causes the header size to exceed the specified value,
-     * {@code ExtraData} may not be included.
+     * At that time, if including {@code extraData} causes the header size to exceed the specified value,
+     * {@code extraData} may not be included.
      *
      * @param encode encoding used when outputting string information
      * @throws IllegalStateException        <ol>
      *                                      <li>if byte array of compression method string converted by {@code encode} is not 5 bytes
-     *                                      <li>if {@code Path} is too large to fit in the maximum size of level 0 header
-     *                                      <li>if {@code LastModified} is outside the range that can be represented in MS-DOS format
-     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code OriginalSize}
-     *                                      <li>if {@code OriginalSize} is negative or cannot be represented as a 4-byte value
-     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code CompressedSize}
-     *                                      <li>if {@code CompressedSize} is negative or cannot be represented as a 4-byte value
+     *                                      <li>if {@code path} is too large to fit in the maximum size of level 0 header
+     *                                      <li>if {@code lastModified} is outside the range that can be represented in MS-DOS format
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code originalSize}
+     *                                      <li>if {@code originalSize} is negative or cannot be represented as a 4-byte value
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code compressedSize}
+     *                                      <li>if {@code compressedSize} is negative or cannot be represented as a 4-byte value
      *                                      </ol>
      * @throws UnsupportedEncodingException if the encoding specified by {@code encode} is not supported
      */
@@ -1025,19 +1027,19 @@ public class LhaHeader implements Cloneable {
 
         // Preparation for header output
         final int LHarcHeaderSize = 100;
-        int CRCLength = (this.CRC == LhaHeader.NO_CRC || this.CRC == LhaHeader.UNKNOWN ? 0 : 2);
-        byte[] CompressMethod = this.Method.getBytes(encode);
+        int CRCLength = (this.crc == LhaHeader.NO_CRC || this.crc == LhaHeader.UNKNOWN ? 0 : 2);
+        byte[] CompressMethod = this.method.getBytes(encode);
         MsdosDate dosDate;
         try {
-            dosDate = this.LastModified instanceof MsdosDate ? (MsdosDate) this.LastModified : new MsdosDate(this.LastModified); // throw IllegalArgumentException
+            dosDate = this.lastModified instanceof MsdosDate ? (MsdosDate) this.lastModified : new MsdosDate(this.lastModified); // throw IllegalArgumentException
         } catch (IllegalArgumentException exception) {
             throw new IllegalStateException(exception.toString());
         }
-        byte[] PathData = this.Path.replace(File.separatorChar, '\\').getBytes(encode);
+        byte[] PathData = this.path.replace(File.separatorChar, '\\').getBytes(encode);
         int HeaderLength = 22 + CRCLength + PathData.length;
         byte[] ExtraData;
-        if (CRCLength != 0 && this.ExtraData != null && (HeaderLength + this.ExtraData.length <= LHarcHeaderSize)) {
-            ExtraData = this.ExtraData;
+        if (CRCLength != 0 && this.extraData != null && (HeaderLength + this.extraData.length <= LHarcHeaderSize)) {
+            ExtraData = this.extraData;
         } else {
             ExtraData = new byte[0];
         }
@@ -1053,28 +1055,28 @@ public class LhaHeader implements Cloneable {
             throw new IllegalStateException("Header size too large.");
         }
 
-        if (this.CompressedSize == LhaHeader.UNKNOWN) {
-            throw new IllegalStateException("CompressedSize must not be UNKNOWN.");
+        if (this.compressedSize == LhaHeader.UNKNOWN) {
+            throw new IllegalStateException("compressedSize must not be UNKNOWN.");
         }
 
-        if (0x0000000100000000L <= this.CompressedSize) {
-            throw new IllegalStateException("CompressedSize must be 0xFFFFFFFF or less.");
+        if (0x0000000100000000L <= this.compressedSize) {
+            throw new IllegalStateException("compressedSize must be 0xFFFFFFFF or less.");
         }
 
-        if (this.CompressedSize < 0) {
-            throw new IllegalStateException("CompressedSize must be 0 or more.");
+        if (this.compressedSize < 0) {
+            throw new IllegalStateException("compressedSize must be 0 or more.");
         }
 
-        if (this.OriginalSize == LhaHeader.UNKNOWN) {
-            throw new IllegalStateException("OriginalSize must not be UNKNOWN.");
+        if (this.originalSize == LhaHeader.UNKNOWN) {
+            throw new IllegalStateException("originalSize must not be UNKNOWN.");
         }
 
-        if (0x0000000100000000L <= this.OriginalSize) {
-            throw new IllegalStateException("OriginalSize must be 0xFFFFFFFF or less.");
+        if (0x0000000100000000L <= this.originalSize) {
+            throw new IllegalStateException("originalSize must be 0xFFFFFFFF or less.");
         }
 
-        if (this.OriginalSize < 0) {
-            throw new IllegalStateException("OriginalSize must be 0 or more.");
+        if (this.originalSize < 0) {
+            throw new IllegalStateException("originalSize must be 0 or more.");
         }
 
         // Header output
@@ -1086,15 +1088,15 @@ public class LhaHeader implements Cloneable {
             out.write(HeaderLength - 2);
             out.write(0);
             out.write(CompressMethod);
-            LittleEndian.writeInt(out, (int) this.CompressedSize);
-            LittleEndian.writeInt(out, (int) this.OriginalSize);
+            LittleEndian.writeInt(out, (int) this.compressedSize);
+            LittleEndian.writeInt(out, (int) this.originalSize);
             LittleEndian.writeInt(out, dosDate.getMsdosTime());
-            out.write(this.Level0DosAttribute);
-            out.write(this.HeaderLevel);
+            out.write(this.level0DosAttribute);
+            out.write(this.headerLevel);
             out.write(PathData.length);
             out.write(PathData);
-            if (this.CRC != -1) {
-                LittleEndian.writeShort(out, this.CRC);
+            if (this.crc != -1) {
+                LittleEndian.writeShort(out, this.crc);
                 out.write(ExtraData);
             }
             out.close();
@@ -1112,8 +1114,8 @@ public class LhaHeader implements Cloneable {
 
     /**
      * Generates level 1 header data using information of this {@link LhaHeader}.<br>
-     * At that time, if including {@code ExtraData} causes the header size to exceed the specified value,
-     * {@code ExtraData} may not be included.
+     * At that time, if including {@code extraData} causes the header size to exceed the specified value,
+     * {@code extraData} may not be included.
      * Also, extended headers with a size of 65534 bytes or more are ignored.
      *
      * @param encode encoding used when outputting string information
@@ -1122,11 +1124,11 @@ public class LhaHeader implements Cloneable {
      *                                      <li>if file name is too large to fit in base header or extended header
      *                                      <li>if common extended header is too large to output, hence there is no place to store header CRC
      *                                      <li>if {@link #NO_CRC} (-2), a special value indicating no CRC information in level 0 headers, is set in CRC
-     *                                      <li>if {@code LastModified} is outside the range that can be represented in MS-DOS format
-     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code OriginalSize}
-     *                                      <li>if {@code OriginalSize} is negative or cannot be represented as a 4-byte value
-     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code CompressedSize}
-     *                                      <li>if {@code CompressedSize} is negative or cannot be represented as a 4-byte value
+     *                                      <li>if {@code lastModified} is outside the range that can be represented in MS-DOS format
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code originalSize}
+     *                                      <li>if {@code originalSize} is negative or cannot be represented as a 4-byte value
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code compressedSize}
+     *                                      <li>if {@code compressedSize} is negative or cannot be represented as a 4-byte value
      *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown CRC16 value, is set in CRC
      *                                      </ol>
      * @throws UnsupportedEncodingException if the encoding specified by {@code encode} is not supported
@@ -1137,13 +1139,13 @@ public class LhaHeader implements Cloneable {
         final int LHarcHeaderSize = 100;
         boolean hasFileName = false; // Indicates whether it has file name information
         boolean hasCRC = false; // Indicates whether it has header CRC information
-        byte[] CompressMethod = this.Method.getBytes(encode);
+        byte[] CompressMethod = this.method.getBytes(encode);
         MsdosDate dosDate;
         try {
-            if (this.LastModified instanceof MsdosDate) {
-                dosDate = (MsdosDate) this.LastModified;
+            if (this.lastModified instanceof MsdosDate) {
+                dosDate = (MsdosDate) this.lastModified;
             } else {
-                dosDate = new MsdosDate(this.LastModified);
+                dosDate = new MsdosDate(this.lastModified);
             }
         } catch (IllegalArgumentException exception) {
             throw new IllegalStateException(exception.toString());
@@ -1151,8 +1153,8 @@ public class LhaHeader implements Cloneable {
 
         int HeaderLength = 27;
         byte[] ExtraData;
-        if (this.ExtraData != null && (HeaderLength + this.ExtraData.length <= LHarcHeaderSize)) {
-            ExtraData = this.ExtraData;
+        if (this.extraData != null && (HeaderLength + this.extraData.length <= LHarcHeaderSize)) {
+            ExtraData = this.extraData;
         } else {
             ExtraData = new byte[0];
         }
@@ -1167,7 +1169,7 @@ public class LhaHeader implements Cloneable {
         HeaderLength += FileName.length;
 
         byte[][] ExtendHeaders = this.exportExtHeaders(encode);
-        long SkipSize = this.CompressedSize;
+        long SkipSize = this.compressedSize;
         for (int i = 0; i < ExtendHeaders.length; i++) {
             if (ExtendHeaders[i].length == 0 || 65534 <= ExtendHeaders[i].length || (ExtendHeaders[i][0] == 1 && hasFileName)) {
                 ExtendHeaders[i] = null;
@@ -1188,7 +1190,7 @@ public class LhaHeader implements Cloneable {
             throw new IllegalStateException("CompressMethod doesn't follow Format.");
         }
 
-        if (SkipSize != this.CompressedSize && !hasCRC) {
+        if (SkipSize != this.compressedSize && !hasCRC) {
             throw new IllegalStateException("no Header CRC field.");
         }
 
@@ -1196,36 +1198,36 @@ public class LhaHeader implements Cloneable {
             throw new IllegalStateException("no Filename infomation.");
         }
 
-        if (this.CRC == LhaHeader.NO_CRC) {
+        if (this.crc == LhaHeader.NO_CRC) {
             throw new IllegalStateException("no CRC value.");
         }
 
-        if (this.CRC == LhaHeader.UNKNOWN) {
+        if (this.crc == LhaHeader.UNKNOWN) {
             throw new IllegalStateException("CRC is UNKNOWN.");
         }
 
-        if (this.CompressedSize == LhaHeader.UNKNOWN) {
-            throw new IllegalStateException("CompressedSize must not be UNKNOWN.");
+        if (this.compressedSize == LhaHeader.UNKNOWN) {
+            throw new IllegalStateException("compressedSize must not be UNKNOWN.");
         }
 
-        if (0x0000000100000000L <= this.CompressedSize) {
-            throw new IllegalStateException("CompressedSize must be 0xFFFFFFFF or less.");
+        if (0x0000000100000000L <= this.compressedSize) {
+            throw new IllegalStateException("compressedSize must be 0xFFFFFFFF or less.");
         }
 
-        if (this.CompressedSize < 0) {
-            throw new IllegalStateException("CompressedSize must be 0 or more.");
+        if (this.compressedSize < 0) {
+            throw new IllegalStateException("compressedSize must be 0 or more.");
         }
 
-        if (this.OriginalSize == LhaHeader.UNKNOWN) {
-            throw new IllegalStateException("OriginalSize must not be UNKNOWN.");
+        if (this.originalSize == LhaHeader.UNKNOWN) {
+            throw new IllegalStateException("originalSize must not be UNKNOWN.");
         }
 
-        if (0x0000000100000000L <= this.OriginalSize) {
-            throw new IllegalStateException("OriginalSize must be 0xFFFFFFFF or less.");
+        if (0x0000000100000000L <= this.originalSize) {
+            throw new IllegalStateException("originalSize must be 0xFFFFFFFF or less.");
         }
 
-        if (this.OriginalSize < 0) {
-            throw new IllegalStateException("OriginalSize must be 0 or more.");
+        if (this.originalSize < 0) {
+            throw new IllegalStateException("originalSize must be 0 or more.");
         }
 
         if (0x0000000100000000L <= SkipSize) {
@@ -1242,14 +1244,14 @@ public class LhaHeader implements Cloneable {
             out.write(0);
             out.write(CompressMethod);
             LittleEndian.writeInt(out, (int) SkipSize);
-            LittleEndian.writeInt(out, (int) this.OriginalSize);
+            LittleEndian.writeInt(out, (int) this.originalSize);
             LittleEndian.writeInt(out, dosDate.getMsdosTime());
             out.write(0x20);
-            out.write(this.HeaderLevel);
+            out.write(this.headerLevel);
             out.write(FileName.length);
             out.write(FileName);
-            LittleEndian.writeShort(out, this.CRC);
-            out.write(this.OSID);
+            LittleEndian.writeShort(out, this.crc);
+            out.write(this.osid);
             out.write(ExtraData);
 
             for (byte[] extendHeader : ExtendHeaders) {
@@ -1291,13 +1293,13 @@ public class LhaHeader implements Cloneable {
      *                                      <li>if file name is too large to fit in extended header
      *                                      <li>if common extended header is too large to output, hence there is no place to store header CRC
      *                                      <li>if {@link #NO_CRC} (-2), a special value indicating no CRC information in level 0 headers, is set in CRC
-     *                                      <li>if {@code LastModified} is outside the range that can be represented in 4-byte time_t
-     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code OriginalSize}
-     *                                      <li>if {@code OriginalSize} is negative
-     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code CompressedSize}
-     *                                      <li>if {@code CompressedSize} is negative
+     *                                      <li>if {@code lastModified} is outside the range that can be represented in 4-byte time_t
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code originalSize}
+     *                                      <li>if {@code originalSize} is negative
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code compressedSize}
+     *                                      <li>if {@code compressedSize} is negative
      *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown CRC16 value, is set in CRC
-     *                                      <li>if file size header is required because {@code OriginalSize} or {@code CompressedSize} exceeds 4-byte value, but file size header cannot be output because other extended headers are too large
+     *                                      <li>if file size header is required because {@code originalSize} or {@code compressedSize} exceeds 4-byte value, but file size header cannot be output because other extended headers are too large
      *                                      </ol>
      * @throws UnsupportedEncodingException if the encoding specified by {@code encode} is not supported
      */
@@ -1309,10 +1311,10 @@ public class LhaHeader implements Cloneable {
         boolean hasCRC = false; // Indicates whether it has header CRC information
         boolean needExtraByte = false; // Indicates whether to append an extra 1 byte to prevent the head of the header from being 0x00.
         boolean hasFileSize = false; // Indicates whether it has file size header.
-        byte[] CompressMethod = this.Method.getBytes(encode); // After Java 1.1 throw UnsupportedEncodingException
+        byte[] CompressMethod = this.method.getBytes(encode); // After Java 1.1 throw UnsupportedEncodingException
         int HeaderLength = 26;
 
-        boolean needFileSize = (0x0000000100000000L <= this.CompressedSize || 0x0000000100000000L <= this.OriginalSize);
+        boolean needFileSize = (0x0000000100000000L <= this.compressedSize || 0x0000000100000000L <= this.originalSize);
 
         byte[][] ExtendHeaders = this.exportExtHeaders(encode);
         for (int i = 0; i < ExtendHeaders.length; i++) {
@@ -1343,8 +1345,8 @@ public class LhaHeader implements Cloneable {
             throw new IllegalStateException("CompressMethod doesn't follow Format.");
         }
 
-        if (this.LastModified.getTime() < 0 || ((this.LastModified.getTime() / 1000L) & 0xFFFFFFFF00000000L) != 0) {
-            throw new IllegalStateException("LastModified can not change to 4byte time_t format.");
+        if (this.lastModified.getTime() < 0 || ((this.lastModified.getTime() / 1000L) & 0xFFFFFFFF00000000L) != 0) {
+            throw new IllegalStateException("lastModified can not change to 4byte time_t format.");
         }
 
         if (!hasCRC) {
@@ -1359,28 +1361,28 @@ public class LhaHeader implements Cloneable {
             throw new IllegalStateException("HeaderSize too large. can not contain Filesize.");
         }
 
-        if (this.CRC == LhaHeader.NO_CRC) {
+        if (this.crc == LhaHeader.NO_CRC) {
             throw new IllegalStateException("no CRC.");
         }
 
-        if (this.CRC == LhaHeader.UNKNOWN) {
+        if (this.crc == LhaHeader.UNKNOWN) {
             throw new IllegalStateException("CRC must not be UNKNOWN.");
         }
 
-        if (this.CompressedSize == LhaHeader.UNKNOWN) {
-            throw new IllegalStateException("CompressedSize must not be UNKNOWN.");
+        if (this.compressedSize == LhaHeader.UNKNOWN) {
+            throw new IllegalStateException("compressedSize must not be UNKNOWN.");
         }
 
-        if (this.CompressedSize < 0) {
-            throw new IllegalStateException("CompressedSize must be 0 or more.");
+        if (this.compressedSize < 0) {
+            throw new IllegalStateException("compressedSize must be 0 or more.");
         }
 
-        if (this.OriginalSize == LhaHeader.UNKNOWN) {
-            throw new IllegalStateException("OriginalSize must not be UNKNOWN.");
+        if (this.originalSize == LhaHeader.UNKNOWN) {
+            throw new IllegalStateException("originalSize must not be UNKNOWN.");
         }
 
-        if (this.OriginalSize < 0) {
-            throw new IllegalStateException("OriginalSize must be 0 or more.");
+        if (this.originalSize < 0) {
+            throw new IllegalStateException("originalSize must be 0 or more.");
         }
 
         // Header output
@@ -1390,13 +1392,13 @@ public class LhaHeader implements Cloneable {
 
             LittleEndian.writeShort(out, HeaderLength);
             out.write(CompressMethod);
-            LittleEndian.writeInt(out, (int) this.CompressedSize);
-            LittleEndian.writeInt(out, (int) this.OriginalSize);
-            LittleEndian.writeInt(out, (int) (this.LastModified.getTime() / 1000L));
+            LittleEndian.writeInt(out, (int) this.compressedSize);
+            LittleEndian.writeInt(out, (int) this.originalSize);
+            LittleEndian.writeInt(out, (int) (this.lastModified.getTime() / 1000L));
             out.write(0x20);
-            out.write(this.HeaderLevel);
-            LittleEndian.writeShort(out, this.CRC);
-            out.write(this.OSID);
+            out.write(this.headerLevel);
+            LittleEndian.writeShort(out, this.crc);
+            out.write(this.osid);
 
             for (byte[] extendHeader : ExtendHeaders) {
                 if (extendHeader != null) {
@@ -1431,11 +1433,11 @@ public class LhaHeader implements Cloneable {
      *                                      <li>if byte array of compression method string converted by {@code encode} is not 5 bytes
      *                                      <li>if common extended header is too large to output, hence there is no place to store header CRC
      *                                      <li>if {@link #NO_CRC} (-2), a special value indicating no CRC information in level 0 headers, is set in CRC
-     *                                      <li>if {@code LastModified} is outside the range that can be represented in 4-byte time_t<br>
-     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code OriginalSize}<br>
-     *                                      <li>if {@code OriginalSize} is negative or cannot be represented as a 4-byte value<br>
-     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code CompressedSize}<br>
-     *                                      <li>if {@code CompressedSize} is negative or cannot be represented as a 4-byte value<br>
+     *                                      <li>if {@code lastModified} is outside the range that can be represented in 4-byte time_t<br>
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code originalSize}<br>
+     *                                      <li>if {@code originalSize} is negative or cannot be represented as a 4-byte value<br>
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code compressedSize}<br>
+     *                                      <li>if {@code compressedSize} is negative or cannot be represented as a 4-byte value<br>
      *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown CRC16 value, is set in CRC<br>
      *                                      </ol>
      * @throws UnsupportedEncodingException if the encoding specified by {@code encode} is not supported
@@ -1444,7 +1446,7 @@ public class LhaHeader implements Cloneable {
 
         // Preparation for header output
         final int WordSize = 4;
-        byte[] CompressMethod = this.Method.getBytes(encode);
+        byte[] CompressMethod = this.method.getBytes(encode);
         int HeaderLength = 32;
 
         byte[][] ExtendHeaders = this.exportExtHeaders(encode);
@@ -1461,40 +1463,40 @@ public class LhaHeader implements Cloneable {
             throw new IllegalStateException("CompressMethod doesn't follow Format.");
         }
 
-        if (this.LastModified.getTime() < 0 || ((this.LastModified.getTime() / 1000L) & 0xFFFFFFFF00000000L) != 0) {
-            throw new IllegalStateException("LastModified can not change to 4byte time_t format.");
+        if (this.lastModified.getTime() < 0 || ((this.lastModified.getTime() / 1000L) & 0xFFFFFFFF00000000L) != 0) {
+            throw new IllegalStateException("lastModified can not change to 4byte time_t format.");
         }
 
-        if (this.CRC == LhaHeader.NO_CRC) {
+        if (this.crc == LhaHeader.NO_CRC) {
             throw new IllegalStateException("no CRC value.");
         }
 
-        if (this.CRC == LhaHeader.UNKNOWN) {
+        if (this.crc == LhaHeader.UNKNOWN) {
             throw new IllegalStateException("CRC is UNKNOWN.");
         }
 
-        if (this.CompressedSize == LhaHeader.UNKNOWN) {
-            throw new IllegalStateException("CompressedSize must not be UNKNOWN.");
+        if (this.compressedSize == LhaHeader.UNKNOWN) {
+            throw new IllegalStateException("compressedSize must not be UNKNOWN.");
         }
 
-        if (0x0000000100000000L <= this.CompressedSize) {
-            throw new IllegalStateException("CompressedSize must be 0xFFFFFFFF or less.");
+        if (0x0000000100000000L <= this.compressedSize) {
+            throw new IllegalStateException("compressedSize must be 0xFFFFFFFF or less.");
         }
 
-        if (this.CompressedSize < 0) {
-            throw new IllegalStateException("CompressedSize must be 0 or more.");
+        if (this.compressedSize < 0) {
+            throw new IllegalStateException("compressedSize must be 0 or more.");
         }
 
-        if (this.OriginalSize == LhaHeader.UNKNOWN) {
-            throw new IllegalStateException("OriginalSize must not be UNKNOWN.");
+        if (this.originalSize == LhaHeader.UNKNOWN) {
+            throw new IllegalStateException("originalSize must not be UNKNOWN.");
         }
 
-        if (0x0000000100000000L <= this.OriginalSize) {
-            throw new IllegalStateException("OriginalSize must be 0xFFFFFFFF or less.");
+        if (0x0000000100000000L <= this.originalSize) {
+            throw new IllegalStateException("originalSize must be 0xFFFFFFFF or less.");
         }
 
-        if (this.OriginalSize < 0) {
-            throw new IllegalStateException("OriginalSize must be 0 or more.");
+        if (this.originalSize < 0) {
+            throw new IllegalStateException("originalSize must be 0 or more.");
         }
 
         // Header output
@@ -1504,13 +1506,13 @@ public class LhaHeader implements Cloneable {
 
             LittleEndian.writeShort(out, WordSize);
             out.write(CompressMethod);
-            LittleEndian.writeInt(out, (int) this.CompressedSize);
-            LittleEndian.writeInt(out, (int) this.OriginalSize);
-            LittleEndian.writeInt(out, (int) (this.LastModified.getTime() / 1000L));
+            LittleEndian.writeInt(out, (int) this.compressedSize);
+            LittleEndian.writeInt(out, (int) this.originalSize);
+            LittleEndian.writeInt(out, (int) (this.lastModified.getTime() / 1000L));
             out.write(0x20);
-            out.write(this.HeaderLevel);
-            LittleEndian.writeShort(out, this.CRC);
-            out.write(this.OSID);
+            out.write(this.headerLevel);
+            LittleEndian.writeShort(out, this.crc);
+            out.write(this.osid);
             LittleEndian.writeInt(out, HeaderLength);
 
             for (byte[] extendHeader : ExtendHeaders) {
@@ -1528,8 +1530,8 @@ public class LhaHeader implements Cloneable {
                     + " ) which should be never thrown by ByteArrayOutputStream.");
         }
 
-        int CRCIndex = LhaHeader.getCRC16Position(HeaderData);
-        LittleEndian.writeShort(HeaderData, CRCIndex, LhaHeader.calcHeaderCRC16(HeaderData));
+        int crcIndex = LhaHeader.getCRC16Position(HeaderData);
+        LittleEndian.writeShort(HeaderData, crcIndex, LhaHeader.calcHeaderCRC16(HeaderData));
 
         return HeaderData;
     }
@@ -1539,48 +1541,48 @@ public class LhaHeader implements Cloneable {
      *
      * @param encode encoding used when outputting string information
      * @throws IllegalStateException        <ol>
-     *                                      <li>if byte array of compression method string converted by {@code encode} is not 5 bytes
-     *                                      <li>if file name is too long to fit in header in level 0, 1, or 2
-     *                                      <li>if common extended header is too large to output in level 1 or 2, hence there is no place to store header CRC
-     *                                      <li>if {@link #NO_CRC} (-2), a special value indicating no CRC information in level 0 headers, is set for non-level 0 headers
-     *                                      <li>if {@code LastModified} is outside the range that can be represented in MS-DOS format in level 0 or 1
-     *                                      <li>if {@code LastModified} is outside the range that can be represented in 4-byte time_t in level 2 or 3
-     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code OriginalSize}
-     *                                      <li>if {@code OriginalSize} is negative
-     *                                      <li>if {@code OriginalSize} cannot be represented as a 4-byte value in level 0, 1, or 3
-     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code CompressedSize}
-     *                                      <li>if {@code CompressedSize} is negative
-     *                                      <li>if {@code CompressedSize} cannot be represented as a 4-byte value in level 0, 1, or 3
-     *                                      <li>if file size header is required because {@code OriginalSize} or {@code CompressedSize} exceeds 4-byte value in level 2, but file size header cannot be output because other extended headers are too large
-     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown CRC16 value, is set in CRC
-     *                                      <li>if header level is other than 0, 1, 2, or 3
+     *                                      <li>if byte array of compression method string converted by {@code encode} is not 5 bytes</li>
+     *                                      <li>if file name is too long to fit in header in level 0, 1, or 2</li>
+     *                                      <li>if common extended header is too large to output in level 1 or 2, hence there is no place to store header CRC</li>
+     *                                      <li>if {@link #NO_CRC} (-2), a special value indicating no CRC information in level 0 headers, is set for non-level 0 headers</li>
+     *                                      <li>if {@code lastModified} is outside the range that can be represented in MS-DOS format in level 0 or 1</li>
+     *                                      <li>if {@code lastModified} is outside the range that can be represented in 4-byte time_t in level 2 or 3</li>
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code originalSize}</li>
+     *                                      <li>if {@code originalSize} is negative</li>
+     *                                      <li>if {@code originalSize} cannot be represented as a 4-byte value in level 0, 1, or 3</li>
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown size, is set in {@code compressedSize}</li>
+     *                                      <li>if {@code compressedSize} is negative</li>
+     *                                      <li>if {@code compressedSize} cannot be represented as a 4-byte value in level 0, 1, or 3</li>
+     *                                      <li>if file size header is required because {@code originalSize} or {@code compressedSize} exceeds 4-byte value in level 2, but file size header cannot be output because other extended headers are too large</li>
+     *                                      <li>if {@link #UNKNOWN} (-1), a special value indicating unknown CRC16 value, is set in CRC</li>
+     *                                      <li>if header level is other than 0, 1, 2, or 3</li>
      *                                      </ol>
      * @throws UnsupportedEncodingException if the encoding specified by {@code encode} is not supported
      */
     private byte[] exportHeader(String encode) throws UnsupportedEncodingException {
-        return switch (this.HeaderLevel) {
+        return switch (this.headerLevel) {
             case 0 -> this.exportLevel0Header(encode);
             case 1 -> this.exportLevel1Header(encode);
             case 2 -> this.exportLevel2Header(encode);
             case 3 -> this.exportLevel3Header(encode);
-            default -> throw new IllegalStateException("unknown header level \"" + this.HeaderLevel + "\".");
+            default -> throw new IllegalStateException("unknown header level \"" + this.headerLevel + "\".");
         };
     }
 
     /**
      * Outputs common extended header as a byte array.
-     * If common extended header information is registered in {@code ExtraExtHeaders},
+     * If common extended header information is registered in {@code extraExtHeaders},
      * this method returns that information, otherwise returns a 3-byte array initialized with 0.
      *
      * @return common extended header stored in a byte array
      */
     private byte[] exportCommonExtHeader() {
-        if (this.ExtraExtHeaders != null) {
-            for (int i = 0; i < this.ExtraExtHeaders.size(); i++) {
-                byte[] ExtendHeaderData = this.ExtraExtHeaders.elementAt(i);
+        if (this.extraExtHeaders != null) {
+            for (int i = 0; i < this.extraExtHeaders.size(); i++) {
+                byte[] extendHeaderData = this.extraExtHeaders.elementAt(i);
 
-                if (ExtendHeaderData[0] == 0x00) {
-                    return ExtendHeaderData;
+                if (extendHeaderData[0] == 0x00) {
+                    return extendHeaderData;
                 }
             }
         }
@@ -1596,12 +1598,12 @@ public class LhaHeader implements Cloneable {
      * @return file name extended header stored in a byte array
      */
     private byte[] exportFileNameExtHeader(String encode) throws UnsupportedEncodingException {
-        byte[] FileName = this.getFileName().getBytes(encode); // After Java 1.1
+        byte[] fileName = this.getFileName().getBytes(encode); // After Java 1.1
 
-        byte[] ExtendHeaderData = new byte[FileName.length + 1];
-        ExtendHeaderData[0] = 0x01; // Set extended header ID
-        System.arraycopy(FileName, 0, ExtendHeaderData, 1, FileName.length);
-        return ExtendHeaderData;
+        byte[] extendHeaderData = new byte[fileName.length + 1];
+        extendHeaderData[0] = 0x01; // Set extended header ID
+        System.arraycopy(fileName, 0, extendHeaderData, 1, fileName.length);
+        return extendHeaderData;
     }
 
     /**
@@ -1617,7 +1619,7 @@ public class LhaHeader implements Cloneable {
         final byte LhaFileSeparator = (byte) 0xFF;
         String dir = this.getDirName();
 
-        Vector<byte[]> vec = new Vector<>();
+        List<byte[]> vec = new ArrayList<>();
         int index = 0;
         int len = 0;
         int length = 0;
@@ -1628,14 +1630,14 @@ public class LhaHeader implements Cloneable {
                 System.arraycopy(src, 0, array, 0, src.length);
                 array[src.length] = LhaFileSeparator;
                 length += array.length;
-                vec.addElement(array);
+                vec.add(array);
 
                 index += len + 1;
                 len = 0;
             } else if (index + len + 1 < dir.length()) {
                 byte[] array = dir.substring(index, index + len + 1).getBytes(encode);
                 length += array.length;
-                vec.addElement(array);
+                vec.add(array);
 
                 index += len + 1;
                 len = 0;
@@ -1644,17 +1646,15 @@ public class LhaHeader implements Cloneable {
             }
         }
 
-        byte[] ExtendHeaderData = new byte[length + 1];
-        ExtendHeaderData[0] = 0x02; // Set extended header ID
+        byte[] extendHeaderData = new byte[length + 1];
+        extendHeaderData[0] = 0x02; // Set extended header ID
         index = 1;
-        for (int i = 0; i < vec.size(); i++) {
-            byte[] array = vec.elementAt(i);
-
-            System.arraycopy(array, 0, ExtendHeaderData, index, array.length);
+        for (byte[] array : vec) {
+            System.arraycopy(array, 0, extendHeaderData, index, array.length);
             index += array.length;
         }
 
-        return ExtendHeaderData;
+        return extendHeaderData;
     }
 
     /**
@@ -1665,19 +1665,19 @@ public class LhaHeader implements Cloneable {
      * @return 64-bit file size header
      */
     private byte[] exportFileSizeHeader() {
-        byte[] ExtendHeaderData = new byte[17];
+        byte[] extendHeaderData = new byte[17];
 
-        ExtendHeaderData[0] = (byte) 0x42;
-        LittleEndian.writeLong(ExtendHeaderData, 1, this.CompressedSize);
-        LittleEndian.writeLong(ExtendHeaderData, 9, this.OriginalSize);
+        extendHeaderData[0] = (byte) 0x42;
+        LittleEndian.writeLong(extendHeaderData, 1, this.compressedSize);
+        LittleEndian.writeLong(extendHeaderData, 9, this.originalSize);
 
-        return ExtendHeaderData;
+        return extendHeaderData;
     }
 
     /**
      * Outputs extended headers as a byte array.
      * By overriding this method, it becomes possible to support various extended headers.
-     * {@link LhaHeader} simply returns the extended header information registered in {@code ExtraExtHeaders}, a private member.
+     * {@link LhaHeader} simply returns the extended header information registered in {@code extraExtHeaders}, a private member.
      * The output format stores the extended header identifier in the first byte, followed by extended header data,
      * without attaching the size of the next extended header.
      *
@@ -1686,14 +1686,14 @@ public class LhaHeader implements Cloneable {
      * @throws UnsupportedEncodingException if the encoding specified by {@code encode} is not supported
      */
     protected byte[][] exportExtendHeaders(String encode) throws UnsupportedEncodingException {
-        if (this.ExtraExtHeaders != null) {
-            byte[][] ExtendHeaders = new byte[this.ExtraExtHeaders.size()][];
+        if (this.extraExtHeaders != null) {
+            byte[][] extendHeaders = new byte[this.extraExtHeaders.size()][];
 
-            for (int i = 0; i < this.ExtraExtHeaders.size(); i++) {
-                ExtendHeaders[i] = this.ExtraExtHeaders.elementAt(i);
+            for (int i = 0; i < this.extraExtHeaders.size(); i++) {
+                extendHeaders[i] = this.extraExtHeaders.elementAt(i);
             }
 
-            return ExtendHeaders;
+            return extendHeaders;
         } else {
             return new byte[0][];
         }
@@ -1707,36 +1707,31 @@ public class LhaHeader implements Cloneable {
      * @throws UnsupportedEncodingException if the encoding specified by {@code encode} is not supported
      */
     private byte[][] exportExtHeaders(String encode) throws UnsupportedEncodingException {
-        byte[] CommonExtHeader = this.exportCommonExtHeader();
-        byte[] FileNameExtHeader = this.exportFileNameExtHeader(encode);
-        byte[] DirNameExtHeader = this.exportDirNameExtHeader(encode);
+        byte[] commonExtHeader = this.exportCommonExtHeader();
+        byte[] fileNameExtHeader = this.exportFileNameExtHeader(encode);
+        byte[] dirNameExtHeader = this.exportDirNameExtHeader(encode);
 
-        byte[][] ExtraExtHeaders = this.exportExtendHeaders(encode);
-        Vector<byte[]> Headers = new Vector<>();
+        byte[][] extraExtHeaders = this.exportExtendHeaders(encode);
+        List<byte[]> headers = new ArrayList<>();
 
-        Headers.addElement(CommonExtHeader);
-        Headers.addElement(FileNameExtHeader);
-        if (1 < DirNameExtHeader.length) {
-            Headers.addElement(DirNameExtHeader);
+        headers.add(commonExtHeader);
+        headers.add(fileNameExtHeader);
+        if (1 < dirNameExtHeader.length) {
+            headers.add(dirNameExtHeader);
         }
 
-        if (this.HeaderLevel == 2 && (0x0000000100000000L <= this.CompressedSize || 0x0000000100000000L <= this.OriginalSize)) {
-            Headers.addElement(this.exportFileSizeHeader());
+        if (this.headerLevel == 2 && (0x0000_0001_0000_0000L <= this.compressedSize || 0x0000_0001_0000_0000L <= this.originalSize)) {
+            headers.add(this.exportFileSizeHeader());
         }
 
-        for (byte[] ExtendHeaderData : ExtraExtHeaders) {
-            if (0 < ExtendHeaderData.length && ExtendHeaderData[0] != 0x00 && ExtendHeaderData[0] != 0x01
-                    && ExtendHeaderData[0] != 0x02) {
-                Headers.addElement(ExtendHeaderData);
+        for (byte[] extendHeaderData : extraExtHeaders) {
+            if (0 < extendHeaderData.length && extendHeaderData[0] != 0x00 && extendHeaderData[0] != 0x01
+                    && extendHeaderData[0] != 0x02) {
+                headers.add(extendHeaderData);
             }
         }
 
-        byte[][] ExtendHeaders = new byte[Headers.size()][];
-        for (int i = 0; i < ExtendHeaders.length; i++) {
-            ExtendHeaders[i] = Headers.elementAt(i);
-        }
-
-        return ExtendHeaders;
+        return headers.toArray(byte[][]::new);
     }
 
     /**
@@ -1763,7 +1758,7 @@ public class LhaHeader implements Cloneable {
                     return LhaHeader.verifyHeaderCRC16(HeaderData);
 
             }
-        } catch (ArrayIndexOutOfBoundsException exception) { // Ignore
+        } catch (ArrayIndexOutOfBoundsException ignore) {
         }
         return false;
     }
@@ -1771,26 +1766,26 @@ public class LhaHeader implements Cloneable {
     /**
      * Gets the position where CRC value of header is stored.
      *
-     * @param HeaderData header data stored in a byte array
+     * @param headerData header data stored in a byte array
      * @return position of CRC value of header, or -1 if header has no CRC value
      */
-    private static int getCRC16Position(byte[] HeaderData) {
+    private static int getCRC16Position(byte[] headerData) {
         final int HeaderLevelIndex = 20;
-        int WordSize;
+        int wordSize;
         int position;
         int length;
 
-        switch (HeaderData[HeaderLevelIndex] & 0xFF) {
+        switch (headerData[HeaderLevelIndex] & 0xFF) {
             case 1:
-                WordSize = 2;
-                position = length = (HeaderData[0] & 0xFF) + 2;
+                wordSize = 2;
+                position = length = (headerData[0] & 0xFF) + 2;
                 break;
             case 2:
-                WordSize = 2;
+                wordSize = 2;
                 position = length = 26;
                 break;
             case 3:
-                WordSize = 4;
+                wordSize = 4;
                 position = length = 32;
                 break;
             default:
@@ -1798,14 +1793,14 @@ public class LhaHeader implements Cloneable {
         }
 
         while (true) {
-            if (0 < length && position < HeaderData.length) {
+            if (0 < length && position < headerData.length) {
                 length = 0;
 
-                for (int i = 0; i < WordSize; i++) {
-                    length = (length << 8 | (HeaderData[position - (1 + i)] & 0xFF));
+                for (int i = 0; i < wordSize; i++) {
+                    length = (length << 8 | (headerData[position - (1 + i)] & 0xFF));
                 }
 
-                if (HeaderData[position] == 0) {
+                if (headerData[position] == 0) {
                     return position + 1;
                 }
 
@@ -1819,14 +1814,14 @@ public class LhaHeader implements Cloneable {
     /**
      * Calculates checksum value from header data of level 0 and level 1 headers.
      *
-     * @param HeaderData header data stored in a byte array
+     * @param headerData header data stored in a byte array
      * @return calculated header checksum value
      */
-    private static int calcHeaderChecksum(byte[] HeaderData) {
-        int length = HeaderData[0] & 0xFF;
+    private static int calcHeaderChecksum(byte[] headerData) {
+        int length = headerData[0] & 0xFF;
 
         LhaChecksum checksum = new LhaChecksum();
-        checksum.update(HeaderData, 2, length);
+        checksum.update(headerData, 2, length);
 
         return (int) checksum.getValue();
     }
@@ -1990,7 +1985,7 @@ public class LhaHeader implements Cloneable {
                         LhaHeader.ensureSkip(in, 13);
                         int HeaderLevel = in.read();
                         in.reset();
-                        byte[] HeaderData = switch (HeaderLevel) {
+                        byte[] headerData = switch (HeaderLevel) {
                             case 0 -> LhaHeader.readLevel0HeaderData(first, second, third, in);
                             case 1 -> LhaHeader.readLevel1HeaderData(first, second, third, in);
                             case 2 -> LhaHeader.readLevel2HeaderData(first, second, third, in);
@@ -1998,8 +1993,8 @@ public class LhaHeader implements Cloneable {
                             default -> null;
                         };
 
-                        if (HeaderData != null && LhaHeader.checkHeaderData(HeaderData)) {
-                            return HeaderData;
+                        if (headerData != null && LhaHeader.checkHeaderData(headerData)) {
+                            return headerData;
                         }
                     }
                 }
@@ -2014,33 +2009,33 @@ public class LhaHeader implements Cloneable {
     /**
      * Reads level 0 header from input stream.
      *
-     * @param HeaderLength    length of header
-     * @param HeaderChecksum  checksum of header
-     * @param CompressMethod1 compression method string
+     * @param headerLength    length of header
+     * @param headerChecksum  checksum of header
+     * @param compressMethod1 compression method string
      * @param in              input stream to read header data from
      * @return read header data
      * @throws IOException  if an I/O error occurs
      * @throws EOFException if EndOfStream is reached while reading header
      */
-    private static byte[] readLevel0HeaderData(int HeaderLength,
-                                               int HeaderChecksum,
-                                               int CompressMethod1,
+    private static byte[] readLevel0HeaderData(int headerLength,
+                                               int headerChecksum,
+                                               int compressMethod1,
                                                InputStream in) throws IOException {
-        byte[] HeaderData = new byte[HeaderLength + 2];
-        HeaderData[0] = (byte) HeaderLength;
-        HeaderData[1] = (byte) HeaderChecksum;
-        HeaderData[2] = (byte) CompressMethod1;
+        byte[] headerData = new byte[headerLength + 2];
+        headerData[0] = (byte) headerLength;
+        headerData[1] = (byte) headerChecksum;
+        headerData[2] = (byte) compressMethod1;
         int readed = 3;
         int length = 0;
-        HeaderLength += 2;
+        headerLength += 2;
 
-        while (readed < HeaderLength && 0 <= length) {
-            length = in.read(HeaderData, readed, HeaderLength - readed);
+        while (readed < headerLength && 0 <= length) {
+            length = in.read(headerData, readed, headerLength - readed);
             readed += length;
         }
 
-        if (readed == HeaderLength) {
-            return HeaderData;
+        if (readed == headerLength) {
+            return headerData;
         } else {
             throw new EOFException();
         }
@@ -2049,24 +2044,24 @@ public class LhaHeader implements Cloneable {
     /**
      * Reads level 1 header from input stream.
      *
-     * @param BaseHeaderLength   length of base header
-     * @param BaseHeaderChecksum checksum of base header
-     * @param CompressMethod1    compression method string
+     * @param baseHeaderLength   length of base header
+     * @param baseHeaderChecksum checksum of base header
+     * @param compressMethod1    compression method string
      * @param in                 input stream to read header data from
      * @return read header data, or {@code null} if determined not to be a level 1 header
      * @throws IOException  if an I/O error occurs
      * @throws EOFException if EndOfStream is reached while reading header
      */
-    private static byte[] readLevel1HeaderData(int BaseHeaderLength,
-                                               int BaseHeaderChecksum,
-                                               int CompressMethod1,
+    private static byte[] readLevel1HeaderData(int baseHeaderLength,
+                                               int baseHeaderChecksum,
+                                               int compressMethod1,
                                                InputStream in) throws IOException {
-        int HeaderLength = BaseHeaderLength + 2;
+        int headerLength = baseHeaderLength + 2;
         Vector<byte[]> headers = new Vector<>();
-        byte[] HeaderData = new byte[HeaderLength];
-        HeaderData[0] = (byte) BaseHeaderLength;
-        HeaderData[1] = (byte) BaseHeaderChecksum;
-        HeaderData[2] = (byte) CompressMethod1;
+        byte[] headerData = new byte[headerLength];
+        headerData[0] = (byte) baseHeaderLength;
+        headerData[1] = (byte) baseHeaderChecksum;
+        headerData[2] = (byte) compressMethod1;
 
         // Obtain header data
         int readed;
@@ -2078,41 +2073,41 @@ public class LhaHeader implements Cloneable {
                 readed = 0;
             }
 
-            while (readed < HeaderLength && 0 <= length) {
-                length = in.read(HeaderData, readed, HeaderLength - readed);
+            while (readed < headerLength && 0 <= length) {
+                length = in.read(headerData, readed, headerLength - readed);
                 readed += length;
             }
 
-            if (readed == HeaderLength) {
-                if (headers.isEmpty() && !LhaHeader.verifyHeaderChecksum(HeaderData)) {
+            if (readed == headerLength) {
+                if (headers.isEmpty() && !LhaHeader.verifyHeaderChecksum(headerData)) {
                     return null;
                 } else {
-                    headers.addElement(HeaderData);
+                    headers.addElement(headerData);
                 }
             } else {
                 throw new EOFException();
             }
 
-            length = HeaderLength;
-            HeaderLength = LittleEndian.readShort(HeaderData, HeaderLength - 2);
-            HeaderData = new byte[HeaderLength];
-        } while (0 < HeaderLength && readed == length);
+            length = headerLength;
+            headerLength = LittleEndian.readShort(headerData, headerLength - 2);
+            headerData = new byte[headerLength];
+        } while (0 < headerLength && readed == length);
 
         // Combine obtained header data into a single byte array
-        HeaderLength = 0;
+        headerLength = 0;
         for (int i = 0; i < headers.size(); i++) {
-            HeaderLength += headers.elementAt(i).length;
+            headerLength += headers.elementAt(i).length;
         }
 
-        HeaderData = new byte[HeaderLength];
+        headerData = new byte[headerLength];
         int position = 0;
         for (int i = 0; i < headers.size(); i++) {
-            byte[] Data = headers.elementAt(i);
-            System.arraycopy(Data, 0, HeaderData, position, Data.length);
+            byte[] data = headers.elementAt(i);
+            System.arraycopy(data, 0, headerData, position, data.length);
 
-            position += Data.length;
+            position += data.length;
         }
-        return HeaderData;
+        return headerData;
     }
 
     /**
@@ -2130,21 +2125,21 @@ public class LhaHeader implements Cloneable {
                                                int HeaderLengthHi,
                                                int CompressMethod1,
                                                InputStream in) throws IOException {
-        int HeaderLength = (HeaderLengthHi << 8) | HeaderLengthLow;
-        byte[] HeaderData = new byte[HeaderLength];
-        HeaderData[0] = (byte) HeaderLengthLow;
-        HeaderData[1] = (byte) HeaderLengthHi;
-        HeaderData[2] = (byte) CompressMethod1;
+        int headerLength = (HeaderLengthHi << 8) | HeaderLengthLow;
+        byte[] headerData = new byte[headerLength];
+        headerData[0] = (byte) HeaderLengthLow;
+        headerData[1] = (byte) HeaderLengthHi;
+        headerData[2] = (byte) CompressMethod1;
 
         int readed = 3;
         int length = 0;
-        while (readed < HeaderLength && 0 <= length) {
-            length = in.read(HeaderData, readed, HeaderLength - readed);
+        while (readed < headerLength && 0 <= length) {
+            length = in.read(headerData, readed, headerLength - readed);
             readed += length;
         }
 
-        if (readed == HeaderLength) {
-            return HeaderData;
+        if (readed == headerLength) {
+            return headerData;
         } else {
             throw new EOFException();
         }
@@ -2154,37 +2149,37 @@ public class LhaHeader implements Cloneable {
      * Reads level 3 header from input stream.<br>
      * Unlike other read methods, this method assumes that {@code mark()} has been called in {@link #getNextHeaderData(InputStream)}.
      *
-     * @param WordSizeLow     lower byte of word size used in header
-     * @param WordSizeHi      upper byte of word size used in header
-     * @param CompressMethod1 compression method string
+     * @param wordSizeLow     lower byte of word size used in header
+     * @param wordSizeHi      upper byte of word size used in header
+     * @param compressMethod1 compression method string
      * @param in              input stream to read header data from
      * @return read header data, or {@code null} if determined not to be a level 3 header
      * @throws IOException  if an I/O error occurs
      * @throws EOFException if EndOfStream is reached while reading header
      */
-    private static byte[] readLevel3HeaderData(int WordSizeLow,
-                                               int WordSizeHi,
-                                               int CompressMethod1,
+    private static byte[] readLevel3HeaderData(int wordSizeLow,
+                                               int wordSizeHi,
+                                               int compressMethod1,
                                                InputStream in) throws IOException {
-        if (WordSizeLow == 0x04 && WordSizeHi == 0x00) {
-            in.skip(21);
+        if (wordSizeLow == 0x04 && wordSizeHi == 0x00) {
+            in.skipNBytes(21);
             int HeaderLength = LittleEndian.readInt(in);
             in.reset();
 
-            byte[] HeaderData = new byte[HeaderLength];
-            HeaderData[0] = (byte) WordSizeLow;
-            HeaderData[1] = (byte) WordSizeHi;
-            HeaderData[2] = (byte) CompressMethod1;
+            byte[] headerData = new byte[HeaderLength];
+            headerData[0] = (byte) wordSizeLow;
+            headerData[1] = (byte) wordSizeHi;
+            headerData[2] = (byte) compressMethod1;
 
             int readed = 3;
             int length = 0;
             while (readed < HeaderLength && 0 <= length) {
-                length = in.read(HeaderData, readed, HeaderLength - readed);
+                length = in.read(headerData, readed, HeaderLength - readed);
                 readed += length;
             }
 
             if (readed == HeaderLength) {
-                return HeaderData;
+                return headerData;
             } else {
                 throw new EOFException();
             }
@@ -2194,14 +2189,14 @@ public class LhaHeader implements Cloneable {
     }
 
     /**
-     * Creates an instance of {@link LhaHeader} from {@code HeaderData} using the generator expression
+     * Creates an instance of {@link LhaHeader} from {@code headerData} using the generator expression
      * bound to key "lha.header" in {@code property}.
      *
-     * @param HeaderData byte array having header data
+     * @param headerData byte array having header data
      * @param property   properties having generator expression as value of key "lha.header" such that {@link LhaProperty#parse(String, Hashtable, String)} can instantiate {@link LhaHeader}
      * @return instance of {@link LhaHeader}
      */
-    public static LhaHeader createInstance(byte[] HeaderData, Properties property) {
+    public static LhaHeader createInstance(byte[] headerData, Properties property) {
 
         String encoding = property.getProperty("lha.encoding");
         if (encoding == null) {
@@ -2219,7 +2214,7 @@ public class LhaHeader implements Cloneable {
         }
 
         Hashtable<String, Object> substitute = new Hashtable<>();
-        substitute.put("data", HeaderData);
+        substitute.put("data", headerData);
         substitute.put("encoding", encoding);
 
         return (LhaHeader) LhaProperty.parse(generator, substitute, packages);
@@ -2235,15 +2230,15 @@ public class LhaHeader implements Cloneable {
      */
     private static void ensureSkip(InputStream in, long len) throws IOException {
         while (0 < len) {
-            long skiplen = in.skip(len);
-            if (skiplen <= 0) {
+            long skipLen = in.skip(len);
+            if (skipLen <= 0) {
                 if (0 <= in.read()) {
                     len--;
                 } else {
                     throw new EOFException();
                 }
             } else {
-                len -= skiplen;
+                len -= skipLen;
             }
         }
     }

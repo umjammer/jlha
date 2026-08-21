@@ -56,7 +56,6 @@ import java.util.Properties;
  *     Source cleanup.
  *     Eliminated tabs.
  *     Updated license text.
- *
  * </pre>
  *
  * @author $Author: dangan $

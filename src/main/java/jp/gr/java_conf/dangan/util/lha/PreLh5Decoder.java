@@ -36,6 +36,7 @@ import java.io.InputStream;
 import java.util.Arrays;
 
 import jp.gr.java_conf.dangan.io.BitDataBrokenException;
+import jp.gr.java_conf.dangan.io.BitInputStream;
 import jp.gr.java_conf.dangan.io.Bits;
 import jp.gr.java_conf.dangan.io.NotEnoughBitsException;
 
@@ -456,11 +457,11 @@ public class PreLh5Decoder implements PreLzssDecoder {
      * Sets the read position of the connected input stream to the position
      * where {@link #mark(int)} was last called.
      *
-     * @throws IOException <ul>
-     *                     <li> (1) if attempting to {@code reset()} without {@code mark()}.</li>
-     *                     <li> (2) if the connected input stream returns {@code false} for {@code markSupported()}.</li>
-     *                     <li> (3) if an I/O error occurs in the connected input stream.</li>
-     *                     </ul>
+     * @throws IOException <ol>
+     *                     <li>if attempting to {@code reset()} without {@code mark()}.</li>
+     *                     <li>if the connected input stream returns {@code false} for {@code markSupported()}.</li>
+     *                     <li>if an I/O error occurs in the connected input stream.</li>
+     *                     </ol>
      *                     any of these.
      */
     @Override

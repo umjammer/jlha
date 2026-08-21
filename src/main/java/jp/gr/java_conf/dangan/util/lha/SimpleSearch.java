@@ -46,7 +46,6 @@ package jp.gr.java_conf.dangan.util.lha;
  *     source maintenance
  *     tab removal
  *     license comment update
- *
  * </pre>
  *
  * @author $Author: dangan $

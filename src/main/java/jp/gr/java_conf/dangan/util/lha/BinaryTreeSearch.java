@@ -64,7 +64,6 @@ import java.util.Arrays;
  *     source maintenance
  *     tab removal
  *     license comment update
- *
  * </pre>
  *
  * @author $Author: dangan $
@@ -89,19 +88,19 @@ public class BinaryTreeSearch implements LzssSearchMethod {
     /**
      * LZSS dictionary size.
      */
-    private final int DictionarySize;
+    private final int dictionarySize;
 
     /**
      * Value used for LZSS compression.
      * Indicates maximum match length.
      */
-    private final int MaxMatch;
+    private final int maxMatch;
 
     /**
-     * Threshold used for LZSS compression.
+     * threshold used for LZSS compression.
      * If the match length is greater than or equal to this value, compression code is output.
      */
-    private final int Threshold;
+    private final int threshold;
 
     /**
      * Buffer for applying LZSS compression.
@@ -109,14 +108,14 @@ public class BinaryTreeSearch implements LzssSearchMethod {
      * and the second half is the buffer containing data to be compressed.
      * Only read access is permitted within implementations of {@link LzssSearchMethod}.
      */
-    private final byte[] TextBuffer;
+    private final byte[] textBuffer;
 
     /**
      * Dictionary limit position.
-     * When there is no data in the dictionary area in the first half of {@link #TextBuffer},
+     * When there is no data in the dictionary area in the first half of {@link #textBuffer},
      * this prevents compression from using undefined data (0 in Java) in the dictionary area.
      */
-    private int DictionaryLimit;
+    private int dictionaryLimit;
 
     /**
      * Indicates start position of the data pattern of the binary tree root.
@@ -141,23 +140,23 @@ public class BinaryTreeSearch implements LzssSearchMethod {
     /**
      * Constructs a {@link LzssSearchMethod} using a binary tree.
      *
-     * @param DictionarySize dictionary size
-     * @param MaxMatch maximum match length
-     * @param Threshold threshold between compression and non-compression
-     * @param TextBuffer buffer for applying LZSS compression
+     * @param dictionarySize dictionary size
+     * @param maxMatch maximum match length
+     * @param threshold threshold between compression and non-compression
+     * @param textBuffer buffer for applying LZSS compression
      */
-    public BinaryTreeSearch(int DictionarySize, int MaxMatch, int Threshold, byte[] TextBuffer) {
+    public BinaryTreeSearch(int dictionarySize, int maxMatch, int threshold, byte[] textBuffer) {
 
-        this.DictionarySize = DictionarySize;
-        this.MaxMatch = MaxMatch;
-        this.Threshold = Threshold;
-        this.TextBuffer = TextBuffer;
-        this.DictionaryLimit = this.DictionarySize;
+        this.dictionarySize = dictionarySize;
+        this.maxMatch = maxMatch;
+        this.threshold = threshold;
+        this.textBuffer = textBuffer;
+        this.dictionaryLimit = this.dictionarySize;
 
         this.root = BinaryTreeSearch.UNUSED;
-        this.parent = new int[this.DictionarySize];
-        this.large = new int[this.DictionarySize];
-        this.small = new int[this.DictionarySize];
+        this.parent = new int[this.dictionarySize];
+        this.large = new int[this.dictionarySize];
+        this.small = new int[this.dictionarySize];
 
         Arrays.fill(this.parent, BinaryTreeSearch.UNUSED);
     }
@@ -165,20 +164,20 @@ public class BinaryTreeSearch implements LzssSearchMethod {
     /**
      * Registers the data pattern starting from {@code position} into the binary tree.
      *
-     * @param position start position of the data pattern in {@link #TextBuffer}
+     * @param position start position of the data pattern in {@link #textBuffer}
      */
     @Override
     public void put(int position) {
 
         // Delete the oldest data pattern from the binary tree
-        this.deleteNode(position - this.DictionarySize);
+        this.deleteNode(position - this.dictionarySize);
 
         // Search for the position to insert position into the binary tree
         int parentpos = this.root;
         int scanpos = this.root;
 
-        byte[] buf = this.TextBuffer;
-        int max = position + this.MaxMatch;
+        byte[] buf = this.textBuffer;
+        int max = position + this.maxMatch;
         int p = 0;
         int s;
 //       int len = 0;
@@ -197,8 +196,8 @@ public class BinaryTreeSearch implements LzssSearchMethod {
             }
 
             parentpos = scanpos;
-            scanpos = (buf[s] < buf[p] ? this.large[scanpos & (this.DictionarySize - 1)]
-                                       : this.small[scanpos & (this.DictionarySize - 1)]);
+            scanpos = (buf[s] < buf[p] ? this.large[scanpos & (this.dictionarySize - 1)]
+                                       : this.small[scanpos & (this.dictionarySize - 1)]);
         }
 
         // Register the data pattern starting from position into the binary tree
@@ -206,7 +205,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
             this.addNode(parentpos, position, p - position);
         } else {
             this.root = position;
-            int node = position & (this.DictionarySize - 1);
+            int node = position & (this.dictionarySize - 1);
             this.parent[node] = BinaryTreeSearch.ROOT_NODE;
             this.small[node] = BinaryTreeSearch.UNUSED;
             this.large[node] = BinaryTreeSearch.UNUSED;
@@ -219,7 +218,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
      * and simultaneously registers the data pattern starting from {@code position}
      * into the binary tree.
      *
-     * @param position start position of the data pattern in {@link #TextBuffer}.
+     * @param position start position of the data pattern in {@link #textBuffer}.
      * @return If a match is found, a value holding information of the match position and match length
      *         generated by {@link LzssOutputStream#createSearchReturn(int, int)};
      *         if no match is found, {@link LzssOutputStream#NOMATCH}.
@@ -230,7 +229,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
     public int searchAndPut(int position) {
 
         // Delete the oldest data pattern from the binary tree
-        this.deleteNode(position - this.DictionarySize);
+        this.deleteNode(position - this.dictionarySize);
 
         // Search for the longest match from the binary tree
         int matchlen = -1;
@@ -238,8 +237,8 @@ public class BinaryTreeSearch implements LzssSearchMethod {
         int parentpos = this.root;
         int scanpos = this.root;
 
-        byte[] buf = this.TextBuffer;
-        int max = position + this.MaxMatch;
+        byte[] buf = this.textBuffer;
+        int max = position + this.maxMatch;
         int p;
         int s;
         int len = 0;
@@ -253,7 +252,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
                 if (max <= p) {
                     // Full match found
                     this.replaceNode(scanpos, position);
-                    return LzssOutputStream.createSearchReturn(this.MaxMatch, scanpos);
+                    return LzssOutputStream.createSearchReturn(this.maxMatch, scanpos);
                 }
             }
 
@@ -266,8 +265,8 @@ public class BinaryTreeSearch implements LzssSearchMethod {
             }
 
             parentpos = scanpos;
-            scanpos = (buf[s] < buf[p] ? this.large[scanpos & (this.DictionarySize - 1)]
-                                       : this.small[scanpos & (this.DictionarySize - 1)]);
+            scanpos = (buf[s] < buf[p] ? this.large[scanpos & (this.dictionarySize - 1)]
+                                       : this.small[scanpos & (this.dictionarySize - 1)]);
         }
 
         // Register the data pattern starting from position into the binary tree
@@ -275,7 +274,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
             this.addNode(parentpos, position, len);
         } else {
             this.root = position;
-            int node = position & (this.DictionarySize - 1);
+            int node = position & (this.dictionarySize - 1);
             this.parent[node] = BinaryTreeSearch.ROOT_NODE;
             this.small[node] = BinaryTreeSearch.UNUSED;
             this.large[node] = BinaryTreeSearch.UNUSED;
@@ -283,8 +282,8 @@ public class BinaryTreeSearch implements LzssSearchMethod {
 
         // Compare with the farthest data pattern
         // deleted at the beginning of the method
-        scanpos = position - this.DictionarySize;
-        if (this.DictionaryLimit <= scanpos) {
+        scanpos = position - this.dictionarySize;
+        if (this.dictionaryLimit <= scanpos) {
             s = scanpos;
             p = position;
             while (buf[s] == buf[p]) {
@@ -302,7 +301,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
         }
 
         // Return the longest match to caller.
-        if (this.Threshold <= matchlen) {
+        if (this.threshold <= matchlen) {
             return LzssOutputStream.createSearchReturn(matchlen, matchpos);
         } else {
             return LzssOutputStream.NOMATCH;
@@ -312,10 +311,10 @@ public class BinaryTreeSearch implements LzssSearchMethod {
     /**
      * Searches registered data patterns in the binary tree and gets the one
      * with the longest match to the data pattern starting from {@code position}.<br>
-     * For {@code position} where {@code TextBuffer.length < position + MaxMatch},
+     * For {@code position} where {@code textBuffer.length < position + maxMatch},
      * the binary tree cannot be fully traversed, so the longest match is not guaranteed to be obtained.
      *
-     * @param position start position of the data pattern in {@link #TextBuffer}.
+     * @param position start position of the data pattern in {@link #textBuffer}.
      * @param lastPutPos start position of the last registered data pattern.
      * @return If a match is found, a value holding information of the match position and match length
      *         generated by {@link LzssOutputStream#createSearchReturn(int, int)};
@@ -328,13 +327,13 @@ public class BinaryTreeSearch implements LzssSearchMethod {
 
         // Search data patterns not registered in the binary tree
         // using simple sequential search.
-        int matchlen = this.Threshold - 1;
+        int matchlen = this.threshold - 1;
         int matchpos = position;
         int scanpos = position - 1;
-        int scanlimit = Math.max(this.DictionaryLimit, lastPutPos);
+        int scanlimit = Math.max(this.dictionaryLimit, lastPutPos);
 
-        byte[] buf = this.TextBuffer;
-        int max = Math.min(this.TextBuffer.length, position + this.MaxMatch);
+        byte[] buf = this.textBuffer;
+        int max = Math.min(this.textBuffer.length, position + this.maxMatch);
         int s;
         int p;
         int len;
@@ -360,7 +359,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
 
         // Search the binary tree
         scanpos = this.root;
-        scanlimit = Math.max(this.DictionaryLimit, position - this.DictionarySize);
+        scanlimit = Math.max(this.dictionaryLimit, position - this.dictionarySize);
         while (scanpos != BinaryTreeSearch.UNUSED) {
             s = scanpos;
             p = position;
@@ -381,15 +380,15 @@ public class BinaryTreeSearch implements LzssSearchMethod {
                         matchpos = scanpos;
                     }
                 }
-                scanpos = (buf[s] < buf[p] ? this.large[scanpos & (this.DictionarySize - 1)]
-                                           : this.small[scanpos & (this.DictionarySize - 1)]);
+                scanpos = (buf[s] < buf[p] ? this.large[scanpos & (this.dictionarySize - 1)]
+                                           : this.small[scanpos & (this.dictionarySize - 1)]);
             } else {
                 break;
             }
         }
 
         // Return the longest match to caller.
-        if (this.Threshold <= matchlen) {
+        if (this.threshold <= matchlen) {
             return LzssOutputStream.createSearchReturn(matchlen, matchpos);
         } else {
             return LzssOutputStream.NOMATCH;
@@ -397,15 +396,15 @@ public class BinaryTreeSearch implements LzssSearchMethod {
     }
 
     /**
-     * When sliding data in {@link #TextBuffer} up to {@code position} forward,
+     * When sliding data in {@link #textBuffer} up to {@code position} forward,
      * performs the process of shifting data constituting the binary tree forward accordingly
-     * so as not to contradict data in {@link #TextBuffer}.
+     * so as not to contradict data in {@link #textBuffer}.
      */
     @Override
     public void slide() {
-        this.DictionaryLimit = Math.max(0, this.DictionaryLimit - this.DictionarySize);
+        this.dictionaryLimit = Math.max(0, this.dictionaryLimit - this.dictionarySize);
 
-        this.root -= this.DictionarySize;
+        this.root -= this.dictionarySize;
         this.slideTree(this.parent);
         this.slideTree(this.small);
         this.slideTree(this.large);
@@ -414,13 +413,13 @@ public class BinaryTreeSearch implements LzssSearchMethod {
     /**
      * Gets the amount of data required when registering a data pattern
      * into the binary tree using {@link #put(int)} or {@link #searchAndPut(int)}.<br>
-     * The binary tree requires all ({@link #MaxMatch} bytes) data that make up the data pattern upon registration.
+     * The binary tree requires all ({@link #maxMatch} bytes) data that make up the data pattern upon registration.
      *
-     * @return {@link #MaxMatch} specified in constructor
+     * @return {@link #maxMatch} specified in constructor
      */
     @Override
     public int putRequires() {
-        return this.MaxMatch;
+        return this.maxMatch;
     }
 
     /**
@@ -429,15 +428,15 @@ public class BinaryTreeSearch implements LzssSearchMethod {
      * The data patterns at {@code parentpos} and {@code position} match by {@code len} bytes.
      * The node at {@code position} must be put into the {@link #UNUSED} state in advance by {@link #deleteNode(int)}, etc.
      *
-     * @param parentpos start position in {@link #TextBuffer} of the parent's data pattern
-     * @param position start position in {@link #TextBuffer} of the newly added data pattern
+     * @param parentpos start position in {@link #textBuffer} of the parent's data pattern
+     * @param position start position in {@link #textBuffer} of the newly added data pattern
      * @param len match length between the parent's data pattern and the newly added data pattern
      */
     private void addNode(int parentpos, int position, int len) {
-        int parentnode = parentpos & (this.DictionarySize - 1);
-        int node = position & (this.DictionarySize - 1);
+        int parentnode = parentpos & (this.dictionarySize - 1);
+        int node = position & (this.dictionarySize - 1);
 
-        if (this.TextBuffer[parentpos + len] < this.TextBuffer[position + len]) {
+        if (this.textBuffer[parentpos + len] < this.textBuffer[position + len]) {
             this.large[parentnode] = position;
         } else {
             this.small[parentnode] = position;
@@ -453,7 +452,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
      * @param position start position of the data pattern to delete
      */
     private void deleteNode(int position) {
-        int node = position & (this.DictionarySize - 1);
+        int node = position & (this.dictionarySize - 1);
 
         if (this.parent[node] != BinaryTreeSearch.UNUSED) {
             if (this.small[node] == BinaryTreeSearch.UNUSED && this.large[node] == BinaryTreeSearch.UNUSED) {
@@ -478,10 +477,10 @@ public class BinaryTreeSearch implements LzssSearchMethod {
      * @param newpos start position of the data pattern replacing {@code oldpos}
      */
     private void contractNode(int oldpos, int newpos) {
-        int oldnode = oldpos & (this.DictionarySize - 1);
-        int newnode = newpos & (this.DictionarySize - 1);
+        int oldnode = oldpos & (this.dictionarySize - 1);
+        int newnode = newpos & (this.dictionarySize - 1);
         int parentpos = this.parent[oldnode];
-        int parentnode = parentpos & (this.DictionarySize - 1);
+        int parentnode = parentpos & (this.dictionarySize - 1);
 
         if (parentpos != BinaryTreeSearch.ROOT_NODE) {
             if (oldpos == this.small[parentnode]) {
@@ -510,10 +509,10 @@ public class BinaryTreeSearch implements LzssSearchMethod {
      * @param newpos start position of the data pattern replacing {@code oldpos}
      */
     private void replaceNode(int oldpos, int newpos) {
-        int oldnode = oldpos & (this.DictionarySize - 1);
-        int newnode = newpos & (this.DictionarySize - 1);
+        int oldnode = oldpos & (this.dictionarySize - 1);
+        int newnode = newpos & (this.dictionarySize - 1);
         int parentpos = this.parent[oldnode];
-        int parentnode = parentpos & (this.DictionarySize - 1);
+        int parentnode = parentpos & (this.dictionarySize - 1);
 
         if (parentpos != BinaryTreeSearch.ROOT_NODE) {
             if (oldpos == this.small[parentnode]) {
@@ -529,10 +528,10 @@ public class BinaryTreeSearch implements LzssSearchMethod {
         this.small[newnode] = this.small[oldnode];
         this.large[newnode] = this.large[oldnode];
         if (this.small[newnode] != BinaryTreeSearch.UNUSED) {
-            this.parent[this.small[newnode] & (this.DictionarySize - 1)] = newpos;
+            this.parent[this.small[newnode] & (this.dictionarySize - 1)] = newpos;
         }
         if (this.large[newnode] != BinaryTreeSearch.UNUSED) {
-            this.parent[this.large[newnode] & (this.DictionarySize - 1)] = newpos;
+            this.parent[this.large[newnode] & (this.dictionarySize - 1)] = newpos;
         }
 
         this.parent[oldnode] = BinaryTreeSearch.UNUSED;
@@ -548,13 +547,13 @@ public class BinaryTreeSearch implements LzssSearchMethod {
      * @return start position of the data pattern that should replace the data pattern starting from {@code position}
      */
     private int findNext(int position) {
-        int node = position & (this.DictionarySize - 1);
+        int node = position & (this.dictionarySize - 1);
 
         position = this.small[node];
-        node = position & (this.DictionarySize - 1);
+        node = position & (this.dictionarySize - 1);
         while (BinaryTreeSearch.UNUSED != this.large[node]) {
             position = this.large[node];
-            node = position & (this.DictionarySize - 1);
+            node = position & (this.dictionarySize - 1);
         }
 
         return position;
@@ -567,7 +566,7 @@ public class BinaryTreeSearch implements LzssSearchMethod {
      */
     private void slideTree(int[] array) {
         for (int i = 0; i < array.length; i++) {
-            array[i] = (0 <= array[i] ? array[i] - this.DictionarySize : array[i]);
+            array[i] = (0 <= array[i] ? array[i] - this.dictionarySize : array[i]);
         }
     }
 }

@@ -44,8 +44,8 @@ import jp.gr.java_conf.dangan.io.Bits;
  * $Log: PatriciaTrieSearch.java,v $
  * Revision 1.2  2002/12/10 22:28:55  dangan
  * [bug fix]
- *     Fixed put( DictionarySize * 2 )
- *     and searchAndPut( DictionarySize * 2 ) not being supported.
+ *     Fixed put( dictionarySize * 2 )
+ *     and searchAndPut( dictionarySize * 2 ) not being supported.
  *
  * Revision 1.1  2002/12/04 00:00:00  dangan
  * [change]
@@ -62,7 +62,6 @@ import jp.gr.java_conf.dangan.io.Bits;
  *     source maintenance
  *     tab removal
  *     license comment update
- *
  * </pre>
  *
  * @author $Author: dangan $
@@ -81,32 +80,32 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
     /**
      * LZSS dictionary size
      */
-    private final int DictionarySize;
+    private final int dictionarySize;
 
     /**
      * Value used for LZSS compression.
      * Indicates maximum match length.
      */
-    private final int MaxMatch;
+    private final int maxMatch;
 
     /**
-     * Threshold for LZSS compression/non-compression.
+     * threshold for LZSS compression/non-compression.
      * If the match length is greater than or equal to this value, compression code is output.
      */
-    private final int Threshold;
+    private final int threshold;
 
     /**
      * Buffer for applying LZSS compression.
      * Only read access is permitted within implementations of {@link LzssSearchMethod}.
      */
-    private final byte[] TextBuffer;
+    private final byte[] textBuffer;
 
     /**
      * Dictionary limit position.
-     * When there is no data in the dictionary area in the first half of {@link #TextBuffer},
+     * When there is no data in the dictionary area in the first half of {@link #textBuffer},
      * this prevents compression from using undefined data (0 in Java) in the dictionary area.
      */
-    private int DictionaryLimit;
+    private int dictionaryLimit;
 
     /**
      * Indicates parent node number.
@@ -140,7 +139,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
     private final int[] next;
 
     /**
-     * Indicates start position of data pattern in {@link #TextBuffer} of the node.
+     * Indicates start position of data pattern in {@link #textBuffer} of the node.
      * {@code position[node]} indicates start position of the data pattern of {@code node}.
      */
     private final int[] position;
@@ -181,39 +180,39 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
      * Constructor.
      * Constructs a search mechanism using PATRICIA Trie.
      *
-     * @param DictionarySize dictionary size
-     * @param MaxMatch maximum match length
-     * @param Threshold threshold between compression and non-compression
-     * @param TextBuffer buffer for applying LZSS compression
+     * @param dictionarySize dictionary size
+     * @param maxMatch maximum match length
+     * @param threshold threshold between compression and non-compression
+     * @param textBuffer buffer for applying LZSS compression
      */
-    public PatriciaTrieSearch(int DictionarySize, int MaxMatch, int Threshold, byte[] TextBuffer) {
+    public PatriciaTrieSearch(int dictionarySize, int maxMatch, int threshold, byte[] textBuffer) {
 
-        this.DictionarySize = DictionarySize;
-        this.MaxMatch = MaxMatch;
-        this.Threshold = Threshold;
-        this.TextBuffer = TextBuffer;
-        this.DictionaryLimit = this.DictionarySize;
+        this.dictionarySize = dictionarySize;
+        this.maxMatch = maxMatch;
+        this.threshold = threshold;
+        this.textBuffer = textBuffer;
+        this.dictionaryLimit = this.dictionarySize;
 
-        this.parent = new int[this.DictionarySize * 2];
-        this.prev = new int[this.DictionarySize * 2];
-        this.next = new int[this.DictionarySize * 2];
-        this.position = new int[this.DictionarySize];
-        this.level = new int[this.DictionarySize];
-        this.childnum = new int[this.DictionarySize];
-        this.hashTable = new int[PatriciaTrieSearch.generateProbablePrime(this.DictionarySize + (this.DictionarySize >> 2))];
+        this.parent = new int[this.dictionarySize * 2];
+        this.prev = new int[this.dictionarySize * 2];
+        this.next = new int[this.dictionarySize * 2];
+        this.position = new int[this.dictionarySize];
+        this.level = new int[this.dictionarySize];
+        this.childnum = new int[this.dictionarySize];
+        this.hashTable = new int[PatriciaTrieSearch.generateProbablePrime(this.dictionarySize + (this.dictionarySize >> 2))];
 
-        for (int i = 2; i < this.DictionarySize; i++) {
+        for (int i = 2; i < this.dictionarySize; i++) {
             this.next[i] = i - 1;
         }
-        this.avail = this.DictionarySize - 1;
+        this.avail = this.dictionarySize - 1;
 
-        for (int i = 0; i < this.DictionarySize * 2; i++) {
+        for (int i = 0; i < this.dictionarySize * 2; i++) {
             this.parent[i] = PatriciaTrieSearch.UNUSED;
         }
 
         Arrays.fill(this.hashTable, PatriciaTrieSearch.UNUSED);
 
-        this.shift = Bits.len(this.DictionarySize) - 8;
+        this.shift = Bits.len(this.dictionarySize) - 8;
 
         this.lastMatchLen = 0;
         this.lastMatchPos = 0;
@@ -223,13 +222,13 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
      * Registers the data pattern starting from {@code position}
      * into the PATRICIA Trie.
      *
-     * @param position start position of the data pattern in {@link #TextBuffer}
+     * @param position start position of the data pattern in {@link #textBuffer}
      */
     @Override
     public void put(int position) {
 
         // Delete the oldest data pattern from PATRICIA Trie
-        int posnode = (position & (this.DictionarySize - 1)) + this.DictionarySize;
+        int posnode = (position & (this.dictionarySize - 1)) + this.dictionarySize;
         this.deleteNode(posnode);
 
         // Search longest match from PATRICIA Trie
@@ -241,7 +240,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
 
             // If the previous match length is greater than threshold,
             // search for match of lastMatchLen - 1 from leaves.
-            scannode = (this.lastMatchPos + 1) | this.DictionarySize;
+            scannode = (this.lastMatchPos + 1) | this.dictionarySize;
 
             // Processing when scannode was removed from PATRICIA Trie due to longest match
             while (this.parent[scannode] == PatriciaTrieSearch.UNUSED) {
@@ -267,12 +266,12 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
         } else {
 
             // Traverse PATRICIA Trie from root.
-            scannode = this.child(this.TextBuffer[position] - 128, this.TextBuffer[position + 1] & 0xFF);
+            scannode = this.child(this.textBuffer[position] - 128, this.textBuffer[position + 1] & 0xFF);
             matchlen = 2;
 
             if (scannode == PatriciaTrieSearch.UNUSED) {
                 // Add position to root.
-                this.attachNode(this.TextBuffer[position] - 128, posnode, this.TextBuffer[position + 1] & 0xFF);
+                this.attachNode(this.textBuffer[position] - 128, posnode, this.textBuffer[position + 1] & 0xFF);
                 this.lastMatchLen = matchlen;
                 return;
             }
@@ -280,26 +279,26 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
 
         while (true) {
             int max;
-            if (scannode < this.DictionarySize) {
+            if (scannode < this.dictionarySize) {
                 max = this.level[scannode];
                 matchnode = scannode;
                 matchpos = this.position[scannode];
             } else {
-                max = this.MaxMatch;
+                max = this.maxMatch;
                 matchnode = scannode;
-                matchpos = (position <= scannode ? scannode - this.DictionarySize : scannode);
+                matchpos = (position <= scannode ? scannode - this.dictionarySize : scannode);
             }
 
-            while (matchlen < max && (this.TextBuffer[matchpos + matchlen] == this.TextBuffer[position + matchlen])) {
+            while (matchlen < max && (this.textBuffer[matchpos + matchlen] == this.textBuffer[position + matchlen])) {
                 matchlen++;
             }
 
-            if (matchlen == max && matchlen < this.MaxMatch) {
+            if (matchlen == max && matchlen < this.maxMatch) {
                 this.position[scannode] = position;
-                scannode = this.child(scannode, this.TextBuffer[position + matchlen] & 0xFF);
+                scannode = this.child(scannode, this.textBuffer[position + matchlen] & 0xFF);
 
                 if (scannode == PatriciaTrieSearch.UNUSED) {
-                    this.attachNode(matchnode, posnode, this.TextBuffer[position + matchlen] & 0xFF);
+                    this.attachNode(matchnode, posnode, this.textBuffer[position + matchlen] & 0xFF);
                     break;
                 } else {
                     matchlen++;
@@ -327,7 +326,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
      * PATRICIA Trie, and simultaneously registers the data pattern starting
      * from {@code position} into the PATRICIA Trie.
      *
-     * @param position start position of the data pattern in {@link #TextBuffer}.
+     * @param position start position of the data pattern in {@link #textBuffer}.
      * @return If a match is found, a value holding information of the match position and match length
      *         generated by {@link LzssOutputStream#createSearchReturn(int, int)};
      *         if no match is found, {@link LzssOutputStream#NOMATCH}.
@@ -338,7 +337,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
     public int searchAndPut(int position) {
 
         // Delete the oldest data pattern from PATRICIA Trie
-        int posnode = (position & (this.DictionarySize - 1)) + this.DictionarySize;
+        int posnode = (position & (this.dictionarySize - 1)) + this.dictionarySize;
         this.deleteNode(posnode);
 
         // Search longest match from PATRICIA Trie
@@ -350,7 +349,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
 
             // If the previous match length is greater than threshold,
             // search for match of lastMatchLen - 1 from leaves.
-            scannode = (this.lastMatchPos + 1) | this.DictionarySize;
+            scannode = (this.lastMatchPos + 1) | this.dictionarySize;
 
             // Processing when scannode was removed from PATRICIA Trie due to longest match
             while (this.parent[scannode] == PatriciaTrieSearch.UNUSED) {
@@ -375,7 +374,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
             matchlen = this.lastMatchLen;
         } else {
             // Traverse PATRICIA Trie from root.
-            scannode = this.child(this.TextBuffer[position] - 128, this.TextBuffer[position + 1] & 0xFF);
+            scannode = this.child(this.textBuffer[position] - 128, this.textBuffer[position + 1] & 0xFF);
             matchlen = 2;
         }
 
@@ -383,27 +382,27 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
         if (scannode != PatriciaTrieSearch.UNUSED) {
             while (true) {
                 int max;
-                if (scannode < this.DictionarySize) {
+                if (scannode < this.dictionarySize) {
                     max = this.level[scannode];
                     matchnode = scannode;
                     matchpos = this.position[scannode];
                 } else {
-                    max = this.MaxMatch;
+                    max = this.maxMatch;
                     matchnode = scannode;
-                    matchpos = (position <= scannode ? scannode - this.DictionarySize : scannode);
+                    matchpos = (position <= scannode ? scannode - this.dictionarySize : scannode);
                 }
 
-                while (matchlen < max && (this.TextBuffer[matchpos + matchlen] == this.TextBuffer[position + matchlen])) {
+                while (matchlen < max && (this.textBuffer[matchpos + matchlen] == this.textBuffer[position + matchlen])) {
                     matchlen++;
                 }
 
-                if (matchlen == max && matchlen < this.MaxMatch) {
+                if (matchlen == max && matchlen < this.maxMatch) {
                     this.position[scannode] = position;
-                    scannode = this.child(scannode, this.TextBuffer[position + matchlen] & 0xFF);
+                    scannode = this.child(scannode, this.textBuffer[position + matchlen] & 0xFF);
 
                     if (scannode == PatriciaTrieSearch.UNUSED) {
                         // Add position to matchnode.
-                        this.attachNode(matchnode, posnode, this.TextBuffer[position + matchlen] & 0xFF);
+                        this.attachNode(matchnode, posnode, this.textBuffer[position + matchlen] & 0xFF);
                         break;
                     } else {
                         matchlen++;
@@ -421,7 +420,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
             }
         } else { // if( scannode != PatriciaTrieSearch.UNUSED )
                  // Add position to root.
-            this.attachNode(this.TextBuffer[position] - 128, posnode, this.TextBuffer[position + 1] & 0xFF);
+            this.attachNode(this.textBuffer[position] - 128, posnode, this.textBuffer[position + 1] & 0xFF);
             matchlen = 0;
         }
 
@@ -430,11 +429,11 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
         this.lastMatchPos = matchpos;
 
         // Also check data pattern deleted from PATRICIA Trie at beginning of method.
-        scannode = position - this.DictionarySize;
-        if (this.DictionaryLimit <= scannode) {
+        scannode = position - this.dictionarySize;
+        if (this.dictionaryLimit <= scannode) {
             int len = 0;
-            while (this.TextBuffer[scannode + len] == this.TextBuffer[position + len])
-                if (this.MaxMatch <= ++len)
+            while (this.textBuffer[scannode + len] == this.textBuffer[position + len])
+                if (this.maxMatch <= ++len)
                     break;
 
             if (matchlen < len) {
@@ -444,7 +443,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
         }
 
         // Return the longest match to caller.
-        if (this.Threshold <= matchlen) {
+        if (this.threshold <= matchlen) {
             return LzssOutputStream.createSearchReturn(matchlen, matchpos);
         } else {
             return LzssOutputStream.NOMATCH;
@@ -455,7 +454,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
      * Searches registered data patterns in PATRICIA Trie and gets the one
      * with the longest match to the data pattern starting from {@code position}.<br>
      *
-     * @param position start position of the data pattern in {@link #TextBuffer}.
+     * @param position start position of the data pattern in {@link #textBuffer}.
      * @param lastPutPos start position of the last registered data pattern.
      * @return If a match is found, a value holding information of the match position and match length
      *         generated by {@link LzssOutputStream#createSearchReturn(int, int)};
@@ -468,13 +467,13 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
 
         // Search data patterns not registered in PATRICIA Trie
         // using simple sequential search.
-        int scanlimit = Math.max(this.DictionaryLimit, lastPutPos);
+        int scanlimit = Math.max(this.dictionaryLimit, lastPutPos);
         int scanpos = position - 1;
         int matchlen = 0;
         int matchpos = 0;
 
-        byte[] buf = this.TextBuffer;
-        int max = Math.min(this.TextBuffer.length, position + this.MaxMatch);
+        byte[] buf = this.textBuffer;
+        int max = Math.min(this.textBuffer.length, position + this.maxMatch);
         int s;
         int p;
         int len;
@@ -499,22 +498,22 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
         }
 
         // Search PATRICIA Trie
-        if (2 < this.TextBuffer.length - position) {
-            int matchnode = this.child(this.TextBuffer[position] - 128, this.TextBuffer[position + 1] & 0xFF);
-            scanlimit = Math.max(this.DictionaryLimit, position - this.DictionarySize);
+        if (2 < this.textBuffer.length - position) {
+            int matchnode = this.child(this.textBuffer[position] - 128, this.textBuffer[position + 1] & 0xFF);
+            scanlimit = Math.max(this.dictionaryLimit, position - this.dictionarySize);
             len = 2;
             while (matchnode != PatriciaTrieSearch.UNUSED) {
                 int maxlen;
-                if (matchnode < this.DictionarySize) {
+                if (matchnode < this.dictionarySize) {
                     maxlen = this.level[matchnode];
                     scanpos = this.position[matchnode];
                 } else {
-                    maxlen = this.MaxMatch;
-                    scanpos = (lastPutPos < matchnode ? matchnode - this.DictionarySize : matchnode);
+                    maxlen = this.maxMatch;
+                    scanpos = (lastPutPos < matchnode ? matchnode - this.dictionarySize : matchnode);
                 }
 
                 if (scanlimit <= scanpos) {
-                    max = Math.min(this.TextBuffer.length, position + maxlen);
+                    max = Math.min(this.textBuffer.length, position + maxlen);
                     s = scanpos + len;
                     p = position + len;
                     if (p < max) {
@@ -532,9 +531,9 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
                         matchlen = len;
                     }
 
-                    if (len == maxlen && matchlen < this.MaxMatch) {
-                        if (position + len < this.TextBuffer.length) {
-                            matchnode = this.child(matchnode, this.TextBuffer[position + len] & 0xFF);
+                    if (len == maxlen && matchlen < this.maxMatch) {
+                        if (position + len < this.textBuffer.length) {
+                            matchnode = this.child(matchnode, this.textBuffer[position + len] & 0xFF);
 
                             if (matchnode != PatriciaTrieSearch.UNUSED) {
                                 len++;
@@ -552,7 +551,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
         }
 
         // Return the longest match to caller.
-        if (this.Threshold <= matchlen) {
+        if (this.threshold <= matchlen) {
             return LzssOutputStream.createSearchReturn(matchlen, matchpos);
         } else {
             return LzssOutputStream.NOMATCH;
@@ -560,30 +559,30 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
     }
 
     /**
-     * When sliding data in {@link #TextBuffer} up to {@code position} forward,
+     * When sliding data in {@link #textBuffer} up to {@code position} forward,
      * performs processing to shift data in {@link LzssSearchMethod} forward
-     * accordingly so as not to contradict data in {@link #TextBuffer}.
+     * accordingly so as not to contradict data in {@link #textBuffer}.
      */
     @Override
     public void slide() {
-        this.DictionaryLimit = Math.max(0, this.DictionaryLimit - this.DictionarySize);
-        this.lastMatchPos -= this.DictionarySize;
+        this.dictionaryLimit = Math.max(0, this.dictionaryLimit - this.dictionarySize);
+        this.lastMatchPos -= this.dictionarySize;
 
         for (int i = 0; i < this.position.length; i++) {
-            int pos = this.position[i] - this.DictionarySize;
+            int pos = this.position[i] - this.dictionarySize;
             this.position[i] = Math.max(0, pos);
         }
     }
 
     /**
      * Gets the amount of data used when registering data into {@link LzssSearchMethod} with {@link #put(int)}.
-     * {@link PatriciaTrieSearch} always returns {@link #MaxMatch}.
+     * {@link PatriciaTrieSearch} always returns {@link #maxMatch}.
      *
-     * @return always {@link #MaxMatch}
+     * @return always {@link #maxMatch}
      */
     @Override
     public int putRequires() {
-        return this.MaxMatch;
+        return this.maxMatch;
     }
 
     /**
@@ -594,7 +593,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
      * @param oldnode node to branch
      * @param oldpos start position of data pattern pointed to by {@code oldnode}
      * @param posnode node for {@code position}
-     * @param position start position of data pattern in {@link #TextBuffer}
+     * @param position start position of data pattern in {@link #textBuffer}
      * @param splitLen branch position within data pattern
      */
     private void splitNode(int oldnode, int oldpos, int posnode, int position, int splitLen) {
@@ -607,8 +606,8 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
         this.position[newnode] = position;
         this.childnum[newnode] = 0;
 
-        this.attachNode(newnode, oldnode, this.TextBuffer[oldpos + splitLen] & 0xFF);
-        this.attachNode(newnode, posnode, this.TextBuffer[position + splitLen] & 0xFF);
+        this.attachNode(newnode, oldnode, this.textBuffer[oldpos + splitLen] & 0xFF);
+        this.attachNode(newnode, posnode, this.textBuffer[position + splitLen] & 0xFF);
     }
 
     /**
@@ -638,7 +637,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
                 this.childnum[parent]--;
 
                 if (this.childnum[parent] <= 1) {
-                    this.contractNode(this.child(parent, this.TextBuffer[this.position[parent] + this.level[parent]] & 0xFF));
+                    this.contractNode(this.child(parent, this.textBuffer[this.position[parent] + this.level[parent]] & 0xFF));
                 }
             }
         }
@@ -649,7 +648,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
      *
      * @param parentnode target parent node to add {@code childnode} to
      * @param childnode node to add to {@code parentnode}
-     * @param ch current processing position in {@link #TextBuffer}.
+     * @param ch current processing position in {@link #textBuffer}.
      *            Used to determine leaf {@code position}.
      */
     private void attachNode(int parentnode, int childnode, int ch) {
@@ -725,14 +724,14 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
      */
     @SuppressWarnings("unused")
     private void slideTree(int[] src, int[] dst, int width) {
-        for (int i = 0; i < this.DictionarySize; i++)
-            dst[i] = (src[i] < this.DictionarySize ? src[i]
-                                                   : ((src[i] - width) & (this.DictionarySize - 1)) + this.DictionarySize);
+        for (int i = 0; i < this.dictionarySize; i++)
+            dst[i] = (src[i] < this.dictionarySize ? src[i]
+                                                   : ((src[i] - width) & (this.dictionarySize - 1)) + this.dictionarySize);
 
-        for (int i = this.DictionarySize; i < src.length; i++)
-            dst[((i - width) & (this.DictionarySize - 1))
-                + this.DictionarySize] = (src[i] < this.DictionarySize ? src[i] : ((src[i] - width) & (this.DictionarySize - 1))
-                                                                                  + this.DictionarySize);
+        for (int i = this.dictionarySize; i < src.length; i++)
+            dst[((i - width) & (this.dictionarySize - 1))
+                + this.dictionarySize] = (src[i] < this.dictionarySize ? src[i] : ((src[i] - width) & (this.dictionarySize - 1))
+                                                                                  + this.dictionarySize);
     }
 
     /**
@@ -793,14 +792,14 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
 //  *
 //  * @exception RuntimeException if Trie is broken.
 //  */
-// private void checkTrie( int pos ){
-//     for( int i = -256 ; i < 0 ; i++ ){
+// private void checkTrie(int pos) {
+//     for (int i = -256; i < 0; i++) {
 //         this.checkNode( i, pos );
 //     }
 //
-//     for( int i = 1 ; i < this.DictionarySize ; i++ ){
-//         if( this.parent[ i ] != PatriciaTrieSearch.UNUSED ){
-//             this.checkNode( i, pos );
+//     for (int i = 1; i < this.dictionarySize; i++) {
+//         if (this.parent[ i ] != PatriciaTrieSearch.UNUSED) {
+//             this.checkNode(i, pos);
 //         }
 //     }
 // }
@@ -825,7 +824,7 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
 //     int npos;
 //     if (node < 0) {
 //         nlevel = 0;
-//         npos = this.TextBuffer.length;
+//         npos = this.textBuffer.length;
 //     } else {
 //         nlevel = this.level[node];
 //         npos = this.position[node];
@@ -840,43 +839,43 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
 //
 //             if (this.parent[ child ] != node) {
 //                 System.out.println("unlink::parent<->child");
-//                 this.writeNode( node );
-//                 this.writeNode( child );
+//                 this.writeNode(node);
+//                 this.writeNode(child);
 //                 throw new RuntimeException("Trie Broken");
 //             }
 //
-//             if (child < this.DictionarySize){
+//             if (child < this.dictionarySize){
 //                 if (this.level[child] <= nlevel){
 //                     System.out.println("broken hierarchy::level");
-//                     this.writeNode( node );
-//                     this.writeNode( child );
+//                     this.writeNode(node);
+//                     this.writeNode(child);
 //                     throw new RuntimeException( "Trie Broken" );
 //                 }
 //
 //                 if( npos < this.position[ child ] ){
-//                     System.out.println( "broken hierarchy::position" );
-//                     this.writeNode( node );
-//                     this.writeNode( child );
-//                     throw new RuntimeException( "Trie Broken" );
+//                     System.out.println("broken hierarchy::position");
+//                     this.writeNode(node);
+//                     this.writeNode(child);
+//                     throw new RuntimeException("Trie Broken");
 //                 }
 //                 // this.checkTrie( child, pos );
 //             }else{
-//                 int childpos = ( pos <= child ? child - this.DictionarySize : child );
+//                 int childpos = (pos <= child ? child - this.dictionarySize : child);
 //                 if( npos < childpos ){
-//                     System.out.println( "broken hierarchy::position" );
-//                     this.writeNode( node );
-//                     this.writeNode( child );
-//                     throw new RuntimeException( "Trie Broken" );
+//                     System.out.println("broken hierarchy::position");
+//                     this.writeNode(node);
+//                     this.writeNode(child);
+//                     throw new RuntimeException("Trie Broken");
 //                 }
 //             }
 //         }
 //     }
 //
-//     if( 0 < node && node < this.DictionarySize ){
-//         if( this.childnum[ node ] != childcount ){
-//             System.out.println( "broken hierarchy::childnum" );
-//             this.writeNode( node );
-//             throw new RuntimeException( "Trie Broken" );
+//     if (0 < node && node < this.dictionarySize) {
+//         if (this.childnum[ node ] != childcount) {
+//             System.out.println("broken hierarchy::childnum");
+//             this.writeNode(node);
+//             throw new RuntimeException("Trie Broken");
 //         }
 //     }
 // }
@@ -886,19 +885,19 @@ public class PatriciaTrieSearch implements LzssSearchMethod {
 //  *
 //  * @param node node to output information for
 //  */
-// private void writeNode( int node ){
-//     if( 0 < node ){
-//       System.out.println( "this.parent[" + node + "]  ::" + this.parent[ node ] );
-//       System.out.println( "this.prev[" + node + "]    ::" + this.prev[ node ] );
-//       System.out.println( "this.next[" + node + "]    ::" + this.next[ node ] );
-//       if( node < this.DictionarySize ){
-//           System.out.println( "this.childnum[" + node + "]::" + this.childnum[ node ] );
-//           System.out.println( "this.position[" + node + "]::" + this.position[ node ] );
-//           System.out.println( "this.level[" + node + "]   ::" + this.level[ node ] );
+// private void writeNode(int node) {
+//     if (0 < node ){
+//       System.out.println("this.parent[" + node + "]  ::" + this.parent[node]);
+//       System.out.println("this.prev[" + node + "]    ::" + this.prev[node]);
+//       System.out.println("this.next[" + node + "]    ::" + this.next[node]);
+//       if (node < this.dictionarySize) {
+//           System.out.println("this.childnum[" + node + "]::" + this.childnum[node]);
+//           System.out.println("this.position[" + node + "]::" + this.position[node]);
+//           System.out.println("this.level[" + node + "]   ::" + this.level[node]);
 //       }
-//   } else if(node < 0) {
-//       System.out.println( "ROOT_NODE                  ::" + node );
+//   } else if (node < 0) {
+//       System.out.println("ROOT_NODE                  ::" + node);
 //   } else {
-//       System.out.println( "UNUSED                     ::" + node );
+//       System.out.println("UNUSED                     ::" + node);
 //   }
 // }

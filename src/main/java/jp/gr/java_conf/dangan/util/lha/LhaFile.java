@@ -84,7 +84,7 @@ public class LhaFile {
     /**
      * Object that last accessed {@code archive}.
      */
-    private Object LastAccessObject;
+    private Object lastAccessObject;
 
     /**
      * List of {@link LhaHeader} holding header of each entry.
@@ -423,7 +423,7 @@ public class LhaFile {
     public void close() throws IOException {
         this.archive.close();
         this.archive = null;
-        this.LastAccessObject = null;
+        this.lastAccessObject = null;
         this.headers = null;
         this.entryPoint = null;
         this.hash = null;
@@ -522,7 +522,7 @@ public class LhaFile {
         public int read() throws IOException {
             synchronized (LhaFile.this.archive) {
                 if (this.position < this.end) {
-                    if (LhaFile.this.LastAccessObject != this)
+                    if (LhaFile.this.lastAccessObject != this)
                         LhaFile.this.archive.seek(this.position);
 
                     int data = LhaFile.this.archive.read();
@@ -562,9 +562,9 @@ public class LhaFile {
         public int read(byte[] buffer, int index, int length) throws IOException {
             synchronized (LhaFile.this.archive) {
                 if (this.position < this.end) {
-                    if (LhaFile.this.LastAccessObject != this) {
+                    if (LhaFile.this.lastAccessObject != this) {
                         LhaFile.this.archive.seek(this.position);
-                        LhaFile.this.LastAccessObject = this;
+                        LhaFile.this.lastAccessObject = this;
                     }
 
                     length = (int) Math.min(this.end - this.position, length);
@@ -590,8 +590,8 @@ public class LhaFile {
                 long skiplen = Math.min(this.end - this.position, length);
                 this.position += skiplen;
 
-                if (LhaFile.this.LastAccessObject == this)
-                    LhaFile.this.LastAccessObject = null;
+                if (LhaFile.this.lastAccessObject == this)
+                    LhaFile.this.lastAccessObject = null;
 
                 return skiplen;
             }
@@ -632,8 +632,8 @@ public class LhaFile {
                     throw new IOException("not marked");
                 }
 
-                if (LhaFile.this.LastAccessObject == this)
-                    LhaFile.this.LastAccessObject = null;
+                if (LhaFile.this.lastAccessObject == this)
+                    LhaFile.this.lastAccessObject = null;
             }
         }
 

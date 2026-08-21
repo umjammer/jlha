@@ -59,30 +59,30 @@ public class HashShort implements HashMethod {
      * and the second half is the buffer containing data to be compressed.
      * Used only for reading to generate hash values in implementations of {@link HashMethod}.
      */
-    private final byte[] TextBuffer;
+    private final byte[] textBuffer;
 
     /**
      * Constructs a hash function that generates a value from 0x000 to 0xFFF
      * from the first 2 bytes of a data pattern.
      *
-     * @param TextBuffer buffer for LZSS compression. Used for reading to generate hash values.
+     * @param textBuffer buffer for LZSS compression. Used for reading to generate hash values.
      */
-    public HashShort(byte[] TextBuffer) {
-        this.TextBuffer = TextBuffer;
+    public HashShort(byte[] textBuffer) {
+        this.textBuffer = textBuffer;
     }
 
     /**
      * Hash function.
      * Generates the hash value of the data pattern starting from {@code position}
-     * of {@link #TextBuffer} passed to constructor.
+     * of {@link #textBuffer} passed to constructor.
      *
      * @param position start position of the data pattern
      * @return hash value
      */
     @Override
     public int hash(int position) {
-        return ((((this.TextBuffer[position + 1] & 0x0F) << 8) | ((this.TextBuffer[position + 1] & 0xFF) >> 4))
-                ^ ((this.TextBuffer[position] & 0xFF) << 2));
+        return ((((this.textBuffer[position + 1] & 0x0F) << 8) | ((this.textBuffer[position + 1] & 0xFF) >> 4))
+                ^ ((this.textBuffer[position] & 0xFF) << 2));
     }
 
     /**

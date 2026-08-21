@@ -65,7 +65,7 @@ public class HashDefault implements HashMethod {
      * and the second half is the buffer containing data to be compressed.
      * Used only for reading to generate hash values in implementations of {@link HashMethod}.
      */
-    private final byte[] TextBuffer;
+    private final byte[] textBuffer;
 
     /**
      * Constructs a hash function used in ar940528 and LHa for Unix.
@@ -74,20 +74,20 @@ public class HashDefault implements HashMethod {
      *            Used for reading to generate hash values.
      */
     public HashDefault(byte[] TextBuffer) {
-        this.TextBuffer = TextBuffer;
+        this.textBuffer = TextBuffer;
     }
 
     /**
      * Hash function.<br>
-     * Generates the hash value of the data pattern from {@code position} of {@link #TextBuffer} passed to constructor.
+     * Generates the hash value of the data pattern from {@code position} of {@link #textBuffer} passed to constructor.
      *
      * @param position start position of the data pattern
      * @return hash value
      */
     @Override
     public int hash(int position) {
-        return (((this.TextBuffer[position] << 5) ^ (this.TextBuffer[position + 1] & 0xFF)) << 5
-                ^ (this.TextBuffer[position + 2] & 0xFF))
+        return (((this.textBuffer[position] << 5) ^ (this.textBuffer[position + 1] & 0xFF)) << 5
+                ^ (this.textBuffer[position + 2] & 0xFF))
                & HashDefault.HashMask;
     }
 

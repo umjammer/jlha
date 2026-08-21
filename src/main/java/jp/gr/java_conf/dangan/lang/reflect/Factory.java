@@ -44,7 +44,6 @@ import java.lang.reflect.InvocationTargetException;
  * Revision 1.0  2002/10/01 00:00:00  dangan
  * first edition
  * add to version control
- *
  * </pre>
  *
  * @author $Author: dangan $
@@ -60,22 +59,22 @@ public class Factory {
     }
 
     /**
-     * Creates an instance of the class indicated by {@code classname}.
+     * Creates an instance of the class indicated by {@code className}.
      * A constructor matching the types of {@code args} is used.
      *
-     * @param classname class name
+     * @param className class name
      * @param args      array of arguments
      * @return the created instance, or {@code null} if no constructor matching the type information of {@code args} exists
      * @throws InvocationTargetException if an exception occurs in the constructor
      * @throws InstantiationException    if an attempt is made to get an instance of an {@code abstract} class
-     * @throws ClassNotFoundException    if the class indicated by {@code classname} does not exist
+     * @throws ClassNotFoundException    if the class indicated by {@code className} does not exist
      * @throws NoSuchMethodException     if no constructor matching {@code args} is found
      */
-    public static Object createInstance(String classname, Object... args) throws InvocationTargetException,
+    public static Object createInstance(String className, Object... args) throws InvocationTargetException,
             InstantiationException,
             ClassNotFoundException,
             NoSuchMethodException {
-        return Factory.createInstance(Class.forName(classname), args);
+        return Factory.createInstance(Class.forName(className), args);
     }
 
     /**
@@ -113,17 +112,17 @@ public class Factory {
     }
 
     /**
-     * Obtains a {@code public} constructor of the class indicated by {@code classname}
+     * Obtains a {@code public} constructor of the class indicated by {@code className}
      * that can accept {@code args} as arguments when parsed with {@link Type#parse(Class, Object)}.
      *
-     * @param classname class name. Obtains a constructor to create an instance of this type.
+     * @param className class name. Obtains a constructor to create an instance of this type.
      * @param args      array of arguments. May include {@code null}, but if {@code null} is used,
      *                  since any subclass of {@link Object} will match, constructors other than the intended one might be found.
      * @return a constructor that can take {@code args} as arguments, or {@code null} if not found.
-     * @throws ClassNotFoundException if the class indicated by {@code classname} does not exist
+     * @throws ClassNotFoundException if the class indicated by {@code className} does not exist
      */
-    public static Constructor<?> getConstructor(String classname, Object... args) throws ClassNotFoundException {
-        return Factory.getConstructor(Class.forName(classname), args);
+    public static Constructor<?> getConstructor(String className, Object... args) throws ClassNotFoundException {
+        return Factory.getConstructor(Class.forName(className), args);
     }
 
     /**
@@ -140,19 +139,19 @@ public class Factory {
     }
 
     /**
-     * Obtains a constructor of the class indicated by {@code classname}
+     * Obtains a constructor of the class indicated by {@code className}
      * that can accept {@code args} as arguments when parsed with {@link Type#parse(Class, Object)}.
      *
-     * @param classname class name. Obtains a constructor to create an instance of this type.
+     * @param className class name. Obtains a constructor to create an instance of this type.
      * @param all       {@code false} to search only {@code public} constructors;
      *                  {@code true} to search all constructors (public, protected, private, package-private).
      * @param args      array of arguments. May include {@code null}, but if {@code null} is used,
      *                  since any subclass of {@link Object} will match, constructors other than the intended one might be found.
      * @return a constructor that can take {@code args} as arguments, or {@code null} if not found.
-     * @throws ClassNotFoundException if the class indicated by {@code classname} does not exist
+     * @throws ClassNotFoundException if the class indicated by {@code className} does not exist
      */
-    public static Constructor<?> getConstructor(String classname, boolean all, Object... args) throws ClassNotFoundException {
-        return Factory.getConstructor(Class.forName(classname), all, args);
+    public static Constructor<?> getConstructor(String className, boolean all, Object... args) throws ClassNotFoundException {
+        return Factory.getConstructor(Class.forName(className), all, args);
     }
 
     /**
@@ -185,17 +184,17 @@ public class Factory {
     }
 
     /**
-     * Obtains a {@code public} constructor of the class indicated by {@code classname}
+     * Obtains a {@code public} constructor of the class indicated by {@code className}
      * that can accept {@code args} as arguments directly as is.
      *
-     * @param classname class name. Obtains a constructor to create an instance of this type.
+     * @param className class name. Obtains a constructor to create an instance of this type.
      * @param args      array of arguments. May include {@code null}, but if {@code null} is used,
      *                  since any subclass of {@link Object} will match, constructors other than the intended one might be found.
      * @return a constructor that can take {@code args} as arguments, or {@code null} if not found.
-     * @throws ClassNotFoundException if the class indicated by {@code classname} does not exist
+     * @throws ClassNotFoundException if the class indicated by {@code className} does not exist
      */
-    public static Constructor<?> getMatchFullConstructor(String classname, Object... args) throws ClassNotFoundException {
-        return Factory.getMatchFullConstructor(Class.forName(classname), args);
+    public static Constructor<?> getMatchFullConstructor(String className, Object... args) throws ClassNotFoundException {
+        return Factory.getMatchFullConstructor(Class.forName(className), args);
     }
 
     /**
@@ -212,20 +211,20 @@ public class Factory {
     }
 
     /**
-     * Obtains a constructor of the class indicated by {@code classname}
+     * Obtains a constructor of the class indicated by {@code className}
      * that can accept {@code args} as arguments directly as is.
      *
-     * @param classname class name. Obtains a constructor to create an instance of this type.
+     * @param className class name. Obtains a constructor to create an instance of this type.
      * @param all       {@code false} to search only {@code public} constructors;
      *                  {@code true} to search all constructors (public, protected, private, package-private).
      * @param args      array of arguments. May include {@code null}, but if {@code null} is used,
      *                  since any subclass of {@link Object} will match, constructors other than the intended one might be found.
      * @return a constructor that can take {@code args} as arguments, or {@code null} if not found.
-     * @throws ClassNotFoundException if the class indicated by {@code classname} does not exist
+     * @throws ClassNotFoundException if the class indicated by {@code className} does not exist
      */
-    public static Constructor<?> getMatchFullConstructor(String classname,
+    public static Constructor<?> getMatchFullConstructor(String className,
                                                          boolean all, Object... args) throws ClassNotFoundException {
-        return Factory.getMatchFullConstructor(Class.forName(classname), all, args);
+        return Factory.getMatchFullConstructor(Class.forName(className), all, args);
     }
 
     /**

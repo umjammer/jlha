@@ -164,8 +164,8 @@ public class LhaOutputStream extends OutputStream {
      * @param file instance of {@link RandomAccessFile}.
      *             Must satisfy:
      *             <ul>
-     *             <li>Must not be already closed.
-     *             <li>Must be instantiated with mode "rw" in constructor to enable reading and writing.
+     *             <li>Must not be already closed.</li>
+     *             <li>Must be instantiated with mode "rw" in constructor to enable reading and writing.</li>
      *             </ul>
      * @see LhaProperty#getProperties()
      */
@@ -190,8 +190,8 @@ public class LhaOutputStream extends OutputStream {
      * @param file     instance of {@link RandomAccessFile}.
      *                 Must satisfy:
      *                 <ul>
-     *                 <li>Must not be already closed.
-     *                 <li>Must be instantiated with mode "rw" in constructor to enable reading and writing.
+     *                 <li>Must not be already closed.</li>
+     *                 <li>Must be instantiated with mode "rw" in constructor to enable reading and writing.</li>
      *                 </ul>
      * @param property properties containing generator expressions of encoders corresponding to each compression format
      * @see LhaProperty
@@ -333,9 +333,9 @@ public class LhaOutputStream extends OutputStream {
      * or {@link #putNextEntryNotYetCompressed(LhaHeader)} if it is not yet compressed.<br>
      * Judged as not yet compressed if any of:
      * <ul>
-     * <li>{@code header.getCompressedSize()}
-     * <li>{@code header.getOriginalSize()}
-     * <li>{@code header.getCRC()}
+     * <li>{@code header.getCompressedSize()}</li>
+     * <li>{@code header.getOriginalSize()}</li>
+     * <li>{@code header.getCRC()}</li>
      * </ul>
      * is {@link LhaHeader#UNKNOWN}.
      *
@@ -359,9 +359,9 @@ public class LhaOutputStream extends OutputStream {
      * @param header instance of {@link LhaHeader} having information about the entry to write
      * @throws IOException              if an I/O error occurs
      * @throws IllegalArgumentException <ol>
-     *                                  <li>if {@code header.getOriginalSize()} returns {@link LhaHeader#UNKNOWN}
-     *                                  <li>if {@code header.getCompressedSize()} returns {@link LhaHeader#UNKNOWN}
-     *                                  <li>if {@code header.getCRC()} returns {@link LhaHeader#UNKNOWN}
+     *                                  <li>if {@code header.getOriginalSize()} returns {@link LhaHeader#UNKNOWN}</li>
+     *                                  <li>if {@code header.getCompressedSize()} returns {@link LhaHeader#UNKNOWN}</li>
+     *                                  <li>if {@code header.getCRC()} returns {@link LhaHeader#UNKNOWN}</li>
      *                                  </ol>
      */
     public void putNextEntryAlreadyCompressed(LhaHeader header) throws IOException {
@@ -495,7 +495,6 @@ public class LhaOutputStream extends OutputStream {
          * @throws IOException if an I/O error occurs
          */
         void close() throws IOException;
-
     }
 
     /**
@@ -703,13 +702,13 @@ public class LhaOutputStream extends OutputStream {
         /**
          * Buffer used for temporary storage mechanism
          */
-        private GrowthByteBuffer tempbuffer;
+        private GrowthByteBuffer tempBuffer;
 
         /**
          * Constructs a search mechanism using {@link GrowthByteBuffer}.
          */
         public TemporaryBuffer() {
-            this.tempbuffer = new GrowthByteBuffer();
+            this.tempBuffer = new GrowthByteBuffer();
         }
 
         /**
@@ -742,7 +741,7 @@ public class LhaOutputStream extends OutputStream {
          */
         @Override
         public long length() {
-            return this.tempbuffer.length();
+            return this.tempBuffer.length();
         }
 
         /**
@@ -750,7 +749,7 @@ public class LhaOutputStream extends OutputStream {
          */
         @Override
         public void close() {
-            this.tempbuffer = null;
+            this.tempBuffer = null;
         }
 
         /**
@@ -762,7 +761,7 @@ public class LhaOutputStream extends OutputStream {
              * Constructs an {@link InputStream} that reads data from {@link TemporaryBuffer}.
              */
             public TemporaryBufferInputStream() {
-                TemporaryBuffer.this.tempbuffer.seek(0);
+                TemporaryBuffer.this.tempBuffer.seek(0);
             }
 
             /**
@@ -772,7 +771,7 @@ public class LhaOutputStream extends OutputStream {
              */
             @Override
             public int read() {
-                return TemporaryBuffer.this.tempbuffer.read();
+                return TemporaryBuffer.this.tempBuffer.read();
             }
 
             /**
@@ -783,7 +782,7 @@ public class LhaOutputStream extends OutputStream {
              */
             @Override
             public int read(byte[] buffer) {
-                return TemporaryBuffer.this.tempbuffer.read(buffer);
+                return TemporaryBuffer.this.tempBuffer.read(buffer);
             }
 
             /**
@@ -796,7 +795,7 @@ public class LhaOutputStream extends OutputStream {
              */
             @Override
             public int read(byte[] buffer, int index, int length) {
-                return TemporaryBuffer.this.tempbuffer.read(buffer, index, length);
+                return TemporaryBuffer.this.tempBuffer.read(buffer, index, length);
             }
         }
 
@@ -809,8 +808,8 @@ public class LhaOutputStream extends OutputStream {
              * Constructs an {@link OutputStream} that outputs data to {@link TemporaryBuffer}.
              */
             public TemporaryBufferOutputStream() {
-                TemporaryBuffer.this.tempbuffer.seek(0);
-                TemporaryBuffer.this.tempbuffer.setLength(0);
+                TemporaryBuffer.this.tempBuffer.seek(0);
+                TemporaryBuffer.this.tempBuffer.setLength(0);
             }
 
             /**
@@ -820,7 +819,7 @@ public class LhaOutputStream extends OutputStream {
              */
             @Override
             public void write(int data) {
-                TemporaryBuffer.this.tempbuffer.write(data);
+                TemporaryBuffer.this.tempBuffer.write(data);
             }
 
             /**
@@ -830,7 +829,7 @@ public class LhaOutputStream extends OutputStream {
              */
             @Override
             public void write(byte[] buffer) {
-                TemporaryBuffer.this.tempbuffer.write(buffer);
+                TemporaryBuffer.this.tempBuffer.write(buffer);
             }
 
             /**
@@ -842,7 +841,7 @@ public class LhaOutputStream extends OutputStream {
              */
             @Override
             public void write(byte[] buffer, int index, int length) {
-                TemporaryBuffer.this.tempbuffer.write(buffer, index, length);
+                TemporaryBuffer.this.tempBuffer.write(buffer, index, length);
             }
         }
     }

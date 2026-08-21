@@ -158,14 +158,14 @@ public class HashAndBinaryTreeSearch implements LzssSearchMethod {
      * Constructs a search mechanism using hash and binary tree.<br>
      * The default hash method is used.
      *
-     * @param DictionarySize dictionary size
-     * @param MaxMatch maximum match length
-     * @param Threshold threshold between compression and non-compression
-     * @param TextBuffer buffer for applying LZSS compression
+     * @param dictionarySize dictionary size
+     * @param maxMatch maximum match length
+     * @param threshold threshold between compression and non-compression
+     * @param textBuffer buffer for applying LZSS compression
      */
-    public HashAndBinaryTreeSearch(int DictionarySize, int MaxMatch, int Threshold, byte[] TextBuffer) {
+    public HashAndBinaryTreeSearch(int dictionarySize, int maxMatch, int threshold, byte[] textBuffer) {
 
-        this(DictionarySize, MaxMatch, Threshold, TextBuffer, HashShort.class.getName());
+        this(dictionarySize, maxMatch, threshold, textBuffer, HashShort.class.getName());
     }
 
     /**

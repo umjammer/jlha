@@ -46,7 +46,6 @@ import java.io.IOException;
  * [maintenance]
  *     Eliminated tabs.
  *     Updated license text.
- *
  * </pre>
  *
  * @author $Author: dangan $

@@ -181,11 +181,11 @@ public class PostLh5Encoder implements PostLzssEncoder {
      *
      * @param out    {@link OutputStream} that receives compressed data
      * @param method string indicating compression method: <ul>
-     *               &emsp;&emsp; {@link CompressMethod#LH4} <br>
-     *               &emsp;&emsp; {@link CompressMethod#LH5} <br>
-     *               &emsp;&emsp; {@link CompressMethod#LH6} <br>
-     *               &emsp;&emsp; {@link CompressMethod#LH7} <br>
-     *               &emsp;&emsp; specify one of these.
+     *               <li> {@link CompressMethod#LH4} </li>
+     *               <li> {@link CompressMethod#LH5} </li>
+     *               <li> {@link CompressMethod#LH6} </li>
+     *               <li> {@link CompressMethod#LH7} </li>
+     *               </ul> specify one of these.
      * @throws IllegalArgumentException if {@code method} is other than the above
      */
     public PostLh5Encoder(OutputStream out, String method) {
@@ -197,16 +197,16 @@ public class PostLh5Encoder implements PostLzssEncoder {
      *
      * @param out        {@link OutputStream} that receives compressed data
      * @param method     string indicating compression method: <ul>
-     *                   &emsp;&emsp; {@link CompressMethod#LH4} <br>
-     *                   &emsp;&emsp; {@link CompressMethod#LH5} <br>
-     *                   &emsp;&emsp; {@link CompressMethod#LH6} <br>
-     *                   &emsp;&emsp; {@link CompressMethod#LH7} <br>
-     *                   &emsp;&emsp; specify one of these.
+     *                   <li> {@link CompressMethod#LH4} </li>
+     *                   <li> {@link CompressMethod#LH5} </li>
+     *                   <li> {@link CompressMethod#LH6} </li>
+     *                   <li> {@link CompressMethod#LH7} </li>
+     *                   </ul> specify one of these.
      * @param BufferSize size of the buffer to store LZSS compressed data
-     * @throws IllegalArgumentException <ul>
-     *                                  &emsp;&emsp; (1) if {@code method} is other than the above<br>
-     *                                  &emsp;&emsp; (2) if {@code BufferSize} is too small<br>
-     *                                  &emsp;&emsp; either case.
+     * @throws IllegalArgumentException <ol>
+     *                                  <li> (1) if {@code method} is other than the above</li>
+     *                                  <li> (2) if {@code BufferSize} is too small</li>
+     *                                  </ol> either case.
      */
     public PostLh5Encoder(OutputStream out, String method, int BufferSize) {
         this(out, method, 1, BufferSize, 0);
@@ -220,20 +220,20 @@ public class PostLh5Encoder implements PostLzssEncoder {
      *
      * @param out       {@link OutputStream} that receives compressed data
      * @param method    string indicating compression method: <ul>
-     *                  &emsp;&emsp; {@link CompressMethod#LH4} <br>
-     *                  &emsp;&emsp; {@link CompressMethod#LH5} <br>
-     *                  &emsp;&emsp; {@link CompressMethod#LH6} <br>
-     *                  &emsp;&emsp; {@link CompressMethod#LH7} <br>
-     *                  &emsp;&emsp; specify one of these.
+     *                  <li> {@link CompressMethod#LH4} </li>
+     *                  <li> {@link CompressMethod#LH5} </li>
+     *                  <li> {@link CompressMethod#LH6} </li>
+     *                  <li> {@link CompressMethod#LH7} </li>
+     *                  </ul> specify one of these.
      * @param BlockNum  number of blocks
      * @param BlockSize number of bytes in 1 block
      * @param DivideNum maximum number of divisions
-     * @throws IllegalArgumentException <ul>
-     *                                  &emsp;&emsp; (1) if {@code CompressMethod} is other than the above<br>
-     *                                  &emsp;&emsp; (2) if {@code BlockNum} is 0 or less<br>
-     *                                  &emsp;&emsp; (3) if {@code BlockSize} is too small<br>
-     *                                  &emsp;&emsp; (4) if {@code DivideNum} is less than 0, or {@code BlockNum} or more<br>
-     *                                  &emsp;&emsp; any of these.
+     * @throws IllegalArgumentException <ol>
+     *                                  <li> if {@code CompressMethod} is other than the above</li>
+     *                                  <li> if {@code BlockNum} is 0 or less</li>
+     *                                  <li> if {@code BlockSize} is too small</li>
+     *                                  <li> if {@code DivideNum} is less than 0, or {@code BlockNum} or more</li>
+     *                                  </ol> any of these.
      */
     public PostLh5Encoder(OutputStream out, String method, int BlockNum, int BlockSize, int DivideNum) {
 

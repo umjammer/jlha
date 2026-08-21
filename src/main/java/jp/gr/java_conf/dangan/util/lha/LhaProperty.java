@@ -241,7 +241,6 @@ import jp.gr.java_conf.dangan.lang.reflect.Factory;
  * Revision 1.0  2002/12/05 00:00:00  dangan
  * first edition
  * add to version control
- *
  * </pre>
  *
  * @author $Author: dangan $
@@ -301,10 +300,10 @@ public class LhaProperty {
      */
     public static Properties getProperties() {
         Properties property = (Properties) LhaProperty.property.clone();
-        Enumeration<?> enumkey = property.propertyNames();
+        Enumeration<?> enumKey = property.propertyNames();
 
-        while (enumkey.hasMoreElements()) {
-            String key = (String) enumkey.nextElement();
+        while (enumKey.hasMoreElements()) {
+            String key = (String) enumKey.nextElement();
             try {
                 String val = System.getProperty(key);
                 if (null != val) {
@@ -361,12 +360,12 @@ public class LhaProperty {
     public static Object parse(String source, Hashtable<?, ?> substitute, String[] packages) {
 
         source = source.trim();
-        int casearcpos = source.indexOf("(");
-        int bracepos = source.indexOf("[");
+        int caseArcPos = source.indexOf("(");
+        int bracePos = source.indexOf("[");
 
-        if (0 <= casearcpos && (bracepos < 0 || casearcpos < bracepos)) {
+        if (0 <= caseArcPos && (bracePos < 0 || caseArcPos < bracePos)) {
             return LhaProperty.parseConstructor(source, substitute, packages);
-        } else if (0 <= bracepos && (casearcpos < 0 || bracepos < casearcpos)) {
+        } else if (0 <= bracePos && (caseArcPos < 0 || bracePos < caseArcPos)) {
             return LhaProperty.parseArray(source, substitute, packages);
         } else if (substitute.containsKey(source)) {
             return substitute.get(source);
@@ -386,10 +385,10 @@ public class LhaProperty {
      */
     private static Object parseConstructor(String source, Hashtable<?, ?> substitute, String[] packages) {
 
-        String classname = source.substring(0, source.indexOf('(')).trim();
+        String className = source.substring(0, source.indexOf('(')).trim();
         String arguments = source.substring(source.indexOf('(') + 1, source.lastIndexOf(')')).trim();
 
-        classname = LhaProperty.applyPackages(classname, packages);
+        className = LhaProperty.applyPackages(className, packages);
         Object[] args;
         if (!arguments.isEmpty()) {
             StringTokenizer tokenizer = new StringTokenizer(arguments, ",()[]", true);
@@ -437,7 +436,7 @@ public class LhaProperty {
         }
 
         try {
-            return Factory.createInstance(classname, args);
+            return Factory.createInstance(className, args);
         } catch (InstantiationException exception) {
             throw new InstantiationError(exception.getMessage());
         } catch (InvocationTargetException exception) {
@@ -521,15 +520,15 @@ public class LhaProperty {
      */
     private static String applyPackages(String str, String[] packages) {
         for (String aPackage : packages) {
-            String classname;
+            String className;
             if (aPackage.isEmpty()) {
-                classname = str;
+                className = str;
             } else {
-                classname = aPackage + "." + str;
+                className = aPackage + "." + str;
             }
             try {
-                Class.forName(classname);
-                return classname;
+                Class.forName(className);
+                return className;
             } catch (ClassNotFoundException | LinkageError ignore) {
             }
         }
@@ -651,7 +650,7 @@ public class LhaProperty {
      */
     private static boolean isJapanese(String encoding) {
 
-        String[] Coverters = {
+        String[] Converters = {
             "Cp930", // Japanese EBCDIC
             "Cp939", // Japanese EBCDIC
             "Cp942", // SJIS OS/2 Japanese, superset of Cp932, 0x5C -> '\' (halfwidth backslash)
@@ -668,8 +667,8 @@ public class LhaProperty {
             "JIS0212", // JIS X 0212, Japanese
             "JISAutoDetect"
         }; // Shift-JIS EUC-JP ISO 2022 JP detection and conversion. Read-only.
-        for (String coverter : Coverters) {
-            if (encoding.equals(coverter)) {
+        for (String converter : Converters) {
+            if (encoding.equals(converter)) {
                 return true;
             }
         }
@@ -712,7 +711,7 @@ public class LhaProperty {
      */
     private static boolean isCategoryOfShiftJIS(String encoding) {
 
-        String[] Coverters = {
+        String[] Converters = {
             "Cp942", // SJIS OS/2 Japanese, superset of Cp932, 0x5C -> '\' (halfwidth backslash)
             "Cp942C", // SJIS OS/2 Japanese, superset of Cp932, 0x5C -> '¥' (halfwidth yen sign)
             "Cp943", // SJIS OS/2 Japanese, superset of Cp942, supporting new JIS, 0x5C -> '\' (halfwidth backslash)
@@ -720,8 +719,8 @@ public class LhaProperty {
             "MS932", // Windows Japanese
             "SJIS"
         }; // Shift-JIS, Japanese
-        for (String coverter : Coverters) {
-            if (encoding.equals(coverter)) {
+        for (String converter : Converters) {
+            if (encoding.equals(converter)) {
                 return true;
             }
         }

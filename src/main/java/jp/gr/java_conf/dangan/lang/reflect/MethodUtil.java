@@ -44,7 +44,6 @@ import java.lang.reflect.Modifier;
  * Revision 1.0  2002/10/01 00:00:00  dangan
  * first edition
  * add to version control
- *
  * </pre>
  *
  * @author $Author: dangan $

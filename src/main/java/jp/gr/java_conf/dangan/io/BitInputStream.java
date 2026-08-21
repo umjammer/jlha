@@ -161,12 +161,12 @@ public class BitInputStream extends InputStream {
      * Constructs a stream that can read data from the input stream {@code in} bit by bit.
      *
      * @param in        input stream
-     * @param CacheSize buffer size
+     * @param cacheSize buffer size
      */
-    public BitInputStream(InputStream in, int CacheSize) {
-        if (in != null && 4 <= CacheSize) {
+    public BitInputStream(InputStream in, int cacheSize) {
+        if (in != null && 4 <= cacheSize) {
             this.in = in;
-            this.cache = new byte[CacheSize];
+            this.cache = new byte[cacheSize];
             this.cacheLimit = 0;
             this.cachePosition = 0;
             this.bitBuffer = 0;
@@ -181,7 +181,7 @@ public class BitInputStream extends InputStream {
         } else if (in == null) {
             throw new NullPointerException("in");
         } else {
-            throw new IllegalArgumentException("CacheSize must be 4 or more.");
+            throw new IllegalArgumentException("cacheSize must be 4 or more.");
         }
     }
 

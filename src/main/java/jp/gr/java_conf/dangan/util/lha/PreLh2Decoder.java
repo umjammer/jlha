@@ -53,7 +53,6 @@ import jp.gr.java_conf.dangan.io.BitInputStream;
  *     Fixed inaccurate calculation of available().
  * [maintenance]
  *     source maintenance
- *
  * </pre>
  *
  * @author $Author: dangan $

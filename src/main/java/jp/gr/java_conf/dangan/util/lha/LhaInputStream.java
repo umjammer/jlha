@@ -70,7 +70,6 @@ import jp.gr.java_conf.dangan.io.LimitedInputStream;
  *     Source cleanup.
  *     Eliminated tabs.
  *     Updated license text.
- *
  * </pre>
  *
  * @author $Author: dangan $
@@ -86,7 +85,7 @@ public class LhaInputStream extends InputStream {
     /**
      * Indicates whether the first entry has already been read.
      */
-    private boolean alreadyOpenedFirstEnrty;
+    private boolean alreadyOpenedFirstEntry;
 
     /**
      * Indicates whether end of archive has been reached.
@@ -357,11 +356,11 @@ public class LhaInputStream extends InputStream {
             }
 
             byte[] HeaderData;
-            if (this.alreadyOpenedFirstEnrty) {
+            if (this.alreadyOpenedFirstEntry) {
                 HeaderData = LhaHeader.getNextHeaderData(this.source);
             } else {
                 HeaderData = LhaHeader.getFirstHeaderData(this.source);
-                this.alreadyOpenedFirstEnrty = true;
+                this.alreadyOpenedFirstEntry = true;
             }
             if (null != HeaderData) {
                 LhaHeader header = LhaHeader.createInstance(HeaderData, this.property);
@@ -397,11 +396,11 @@ public class LhaInputStream extends InputStream {
             }
 
             byte[] HeaderData;
-            if (this.alreadyOpenedFirstEnrty) {
+            if (this.alreadyOpenedFirstEntry) {
                 HeaderData = LhaHeader.getNextHeaderData(this.source);
             } else {
                 HeaderData = LhaHeader.getFirstHeaderData(this.source);
-                this.alreadyOpenedFirstEnrty = true;
+                this.alreadyOpenedFirstEntry = true;
             }
             if (HeaderData != null) {
 
