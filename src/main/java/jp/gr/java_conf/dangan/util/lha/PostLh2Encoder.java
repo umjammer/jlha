@@ -1,37 +1,35 @@
-// start of PostLh2Encoder.java
-// TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
-
-/**
- * PostLh2Encoder.java
- *
+/*
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.util.lha;
 
-// import exceptions
 import java.io.IOException;
 // import classes and interfaces
 import java.io.OutputStream;
@@ -40,22 +38,21 @@ import jp.gr.java_conf.dangan.io.BitOutputStream;
 
 
 /**
- * -lh2- 圧縮用 PostLzssEncoder。 <br>
+ * {@link PostLzssEncoder} for -lh2- compression. <br>
  *
  * <pre>
  * -- revision history --
  * $Log: PostLh2Encoder.java,v $
  * Revision 1.1  2002/12/01 00:00:00  dangan
  * [maintenance]
- *     ソース整備
+ *     source maintenance
  *
  * Revision 1.0  2002/07/31 00:00:00  dangan
  * add to version control
  * [maintenance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
- *
+ *     source maintenance
+ *     tab removal
+ *     fix license statement
  * </pre>
  *
  * @author $Author: dangan $
@@ -63,93 +60,55 @@ import jp.gr.java_conf.dangan.io.BitOutputStream;
  */
 public class PostLh2Encoder implements PostLzssEncoder {
 
-    // ------------------------------------------------------------------
-    // class field
-    // ------------------------------------------------------------------
-    // LZSS parameter
-    // ------------------------------------------------------------------
-    // private static final int DictionarySize
-    // private static final int MaxMatch
-    // private static final int Threshold
-    // ------------------------------------------------------------------
-    /** 辞書サイズ */
+    /** Dictionary size */
     private static final int DictionarySize = 8192;
 
-    /** 最大一致長 */
+    /** Maximum match length */
     private static final int MaxMatch = 256;
 
-    /** 最小一致長 */
+    /** Minimum match length */
     private static final int Threshold = 3;
 
-    // ------------------------------------------------------------------
-    // class field
-    // ------------------------------------------------------------------
-    // private static final int CodeSize
-    // ------------------------------------------------------------------
     /**
-     * code部のハフマン木のサイズ
-     * code部がこれ以上の値を扱う場合は余計なビットを出力して補う。
+     * Size of the Huffman tree for the code part.
+     * If the code part handles a value larger than this, extra bits are output to compensate.
      */
     private static final int CodeSize = 286;
 
-    // ------------------------------------------------------------------
-    // instance field
-    // ------------------------------------------------------------------
-    // sink
-    // ------------------------------------------------------------------
-    // private BitOutputStream out
-    // ------------------------------------------------------------------
     /**
-     * -lh2- 形式の圧縮データの出力先の ビット出力ストリーム
+     * Bit output stream to output -lh2- compressed data.
      */
     private BitOutputStream out;
 
-    // ------------------------------------------------------------------
-    // instance field
-    // ------------------------------------------------------------------
-    // dynamic huffman tree
-    // ------------------------------------------------------------------
-    // private DynamicHuffman codeHuffman
-    // private DynamicHuffman offHiHuffman
-    // ------------------------------------------------------------------
     /**
-     * code部圧縮用適応的ハフマン木
+     * Adaptive Huffman tree for compressing code part.
      */
     private DynamicHuffman codeHuffman;
 
     /**
-     * offHi部圧縮用適応的ハフマン木
+     * Adaptive Huffman tree for compressing offHi part.
      */
     private DynamicHuffman offHiHuffman;
 
-    // ------------------------------------------------------------------
-    // instance field
-    // ------------------------------------------------------------------
-    // current position
-    // ------------------------------------------------------------------
-    // private int position
-    // private int nextPosition
-    // private int matchLength
-    // ------------------------------------------------------------------
     /**
-     * 出力したオリジナルのサイズをカウントする
+     * Counts the size of the original data output.
      */
     private int position;
 
     /**
-     * 次に葉を加える動作をする位置
+     * Position where the next leaf should be added.
      */
     private int nextPosition;
 
     /**
-     * 現在処理中の一致長
+     * Match length currently being processed.
      */
     private int matchLength;
 
     /**
-     * -lh2- 圧縮用 PostLzssEncoder を構築する。
+     * Constructs a {@link PostLzssEncoder} for -lh2- compression.
      *
-     * @param out 圧縮データを受け取る出力ストリーム
+     * @param out output stream that receives compressed data
      */
     public PostLh2Encoder(OutputStream out) {
         if (out != null) {
@@ -167,23 +126,14 @@ public class PostLh2Encoder implements PostLzssEncoder {
         }
     }
 
-    // ------------------------------------------------------------------
-    // method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
-    // ------------------------------------------------------------------
-    // write
-    // ------------------------------------------------------------------
-    // public void writeCode( int code )
-    // public void writeOffset( int offset )
-    // ------------------------------------------------------------------
     /**
-     * 1byte の LZSS未圧縮のデータもしくは、
-     * LZSS で圧縮された圧縮コードのうち一致長を書きこむ。<br>
+     * Writes 1 byte of uncompressed LZSS data or
+     * the match length of LZSS compressed code.<br>
      *
-     * @param code 1byte の LZSS未圧縮のデータもしくは、
-     *            LZSS で圧縮された圧縮コードのうち一致長
-     *
-     * @exception IOException 入出力エラーが発生した場合
+     * @param code 1 byte of uncompressed LZSS data or the match length of LZSS compressed code
+     * @throws IOException if an I/O error occurs
      */
+    @Override
     public void writeCode(int code) throws IOException {
         final int CodeMax = PostLh2Encoder.CodeSize - 1;
 
@@ -208,17 +158,18 @@ public class PostLh2Encoder implements PostLzssEncoder {
 
             if (CodeMax <= code) {
                 this.out.writeBits(8, code - CodeMax);
-                code = CodeMax; // updateするコードをCodeMaxにする。
+                code = CodeMax; // Set code to update to CodeMax.
             }
         }
         this.codeHuffman.update(code);
     }
 
     /**
-     * LZSS で圧縮された圧縮コードのうち一致位置を書きこむ。<br>
+     * Writes the match offset of LZSS compressed code.<br>
      *
-     * @param offset LZSS で圧縮された圧縮コードのうち一致位置
+     * @param offset the match offset of LZSS compressed code
      */
+    @Override
     public void writeOffset(int offset) throws IOException {
         if (this.nextPosition < PostLh2Encoder.DictionarySize) {
             while (this.nextPosition < this.position) {
@@ -249,35 +200,28 @@ public class PostLh2Encoder implements PostLzssEncoder {
         this.position += this.matchLength;
     }
 
-    // ------------------------------------------------------------------
-    // method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
-    // ------------------------------------------------------------------
-    // other
-    // ------------------------------------------------------------------
-    // public void flush()
-    // public void close()
-    // ------------------------------------------------------------------
     /**
-     * この PostLzssEncoder にバッファリングされている
-     * 全ての 8ビット単位のデータを出力先の OutputStream に出力し、
-     * 出力先の OutputStream を flush() する。<br>
-     * このメソッドは圧縮率を変化させない。
+     * Flushes all 8-bit unit data buffered in this {@link PostLzssEncoder}
+     * to the output destination {@link OutputStream},
+     * and calls {@code flush()} on the destination {@link OutputStream}.<br>
+     * This method does not affect the compression ratio.
      *
-     * @exception IOException 入出力エラーが発生した場合
-     *
+     * @throws IOException if an I/O error occurs
      * @see PostLzssEncoder#flush()
      * @see BitOutputStream#flush()
      */
+    @Override
     public void flush() throws IOException {
         this.out.flush();
     }
 
     /**
-     * この出力ストリームと、接続された出力ストリームを閉じ、
-     * 使用していたリソースを開放する。<br>
+     * Closes this output stream and the connected output stream,
+     * and releases any resources used.<br>
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
+    @Override
     public void close() throws IOException {
         this.out.close();
 
@@ -286,41 +230,33 @@ public class PostLh2Encoder implements PostLzssEncoder {
         this.offHiHuffman = null;
     }
 
-    // ------------------------------------------------------------------
-    // method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
-    // ------------------------------------------------------------------
-    // get LZSS parameter
-    // ------------------------------------------------------------------
-    // public int getDictionarySize()
-    // public int getMaxMatch()
-    // public int getThreshold()
-    // ------------------------------------------------------------------
     /**
-     * -lh2-形式の LZSS辞書のサイズを得る。
+     * Gets the size of the -lh2- format LZSS dictionary.
      *
-     * @return -lh2-形式の LZSS辞書のサイズ
+     * @return the size of the -lh2- format LZSS dictionary
      */
+    @Override
     public int getDictionarySize() {
         return PostLh2Encoder.DictionarySize;
     }
 
     /**
-     * -lh2-形式の LZSSの最大一致長を得る。
+     * Gets the maximum match length of the -lh2- format LZSS.
      *
-     * @return -lh2-形式の LZSSの最大一致長
+     * @return the maximum match length of the -lh2- format LZSS
      */
+    @Override
     public int getMaxMatch() {
         return PostLh2Encoder.MaxMatch;
     }
 
     /**
-     * -lh2-形式の LZSSの圧縮、非圧縮の閾値を得る。
+     * Gets the threshold for LZSS compression/non-compression of -lh2- format.
      *
-     * @return -lh2-形式の LZSSの圧縮、非圧縮の閾値
+     * @return the threshold for LZSS compression/non-compression of -lh2- format
      */
+    @Override
     public int getThreshold() {
         return PostLh2Encoder.Threshold;
     }
-
 }
-// end of PostLh2Encoder.java

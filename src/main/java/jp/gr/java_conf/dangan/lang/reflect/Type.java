@@ -1,27 +1,31 @@
-/**
+/*
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.lang.reflect;
@@ -30,8 +34,7 @@ import java.math.BigInteger;
 
 
 /**
- * Reflection の機能を扱いやすくするように
- * 型情報を扱うユーティリティクラス。
+ * A utility class that handles type information to make reflection features easier to use.
  *
  * <pre>
  * -- revision history --
@@ -39,7 +42,6 @@ import java.math.BigInteger;
  * Revision 1.0  2002/10/01 00:00:00  dangan
  * first edition
  * add to version control
- *
  * </pre>
  *
  * @author $Author: dangan $
@@ -48,20 +50,19 @@ import java.math.BigInteger;
 public class Type {
 
     /**
-     * デフォルトコンストラクタ。
-     * 使用不可。
+     * Default constructor.
+     * Cannot be used.
      */
     private Type() {
     }
 
     /**
-     * args が変換無しで types と一致するかを得る。
+     * Checks whether {@code args} matches {@code types} without conversion.
      *
-     * @param types 型情報配列
-     * @param args 判定対象のオブジェクト配列
-     *
-     * @return args が types に一致すれば true。<br>
-     *         違えば flase。
+     * @param types array of type information
+     * @param args  array of objects to check
+     * @return {@code true} if {@code args} matches {@code types};<br>
+     * {@code false} otherwise.
      */
     public static boolean matchFullAll(Class<?>[] types, Object[] args) {
         boolean match = (types.length == args.length);
@@ -73,15 +74,13 @@ public class Type {
     }
 
     /**
-     * args が Type.parse による変換を伴えば
-     * types と一致するかを得る。
-     * matchAll() より厳密に判定する。
+     * Checks whether {@code args} matches {@code types} when conversion via {@link Type#parse(Class, Object)} is applied.
+     * Checks more strictly than {@link #matchAll(Class[], Object[])}.
      *
-     * @param types 型情報配列
-     * @param args 判定対象のオブジェクト配列
-     *
-     * @return args が types に一致すれば true。<br>
-     *         違えば flase。
+     * @param types array of type information
+     * @param args  array of objects to check
+     * @return {@code true} if {@code args} matches {@code types};<br>
+     * {@code false} otherwise.
      */
     public static boolean matchRestrictAll(Class<?>[] types, Object[] args) {
         boolean match = (types.length == args.length);
@@ -93,14 +92,12 @@ public class Type {
     }
 
     /**
-     * args が Type.parse による変換を伴えば
-     * types と一致するかを得る。
+     * Checks whether {@code args} matches {@code types} when conversion via {@link Type#parse(Class, Object)} is applied.
      *
-     * @param types 型情報配列
-     * @param args 判定対象のオブジェクト配列
-     *
-     * @return args が types に一致すれば true。<br>
-     *         違えば flase。
+     * @param types array of type information
+     * @param args  array of objects to check
+     * @return {@code true} if {@code args} matches {@code types};<br>
+     * {@code false} otherwise.
      */
     public static boolean matchAll(Class<?>[] types, Object[] args) {
         boolean match = (types.length == args.length);
@@ -111,23 +108,12 @@ public class Type {
         return match;
     }
 
-    // ------------------------------------------------------------------
-    // shared method
-    // ------------------------------------------------------------------
-    // type matching
-    // ------------------------------------------------------------------
-    // public static boolean matchFull( Class type, Object obj )
-    // public static boolean matchRestrict( Class type, Object obj )
-    // public static boolean match( Class type, Object obj )
-    // ------------------------------------------------------------------
     /**
-     * obj が変換無しで type と一致するかを得る。
+     * Checks whether {@code obj} matches {@code type} without conversion.
      *
-     * @param type 型情報
-     * @param obj 判定対象のオブジェクト
-     *
-     * @return obj が type の実体であれば true。<br>
-     *         違えば false。
+     * @param type type information
+     * @param obj  object to check
+     * @return {@code true} if {@code obj} is an instance of {@code type}; {@code false} otherwise.
      */
     public static boolean matchFull(Class<?> type, Object obj) {
         if (type.isInstance(obj)) {
@@ -156,27 +142,25 @@ public class Type {
     }
 
     /**
-     * obj が type の実体であるかを得る。
-     * type が数値を示すプリミティブ型
-     * ( byte, short, int, long, float, double のいずれか )を
-     * であり、かつ obj がそれらのプリミティブのラッパ型、
-     * ( Byte, Short, Integer, Long, Float, Double のいずれか )
-     * のインスタンスである場合 変換可能と判断して true を返す。
+     * Checks whether {@code obj} is an instance of {@code type}.
+     * If {@code type} is a numeric primitive type
+     * (one of {@code byte}, {@code short}, {@code int}, {@code long}, {@code float}, {@code double})
+     * and {@code obj} is an instance of its primitive wrapper type
+     * (one of {@link Byte}, {@link Short}, {@link Integer}, {@link Long}, {@link Float}, {@link Double}),
+     * it is determined to be convertible and {@code true} is returned.
      *
-     * @param type 型情報
-     * @param obj 判定対象のオブジェクト
-     *
-     * @return obj が type の実体であれば true。<br>
-     *         違えば false。
+     * @param type type information
+     * @param obj  object to check
+     * @return {@code true} if {@code obj} is an instance of {@code type}; {@code false} otherwise.
      */
     public static boolean matchRestrict(Class<?> type, Object obj) {
 
         if (Type.matchFull(type, obj)) {
             return true;
         } else if ((type.equals(Byte.TYPE) || type.equals(Short.TYPE) || type.equals(Integer.TYPE) || type.equals(Long.TYPE)
-                    || type.equals(Float.TYPE) || type.equals(Double.TYPE))
-                   && (obj instanceof Byte || obj instanceof Short || obj instanceof Integer || obj instanceof Long
-                       || obj instanceof Float || obj instanceof Double)) {
+                || type.equals(Float.TYPE) || type.equals(Double.TYPE))
+                && (obj instanceof Byte || obj instanceof Short || obj instanceof Integer || obj instanceof Long
+                || obj instanceof Float || obj instanceof Double)) {
             return true;
         } else {
             return false;
@@ -184,15 +168,12 @@ public class Type {
     }
 
     /**
-     * obj が type の実体であるかを得る。
-     * obj が Type.parse( type, obj ) で変換可能な場合
-     * trueを返す。
+     * Checks whether {@code obj} is an instance of {@code type}.
+     * Returns {@code true} if {@code obj} is convertible via {@link Type#parse(Class, Object)}.
      *
-     * @param type 型情報
-     * @param obj 判定対象のオブジェクト
-     *
-     * @return obj が type の実体であれば true。<br>
-     *         違えば false。
+     * @param type type information
+     * @param obj  object to check
+     * @return {@code true} if {@code obj} is an instance of {@code type}; {@code false} otherwise.
      */
     public static boolean match(Class<?> type, Object obj) {
         String str = (obj == null ? null : obj.toString());
@@ -204,17 +185,17 @@ public class Type {
         } else if (!type.isPrimitive() && "NULL".equalsIgnoreCase(str)) {
             return true;
         } else if ((type.equals(Byte.class) || type.equals(Byte.TYPE) || type.equals(Short.class) || type.equals(Short.TYPE)
-                    || type.equals(Integer.class) || type.equals(Integer.TYPE) || type.equals(Long.class)
-                    || type.equals(Long.TYPE) || type.equals(Float.class) || type.equals(Float.TYPE)
-                    || type.equals(Double.class) || type.equals(Double.TYPE))
-                   && (obj instanceof Number || (obj != null && Type.isLongString(obj.toString()))
-                       || (obj != null && Type.isDoubleString(obj.toString())))) {
+                || type.equals(Integer.class) || type.equals(Integer.TYPE) || type.equals(Long.class)
+                || type.equals(Long.TYPE) || type.equals(Float.class) || type.equals(Float.TYPE)
+                || type.equals(Double.class) || type.equals(Double.TYPE))
+                && (obj instanceof Number || (obj != null && Type.isLongString(obj.toString()))
+                || (obj != null && Type.isDoubleString(obj.toString())))) {
             return true;
         } else if ((type.equals(Boolean.TYPE) || type.equals(Boolean.class))
-                   && ("TRUE".equalsIgnoreCase(str) || "FALSE".equalsIgnoreCase(str))) {
+                && ("TRUE".equalsIgnoreCase(str) || "FALSE".equalsIgnoreCase(str))) {
             return true;
         } else if ((type.equals(Character.class) || type.equals(Character.TYPE)) && obj instanceof String
-                   && (str.length() == 1 || Type.isUnicodeEscape(str))) {
+                && (str.length() == 1 || Type.isUnicodeEscape(str))) {
             return true;
         } else {
             return false;
@@ -222,16 +203,13 @@ public class Type {
     }
 
     /**
-     * Factory.matchAll( types, args ) でマッチした args を
-     * 一括して types で示される型に変換する。
+     * Converts all {@code args} matched by {@link #matchAll(Class[], Object[])}
+     * into the types indicated by {@code types}.
      *
-     * @param types 変換する型情報配列
-     * @param args 変換対象のオブジェクト配列
-     *
-     * @return 変換後のオブジェクト配列
-     *
-     * @exception IllegalAccessError
-     *                args を types に変換不可能な場合。
+     * @param types array of type information to convert to
+     * @param args  array of objects to convert
+     * @return array of converted objects
+     * @throws IllegalArgumentException if {@code args} cannot be converted to {@code types}.
      */
     public static Object[] parseAll(Class<?>[] types, Object[] args) {
         if (types.length == args.length) {
@@ -247,17 +225,13 @@ public class Type {
     }
 
     /**
-     * Factory.match( type, obj ) でマッチした obj を
-     * type で示される型に変換する。
+     * Converts {@code obj} matched by {@link #match(Class, Object)}
+     * into the type indicated by {@code type}.
      *
-     * @param type 変換する型情報
-     * @param obj 変換対象のオブジェクト
-     *
-     * @return 変換後のオブジェクト
-     *
-     * @exception IllegalArgumentException
-     *                Factory.match( type, obj ) でマッチしていない obj を
-     *                変換しようとした場合。
+     * @param type type information to convert to
+     * @param obj  object to convert
+     * @return converted object
+     * @throws IllegalArgumentException if attempting to convert an {@code obj} that did not match {@link #match(Class, Object)}.
      */
     public static Object parse(Class<?> type, Object obj) {
         String str = (obj == null ? null : obj.toString());
@@ -269,11 +243,11 @@ public class Type {
         } else if (type.equals(String.class)) {
             return str;
         } else if ((type.equals(Byte.class) || type.equals(Byte.TYPE) || type.equals(Short.class) || type.equals(Short.TYPE)
-                    || type.equals(Integer.class) || type.equals(Integer.TYPE) || type.equals(Long.class)
-                    || type.equals(Long.TYPE) || type.equals(Float.class) || type.equals(Float.TYPE)
-                    || type.equals(Double.class) || type.equals(Double.TYPE))
-                   && (obj instanceof Number || (obj != null && Type.isLongString(str))
-                       || (obj != null && Type.isDoubleString(str)))) {
+                || type.equals(Integer.class) || type.equals(Integer.TYPE) || type.equals(Long.class)
+                || type.equals(Long.TYPE) || type.equals(Float.class) || type.equals(Float.TYPE)
+                || type.equals(Double.class) || type.equals(Double.TYPE))
+                && (obj instanceof Number || (obj != null && Type.isLongString(str))
+                || (obj != null && Type.isDoubleString(str)))) {
             Number num;
             if (obj instanceof Number) {
                 num = (Number) obj;
@@ -282,7 +256,7 @@ public class Type {
                     if (Type.isLongString(str))
                         num = Long.parseLong(str);
                     else
-                        num = new Double(str);
+                        num = Double.parseDouble(str);
                 } catch (NumberFormatException exception) {
                     num = Type.parseHexadecimal(str.substring(2));
                 }
@@ -317,21 +291,11 @@ public class Type {
         throw new IllegalArgumentException();
     }
 
-    // ------------------------------------------------------------------
-    // local method
-    // ------------------------------------------------------------------
-    // chack that string match the pattern of type.
-    // ------------------------------------------------------------------
-    // private static boolean isUnicodeEscape( String str )
-    // private static boolean isLongString( String str )
-    // private static boolean isDoubleString( String str )
-    // ------------------------------------------------------------------
     /**
-     * str が ユニコードエスケープされた1文字であるかを得る。
+     * Checks whether {@code str} is a single Unicode-escaped character.
      *
-     * @param str 文字列
-     *
-     * @return str がユニコードエスケープされた1文字である場合
+     * @param str string
+     * @return {@code true} if {@code str} is a single Unicode-escaped character
      */
     private static boolean isUnicodeEscape(String str) {
         if (str.length() == 6 && str.startsWith("\\u") && Type.isHexadecimal(str.substring(2))) {
@@ -342,24 +306,22 @@ public class Type {
     }
 
     /**
-     * str が確実に Integer を示す文字列であるかを得る。
+     * Checks whether {@code str} is definitely a string representing an integer.
      *
-     * @param str 文字列
-     *
-     * @return str が確実に Integer を示す文字列なら true。
-     *         違えば false。
+     * @param str string
+     * @return {@code true} if {@code str} is definitely a string representing an integer; {@code false} otherwise.
      */
     private static boolean isLongString(String str) {
         try {
             Long.parseLong(str);
             return true;
-        } catch (NumberFormatException exception) {
+        } catch (NumberFormatException ignore) {
         }
 
         if (str.startsWith("0x") && Type.isHexadecimal(str.substring(2))) {
             BigInteger val = Type.parseHexadecimal(str.substring(2));
             BigInteger zero = new BigInteger("0");
-            BigInteger limit = new BigInteger("FFFFFFFFFFFFFFFF", 16);
+            BigInteger limit = new BigInteger("FFFF_FFFF_FFFF_FFFF", 16);
 
             if (zero.compareTo(val) <= 0 && val.compareTo(limit) <= 0)
                 return true;
@@ -371,12 +333,10 @@ public class Type {
     }
 
     /**
-     * str が確実に Double を示す文字列であるかを得る。
+     * Checks whether {@code str} is definitely a string representing a double.
      *
-     * @param str 文字列
-     *
-     * @return str が確実に Integer を示す文字列なら true。
-     *         違えば false。
+     * @param str string
+     * @return {@code true} if {@code str} is definitely a string representing a double; {@code false} otherwise.
      */
     private static boolean isDoubleString(String str) {
         try {
@@ -386,25 +346,23 @@ public class Type {
                 return true;
             else
                 return false;
-        } catch (NumberFormatException exception) {
+        } catch (NumberFormatException ignore) {
         }
 
         return false;
     }
 
     /**
-     * 文字列が 16進の文字列かを判定する。
+     * Determines whether a string is a hexadecimal string.
      *
-     * @param str 判定対象の文字列
-     *
-     * @return str が16進の文字列であれば true。
-     *         違えば false。
+     * @param str string to check
+     * @return {@code true} if {@code str} is a hexadecimal string; {@code false} otherwise.
      */
     private static boolean isHexadecimal(String str) {
         final String hexadecimal = "0123456789ABCDEF";
         str = str.toUpperCase();
 
-        if (0 < str.length()) {
+        if (!str.isEmpty()) {
             for (int i = 0; i < str.length(); i++)
                 if (hexadecimal.indexOf(str.charAt(i)) < 0)
                     return false;
@@ -416,15 +374,12 @@ public class Type {
     }
 
     /**
-     * 文字列を 16進の文字列として解釈し、値を得る。
+     * Parses a string as a hexadecimal string and gets the value.
      *
-     * @param str 文字列
-     *
-     * @return str を16進数として解釈した値。
-     *         str が16進数でない場合の結果は不定。
+     * @param str string
+     * @return the value interpreted from {@code str} as hexadecimal. The result is undefined if {@code str} is not hexadecimal.
      */
     private static BigInteger parseHexadecimal(String str) {
         return new BigInteger(str, 16);
     }
-
 }

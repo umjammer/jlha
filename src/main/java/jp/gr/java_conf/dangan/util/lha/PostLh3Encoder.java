@@ -1,60 +1,64 @@
-/**
+/*
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.util.lha;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Arrays;
 
 import jp.gr.java_conf.dangan.io.BitOutputStream;
 
 
 /**
- * -lh3- 圧縮用 PostLzssEncoder。<br>
+ * {@link PostLzssEncoder} for -lh3- compression.<br>
  *
  * <pre>
  * $Log: PostLh3Encoder.java,v $
  * Revision 1.2  2002/12/06 00:00:00  dangan
  * [maintenance]
- *     ソース整備
+ *     source maintenance
  *
  * Revision 1.1  2002/12/01 00:00:00  dangan
  * [change]
- *     flush() されないかぎり
- *     接続された OutputStream をflush() しないように変更。
+ *     Changed not to flush the connected {@link OutputStream}
+ *     unless flush() is called.
  * [maintenance]
- *     ソース整備。
+ *     source maintenance
  *
  * Revision 1.0  2002/07/31 00:00:00  dangan
  * add to version control
  * [maintenance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
- *
+ *     source maintenance
+ *     tab removal
+ *     fix license statement
  * </pre>
  *
  * @author $Author: dangan $
@@ -62,83 +66,82 @@ import jp.gr.java_conf.dangan.io.BitOutputStream;
  */
 public class PostLh3Encoder implements PostLzssEncoder {
 
-    /** 辞書サイズ */
+    /** Dictionary size */
     private static final int DictionarySize = 8192;
 
-    /** 最大一致長 */
+    /** Maximum match length */
     private static final int MaxMatch = 256;
 
-    /** 最小一致長 */
+    /** Minimum match length */
     private static final int Threshold = 3;
 
     /**
-     * OffHi部分の固定ハフマン符号長
+     * Fixed Huffman code length for OffHi part.
      */
     private static final int[] ConstOffHiLen = PostLh3Encoder.createConstOffHiLen();
 
     /**
-     * code部のハフマン木のサイズ
-     * code部がこれ以上の値を扱う場合は余計なビットを出力して補う。
+     * Size of the Huffman tree for the code part.
+     * If the code part handles a value larger than this, extra bits are output to compensate.
      */
     private static final int CodeSize = 286;
 
     /**
-     * -lh3- 形式の圧縮データの出力先の ビット出力ストリーム
+     * Bit output stream to output -lh3- compressed data.
      */
     private BitOutputStream out;
 
     /**
-     * 静的ハフマン圧縮するためにデータを一時的に貯えるバッファ
+     * Buffer to temporarily store data for static Huffman compression.
      */
     private byte[] buffer;
 
     /**
-     * バッファ内にある code データの数。
+     * Number of code data in buffer.
      */
     private int blockSize;
 
     /**
-     * buffer内の現在処理位置
+     * Current processing position in buffer.
      */
     private int position;
 
     /**
-     * flag バイト内の現在処理bit
+     * Current bit being processed in flag byte.
      */
     private int flagBit;
 
     /**
-     * buffer内の現在のflagバイトの位置
+     * Position of the current flag byte in buffer.
      */
     private int flagPos;
 
     /**
-     * code部の頻度表
+     * Frequency table of the code part.
      */
     private int[] codeFreq;
 
     /**
-     * offHi部の頻度表
+     * Frequency table of the offHi part.
      */
     private int[] offHiFreq;
 
     /**
-     * -lh3- 圧縮用 PostLzssEncoderを構築する。<br>
-     * バッファサイズにはデフォルト値が使用される。
+     * Constructs a {@link PostLzssEncoder} for -lh3- compression.<br>
+     * The default buffer size is used.
      *
-     * @param out 圧縮データを受け取る出力ストリーム
+     * @param out output stream that receives compressed data
      */
     public PostLh3Encoder(OutputStream out) {
         this(out, 16384);
     }
 
     /**
-     * -lh3- 圧縮用 PostLzssEncoderを構築する。
+     * Constructs a {@link PostLzssEncoder} for -lh3- compression.
      *
-     * @param out 圧縮データを受け取る出力ストリーム
-     * @param BufferSize 静的ハフマン圧縮用のバッファサイズ
-     * @exception IllegalArgumentException
-     *                BufferSize が小さすぎる場合
+     * @param out        output stream that receives compressed data
+     * @param BufferSize buffer size for static Huffman compression
+     * @throws IllegalArgumentException if {@code BufferSize} is too small
      */
     public PostLh3Encoder(OutputStream out, int BufferSize) {
         final int DictionarySizeByteLen = 2;
@@ -166,13 +169,13 @@ public class PostLh3Encoder implements PostLzssEncoder {
     }
 
     /**
-     * 1byte の LZSS未圧縮のデータもしくは、
-     * LZSS で圧縮された圧縮コードのうち一致長を書きこむ。
+     * Writes 1 byte of uncompressed LZSS data or
+     * the match length of LZSS compressed code.
      *
-     * @param code 1byte の LZSS未圧縮のデータもしくは、
-     *            LZSS で圧縮された圧縮コードのうち一致長
-     * @exception IOException 入出力エラーが発生した場合
+     * @param code 1 byte of uncompressed LZSS data or the match length of LZSS compressed code
+     * @throws IOException if an I/O error occurs
      */
+    @Override
     public void writeCode(int code) throws IOException {
         final int CodeMax = PostLh3Encoder.CodeSize - 1;
         final int DictionarySizeByteLen = 2;
@@ -187,56 +190,59 @@ public class PostLh3Encoder implements PostLzssEncoder {
             this.buffer[this.flagPos] = 0;
         }
 
-        // データ格納
+        // Store data
         this.buffer[this.position++] = (byte) code;
 
-        // 上位1ビットをフラグとして格納
+        // Store upper 1 bit as a flag
         if (0x100 <= code)
             this.buffer[this.flagPos] |= this.flagBit;
         this.flagBit >>= 1;
 
-        // 頻度表更新
+        // Update frequency table
         this.codeFreq[Math.min(code, CodeMax)]++;
 
-        // ブロックサイズ更新
+        // Update block size
         this.blockSize++;
     }
 
     /**
-     * LZSS で圧縮された圧縮コードのうち一致位置を書きこむ。
+     * Writes the match offset of LZSS compressed code.
      *
-     * @param offset LZSS で圧縮された圧縮コードのうち一致位置
+     * @param offset the match offset of LZSS compressed code
      */
+    @Override
     public void writeOffset(int offset) {
-        // データ格納
+        // Store data
         this.buffer[this.position++] = (byte) (offset >> 8);
         this.buffer[this.position++] = (byte) offset;
 
-        // 頻度表更新
+        // Update frequency table
         this.offHiFreq[(offset >> 6)]++;
     }
 
     /**
-     * この PostLzssEncoder にバッファリングされている全ての
-     * 8ビット単位のデータを出力先の OutputStream に出力し、
-     * 出力先の OutputStream を flush() する。<br>
-     * このメソッドは圧縮率を変化させる。
+     * Flushes all 8-bit unit data buffered in this {@link PostLzssEncoder}
+     * to the output destination {@link OutputStream},
+     * and calls {@code flush()} on the destination {@link OutputStream}.<br>
+     * This method changes the compression ratio.
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      * @see PostLzssEncoder#flush()
      * @see BitOutputStream#flush()
      */
+    @Override
     public void flush() throws IOException {
         this.writeOut();
         this.out.flush();
     }
 
     /**
-     * この出力ストリームと、接続された出力ストリームを閉じ、
-     * 使用していたリソースを開放する。
+     * Closes this output stream and the connected output stream,
+     * and releases any resources used.
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
+    @Override
     public void close() throws IOException {
         this.writeOut();
         this.out.close();
@@ -248,51 +254,54 @@ public class PostLh3Encoder implements PostLzssEncoder {
     }
 
     /**
-     * -lh3-形式の LZSS辞書のサイズを得る。
+     * Gets the size of the -lh3- format LZSS dictionary.
      *
-     * @return -lh3-形式の LZSS辞書のサイズ
+     * @return the size of the -lh3- format LZSS dictionary
      */
+    @Override
     public int getDictionarySize() {
         return PostLh3Encoder.DictionarySize;
     }
 
     /**
-     * -lh3-形式の LZSSの最大一致長を得る。
+     * Gets the maximum match length of the -lh3- format LZSS.
      *
-     * @return -lh3-形式の LZSSの最大一致長
+     * @return the maximum match length of the -lh3- format LZSS
      */
+    @Override
     public int getMaxMatch() {
         return PostLh3Encoder.MaxMatch;
     }
 
     /**
-     * -lh3-形式の LZSSの圧縮、非圧縮の閾値を得る。
+     * Gets the threshold for LZSS compression/non-compression of -lh3- format.
      *
-     * @return -lh3-形式の LZSSの圧縮、非圧縮の閾値
+     * @return the threshold for LZSS compression/non-compression of -lh3- format
      */
+    @Override
     public int getThreshold() {
         return PostLh3Encoder.Threshold;
     }
 
     /**
-     * バッファリングされた全てのデータを this.out に出力する。
+     * Outputs all buffered data to {@code this.out}.
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     private void writeOut() throws IOException {
         final int CodeMax = PostLh3Encoder.CodeSize - 1;
 
         if (0 < this.blockSize) {
-            // ブロックサイズ出力
+            // Output block size
             this.out.writeBits(16, this.blockSize);
 
-            // ハフマン符号表生成
+            // Generate Huffman code table
             int[] codeLen = StaticHuffman.FreqListToLenList(this.codeFreq);
             int[] codeCode = StaticHuffman.LenListToCodeList(codeLen);
             int[] offHiLen = PostLh3Encoder.getBetterOffHiLen(this.offHiFreq, StaticHuffman.FreqListToLenList(this.offHiFreq));
             int[] offHiCode = StaticHuffman.LenListToCodeList(offHiLen);
 
-            // code部のハフマン符号表出力
+            // Output Huffman code table for code part
             if (2 <= PostLh3Encoder.countNoZeroElement(this.codeFreq)) {
                 this.writeCodeLenList(codeLen);
             } else {
@@ -300,7 +309,7 @@ public class PostLh3Encoder implements PostLzssEncoder {
                 this.out.writeBits(9, PostLh3Encoder.getNoZeroElementIndex(this.codeFreq));
             }
 
-            // offHi部のハフマン符号表出力
+            // Output Huffman code table for offHi part
             if (offHiLen != PostLh3Encoder.ConstOffHiLen) {
                 this.out.writeBit(1);
 
@@ -314,7 +323,7 @@ public class PostLh3Encoder implements PostLzssEncoder {
                 this.out.writeBit(0);
             }
 
-            // ハフマン符号出力
+            // Output Huffman code
             this.position = 0;
             this.flagBit = 0;
             for (int i = 0; i < blockSize; i++) {
@@ -342,14 +351,10 @@ public class PostLh3Encoder implements PostLzssEncoder {
                 this.flagBit >>= 1;
             }
 
-            // 次のブロックのための処理
-            for (int i = 0; i < this.codeFreq.length; i++) {
-                this.codeFreq[i] = 0;
-            }
+            // Process for next block
+            Arrays.fill(this.codeFreq, 0);
 
-            for (int i = 0; i < this.offHiFreq.length; i++) {
-                this.offHiFreq[i] = 0;
-            }
+            Arrays.fill(this.offHiFreq, 0);
 
             this.blockSize = 0;
             this.position = 0;
@@ -358,10 +363,10 @@ public class PostLh3Encoder implements PostLzssEncoder {
     }
 
     /**
-     * code部のハフマン符号長のリストを符号化しながら書き出す。
+     * Writes the list of Huffman code lengths for the code part while encoding them.
      *
-     * @param codeLen code部のハフマン符号長のリスト
-     * @exception IOException 入出力エラーが発生した場合
+     * @param codeLen list of Huffman code lengths for the code part
+     * @throws IOException if an I/O error occurs
      */
     private void writeCodeLenList(int[] codeLen) throws IOException {
         for (int j : codeLen) {
@@ -374,10 +379,10 @@ public class PostLh3Encoder implements PostLzssEncoder {
     }
 
     /**
-     * OffHi部のハフマン符号長のリストを符号化しながら書き出す。
+     * Writes the list of Huffman code lengths for the OffHi part while encoding them.
      *
-     * @param offHiLen CodeFreq のハフマン符号長のリスト
-     * @exception IOException 入出力エラーが発生した場合
+     * @param offHiLen list of Huffman code lengths for {@code CodeFreq}
+     * @throws IOException if an I/O error occurs
      */
     private void writeOffHiLenList(int[] offHiLen) throws IOException {
         for (int j : offHiLen) {
@@ -386,10 +391,10 @@ public class PostLh3Encoder implements PostLzssEncoder {
     }
 
     /**
-     * 配列内の 0でない要素数を得る。
+     * Gets the number of non-zero elements in an array.
      *
-     * @param array 配列
-     * @return 配列内の 0でない要素数
+     * @param array array
+     * @return the number of non-zero elements in the array
      */
     private static int countNoZeroElement(int[] array) {
         int count = 0;
@@ -402,11 +407,11 @@ public class PostLh3Encoder implements PostLzssEncoder {
     }
 
     /**
-     * 配列内の 0でない最初の要素を得る。
+     * Gets the index of the first non-zero element in an array.
      *
-     * @param array 配列
-     * @return 配列内の 0でない最初の要素
-     *         全ての要素が0の場合は 0を返す。
+     * @param array array
+     * @return the index of the first non-zero element in the array.
+     * If all elements are 0, returns 0.
      */
     private static int getNoZeroElementIndex(int[] array) {
         for (int i = 0; i < array.length; i++) {
@@ -418,14 +423,14 @@ public class PostLh3Encoder implements PostLzssEncoder {
     }
 
     /**
-     * -lh3- の offHi部デコード用 ハフマン符号長リストを生成する。
+     * Generates a Huffman code length list for decoding offHi part of -lh3-.
      *
-     * @return -lh3- の offHi部デコード用 ハフマン符号長リスト
+     * @return Huffman code length list for decoding offHi part of -lh3-
      */
     private static int[] createConstOffHiLen() {
         final int length = PostLh3Encoder.DictionarySize >> 6;
         int[] list = {
-            2, 0x01, 0x01, 0x03, 0x06, 0x0D, 0x1F, 0x4E, 0
+                2, 0x01, 0x01, 0x03, 0x06, 0x0D, 0x1F, 0x4E, 0
         };
 
         int[] offHiLen = new int[length];
@@ -443,19 +448,17 @@ public class PostLh3Encoder implements PostLzssEncoder {
     }
 
     /**
-     * OffHiFreqから生成された ハフマン符号長のリストと
-     * 固定ハフマン符号長のリストを比較して、出力ビット
-     * 数の少ないものを得る。
+     * Compares the Huffman code length list generated from {@code OffHiFreq}
+     * with the fixed Huffman code length list, and returns the one with fewer output bits.
      *
-     * @param OffHiFreq offset部の上位6bitの出現頻度の表
-     * @param OffHiLen OffHiFreqから生成されたハフマン符
-     *            号長のリスト
-     * @return 出力ビット数の少ない方のハフマン符号長のリスト
+     * @param OffHiFreq frequency table of the upper 6 bits of offset part
+     * @param OffHiLen  Huffman code length list generated from {@code OffHiFreq}
+     * @return the Huffman code length list with fewer output bits
      */
     private static int[] getBetterOffHiLen(int[] OffHiFreq, int[] OffHiLen) {
         boolean detect = false;
         for (int j : OffHiLen) {
-            if (15 < j) { // 15 はwriteOffHiLenListで書きこめる最大のハフマン符号長を意味する。
+            if (15 < j) { // 15 represents the maximum Huffman code length that can be written with writeOffHiLenList.
                 detect = true;
             }
         }

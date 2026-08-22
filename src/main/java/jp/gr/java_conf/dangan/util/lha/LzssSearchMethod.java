@@ -1,38 +1,41 @@
-/**
+/*
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.util.lha;
 
 
 /**
- * LzssOutputStream で使用される
- * 最長一致検索を提供するインターフェイス。
+ * Interface that provides longest match search used in {@link LzssOutputStream}.
  *
  * <br>
- * コンストラクタの形式は
+ * The constructor form must conform to a format like:
  *
  * <pre>
  * LzssSearchMethod( int    DictionarySize,
@@ -40,15 +43,14 @@ package jp.gr.java_conf.dangan.util.lha;
  *                   int    Threshold,
  *                   byte[] TextBuffer )
  *
- * <strong>パラメータ:</strong>
- *   DictionarySize - LZSSの辞書サイズ
- *   MaxMatch       - LZSSの最大一致長
- *   Threshold      - LZSSの圧縮/非圧縮の閾値
- *   TextBuffer     - LZSS圧縮を施すデータの入ったバッファ
+ * <strong>Parameters:</strong>
+ *   DictionarySize - LZSS dictionary size
+ *   MaxMatch       - LZSS maximum match length
+ *   Threshold      - LZSS compression/non-compression threshold
+ *   TextBuffer     - Buffer containing data to be LZSS compressed
  * </pre>
  *
- * のような形式に則ること。<br>
- * また、追加の引数をとりたい場合は
+ * Furthermore, if additional arguments are needed, use a format like:
  *
  * <pre>
  * LzssSearchMethod( int    DictionarySize,
@@ -59,8 +61,7 @@ package jp.gr.java_conf.dangan.util.lha;
  *                   Object ExtraArgument2 )
  * </pre>
  *
- * のような形式を用いる。<br>
- * なお、コンストラクタの引数チェックは追加の引数がある場合について行えばよい。
+ * Note that argument checking in the constructor only needs to be performed when there are additional arguments.
  * <br>
  *
  * <pre>
@@ -68,18 +69,16 @@ package jp.gr.java_conf.dangan.util.lha;
  * $Log: LzssSearchMethod.java,v $
  * Revision 1.1  2002/12/04 00:00:00  dangan
  * [maintenance]
- *     ソース整備
+ *     source maintenance
  *
  * Revision 1.0  2002/07/24 00:00:00  dangan
  * add to version control
  * [change]
- *     slide() で引数を取らずに
- *     スライド幅を常に DictionarySize とするように変更。
- *     putLength を putRequires に変更
+ *     Changed slide() to take no arguments and always use DictionarySize as slide width.
+ *     Renamed putLength to putRequires
  * [maintenance]
- *     タブ廃止
- *     ライセンス文の修正
- *
+ *     tab removal
+ *     license comment update
  * </pre>
  *
  * @author $Author: dangan $
@@ -88,70 +87,57 @@ package jp.gr.java_conf.dangan.util.lha;
 public interface LzssSearchMethod {
 
     /**
-     * position から始まるデータパタンを
-     * LzssSearchMethod の持つ検索機構に登録する。<br>
-     * LzssOutputStream は 線形に、重複無く、
-     * put または searchAndPut を呼び出す。
+     * Registers the data pattern starting from {@code position}
+     * into the search mechanism of {@link LzssSearchMethod}.<br>
+     * {@link LzssOutputStream} calls {@code put} or {@code searchAndPut} linearly without duplicates.
      *
-     * @param position TextBuffer内のデータパタンの開始位置
+     * @param position start position of the data pattern in {@code TextBuffer}
      */
     void put(int position);
 
     /**
-     * 検索機構に登録されたデータパタンから
-     * position から始まるデータパタンと
-     * 最長の一致を持つものを検索し、
-     * 同時に position から始まるデータパタンを
-     * LzssSearchMethod の持つ検索機構に登録する。<br>
-     * LzssOutputStream は 線形に、重複無く、
-     * put または searchAndPut を呼び出す。
+     * Searches for the data pattern with the longest match to the data pattern
+     * starting from {@code position} among the data patterns registered in the search mechanism,
+     * and simultaneously registers the data pattern starting from {@code position}
+     * into the search mechanism of {@link LzssSearchMethod}.<br>
+     * {@link LzssOutputStream} calls {@code put} or {@code searchAndPut} linearly without duplicates.
      *
-     * @param position TextBuffer内のデータパタンの開始位置
-     * @return 一致が見つかった場合は
-     *         LzssOutputStream.createSearchReturn
-     *         によって生成された一致位置と一致長の情報を持つ値、
-     *         一致が見つからなかった場合は
-     *         LzssOutputStream.NOMATCH。
+     * @param position start position of the data pattern in {@code TextBuffer}
+     * @return If a match is found, a value holding information of the match position and match length
+     *         generated by {@link LzssOutputStream#createSearchReturn(int, int)};
+     *         if no match is found, {@link LzssOutputStream#NOMATCH}.
      * @see LzssOutputStream#createSearchReturn(int,int)
      * @see LzssOutputStream#NOMATCH
      */
     int searchAndPut(int position);
 
     /**
-     * 検索機構に登録されたデータパタンから
-     * position から始まるデータパタンと
-     * 最長の一致を持つものを検索する。<br>
-     * このメソッドは LzssOutputStream の
-     * flush() を実装するためだけに提供される。<br>
-     * TextBuffer.length &lt position + MaxMatch となるような
-     * position にも対応すること。
+     * Searches for the data pattern with the longest match to the data pattern
+     * starting from {@code position} among the data patterns registered in the search mechanism.<br>
+     * This method is provided solely for implementing {@link LzssOutputStream#flush()}.<br>
+     * Must also support {@code position} where {@code TextBuffer.length < position + MaxMatch}.
      *
-     * @param position TextBuffer内のデータパタンの開始位置
-     * @param lastPutPos 最後に登録したデータパタンの開始位置
-     * @return 一致が見つかった場合は
-     *         LzssOutputStream.createSearchReturn
-     *         によって生成された一致位置と一致長の情報を持つ値、
-     *         一致が見つからなかった場合は
-     *         LzssOutputStream.NOMATCH。
+     * @param position start position of the data pattern in {@link #TextBuffer}
+     * @param lastPutPos start position of the last registered data pattern
+     * @return If a match is found, a value holding information of the match position and match length
+     *         generated by {@link LzssOutputStream#createSearchReturn(int, int)};
+     *         if no match is found, {@link LzssOutputStream#NOMATCH}.
      * @see LzssOutputStream#createSearchReturn(int,int)
      * @see LzssOutputStream#NOMATCH
      */
     int search(int position, int lastPutPos);
 
     /**
-     * LzssOutputStream が slide() でTextBuffer内のデータを
-     * DictionarySize だけ移動させる際に検索機構内のデータを
-     * それらと矛盾無く移動させる処理を行う。
+     * When {@link LzssOutputStream} shifts data in {@code TextBuffer} by {@code DictionarySize} in {@code slide()},
+     * performs processing to shift data in the search mechanism consistently with it.
      */
     void slide();
 
     /**
-     * put() または searchAndPut() を使用して
-     * データパタンを検索機構に登録する時に
-     * 必要とするデータ量を得る。<br>
+     * Gets the amount of data required when registering a data pattern
+     * into the search mechanism using {@link #put(int)} or {@link #searchAndPut(int)}.<br>
      *
-     * @return put() または searchAndPut() で
-     *         検索機構に登録するデータ量
+     * @return amount of data to register into search mechanism in {@link #put(int)} or {@link #searchAndPut(int)}
      */
     int putRequires();
 }

@@ -1,27 +1,31 @@
 /*
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.io;
@@ -30,12 +34,10 @@ import java.io.IOException;
 
 
 /**
- * 要求されたビット数のデータを得られなかった場合に
- * 投げられる例外。<br>
- * BitDataBrokenException と違い、こちらの例外を
- * 投げる場合には 実際には読み込み動作を行ってい
- * ないため、読み込み位置は例外を投げる前の時点と
- * 同じである点に注意すること。<br>
+ * An exception thrown when data for the requested number of bits could not be obtained.<br>
+ * Unlike {@link BitDataBrokenException}, note that when this exception is thrown,
+ * the read operation has not actually been performed, so the read position
+ * is the same as before throwing the exception.<br>
  *
  * <pre>
  * -- revision history --
@@ -43,9 +45,8 @@ import java.io.IOException;
  * Revision 1.0  2002/07/24 00:00:00  dangan
  * add to version control
  * [maintenance]
- *     タブ廃止
- *     ライセンス文の修正
- *
+ *     tab removal
+ *     license statement fix
  * </pre>
  *
  * @author $Author: dangan $
@@ -54,15 +55,14 @@ import java.io.IOException;
 public class NotEnoughBitsException extends IOException {
 
     /**
-     * 実際に読み込めるビット数
+     * Number of bits that can actually be read
      */
-    private int availableBits;
+    private final int availableBits;
 
     /**
-     * availableBits 使用可能であることを示す
-     * NotEnoughBitsException を構築する。
+     * Constructs a {@link NotEnoughBitsException} indicating that {@code availableBits} are available.
      *
-     * @param availableBits 使用可能なビット数
+     * @param availableBits number of available bits
      */
     public NotEnoughBitsException(int availableBits) {
         super();
@@ -70,12 +70,11 @@ public class NotEnoughBitsException extends IOException {
     }
 
     /**
-     * availableBits 使用可能であることを示し、
-     * 詳細なメッセージを持つ
-     * NotEnoughBitsException を構築する。
+     * Constructs a {@link NotEnoughBitsException} indicating that {@code availableBits} are available,
+     * with a detailed message.
      *
-     * @param message 詳細なメッセージ
-     * @param availableBits 使用可能なビット数
+     * @param message       detailed message
+     * @param availableBits number of available bits
      */
     public NotEnoughBitsException(String message, int availableBits) {
         super(message);
@@ -83,13 +82,12 @@ public class NotEnoughBitsException extends IOException {
     }
 
     /**
-     * 使用可能なビット数を得る。<br>
-     * この例外を投げたメソッドにおいて、現在使用可能なビット数を返す。
+     * Gets the number of available bits.<br>
+     * Returns the number of currently available bits in the method that threw this exception.
      *
-     * @return 使用可能なビット数
+     * @return number of available bits
      */
     public int getAvailableBits() {
         return this.availableBits;
     }
-
 }

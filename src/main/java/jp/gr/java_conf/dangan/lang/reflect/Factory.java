@@ -1,27 +1,31 @@
 /*
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.lang.reflect;
@@ -31,9 +35,8 @@ import java.lang.reflect.InvocationTargetException;
 
 
 /**
- * クラス名と 引数になるObject の配列から、
- * createInstance() によって新しいインスタンスを作り出す
- * ユーティリティクラス。
+ * A utility class that creates new instances via {@code createInstance()}
+ * from a class name and an array of {@link Object}s as arguments.
  *
  * <pre>
  * -- revision history --
@@ -41,7 +44,6 @@ import java.lang.reflect.InvocationTargetException;
  * Revision 1.0  2002/10/01 00:00:00  dangan
  * first edition
  * add to version control
- *
  * </pre>
  *
  * @author $Author: dangan $
@@ -50,59 +52,45 @@ import java.lang.reflect.InvocationTargetException;
 public class Factory {
 
     /**
-     * デフォルトコンストラクタ。
-     * 使用不可。
+     * Default constructor.
+     * Cannot be used.
      */
     private Factory() {
     }
 
     /**
-     * classname で示されるクラスのインスタンスを生成する。
-     * コンストラクタには args の型と一致するものを使用する。
+     * Creates an instance of the class indicated by {@code className}.
+     * A constructor matching the types of {@code args} is used.
      *
-     * @param classname クラス名
-     * @param args 引数の配列
-     *
-     * @return 生成されたインスタンス
-     *         args と型情報がマッチする
-     *         コンストラクタが存在しなかった場合は null
-     *
-     * @exception InvocationTargetException
-     *                コンストラクタで例外が発生した場合
-     *
-     * @exception InstantiationException
-     *                abstractクラスのインスタンスを得ようとした場合
-     *
-     * @exception ClassNotFoundException
-     *                classname で示されるクラスが存在しない場合
+     * @param className class name
+     * @param args      array of arguments
+     * @return the created instance, or {@code null} if no constructor matching the type information of {@code args} exists
+     * @throws InvocationTargetException if an exception occurs in the constructor
+     * @throws InstantiationException    if an attempt is made to get an instance of an {@code abstract} class
+     * @throws ClassNotFoundException    if the class indicated by {@code className} does not exist
+     * @throws NoSuchMethodException     if no constructor matching {@code args} is found
      */
-    public static Object createInstance(String classname, Object[] args) throws InvocationTargetException,
-                                                                         InstantiationException,
-                                                                         ClassNotFoundException,
-                                                                         NoSuchMethodException {
-        return Factory.createInstance(Class.forName(classname), args);
+    public static Object createInstance(String className, Object... args) throws InvocationTargetException,
+            InstantiationException,
+            ClassNotFoundException,
+            NoSuchMethodException {
+        return Factory.createInstance(Class.forName(className), args);
     }
 
     /**
-     * type で示されるクラスのインスタンスを生成する。
-     * コンストラクタには args の型と一致するものを使用する。
+     * Creates an instance of the class indicated by {@code type}.
+     * A constructor matching the types of {@code args} is used.
      *
-     * @param type クラス名
-     * @param args 引数の配列
-     *
-     * @return 生成されたインスタンス
-     *         args と型情報がマッチする
-     *         コンストラクタが存在しなかった場合は null
-     *
-     * @exception InvocationTargetException
-     *                コンストラクタで例外が発生した場合
-     *
-     * @exception InstantiationException
-     *                abstractクラスのインスタンスを得ようとした場合
+     * @param type class
+     * @param args array of arguments
+     * @return the created instance, or {@code null} if no constructor matching the type information of {@code args} exists
+     * @throws InvocationTargetException if an exception occurs in the constructor
+     * @throws InstantiationException    if an attempt is made to get an instance of an {@code abstract} class
+     * @throws NoSuchMethodException     if no constructor matching {@code args} is found
      */
-    public static Object createInstance(Class<?> type, Object[] args) throws InvocationTargetException,
-                                                                      InstantiationException,
-                                                                      NoSuchMethodException {
+    public static Object createInstance(Class<?> type, Object... args) throws InvocationTargetException,
+            InstantiationException,
+            NoSuchMethodException {
         Constructor<?> constructor = Factory.getMatchFullConstructor(type, args);
 
         if (constructor == null) {
@@ -123,102 +111,61 @@ public class Factory {
         }
     }
 
-    // ------------------------------------------------------------------
-    //	shared method
-    // ------------------------------------------------------------------
-    // get constructor
-    // ------------------------------------------------------------------
-    // public static Constructor getConstructor( String   classname,
-    //                                           Object[] args )
-    // public static Constructor getConstructor( Class type, Object[] args )
-    // public static Constructor getConstructor( String   classname,
-    //                                           Object[] args, boolean all )
-    // public static Constructor getConstructor( Class type,
-    //                                           Object[] args, boolean  all )
-    // ------------------------------------------------------------------
     /**
-     * classname で示されるクラスの public なコンストラクタのうち、
-     * args を Type.parse した場合、引数として受け入れることが
-     * できるものを得る。
+     * Obtains a {@code public} constructor of the class indicated by {@code className}
+     * that can accept {@code args} as arguments when parsed with {@link Type#parse(Class, Object)}.
      *
-     * @param classname クラス名。
-     *            この型のインスタンスを生成するための
-     *            コンストラクタを得る。
-     * @param args 引数配列。
-     *            null を含めても良いが、null を使用した場合は
-     *            Object のサブクラスであれば全てマッチしてしまうため、
-     *            目的のコンストラクタ以外のものが見つかる可能性がある。
-     *
-     * @return args を引数に取ることができるコンストラクタ。
-     *         見つからなければ null。
-     *
-     * @exception ClassNotFoundException
-     *                classname で示されるクラスが存在しない場合
+     * @param className class name. Obtains a constructor to create an instance of this type.
+     * @param args      array of arguments. May include {@code null}, but if {@code null} is used,
+     *                  since any subclass of {@link Object} will match, constructors other than the intended one might be found.
+     * @return a constructor that can take {@code args} as arguments, or {@code null} if not found.
+     * @throws ClassNotFoundException if the class indicated by {@code className} does not exist
      */
-    public static Constructor<?> getConstructor(String classname, Object[] args) throws ClassNotFoundException {
-        return Factory.getConstructor(Class.forName(classname), args);
+    public static Constructor<?> getConstructor(String className, Object... args) throws ClassNotFoundException {
+        return Factory.getConstructor(Class.forName(className), args);
     }
 
     /**
-     * type のpublic なコンストラクタのうち、args を
-     * Type.parse した場合 引数として受け入れることができるものを得る。
+     * Obtains a {@code public} constructor of {@code type}
+     * that can accept {@code args} as arguments when parsed with {@link Type#parse(Class, Object)}.
      *
-     * @param type 型情報。
-     *            この型のインスタンスを生成するためのコンストラクタを得る。
-     * @param args 引数配列。
-     *            null を含めても良いが、null を使用した場合は
-     *            Object のサブクラスであれば全てマッチしてしまうため、
-     *            目的のコンストラクタ以外のものが見つかる可能性がある。
-     *
-     * @return args を引数に取ることができるコンストラクタ。
-     *         見つからなければ null。
+     * @param type type information. Obtains a constructor to create an instance of this type.
+     * @param args array of arguments. May include {@code null}, but if {@code null} is used,
+     *             since any subclass of {@link Object} will match, constructors other than the intended one might be found.
+     * @return a constructor that can take {@code args} as arguments, or {@code null} if not found.
      */
-    public static Constructor<?> getConstructor(Class<?> type, Object[] args) {
-        return Factory.getConstructor(type, args, false);
+    public static Constructor<?> getConstructor(Class<?> type, Object... args) {
+        return Factory.getConstructor(type, false, args);
     }
 
     /**
-     * classnameで示されるクラスの コンストラクタのうち、args を
-     * Type.parse して 引数として受け入れることができるものを得る。
+     * Obtains a constructor of the class indicated by {@code className}
+     * that can accept {@code args} as arguments when parsed with {@link Type#parse(Class, Object)}.
      *
-     * @param classname クラス名。
-     *            この型のインスタンスを生成するためのコンストラクタを得る。
-     * @param args 引数配列。
-     *            null を含めても良いが、null を使用した場合は
-     *            Object のサブクラスであれば全てマッチしてしまうため、
-     *            目的のコンストラクタ以外のものが見つかる可能性がある。
-     * @param all public のコンストラクタのみを検索するなら false。
-     *            public, protected, private, パッケージプライベートの
-     *            全てのコンストラクタをけんさくするなら true。
-     *
-     * @return args を引数に取ることができるコンストラクタ。
-     *         見つからなければ null。
-     *
-     * @exception ClassNotFoundException
-     *                classname で示されるクラスが存在しない場合
+     * @param className class name. Obtains a constructor to create an instance of this type.
+     * @param all       {@code false} to search only {@code public} constructors;
+     *                  {@code true} to search all constructors (public, protected, private, package-private).
+     * @param args      array of arguments. May include {@code null}, but if {@code null} is used,
+     *                  since any subclass of {@link Object} will match, constructors other than the intended one might be found.
+     * @return a constructor that can take {@code args} as arguments, or {@code null} if not found.
+     * @throws ClassNotFoundException if the class indicated by {@code className} does not exist
      */
-    public static Constructor<?> getConstructor(String classname, Object[] args, boolean all) throws ClassNotFoundException {
-        return Factory.getConstructor(Class.forName(classname), args, all);
+    public static Constructor<?> getConstructor(String className, boolean all, Object... args) throws ClassNotFoundException {
+        return Factory.getConstructor(Class.forName(className), all, args);
     }
 
     /**
-     * type のコンストラクタのうち、args を Type.parse した場合
-     * 引数として受け入れることができるものを得る。
+     * Obtains a constructor of {@code type}
+     * that can accept {@code args} as arguments when parsed with {@link Type#parse(Class, Object)}.
      *
-     * @param type 型情報。
-     *            この型のインスタンスを生成するためのコンストラクタを得る。
-     * @param args 引数配列。
-     *            null を含めても良いが、null を使用した場合は
-     *            Object のサブクラスであれば全てマッチしてしまうため、
-     *            目的のコンストラクタ以外のものが見つかる可能性がある。
-     * @param all public のコンストラクタのみを検索するなら false。
-     *            public, protected, private, パッケージプライベートの
-     *            全てのコンストラクタをけんさくするなら true。
-     *
-     * @return args を引数に取ることができるコンストラクタ。
-     *         見つからなければ null。
+     * @param type type information. Obtains a constructor to create an instance of this type.
+     * @param all  {@code false} to search only {@code public} constructors;
+     *             {@code true} to search all constructors (public, protected, private, package-private).
+     * @param args array of arguments. May include {@code null}, but if {@code null} is used,
+     *             since any subclass of {@link Object} will match, constructors other than the intended one might be found.
+     * @return a constructor that can take {@code args} as arguments, or {@code null} if not found.
      */
-    public static Constructor<?> getConstructor(Class<?> type, Object[] args, boolean all) {
+    public static Constructor<?> getConstructor(Class<?> type, boolean all, Object... args) {
         Constructor<?>[] constructors = all ? type.getDeclaredConstructors() : type.getConstructors();
 
         for (Constructor<?> item : constructors)
@@ -236,102 +183,62 @@ public class Factory {
         return null;
     }
 
-    // ------------------------------------------------------------------
-    //	shared method
-    // ------------------------------------------------------------------
-    // get match full constructor
-    // ------------------------------------------------------------------
-    // public static Constructor getMatchFullConstructor( String   classname,
-    //                                                    Object[] args )
-    // public static Constructor getMatchFullConstructor( Class type,
-    //                                                    Object[] args )
-    // public static Constructor getMatchFullConstructor( String   classname,
-    //                                           Object[] args, boolean all )
-    // public static Constructor getMatchFullConstructor( Class type,
-    //                                           Object[] args, boolean all )
-    // ------------------------------------------------------------------
     /**
-     * classname で示されるクラスの public なコンストラクタのうち、
-     * args を そのまま引数として受け入れることができるものを得る。
+     * Obtains a {@code public} constructor of the class indicated by {@code className}
+     * that can accept {@code args} as arguments directly as is.
      *
-     * @param classname クラス名。
-     *            この型のインスタンスを生成するための
-     *            コンストラクタを得る。
-     * @param args 引数配列。
-     *            null を含めても良いが、null を使用した場合は
-     *            Object のサブクラスであれば全てマッチしてしまうため、
-     *            目的のコンストラクタ以外のものが見つかる可能性がある。
-     *
-     * @return args を引数に取ることができるコンストラクタ。
-     *         見つからなければ null。
-     *
-     * @exception ClassNotFoundException
-     *                classname で示されるクラスが存在しない場合
+     * @param className class name. Obtains a constructor to create an instance of this type.
+     * @param args      array of arguments. May include {@code null}, but if {@code null} is used,
+     *                  since any subclass of {@link Object} will match, constructors other than the intended one might be found.
+     * @return a constructor that can take {@code args} as arguments, or {@code null} if not found.
+     * @throws ClassNotFoundException if the class indicated by {@code className} does not exist
      */
-    public static Constructor<?> getMatchFullConstructor(String classname, Object[] args) throws ClassNotFoundException {
-        return Factory.getMatchFullConstructor(Class.forName(classname), args);
+    public static Constructor<?> getMatchFullConstructor(String className, Object... args) throws ClassNotFoundException {
+        return Factory.getMatchFullConstructor(Class.forName(className), args);
     }
 
     /**
-     * type の public なコンストラクタのうち、args を
-     * そのまま引数として受け入れることができるものを得る。
+     * Obtains a {@code public} constructor of {@code type}
+     * that can accept {@code args} as arguments directly as is.
      *
-     * @param type 型情報。
-     *            この型のインスタンスを生成するためのコンストラクタを得る。
-     * @param args 引数配列。
-     *            null を含めても良いが、null を使用した場合は
-     *            Object のサブクラスであれば全てマッチしてしまうため、
-     *            目的のコンストラクタ以外のものが見つかる可能性がある。
-     *
-     * @return args を引数に取ることができるコンストラクタ。
-     *         見つからなければ null。
+     * @param type type information. Obtains a constructor to create an instance of this type.
+     * @param args array of arguments. May include {@code null}, but if {@code null} is used,
+     *             since any subclass of {@link Object} will match, constructors other than the intended one might be found.
+     * @return a constructor that can take {@code args} as arguments, or {@code null} if not found.
      */
-    public static Constructor<?> getMatchFullConstructor(Class<?> type, Object[] args) {
-        return Factory.getMatchFullConstructor(type, args, false);
+    public static Constructor<?> getMatchFullConstructor(Class<?> type, Object... args) {
+        return Factory.getMatchFullConstructor(type, false, args);
     }
 
     /**
-     * classname で示されるクラスの コンストラクタのうち、
-     * args を そのまま引数として受け入れることができるものを得る。
+     * Obtains a constructor of the class indicated by {@code className}
+     * that can accept {@code args} as arguments directly as is.
      *
-     * @param classname クラス名。
-     *            この型のインスタンスを生成するための
-     *            コンストラクタを得る。
-     * @param args 引数配列。
-     *            null を含めても良いが、null を使用した場合は
-     *            Object のサブクラスであれば全てマッチしてしまうため、
-     *            目的のコンストラクタ以外のものが見つかる可能性がある。
-     *
-     * @return args を引数に取ることができるコンストラクタ。
-     *         見つからなければ null。
-     *
-     * @exception ClassNotFoundException
-     *                classname で示されるクラスが存在しない場合
+     * @param className class name. Obtains a constructor to create an instance of this type.
+     * @param all       {@code false} to search only {@code public} constructors;
+     *                  {@code true} to search all constructors (public, protected, private, package-private).
+     * @param args      array of arguments. May include {@code null}, but if {@code null} is used,
+     *                  since any subclass of {@link Object} will match, constructors other than the intended one might be found.
+     * @return a constructor that can take {@code args} as arguments, or {@code null} if not found.
+     * @throws ClassNotFoundException if the class indicated by {@code className} does not exist
      */
-    public static Constructor<?> getMatchFullConstructor(String classname,
-                                                         Object[] args,
-                                                         boolean all) throws ClassNotFoundException {
-        return Factory.getMatchFullConstructor(Class.forName(classname), args, all);
+    public static Constructor<?> getMatchFullConstructor(String className,
+                                                         boolean all, Object... args) throws ClassNotFoundException {
+        return Factory.getMatchFullConstructor(Class.forName(className), all, args);
     }
 
     /**
-     * type のコンストラクタのうち、args を
-     * そのまま引数として受け入れることができるものを得る。
+     * Obtains a constructor of {@code type}
+     * that can accept {@code args} as arguments directly as is.
      *
-     * @param type 型情報。
-     *            この型のインスタンスを生成するためのコンストラクタを得る。
-     * @param args 引数配列。
-     *            null を含めても良いが、null を使用した場合は
-     *            Object のサブクラスであれば全てマッチしてしまうため、
-     *            目的のコンストラクタ以外のものが見つかる可能性がある。
-     * @param all public のコンストラクタのみを検索するなら false。
-     *            public, protected, private, パッケージプライベートの
-     *            全てのコンストラクタをけんさくするなら true。
-     *
-     * @return args を引数に取ることができるコンストラクタ。
-     *         見つからなければ null。
+     * @param type type information. Obtains a constructor to create an instance of this type.
+     * @param all  {@code false} to search only {@code public} constructors;
+     *             {@code true} to search all constructors (public, protected, private, package-private).
+     * @param args array of arguments. May include {@code null}, but if {@code null} is used,
+     *             since any subclass of {@link Object} will match, constructors other than the intended one might be found.
+     * @return a constructor that can take {@code args} as arguments, or {@code null} if not found.
      */
-    public static Constructor<?> getMatchFullConstructor(Class<?> type, Object[] args, boolean all) {
+    public static Constructor<?> getMatchFullConstructor(Class<?> type, boolean all, Object... args) {
         Constructor<?>[] constructors = all ? type.getDeclaredConstructors() : type.getConstructors();
 
         for (Constructor<?> constructor : constructors)
@@ -340,5 +247,4 @@ public class Factory {
 
         return null;
     }
-
 }

@@ -1,37 +1,39 @@
-/**
+/*
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.util.lha;
 
 /**
- * 特別な検索機構を用いない
- * LzssSearchMethod の最もシンプルな実装。<br>
- * 検索機構を用いないため、
- * 他の検索機構を用いる実装と比べると遅いが、
- * メモリ消費量も非常に少ない。<br>
+ * The simplest implementation of {@link LzssSearchMethod} that does not use any special search mechanism.<br>
+ * Since it does not use a search mechanism, it is slower compared to implementations using other search mechanisms,
+ * but its memory consumption is very small.<br>
  *
  * <pre>
  * -- revision history --
@@ -39,12 +41,11 @@ package jp.gr.java_conf.dangan.util.lha;
  * Revision 1.0  2002/08/05 00:00:00  dangan
  * add to version control
  * [change]
- *     LzssSearchMethod のインタフェイス変更にあわせてインタフェイス変更。
+ *     Interface change to match {@link LzssSearchMethod} interface change.
  * [maintenance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
- *
+ *     source maintenance
+ *     tab removal
+ *     license comment update
  * </pre>
  *
  * @author $Author: dangan $
@@ -53,46 +54,44 @@ package jp.gr.java_conf.dangan.util.lha;
 public class SimpleSearch implements LzssSearchMethod {
 
     /**
-     * LZSS辞書サイズ。
+     * LZSS dictionary size.
      */
-    private int DictionarySize;
+    private final int DictionarySize;
 
     /**
-     * LZSS圧縮に使用される値。
-     * 最大一致長を示す。
+     * Value used for LZSS compression.
+     * Indicates maximum match length.
      */
-    private int MaxMatch;
+    private final int MaxMatch;
 
     /**
-     * LZSS圧縮に使用される閾値。
-     * 一致長が この値以上であれば、圧縮コードを出力する。
+     * Threshold used for LZSS compression.
+     * If the match length is greater than or equal to this value, compression code is output.
      */
-    private int Threshold;
+    private final int Threshold;
 
     /**
-     * LZSS圧縮を施すためのバッファ。
-     * position を境に 前半は辞書領域、
-     * 後半は圧縮を施すためのデータの入ったバッファ。
-     * LzssSearchMethodの実装内では読み込みのみ許される。
+     * Buffer for applying LZSS compression.
+     * With {@code position} as the boundary, the first half is the dictionary area,
+     * and the second half is the buffer containing data to be compressed.
+     * Only read access is permitted within implementations of {@link LzssSearchMethod}.
      */
-    private byte[] TextBuffer;
+    private final byte[] TextBuffer;
 
     /**
-     * 辞書の限界位置。
-     * TextBuffer前半の辞書領域にデータが無い場合に
-     * 辞書領域にある不定のデータ(Javaでは0)を使用
-     * して圧縮が行われるのを抑止する。
+     * Dictionary limit position.
+     * When there is no data in the dictionary area in the first half of {@link #TextBuffer},
+     * this prevents compression from using undefined data (0 in Java) in the dictionary area.
      */
     private int DictionaryLimit;
 
     /**
-     * 特別な検索機構を用いないシンプルな
-     * LzssSearchMethod を構築する。<br>
+     * Constructs a simple {@link LzssSearchMethod} that does not use a special search mechanism.<br>
      *
-     * @param DictionarySize 辞書サイズ
-     * @param MaxMatch 最大一致長
-     * @param Threshold 圧縮、非圧縮の閾値
-     * @param TextBuffer LZSS圧縮を施すためのバッファ
+     * @param DictionarySize dictionary size
+     * @param MaxMatch       maximum match length
+     * @param Threshold      threshold between compression and non-compression
+     * @param TextBuffer     buffer for applying LZSS compression
      */
     public SimpleSearch(int DictionarySize, int MaxMatch, int Threshold, byte[] TextBuffer) {
 
@@ -104,28 +103,26 @@ public class SimpleSearch implements LzssSearchMethod {
     }
 
     /**
-     * SimpleSearch は検索機構を使用しないため
-     * このメソッドは何もしない。
+     * {@link SimpleSearch} does not use a search mechanism, so this method does nothing.
      *
-     * @param position TextBuffer内のデータパタンの開始位置
+     * @param position start position of the data pattern in {@link #TextBuffer}
      */
+    @Override
     public void put(int position) {
     }
 
     /**
-     * TextBuffer 内の辞書領域にあるデータパタンから
-     * position から始まるデータパタンと
-     * 最長の一致を持つものを検索する。
+     * Searches for the data pattern with the longest match to the data pattern
+     * starting from {@code position} among the data patterns in the dictionary area of {@link #TextBuffer}.
      *
-     * @param position TextBuffer内のデータパタンの開始位置。
-     * @return 一致が見つかった場合は
-     *         LzssOutputStream.createSearchReturn
-     *         によって生成された一致位置と一致長の情報を持つ値、
-     *         一致が見つからなかった場合は
-     *         LzssOutputStream.NOMATCH。
-     * @see LzssOutputStream#createSearchReturn(int,int)
+     * @param position start position of the data pattern in {@link #TextBuffer}.
+     * @return If a match is found, a value holding information of the match position and match length
+     *         generated by {@link LzssOutputStream#createSearchReturn(int, int)};
+     *         if no match is found, {@link LzssOutputStream#NOMATCH}.
+     * @see LzssOutputStream#createSearchReturn(int, int)
      * @see LzssOutputStream#NOMATCH
      */
+    @Override
     public int searchAndPut(int position) {
         int matchlen = this.Threshold - 1;
         int matchpos = position;
@@ -165,20 +162,18 @@ public class SimpleSearch implements LzssSearchMethod {
     }
 
     /**
-     * TextBuffer 内の辞書領域にあるデータパタンから
-     * position から始まるデータパタンと
-     * 最長の一致を持つものを検索する。
+     * Searches for the data pattern with the longest match to the data pattern
+     * starting from {@code position} among the data patterns in the dictionary area of {@link #TextBuffer}.
      *
-     * @param position TextBuffer内のデータパタンの開始位置。
-     * @param lastPutPos 最後に登録したデータパタンの開始位置。
-     * @return 一致が見つかった場合は
-     *         LzssOutputStream.createSearchReturn
-     *         によって生成された一致位置と一致長の情報を持つ値、
-     *         一致が見つからなかった場合は
-     *         LzssOutputStream.NOMATCH。
-     * @see LzssOutputStream#createSearchReturn(int,int)
+     * @param position   start position of the data pattern in {@link #TextBuffer}.
+     * @param lastPutPos start position of the last registered data pattern.
+     * @return If a match is found, a value holding information of the match position and match length
+     *         generated by {@link LzssOutputStream#createSearchReturn(int, int)};
+     *         if no match is found, {@link LzssOutputStream#NOMATCH}.
+     * @see LzssOutputStream#createSearchReturn(int, int)
      * @see LzssOutputStream#NOMATCH
      */
+    @Override
     public int search(int position, int lastPutPos) {
         int matchlen = this.Threshold - 1;
         int matchpos = position;
@@ -218,19 +213,20 @@ public class SimpleSearch implements LzssSearchMethod {
     }
 
     /**
-     * LzssOutputStream が slide() でTextBuffer内のデータを
-     * DictionarySize だけ移動させる際に検索機構内のデータを
-     * それらと矛盾無く移動させる処理を行う。
+     * When {@link LzssOutputStream} shifts data in {@code TextBuffer} by {@code DictionarySize} in {@code slide()},
+     * performs processing to shift data in the search mechanism consistently with it.
      */
+    @Override
     public void slide() {
         this.DictionaryLimit = Math.max(0, this.DictionaryLimit - this.DictionarySize);
     }
 
     /**
-     * SimpleSearch は検索機構を使用しないため常に 0 を返す。
+     * {@link SimpleSearch} does not use a search mechanism, so it always returns 0.
      *
-     * @return 常に 0
+     * @return always 0
      */
+    @Override
     public int putRequires() {
         return 0;
     }

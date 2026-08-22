@@ -1,53 +1,56 @@
-/**
+/*
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.util.lha;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 
 import jp.gr.java_conf.dangan.io.Bits;
 import jp.gr.java_conf.dangan.lang.reflect.Factory;
 
 
 /**
- * 二段階ハッシュと単方向連結リストを使って高速化された LzssSearchMethod。<br>
- * <a href="http:// search.ieice.org/2000/pdf/e83-a_12_2689.pdf">定兼氏の論文</a>
- * を参考にした。
+ * {@link LzssSearchMethod} accelerated using two-level hashing and singly linked lists.<br>
+ * Referenced <a href="http://search.ieice.org/2000/pdf/e83-a_12_2689.pdf">Sadakane's paper</a>.
  *
  * <pre>
  * -- revision history --
  * $Log: TwoLevelHashSearch.java,v $
  * Revision 1.1  2002/12/10 22:06:40  dangan
  * [bug fix]
- *     searchAndPut() で最近の最長一致を取れなかったバグを修正。
+ *     Fixed bug in searchAndPut() where recent longest match could not be retrieved.
  *
  * Revision 1.0  2002/12/03 00:00:00  dangan
  * first edition
  * add to version control
- *
  * </pre>
  *
  * @author $Author: dangan $
@@ -56,109 +59,100 @@ import jp.gr.java_conf.dangan.lang.reflect.Factory;
 public class TwoLevelHashSearch implements LzssSearchMethod {
 
     /**
-     * LZSS辞書サイズ。
+     * LZSS dictionary size.
      */
-    private int DictionarySize;
+    private final int DictionarySize;
 
     /**
-     * LZSS圧縮に使用される値。
-     * 最大一致長を示す。
+     * Value used for LZSS compression.
+     * Indicates maximum match length.
      */
-    private int MaxMatch;
+    private final int MaxMatch;
 
     /**
-     * LZSS圧縮に使用される閾値。
-     * 一致長が この値以上であれば、圧縮コードを出力する。
+     * Threshold used for LZSS compression.
+     * If the match length is greater than or equal to this value, compression code is output.
      */
-    private int Threshold;
+    private final int Threshold;
 
     /**
-     * LZSS圧縮を施すためのバッファ。
-     * 前半は辞書領域、
-     * 後半は圧縮を施すためのデータの入ったバッファ。
-     * LzssSearchMethodの実装内では読み込みのみ許される。
+     * Buffer for applying LZSS compression.
+     * The first half is the dictionary area,
+     * and the second half is the buffer containing data to be compressed.
+     * Only read access is permitted within implementations of {@link LzssSearchMethod}.
      */
-    private byte[] TextBuffer;
+    private final byte[] TextBuffer;
 
     /**
-     * 辞書の限界位置。
-     * TextBuffer前半の辞書領域にデータが無い場合に
-     * 辞書領域にある不定のデータ(Javaでは0)を使用
-     * して圧縮が行われるのを抑止する。
+     * Dictionary limit position.
+     * When there is no data in the dictionary area in the first half of {@link #TextBuffer},
+     * this prevents compression from using undefined data (0 in Java) in the dictionary area.
      */
     private int DictionaryLimit;
 
     /**
-     * 一段目のハッシュ関数
+     * Primary hash function
      */
-    private HashMethod primaryHash;
+    private final HashMethod primaryHash;
 
     /**
-     * 一段目のハッシュテーブル
-     * 添字は一段目のハッシュ値、内容は 二段目のハッシュテーブルの index
+     * Primary hash table.
+     * Index is primary hash value, content is index of secondary hash table.
      */
-    private int[] primaryHashTable;
+    private final int[] primaryHashTable;
 
     /**
-     * 一段目のハッシュテーブルに幾つのデータパタンが
-     * 登録されているかをカウントしておく。
+     * Counts how many data patterns are registered in the primary hash table.
      */
-    private int[] primaryCount;
+    private final int[] primaryCount;
 
     /**
-     * 二段目のハッシュ値を算出するために必要なバイト数。
+     * Number of bytes required to calculate secondary hash value.
      */
-    private int[] secondaryHashRequires;
+    private final int[] secondaryHashRequires;
 
     /**
-     * 二段目のハッシュテーブル
-     * 添字は 一段目のハッシュテーブルの値 + 二段目のハッシュ値、
-     * 内容は TextBuffer 内のデータパタンの開始位置
+     * Secondary hash table.
+     * Index is value of primary hash table + secondary hash value,
+     * content is start position of data pattern in {@link #TextBuffer}.
      */
     private int[] secondaryHashTable;
 
     /**
-     * slide() の毎に secondaryHashTable と入れ替えるダミー配列。
-     * 使いまわし用。
+     * Dummy array swapped with {@link #secondaryHashTable} on each {@link #slide()}.
+     * For reuse.
      */
     private int[] dummy;
 
     /**
-     * 同じハッシュ値を持つデータパタン開始位置を持つ
-     * 単方向連結リスト。
+     * Singly linked list holding start positions of data patterns with the same hash value.
      */
-    private int[] prev;
+    private final int[] prev;
 
     /**
-     * 二段階ハッシュを使用した LzssSearchMethod を構築する。<br>
-     * 一段目のハッシュ関数には デフォルトのものが使用される。<br>
+     * Constructs a {@link LzssSearchMethod} using two-level hashing.<br>
+     * The default primary hash function is used.<br>
      *
-     * @param DictionarySize 辞書サイズ
-     * @param MaxMatch 最大一致長
-     * @param Threshold 圧縮、非圧縮の閾値
-     * @param TextBuffer LZSS圧縮を施すためのバッファ
+     * @param DictionarySize dictionary size
+     * @param MaxMatch       maximum match length
+     * @param Threshold      threshold between compression and non-compression
+     * @param TextBuffer     buffer for applying LZSS compression
      */
     public TwoLevelHashSearch(int DictionarySize, int MaxMatch, int Threshold, byte[] TextBuffer) {
         this(DictionarySize, MaxMatch, Threshold, TextBuffer, HashShort.class.getName());
     }
 
     /**
-     * 二段階ハッシュを使用した LzssSearchMethod を構築する。
+     * Constructs a {@link LzssSearchMethod} using two-level hashing.
      *
-     * @param DictionarySize 辞書サイズ
-     * @param MaxMatch 最大一致長
-     * @param Threshold 圧縮、非圧縮の閾値
-     * @param TextBuffer LZSS圧縮を施すためのバッファ
-     * @param HashMethodClassName Hash関数を提供するクラス名
-     *
-     * @exception NoClassDefFoundError
-     *                HashMethodClassName で与えられたクラスが見つからない場合。
-     * @exception InstantiationError
-     *                HashMethodClassName で与えられたクラスが
-     *                abstract class であるためインスタンスを生成できない場合。
-     * @exception NoSuchMethodError
-     *                HashMethodClassName で与えられたクラスが
-     *                コンストラクタ HashMethod( byte[] )を持たない場合。
+     * @param DictionarySize      dictionary size
+     * @param MaxMatch            maximum match length
+     * @param Threshold           threshold between compression and non-compression
+     * @param TextBuffer          buffer for applying LZSS compression
+     * @param HashMethodClassName class name providing hash function
+     * @throws NoClassDefFoundError if the class specified by {@code HashMethodClassName} is not found.
+     * @throws InstantiationError   if an instance cannot be created because the class specified by {@code HashMethodClassName} is an abstract class.
+     * @throws NoSuchMethodError    if the class specified by {@code HashMethodClassName} does not have the constructor {@code HashMethod(byte[])}.
      */
     public TwoLevelHashSearch(int DictionarySize, int MaxMatch, int Threshold, byte[] TextBuffer, String HashMethodClassName) {
 
@@ -170,9 +164,9 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
 
         try {
             this.primaryHash = (HashMethod) Factory.createInstance(HashMethodClassName,
-                                                                   new Object[] {
-                                                                       TextBuffer
-                                                                   });
+                    new Object[] {
+                            TextBuffer
+                    });
         } catch (ClassNotFoundException exception) {
             throw new NoClassDefFoundError(exception.getMessage());
         } catch (InvocationTargetException exception) {
@@ -183,7 +177,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
             throw new InstantiationError(exception.getMessage());
         }
 
-        // ハッシュテーブル初期化
+        // Initialize hash tables
         this.primaryHashTable = new int[this.primaryHash.tableSize()];
         this.secondaryHashTable = new int[(this.primaryHash.tableSize() + this.DictionarySize / 4)];
         for (int i = 0; i < this.primaryHashTable.length; i++) {
@@ -191,25 +185,24 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
             this.secondaryHashTable[i] = -1;
         }
 
-        // その他の配列生成
-        // primaryCount と secondaryHashRequires は配列生成時にゼロクリアされている事を利用する。
+        // Create other arrays
+        // Leverage the fact that primaryCount and secondaryHashRequires are zero-cleared upon array creation.
         this.primaryCount = new int[this.primaryHash.tableSize()];
         this.secondaryHashRequires = new int[this.primaryHash.tableSize()];
         this.dummy = new int[this.secondaryHashTable.length];
 
-        // 連結リスト初期化
+        // Initialize linked list
         this.prev = new int[this.DictionarySize];
-        for (int i = 0; i < this.prev.length; i++) {
-            this.prev[i] = -1;
-        }
+        Arrays.fill(this.prev, -1);
     }
 
     /**
-     * position から始まるデータパタンを
-     * 二段階ハッシュと連結リストから成る検索機構に登録する。<br>
+     * Registers the data pattern starting from {@code position}
+     * into the search mechanism consisting of two-level hashing and linked lists.
      *
-     * @param position TextBuffer内のデータパタンの開始位置
+     * @param position start position of the data pattern in {@link #TextBuffer}
      */
+    @Override
     public void put(int position) {
         int phash = this.primaryHash.hash(position);
         int base = this.primaryHashTable[phash];
@@ -221,23 +214,20 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
     }
 
     /**
-     * 二段階ハッシュと連結リストから成る検索機構に登録された
-     * データパタンから position から始まるデータパタンと
-     * 最長の一致を持つものを検索し、
-     * 同時に position から始まるデータパタンを
-     * 二段階ハッシュと連結リストから成る検索機構に登録する。<br>
+     * Searches for the data pattern with the longest match to the data pattern
+     * starting from {@code position} among data patterns registered in the
+     * search mechanism consisting of two-level hashing and linked lists,
+     * and simultaneously registers the data pattern starting from {@code position}
+     * into the search mechanism consisting of two-level hashing and linked lists.
      *
-     * @param position TextBuffer内のデータパタンの開始位置。
-     *
-     * @return 一致が見つかった場合は
-     *         LzssOutputStream.createSearchReturn
-     *         によって生成された一致位置と一致長の情報を持つ値、
-     *         一致が見つからなかった場合は
-     *         LzssOutputStream.NOMATCH。
-     *
-     * @see LzssOutputStream#createSearchReturn(int,int)
+     * @param position start position of data pattern in {@code TextBuffer}
+     * @return If a match is found, a value holding information of the match position and match length
+     *         generated by {@link LzssOutputStream#createSearchReturn(int, int)};
+     *         if no match is found, {@link LzssOutputStream#NOMATCH}.
+     * @see LzssOutputStream#createSearchReturn(int, int)
      * @see LzssOutputStream#NOMATCH
      */
+    @Override
     public int searchAndPut(int position) {
         int matchlen = this.Threshold - 1;
         int matchpos = position;
@@ -255,7 +245,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
         int p;
         int len;
 
-        // 二段目のハッシュによって選ばれた連結リストを検索するループ
+        // Loop searching the linked list selected by secondary hash
         while (scanlimit <= scanpos) {
             if (buf[scanpos + matchlen] == buf[position + matchlen]) {
                 s = scanpos;
@@ -278,8 +268,8 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
             scanpos = this.prev[scanpos & (this.DictionarySize - 1)];
         }
 
-        // 二段目のハッシュによって厳選された連結リストに一致が無い場合、
-        // 一段目のハッシュに登録されている全ての連結リストを検索する
+        // When no match is found in the linked list narrowed down by secondary hash,
+        // search all linked lists registered in primary hash
         int revbits = 1;
         int loopend = requires - Math.max(0, this.Threshold - this.primaryHash.hashRequires());
         int maxmatch = this.primaryHash.hashRequires() + requires - 1;
@@ -315,13 +305,12 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
             maxmatch = this.primaryHash.hashRequires() + requires - i - 1;
         }
 
-        // 二段階ハッシュと連結リストを使用した検索機構に
-        // position から始まるデータパタンを登録する。
+        // Register data pattern starting from position into search mechanism using two-level hashing and linked lists.
         this.primaryCount[phash]++;
         this.prev[position & (this.DictionarySize - 1)] = this.secondaryHashTable[base + shash];
         this.secondaryHashTable[base + shash] = position;
 
-        // 最長一致を呼び出し元に返す。
+        // Return the longest match to caller.
         if (this.Threshold <= matchlen) {
             return LzssOutputStream.createSearchReturn(matchlen, matchpos);
         } else {
@@ -330,26 +319,22 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
     }
 
     /**
-     * ハッシュと連結リストを使用した検索機構に登録された
-     * データパタンを検索し position から始まるデータパタンと
-     * 最長の一致を持つものを得る。<br>
+     * Searches data patterns registered in search mechanism using hashing and linked lists,
+     * and gets the one with the longest match to the data pattern starting from {@code position}.<br>
      *
-     * @param position TextBuffer内のデータパタンの開始位置。
-     * @param lastPutPos 最後に登録したデータパタンの開始位置。
-     *
-     * @return 一致が見つかった場合は
-     *         LzssOutputStream.createSearchReturn
-     *         によって生成された一致位置と一致長の情報を持つ値、
-     *         一致が見つからなかった場合は
-     *         LzssOutputStream.NOMATCH。
-     *
-     * @see LzssOutputStream#createSearchReturn(int,int)
+     * @param position   start position of the data pattern in {@link #TextBuffer}.
+     * @param lastPutPos start position of the last registered data pattern.
+     * @return If a match is found, a value holding information of the match position and match length
+     *         generated by {@link LzssOutputStream#createSearchReturn(int, int)};
+     *         if no match is found, {@link LzssOutputStream#NOMATCH}.
+     * @see LzssOutputStream#createSearchReturn(int, int)
      * @see LzssOutputStream#NOMATCH
      */
+    @Override
     public int search(int position, int lastPutPos) {
 
-        // ハッシュと連結リストによる検索機構に登録されていない
-        // データパタンを単純な逐次検索で検索する。
+        // Search data patterns not registered in search mechanism with hashing and linked lists
+        // using simple sequential search.
         int matchlen = this.Threshold - 1;
         int matchpos = position;
         int scanpos = position - 1;
@@ -377,7 +362,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
             scanpos--;
         }
 
-        // 二段階ハッシュと連結リストを使用した検索機構から検索する。
+        // Search from search mechanism using two-level hashing and linked lists.
         int phashRequires = this.primaryHash.hashRequires();
         if (phashRequires < this.TextBuffer.length - position) {
 
@@ -399,7 +384,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
             int loopend = requires - Math.max(0, this.Threshold - this.primaryHash.hashRequires());
             int maxmatch = this.MaxMatch;
 
-            // 一段目のに登録されている連結リストを優先度の順に検索するループ
+            // Loop searching linked lists registered in primary level in order of priority
             for (int i = start, send = (1 << (i * 2)); i <= requires; i++, send <<= 2) {
                 max += position + maxmatch;
                 while (revbits < send) {
@@ -433,7 +418,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
             }
         }
 
-        // 最長一致を呼び出し元に返す。
+        // Return the longest match to caller.
         if (this.Threshold <= matchlen) {
             return LzssOutputStream.createSearchReturn(matchlen, matchpos);
         } else {
@@ -442,17 +427,17 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
     }
 
     /**
-     * TextBuffer内のpositionまでのデータを
-     * 前方へ移動する際、それに応じて SearchMethod内の
-     * データも TextBuffer内のデータと矛盾しないように
-     * 前方へ移動する処理を行う。
+     * When sliding data in {@link #TextBuffer} up to {@code position} forward,
+     * performs processing to shift data in {@link LzssSearchMethod} forward
+     * accordingly so as not to contradict data in {@link #TextBuffer}.
      */
+    @Override
     public void slide() {
 
-        // DictionaryLimit更新
+        // Update DictionaryLimit
         this.DictionaryLimit = Math.max(0, this.DictionaryLimit - this.DictionarySize);
 
-        // primaryCount の値によって secondaryHashTable を再構成する
+        // Reconstruct secondaryHashTable based on values of primaryCount
         int secondaryIndex = 0;
         int dummyIndex = 0;
         for (int i = 0; i < this.primaryHashTable.length; i++) {
@@ -487,7 +472,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
         this.secondaryHashTable = this.dummy;
         this.dummy = temp;
 
-        // 連結リストを更新
+        // Update linked list
         for (int i = 0; i < this.prev.length; i++) {
             int pos = this.prev[i] - this.DictionarySize;
             this.prev[i] = (0 <= pos ? pos : -1);
@@ -495,23 +480,23 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
     }
 
     /**
-     * put() で LzssSearchMethodにデータを
-     * 登録するときに使用されるデータ量を得る。
-     * TwoLevelHashSearch では、内部で使用している HashMethod の実装が
-     * hash() のために必要とするデータ量( HashMethod.hashRequires() の戻り値 )
-     * と 二段目のハッシュに必要な最大のバイト数を足したものを返す。
+     * Gets the amount of data used when registering data into {@link LzssSearchMethod} with {@link #put(int)}.
+     * In {@link TwoLevelHashSearch}, returns the sum of data amount required for {@code hash()}
+     * by internal {@link HashMethod} implementation (return value of {@link HashMethod#hashRequires()})
+     * and maximum number of bytes required for secondary hash.
      *
-     * @return 一段目と二段目のハッシュに必要なバイト数を足したもの。
+     * @return sum of bytes required for primary and secondary hash.
      */
+    @Override
     public int putRequires() {
         return this.primaryHash.hashRequires() + Math.max(Bits.len(this.DictionarySize) - 5, 0) / 2;
     }
 
     /**
-     * 二段目のハッシュ関数
+     * Secondary hash function
      *
-     * @param position TextBuffer内のデータパタンの開始位置
-     * @param hashRequires 二段目のハッシュ値を算出するのに必要なバイト数
+     * @param position     start position of the data pattern in {@link #TextBuffer}
+     * @param hashRequires number of bytes required to calculate secondary hash value
      */
     private int secondaryHash(int position, int hashRequires) {
         int hash = 0;
@@ -526,20 +511,20 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
     }
 
     /**
-     * 二段目のハッシュテーブルと連結リストを分岐させる。
+     * Splits secondary hash table and linked list.
      *
-     * @param dbase 分岐先 this.dummy の index
-     * @param sbase 分岐元 this.secondaryHashTable の index
-     * @param divoff 分岐位置
+     * @param dbase  destination index in {@link #dummy}
+     * @param sbase  source index in {@link #secondaryHashTable}
+     * @param divoff split position
      */
     private void divide(int dbase, int sbase, int divoff) {
         int limit = this.DictionarySize;
         int position = this.secondaryHashTable[sbase];
         int[] current = {
-            -1, -1, -1, -1
+                -1, -1, -1, -1
         };
 
-        // 連結リストを分岐させていくループ
+        // Loop splitting linked list
         while (limit < position) {
             int shash = this.TextBuffer[position + divoff] & 0x03;
             if (0 < current[shash]) {
@@ -551,7 +536,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
             position = this.prev[position & (this.DictionarySize - 1)];
         }
 
-        // 連結リストをターミネートする。
+        // Terminate linked list.
         for (int i = 0; i < current.length; i++) {
             if (0 < current[i]) {
                 this.prev[current[i] & (this.DictionarySize - 1)] = -1;
@@ -562,16 +547,16 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
     }
 
     /**
-     * 二段目のハッシュテーブルと連結リストを束ねる。
+     * Merges secondary hash table and linked list.
      *
-     * @param dbase 分岐先 this.dummy の index
-     * @param sbase 分岐元 this.secondaryHashTable の index
+     * @param dbase destination index in {@link #dummy}
+     * @param sbase source index in {@link #secondaryHashTable}
      */
     private void merge(int dbase, int sbase) {
         int limit = this.DictionarySize;
         int position = -1;
 
-        // 連結リストを束ねていくループ
+        // Loop merging linked lists
         while (true) {
             int shash = 0;
             int max = this.secondaryHashTable[sbase];
@@ -596,7 +581,7 @@ public class TwoLevelHashSearch implements LzssSearchMethod {
             }
         }
 
-        // 連結リストをターミネートする。
+        // Terminate linked list.
         if (0 < position) {
             this.prev[position & (this.DictionarySize - 1)] = -1;
         } else {

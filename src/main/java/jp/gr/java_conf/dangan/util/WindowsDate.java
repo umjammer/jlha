@@ -1,27 +1,31 @@
 /*
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.util;
@@ -30,32 +34,31 @@ import java.util.Date;
 
 
 /**
- * WindowsのFILETIME形式の情報を扱うDateの派生クラス。<br>
- * FILETIME は 1601年 1月 1日 0時0分0秒からの経過時間を
- * 100ナノ秒単位で持つ64ビット値。<br>
- * このクラスでは FILETIME を long(64ビット値)として扱うときは
- * 基本的に符号無しとみなす。<br>
- * 1601年 1月 1日 0時0分0秒以前の時間を扱いたい場合は
- * WindowsDate( Date date ) か、WindowsDate.setTime( long time )を使用する。<br>
+ * A derived class of {@link Date} that handles Windows FILETIME format information.<br>
+ * FILETIME is a 64-bit value holding the elapsed time from January 1, 1601, 00:00:00
+ * in 100-nanosecond units.<br>
+ * In this class, when treating FILETIME as a {@code long} (64-bit value),
+ * it is basically treated as unsigned.<br>
+ * If you want to handle time before January 1, 1601, 00:00:00,
+ * use {@link #WindowsDate(Date)} or {@link #setTime(long)}.<br>
  *
  * <pre>
  * -- revision history --
  * $Log: WindowsDate.java,v $
  * Revision 1.1  2002/12/05 00:00:00  dangan
  * [maintenance]
- *     javadoc コメントのスペルミスを修正。
- *     ソース整備
+ *     Fixed typo in javadoc comments.
+ *     Source cleanup.
  *
  * Revision 1.0  2002/08/05 00:00:00  dangan
  * add to version control
  * [bug fix]
- *     set系メソッドで 範囲外の時間をセットしようとして
- *     例外を投げるケースで時間の書き戻しが正しく行われていなかった。
- *     checkRange の時間の範囲が間違っていた。
+ *     In setter methods, when attempting to set an out-of-range time and throwing an exception,
+ *     the time was not properly restored.
+ *     Fixed incorrect time range in checkRange.
  * [maintenance]
- *     タブの廃止
- *     ライセンス文の修正
- *
+ *     Eliminated tabs.
+ *     Updated license text.
  * </pre>
  *
  * @author $Author: dangan $
@@ -64,26 +67,23 @@ import java.util.Date;
 public class WindowsDate extends Date implements Cloneable {
 
     /**
-     * FILETIME形式のデータと、java.util.Date.getTime() で
-     * 得られる時間形式との時間差を 100ナノセカンド単位で示した数値。
-     * なお、閏秒等は考慮に入れていない。
+     * The numerical value showing the time difference between the FILETIME format data and
+     * the time format obtained by {@link Date#getTime()} in 100-nanosecond units.
+     * Note that leap seconds are not taken into consideration.
      */
     public static final long TIME_DIFFERENCE = 0x19DB1DED53E8000L;
 
     /**
-     * java.util.Date では保持できない
-     * ナノ秒単位の時間を保持するために用いる。
+     * Used to hold time in nanosecond units that cannot be held in {@link Date}.
      */
     private int NanoSecounds;
 
     /**
-     * デフォルトコンストラクタ。
-     * 現在の時間情報を持つ WindowsDateを構築する。
-     * ナノ秒単位の時間は取得できないため、0に設定される。
+     * Default constructor.
+     * Constructs a {@link WindowsDate} with current time information.
+     * Since nanosecond unit time cannot be obtained, it is set to 0.
      *
-     * @exception IllegalArgumentException
-     *                現在の時間が FILETIME 形式で表現できる
-     *                範囲外だった場合。
+     * @exception IllegalArgumentException if the current time is outside the range that can be represented in FILETIME format.
      */
     public WindowsDate() {
         super();
@@ -93,16 +93,13 @@ public class WindowsDate extends Date implements Cloneable {
     }
 
     /**
-     * dateで示される時間を表す WindowsDateを構築する。<br>
-     * dateが WindowsDate のインスタンスならば
-     * ナノ秒単位の情報もコピーされるが、それ以外の場合は
-     * ナノ秒単位の情報には 0 が設定される。
+     * Constructs a {@link WindowsDate} representing the time indicated by {@code date}.<br>
+     * If {@code date} is an instance of {@link WindowsDate},
+     * the information in nanosecond units is also copied, but otherwise
+     * 0 is set to the information in nanosecond units.
      *
-     * @param date 新しく構築される WindowsDate の元となる時間情報を持つ
-     *            Date のオブジェクト
-     * @exception IllegalArgumentException
-     *                現在の時間が FILETIME 形式で表現できる
-     *                範囲外だった場合。
+     * @param date the {@link Date} object containing the time information on which the newly constructed {@link WindowsDate} is based
+     * @exception IllegalArgumentException if the current time is outside the range that can be represented in FILETIME format.
      */
     public WindowsDate(Date date) {
         super(date.getTime());
@@ -115,10 +112,9 @@ public class WindowsDate extends Date implements Cloneable {
     }
 
     /**
-     * 符号無し64ビットのFILETIME形式の時間情報から
-     * 新しいWindowsDateを構築する。
+     * Constructs a new {@link WindowsDate} from unsigned 64-bit FILETIME format time information.
      *
-     * @param time FILETIME形式の時間情報
+     * @param time FILETIME format time information
      */
     public WindowsDate(long time) {
         super(0 <= time ? (time - WindowsDate.TIME_DIFFERENCE) / 10000L
@@ -128,25 +124,24 @@ public class WindowsDate extends Date implements Cloneable {
     }
 
     /**
-     * このオブジェクトのコピーを返す。
+     * Returns a copy of this object.
      *
-     * @return このWindowsDateオブジェクトの複製
+     * @return a clone of this {@link WindowsDate} object
      */
+    @Override
     public Object clone() {
         return new WindowsDate(this);
     }
 
     /**
-     * この WindowsDate の示す年を year で
-     * 指定された値に1900を足したものに設定する。<br>
-     * このメソッドは範囲チェックを行うだけのために存在する。
+     * Sets the year represented by this {@link WindowsDate} to the value obtained by adding 1900 to the value specified by {@code year}.<br>
+     * This method exists solely for range checking.
      *
-     * @param year 1900を足すことで西暦を表すような 年の値
-     * @exception IllegalArgumentException
-     *                year に変更したところ FILETIME形式で扱えない
-     *                範囲の時間になった場合
+     * @param year the year value such that adding 1900 represents the Western calendar year
+     * @exception IllegalArgumentException if changing to {@code year} results in a time outside the range that can be handled in FILETIME format
      * @deprecated
      */
+    @Override
     public void setYear(int year) {
         long temp = this.getTime();
 
@@ -160,15 +155,14 @@ public class WindowsDate extends Date implements Cloneable {
     }
 
     /**
-     * この WindowsDate の示す月を month で指定された値に設定する。<br>
-     * このメソッドは範囲チェックを行うだけのために存在する。
+     * Sets the month represented by this {@link WindowsDate} to the value specified by {@code month}.<br>
+     * This method exists solely for range checking.
      *
-     * @param month 0が1月、1が2月を示すような月の値
-     * @exception IllegalArgumentException
-     *                month に変更したところ FILETIME形式で扱えない
-     *                範囲の時間になった場合
+     * @param month month value where 0 represents January and 1 represents February
+     * @exception IllegalArgumentException if changing to {@code month} results in a time outside the range that can be handled in FILETIME format
      * @deprecated
      */
+    @Override
     public void setMonth(int month) {
         long temp = this.getTime();
 
@@ -182,16 +176,14 @@ public class WindowsDate extends Date implements Cloneable {
     }
 
     /**
-     * この WindowsDate の示す 一ヶ月の
-     * 中での何日目かを date で指定された値に設定する。<br>
-     * このメソッドは範囲チェックを行うだけのために存在する。
+     * Sets the day of the month represented by this {@link WindowsDate} to the value specified by {@code date}.<br>
+     * This method exists solely for range checking.
      *
-     * @param date 1が1日、2が2日を示すような日の値
-     * @exception IllegalArgumentException
-     *                date に変更したところ FILETIME形式で扱えない
-     *                範囲の時間になった場合
+     * @param date day value where 1 represents the 1st and 2 represents the 2nd
+     * @exception IllegalArgumentException if changing to {@code date} results in a time outside the range that can be handled in FILETIME format
      * @deprecated
      */
+    @Override
     public void setDate(int date) {
         long temp = this.getTime();
 
@@ -205,16 +197,14 @@ public class WindowsDate extends Date implements Cloneable {
     }
 
     /**
-     * この WindowsDate の示す一日の中での時間を
-     * hours で指定された値に設定する。<br>
-     * このメソッドは範囲チェックを行うだけのために存在する。
+     * Sets the hour of the day represented by this {@link WindowsDate} to the value specified by {@code hours}.<br>
+     * This method exists solely for range checking.
      *
-     * @param hours 時間の値
-     * @exception IllegalArgumentException
-     *                hours に変更したところ FILETIME形式で扱えない
-     *                範囲の時間になった場合
+     * @param hours the hour value
+     * @exception IllegalArgumentException if changing to {@code hours} results in a time outside the range that can be handled in FILETIME format
      * @deprecated
      */
+    @Override
     public void setHours(int hours) {
         long temp = this.getTime();
 
@@ -228,16 +218,14 @@ public class WindowsDate extends Date implements Cloneable {
     }
 
     /**
-     * この WindowsDate の示す一時間の中での分を
-     * minutes で指定された値に設定する。<br>
-     * このメソッドは範囲チェックを行うだけのために存在する。
+     * Sets the minute within an hour represented by this {@link WindowsDate} to the value specified by {@code minutes}.<br>
+     * This method exists solely for range checking.
      *
-     * @param minutes 分の値
-     * @exception IllegalArgumentException
-     *                minutes に変更したところ FILETIME形式で扱えない
-     *                範囲の時間になった場合
+     * @param minutes the minute value
+     * @exception IllegalArgumentException if changing to {@code minutes} results in a time outside the range that can be handled in FILETIME format
      * @deprecated
      */
+    @Override
     public void setMinutes(int minutes) {
         long temp = this.getTime();
 
@@ -251,16 +239,14 @@ public class WindowsDate extends Date implements Cloneable {
     }
 
     /**
-     * この WindowsDate の示す一分の中での秒数を
-     * secounds で指定された値に設定する。<br>
-     * このメソッドは範囲チェックを行うだけのために存在する。
+     * Sets the seconds within a minute represented by this {@link WindowsDate} to the value specified by {@code seconds}.<br>
+     * This method exists solely for range checking.
      *
-     * @param seconds 秒数
-     * @exception IllegalArgumentException
-     *                secounds に変更したところ FILETIME形式で扱えない
-     *                範囲の時間になった場合
+     * @param seconds number of seconds
+     * @exception IllegalArgumentException if changing to {@code seconds} results in a time outside the range that can be handled in FILETIME format
      * @deprecated
      */
+    @Override
     public void setSeconds(int seconds) {
         long temp = this.getTime();
 
@@ -274,16 +260,13 @@ public class WindowsDate extends Date implements Cloneable {
     }
 
     /**
-     * この WindowsDate の示す時間を
-     * 1970年1月1日 00:00:00 GMTから
-     * time ミリ秒経過した時刻に設定する。<br>
-     * このメソッドは範囲チェックを行うだけのために存在する。
+     * Sets the time represented by this {@link WindowsDate} to the time when {@code time} milliseconds have elapsed since January 1, 1970, 00:00:00 GMT.<br>
+     * This method exists solely for range checking.
      *
-     * @param time 1970年1月1日 00:00:00GMT からの経過ミリ秒
-     * @exception IllegalArgumentException
-     *                time がFILETIME形式で扱えない
-     *                範囲の時間を示していた場合
+     * @param time elapsed milliseconds from January 1, 1970, 00:00:00 GMT
+     * @exception IllegalArgumentException if {@code time} indicates a time outside the range that can be handled in FILETIME format
      */
+    @Override
     public void setTime(long time) {
         long temp = this.getTime();
 
@@ -297,9 +280,9 @@ public class WindowsDate extends Date implements Cloneable {
     }
 
     /**
-     * この WindowsDate に FILETIME形式の時間情報を設定する。
+     * Sets FILETIME format time information to this {@link WindowsDate}.
      *
-     * @param time FILETIME形式の時間情報
+     * @param time FILETIME format time information
      */
     public void setWindowsTime(long time) {
         super.setTime(0 <= time ? (time - WindowsDate.TIME_DIFFERENCE) / 10000L
@@ -309,21 +292,18 @@ public class WindowsDate extends Date implements Cloneable {
     }
 
     /**
-     * この WindowsDateが示す時間情報を FILETIME 形式で得る。
+     * Gets the time information represented by this {@link WindowsDate} in FILETIME format.
      *
-     * @return FILETIME形式の値
+     * @return the value in FILETIME format
      */
     public long getWindowsTime() {
         return (super.getTime() * 10000L + WindowsDate.TIME_DIFFERENCE + this.NanoSecounds / 100);
     }
 
     /**
-     * この WindowsDate が FILETIME形式で表せる時間の
-     * 範囲内であるかを判定する。まだ不完全
+     * Determines whether this {@link WindowsDate} is within the range of time that can be represented in FILETIME format. Still incomplete.
      *
-     * @exception IllegalArgumentException
-     *                この WindowsDate が FILETIME形式で扱えない
-     *                範囲の時間を示していた場合
+     * @exception IllegalArgumentException if this {@link WindowsDate} indicates a time outside the range that can be handled in FILETIME format
      */
     private void checkRange() {
         long time = super.getTime();

@@ -1,27 +1,31 @@
-/**
+/*
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -38,36 +42,35 @@ import java.util.Vector;
 
 
 /**
- * 接続されたRandomAccessFileに 圧縮データを出力するためのユーティリティクラス。<br>
- * java.util.zip.ZipOutputStream と似たインターフェイスを持つように作った。<br>
- * 圧縮失敗時( 圧縮後サイズが圧縮前サイズを上回った場合 )の処理を自動的に行う。
- * 進捗報告を実装する場合、このような処理をクラス内に隠蔽すると進捗報告は何秒間か
- * 時によっては何十分も応答しなくなる。(例えばギガバイト級のデータを扱った場合)
- * このような事態を避けたい場合は LhaImmediateOutputStreamを使用すること。<br>
- * また、JDK 1.1 以前では RandomAccessFile が setLength を持たないため、
- * 書庫データの後ろに他のデータがある場合でもファイルサイズを切り詰めることが出来ない。
- * この問題点は常にサイズ0の新しいファイルを開く事によって回避する事ができる。
+ * Utility class for outputting compressed data to a connected {@link RandomAccessFile}.<br>
+ * Designed to have an interface similar to {@link java.util.zip.ZipOutputStream}.<br>
+ * Automatically handles processing when compression fails (when compressed size exceeds uncompressed size).
+ * When implementing progress reporting, hiding such processing inside the class will cause progress reporting
+ * to become unresponsive for several seconds or even tens of minutes (for example, when dealing with gigabyte-class data).
+ * If you want to avoid such situations, use {@link LhaImmediateOutputStream}.<br>
+ * Also, in JDK 1.1 and earlier, {@link RandomAccessFile} does not have {@code setLength}, so the file size cannot be truncated
+ * even if there is other data following the archive data.
+ * This problem can be avoided by always opening a new file of size 0.
  *
  * <pre>
  * -- revision history --
  * $Log: LhaRetainedOutputStream.java,v $
  * Revision 1.2  2002/12/11 02:25:14  dangan
  * [bug fix]
- *     jdk1.2 でコンパイルできなかった箇所を修正。
+ *     Fixed parts that failed to compile on JDK 1.2.
  *
  * Revision 1.1  2002/12/08 00:00:00  dangan
  * [maintenance]
- *     LhaConstants から CompressMethod へのクラス名の変更に合わせて修正。
+ *     Updated to reflect the class name change from LhaConstants to CompressMethod.
  *
  * Revision 1.0  2002/08/05 00:00:00  dangan
  * add to version control
  * [change]
- *     コンストラクタから 引数に String encode を取るものを廃止、
- *     Properties を引数に取るものを追加。
+ *     Deprecated constructors taking String encode and added ones taking Properties.
  * [maintenance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
+ *     Source cleanup.
+ *     Eliminated tabs.
+ *     Updated license text.
  *
  * </pre>
  *
@@ -77,55 +80,52 @@ import java.util.Vector;
 public class LhaRetainedOutputStream extends OutputStream {
 
     /**
-     * 書庫ファイル
+     * Archive file
      */
     private RandomAccessFile archive;
 
     /**
-     * 圧縮用出力ストリーム
+     * Compression output stream
      */
     private OutputStream out;
 
     /**
-     * 圧縮用出力ストリーム
+     * Compression output stream
      */
     private RandomAccessFileOutputStream rafo;
 
     /**
-     * 現在圧縮中のヘッダ
+     * Header currently being compressed
      */
     private LhaHeader header;
 
     /**
-     * ヘッダの出力に使用したエンコーディング
+     * Encoding used for header output
      */
     private String encoding;
 
     /**
-     * ヘッダ位置
+     * Header position
      */
     private long headerpos;
 
     /**
-     * CRC値算出用
+     * For CRC value calculation
      */
     private CRC16 crc;
 
     /**
-     * 各圧縮形式に対応した符号器の生成式等が含まれるプロパティ
+     * Properties containing encoder generator expressions corresponding to each compression format
      */
     private Properties property;
 
     /**
-     * filename のファイルに 圧縮データを出力するOutputStreamを構築する。<br>
-     * 各圧縮形式に対応した符号器の生成式等を持つプロパティには
-     * LhaProperty.getProperties() で得られたプロパティが使用される。
+     * Constructs an {@link OutputStream} that outputs compressed data to the file {@code filename}.<br>
+     * Properties obtained with {@link LhaProperty#getProperties()} are used as properties having generator expressions of encoders corresponding to each compression format.
      *
-     * @param filename 圧縮データを書きこむファイルの名前
-     * @exception FileNotFoundException
-     *                filename で与えられたファイルが見つからない場合。
-     * @exception SecurityException
-     *                セキュリティマネージャがファイルへのアクセスを許さない場合。
+     * @param filename name of file to write compressed data to
+     * @throws FileNotFoundException if the file given by {@code filename} is not found
+     * @throws SecurityException     if security manager denies access to the file
      * @see LhaProperty#getProperties()
      */
     public LhaRetainedOutputStream(String filename) throws FileNotFoundException {
@@ -141,14 +141,12 @@ public class LhaRetainedOutputStream extends OutputStream {
     }
 
     /**
-     * filename のファイルに 圧縮データを出力するOutputStreamを構築する。
+     * Constructs an {@link OutputStream} that outputs compressed data to the file {@code filename}.
      *
-     * @param filename 圧縮データを書きこむファイルの名前
-     * @param property 各圧縮形式に対応した符号器の生成式等が含まれるプロパティ
-     * @exception FileNotFoundException
-     *                filename で与えられたファイルが見つからない場合。
-     * @exception SecurityException
-     *                セキュリティマネージャがファイルへのアクセスを許さない場合。
+     * @param filename name of file to write compressed data to
+     * @param property properties containing generator expressions of encoders corresponding to each compression format
+     * @throws FileNotFoundException if the file given by {@code filename} is not found
+     * @throws SecurityException     if security manager denies access to the file
      * @see LhaProperty
      */
     public LhaRetainedOutputStream(String filename, Properties property) throws FileNotFoundException {
@@ -162,17 +160,13 @@ public class LhaRetainedOutputStream extends OutputStream {
     }
 
     /**
-     * filename のファイルに 圧縮データを出力するOutputStreamを構築する。<br>
-     * 各圧縮形式に対応した符号器の生成式等を持つプロパティには
-     * LhaProperty.getProperties() で得られたプロパティが使用される。
+     * Constructs an {@link OutputStream} that outputs compressed data to the file {@code filename}.<br>
+     * Properties obtained with {@link LhaProperty#getProperties()} are used as properties having generator expressions of encoders corresponding to each compression format.
      *
-     * @param filename 圧縮データを書きこむファイルの名前
-     * @exception FileNotFoundException
-     *                filename で与えられたファイルが見つからない場合。
-     * @exception SecurityException
-     *                セキュリティマネージャがファイルへのアクセスを許さない場合。
-     * @exception IOException
-     *                JDK1.2 でコンパイルするためだけに存在する。
+     * @param filename name of file to write compressed data to
+     * @throws FileNotFoundException if the file given by {@code filename} is not found
+     * @throws SecurityException     if security manager denies access to the file
+     * @throws IOException           exists only for compilation in JDK 1.2
      * @see LhaProperty#getProperties()
      */
     public LhaRetainedOutputStream(File filename) throws IOException {
@@ -188,16 +182,13 @@ public class LhaRetainedOutputStream extends OutputStream {
     }
 
     /**
-     * filename のファイルに 圧縮データを出力するOutputStreamを構築する。
+     * Constructs an {@link OutputStream} that outputs compressed data to the file {@code filename}.
      *
-     * @param filename 圧縮データを書きこむファイルの名前
-     * @param property 各圧縮形式に対応した符号器の生成式等が含まれるプロパティ
-     * @exception FileNotFoundException
-     *                filename で与えられたファイルが見つからない場合。
-     * @exception SecurityException
-     *                セキュリティマネージャがファイルへのアクセスを許さない場合。
-     * @exception IOException
-     *                JDK1.2 でコンパイルするためだけに存在する。
+     * @param filename name of file to write compressed data to
+     * @param property properties containing generator expressions of encoders corresponding to each compression format
+     * @throws FileNotFoundException if the file given by {@code filename} is not found
+     * @throws SecurityException     if security manager denies access to the file
+     * @throws IOException           exists only for compilation in JDK 1.2
      * @see LhaProperty
      */
     public LhaRetainedOutputStream(File filename, Properties property) throws IOException {
@@ -211,17 +202,13 @@ public class LhaRetainedOutputStream extends OutputStream {
     }
 
     /**
-     * fileに 圧縮データを出力するOutputStreamを構築する。<br>
-     * 各圧縮形式に対応した符号器の生成式等を持つプロパティには
-     * LhaProperty.getProperties() で得られたプロパティが使用される。
+     * Constructs an {@link OutputStream} that outputs compressed data to {@code file}.<br>
+     * Properties obtained with {@link LhaProperty#getProperties()} are used as properties having generator expressions of encoders corresponding to each compression format.
      *
-     * @param file RandomAccessFile のインスタンス。<br>
-     *            <ul>
-     *            <li>既に close() されていない事。
-     *            <li>コンストラクタの mode には "rw" オプションを使用して、
-     *            読みこみと書きこみが出来るように生成されたインスタンスであること。
-     *            </ul>
-     *            の条件を満たすもの。
+     * @param file instance of {@link RandomAccessFile}.<ul>
+     *             <li>Must not be already closed.
+     *             <li>Must be instantiated with mode "rw" in constructor to enable reading and writing.
+     *             </ul>
      * @see LhaProperty#getProperties()
      */
     public LhaRetainedOutputStream(RandomAccessFile file) {
@@ -235,18 +222,14 @@ public class LhaRetainedOutputStream extends OutputStream {
     }
 
     /**
-     * fileに 圧縮データを出力するOutputStreamを構築する。<br>
-     * 各圧縮形式に対応した符号器の生成式等を持つプロパティには
-     * LhaProperty.getProperties() で得られたプロパティが使用される。
+     * Constructs an {@link OutputStream} that outputs compressed data to {@code file}.<br>
+     * Properties obtained with {@link LhaProperty#getProperties()} are used as properties having generator expressions of encoders corresponding to each compression format.
      *
-     * @param file RandomAccessFile のインスタンス。<br>
-     *            <ul>
-     *            <li>既に close() されていない事。
-     *            <li>コンストラクタの mode には "rw" オプションを使用して、
-     *            読みこみと書きこみが出来るように生成されたインスタンスであること。
-     *            </ul>
-     *            の条件を満たすもの。
-     * @param property 各圧縮形式に対応した符号器の生成式等が含まれるプロパティ
+     * @param file     instance of {@link RandomAccessFile}.<ul>
+     *                 <li>Must not be already closed.
+     *                 <li>Must be instantiated with mode "rw" in constructor to enable reading and writing.
+     *                 </ul>
+     * @param property properties containing generator expressions of encoders corresponding to each compression format
      * @see LhaProperty
      */
     public LhaRetainedOutputStream(RandomAccessFile file, Properties property) {
@@ -260,20 +243,16 @@ public class LhaRetainedOutputStream extends OutputStream {
         } else {
             throw new NullPointerException("property");
         }
-
     }
 
     /**
-     * コンストラクタの初期化処理を担当するメソッド。
+     * Helper method responsible for constructor initialization.
      *
-     * @param file RandomAccessFile のインスタンス。<br>
-     *            <ul>
-     *            <li>既に close() されていない事。
-     *            <li>コンストラクタの mode には "rw" オプションを使用して、
-     *            読みこみと書きこみが出来るように生成されたインスタンスであること。
-     *            </ul>
-     *            の条件を満たすもの。
-     * @param property 各圧縮形式に対応した符号器の生成式等が含まれるプロパティ
+     * @param file     instance of {@link RandomAccessFile}.<ul>
+     *                 <li>Must not be already closed.
+     *                 <li>Must be instantiated with mode "rw" in constructor to enable reading and writing.
+     *                 </ul>
+     * @param property properties containing generator expressions of encoders corresponding to each compression format
      */
     private void constructerHelper(RandomAccessFile file, Properties property) {
 
@@ -287,11 +266,12 @@ public class LhaRetainedOutputStream extends OutputStream {
     }
 
     /**
-     * 現在のエントリに1バイトのデータを書きこむ。
+     * Writes 1 byte of data to the current entry.
      *
-     * @param data 書きこむデータ
-     * @exception IOException 入出力エラーが発生した場合。
+     * @param data data to write
+     * @throws IOException if an I/O error occurs
      */
+    @Override
     public void write(int data) throws IOException {
         if (this.out != null) {
             if (this.header != null) {
@@ -305,24 +285,25 @@ public class LhaRetainedOutputStream extends OutputStream {
     }
 
     /**
-     * 現在のエントリに bufferの内容を全て書き出す。
+     * Writes all contents of {@code buffer} to the current entry.
      *
-     * @param buffer 書き出すデータの入ったバイト配列
-     * @exception IOException 入出力エラーが発生した場合。
+     * @param buffer byte array containing data to write
+     * @throws IOException if an I/O error occurs
      */
+    @Override
     public void write(byte[] buffer) throws IOException {
         this.write(buffer, 0, buffer.length);
     }
 
     /**
-     * 現在のエントリに bufferの indexから
-     * lengthバイトのデータを書き出す。
+     * Writes {@code length} bytes of data starting from {@code index} of {@code buffer} to the current entry.
      *
-     * @param buffer 書き出すデータの入ったバイト配列
-     * @param index buffer内の書き出すべきデータの開始位置
-     * @param length データのバイト数
-     * @exception IOException 入出力エラーが発生した場合。
+     * @param buffer byte array containing data to write
+     * @param index  start position of data to write in {@code buffer}
+     * @param length number of bytes of data
+     * @throws IOException if an I/O error occurs
      */
+    @Override
     public void write(byte[] buffer, int index, int length) throws IOException {
         if (this.out != null) {
             if (this.header != null) {
@@ -336,15 +317,16 @@ public class LhaRetainedOutputStream extends OutputStream {
     }
 
     /**
-     * 現在書き込み中のエントリのデータを強制的に出力先に書き出す。
-     * これは PostLzssEncoder, LzssOutputStream の規約どおり
-     * flush() しなかった場合とは別のデータを出力する。
-     * (大抵の場合は 単に圧縮率が低下するだけである。)
+     * Forces data of the currently writing entry to be written to destination.
+     * According to the contract of {@link PostLzssEncoder} and {@link LzssOutputStream},
+     * this outputs different data than when {@link #flush()} is not called.
+     * (In most cases, it simply reduces the compression ratio.)
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      * @see PostLzssEncoder#flush()
      * @see LzssOutputStream#flush()
      */
+    @Override
     public void flush() throws IOException {
         if (this.out != null) {
             this.out.flush();
@@ -354,17 +336,18 @@ public class LhaRetainedOutputStream extends OutputStream {
     }
 
     /**
-     * 出力先に全てのデータを出力し、ストリームを閉じる。<br>
-     * また、使用していた全てのリソースを解放する。
+     * Outputs all data to destination and closes the stream.<br>
+     * Also releases all resources used.
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
+    @Override
     public void close() throws IOException {
         if (this.out != null) {
             this.closeEntry();
         }
 
-        // ターミネータを出力
+        // Output terminator
         this.archive.write(0);
         try {
             this.archive.setLength(this.archive.getFilePointer());
@@ -380,24 +363,20 @@ public class LhaRetainedOutputStream extends OutputStream {
     }
 
     /**
-     * 新しいエントリを書き込むようにストリームを設定する。<br>
-     * このメソッドは 既に圧縮済みのエントリの場合は
-     * putNextEntryAlreadyCompressed(),
-     * 未だに圧縮されていない場合は
-     * putNextEntryNotYetCompressed() を呼び出す。<br>
-     * 圧縮されているかの判定は、
+     * Sets up the stream to write a new entry.<br>
+     * This method calls {@link #putNextEntryAlreadyCompressed(LhaHeader)} if the entry is already compressed,
+     * or {@link #putNextEntryNotYetCompressed(LhaHeader)} if it is not yet compressed.<br>
+     * Judged as not yet compressed if any of:
      * <ul>
-     * <li>header.getCompressedSize()<br>
-     * <li>header.getCRC()<br>
+     * <li>{@code header.getCompressedSize()}
+     * <li>{@code header.getCRC()}
      * </ul>
-     * のどれか一つでも LhaHeader.UNKNOWN であれば未だに圧縮されていないとする。<br>
-     * header には正確な OriginalSize が指定されている必要がある。
+     * is {@link LhaHeader#UNKNOWN}.<br>
+     * {@code header} must have an accurate {@code OriginalSize} specified.
      *
-     * @param header 書きこむエントリについての情報を持つ
-     *            LhaHeaderのインスタンス。
-     * @exception IOException 入出力エラーが発生した場合
-     * @exception IllegalArgumentException
-     *                header.getOriginalSize() が LhaHeader.UNKNOWN を返す場合
+     * @param header instance of {@link LhaHeader} having information about the entry to write
+     * @throws IOException              if an I/O error occurs
+     * @throws IllegalArgumentException if {@code header.getOriginalSize()} returns {@link LhaHeader#UNKNOWN}
      */
     public void putNextEntry(LhaHeader header) throws IOException {
         if (header.getCompressedSize() == LhaHeader.UNKNOWN || header.getCRC() == LhaHeader.UNKNOWN) {
@@ -408,23 +387,20 @@ public class LhaRetainedOutputStream extends OutputStream {
     }
 
     /**
-     * 既に圧縮済みのエントリを書きこむようにストリームを設定する。<br>
-     * 圧縮済みデータが正しい事は、呼び出し側が保証する事。
+     * Sets up the stream to write an already compressed entry.<br>
+     * Caller must guarantee that compressed data is correct.
      *
-     * @param header 書きこむエントリについての情報を持つ
-     *            LhaHeaderのインスタンス。
-     * @exception IOException 入出力エラーが発生した場合
-     * @exception IllegalArgumentException
-     *                <ol>
-     *                <li>header.getOriginalSize() が LhaHeader.UNKNOWN を返す場合
-     *                <li>header.getComressedSize() が LhaHeader.UNKNOWN を返す場合
-     *                <li>header.getCRC() が LhaHeader.UNKNOWN を返す場合
-     *                </ol>
-     *                の何れか。
+     * @param header instance of {@link LhaHeader} having information about the entry to write
+     * @throws IOException              if an I/O error occurs
+     * @throws IllegalArgumentException <ol>
+     *                                  <li>if {@code header.getOriginalSize()} returns {@link LhaHeader#UNKNOWN}
+     *                                  <li>if {@code header.getCompressedSize()} returns {@link LhaHeader#UNKNOWN}
+     *                                  <li>if {@code header.getCRC()} returns {@link LhaHeader#UNKNOWN}
+     *                                  </ol>
      */
     public void putNextEntryAlreadyCompressed(LhaHeader header) throws IOException {
         if (header.getOriginalSize() != LhaHeader.UNKNOWN && header.getCompressedSize() != LhaHeader.UNKNOWN
-            && header.getCRC() != LhaHeader.UNKNOWN) {
+                && header.getCRC() != LhaHeader.UNKNOWN) {
 
             if (this.out != null) {
                 this.closeEntry();
@@ -434,7 +410,7 @@ public class LhaRetainedOutputStream extends OutputStream {
 
             this.encoding = this.property.getProperty("lha.encoding");
             if (this.encoding == null) {
-                this.encoding = LhaProperty.getProperty("lha.encoding");
+                encoding = LhaProperty.getProperty("lha.encoding");
             }
 
             this.archive.write(header.getBytes(encoding));
@@ -450,15 +426,13 @@ public class LhaRetainedOutputStream extends OutputStream {
     }
 
     /**
-     * 未だに圧縮されていないエントリを書きこむようにストリームを設定する。<br>
-     * header には正確な OriginalSize が指定されている必要がある。<br>
-     * header に CompressedSize, CRCが指定されていても無視される。
+     * Sets up the stream to write an entry not yet compressed.<br>
+     * {@code header} must have an accurate {@code OriginalSize} specified.<br>
+     * Even if {@code CompressedSize} or {@code CRC} is specified in {@code header}, they are ignored.
      *
-     * @param header 書きこむエントリについての情報を持つ
-     *            LhaHeaderのインスタンス。
-     * @exception IOException 入出力エラーが発生した場合
-     * @exception IllegalArgumentException
-     *                header.getOriginalSize() が LhaHeader.UNKNOWN を返す場合
+     * @param header instance of {@link LhaHeader} having information about the entry to write
+     * @throws IOException              if an I/O error occurs
+     * @throws IllegalArgumentException if {@code header.getOriginalSize()} returns {@link LhaHeader#UNKNOWN}
      */
     public void putNextEntryNotYetCompressed(LhaHeader header) throws IOException {
         if (header.getOriginalSize() != LhaHeader.UNKNOWN) {
@@ -487,12 +461,11 @@ public class LhaRetainedOutputStream extends OutputStream {
     }
 
     /**
-     * 現在出力中のエントリを閉じ、次のエントリが出力可能な状態にする。<br>
-     * 圧縮に失敗した(圧縮後サイズが圧縮前サイズを上回った)場合、
-     * 解凍し無圧縮で格納する。エントリのサイズが大きい場合、
-     * この処理にはかなりの時間がかかる。
+     * Closes the currently outputting entry and prepares the stream to output the next entry.<br>
+     * If compression fails (compressed size exceeds uncompressed size), decompresses and stores uncompressed.
+     * If entry size is large, this processing takes considerable time.
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     public void closeEntry() throws IOException {
         if (this.header != null) {
@@ -535,42 +508,41 @@ public class LhaRetainedOutputStream extends OutputStream {
     }
 
     /**
-     * RandomAccessFile を OutputStreamの インタフェイスに合わせるためのラッパクラス
+     * Wrapper class to adapt {@link RandomAccessFile} to the {@link OutputStream} interface.
      */
     private static class RandomAccessFileOutputStream extends OutputStream {
 
         /**
-         * 出力先RandomAccessFile
+         * Destination {@link RandomAccessFile}
          */
         private RandomAccessFile archive;
 
         /**
-         * 格納限界を超えて書き込もうとした
-         * 場合のキャッシュ
+         * Cache when attempting to write beyond storage limit
          */
-        private Cache cache;
+        private final Cache cache;
 
         /**
-         * 格納開始位置
+         * Storage start position
          */
-        private long start;
+        private final long start;
 
         /**
-         * 現在処理位置
+         * Current processing position
          */
         private long pos;
 
         /**
-         * 格納限界
+         * Storage limit
          */
-        private long limit;
+        private final long limit;
 
         /**
-         * RandomAccessFile をラップした OutputStream を構築する。
+         * Constructs an {@link OutputStream} wrapping {@link RandomAccessFile}.
          *
-         * @param archive 出力先のRandomAccessFile
-         * @param length 出力限界長
-         * @exception IOException 入出力エラーエラーが発生した場合
+         * @param archive destination {@link RandomAccessFile}
+         * @param length  output limit length
+         * @throws IOException if an I/O error occurs
          */
         public RandomAccessFileOutputStream(RandomAccessFile archive, long length) throws IOException {
             this.archive = archive;
@@ -581,99 +553,106 @@ public class LhaRetainedOutputStream extends OutputStream {
         }
 
         /**
-         * 接続された RandomAccessFile に1バイト書きこむ。
+         * Writes 1 byte to connected {@link RandomAccessFile}.
          *
-         * @param data 書きこむ1byteのデータ
-         * @exception IOException 入出力エラーが発生した場合
+         * @param data 1 byte of data to write
+         * @throws IOException if an I/O error occurs
          */
+        @Override
         public void write(int data) throws IOException {
             if (this.pos < this.limit && this.cache.isEmpty()) {
                 this.pos++;
                 this.archive.write(data);
             } else {
                 this.cache.add(new byte[] {
-                    (byte) data
+                        (byte) data
                 });
             }
         }
 
         /**
-         * 接続された RandomAccessFile に buffer の内容を全て書きこむ。
+         * Writes all contents of {@code buffer} to connected {@link RandomAccessFile}.
          *
-         * @param buffer 書きこむデータの入ったバイト配列
-         * @exception IOException 入出力エラーが発生した場合
-         * @exception EOFException コンストラクタに渡された長さを超えて
-         *                書きこもうとした場合
+         * @param buffer byte array containing data to write
+         * @throws IOException  if an I/O error occurs
+         * @throws EOFException if attempting to write beyond the length passed to constructor
          */
+        @Override
         public void write(byte[] buffer) throws IOException {
             this.write(buffer, 0, buffer.length);
         }
 
         /**
-         * 接続されたRandomAccessFileにbufferの内容をindexからlengthバイト書きこむ。
+         * Writes {@code length} bytes of contents of {@code buffer} starting from {@code index} to connected {@link RandomAccessFile}.
          *
-         * @param buffer 書きこむデータの入ったバイト配列
-         * @param index buffer内の書きこむデータの開始位置
-         * @param length 書きこむデータ量
-         * @exception IOException 入出力エラーが発生した場合
+         * @param buffer byte array containing data to write
+         * @param index  start position of data to write in {@code buffer}
+         * @param length amount of data to write
+         * @throws IOException if an I/O error occurs
          */
+        @Override
         public void write(byte[] buffer, int index, int length) throws IOException {
 
-            if (this.pos + length < this.limit && this.cache.isEmpty()) {
+            if (this.pos + length <= this.limit && this.cache.isEmpty()) {
                 this.pos += length;
                 this.archive.write(buffer, index, length);
+            } else if (this.pos < this.limit && this.cache.isEmpty()) {
+                int len = (int) (this.limit - this.pos);
+                this.pos += len;
+                this.archive.write(buffer, index, len);
+                this.cache.add(buffer, index + len, length - len);
             } else {
                 this.cache.add(buffer, index, length);
             }
         }
 
         /**
-         * このストリームを閉じて使用していたリソースを開放する。
+         * Closes this stream and releases resources used.
          */
+        @Override
         public void close() {
             this.archive = null;
         }
     }
 
     /**
-     * RandomAccessFile に InputStreamのインターフェイスをかぶせるラッパクラス。
-     * 圧縮後のサイズが圧縮前のサイズを上回ったときに解凍して
-     * 無圧縮で格納しなおす処理のために必要。
+     * Wrapper class that applies the {@link InputStream} interface to {@link RandomAccessFile}.
+     * Necessary for the process of decompressing and re-storing uncompressed when compressed size exceeds uncompressed size.
      */
     private static class RandomAccessFileInputStream extends InputStream {
 
         /**
-         * 読み込み元RandomAccessFile
+         * Source {@link RandomAccessFile}
          */
         private RandomAccessFile archive;
 
         /**
-         * 前部キャッシュ
-         * 書き込みが読み込みを追い越した時のキャッシュ
+         * Front cache.
+         * Cache for when writing overtakes reading.
          */
         private Cache front;
 
         /**
-         * 後部キャッシュ
-         * 書き込み限界を超えた分のデータのキャッシュ
+         * Rear cache.
+         * Cache for data exceeding write limit.
          */
         private Cache rear;
 
         /**
-         * 現在処理位置
+         * Current processing position
          */
         private long pos;
 
         /**
-         * 読み込み限界
+         * Read limit
          */
-        private long limit;
+        private final long limit;
 
         /**
-         * RandomAccessFile をラップした InputStream を構築する。
+         * Constructs an {@link InputStream} wrapping {@link RandomAccessFile}.
          *
-         * @param archive データを供給する RandomAccessFile
-         * @param out 直前に圧縮データを受け取っていた RandomAccessFileOutputStream
+         * @param archive {@link RandomAccessFile} providing data
+         * @param out     {@link RandomAccessFileOutputStream} that received compressed data immediately before
          */
         public RandomAccessFileInputStream(RandomAccessFile archive, RandomAccessFileOutputStream out) {
             this.archive = archive;
@@ -684,12 +663,13 @@ public class LhaRetainedOutputStream extends OutputStream {
         }
 
         /**
-         * キャッシュかRandomAccessFileから 1バイトのデータを読み込む。
+         * Reads 1 byte of data from cache or {@link RandomAccessFile}.
          *
-         * @return 読み込まれた1バイトのデータ<br>
-         *         読み込むデータが無ければ -1
-         * @exception IOException 入出力エラーが発生した場合
+         * @return 1 byte of read data,<br>
+         * or -1 if there is no data to read
+         * @throws IOException if an I/O error occurs
          */
+        @Override
         public int read() throws IOException {
             int return_value = this.front.read();
             if (return_value < 0) {
@@ -705,25 +685,27 @@ public class LhaRetainedOutputStream extends OutputStream {
         }
 
         /**
-         * キャッシュか RandomAccessFileから bufferを満たすようにデータを読み込む。
+         * Reads data from cache or {@link RandomAccessFile} to fill {@code buffer}.
          *
-         * @param buffer 読み込まれたデータを格納するバッファ
-         * @return 実際に読み込まれたデータ量
-         * @exception IOException 入出力エラーが発生した場合
+         * @param buffer buffer to store read data
+         * @return actual amount of data read
+         * @throws IOException if an I/O error occurs
          */
+        @Override
         public int read(byte[] buffer) throws IOException {
             return this.read(buffer, 0, buffer.length);
         }
 
         /**
-         * キャッシュか RandomAccessFileから bufferのindexへlengthバイト読み込む。
+         * Reads {@code length} bytes of data from cache or {@link RandomAccessFile} into {@code buffer} starting at {@code index}.
          *
-         * @param buffer 読み込まれたデータを格納するバッファ
-         * @param index buffer内の読み込み開始位置
-         * @param length 読み込むデータ量
-         * @return 実際に読み込まれたデータ量
-         * @exception IOException 入出力エラーが発生した場合
+         * @param buffer buffer to store read data
+         * @param index  start position of reading in {@code buffer}
+         * @param length amount of data to read
+         * @return actual amount of data read
+         * @throws IOException if an I/O error occurs
          */
+        @Override
         public int read(byte[] buffer, int index, int length) throws IOException {
 
             int count = 0;
@@ -753,9 +735,9 @@ public class LhaRetainedOutputStream extends OutputStream {
         }
 
         /**
-         * このストリームを閉じ
-         * 使用していたリソースを開放する。
+         * Closes this stream and releases resources used.
          */
+        @Override
         public void close() {
             this.front = null;
             this.rear = null;
@@ -763,11 +745,9 @@ public class LhaRetainedOutputStream extends OutputStream {
         }
 
         /**
-         * posまで読み込んでいなければ、
-         * 現在読み込み位置からposまでのデータを
-         * 前部キャッシュにデータを追加する。
+         * If not yet read up to {@code pos}, adds data from current read position to {@code pos} into front cache.
          *
-         * @param pos archive内の書き出し位置
+         * @param pos write position in archive
          */
         public void cache(long pos) throws IOException {
             int length = (int) Math.min(this.limit - this.pos, pos - this.pos);
@@ -784,31 +764,28 @@ public class LhaRetainedOutputStream extends OutputStream {
     }
 
     /**
-     * 書き込み限界を超えた書き込みや
-     * 読み込み位置を超えた書き込みをした場合に
-     * データをキャッシュするために使用する。
+     * Used to cache data when writing beyond write limit or writing beyond read position.
      */
     private static class Cache {
 
         /**
-         * byte[] の Vector
-         * 各要素は 全て読み込まれたと
-         * 同時に捨てられる。
+         * {@link Vector} of {@code byte[]}.
+         * Each element is discarded as soon as it is completely read.
          */
-        private Vector<byte[]> cache;
+        private final Vector<byte[]> cache;
 
         /**
-         * 現在読み込み中の要素
+         * Element currently being read
          */
         private byte[] current;
 
         /**
-         * currentの現在処理位置
+         * Current processing position in {@code current}
          */
         private int position;
 
         /**
-         * データの一時退避機構を構築する。
+         * Constructs a temporary storage mechanism for data.
          */
         public Cache() {
             this.current = null;
@@ -817,18 +794,17 @@ public class LhaRetainedOutputStream extends OutputStream {
         }
 
         /**
-         * キャッシュから 1バイトのデータを
-         * 0〜255にマップして読み込む。
+         * Reads 1 byte of data from cache mapped to 0-255.
          *
-         * @return 読み込まれた1byteのデータ<br>
-         *         キャッシュが空でデータが無い場合は -1
+         * @return 1 byte of read data,<br>
+         * or -1 if cache is empty and there is no data
          */
         public int read() {
             if (null != this.current) {
                 int ret = this.current[this.position++] & 0xFF;
 
                 if (this.current.length <= this.position) {
-                    if (0 < this.cache.size()) {
+                    if (!this.cache.isEmpty()) {
                         this.current = this.cache.firstElement();
                         this.cache.removeElementAt(0);
                     } else {
@@ -844,13 +820,13 @@ public class LhaRetainedOutputStream extends OutputStream {
         }
 
         /**
-         * キャッシュから bufferのindexで始まる場所へlengthバイト読み込む。
+         * Reads {@code length} bytes from cache into {@code buffer} starting at {@code index}.
          *
-         * @param buffer 読み込んだデータを保持するバッファ
-         * @param index buffer内の読み込み開始位置
-         * @param length 読み込むデータ量
-         * @return 実際に読み込まれたデータ量<br>
-         *         キャッシュが空でデータが無い場合は -1
+         * @param buffer buffer holding read data
+         * @param index  start position of reading in {@code buffer}
+         * @param length amount of data to read
+         * @return actual amount of data read,<br>
+         * or -1 if cache is empty and there is no data
          */
         public int read(byte[] buffer, int index, int length) {
             int count = 0;
@@ -863,7 +839,7 @@ public class LhaRetainedOutputStream extends OutputStream {
                 count += copylen;
 
                 if (this.current.length <= this.position) {
-                    if (0 < this.cache.size()) {
+                    if (!this.cache.isEmpty()) {
                         this.current = this.cache.firstElement();
                         this.cache.removeElementAt(0);
                     } else {
@@ -881,9 +857,9 @@ public class LhaRetainedOutputStream extends OutputStream {
         }
 
         /**
-         * キャッシュにデータを追加する。
+         * Adds data to cache.
          *
-         * @param buffer データの格納されたバッファ
+         * @param buffer buffer storing data
          */
         public void add(byte[] buffer) {
             if (this.current == null) {
@@ -894,11 +870,11 @@ public class LhaRetainedOutputStream extends OutputStream {
         }
 
         /**
-         * キャッシュにデータを追加する。
+         * Adds data to cache.
          *
-         * @param buffer データの格納されたバッファ
-         * @param index buffer内のデータ開始位置
-         * @param length 格納されているデータの量
+         * @param buffer buffer storing data
+         * @param index  data start position in {@code buffer}
+         * @param length amount of data stored
          */
         public void add(byte[] buffer, int index, int length) {
             byte[] buf = new byte[length];
@@ -912,10 +888,10 @@ public class LhaRetainedOutputStream extends OutputStream {
         }
 
         /**
-         * このキャッシュが空かを得る。
+         * Gets whether this cache is empty.
          *
-         * @return このキャッシュが空なら true
-         *         空でなければ false
+         * @return {@code true} if this cache is empty,
+         * or {@code false} if not empty
          */
         public boolean isEmpty() {
             return this.current == null;

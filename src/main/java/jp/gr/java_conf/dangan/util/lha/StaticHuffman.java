@@ -1,34 +1,38 @@
-/**
+/*
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.util.lha;
 
 /**
- * 静的ハフマン用ユーティリティ関数群を保持する。<br>
- * ハフマン符号は最大16ビットに制限される。<br>
+ * Provides a group of utility functions for static Huffman coding.<br>
+ * Huffman codes are restricted to a maximum of 16 bits.<br>
  *
  * <pre>
  * -- revision history --
@@ -36,10 +40,9 @@ package jp.gr.java_conf.dangan.util.lha;
  * Revision 1.0  2002/07/24 00:00:00  dangan
  * add to version control
  * [maintenance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
- *
+ *     Source cleanup.
+ *     Eliminated tabs.
+ *     Updated license text.
  * </pre>
  *
  * @author $Author: dangan $
@@ -48,60 +51,58 @@ package jp.gr.java_conf.dangan.util.lha;
 public class StaticHuffman {
 
     /**
-     * LHAがDOSの16bitモードを使用して作られたことによる
-     * ハフマン符号長の制限。
+     * Limitation of Huffman code length due to LHA being created using DOS 16-bit mode.
      */
     public static final int LimitLen = 16;
 
     /**
-     * デフォルトコンストラクタ。
-     * 使用不可。
+     * Default constructor.
+     * Cannot be used.
      */
     private StaticHuffman() {
     }
 
     /**
-     * 頻度表から ハフマン符号のビット長の表を作成する。
+     * Creates a table of Huffman code bit lengths from a frequency list.
      *
-     * @param FreqList 頻度表
-     *
-     * @return ハフマン符号のビット長の表
+     * @param FreqList frequency list
+     * @return table of Huffman code bit lengths
      */
     public static int[] FreqListToLenList(int[] FreqList) {
-        /**
-         * ハフマン木を構成する配列群
-         * ハフマン木は 0〜FreqList.length までは全てが葉であり、
-         * そのノード番号は符号である。木がいったん完成した後は
-         * TreeCount-1がルートノードとなる。
-         * NodeWeight:: そのノードの重みを持つ
-         * SmallNode:: 小さな子ノードのノード番号を持つ
-         * LargeNode:: 大きな子ノードのノード番号を持つ
-         * TreeCount:: 有効なノードの個数を持つ
+        /*
+         * Arrays that construct the Huffman tree.
+         * In the Huffman tree, 0 to FreqList.length - 1 are all leaves,
+         * and their node numbers are the codes. Once the tree is completed,
+         * TreeCount - 1 becomes the root node.
+         * NodeWeight:: holds the weight of that node
+         * SmallNode:: holds the node number of the smaller child node
+         * LargeNode:: holds the node number of the larger child node
+         * TreeCount:: holds the number of valid nodes
          */
         int[] NodeWeight = new int[FreqList.length * 2 - 1];
         int[] SmallNode = new int[FreqList.length * 2 - 1];
         int[] LargeNode = new int[FreqList.length * 2 - 1];
         int TreeCount = FreqList.length;
 
-        /**
-         * ハフマン木の葉のノード番号を小さな順に格納したリスト。
-         * Leafs:: リスト本体
-         * LeafCount:: 葉の個数
+        /*
+         * List storing node numbers of leaves of the Huffman tree in ascending order.
+         * Leafs:: the list itself
+         * LeafCount:: number of leaves
          */
         int[] Leafs = new int[FreqList.length];
         int LeafCount = 0;
 
-        /**
-         * ハフマン木の葉でないノードのノード番号を
-         * 小さな順に格納したリストを格納する。
-         * Nodes:: リスト本体
-         * NodeCount:: 葉でないノードの個数
+        /*
+         * List storing node numbers of non-leaf nodes of the Huffman tree
+         * in ascending order.
+         * Nodes:: the list itself
+         * NodeCount:: number of non-leaf nodes
          */
         int[] Nodes = new int[FreqList.length - 1];
         int NodeCount = 0;
 
-        // 木に葉をセットし、
-        // Leafsに頻度1以上の葉のみセットする。
+        // Set leaves in the tree,
+        // and set only leaves with frequency of 1 or more in Leafs.
         for (int i = 0; i < FreqList.length; i++) {
             NodeWeight[i] = FreqList[i];
 
@@ -110,14 +111,14 @@ public class StaticHuffman {
         }
 
         if (2 <= LeafCount) {
-            // ハフマン木を作成する
+            // Create Huffman tree
 
-            // ハフマン木の葉となるべき要素を整列させる。
+            // Sort elements that should become leaves of the Huffman tree.
             StaticHuffman.MergeSort(Leafs, 0, LeafCount - 1, FreqList, new int[(LeafCount / 2) + 1]);
 
-            // 葉か、ノードの最小のもの2つを新しいノードに
-            // 結びつける事を繰り返し、ルートノードまで作成する。
-            // この処理によってハフマン木が完成する。
+            // Repeatedly connect the two smallest leaves or nodes to a new node,
+            // creating up to the root node.
+            // This process completes the Huffman tree.
             int LeafIndex = 0;
             int NodeIndex = 0;
             do {
@@ -148,11 +149,11 @@ public class StaticHuffman {
                 Nodes[NodeCount++] = newNode;
             } while (NodeIndex + LeafIndex < NodeCount + LeafCount - 1);
 
-            // ハフマン木からハフマン符号長の表を作成する。
-            // ハフマン木からハフマン符号長の頻度表を作成する。
+            // Create Huffman code length table from the Huffman tree.
+            // Create frequency table of Huffman code lengths from the Huffman tree.
             int[] LenFreq = StaticHuffman.HuffmanTreeToLenFreq(SmallNode, LargeNode, TreeCount - 1);
 
-            // ハフマン符号長の頻度長から符号長の表を作成する。
+            // Create code length table from the frequency table of Huffman code lengths.
             int[] LenList = new int[FreqList.length];
             LeafIndex = 0;
             for (int len = StaticHuffman.LimitLen; 0 < len; len--)
@@ -166,49 +167,48 @@ public class StaticHuffman {
     }
 
     /**
-     * 頻度表から ハフマン符号のビット長の表を作成する。
-     * オリジナルのLHAと同じコードを出力する。
+     * Creates a table of Huffman code bit lengths from a frequency list.
+     * Outputs the same code as original LHA.
      *
-     * @param FreqList 頻度表
-     *
-     * @return ハフマン符号のビット長の表
+     * @param FreqList frequency list
+     * @return table of Huffman code bit lengths
      */
     public static int[] FreqListToLenListOriginal(int[] FreqList) {
-        /**
-         * ハフマン木を構成する配列群
-         * ハフマン木は 0〜FreqList.length までは全てが葉であり、
-         * そのノード番号は符号である。木がいったん完成した後は
-         * TreeCount-1がルートノードとなる。
-         * NodeWeight:: そのノードの重みを持つ
-         * SmallNode:: 小さな子ノードのノード番号を持つ
-         * LargeNode:: 大きな子ノードのノード番号を持つ
-         * TreeCount:: 有効なノードの個数を持つ
+        /*
+         * Arrays that construct the Huffman tree.
+         * In the Huffman tree, 0 to FreqList.length - 1 are all leaves,
+         * and their node numbers are the codes. Once the tree is completed,
+         * TreeCount - 1 becomes the root node.
+         * NodeWeight:: holds the weight of that node
+         * SmallNode:: holds the node number of the smaller child node
+         * LargeNode:: holds the node number of the larger child node
+         * TreeCount:: holds the number of valid nodes
          */
         int[] NodeWeight = new int[FreqList.length * 2 - 1];
         int[] SmallNode = new int[FreqList.length * 2 - 1];
         int[] LargeNode = new int[FreqList.length * 2 - 1];
         int TreeCount = FreqList.length;
 
-        /**
-         * ハフマン木の葉のノード番号を小さな順に格納したリスト。
-         * Leafs:: リスト本体
-         * LeafCount:: 葉の個数
+        /*
+         * List storing node numbers of leaves of the Huffman tree in ascending order.
+         * Leafs:: the list itself
+         * LeafCount:: number of leaves
          */
         int[] Leafs = new int[FreqList.length];
         int LeafCount = 0;
 
-        /**
-         * ハフマン木の全てのノードのノード番号を
-         * 小さな順に格納したリストを格納する。
-         * ヒープソートを使用するため、Heap[0]は使用しない
-         * Heap:: リスト本体
-         * HeapLast:: Heapの最後の要素
+        /*
+         * Stores the list of node numbers of all nodes of the Huffman tree
+         * in ascending order.
+         * Since heap sort is used, Heap[0] is not used.
+         * Heap:: the list itself
+         * HeapLast:: last element of Heap
          */
         int[] Heap = new int[FreqList.length * 2];
         int HeapLast = 0;
 
-        // 木に葉をセットし、
-        // Heapに頻度1以上の葉のみセットする。
+        // Set leaves in the tree,
+        // and set only leaves with frequency of 1 or more in Heap.
         for (int i = 0; i < FreqList.length; i++) {
             NodeWeight[i] = FreqList[i];
 
@@ -217,15 +217,15 @@ public class StaticHuffman {
         }
 
         if (2 <= HeapLast) {
-            // ハフマン木を作成する
+            // Create Huffman tree
 
-            // ハフマン木の葉となるべき要素を整列させる。
+            // Sort elements that should become leaves of the Huffman tree.
             for (int i = HeapLast / 2; 1 <= i; i--)
                 StaticHuffman.DownHeap(Heap, HeapLast, NodeWeight, i);
 
-            // 葉か、ノードの最小のもの2つを新しいノードに
-            // 結びつける事を繰り返し、ルートノードまで作成する。
-            // この処理によってハフマン木が完成する。
+            // Repeatedly connect the two smallest leaves or nodes to a new node,
+            // creating up to the root node.
+            // This process completes the Huffman tree.
             do {
                 int small = Heap[1];
                 if (small < FreqList.length)
@@ -246,11 +246,11 @@ public class StaticHuffman {
                 StaticHuffman.DownHeap(Heap, HeapLast, NodeWeight, 1);
             } while (1 < HeapLast);
 
-            // ハフマン木からハフマン符号長の表を作成する。
+            // Create Huffman code length table from the Huffman tree.
 
-            // ハフマン木からハフマン符号長の頻度表を作成する。
+            // Create frequency table of Huffman code lengths from the Huffman tree.
             int[] LenFreq = StaticHuffman.HuffmanTreeToLenFreq(SmallNode, LargeNode, TreeCount - 1);
-            // ハフマン符号長の頻度長から符号長の表を作成する。
+            // Create code length table from the frequency table of Huffman code lengths.
             int[] LenList = new int[FreqList.length];
             int LeafIndex = 0;
             for (int len = StaticHuffman.LimitLen; 0 < len; len--)
@@ -264,26 +264,24 @@ public class StaticHuffman {
     }
 
     /**
-     * ハフマン符号長のリストから ハフマン符号表を作成する。
+     * Creates a Huffman code table from a list of Huffman code lengths.
      *
-     * @param LenList ハフマン符号長のリスト
-     * @return ハフマン符号表
-     * @exception BadHuffmanTableException
-     *                LenListが不正なため、
-     *                ハフマン符号表が生成出来ない場合
+     * @param LenList list of Huffman code lengths
+     * @return Huffman code table
+     * @throws BadHuffmanTableException if Huffman code table cannot be generated because {@code LenList} is invalid
      */
     public static int[] LenListToCodeList(int[] LenList) throws BadHuffmanTableException {
-        // ハフマン符号長の頻度表
+        // Frequency table of Huffman code lengths
         int[] LenFreq = new int[StaticHuffman.LimitLen + 1];
-        // ハフマン符号長に対応した符号
+        // Codes corresponding to Huffman code lengths
         int[] CodeStart = new int[StaticHuffman.LimitLen + 2];
 
-        // ハフマン符号長の頻度表作成
+        // Create frequency table of Huffman code lengths
         for (int j : LenList) LenFreq[j]++;
 
         if (LenFreq[0] < LenList.length) {
 
-//           CodeStart[1] = 0; // Javaでは必要無いのでコメントアウトしている。
+//           CodeStart[1] = 0; // Commented out because it is not needed in Java.
             for (int i = 1; i <= StaticHuffman.LimitLen; i++)
                 CodeStart[i + 1] = CodeStart[i] + LenFreq[i] << 1;
 
@@ -302,13 +300,11 @@ public class StaticHuffman {
     }
 
     /**
-     * LenList から、ハフマン復号用のテーブルを生成する。
+     * Generates a table for Huffman decoding from {@code LenList}.
      *
-     * @param LenList ハフマン符号長の表
-     * @return ハフマン復号用テーブル。
-     * @exception BadHuffmanTableException
-     *                LenListが不正なため、
-     *                ハフマン符号表が生成出来ない場合
+     * @param LenList table of Huffman code lengths
+     * @return table for Huffman decoding
+     * @throws BadHuffmanTableException if Huffman code table cannot be generated because {@code LenList} is invalid
      */
     public static short[] createTable(int[] LenList) throws BadHuffmanTableException {
         int[] CodeList = StaticHuffman.LenListToCodeList(LenList);
@@ -336,29 +332,26 @@ public class StaticHuffman {
     }
 
     /**
-     * LenList から、ハフマン復号用のテーブルと木を生成する。
-     * テーブルは TableBits の大きさを持ち、それ以上の部分は木に格納される。<br>
-     * 戻り値は new short[][]{ Table, Tree[0], Tree[1] } となる。<br>
-     * テーブルを引いた結果もしくは木を走査した際、負の値を得た場合、
-     * それは復号化されたコードを全ビット反転したものである。
-     * 正の値であればそれは 木を走査するための index であり、
-     * Tree[bit][index] のように使用する。
+     * Generates a table and tree for Huffman decoding from {@code LenList}.
+     * The table has a size of {@code TableBits}, and any portion exceeding that is stored in the tree.<br>
+     * The return value is {@code new short[][]{ Table, Tree[0], Tree[1] }}.<br>
+     * When looking up the table or traversing the tree, if a negative value is obtained,
+     * it is the decoded code with all bits inverted.
+     * If it is a positive value, it is an index for traversing the tree,
+     * and is used like {@code Tree[bit][index]}.
      *
-     * @param LenList ハフマン符号長の表
-     * @param TableBits ハフマン復号用テーブルの大きさ。
-     * @return ハフマン復号用テーブルと木。
-     * @exception BadHuffmanTableException
-     *                LenListが不正なため、
-     *                ハフマン符号表が生成出来ない場合
+     * @param LenList   table of Huffman code lengths
+     * @param TableBits size of the table for Huffman decoding
+     * @return table and tree for Huffman decoding
+     * @throws BadHuffmanTableException if Huffman code table cannot be generated because {@code LenList} is invalid
      */
     public static short[][] createTableAndTree(int[] LenList, int TableBits) throws BadHuffmanTableException {
 
-        // ハフマン符号長リストから ハフマン符号のリストを得る。
+        // Obtain list of Huffman codes from the list of Huffman code lengths.
         int[] CodeList = StaticHuffman.LenListToCodeList(LenList);
 
-        // ハフマン符号長のリストを走査し、
-        // LastCode を得る。
-        // また 木を構成するのに必要な配列サイズを得るための準備を行う。
+        // Traverse the list of Huffman code lengths to obtain LastCode.
+        // Also prepare to obtain the array size required to construct the tree.
         short[] Table = new short[1 << TableBits];
         int LastCode = 0;
         for (int i = 0; i < LenList.length; i++) {
@@ -370,7 +363,7 @@ public class StaticHuffman {
             }
         }
 
-        // 木を構成するのに必要な配列サイズを得、テーブルを初期化する。
+        // Obtain array size required to construct the tree, and initialize the table.
         final short INIT = -1;
         int count = 0;
         for (int i = 0; i < Table.length; i++) {
@@ -381,7 +374,7 @@ public class StaticHuffman {
         short[] Small = new short[count];
         short[] Large = new short[count];
 
-        // テーブルと木を構成する。
+        // Construct table and tree.
         int avail = 0;
         for (int i = 0; i < LenList.length; i++) {
             if (0 < LenList[i]) {
@@ -421,57 +414,56 @@ public class StaticHuffman {
             }
         }
         return new short[][] {
-            Table, Small, Large
+                Table, Small, Large
         };
     }
 
     /**
-     * マージソート、再帰関数<br>
-     * arrayは weightの添字、arrayのfirstからlastの区間内で
-     * weightが小さい順に並ぶようにソートする。
-     * workはそのための作業領域。
+     * Merge sort, recursive function.<br>
+     * Sorts {@code array} such that in the interval from {@code first} to {@code last},
+     * elements are arranged in ascending order of {@code weight}, where {@code array} contains indices into {@code weight}.
+     * {@code work} is a work area for that purpose.
      *
-     * @param array ソート対象の配列
-     * @param first ソート区間の最初
-     * @param last ソート区間の最後
-     * @param weight ソートの際に参照される重みのリスト
-     * @param work マージソート用作業領域
+     * @param array  array to be sorted
+     * @param first  start of sort interval
+     * @param last   end of sort interval
+     * @param weight list of weights referenced during sorting
+     * @param work   work area for merge sort
      */
     private static void MergeSort(int[] array, int first, int last, int[] weight, int[] work) {
         if (first < last) {
             int middle = (first + last) / 2 + (first + last) % 2;
-            // 前半をソート
+            // Sort first half
             StaticHuffman.MergeSort(array, first, middle - 1, weight, work);
-            // 後半をソート
+            // Sort second half
             StaticHuffman.MergeSort(array, middle, last, weight, work);
 
-            // 前半を workへ
+            // Copy first half to work
             System.arraycopy(array, first, work, 0, middle - first);
 
-            // ソートされた前半と ソートされた後半を
-            // 整列しつつマージする。
+            // Merge sorted first half and sorted second half while arranging
             int srcIndex = middle;
             int workIndex = 0;
             int dstIndex = first;
             while (srcIndex <= last && workIndex < middle - first)
                 array[dstIndex++] = (weight[work[workIndex]] < weight[array[srcIndex]] ? work[workIndex++] : array[srcIndex++]);
 
-            // workに残った要素を arrayに戻す
+            // Restore remaining elements in work to array
             if (workIndex < middle - first)
                 System.arraycopy(work, workIndex, array, dstIndex, middle - first - workIndex);
         }
     }
 
     /**
-     * heapはweightの添え字
-     * num*2, num*2+1の地点でヒープが出来ていることを
-     * 前提として heap に numを頂点とするヒープを作る。<br>
-     * ヒープソートの一部分。
+     * {@code heap} contains indices into {@code weight}.
+     * On the premise that a heap is formed at points {@code num*2, num*2+1},
+     * creates a heap in {@code heap} with {@code num} as the apex.<br>
+     * Part of heap sort.
      *
-     * @param heap ヒープを生成する配列
-     * @param size ヒープのサイズ
-     * @param weight 整列の基準となる重みのリスト
-     * @param num 今回作成するヒープの頂点
+     * @param heap   array generating the heap
+     * @param size   size of the heap
+     * @param weight list of weights serving as criteria for ordering
+     * @param num    apex of the heap to create this time
      */
     private static void DownHeap(int[] heap, int size, int[] weight, int num) {
 
@@ -490,33 +482,31 @@ public class StaticHuffman {
     }
 
     /**
-     * ハフマン木から ハフマン符号長の頻度表を作成する。<br>
-     * ハフマン木を辿って ハフマン符号長の頻度表を作成する。
-     * また、符号長を 16ビットに制限するための処理もここで行う。
+     * Creates a frequency table of Huffman code lengths from the Huffman tree.<br>
+     * Traverses the Huffman tree to create a frequency table of Huffman code lengths.
+     * Also performs processing here to restrict code lengths to 16 bits.
      *
-     * @param SmallNode 小さい子ノードのノード番号の表
-     * @param LargeNode 大きい子ノードのノード番号の表
-     * @param root ハフマン木のルートノード
-     *
-     * @return ハフマン符号長を最大16ビットに制限した
-     *         ハフマン符号長表
+     * @param SmallNode table of node numbers of smaller child nodes
+     * @param LargeNode table of node numbers of larger child nodes
+     * @param root      root node of the Huffman tree
+     * @return table of Huffman code lengths with Huffman code lengths restricted to a maximum of 16 bits
      */
     private static int[] HuffmanTreeToLenFreq(int[] SmallNode, int[] LargeNode, int root) {
         int[] LenFreq = new int[StaticHuffman.LimitLen + 1];
 
-        // ハフマン木から頻度表作成
+        // Create frequency table from Huffman tree
         StaticHuffman.internalHuffmanTreeToLenFreq(SmallNode, LargeNode, root, 0, LenFreq);
 
-//     System.out.println("到達::StaticHuffman.HuffmanTreeToLenFreq--ハフマン木からハフマン符号長のリスト取得--");
+//        logger.log(Level.TRACE, "Reached::StaticHuffman.HuffmanTreeToLenFreq--Acquire list of Huffman code lengths from Huffman tree--");
 
-        // 最大16ビットの制限により、修正を受けている場合は
-        // 符号長の表から、上位のノードを下位へと引きずりおろす
-        // ことによって符号長の表を修正する。
+        // If modified due to the maximum 16-bit restriction,
+        // correct the code length table by pulling higher nodes down to lower levels
+        // from the code length table.
         int weight = 0;
         for (int i = StaticHuffman.LimitLen; 0 < i; i--)
             weight += LenFreq[i] << (StaticHuffman.LimitLen - i);
 
-//     System.out.println("weight::" + weight);
+//        logger.log(Level.TRACE, "weight::" + weight);
 
         while ((1 << StaticHuffman.LimitLen) < weight) {
             LenFreq[StaticHuffman.LimitLen]--;
@@ -534,27 +524,24 @@ public class StaticHuffman {
     }
 
     /**
-     * ハフマン木探索メソッド、再帰関数。<br>
-     * ハフマン木を探索していき、nodeが葉であれば
-     * 渡された符号長の頻度表を更新し、
-     * ノードであれば、小さい方と大きい方の両方の
-     * 子ノードを再帰的に探索する。
+     * Huffman tree search method, recursive function.<br>
+     * Searches the Huffman tree; if {@code node} is a leaf, updates the passed frequency table of code lengths,
+     * and if it is a node, recursively searches both smaller and larger child nodes.
      *
-     * @param SmallNode 小さい子ノードのノード番号の表
-     * @param LargeNode 大きい子ノードのノード番号の表
-     * @param node 処理するノード番号
-     * @param len ハフマン木のrootからの長さ
-     * @param LenFreq 符号長の頻度表
+     * @param SmallNode table of node numbers of smaller child nodes
+     * @param LargeNode table of node numbers of larger child nodes
+     * @param node      node number to process
+     * @param len       length from root of the Huffman tree
+     * @param LenFreq   frequency table of code lengths
      */
     private static void internalHuffmanTreeToLenFreq(int[] SmallNode, int[] LargeNode, int node, int len, int[] LenFreq) {
         if (node < (SmallNode.length + 1) / 2) {
-            // nodeが葉なら頻度表更新
+            // If node is a leaf, update frequency table
             LenFreq[(Math.min(len, StaticHuffman.LimitLen))]++;
         } else {
-            // nodeがノードなら両方のノードを再帰的に探索
+            // If node is a branch node, recursively search both nodes
             StaticHuffman.internalHuffmanTreeToLenFreq(SmallNode, LargeNode, SmallNode[node], len + 1, LenFreq);
             StaticHuffman.internalHuffmanTreeToLenFreq(SmallNode, LargeNode, LargeNode[node], len + 1, LenFreq);
         }
     }
-
 }

@@ -1,46 +1,49 @@
-/**
+/*
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.util.lha;
 
 
 /**
- * ハッシュ関数を提供するインターフェイス。<br>
+ * Interface that provides hash functions.
  * <br>
- * コンストラクタの形式は
+ * The constructor form must conform to a format like:
  *
  * <pre>
  * HashMethod( byte[] TextBuffer )
  *
- * <strong>パラメータ:</strong>
- *   TextBuffer     - LZSS圧縮を施すデータの入ったバッファ
+ * <strong>Parameters:</strong>
+ *   TextBuffer     - Buffer containing data to be LZSS compressed
  * </pre>
  *
- * のような形式に則ること。<br>
- * また、追加の引数をとりたい場合は
+ * Furthermore, if additional arguments are needed, use a format like:
  *
  * <pre>
  * HashMethod( byte[] TextBuffer,
@@ -48,8 +51,7 @@ package jp.gr.java_conf.dangan.util.lha;
  *             Object ExtraData2 )
  * </pre>
  *
- * のような形式を用いる。<br>
- * なお、コンストラクタの引数チェックは追加の引数がある場合について行えばよい。
+ * Note that argument checking in the constructor only needs to be performed when there are additional arguments.
  *
  * <pre>
  * -- revision history --
@@ -57,13 +59,12 @@ package jp.gr.java_conf.dangan.util.lha;
  * Revision 1.0  2002/08/05 00:00:00  dangan
  * add to version cotrol
  * [change]
- *     requiredSize() を hashRequires() に名前変更。
- *     size() を tableSize() 名前変更。
- * [maintanance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
- *
+ *     Renamed requiredSize() to hashRequires().
+ *     Renamed size() to tableSize().
+ * [maintenance]
+ *     source maintenance
+ *     tab removal
+ *     license comment update
  * </pre>
  *
  * @author $Author: dangan $
@@ -72,29 +73,26 @@ package jp.gr.java_conf.dangan.util.lha;
 public interface HashMethod {
 
     /**
-     * ハッシュ関数。
-     * コンストラクタで渡された TextBuffer 内の
-     * position からのデータパタンの hash値を生成する。
+     * Hash function.
+     * Generates the hash value of the data pattern starting from {@code position}
+     * in the {@code TextBuffer} passed to the constructor.
      *
-     * @param position データパタンの開始位置
-     * @return ハッシュ値
+     * @param position start position of the data pattern
+     * @return hash value
      */
     int hash(int position);
 
     /**
-     * ハッシュ関数が
-     * ハッシュ値を生成するために使用するバイト数を得る。
+     * Gets the number of bytes used by the hash function to generate a hash value.
      *
-     * @return ハッシュ関数がハッシュ値を
-     *         生成するために使用するバイト数
+     * @return number of bytes used by the hash function to generate a hash value
      */
     int hashRequires();
 
     /**
-     * この HashMethod を使った場合の
-     * HashTable のサイズを得る。
+     * Gets the size of the {@code HashTable} when using this {@link HashMethod}.
      *
-     * @return この HashMethod を使った場合の HashTable のサイズ
+     * @return size of the {@code HashTable} when using this {@link HashMethod}
      */
     int tableSize();
 }

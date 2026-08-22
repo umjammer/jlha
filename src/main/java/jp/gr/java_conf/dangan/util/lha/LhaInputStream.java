@@ -1,27 +1,31 @@
-/**
+/*
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -37,37 +41,35 @@ import jp.gr.java_conf.dangan.io.LimitedInputStream;
 
 
 /**
- * 接続されたストリームからLHA書庫データを読みこみ、
- * エントリを解凍しつつ読み込むためのユーティリティクラス。<br>
- * java.util.zip.ZipInputStream と似たインターフェイスを持つように作った。<br>
- * 壊れた書庫の処理に関しては壊れたエントリ以降の
- * 壊れていないエントリも正常に読みこめない可能性がある。<br>
+ * Utility class for reading LHA archive data from a connected stream
+ * and reading entries while extracting them.<br>
+ * Designed to have an interface similar to {@link java.util.zip.ZipInputStream}.<br>
+ * For corrupted archives, there is a possibility that uncorrupted entries following a corrupted entry
+ * cannot be read normally.<br>
  *
  * <pre>
  * -- revision history --
  * $Log: LhaInputStream.java,v $
  * Revision 1.1.2.1  2003/07/20 13:22:31  dangan
  * [bug fix]
- *     getNextEntry() で CompressMethod.connectDecoder に
- *     this.limit を渡すべきところで this.in を渡していた。
+ *     In getNextEntry(), passed this.in to CompressMethod.connectDecoder
+ *     where this.limit should have been passed.
  *
  * Revision 1.1  2002/12/08 00:00:00  dangan
  * [maintenance]
- *     LhaConstants から CompressMethod へのクラス名の変更に合わせて修正。
+ *     Updated to reflect the class name change from LhaConstants to CompressMethod.
  *
  * Revision 1.0  2002/08/05 00:00:00  dangan
  * add to version control
  * [change]
- *     コンストラクタから 引数に String encode を取るものを廃止、
- *     Properties を引数に取るものを追加。
- *     書庫終端に達した場合はそれ以上読み込めないように修正。
- *     available() の振る舞いを java.util.zip.ZipInputStream と同じように
- *     エントリの終端に達していない場合は 1 エントリの終端に達した場合は 0 を返すように変更。
+ *     Deprecated constructors taking String encode and added ones taking Properties.
+ *     Prevented reading past archive termination.
+ *     Changed available() behavior like java.util.zip.ZipInputStream to return 1
+ *     if not reached entry EOF, and 0 if entry EOF is reached.
  * [maintenance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
- *
+ *     Source cleanup.
+ *     Eliminated tabs.
+ *     Updated license text.
  * </pre>
  *
  * @author $Author: dangan $
@@ -76,52 +78,49 @@ import jp.gr.java_conf.dangan.io.LimitedInputStream;
 public class LhaInputStream extends InputStream {
 
     /**
-     * LHA書庫形式のデータを供給するInputStream。
+     * {@link InputStream} providing data in LHA archive format.
      */
     private InputStream source;
 
     /**
-     * 既に最初のエントリを読み込んでいるかを示す。
+     * Indicates whether the first entry has already been read.
      */
-    private boolean alreadyOpenedFirstEnrty;
+    private boolean alreadyOpenedFirstEntry;
 
     /**
-     * 書庫終端に達したかを示す。
+     * Indicates whether end of archive has been reached.
      */
     private boolean reachedEndOfArchive;
 
     /**
-     * LHA書庫内の１エントリの解凍されたデータ
-     * を供給する InputStream。
+     * {@link InputStream} providing decompressed data of one entry in LHA archive.
      */
     private InputStream in;
 
     /**
-     * LHA書庫内の１エントリの圧縮されたデータ
-     * を供給するLimitedInputStream。
-     * closeEntry 時にスキップするため。
+     * {@link LimitedInputStream} providing compressed data of one entry in LHA archive.
+     * Used to skip when {@link #closeEntry()} is called.
      */
     private LimitedInputStream limit;
 
     /**
-     * 現在処理中のエントリの終端に達した時に true にセットされる。
+     * Set to {@code true} when reaching the end of the entry currently being processed.
      */
     private boolean reachedEndOfEntry;
 
-    /** reachEndOfEntry のバックアップ用 */
+    /** Backup for reachEndOfEntry */
     private boolean markReachedEndOfEntry;
 
     /**
-     * 各圧縮形式に対応した復号器の生成式等が含まれるプロパティ
+     * Properties containing decoder generator expressions corresponding to each compression format
      */
     private Properties property;
 
     /**
-     * in から LHA書庫のデータを読み取る InputStream を構築する。<br>
-     * 各圧縮形式に対応した復号器の生成式等を持つプロパティには
-     * LhaProperty.getProperties() で得られたプロパティが使用される。
+     * Constructs an {@link InputStream} that reads LHA archive data from {@code in}.<br>
+     * Properties obtained with {@link LhaProperty#getProperties()} are used as properties having generator expressions of decoders corresponding to each compression format.
      *
-     * @param in LHA書庫形式のデータを供給する入力ストリーム
+     * @param in input stream providing data in LHA archive format
      * @see LhaProperty#getProperties()
      */
     public LhaInputStream(InputStream in) {
@@ -135,13 +134,11 @@ public class LhaInputStream extends InputStream {
     }
 
     /**
-     * in から LHA書庫のデータを読み取る InputStreamを構築する。
+     * Constructs an {@link InputStream} that reads LHA archive data from {@code in}.
      *
-     * @param in LHA書庫形式のデータを供給する入力ストリーム
-     * @param property 各圧縮形式に対応した復号器の生成式等が含まれるプロパティ
-     * @exception UnsupportedEncodingException
-     *                property.getProperty( "lha.encoding" ) で得られた
-     *                エンコーディング名がサポートされない場合
+     * @param in       input stream providing data in LHA archive format
+     * @param property properties containing generator expressions of decoders corresponding to each compression format
+     * @throws UnsupportedEncodingException if the encoding name obtained by {@code property.getProperty("lha.encoding")} is not supported
      */
     public LhaInputStream(InputStream in, Properties property) throws UnsupportedEncodingException {
 
@@ -149,12 +146,11 @@ public class LhaInputStream extends InputStream {
     }
 
     /**
-     * コンストラクタの初期化処理を担当するメソッド。
+     * Helper method responsible for constructor initialization.
      *
-     * @param in LHA書庫形式のデータを供給する入力ストリーム
-     * @param property 各圧縮形式に対応した復号器の生成式等が含まれるプロパティ
-     * @exception UnsupportedEncodingException
-     *                encode がサポートされない場合
+     * @param in       input stream providing data in LHA archive format
+     * @param property properties containing generator expressions of decoders corresponding to each compression format
+     * @throws UnsupportedEncodingException if encode is not supported
      */
     private void constructerHelper(InputStream in, Properties property) throws UnsupportedEncodingException {
 
@@ -164,7 +160,7 @@ public class LhaInputStream extends InputStream {
                 encoding = LhaProperty.getProperty("lha.encoding");
             }
 
-            // encoding名チェック
+            // Check encoding name
             encoding.getBytes(encoding);
 
             if (in.markSupported()) {
@@ -187,13 +183,12 @@ public class LhaInputStream extends InputStream {
     }
 
     /**
-     * 現在のエントリから 1バイトのデータを読み込む。
+     * Reads 1 byte of data from the current entry.
      *
-     * @return 読みこまれた 1バイトのデータ。<br>
-     *         既にエントリの終端に達した場合は -1
-     * @exception IOException 現在読み込み中のエントリが無いか
-     *                入出力エラーが発生した場合
+     * @return 1 byte of read data, or -1 if end of entry has already been reached
+     * @throws IOException if there is no entry currently being read or an I/O error occurs
      */
+    @Override
     public int read() throws IOException {
         if (this.in != null) {
             int ret = this.in.read();
@@ -207,30 +202,27 @@ public class LhaInputStream extends InputStream {
     }
 
     /**
-     * 現在のエントリから buffer を満たすようにデータを読み込む。
+     * Reads data from the current entry to fill {@code buffer}.
      *
-     * @param buffer データを読み込むバッファ
-     * @return 読みこまれたデータの量。<br>
-     *         既にエントリの終端に達した場合は -1。
-     * @exception IOException 現在読み込み中のエントリが無いか
-     *                入出力エラーが発生した場合
+     * @param buffer buffer to read data into
+     * @return amount of read data, or -1 if end of entry has already been reached
+     * @throws IOException if there is no entry currently being read or an I/O error occurs
      */
+    @Override
     public int read(byte[] buffer) throws IOException {
         return this.read(buffer, 0, buffer.length);
     }
 
     /**
-     * 現在のエントリから buffer のindexへ lengthバイトの
-     * データをを読み込む。
+     * Reads {@code length} bytes of data from the current entry into {@code buffer} starting at {@code index}.
      *
-     * @param buffer データを読み込むバッファ
-     * @param index buffer内のデータ読み込み開始位置
-     * @param length 読み込むデータ量
-     * @return 読みこまれたデータの量。<br>
-     *         既にエントリの終端に達した場合は -1。
-     * @exception IOException 現在読み込み中のエントリが無いか
-     *                入出力エラーが発生した場合
+     * @param buffer buffer to read data into
+     * @param index  start position of data reading in {@code buffer}
+     * @param length amount of data to read
+     * @return amount of read data, or -1 if end of entry has already been reached
+     * @throws IOException if there is no entry currently being read or an I/O error occurs
      */
+    @Override
     public int read(byte[] buffer, int index, int length) throws IOException {
         if (this.in != null) {
             int ret = this.in.read(buffer, index, length);
@@ -244,13 +236,13 @@ public class LhaInputStream extends InputStream {
     }
 
     /**
-     * 現在のエントリのデータを length バイト読みとばす。
+     * Skips {@code length} bytes of data in the current entry.
      *
-     * @param length 読みとばすデータ量
-     * @return 実際に読みとばしたデータ量
-     * @exception IOException 現在読み込み中のエントリが無いか
-     *                入出力エラーが発生した場合
+     * @param length amount of data to skip
+     * @return actual amount of data skipped
+     * @throws IOException if there is no entry currently being read or an I/O error occurs
      */
+    @Override
     public long skip(long length) throws IOException {
         if (this.in != null) {
             if (0 < length) {
@@ -271,15 +263,13 @@ public class LhaInputStream extends InputStream {
     }
 
     /**
-     * 現在読み取り中のエントリの現在位置にマークを設定し、
-     * reset() でマークした読み込み位置に戻れるようにする。
+     * Sets a mark at the current position in the entry currently being read,
+     * so that {@link #reset()} can return to the marked read position.
      *
-     * @param readLimit マーク位置に戻れる限界読み込み量。
-     *            このバイト数を超えてデータを読み込んだ場合
-     *            reset() できる保証はない。
-     * @exception IllegalStateException
-     *                現在読み込み中のエントリが無い場合
+     * @param readLimit limit of read amount before mark position becomes invalid. No guarantee that {@link #reset()} works if reading beyond this number of bytes.
+     * @throws IllegalStateException if there is no entry currently being read
      */
+    @Override
     public void mark(int readLimit) {
         if (this.in != null) {
             this.in.mark(readLimit);
@@ -290,12 +280,12 @@ public class LhaInputStream extends InputStream {
     }
 
     /**
-     * 現在読み取り中のエントリの読み込み位置を最後に
-     * mark() メソッドが呼び出されたときの位置に設定する。
+     * Sets the read position of the entry currently being read to the position where the
+     * {@link #mark(int)} method was last called.
      *
-     * @exception IOException 現在読み込み中のエントリが無いか
-     *                入出力エラーが発生した場合
+     * @throws IOException if there is no entry currently being read or an I/O error occurs
      */
+    @Override
     public void reset() throws IOException {
         if (this.in != null) {
             this.in.reset();
@@ -306,29 +296,28 @@ public class LhaInputStream extends InputStream {
     }
 
     /**
-     * 接続された入力ストリームが mark()と
-     * reset()をサポートするかを得る。<br>
-     * ヘッダ読み込み時に mark/reset が必須のため
-     * コンストラクタで渡された in が markSupported() で
-     * false を返す場合、このクラスは in を mark/reset をサポートする
-     * BufferedInputStream でラップする。
-     * そのため、このメソッドは常に true を返す。
+     * Gets whether the connected input stream supports {@link #mark(int)} and {@link #reset()}.<br>
+     * Since mark/reset is required when reading headers, if {@code in} passed in constructor returns
+     * {@code false} for {@link InputStream#markSupported()}, this class wraps {@code in} with a
+     * {@link BufferedInputStream} supporting mark/reset.
+     * Therefore, this method always returns {@code true}.
      *
-     * @return 常に true
+     * @return always {@code true}
      */
+    @Override
     public boolean markSupported() {
         return this.source.markSupported();
     }
 
     /**
-     * 現在読み取り中のエントリの終端に達したかを得る。<br>
-     * ブロックしないで読み込めるデータ量を返さない事に注意すること。
+     * Gets whether the end of the entry currently being read has been reached.<br>
+     * Note that it does not return the amount of data that can be read without blocking.
      *
-     * @return 現在読み取り中のエントリの終端に達した場合 0 達していない場合 1
-     * @exception IOException 現在読み込み中のエントリが無いか
-     *                入出力エラーが発生した場合
+     * @return 0 if end of entry currently being read is reached, 1 if not reached
+     * @throws IOException if there is no entry currently being read or an I/O error occurs
      * @see java.util.zip.ZipInputStream#available()
      */
+    @Override
     public int available() throws IOException {
         if (this.in != null) {
             return (this.reachedEndOfEntry ? 0 : 1);
@@ -338,11 +327,11 @@ public class LhaInputStream extends InputStream {
     }
 
     /**
-     * この入力ストリームを閉じ、使用していた
-     * 全てのリソースを開放する。
+     * Closes this input stream and releases all resources used.
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
+    @Override
     public void close() throws IOException {
         if (this.in != null) {
             this.in.close();
@@ -355,10 +344,10 @@ public class LhaInputStream extends InputStream {
     }
 
     /**
-     * 次のエントリを解凍しながら読みこむようにストリームを設定する。
+     * Sets up the stream to read the next entry while decompressing it.
      *
-     * @return エントリの情報を持つ LhaHeader, null when next entry doesn't exist.
-     * @exception IOException 入出力エラーが発生した場合
+     * @return {@link LhaHeader} having entry information, or {@code null} when next entry doesn't exist
+     * @throws IOException if an I/O error occurs
      */
     public LhaHeader getNextEntry() throws IOException {
         if (!this.reachedEndOfArchive) {
@@ -367,11 +356,11 @@ public class LhaInputStream extends InputStream {
             }
 
             byte[] HeaderData;
-            if (this.alreadyOpenedFirstEnrty) {
+            if (this.alreadyOpenedFirstEntry) {
                 HeaderData = LhaHeader.getNextHeaderData(this.source);
             } else {
                 HeaderData = LhaHeader.getFirstHeaderData(this.source);
-                this.alreadyOpenedFirstEnrty = true;
+                this.alreadyOpenedFirstEntry = true;
             }
             if (null != HeaderData) {
                 LhaHeader header = LhaHeader.createInstance(HeaderData, this.property);
@@ -393,10 +382,10 @@ public class LhaInputStream extends InputStream {
     }
 
     /**
-     * 次のエントリを解凍しないで読みこむようにストリームを設定する。
+     * Sets up the stream to read the next entry without extracting it.
      *
-     * @return エントリの情報を持つ LhaHeader, null when next entry doesn't exist.
-     * @exception IOException 入出力エラーが発生した場合
+     * @return {@link LhaHeader} having entry information, or {@code null} when next entry doesn't exist
+     * @throws IOException if an I/O error occurs
      */
     public LhaHeader getNextEntryWithoutExtract() throws IOException {
 
@@ -407,11 +396,11 @@ public class LhaInputStream extends InputStream {
             }
 
             byte[] HeaderData;
-            if (this.alreadyOpenedFirstEnrty) {
+            if (this.alreadyOpenedFirstEntry) {
                 HeaderData = LhaHeader.getNextHeaderData(this.source);
             } else {
                 HeaderData = LhaHeader.getFirstHeaderData(this.source);
-                this.alreadyOpenedFirstEnrty = true;
+                this.alreadyOpenedFirstEntry = true;
             }
             if (HeaderData != null) {
 
@@ -433,10 +422,9 @@ public class LhaInputStream extends InputStream {
     }
 
     /**
-     * 現在読み取り中のエントリを閉じ、
-     * 次のエントリを読みこめるようにストリームを設定する。
+     * Closes the entry currently being read and sets up the stream so that the next entry can be read.
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
     public void closeEntry() throws IOException {
         if (this.in != null) {

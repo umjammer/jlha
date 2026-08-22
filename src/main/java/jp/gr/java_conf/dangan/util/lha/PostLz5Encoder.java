@@ -1,61 +1,59 @@
-// start of PostLz5Encoder.java
-// TEXT_STYLE:CODE=Shift_JIS(Japanese):RET_CODE=CRLF
-
-/**
- * PostLz5Encoder.java
- *
+/*
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.util.lha;
 
-// import exceptions
 import java.io.IOException;
 // import classes and interfaces
 import java.io.OutputStream;
 
 
 /**
- * -lz5- 圧縮用 PostLzssEncoder。
+ * {@link PostLzssEncoder} for -lz5- compression.
  *
  * <pre>
  * -- revision history --
  * $Log: PostLz5Encoder.java,v $
  * Revision 1.1  2002/12/01 00:00:00  dangan
  * [maintenance]
- *     ソース整備
+ *     source maintenance
  *
  * Revision 1.0  2002/07/31 00:00:00  dangan
  * add to version control
  * [bug fix]
- *     -lz5- の MaxMatch は 16 でなく 18 だった。
- *     flush() で出力できるデータを出力していなかったのを修正。
+ *     Fixed MaxMatch for -lz5- to be 18 instead of 16.
+ *     Fixed failure to output data that could be output in flush().
  * [maintenance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
+ *     source maintenance
+ *     tab removal
+ *     fix license statement
  *
  * </pre>
  *
@@ -64,75 +62,42 @@ import java.io.OutputStream;
  */
 public class PostLz5Encoder implements PostLzssEncoder {
 
-    // ------------------------------------------------------------------
-    // class field
-    // ------------------------------------------------------------------
-    // LZSS parameter
-    // ------------------------------------------------------------------
-    // private static final int DictionarySize
-    // private static final int MaxMatch
-    // private static final int Threshold
-    // ------------------------------------------------------------------
-    /** 辞書サイズ */
+    /** Dictionary size */
     private static final int DictionarySize = 4096;
 
-    /** 最大一致長 */
+    /** Maximum match length */
     private static final int MaxMatch = 18;
 
-    /** 最小一致長 */
+    /** Minimum match length */
     private static final int Threshold = 3;
 
-    // ------------------------------------------------------------------
-    // instance field
-    // ------------------------------------------------------------------
-    // sink
-    // ------------------------------------------------------------------
-    // private OutputStream out
-    // ------------------------------------------------------------------
     /**
-     * -lz5- 圧縮データを出力するストリーム
+     * Stream to output -lz5- compressed data.
      */
     private OutputStream out;
 
-    // ------------------------------------------------------------------
-    // instance field
-    // ------------------------------------------------------------------
-    // buffer
-    // ------------------------------------------------------------------
-    // private byte[] buf
-    // private int index
-    // private int flagIndex
-    // private int flagBit
-    // ------------------------------------------------------------------
-    /** 圧縮データの一時格納用バッファ */
+    /** Buffer for temporarily storing compressed data. */
     private byte[] buf;
 
-    /** buf内の現在処理位置 */
+    /** Current processing position in buf. */
     private int index;
 
-    /** buf内の Lzss圧縮、非圧縮を示すフラグの位置を示す */
+    /** Position of flag in buf indicating LZSS compression/non-compression. */
     private int flagIndex;
 
-    /** Lzss圧縮、非圧縮を示すフラグ */
+    /** Flag indicating LZSS compression/non-compression. */
     private int flagBit;
 
-    // ------------------------------------------------------------------
-    // instance field
-    // ------------------------------------------------------------------
-    // current position
-    // ------------------------------------------------------------------
-    // private int position
-    // ------------------------------------------------------------------
     /**
-     * ストリーム内現在処理位置
-     * lha の offset から larc の offset への変換に必要
+     * Current processing position in the stream.
+     * Needed to convert from LHA offset to LARC offset.
      */
     private int position;
 
     /**
-     * -lz5- 圧縮用 PostLzssEncoder を構築する。<br>
+     * Constructs a {@link PostLzssEncoder} for -lz5- compression.<br>
      *
-     * @param out 圧縮データを出力する出力ストリーム
+     * @param out output stream to output compressed data
      */
     public PostLz5Encoder(OutputStream out) {
         if (out != null) {
@@ -147,23 +112,14 @@ public class PostLz5Encoder implements PostLzssEncoder {
         }
     }
 
-    // ------------------------------------------------------------------
-    // method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
-    // ------------------------------------------------------------------
-    // write
-    // ------------------------------------------------------------------
-    // public void writeCode( int code )
-    // public void writeOffset( int offset )
-    // ------------------------------------------------------------------
     /**
-     * 1byte の LZSS未圧縮のデータもしくは、
-     * LZSS で圧縮された圧縮コードのうち一致長を書きこむ。<br>
+     * Writes 1 byte of uncompressed LZSS data or
+     * the match length of LZSS compressed code.<br>
      *
-     * @param code 1byte の LZSS未圧縮のデータもしくは、
-     *            LZSS で圧縮された圧縮コードのうち一致長
-     *
-     * @exception IOException 入出力エラーが発生した場合
+     * @param code 1 byte of uncompressed LZSS data or the match length of LZSS compressed code
+     * @throws IOException if an I/O error occurs
      */
+    @Override
     public void writeCode(int code) throws IOException {
         if (this.flagBit == 0x100) {
             if (this.buf.length - (2 * 8 + 1) < this.index) {
@@ -186,10 +142,11 @@ public class PostLz5Encoder implements PostLzssEncoder {
     }
 
     /**
-     * LZSS で圧縮された圧縮コードのうち一致位置を書きこむ。<br>
+     * Writes the match offset of LZSS compressed code.
      *
-     * @param offset LZSS で圧縮された圧縮コードのうち一致位置
+     * @param offset the match offset of LZSS compressed code
      */
+    @Override
     public void writeOffset(int offset) {
         int pos = (this.position - offset - 1 - PostLz5Encoder.MaxMatch) & (PostLz5Encoder.DictionarySize - 1);
 
@@ -198,29 +155,20 @@ public class PostLz5Encoder implements PostLzssEncoder {
         this.buf[this.index++] = (byte) (((pos >> 4) & 0xF0) | matchlen);
 
         this.position += matchlen + PostLz5Encoder.Threshold;
-
     }
 
-    // ------------------------------------------------------------------
-    // method jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
-    // ------------------------------------------------------------------
-    // other
-    // ------------------------------------------------------------------
-    // public void flush()
-    // public void close()
-    // ------------------------------------------------------------------
     /**
-     * この PostLzssEncoder にバッファリングされている
-     * 出力可能なデータを出力先の OutputStream に出力し、
-     * 出力先の OutputStream を flush() する。<br>
-     * このメソッドは出力不可能な 最大15バイトのデータを
-     * バッファリングしたまま 出力しない。<br>
-     * このメソッドは圧縮率を変化させない。<br>
+     * Flushes outputtable data buffered in this {@link PostLzssEncoder}
+     * to the output destination {@link OutputStream},
+     * and calls {@code flush()} on the destination {@link OutputStream}.<br>
+     * This method leaves unoutputtable data of at most 15 bytes buffered
+     * without outputting.
+     * This method does not affect the compression ratio.
      *
-     * @exception IOException 入出力エラーが発生した場合
-     *
+     * @throws IOException if an I/O error occurs
      * @see PostLzssEncoder#flush()
      */
+    @Override
     public void flush() throws IOException {
         if (this.flagBit == 0x100) {
             this.out.write(this.buf, 0, this.index);
@@ -241,11 +189,12 @@ public class PostLz5Encoder implements PostLzssEncoder {
     }
 
     /**
-     * この出力ストリームと、接続された出力ストリームを閉じ、
-     * 使用していたリソースを開放する。<br>
+     * Closes this output stream and the connected output stream,
+     * and releases any resources used.
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
+    @Override
     public void close() throws IOException {
         this.out.write(this.buf, 0, this.index);
         this.out.close();
@@ -254,41 +203,33 @@ public class PostLz5Encoder implements PostLzssEncoder {
         this.buf = null;
     }
 
-    // ------------------------------------------------------------------
-    // method of jp.gr.java_conf.dangan.util.lha.PostLzssEncoder
-    // ------------------------------------------------------------------
-    // get LZSS parameter
-    // ------------------------------------------------------------------
-    // public int getDictionarySize()
-    // public int getMaxMatch()
-    // public int getThreshold()
-    // ------------------------------------------------------------------
     /**
-     * -lz5-形式の LZSS辞書のサイズを得る。
+     * Gets the size of the -lz5- format LZSS dictionary.
      *
-     * @return -lz5-形式の LZSS辞書のサイズ
+     * @return the size of the -lz5- format LZSS dictionary
      */
+    @Override
     public int getDictionarySize() {
         return PostLz5Encoder.DictionarySize;
     }
 
     /**
-     * -lz5-形式の LZSSの最長一致長を得る。
+     * Gets the maximum match length of the -lz5- format LZSS.
      *
-     * @return -lz5-形式の LZSSの最長一致長
+     * @return the maximum match length of the -lz5- format LZSS
      */
+    @Override
     public int getMaxMatch() {
         return PostLz5Encoder.MaxMatch;
     }
 
     /**
-     * -lz5-形式の LZSSの圧縮、非圧縮の閾値を得る。
+     * Gets the threshold for LZSS compression/non-compression of -lz5- format.
      *
-     * @return -lz5-形式の LZSSの圧縮、非圧縮の閾値
+     * @return the threshold for LZSS compression/non-compression of -lz5- format
      */
+    @Override
     public int getThreshold() {
         return PostLz5Encoder.Threshold;
     }
-
 }
-// end of PostLz5Encoder.java

@@ -1,27 +1,31 @@
-/**
+/*
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -34,40 +38,36 @@ import jp.gr.java_conf.dangan.lang.reflect.Factory;
 
 
 /**
- * データを LZSS圧縮しながら
- * 指定された PostLzssEncoder に出力する圧縮用出力ストリーム。
+ * Output stream for compression that outputs to a specified {@link PostLzssEncoder}
+ * while compressing data with LZSS.
  *
  * <pre>
  * -- revision history --
  * $Log: LzssOutputStream.java,v $
  * Revision 1.2  2002/12/06 00:00:00  dangan
  * [change]
- *     flush() で write() された全てのデータを
- *     接続された PostLzssEncoder に出力するように修正。
+ *     Modified flush() to output all write()'d data to the connected PostLzssEncoder.
  * [maintenance]
- *     slide幅が常に DictionarySize バイトになるように修正。
+ *     Fixed slide width to always be dictionarySize bytes.
  *
  * Revision 1.1  2002/10/20 00:00:00  dangan
  * [bug fix]
- *     初期状態で flush() したり 連続で flush() すると
- *     ( lastsearchret が NEEDSEARCH の時に encode() が呼ばれると )
- *     直後の 1バイトが化けていた。
- *     flush() 時に putLength() を考慮していなかったため
- *     検索機構を破壊するような searchAndPut を行っていたのを修正。
- *     flush() 時に TextBuffer 最後尾のMaxMatchバイトのデータを出力していなかった。
+ *     When flushed in the initial state or flushed consecutively
+ *     (when encode() is called while lastsearchret is NEEDSEARCH),
+ *     the immediately following 1 byte was corrupted.
+ *     Fixed performing searchAndPut that corrupted the search mechanism
+ *     because putLength() was not considered during flush().
+ *     Fixed maxMatch bytes of data at the end of TextBuffer not being output during flush().
  *
  * Revision 1.0  2002/07/25 00:00:00  dangan
  * add to version control
  * [bug fix]
- *     getMatchLen() で searchret >> 22 とすべきところが
- *     searchret >>> 22 となっていたのを修正。
+ *     Fixed getMatchLen() which used searchret >>> 22 instead of searchret >> 22.
  * [maintenance]
- *     LhaUtil.createInstance() の使用をやめ
- *     代わりに Factory.createInstance() を使用する。
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
- *
+ *     Replaced LhaUtil.createInstance() with Factory.createInstance().
+ *     source maintenance
+ *     tab removal
+ *     license comment update
  * </pre>
  *
  * @author $Author: dangan $
@@ -76,169 +76,148 @@ import jp.gr.java_conf.dangan.lang.reflect.Factory;
 public class LzssOutputStream extends OutputStream {
 
     /**
-     * lastsearchret に登録する値。
-     * searchAndPutの処理が必要である事を示す。
+     * Value to register in {@link #lastsearchret}.
+     * Indicates that processing of {@code searchAndPut} is required.
      */
     private static final int NEEDSEARCH = 0;
 
     /**
-     * searchret がこの値だった場合、
-     * 検索の結果、閾値以上の一致が見つからなかった事を示す。
+     * When {@code searchret} is this value,
+     * it indicates that as a result of the search, no match equal to or greater than the threshold was found.
      */
     public static final int NOMATCH = -1;
 
     /**
-     * LZSS圧縮コードを排出する先の出力ストリーム
+     * Output stream to which LZSS compression codes are emitted.
      */
     private PostLzssEncoder encoder;
 
     /**
-     * LZSS辞書サイズ。
+     * LZSS dictionary size.
      */
-    private int DictionarySize;
+    private final int dictionarySize;
 
     /**
-     * LZSS圧縮に使用される閾値。
-     * 一致長が この値以上であれば、圧縮コードを出力する。
+     * threshold used for LZSS compression.
+     * If the match length is greater than or equal to this value, compression code is output.
      */
-    private int Threshold;
+    private final int threshold;
 
     /**
-     * LZSS圧縮に使用される値。
-     * 最大一致長を示す。
+     * Value used for LZSS compression.
+     * Indicates maximum match length.
      */
-    private int MaxMatch;
+    private final int maxMatch;
 
     /**
-     * LZSS圧縮を施すためのバッファ。
-     * 前半は辞書領域、
-     * 後半は圧縮を施すためのデータの入ったバッファ。
+     * Buffer for applying LZSS compression.
+     * The first half is the dictionary area,
+     * and the second half is the buffer containing data to be compressed.
      */
     private byte[] TextBuffer;
 
     /**
-     * 辞書の限界位置。
-     * TextBuffer前半の辞書領域にデータが無い場合に
-     * 辞書領域にある不定のデータ(Javaでは0)を使用
-     * して圧縮が行われるのを抑止する。
+     * Dictionary limit position.
+     * When there is no data in the dictionary area in the first half of {@link #TextBuffer},
+     * this prevents compression from using undefined data (0 in Java) in the dictionary area.
      */
     private int DictionaryLimit;
 
     /**
-     * TextBuffer内書き込み完了位置
-     * LzssOutputStream.write() によって書き込まれた位置
-     *
-     * 以下の3者の関係は putPos <= searchedPos <= writtenPos となる。
+     * Write completed position in {@link #TextBuffer}.
+     * Position written by {@link #write(int)}.
+     * <p>
+     * The relationship among the three is {@code putPos <= searchedPos <= writtenPos}.
      */
     private int writtenPos;
 
     /**
-     * TextBuffer内 put() 完了位置
-     * LzssSearchMethod の put() もしくは searchAndPut() で
-     * 検索機構への登録が完了した位置
+     * {@code put()} completed position in {@link #TextBuffer}.
+     * Position where registration into the search mechanism has completed
+     * via {@link LzssSearchMethod#put(int)} or {@link LzssSearchMethod#searchAndPut(int)}.
      */
     private int putPos;
 
     /**
-     * TextBuffer内 現在検索位置
-     * 次に LzssSearchMethod の search() もしくは searchAndPut() で
-     * 検索をすべき位置
+     * Current search position in {@link #TextBuffer}.
+     * Position where the next search should be performed
+     * via {@link LzssSearchMethod#search(int, int)} or {@link LzssSearchMethod#searchAndPut(int)}.
      */
     private int searchPos;
 
     /**
-     * 前回のencodeの最後のsearchretを保存しておく
-     * コンストラクタでは lastsearchret に無効な
-     * 数字である事を示す LzssOutputStream.NEEDSEARCHを
-     * 入力しておく。
+     * Preserves the last {@code searchret} of the previous encode.
+     * In the constructor, {@link #NEEDSEARCH}, which indicates an invalid number, is set.
      */
     private int lastsearchret;
 
     /**
-     * 検索をつかさどるクラス
+     * Class that manages searching.
      */
     private LzssSearchMethod method;
 
     /**
-     * write() によって書きこまれたデータを
-     * LZSSで圧縮し、圧縮したデータを encoderに出力する
-     * 出力ストリームを構築する。
+     * Constructs an output stream that compresses data written by {@link #write(int)}
+     * with LZSS and outputs the compressed data to {@code encoder}.
      *
-     * @param encoder LZSS圧縮データ出力ストリーム
+     * @param encoder LZSS compressed data output stream
      */
     public LzssOutputStream(PostLzssEncoder encoder) {
         this(encoder, HashAndChainedListSearch.class.getName(), new Object[0]);
     }
 
     /**
-     * write() によって書きこまれたデータを
-     * LZSSで圧縮し、圧縮したデータを encoderに出力する
-     * 出力ストリームを構築する。
+     * Constructs an output stream that compresses data written by {@link #write(int)}
+     * with LZSS and outputs the compressed data to {@code encoder}.
      *
-     * @param encoder LZSS圧縮データ出力ストリーム
-     * @param LzssSearchMethodClassName
-     *            LzssSearchMethod の実装を示すパッケージ名も含めたクラス名
-     * @exception NoClassDefFoundError
-     *                LzssSearchMethodClassName で与えられたクラスが
-     *                見つからない場合。
-     * @exception InstantiationError
-     *                LzssSearchMethodClassName で与えられたクラスが
-     *                abstract class であるためインスタンスを生成できない場合。
-     * @exception NoSuchMethodError
-     *                LzssSearchMethodClassName で与えられたクラスが
-     *                コンストラクタ LzssSearchMethod( int, int, int, byte[], int )
-     *                を持たない場合
+     * @param encoder                   LZSS compressed data output stream
+     * @param LzssSearchMethodClassName class name including package name indicating the implementation of {@link LzssSearchMethod}
+     * @throws NoClassDefFoundError if the class specified by {@code LzssSearchMethodClassName} is not found.
+     * @throws InstantiationError   if an instance cannot be created because the class specified by {@code LzssSearchMethodClassName} is an abstract class.
+     * @throws NoSuchMethodError    if the class specified by {@code LzssSearchMethodClassName} does not have the constructor {@code LzssSearchMethod(int, int, int, byte[], int)}.
      */
     public LzssOutputStream(PostLzssEncoder encoder, String LzssSearchMethodClassName) {
         this(encoder, LzssSearchMethodClassName, new Object[0]);
     }
 
     /**
-     * write() によって書きこまれたデータを
-     * LZSSで圧縮し、圧縮したデータを encoderに出力する
-     * 出力ストリームを構築する。
+     * Constructs an output stream that compresses data written by {@link #write(int)}
+     * with LZSS and outputs the compressed data to {@code encoder}.
      *
-     * @param encoder LZSS圧縮データ出力ストリーム
-     * @param LzssSearchMethodClassName
-     *            LzssSearchMethod の実装を示すパッケージ名も含めたクラス名
-     * @exception NoClassDefFoundError
-     *                LzssSearchMethodClassName で与えられたクラスが
-     *                見つからない場合。
-     * @exception InstantiationError
-     *                LzssSearchMethodClassName で与えられたクラスが
-     *                abstract class であるためインスタンスを生成できない場合。
-     * @exception NoSuchMethodError
-     *                LzssSearchMethodClassName で与えられたクラスが
-     *                コンストラクタ LzssSearchMethod( int, int, int, byte[] )
-     *                を持たない場合
+     * @param encoder                   LZSS compressed data output stream
+     * @param lzssSearchMethodClassName class name including package name indicating the implementation of {@link LzssSearchMethod}
+     * @param lzssSearchMethodExtraArguments extra arguments for the {@link LzssSearchMethod} constructor
+     * @throws NoClassDefFoundError if the class specified by {@code lzssSearchMethodClassName} is not found.
+     * @throws InstantiationError   if an instance cannot be created because the class specified by {@code lzssSearchMethodClassName} is an abstract class.
+     * @throws NoSuchMethodError    if the class specified by {@code lzssSearchMethodClassName} does not have the constructor {@code LzssSearchMethod(int, int, int, byte[])}.
      */
     public LzssOutputStream(PostLzssEncoder encoder,
-            String LzssSearchMethodClassName,
-            Object[] LzssSearchMethodExtraArguments) {
+                            String lzssSearchMethodClassName,
+                            Object[] lzssSearchMethodExtraArguments) {
 
-        this.DictionarySize = encoder.getDictionarySize();
-        this.MaxMatch = encoder.getMaxMatch();
-        this.Threshold = encoder.getThreshold();
+        this.dictionarySize = encoder.getDictionarySize();
+        this.maxMatch = encoder.getMaxMatch();
+        this.threshold = encoder.getThreshold();
 
         this.encoder = encoder;
-        this.TextBuffer = new byte[this.DictionarySize * 2 + this.MaxMatch];
-        this.writtenPos = this.DictionarySize;
-        this.putPos = this.DictionarySize;
-        this.searchPos = this.DictionarySize;
-        this.DictionaryLimit = this.DictionarySize;
+        this.TextBuffer = new byte[this.dictionarySize * 2 + this.maxMatch];
+        this.writtenPos = this.dictionarySize;
+        this.putPos = this.dictionarySize;
+        this.searchPos = this.dictionarySize;
+        this.DictionaryLimit = this.dictionarySize;
         this.lastsearchret = LzssOutputStream.NEEDSEARCH;
 
-        Object[] arguments = new Object[LzssSearchMethodExtraArguments.length + 4];
-        arguments[0] = this.DictionarySize;
-        arguments[1] = this.MaxMatch;
-        arguments[2] = this.Threshold;
+        Object[] arguments = new Object[lzssSearchMethodExtraArguments.length + 4];
+        arguments[0] = this.dictionarySize;
+        arguments[1] = this.maxMatch;
+        arguments[2] = this.threshold;
         arguments[3] = this.TextBuffer;
-        for (int i = 0; i < LzssSearchMethodExtraArguments.length; i++) {
-            arguments[4 + i] = LzssSearchMethodExtraArguments[i];
+        for (int i = 0; i < lzssSearchMethodExtraArguments.length; i++) {
+            arguments[4 + i] = lzssSearchMethodExtraArguments[i];
         }
 
         try {
-            this.method = (LzssSearchMethod) Factory.createInstance(LzssSearchMethodClassName, arguments);
+            this.method = (LzssSearchMethod) Factory.createInstance(lzssSearchMethodClassName, arguments);
         } catch (ClassNotFoundException exception) {
             throw new NoClassDefFoundError(exception.getMessage());
         } catch (InvocationTargetException exception) {
@@ -251,14 +230,14 @@ public class LzssOutputStream extends OutputStream {
     }
 
     /**
-     * 圧縮機構に1バイトのデータを出力する。<br>
-     * 実際にPostLzssEncoder にデータが渡されるのは
-     * TextBuffer が満たされたときか、
-     * flush で明示的に出力を指示した時のみ。
+     * Outputs 1 byte of data to the compression mechanism.<br>
+     * Data is actually passed to {@link PostLzssEncoder} only when {@link #TextBuffer}
+     * is filled or when output is explicitly instructed by {@link #flush()}.
      *
-     * @param data 1バイトのデータ
-     * @exception IOException 入出力エラーが発生した場合
+     * @param data 1 byte of data
+     * @throws IOException if an I/O error occurs
      */
+    @Override
     public void write(int data) throws IOException {
         this.TextBuffer[this.writtenPos++] = (byte) data;
 
@@ -269,30 +248,29 @@ public class LzssOutputStream extends OutputStream {
     }
 
     /**
-     * 圧縮機構に buffer 内のデータを全て出力する。<br>
-     * 実際にPostLzssEncoder にデータが渡されるのは
-     * TextBuffer が満たされたときか、
-     * flush で明示的に出力を指示した時のみ。
+     * Outputs all data in {@code buffer} to the compression mechanism.<br>
+     * Data is actually passed to {@link PostLzssEncoder} only when {@link #TextBuffer}
+     * is filled or when output is explicitly instructed by {@link #flush()}.
      *
-     * @param buffer データの格納されたバッファ
-     * @exception IOException 入出力エラーが発生した場合
+     * @param buffer buffer storing data
+     * @throws IOException if an I/O error occurs
      */
+    @Override
     public void write(byte[] buffer) throws IOException {
         this.write(buffer, 0, buffer.length);
     }
 
     /**
-     * 圧縮機構に buffer 内の index から lengthバイトのデータを出力する。<br>
-     * 実際にPostLzssEncoder にデータが渡されるのは
-     * TextBuffer が満たされたときか、
-     * flush で明示的に出力を指示した時のみ。
+     * Outputs {@code length} bytes of data from {@code index} in {@code buffer} to the compression mechanism.<br>
+     * Data is actually passed to {@link PostLzssEncoder} only when {@link #TextBuffer}
+     * is filled or when output is explicitly instructed by {@link #flush()}.
      *
-     * @param buffer データの格納されたバッファ
-     * @param index buffer内データ開始位置
-     * @param length buffer内データの長さ
-     *
-     * @exception IOException 入出力エラーが発生した場合
+     * @param buffer buffer storing data
+     * @param index  start position of data in {@code buffer}
+     * @param length length of data in {@code buffer}
+     * @throws IOException if an I/O error occurs
      */
+    @Override
     public void write(byte[] buffer, int index, int length) throws IOException {
         int pos = index;
         int end = index + length;
@@ -314,37 +292,36 @@ public class LzssOutputStream extends OutputStream {
     }
 
     /**
-     * 圧縮機構に書き込まれた全てのデータを
-     * 接続された PostLzssEncoder に出力し、
-     * 接続された PostLzssEncoder を flush() する。<br>
-     * このとき、出力するデータの終端付近では
-     * 検索に search() を使用するため圧縮速度が低下する。
-     * また flush() しない場合と比べて圧縮率が変化する。
-     * これは flush() した位置付近ではデータパタンの検索に
-     * MaxMatch に満たないデータパタンを使用するため、
-     * 検索結果が不完全になるため。
-     * この圧縮率の変化は、多くの場合圧縮率が少々低下するだけであるが、
-     * 例えば次のようなコードは LZ 圧縮を全く行わない。
+     * Outputs all data written to the compression mechanism to the connected
+     * {@link PostLzssEncoder} and flushes the connected {@link PostLzssEncoder}.<br>
+     * At this time, near the end of the output data, search uses {@link LzssSearchMethod#search(int, int)},
+     * which decreases compression speed.
+     * Also, the compression ratio changes compared to when not calling {@link #flush()}.
+     * This is because near the flushed position, data patterns shorter than {@link #maxMatch}
+     * are used for pattern searching, resulting in incomplete search results.
+     * While this change in compression ratio usually only causes a slight degradation,
+     * code such as the following will not perform any LZ compression at all:
      *
      * <pre>
-     *  public void wrongCompress( InputStream in, LzssOutputSteam out ){
+     *  public void wrongCompress(InputStream in, LzssOutputSteam out) {
      *      int r;
-     *      while( 0 <= r = in.read() ){
-     *          out.write( r );
+     *      while (0 <= r = in.read()) {
+     *          out.write(r);
      *          out.flush();
      *      }
      *  }
      * </pre>
+     * <p>
+     * In addition, since this method calls {@link PostLzssEncoder#flush()},
+     * the output data may differ compared to when not calling {@link #flush()}.
      *
-     * また、このメソッドは PostLzssEncoder.flush() を呼び出すため
-     * flush() しない場合と比べて、出力データが変化する可能性がある。
-     *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      * @see PostLzssEncoder#flush()
      */
+    @Override
     public void flush() throws IOException {
         this.encode(false);
-        if (this.DictionarySize * 2 <= this.putPos) {
+        if (this.dictionarySize * 2 <= this.putPos) {
             this.slide();
             if (this.searchPos < this.writtenPos) {
                 this.encode(false);
@@ -354,15 +331,15 @@ public class LzssOutputStream extends OutputStream {
     }
 
     /**
-     * このクラスに貯えられた全てのデータを接続された
-     * PostLzssEncoder に出力し この出力ストリームと、
-     * 接続されたストリームを閉じ、
-     * 使用していたリソースを開放する。
+     * Outputs all data accumulated in this class to the connected
+     * {@link PostLzssEncoder}, closes this output stream and the connected stream,
+     * and releases the resources used.
      *
-     * @exception IOException 入出力エラーが発生した場合
+     * @throws IOException if an I/O error occurs
      */
+    @Override
     public void close() throws IOException {
-        while (this.DictionarySize <= this.writtenPos) {
+        while (this.dictionarySize <= this.writtenPos) {
             this.encode(true);
             if (this.writtenPos <= this.searchPos) {
                 break;
@@ -379,32 +356,30 @@ public class LzssOutputStream extends OutputStream {
     }
 
     /**
-     * TextBuffer に貯えられたデータを圧縮しながら
-     * private変数 this.encoder に出力する。
+     * Compresses data accumulated in {@link #TextBuffer} and outputs to private field {@code this.encoder}.
      *
-     * @param last TextBuffer 内の出力完了したデータの終端位置 + 1
-     * @exception IOException 入出力エラーが発生した場合
+     * @param last terminal position of data in {@link #TextBuffer} whose output is complete + 1
+     * @throws IOException if an I/O error occurs
      */
     private void encode(boolean last) throws IOException {
 
-        int end = Math.min(this.TextBuffer.length - this.MaxMatch, this.writtenPos - (last ? 0 : this.method.putRequires()));
+        int end = Math.min(this.TextBuffer.length - this.maxMatch, this.writtenPos - (last ? 0 : this.method.putRequires()));
         if (this.searchPos < end) {
 
-            // 前処理
+            // Pre-processing
             if (this.lastsearchret == LzssOutputStream.NEEDSEARCH) {
 
-                // 検索機構に未登録のデータパタンを登録
+                // Register unregistered data patterns into the search mechanism
                 while (this.putPos < this.searchPos - 1) {
                     this.method.put(++this.putPos);
 
-                    // 直前の flush() で put() できなかった
-                    // データパタンを put() しただけの場合は return
-                    if (this.DictionarySize * 2 <= this.putPos) {
+                    // If we only put() data patterns that couldn't be put() in the immediately preceding flush(), return
+                    if (this.dictionarySize * 2 <= this.putPos) {
                         return;
                     }
                 }
 
-                // lastsearchret が NEEDSEARCH なので searchAndPut で検索する。
+                // Since lastsearchret is NEEDSEARCH, search using searchAndPut.
                 this.lastsearchret = this.method.searchAndPut(this.searchPos);
             }
 
@@ -415,7 +390,7 @@ public class LzssOutputStream extends OutputStream {
                 matchlen = this.writtenPos - this.searchPos;
             }
 
-            // メインループ
+            // Main loop
             while (true) {
                 int lastmatchlen = matchlen;
                 int lastmatchoff = this.searchPos - matchpos - 1;
@@ -427,7 +402,7 @@ public class LzssOutputStream extends OutputStream {
                     matchlen = this.writtenPos - this.searchPos;
                 }
 
-                if (lastmatchlen < matchlen || lastmatchlen < this.Threshold) {
+                if (lastmatchlen < matchlen || lastmatchlen < this.threshold) {
                     this.encoder.writeCode(0xFF & this.TextBuffer[this.searchPos - 1]);
                     if (end <= this.searchPos) {
                         this.putPos = this.searchPos;
@@ -435,7 +410,7 @@ public class LzssOutputStream extends OutputStream {
                         break;
                     }
                 } else {
-                    this.encoder.writeCode(256 + lastmatchlen - this.Threshold);
+                    this.encoder.writeCode(256 + lastmatchlen - this.threshold);
                     this.encoder.writeOffset(lastmatchoff);
 
                     lastmatchlen--;
@@ -472,9 +447,9 @@ public class LzssOutputStream extends OutputStream {
             }
         }
 
-        // flush() 専用
-        // putPos はそのままで searchPos のみ進める。
-        end = Math.min(this.TextBuffer.length - this.MaxMatch, this.writtenPos);
+        // Exclusively for flush()
+        // Advance only searchPos while keeping putPos as is.
+        end = Math.min(this.TextBuffer.length - this.maxMatch, this.writtenPos);
         if (!last && this.searchPos < end) {
             if (this.lastsearchret == LzssOutputStream.NEEDSEARCH) {
                 this.lastsearchret = this.method.search(this.searchPos, this.putPos);
@@ -497,10 +472,10 @@ public class LzssOutputStream extends OutputStream {
                     matchlen = this.writtenPos - this.searchPos;
                 }
 
-                if (lastmatchlen < matchlen || lastmatchlen < this.Threshold) {
+                if (lastmatchlen < matchlen || lastmatchlen < this.threshold) {
                     this.encoder.writeCode(0xFF & this.TextBuffer[this.searchPos - 1]);
                 } else {
-                    this.encoder.writeCode(256 + lastmatchlen - this.Threshold);
+                    this.encoder.writeCode(256 + lastmatchlen - this.threshold);
                     this.encoder.writeOffset(lastmatchoff);
 
                     this.searchPos += lastmatchlen - 1;
@@ -517,65 +492,62 @@ public class LzssOutputStream extends OutputStream {
     }
 
     /**
-     * TextBuffer内のpositionまでのデータを
-     * 前方へ移動する
+     * Shifts data in {@link #TextBuffer} up to position forward.
      */
     private void slide() {
-        this.DictionaryLimit = Math.max(0, this.DictionaryLimit - this.DictionarySize);
+        this.DictionaryLimit = Math.max(0, this.DictionaryLimit - this.dictionarySize);
 
         this.method.slide();
 
         if (this.lastsearchret != LzssOutputStream.NEEDSEARCH) {
             int matchlen = LzssOutputStream.getMatchLen(this.lastsearchret);
             int matchpos = LzssOutputStream.getMatchPos(this.lastsearchret);
-            this.lastsearchret = LzssOutputStream.createSearchReturn(matchlen, matchpos - this.DictionarySize);
+            this.lastsearchret = LzssOutputStream.createSearchReturn(matchlen, matchpos - this.dictionarySize);
         }
 
-        this.writtenPos -= this.DictionarySize;
-        this.searchPos -= this.DictionarySize;
-        this.putPos -= this.DictionarySize;
+        this.writtenPos -= this.dictionarySize;
+        this.searchPos -= this.dictionarySize;
+        this.putPos -= this.dictionarySize;
         for (int i = this.DictionaryLimit; i < this.writtenPos; i++)
-            this.TextBuffer[i] = this.TextBuffer[i + this.DictionarySize];
+            this.TextBuffer[i] = this.TextBuffer[i + this.dictionarySize];
     }
 
     /**
-     * search の戻り値を生成する。
-     * search は一致位置を返すが、一致長も同時に返したほうが
-     * 非常に便利であるため、一致位置も一致長も必要なビット数が
-     * 少ないことを利用して int型でやり取りする。
-     * そのための統一した処理を約束する関数。
-     * この関数で生成された値から 一致位置や一致長を取り出す際には
-     * getMatchLen、 getMatchPos を使用する。
+     * Generates the return value of search.
+     * Although search returns the match position, it is very convenient to return
+     * the match length at the same time. Since both match position and match length
+     * require few bits, they are exchanged using type {@code int}.
+     * This function guarantees unified processing for that purpose.
+     * When extracting the match position or match length from the value generated by this function,
+     * use {@link #getMatchLen(int)} and {@link #getMatchPos(int)}.
      *
-     * @param matchlen 一致長
-     * @param matchpos 一致位置
-     * @return 一致長と一致位置の情報を含むsearchの戻り値
+     * @param matchlen match length
+     * @param matchpos match position
+     * @return return value of search containing match length and match position information
      */
     public static int createSearchReturn(int matchlen, int matchpos) {
         return matchlen << 22 | matchpos;
     }
 
     /**
-     * createSearchReturn で生成された searchの戻り値から
-     * 一致長を取り出す。
+     * Extracts the match length from the search return value generated by {@link #createSearchReturn(int, int)}.
      *
-     * @param searchret search の戻り値
-     * @return 一致長
+     * @param searchret return value of search
+     * @return match length
      */
     public static int getMatchLen(int searchret) {
         return searchret >> 22;
     }
 
     /**
-     * createSearchReturn で生成された searchの戻り値から
-     * 一致位置を取り出す。
+     * Extracts the match position from the search return value generated by {@link #createSearchReturn(int, int)}.
      *
-     * @param searchret search の戻り値
-     * @return 一致位置
+     * @param searchret return value of search
+     * @return match position
      */
     public static int getMatchPos(int searchret) {
         if (0 <= searchret)
-            return searchret & 0x3FFFFF;
+            return searchret & 0x3f_ffff;
         else
             return -1;
     }

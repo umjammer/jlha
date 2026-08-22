@@ -1,40 +1,44 @@
-/**
+/*
  * Copyright (C) 2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.util.lha;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 
 import jp.gr.java_conf.dangan.lang.reflect.Factory;
 
 
 /**
- * ハッシュと単方向連結リストを使って高速化された LzssSearchMethod。<br>
- * 検索を打ち切ることによる高速化も行っているため、
- * 必ず最長一致を見つけることが出来るとは限らない。<br>
+ * Speed-optimized implementation of {@link LzssSearchMethod} using hash and singly linked list.<br>
+ * Since it also speeds up search by aborting, it is not guaranteed to always find the longest match.<br>
  *
  * <pre>
  * -- revision history --
@@ -42,14 +46,13 @@ import jp.gr.java_conf.dangan.lang.reflect.Factory;
  * Revision 1.0  2002/08/05 00:00:00  dangan
  * add to version control
  * [change]
- *     LzssSearchMethod のインタフェイス変更にあわせてインタフェイス変更
+ *     Interface change to match {@link LzssSearchMethod} interface change
  * [improvement]
- *     ar940528 の TEST5相当 の実装に変更。
+ *     Changed implementation to match TEST5 of ar940528.
  * [maintenance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
- *
+ *     source maintenance
+ *     tab removal
+ *     license comment update
  * </pre>
  *
  * @author $Author: dangan $
@@ -58,171 +61,152 @@ import jp.gr.java_conf.dangan.lang.reflect.Factory;
 public class HashAndChainedListSearch implements LzssSearchMethod {
 
     /**
-     * LZSS辞書サイズ。
+     * LZSS dictionary size.
      */
-    private int DictionarySize;
+    private final int dictionarySize;
 
     /**
-     * LZSS圧縮に使用される値。
-     * 最大一致長を示す。
+     * Value used for LZSS compression.
+     * Indicates maximum match length.
      */
-    private int MaxMatch;
+    private final int maxMatch;
 
     /**
-     * LZSS圧縮に使用される閾値。
-     * 一致長が この値以上であれば、圧縮コードを出力する。
+     * Threshold used for LZSS compression.
+     * If the match length is greater than or equal to this value, compression code is output.
      */
-    private int Threshold;
+    private final int threshold;
 
     /**
-     * LZSS圧縮を施すためのバッファ。
-     * 前半は辞書領域、
-     * 後半は圧縮を施すためのデータの入ったバッファ。
-     * LzssSearchMethodの実装内では読み込みのみ許される。
+     * Buffer for applying LZSS compression.
+     * The first half is the dictionary area,
+     * and the second half is the buffer containing data to be compressed.
+     * Only read access is permitted within implementations of {@link LzssSearchMethod}.
      */
-    private byte[] TextBuffer;
+    private final byte[] textBuffer;
 
     /**
-     * 辞書の限界位置。
-     * TextBuffer前半の辞書領域にデータが無い場合に
-     * 辞書領域にある不定のデータ(Javaでは0)を使用
-     * して圧縮が行われるのを抑止する。
+     * Dictionary limit position.
+     * When there is no data in the dictionary area in the first half of {@link #textBuffer},
+     * this prevents compression from using undefined data (0 in Java) in the dictionary area.
      */
-    private int DictionaryLimit;
+    private int dictionaryLimit;
 
     /**
-     * ハッシュ関数
+     * Hash method.
      */
-    private HashMethod hashMethod;
+    private final HashMethod hashMethod;
 
     /**
-     * ハッシュテーブル
-     * 添字はハッシュ値、内容はTextBuffer内の位置
+     * Hash table.
+     * Index is hash value, content is position in {@link #textBuffer}.
      */
-    private int[] hashTable;
+    private final int[] hashTable;
 
     /**
-     * 同じハッシュ値を持つデータパタンの連結リストの長さが
-     * 一定以上になった場合にセットするフラグ。
+     * Flag set when the length of the linked list of data patterns
+     * having the same hash value exceeds a certain threshold.
+     * <p>
+     * Since {@code boolean[]} is somehow slower, 16 flags are handled together as {@code char[]}.
+     * When handling, use the utility methods
+     * {@link #isTooBig(int)}, {@link #setTooBigFlag(int)}, and {@link #clearTooBigFlag(int)}.
+     */
+    private final char[] tooBigFlag;
+
+    /**
+     * Singly linked list holding start positions of data patterns
+     * having the same hash value.
+     */
+    private final int[] prev;
+
+    /**
+     * Upper limit on the number of search attempts.
+     * No more searches than this number will be performed.
+     */
+    private final int searchLimitCount;
+
+    /**
+     * Constructs a {@link LzssSearchMethod} using hash and linked list.<br>
+     * Default hash method and search attempt limit are used.
      *
-     * boolean[] にすると何故か遅くなるので
-     * char[] として 16個纏めて扱う。
-     * 扱う場合は ユーティリティメソッド
-     * isTooBig(), setTooBigFlag(), clearTooBigFlag() を介して扱う。
+     * @param dictionarySize dictionary size
+     * @param maxMatch maximum match length
+     * @param threshold threshold between compression and non-compression
+     * @param textBuffer buffer for applying LZSS compression
      */
-    private char[] tooBigFlag;
-
-    /**
-     * 同じハッシュ値を持つデータパタン開始位置を持つ
-     * 単方向連結リスト。
-     */
-    private int[] prev;
-
-    /**
-     * 探索試行回数の上限値を持つ。
-     * この回数以上の探索は行わない。
-     */
-    private int SearchLimitCount;
-
-    /**
-     * ハッシュと連結リストを使用した LzssSearchMethod を構築する。<br>
-     * ハッシュ関数と探索試行回数の上限値にはデフォルトのものが使用される。
-     *
-     * @param DictionarySize 辞書サイズ
-     * @param MaxMatch 最長一致長
-     * @param Threshold 圧縮、非圧縮の閾値
-     * @param TextBuffer LZSS圧縮を施すためのバッファ
-     */
-    public HashAndChainedListSearch(int DictionarySize, int MaxMatch, int Threshold, byte[] TextBuffer) {
-        this(DictionarySize, MaxMatch, Threshold, TextBuffer, HashDefault.class.getName(), 256);
+    public HashAndChainedListSearch(int dictionarySize, int maxMatch, int threshold, byte[] textBuffer) {
+        this(dictionarySize, maxMatch, threshold, textBuffer, HashDefault.class.getName(), 256);
     }
 
     /**
-     * ハッシュと連結リストを使用した LzssSearchMethod を構築する。<br>
-     * ハッシュ関数にはデフォルトのものが使用される。
+     * Constructs a {@link LzssSearchMethod} using hash and linked list.<br>
+     * Default hash method is used.
      *
-     * @param DictionarySize 辞書サイズ
-     * @param MaxMatch 最長一致長
-     * @param Threshold 圧縮、非圧縮の閾値
-     * @param TextBuffer LZSS圧縮を施すためのバッファ
-     * @param SearchLimitCount 探索試行回数の上限
+     * @param dictionarySize dictionary size
+     * @param maxMatch maximum match length
+     * @param threshold threshold between compression and non-compression
+     * @param textBuffer buffer for applying LZSS compression
+     * @param searchLimitCount upper limit on search attempts
      *
-     * @exception IllegalArgumentException
-     *                SearchLimitCount が0以下の場合
+     * @exception IllegalArgumentException if {@code searchLimitCount} is 0 or less
      */
-    public HashAndChainedListSearch(int DictionarySize, int MaxMatch, int Threshold, byte[] TextBuffer, int SearchLimitCount) {
-        this(DictionarySize, MaxMatch, Threshold, TextBuffer, HashDefault.class.getName(), SearchLimitCount);
+    public HashAndChainedListSearch(int dictionarySize, int maxMatch, int threshold, byte[] textBuffer, int searchLimitCount) {
+        this(dictionarySize, maxMatch, threshold, textBuffer, HashDefault.class.getName(), searchLimitCount);
     }
 
     /**
-     * ハッシュと連結リストを使用した LzssSearchMethod を構築する。<br>
-     * 探索試行回数の上限値にはデフォルトのものが使用される。
+     * Constructs a {@link LzssSearchMethod} using hash and linked list.<br>
+     * Default search attempt limit is used.
      *
-     * @param DictionarySize 辞書サイズ
-     * @param MaxMatch 最長一致長
-     * @param Threshold 圧縮、非圧縮の閾値
-     * @param TextBuffer LZSS圧縮を施すためのバッファ
-     * @param HashMethodClassName Hash関数を提供するクラス名
-     * @exception NoClassDefFoundError
-     *                HashMethodClassName で与えられたクラスが
-     *                見つからない場合。
-     * @exception InstantiationError
-     *                HashMethodClassName で与えられたクラスが
-     *                abstract class であるためインスタンスを生成できない場合。
-     * @exception NoSuchMethodError
-     *                HashMethodClassName で与えられたクラスが
-     *                コンストラクタ HashMethod( byte[] )を持たない場合
+     * @param dictionarySize dictionary size
+     * @param maxMatch maximum match length
+     * @param threshold threshold between compression and non-compression
+     * @param textBuffer buffer for applying LZSS compression
+     * @param hashMethodClassName class name providing the {@link HashMethod}
+     * @exception NoClassDefFoundError if the class specified by {@code hashMethodClassName} is not found.
+     * @exception InstantiationError if an instance cannot be created because the class specified by {@code hashMethodClassName} is an abstract class.
+     * @exception NoSuchMethodError if the class specified by {@code hashMethodClassName} does not have the constructor {@code HashMethod(byte[])}.
      */
-    public HashAndChainedListSearch(int DictionarySize,
-            int MaxMatch,
-            int Threshold,
-            byte[] TextBuffer,
-            String HashMethodClassName) {
-        this(DictionarySize, MaxMatch, Threshold, TextBuffer, HashMethodClassName, 256);
+    public HashAndChainedListSearch(int dictionarySize,
+            int maxMatch,
+            int threshold,
+            byte[] textBuffer,
+            String hashMethodClassName) {
+        this(dictionarySize, maxMatch, threshold, textBuffer, hashMethodClassName, 256);
     }
 
     /**
-     * ハッシュと連結リストを使用した LzssSearchMethod を構築する。
+     * Constructs a {@link LzssSearchMethod} using hash and linked list.
      *
-     * @param DictionarySize 辞書サイズ
-     * @param MaxMatch 最長一致長
-     * @param Threshold 圧縮、非圧縮の閾値
-     * @param TextBuffer LZSS圧縮を施すためのバッファ
-     * @param HashMethodClassName Hash関数を提供するクラス名
-     * @param SearchLimitCount 探索試行回数の上限
-     * @exception IllegalArgumentException
-     *                SearchLimitCount が0以下の場合
-     * @exception NoClassDefFoundError
-     *                HashMethodClassName で与えられたクラスが
-     *                見つからない場合。
-     * @exception InstantiationError
-     *                HashMethodClassName で与えられたクラスが
-     *                abstract class であるためインスタンスを生成できない場合。
-     * @exception NoSuchMethodError
-     *                HashMethodClassName で与えられたクラスが
-     *                コンストラクタ HashMethod( byte[] )を持たない場合
+     * @param dictionarySize dictionary size
+     * @param maxMatch maximum match length
+     * @param threshold threshold between compression and non-compression
+     * @param textBuffer buffer for applying LZSS compression
+     * @param hashMethodClassName class name providing the {@link HashMethod}
+     * @param searchLimitCount upper limit on search attempts
+     * @exception IllegalArgumentException if {@code searchLimitCount} is 0 or less
+     * @exception NoClassDefFoundError if the class specified by {@code hashMethodClassName} is not found.
+     * @exception InstantiationError if an instance cannot be created because the class specified by {@code hashMethodClassName} is an abstract class.
+     * @exception NoSuchMethodError if the class specified by {@code hashMethodClassName} does not have the constructor {@code HashMethod(byte[])}.
      */
-    public HashAndChainedListSearch(int DictionarySize,
-            int MaxMatch,
-            int Threshold,
-            byte[] TextBuffer,
-            String HashMethodClassName,
-            int SearchLimitCount) {
+    public HashAndChainedListSearch(int dictionarySize,
+            int maxMatch,
+            int threshold,
+            byte[] textBuffer,
+            String hashMethodClassName,
+            int searchLimitCount) {
 
-        if (0 < SearchLimitCount) {
+        if (0 < searchLimitCount) {
 
-            this.DictionarySize = DictionarySize;
-            this.MaxMatch = MaxMatch;
-            this.Threshold = Threshold;
-            this.TextBuffer = TextBuffer;
-            this.DictionaryLimit = this.DictionarySize;
-            this.SearchLimitCount = SearchLimitCount;
+            this.dictionarySize = dictionarySize;
+            this.maxMatch = maxMatch;
+            this.threshold = threshold;
+            this.textBuffer = textBuffer;
+            this.dictionaryLimit = this.dictionarySize;
+            this.searchLimitCount = searchLimitCount;
 
             try {
-                this.hashMethod = (HashMethod) Factory.createInstance(HashMethodClassName,
-                                                                      new Object[] {
-                                                                          TextBuffer
-                                                                      });
+                this.hashMethod = (HashMethod) Factory.createInstance(hashMethodClassName, (Object) textBuffer);
             } catch (ClassNotFoundException exception) {
                 throw new NoClassDefFoundError(exception.getMessage());
             } catch (InvocationTargetException exception) {
@@ -233,81 +217,77 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
                 throw new InstantiationError(exception.getMessage());
             }
 
-            // ハッシュテーブル初期化
+            // Initialize hash table
             this.hashTable = new int[this.hashMethod.tableSize()];
-            for (int i = 0; i < this.hashTable.length; i++) {
-                this.hashTable[i] = -1;
-            }
+            Arrays.fill(this.hashTable, -1);
 
-            // 連結リスト初期化
-            this.prev = new int[this.DictionarySize];
-            for (int i = 0; i < this.prev.length; i++) {
-                this.prev[i] = -1;
-            }
+            // Initialize linked list
+            this.prev = new int[this.dictionarySize];
+            Arrays.fill(this.prev, -1);
 
             this.tooBigFlag = new char[this.hashMethod.tableSize() >> 4];
 
         } else {
-            throw new IllegalArgumentException("SearchLimitCount must be 1 or more.");
+            throw new IllegalArgumentException("searchLimitCount must be 1 or more.");
         }
     }
 
     /**
-     * position から始まるデータパタンを
-     * ハッシュと連結リストから成る検索機構に登録する。
+     * Registers the data pattern starting from {@code position}
+     * into the search mechanism consisting of hash and linked list.
      *
-     * @param position TextBuffer内のデータパタンの開始位置
+     * @param position start position of the data pattern in {@link #textBuffer}
      */
+    @Override
     public void put(int position) {
         int hash = this.hashMethod.hash(position);
-        this.prev[position & (this.DictionarySize - 1)] = this.hashTable[hash];
+        this.prev[position & (this.dictionarySize - 1)] = this.hashTable[hash];
         this.hashTable[hash] = position;
     }
 
     /**
-     * ハッシュと連結リストから成る検索機構に登録された
-     * データパタンから position から始まるデータパタンと
-     * 最長の一致を持つものを検索し、
-     * 同時に position から始まるデータパタンを
-     * ハッシュと連結リストから成る検索機構に登録する。
+     * Searches for the data pattern with the longest match to the data pattern
+     * starting from {@code position} among the data patterns registered in the
+     * search mechanism consisting of hash and linked list, and simultaneously registers
+     * the data pattern starting from {@code position} into the search mechanism
+     * consisting of hash and linked list.
      *
-     * @param position TextBuffer内のデータパタンの開始位置。
+     * @param position start position of the data pattern in {@link #textBuffer}.
      *
-     * @return 一致が見つかった場合は
-     *         LzssOutputStream.createSearchReturn
-     *         によって生成された一致位置と一致長の情報を持つ値、
-     *         一致が見つからなかった場合は
-     *         LzssOutputStream.NOMATCH。
+     * @return If a match is found, a value holding information of the match position and match length
+     *         generated by {@link LzssOutputStream#createSearchReturn};
+     *         if no match is found, {@link LzssOutputStream#NOMATCH}.
      * @see LzssOutputStream#createSearchReturn(int,int)
      * @see LzssOutputStream#NOMATCH
      */
+    @Override
     public int searchAndPut(int position) {
 
-        int matchlen = this.Threshold - 1;
+        int matchlen = this.threshold - 1;
         int matchpos = position;
         int maxmatch;
-        int scanlimit = Math.max(this.DictionaryLimit, position - this.DictionarySize);
+        int scanlimit = Math.max(this.dictionaryLimit, position - this.dictionarySize);
 
-        // 連結リストの長さが長すぎる場合 offset を使用して
-        // 連結リストの短いハッシュ値を使う。
+        // If the length of the linked list is too long, use offset
+        // to use a hash value with a shorter linked list.
         int poshash = this.hashMethod.hash(position);
         int offhash = poshash;
         int offset = 0;
-        while (this.isTooBig(offhash) && offset < this.MaxMatch - this.hashMethod.hashRequires()) {
+        while (this.isTooBig(offhash) && offset < this.maxMatch - this.hashMethod.hashRequires()) {
             offset++;
             offhash = this.hashMethod.hash(position + offset);
         }
 
-        // メインループ
-        // 最大 offhash と poshash から始まる 2つの連結リストを走査する。
-        byte[] buf = this.TextBuffer;
-        int max = position + this.MaxMatch;
+        // Main loop
+        // Traverse at most 2 linked lists starting from offhash and poshash.
+        byte[] buf = this.textBuffer;
+        int max = position + this.maxMatch;
         int s;
         int p;
         int len;
         while (true) {
             int scanpos = this.hashTable[offhash];
-            int searchCount = this.SearchLimitCount;
+            int searchCount = this.searchLimitCount;
 
             while (scanlimit <= scanpos - offset && 0 < --searchCount) {
                 if (buf[scanpos + matchlen - offset] == buf[position + matchlen]) {
@@ -328,7 +308,7 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
                             break;
                     }
                 }
-                scanpos = this.prev[scanpos & (this.DictionarySize - 1)];
+                scanpos = this.prev[scanpos & (this.dictionarySize - 1)];
             }
 
             if (searchCount <= 0) {
@@ -347,13 +327,13 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
             }
         }
 
-        // ハッシュと連結リストを使用した検索機構に
-        // position から始まるデータパタンを登録する。
-        this.prev[position & (this.DictionarySize - 1)] = this.hashTable[poshash];
+        // Register the data pattern starting from position
+        // into the search mechanism using hash and linked list.
+        this.prev[position & (this.dictionarySize - 1)] = this.hashTable[poshash];
         this.hashTable[poshash] = position;
 
-        // 最長一致を呼び出し元に返す。
-        if (this.Threshold <= matchlen) {
+        // Return the longest match to caller.
+        if (this.threshold <= matchlen) {
             return LzssOutputStream.createSearchReturn(matchlen, matchpos);
         } else {
             return LzssOutputStream.NOMATCH;
@@ -361,32 +341,30 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
     }
 
     /**
-     * ハッシュと連結リストを使用した検索機構に登録された
-     * データパタンを検索し position から始まるデータパタンと
-     * 最長の一致を持つものを得る。
+     * Searches registered data patterns in the search mechanism using hash and linked list
+     * and gets the one with the longest match to the data pattern starting from {@code position}.
      *
-     * @param position TextBuffer内のデータパタンの開始位置。
-     * @param lastPutPos 最後に登録したデータパタンの開始位置。
+     * @param position start position of the data pattern in {@link #textBuffer}.
+     * @param lastPutPos start position of the last registered data pattern.
      *
-     * @return 一致が見つかった場合は
-     *         LzssOutputStream.createSearchReturn
-     *         によって生成された一致位置と一致長の情報を持つ値、
-     *         一致が見つからなかった場合は
-     *         LzssOutputStream.NOMATCH。
+     * @return If a match is found, a value holding information of the match position and match length
+     *         generated by {@link LzssOutputStream#createSearchReturn};
+     *         if no match is found, {@link LzssOutputStream#NOMATCH}.
      * @see LzssOutputStream#createSearchReturn(int,int)
      * @see LzssOutputStream#NOMATCH
      */
+    @Override
     public int search(int position, int lastPutPos) {
 
-        // ハッシュと連結リストによる検索機構に登録されていない
-        // データパタンを単純な逐次検索で検索する。
-        int matchlen = this.Threshold - 1;
+        // Search data patterns not registered in the search mechanism
+        // using hash and linked list by simple sequential search.
+        int matchlen = this.threshold - 1;
         int matchpos = position;
         int scanpos = position - 1;
-        int scanlimit = Math.max(this.DictionaryLimit, lastPutPos);
+        int scanlimit = Math.max(this.dictionaryLimit, lastPutPos);
 
-        byte[] buf = this.TextBuffer;
-        int max = Math.min(this.TextBuffer.length, position + this.MaxMatch);
+        byte[] buf = this.textBuffer;
+        int max = Math.min(this.textBuffer.length, position + this.maxMatch);
         int s;
         int p;
         int len = 0;
@@ -407,25 +385,25 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
             scanpos--;
         }
 
-        // ハッシュと連結リストを使用した検索機構 から検索する。
-        if (this.hashMethod.hashRequires() < this.TextBuffer.length - position) {
+        // Search from the search mechanism using hash and linked list.
+        if (this.hashMethod.hashRequires() < this.textBuffer.length - position) {
             int maxmatch;
-            scanlimit = Math.max(this.DictionaryLimit, position - this.DictionarySize);
+            scanlimit = Math.max(this.dictionaryLimit, position - this.dictionarySize);
 
-            // 連結リストの長さが長すぎる場合 offset を使用して
-            // 連結リストの短いハッシュ値を使う。
+            // If the length of the linked list is too long, use offset
+            // to use a hash value with a shorter linked list.
             int poshash = this.hashMethod.hash(position);
             int offhash = poshash;
             int offset = 0;
-            while (this.isTooBig(offhash) && offset < this.MaxMatch - this.hashMethod.hashRequires()) {
+            while (this.isTooBig(offhash) && offset < this.maxMatch - this.hashMethod.hashRequires()) {
                 offset++;
                 offhash = this.hashMethod.hash(position + offset);
             }
 
-            // メインループ
-            // 最大 offhash と poshash から始まる 2つの連結リストを走査する。
+            // Main loop
+            // Traverse at most 2 linked lists starting from offhash and poshash.
             while (true) {
-                int searchCount = this.SearchLimitCount;
+                int searchCount = this.searchLimitCount;
                 scanpos = this.hashTable[offhash];
 
                 while (scanlimit <= scanpos - offset && 0 < --searchCount) {
@@ -447,7 +425,7 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
                                 break;
                         }
                     }
-                    scanpos = this.prev[scanpos & (this.DictionarySize - 1)];
+                    scanpos = this.prev[scanpos & (this.dictionarySize - 1)];
                 }
 
                 if (searchCount <= 0) {
@@ -459,7 +437,7 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
                 if (0 < offset && matchlen < this.hashMethod.hashRequires() + offset) {
                     offset = 0;
                     maxmatch = this.hashMethod.hashRequires() + offset - 1;
-                    max = Math.min(this.TextBuffer.length, position + maxmatch);
+                    max = Math.min(this.textBuffer.length, position + maxmatch);
                     offhash = poshash;
                 } else {
                     break;
@@ -467,8 +445,8 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
             }
         }
 
-        // 最長一致を呼び出し元に返す。
-        if (this.Threshold <= matchlen) {
+        // Return the longest match to caller.
+        if (this.threshold <= matchlen) {
             return LzssOutputStream.createSearchReturn(matchlen, matchpos);
         } else {
             return LzssOutputStream.NOMATCH;
@@ -476,80 +454,74 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
     }
 
     /**
-     * TextBuffer内のpositionまでのデータを
-     * 前方へ移動する際、それに応じて SearchMethod内の
-     * データも TextBuffer内のデータと矛盾しないように
-     * 前方へ移動する処理を行う。
+     * When sliding data in {@link #textBuffer} up to {@code position} forward,
+     * performs the process of shifting data in {@link LzssSearchMethod} forward
+     * accordingly so as not to contradict data in {@link #textBuffer}.
      */
+    @Override
     public void slide() {
-        this.DictionaryLimit = Math.max(0, this.DictionaryLimit - this.DictionarySize);
+        this.dictionaryLimit = Math.max(0, this.dictionaryLimit - this.dictionarySize);
 
         for (int i = 0; i < this.hashTable.length; i++) {
-            int pos = this.hashTable[i] - this.DictionarySize;
+            int pos = this.hashTable[i] - this.dictionarySize;
             this.hashTable[i] = (0 <= pos ? pos : -1);
         }
 
         for (int i = 0; i < this.prev.length; i++) {
-            int pos = this.prev[i] - this.DictionarySize;
+            int pos = this.prev[i] - this.dictionarySize;
             this.prev[i] = (0 <= pos ? pos : -1);
         }
     }
 
     /**
-     * put() で LzssSearchMethodにデータを
-     * 登録するときに使用されるデータ量を得る。
-     * HashAndChainedListSearch では、
-     * 内部で使用している HashMethod の実装が
-     * hash() のために必要とするデータ量
-     * ( HashMethod.hashRequires() の戻り値 ) を返す。
+     * Gets the amount of data used when registering data into {@link LzssSearchMethod} with {@link #put(int)}.
+     * In {@link HashAndChainedListSearch}, returns the amount of data required for {@code hash()}
+     * by the internally used {@link HashMethod} implementation
+     * (return value of {@link HashMethod#hashRequires()}).
      *
-     * @return 内部で使用している HashMethod の実装が
-     *         hash() のために必要とするデータ量
+     * @return amount of data required for {@code hash()} by the internally used {@link HashMethod} implementation
      */
+    @Override
     public int putRequires() {
         return this.hashMethod.hashRequires();
     }
 
     /**
-     * より良い LZSS 圧縮のための選択肢を提供する searchAndPut()。
-     * 例えば一致長 3, 一致位置 4 と 一致長 4, 一致位置 1024 では
-     * 一致長 3, 一致位置 4 + 非圧縮1文字 の方が出力ビット数が
-     * 少なくなる事がある。そのような場合に対処するため一致長毎に
-     * positionに一番近い一致位置を列挙する。
+     * {@link #searchAndPut(int)} providing options for better LZSS compression.
+     * For example, between match length 3, match position 4 and match length 4, match position 1024,
+     * match length 3, match position 4 + 1 uncompressed character may result in fewer output bits.
+     * To handle such cases, lists the match position closest to {@code position} for each match length.
      *
-     * @param position 検索対象のデータパタンの開始位置
-     * @param matchposs 一致位置の列挙を格納して返すための配列<br>
-     *            matchpos[0] には 一致長が Threshold の一致位置が、<br>
-     *            matchpos[1] には 一致長が Threshold + 1 の一致位置が格納される。<br>
-     *            一致が見つからなかった場合には LzssOutputStream.NOMATCH が格納される。
-     * @return 一致が見つかった場合は
-     *         LzssOutputStream.createSearchReturn で生成された SearchReturn
-     *         が返される。<br>
-     *         一致が見つからない場合は LzssOutputStream.NOMATCH が返される。
+     * @param position start position of the data pattern to search
+     * @param matchposs array for storing and returning the list of match positions<br>
+     *            {@code matchpos[0]} stores the match position of match length {@code threshold},<br>
+     *            {@code matchpos[1]} stores the match position of match length {@code threshold + 1}.<br>
+     *            If no match is found, {@link LzssOutputStream#NOMATCH} is stored.
+     * @return If a match is found, a SearchReturn generated by {@link LzssOutputStream#createSearchReturn(int, int)} is returned.<br>
+     *         If no match is found, {@link LzssOutputStream#NOMATCH} is returned.
      */
     public int searchAndPut(int position, int[] matchposs) {
-        int matchlen = this.Threshold - 1;
+        int matchlen = this.threshold - 1;
         int matchpos = position;
-        int maxmatch = this.MaxMatch;
-        int scanlimit = Math.max(this.DictionaryLimit, position - this.DictionarySize);
-        int searchCount = this.SearchLimitCount;
+        int maxmatch = this.maxMatch;
+        int scanlimit = Math.max(this.dictionaryLimit, position - this.dictionarySize);
+        int searchCount = this.searchLimitCount;
 
-        for (int i = 0; i < matchposs.length; i++)
-            matchposs[i] = LzssOutputStream.NOMATCH;
+        Arrays.fill(matchposs, LzssOutputStream.NOMATCH);
 
         int scanpos = this.hashTable[this.hashMethod.hash(position)];
 
         while (scanlimit < scanpos && 0 < searchCount--) {
-            if (this.TextBuffer[scanpos + matchlen] == this.TextBuffer[position + matchlen]) {
+            if (this.textBuffer[scanpos + matchlen] == this.textBuffer[position + matchlen]) {
                 int len = 0;
-                while (this.TextBuffer[scanpos + len] == this.TextBuffer[position + len]) {
+                while (this.textBuffer[scanpos + len] == this.textBuffer[position + len]) {
                     if (maxmatch <= ++len)
                         break;
                 }
 
                 if (matchlen < len) {
-                    int i = matchlen + 1 - this.Threshold;
-                    int end = Math.min(len + 1 - this.Threshold, matchposs.length);
+                    int i = matchlen + 1 - this.threshold;
+                    int end = Math.min(len + 1 - this.threshold, matchposs.length);
                     while (i < end)
                         matchposs[i++] = scanpos;
 
@@ -559,7 +531,7 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
                         break;
                 }
             }
-            scanpos = this.prev[scanpos & (this.DictionarySize - 1)];
+            scanpos = this.prev[scanpos & (this.dictionarySize - 1)];
         }
 
         this.put(position);
@@ -571,31 +543,29 @@ public class HashAndChainedListSearch implements LzssSearchMethod {
     }
 
     /**
-     * hash の連結リストが閾値を超えているかを得る。
+     * Gets whether the linked list for {@code hash} exceeds the threshold.
      *
-     * @param hash ハッシュ値
-     * @return 連結リストの長さが閾値を超えているなら true
-     *         超えていなければ false
+     * @param hash hash value
+     * @return {@code true} if the linked list length exceeds the threshold;
+     *         {@code false} otherwise
      */
     private boolean isTooBig(int hash) {
         return 0 != (this.tooBigFlag[hash >> 4] & (1 << (hash & 0x0F)));
     }
 
     /**
-     * hash の連結リストが閾値を超えた事を示す
-     * フラグをセットする。
+     * Sets the flag indicating that the linked list for {@code hash} exceeded the threshold.
      *
-     * @param hash too big フラグをセットするハッシュ値
+     * @param hash hash value to set the too big flag for
      */
     private void setTooBigFlag(int hash) {
         this.tooBigFlag[hash >> 4] |= 1 << (hash & 0x0F);
     }
 
     /**
-     * hash の連結リストが閾値を超えている事を示す
-     * フラグをクリアする。
+     * Clears the flag indicating that the linked list for {@code hash} exceeds the threshold.
      *
-     * @param hash too big フラグをクリアするハッシュ値
+     * @param hash hash value to clear the too big flag for
      */
     private void clearTooBigFlag(int hash) {
         this.tooBigFlag[hash >> 4] &= ~(1 << (hash & 0x0F));

@@ -1,27 +1,31 @@
 /*
  * Copyright (C) 2001-2002  Michel Ishizuka  All rights reserved.
  *
- * 以下の条件に同意するならばソースとバイナリ形式の再配布と使用を
- * 変更の有無にかかわらず許可する。
+ * Redistribution and use in source and binary forms, with or
+ * without modification, are permitted provided that the following
+ * conditions are met:
  *
- * １．ソースコードの再配布において著作権表示と この条件のリスト
- *     および下記の声明文を保持しなくてはならない。
+ * 1. Redistributions of source code must retain the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer.
  *
- * ２．バイナリ形式の再配布において著作権表示と この条件のリスト
- *     および下記の声明文を使用説明書もしくは その他の配布物内に
- *     含む資料に記述しなければならない。
+ * 2. Redistributions in binary form must reproduce the above
+ *    copyright notice, this list of conditions and the following
+ *    disclaimer in the documentation and/or other materials
+ *    provided with the distribution.
  *
- * このソフトウェアは石塚美珠瑠によって無保証で提供され、特定の目
- * 的を達成できるという保証、商品価値が有るという保証にとどまらず、
- * いかなる明示的および暗示的な保証もしない。
- * 石塚美珠瑠は このソフトウェアの使用による直接的、間接的、偶発
- * 的、特殊な、典型的な、あるいは必然的な損害(使用によるデータの
- * 損失、業務の中断や見込まれていた利益の遺失、代替製品もしくは
- * サービスの導入費等が考えられるが、決してそれだけに限定されない
- * 損害)に対して、いかなる事態の原因となったとしても、契約上の責
- * 任や無過失責任を含む いかなる責任があろうとも、たとえそれが不
- * 正行為のためであったとしても、またはそのような損害の可能性が報
- * 告されていたとしても一切の責任を負わないものとする。
+ * THIS SOFTWARE IS PROVIDED BY MICHEL ISHIZUKA ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MICHEL
+ * ISHIZUKA BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 package jp.gr.java_conf.dangan.util.lha;
@@ -33,26 +37,25 @@ import java.util.Properties;
 
 
 /**
- * LHAの各種定数を定義する。
+ * Defines various constants for LHA.
  *
  * <pre>
  * -- revision history --
  * $Log: CompressMethod.java,v $
  * Revision 1.1  2002/12/08 00:00:00  dangan
  * [change]
- *     クラス名を LhaConstants から CompressMethod へと変更。
+ *     Changed class name from LhaConstants to CompressMethod.
  *
  * Revision 1.0  2002/07/24 00:00:00  dangan
  * add to version control
  * [change]
- *     LhaUtil の connectExtractInputStream を connectDecoder として
- *     connectCompressOutputStream を connectEncoder として引き継ぐ。
- *     LhaUtil の CompressMethodTo????????? を引き継ぐ。
- * [maintanance]
- *     ソース整備
- *     タブ廃止
- *     ライセンス文の修正
- *
+ *     Inherited connectExtractInputStream of LhaUtil as connectDecoder,
+ *     and connectCompressOutputStream as connectEncoder.
+ *     Inherited CompressMethodTo????????? of LhaUtil.
+ * [maintenance]
+ *     Source cleanup.
+ *     Eliminated tabs.
+ *     Updated license text.
  * </pre>
  *
  * @author $Author: dangan $
@@ -61,132 +64,115 @@ import java.util.Properties;
 public class CompressMethod {
 
     /**
-     * 圧縮形式を示す文字列。
-     * LH0 は 無圧縮を示す "-lh0-" である。
+     * String indicating the compression method.
+     * LH0 is "-lh0-", indicating no compression.
      */
     public static final String LH0 = "-lh0-";
 
     /**
-     * 圧縮形式を示す文字列。
-     * LH1 は前段に 4キロバイトの辞書、最大一致長60バイトの
-     * LZSS法、後段に 適応的ハフマン法を使用することを意味する
-     * "-lh1-" である。
+     * String indicating the compression method.
+     * LH1 is "-lh1-", which means using LZSS with a 4-kilobyte dictionary and maximum match length of 60 bytes
+     * in the pre-stage, and adaptive Huffman coding in the post-stage.
      */
     public static final String LH1 = "-lh1-";
 
     /**
-     * 圧縮形式を示す文字列。
-     * LH2 は前段に 8キロバイトの辞書、最大一致長256バイトの
-     * LZSS法、後段に 適応的ハフマン法を使用することを意味する
-     * "-lh2-" である。
-     * この圧縮法は LH1 から LH5 への改良途中で試験的に
-     * 使われたが、現在は使用されていない。
+     * String indicating the compression method.
+     * LH2 is "-lh2-", which means using LZSS with an 8-kilobyte dictionary and maximum match length of 256 bytes
+     * in the pre-stage, and adaptive Huffman coding in the post-stage.
+     * This compression method was used experimentally during the transition from LH1 to LH5,
+     * but is not used currently.
      */
     public static final String LH2 = "-lh2-";
 
     /**
-     * 圧縮形式を示す文字列。
-     * LH3 は前段に 8キロバイトの辞書、最大一致長256バイトの
-     * LZSS法、後段に 静的ハフマン法を使用することを意味する
-     * "-lh3-" である。
-     * この圧縮法は LH1 から LH5 への改良途中で試験的に
-     * 使われたが、現在は使用されていない。
+     * String indicating the compression method.
+     * LH3 is "-lh3-", which means using LZSS with an 8-kilobyte dictionary and maximum match length of 256 bytes
+     * in the pre-stage, and static Huffman coding in the post-stage.
+     * This compression method was used experimentally during the transition from LH1 to LH5,
+     * but is not used currently.
      */
     public static final String LH3 = "-lh3-";
 
     /**
-     * 圧縮形式を示す文字列。
-     * LH4 は前段に 4キロバイトの辞書、最大一致長256バイトの
-     * LZSS法、後段に 静的ハフマン法を使用することを意味する
-     * "-lh4-" である。
-     * この圧縮法は 1990年代前半の非力なマシン上で圧縮を行う際、
-     * LH5圧縮を行うだけのシステム資源を得られなかった時に使わ
-     * れたが、現在は殆ど使用されていない。
+     * String indicating the compression method.
+     * LH4 is "-lh4-", which means using LZSS with a 4-kilobyte dictionary and maximum match length of 256 bytes
+     * in the pre-stage, and static Huffman coding in the post-stage.
+     * This compression method was used when compressing on low-powered machines in the early 1990s
+     * when sufficient system resources to perform LH5 compression were not available,
+     * but is rarely used now.
      */
     public static final String LH4 = "-lh4-";
 
     /**
-     * 圧縮形式を示す文字列。
-     * LH5 は前段に 8キロバイトの辞書、最大一致長256バイトの
-     * LZSS法、後段に 静的ハフマン法を使用することを意味する
-     * "-lh5-" である。
-     * 現在、LHAで標準で使用される圧縮法である。
+     * String indicating the compression method.
+     * LH5 is "-lh5-", which means using LZSS with an 8-kilobyte dictionary and maximum match length of 256 bytes
+     * in the pre-stage, and static Huffman coding in the post-stage.
+     * It is currently the standard compression method used in LHA.
      */
     public static final String LH5 = "-lh5-";
 
     /**
-     * 圧縮形式を示す文字列。
-     * LH6 は前段に 32キロバイトの辞書、最大一致長256バイトの
-     * LZSS法、後段に 静的ハフマン法を使用することを意味する
-     * "-lh6-" である。
-     * "-lh6-" という文字列は LH7 の圧縮法の実験に使用されて
-     * いた。そのため、LHAの実験版が作成した書庫には "-lh6-"
-     * の文字列を使用しながら LH7 形式で圧縮されているものが
-     * 存在するらしい。
-     * また この圧縮法は開発されてから 10年近く経つが未だに
-     * 公の場所に この圧縮法で圧縮された書庫は登録しないこと
-     * が望ましいとされている。
+     * String indicating the compression method.
+     * LH6 is "-lh6-", which means using LZSS with a 32-kilobyte dictionary and maximum match length of 256 bytes
+     * in the pre-stage, and static Huffman coding in the post-stage.
+     * The string "-lh6-" was used in experiments with the LH7 compression method. Therefore, it is said that
+     * there are archives created by experimental versions of LHA that are compressed in LH7 format while using the "-lh6-" string.
+     * Also, although nearly 10 years have passed since this compression method was developed, it is still
+     * considered desirable not to register archives compressed with this compression method in public places.
      */
     public static final String LH6 = "-lh6-";
 
     /**
-     * 圧縮形式を示す文字列。
-     * LH7 は前段に 64キロバイトの辞書、最大一致長256バイトの
-     * LZSS法、後段に 静的ハフマン法を使用することを意味する
-     * "-lh7-" である。
-     * また この圧縮法は開発されてから 10年近く経つが未だに
-     * 公の場所に この圧縮法で圧縮された書庫は登録しないこと
-     * が望ましいとされている。
+     * String indicating the compression method.
+     * LH7 is "-lh7-", which means using LZSS with a 64-kilobyte dictionary and maximum match length of 256 bytes
+     * in the pre-stage, and static Huffman coding in the post-stage.
+     * Also, although nearly 10 years have passed since this compression method was developed, it is still
+     * considered desirable not to register archives compressed with this compression method in public places.
      */
     public static final String LH7 = "-lh7-";
 
     /**
-     * 圧縮形式を示す文字列。
-     * LHD は無圧縮で、ディレクトリを格納していることを示す
-     * "-lhd-" である。
+     * String indicating the compression method.
+     * LHD is "-lhd-", which indicates no compression and storing directories.
      */
     public static final String LHD = "-lhd-";
 
     /**
-     * 圧縮形式を示す文字列。
-     * LZS は 2キロバイトの辞書、最大一致長17バイトの
-     * LZSS法を使用することを示す "-lzs-" である。
-     * "-lzs-" は LHAが作成される前にメジャーであった
-     * Larc の形式であり、当時の互換性に配慮して定義さ
-     * れた。現在は殆ど使用されていない。
+     * String indicating the compression method.
+     * LZS is "-lzs-", which indicates using LZSS with a 2-kilobyte dictionary and maximum match length of 17 bytes.
+     * "-lzs-" is the format of LArc, which was popular before LHA was created, and was defined
+     * in consideration of compatibility at that time. It is rarely used now.
      */
     public static final String LZS = "-lzs-";
 
     /**
-     * 圧縮形式を示す文字列。
-     * LZ4 は 無圧縮を示す "-lz4-" である。
-     * "-lz4-" は LHAが作成される前にメジャーであった
-     * Larc の形式であり、当時の互換性に配慮して定義さ
-     * れた。現在は殆ど使用されていない。
+     * String indicating the compression method.
+     * LZ4 is "-lz4-", indicating no compression.
+     * "-lz4-" is the format of LArc, which was popular before LHA was created, and was defined
+     * in consideration of compatibility at that time. It is rarely used now.
      */
     public static final String LZ4 = "-lz4-";
 
     /**
-     * 圧縮形式を示す文字列。
-     * LZ5 は 4キロバイトの辞書、最大一致長17バイトの
-     * LZSS法を使用することを示す "-lz5-" である。
-     * "-lz5-" は LHAが作成される前にメジャーであった
-     * Larc の形式であり、当時の互換性に配慮して定義さ
-     * れた。現在は殆ど使用されていない。
+     * String indicating the compression method.
+     * LZ5 is "-lz5-", which indicates using LZSS with a 4-kilobyte dictionary and maximum match length of 17 bytes.
+     * "-lz5-" is the format of LArc, which was popular before LHA was created, and was defined
+     * in consideration of compatibility at that time. It is rarely used now.
      */
     public static final String LZ5 = "-lz5-";
 
     /**
-     * デフォルトコンストラクタ使用不可
+     * Default constructor cannot be used.
      */
     private CompressMethod() {
     }
 
     /**
-     * 圧縮法識別子から 辞書サイズを得る。
+     * Gets the dictionary size from the compression method identifier.
      *
-     * @param method 圧縮法識別子
-     * @return 辞書サイズ
+     * @param method compression method identifier
+     * @return dictionary size
      */
     public static int toDictionarySize(String method) {
         if (CompressMethod.LZS.equalsIgnoreCase(method)) {
@@ -221,10 +207,10 @@ public class CompressMethod {
     }
 
     /**
-     * 圧縮法識別子から 圧縮/非圧縮の閾値を得る。
+     * Gets the compression/non-compression threshold from the compression method identifier.
      *
-     * @param method 圧縮法識別子
-     * @return 圧縮/非圧縮
+     * @param method compression method identifier
+     * @return threshold
      */
     public static int toThreshold(String method) {
         if (CompressMethod.LZS.equalsIgnoreCase(method)) {
@@ -259,10 +245,10 @@ public class CompressMethod {
     }
 
     /**
-     * 圧縮法識別子から 最大一致長を得る。
+     * Gets the maximum match length from the compression method identifier.
      *
-     * @param method 圧縮法識別子
-     * @return 最大一致長
+     * @param method compression method identifier
+     * @return maximum match length
      */
     public static int toMaxMatch(String method) {
         if (CompressMethod.LZS.equalsIgnoreCase(method)) {
@@ -297,13 +283,13 @@ public class CompressMethod {
     }
 
     /**
-     * property に設定された生成式を利用して
-     * method の圧縮法でデータを圧縮し、outに出力するストリームを構築する。
+     * Constructs a stream that compresses data using the compression method {@code method}
+     * using the generator expression set in {@code property}, and outputs to {@code out}.
      *
-     * @param out 圧縮データ出力先のストリーム
-     * @param method 圧縮法識別子
-     * @param property 各圧縮形式に対応した符号器の生成式等が含まれるプロパティ
-     * @return method の圧縮法でデータを圧縮し、outに出力するストリーム
+     * @param out output stream for compressed data
+     * @param method compression method identifier
+     * @param property properties containing generator expressions for encoders corresponding to each compression format
+     * @return stream that compresses data using the compression method {@code method} and outputs to {@code out}
      */
     public static OutputStream connectEncoder(OutputStream out, String method, Properties property) {
 
@@ -326,15 +312,14 @@ public class CompressMethod {
     }
 
     /**
-     * property に設定された生成式を利用して
-     * in から method の圧縮法で圧縮されたデータを解凍し
-     * 供給する入力ストリームを構築する。
+     * Constructs an input stream that decompresses data compressed with the compression method {@code method} from {@code in}
+     * and supplies it, using the generator expression set in {@code property}.
      *
-     * @param in 圧縮データを供給するストリーム
-     * @param method 圧縮法識別子
-     * @param property 各圧縮形式に対応した復号器の生成式等が含まれるプロパティ
-     * @return in から method の圧縮法で圧縮されたデータを解凍し
-     *         供給する入力ストリームを構築する。
+     * @param in stream supplying compressed data
+     * @param method compression method identifier
+     * @param property properties containing generator expressions for decoders corresponding to each compression format
+     * @param length length of original uncompressed data
+     * @return input stream that decompresses data compressed with the compression method {@code method} from {@code in} and supplies it
      */
     public static InputStream connectDecoder(InputStream in, String method, Properties property, long length) {
 
@@ -358,12 +343,11 @@ public class CompressMethod {
     }
 
     /**
-     * 圧縮法識別子 の前後の '-' を取り去って
-     * LhaProperty のキー lha.???.encoder / lha.???.decoder
-     * の ??? に入る文字列を生成する。
+     * Strips leading and trailing {@code '-'} from the compression method identifier
+     * to generate a string that fits in {@code ???} of the {@link LhaProperty} keys {@code lha.???.encoder} / {@code lha.???.decoder}.
      *
-     * @param method 圧縮法識別子
-     * @return キーの中心に使える文字列
+     * @param method compression method identifier
+     * @return string usable in the core part of key
      */
     private static String getCore(String method) {
         if (method.startsWith("-") && method.endsWith("-")) {
