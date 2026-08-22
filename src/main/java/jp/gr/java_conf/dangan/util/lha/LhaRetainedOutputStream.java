@@ -593,9 +593,14 @@ public class LhaRetainedOutputStream extends OutputStream {
         @Override
         public void write(byte[] buffer, int index, int length) throws IOException {
 
-            if (this.pos + length < this.limit && this.cache.isEmpty()) {
+            if (this.pos + length <= this.limit && this.cache.isEmpty()) {
                 this.pos += length;
                 this.archive.write(buffer, index, length);
+            } else if (this.pos < this.limit && this.cache.isEmpty()) {
+                int len = (int) (this.limit - this.pos);
+                this.pos += len;
+                this.archive.write(buffer, index, len);
+                this.cache.add(buffer, index + len, length - len);
             } else {
                 this.cache.add(buffer, index, length);
             }

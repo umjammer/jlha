@@ -95,6 +95,11 @@ public class PreLz5Decoder implements PreLzssDecoder {
     private int position;
 
     /**
+     * Match offset of LZSS compressed code currently being processed.
+     */
+    private int matchOffset;
+
+    /**
      * Match length of LZSS compressed code currently being processed.
      */
     private int matchLength;
@@ -108,6 +113,9 @@ public class PreLz5Decoder implements PreLzssDecoder {
     /** For backing up position */
     private int markPosition;
 
+    /** For backing up matchOffset */
+    private int markMatchOffset;
+
     /** For backing up matchLength */
     private int markMatchLength;
 
@@ -120,6 +128,7 @@ public class PreLz5Decoder implements PreLzssDecoder {
         if (in != null) {
             this.in = in;
             this.position = 0;
+            this.matchOffset = 0;
             this.matchLength = 0;
             this.flagByte = 0;
             this.flagBit = 0;
@@ -157,8 +166,9 @@ public class PreLz5Decoder implements PreLzssDecoder {
             int code2 = this.in.read();
 
             if (0 <= code1 && 0 <= code2) {
-                this.matchLength = (code2 & 0x0F) + PreLz5Decoder.Threshold;
-                code = (code2 & 0xF0) << 4 | code1;
+                this.matchOffset = (code2 & 0xF0) << 4 | code1;
+                this.matchLength = code2 & 0x0F;
+                return this.matchLength | 0x100;
             } else {
                 throw new EOFException();
             }
@@ -173,8 +183,8 @@ public class PreLz5Decoder implements PreLzssDecoder {
             }
 
             this.position++;
+            return code;
         }
-        return code;
     }
 
     /**
@@ -186,9 +196,9 @@ public class PreLz5Decoder implements PreLzssDecoder {
      */
     @Override
     public int readOffset() throws IOException {
-        int offset = (this.position - this.readCode() - 1 - PreLz5Decoder.MaxMatch)
+        int offset = (this.position - this.matchOffset - 1 - PreLz5Decoder.MaxMatch)
                 & (PreLz5Decoder.DictionarySize - 1);
-        this.position += this.matchLength;
+        this.position += this.matchLength + PreLz5Decoder.Threshold;
 
         return offset;
     }
@@ -209,6 +219,7 @@ public class PreLz5Decoder implements PreLzssDecoder {
         this.markFlagByte = this.flagByte;
         this.markFlagBit = this.flagBit;
         this.markPosition = this.position;
+        this.markMatchOffset = this.matchOffset;
         this.markMatchLength = this.matchLength;
     }
 
@@ -229,6 +240,7 @@ public class PreLz5Decoder implements PreLzssDecoder {
         this.flagByte = this.markFlagByte;
         this.flagBit = this.markFlagBit;
         this.position = this.markPosition;
+        this.matchOffset = this.markMatchOffset;
         this.matchLength = this.markMatchLength;
     }
 
@@ -296,5 +308,4 @@ public class PreLz5Decoder implements PreLzssDecoder {
     public int getThreshold() {
         return PreLz5Decoder.Threshold;
     }
-
 }

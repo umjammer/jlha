@@ -30,6 +30,7 @@
 
 package jp.gr.java_conf.dangan.util.lha;
 
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -74,7 +75,7 @@ import java.util.Vector;
  * @author $Author: dangan $
  * @version $Revision: 1.1 $
  */
-public class LhaFile {
+public class LhaFile implements Closeable {
 
     /**
      * Instance of {@link RandomAccessFile} holding data in LHA archive format.
